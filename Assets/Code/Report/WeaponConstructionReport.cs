@@ -80,6 +80,21 @@ public class WeaponConstructionReport
         /// <returns></returns>
         public WeaponConstructionReport Build()
         {
+            /*
+            if (this.mechId.Equals(MechIdEnum.NULL) ||
+                this.teamId.Equals(TeamIdEnum.NULL) ||
+                this.mechTeamIndex < 0 ||
+                this.paintSchemeReport == null ||
+                this.weaponIdList.Count == 0)
+            {
+                throw new ArgumentException("Unable to construct ?" + this.GetType().ToString() + ". Invalid Parameters." +
+                    "\nmechId=" + this.mechId +
+                    "\nteamId=" + this.teamId +
+                    "\nmechTeamIndex=" + this.mechTeamIndex +
+                    "\npaintSchemeReport=" + this.paintSchemeReport +
+                    "\nweaponIdList.Count=" + this.weaponIdList.Count);
+            }
+            */
             return new WeaponConstructionReport(this.weaponId, this.paintSchemeReport);
         }
 

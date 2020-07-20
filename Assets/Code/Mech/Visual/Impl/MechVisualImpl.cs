@@ -38,7 +38,7 @@ public class MechVisualImpl
         this.mechGameObject = mechScript.GetGameObject();
         this.paintSchemeReport = mechConstructionReport.GetPaintSchemeReport();
         this.mechAnimator = new MechAnimator();
-        this.mechCanvas = new MechCanvas(null);
+        this.mechCanvas = new MechCanvasImpl(mechScript, mechConstructionReport);
         this.mechModel = new MechModel(this.mechId, this.mechGameObject);
     }
 
@@ -76,7 +76,7 @@ public class MechVisualImpl
         return this.mechId;
     }
 
-    public override void PaintBase(TileObjectTypeEnum tileObjectType)
+    public override void PaintBase(TileTypeEnum tileObjectType)
     {
         PainterUtil.PaintMechGameObjectBase(this.mechGameObject, tileObjectType);
     }
@@ -84,6 +84,11 @@ public class MechVisualImpl
     public override void PaintMech()
     {
         PainterUtil.PaintMechGameObject(this.mechGameObject, this.paintSchemeReport);
+    }
+
+    public override void UpdateMechCanvas()
+    {
+        this.mechCanvas.UpdateCanvasDisplay();
     }
 
     #endregion Public Methods

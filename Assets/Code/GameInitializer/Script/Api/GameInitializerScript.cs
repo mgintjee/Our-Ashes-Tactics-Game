@@ -33,7 +33,7 @@ public abstract class GameInitializerScript
         }
         if (Input.GetButtonDown("Fire1") &&
             this.gameFrameworkScript != null &&
-            !this.gameFrameworkScript.GetGameIsActive())
+            !this.gameFrameworkScript.GameIsActive())
         {
             this.logger.Debug("Inputting Mech Roster into GameFramework");
             this.gameFrameworkScript.InputMechRoster(this.GetMechConstructionReportList());

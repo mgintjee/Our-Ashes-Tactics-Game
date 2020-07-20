@@ -21,6 +21,17 @@ public class GameObjectSpawnerUtil
     /// </summary>
     /// <param name="mechName"></param>
     /// <returns></returns>
+    public static GameObject SpawnCanvas()
+    {
+        string canvasResourcePath = SpawnerUtilConstants.GetCanvasModelFolderPath();
+        logger.Debug("Spawning: Canvas");
+        return Spawn(canvasResourcePath);
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="mechName"></param>
+    /// <returns></returns>
     public static GameObject SpawnMech(string mechName)
     {
         logger.Debug("Spawning: MechModel: Name=?", mechName);
@@ -33,9 +44,9 @@ public class GameObjectSpawnerUtil
     /// <returns></returns>
     public static GameObject SpawnTile()
     {
-        string mapResourcePath = SpawnerUtilConstants.GetTileModelFolderPath();
-        logger.Debug("Spawning: Tile: Path=?", mapResourcePath);
-        return Spawn(mapResourcePath);
+        string tileResourcePath = SpawnerUtilConstants.GetTileModelFolderPath();
+        logger.Debug("Spawning: Tile: Path=?", tileResourcePath);
+        return Spawn(tileResourcePath);
     }
 
     /// <summary>

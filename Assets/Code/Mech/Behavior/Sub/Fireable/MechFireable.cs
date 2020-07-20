@@ -12,7 +12,7 @@ public class MechBehaviorFireable
     private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
     // Todo
-    private readonly int mechTeam;
+    private readonly TeamIdEnum teamId;
 
     // The PathFinderMove that will generate the possible move paths for this Mech
     private readonly PathFinderFire pathFinderFire;
@@ -37,11 +37,11 @@ public class MechBehaviorFireable
     /// Construtor Method, To Construct the MechFireable with the parameterized values
     /// </summary>
     /// <param name="weaponPoints">The Integer maximum amount of weapons for this MechFireable</param>
-    public MechBehaviorFireable(int weaponPoints, int mechTeam)
+    public MechBehaviorFireable(int weaponPoints, TeamIdEnum mechTeam)
     {
         logger.Debug("Constructing Object=? with WeaponPoints=?", this.GetType().ToString(), weaponPoints);
         this.weaponPoints = weaponPoints;
-        this.mechTeam = mechTeam;
+        this.teamId = mechTeam;
     }
 
     #endregion Public Constructors
@@ -67,7 +67,7 @@ public class MechBehaviorFireable
 
     public void BeginPathFinding()
     {
-        this.pathObjectDictionary = PathFinderFireUtil.BeginPathfindingFor(this.currentTileCoordinates, this.mechTeam);
+        this.pathObjectDictionary = PathFinderFireUtil.BeginPathfindingFor(this.currentTileCoordinates, this.teamId);
     }
 
     /// <summary>

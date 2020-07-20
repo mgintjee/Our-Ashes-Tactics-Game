@@ -28,6 +28,18 @@ public abstract class MechBehavior
     /// Todo
     /// </summary>
     /// <returns></returns>
+    public abstract int GetCurrentArmourPoints();
+
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
+    public abstract int GetCurrentHealthPoints();
+
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
     public abstract int GetCurrentOrderPoints();
 
     /// <summary>
@@ -52,7 +64,7 @@ public abstract class MechBehavior
     /// Todo
     /// </summary>
     /// <returns></returns>
-    public abstract int GetMechTeam();
+    public abstract TeamIdEnum GetTeamId();
 
     /// <summary>
     /// Todo
@@ -84,7 +96,7 @@ public abstract class MechBehavior
     /// </summary>
     /// <param name="mechActionReport"></param>
     /// <returns></returns>
-    public abstract bool InputMechActionReport(MechActionReport mechActionReport);
+    public abstract bool InputMechActionReport(ActionReport mechActionReport);
 
     /// <summary>
     /// Todo

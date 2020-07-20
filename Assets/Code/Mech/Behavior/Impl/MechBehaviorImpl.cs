@@ -30,7 +30,7 @@ public class MechBehaviorImpl
     private readonly string mechName;
 
     // Todo
-    private readonly int mechTeam;
+    private readonly TeamIdEnum teamId;
 
     //Todo
     private readonly int mechTeamIndex;
@@ -49,12 +49,12 @@ public class MechBehaviorImpl
     public MechBehaviorImpl(MechConstructionReport mechConstructionReport)
     {
         this.mechId = mechConstructionReport.GetMechId();
-        this.mechTeam = mechConstructionReport.GetMechTeam();
+        this.teamId = mechConstructionReport.GetTeamId();
         this.mechTeamIndex = mechConstructionReport.GetMechTeamIndex();
         this.mechName = mechConstructionReport.GetMechName();
         this.mechAttributes = MechAttributeConstants.GetImplementedMechAttributes(this.GetMechId());
         this.mechBehaviorDestructable = new MechBehaviorDestructable(this.mechAttributes.GetArmourPoints(), this.mechAttributes.GetHealthPoints());
-        this.mechBehaviorFireable = new MechBehaviorFireable(this.mechAttributes.GetWeaponPoints(), this.mechTeam);
+        this.mechBehaviorFireable = new MechBehaviorFireable(this.mechAttributes.GetWeaponPoints(), this.teamId);
         this.mechBehaviorMoveable = new MechBehaviorMoveable(this.mechAttributes.GetMovePoints(), this.mechAttributes.GetTurnPoints());
     }
 
@@ -98,6 +98,16 @@ public class MechBehaviorImpl
         return this.cubeCoordinates;
     }
 
+    public override int GetCurrentArmourPoints()
+    {
+        return this.mechBehaviorDestructable.GetArmourCurrentPoints();
+    }
+
+    public override int GetCurrentHealthPoints()
+    {
+        return this.mechBehaviorDestructable.GetHealthCurrentPoints();
+    }
+
     /// <summary>
     /// Todo
     /// </summary>
@@ -124,7 +134,8 @@ public class MechBehaviorImpl
     {
         return new MechInfoReport.Builder()
             .SetMechId(this.GetMechId())
-            .SetMechTeam(this.GetMechTeam())
+            .SetMechTeam(this.GetTeamId())
+            .SetMechTeamIndex(this.GetMechTeamIndex())
             .SetWeaponIdList(this.mechBehaviorFireable.GetWeaponIdList())
             .Build();
     }
@@ -142,9 +153,9 @@ public class MechBehaviorImpl
     /// Todo
     /// </summary>
     /// <returns></returns>
-    public override int GetMechTeam()
+    public override TeamIdEnum GetTeamId()
     {
-        return this.mechTeam;
+        return this.teamId;
     }
 
     /// <summary>
@@ -153,7 +164,7 @@ public class MechBehaviorImpl
     /// <returns></returns>
     public override int GetMechTeamIndex()
     {
-        throw new System.NotImplementedException();
+        return this.mechTeamIndex;
     }
 
     /// <summary>
@@ -189,7 +200,7 @@ public class MechBehaviorImpl
     /// </summary>
     /// <param name="mechActionReport"></param>
     /// <returns></returns>
-    public override bool InputMechActionReport(MechActionReport mechActionReport)
+    public override bool InputMechActionReport(ActionReport mechActionReport)
     {
         return this.mechBehaviorMoveable.InputMechActionReport(mechActionReport);
     }

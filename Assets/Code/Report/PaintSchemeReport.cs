@@ -5,8 +5,8 @@ public class PaintSchemeReport
 {
     #region Private Fields
 
-    private readonly PaintColorEnum primaryPaintColor;
-    private readonly PaintColorEnum secondaryPaintColor;
+    private readonly ColorIdEnum primaryPaintColor;
+    private readonly ColorIdEnum secondaryPaintColor;
 
     #endregion Private Fields
 
@@ -17,8 +17,8 @@ public class PaintSchemeReport
     /// </summary>
     /// <param name="primaryPaintColor">  </param>
     /// <param name="secondaryPaintColor"></param>
-    private PaintSchemeReport(PaintColorEnum primaryPaintColor,
-        PaintColorEnum secondaryPaintColor)
+    private PaintSchemeReport(ColorIdEnum primaryPaintColor,
+        ColorIdEnum secondaryPaintColor)
     {
         this.primaryPaintColor = primaryPaintColor;
         this.secondaryPaintColor = secondaryPaintColor;
@@ -32,7 +32,7 @@ public class PaintSchemeReport
     /// Todo
     /// </summary>
     /// <returns></returns>
-    public PaintColorEnum GetPrimaryPaintColor()
+    public ColorIdEnum GetPrimaryPaintColor()
     {
         return this.primaryPaintColor;
     }
@@ -41,7 +41,7 @@ public class PaintSchemeReport
     /// Todo
     /// </summary>
     /// <returns></returns>
-    public PaintColorEnum GetSecondaryPaintColor()
+    public ColorIdEnum GetSecondaryPaintColor()
     {
         return this.secondaryPaintColor;
     }
@@ -68,8 +68,8 @@ public class PaintSchemeReport
     {
         #region Private Fields
 
-        private PaintColorEnum primaryPaintColor;
-        private PaintColorEnum secondaryPaintColor;
+        private ColorIdEnum primaryPaintColor;
+        private ColorIdEnum secondaryPaintColor;
 
         #endregion Private Fields
 
@@ -81,6 +81,21 @@ public class PaintSchemeReport
         /// <returns></returns>
         public PaintSchemeReport Build()
         {
+            /*
+            if (this.mechId.Equals(MechIdEnum.NULL) ||
+                this.teamId.Equals(TeamIdEnum.NULL) ||
+                this.mechTeamIndex < 0 ||
+                this.paintSchemeReport == null ||
+                this.weaponIdList.Count == 0)
+            {
+                throw new ArgumentException("Unable to construct ?" + this.GetType().ToString() + ". Invalid Parameters." +
+                    "\nmechId=" + this.mechId +
+                    "\nteamId=" + this.teamId +
+                    "\nmechTeamIndex=" + this.mechTeamIndex +
+                    "\npaintSchemeReport=" + this.paintSchemeReport +
+                    "\nweaponIdList.Count=" + this.weaponIdList.Count);
+            }
+            */
             return new PaintSchemeReport(this.primaryPaintColor, this.secondaryPaintColor);
         }
 
@@ -89,7 +104,7 @@ public class PaintSchemeReport
         /// </summary>
         /// <param name="primaryPaintColor"></param>
         /// <returns></returns>
-        public Builder SetPrimaryPaintColor(PaintColorEnum primaryPaintColor)
+        public Builder SetPrimaryPaintColor(ColorIdEnum primaryPaintColor)
         {
             this.primaryPaintColor = primaryPaintColor;
             return this;
@@ -100,7 +115,7 @@ public class PaintSchemeReport
         /// </summary>
         /// <param name="secondaryPaintColor"></param>
         /// <returns></returns>
-        public Builder SetSecondaryPaintColor(PaintColorEnum secondaryPaintColor)
+        public Builder SetSecondaryPaintColor(ColorIdEnum secondaryPaintColor)
         {
             this.secondaryPaintColor = secondaryPaintColor;
             return this;

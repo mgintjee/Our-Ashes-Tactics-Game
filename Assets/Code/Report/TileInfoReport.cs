@@ -10,13 +10,13 @@ public class TileInfoReport
     private readonly CubeCoordinates cubeCoordinates;
     private readonly HashSet<CubeCoordinates> neighborCubeCoordinates;
     private readonly MechObject occupyingMechObject;
-    private readonly TileObjectTypeEnum tileObjectType;
+    private readonly TileTypeEnum tileObjectType;
 
     #endregion Private Fields
 
     #region Public Constructors
 
-    public TileInfoReport(CubeCoordinates cubeCoordinates, TileObjectTypeEnum tileObjectType, MechObject occupyingMechObject, HashSet<CubeCoordinates> neighborCubeCoordinates)
+    public TileInfoReport(CubeCoordinates cubeCoordinates, TileTypeEnum tileObjectType, MechObject occupyingMechObject, HashSet<CubeCoordinates> neighborCubeCoordinates)
     {
         this.cubeCoordinates = cubeCoordinates;
         this.neighborCubeCoordinates = new HashSet<CubeCoordinates>(neighborCubeCoordinates);
@@ -51,7 +51,7 @@ public class TileInfoReport
         return this.occupyingMechObject;
     }
 
-    public TileObjectTypeEnum GetTileObjectType()
+    public TileTypeEnum GetTileObjectType()
     {
         return this.tileObjectType;
     }
@@ -76,7 +76,7 @@ public class TileInfoReport
         private CubeCoordinates cubeCoordinates;
         private HashSet<CubeCoordinates> neighborCubeCoordinates;
         private MechObject occupyingMechObject;
-        private TileObjectTypeEnum tileObjectType;
+        private TileTypeEnum tileObjectType;
 
         #endregion Private Fields
 
@@ -84,6 +84,21 @@ public class TileInfoReport
 
         public TileInfoReport Build()
         {
+            /*
+            if (this.mechId.Equals(MechIdEnum.NULL) ||
+                this.teamId.Equals(TeamIdEnum.NULL) ||
+                this.mechTeamIndex < 0 ||
+                this.paintSchemeReport == null ||
+                this.weaponIdList.Count == 0)
+            {
+                throw new ArgumentException("Unable to construct ?" + this.GetType().ToString() + ". Invalid Parameters." +
+                    "\nmechId=" + this.mechId +
+                    "\nteamId=" + this.teamId +
+                    "\nmechTeamIndex=" + this.mechTeamIndex +
+                    "\npaintSchemeReport=" + this.paintSchemeReport +
+                    "\nweaponIdList.Count=" + this.weaponIdList.Count);
+            }
+            */
             return new TileInfoReport(this.cubeCoordinates,
                 this.tileObjectType,
                 this.occupyingMechObject,
@@ -108,7 +123,7 @@ public class TileInfoReport
             return this;
         }
 
-        public Builder SetTileObjectType(TileObjectTypeEnum tileObjectType)
+        public Builder SetTileObjectType(TileTypeEnum tileObjectType)
         {
             this.tileObjectType = tileObjectType;
             return this;

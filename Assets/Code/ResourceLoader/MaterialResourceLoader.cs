@@ -49,7 +49,7 @@ public class MaterialResourceLoader
 
         #region Public Methods
 
-        public static Material LoadPaintMaterialResource(PaintColorEnum paintColor)
+        public static Material LoadPaintMaterialResource(ColorIdEnum paintColor)
         {
             return LoadMaterialResource(PAINT_MATERIALS_FOLDER_HOME + MATERIAL_PREFIX + paintColor.ToString());
         }
@@ -70,20 +70,20 @@ public class MaterialResourceLoader
 
         #region Public Methods
 
-        public static Material LoadPathMaterialResource(MechActionTypeEnum mechActionType)
+        public static Material LoadPathMaterialResource(ActionTypeEnum mechActionType)
         {
             string mechActionTypeString = "";
             switch (mechActionType)
             {
-                case MechActionTypeEnum.Fire:
+                case ActionTypeEnum.Fire:
                     mechActionTypeString = "Fire";
                     break;
 
-                case MechActionTypeEnum.Move:
+                case ActionTypeEnum.Move:
                     mechActionTypeString = "Move";
                     break;
 
-                case MechActionTypeEnum.Wait:
+                case ActionTypeEnum.Wait:
                     mechActionTypeString = "Wait";
                     break;
             }
@@ -127,28 +127,28 @@ public class MaterialResourceLoader
 
             #region Public Methods
 
-            public static Material LoadTileTopMaterialResource(TileObjectTypeEnum tileObjectType)
+            public static Material LoadTileTopMaterialResource(TileTypeEnum tileObjectType)
             {
                 string mechActionTypeString = "";
                 switch (tileObjectType)
                 {
-                    case TileObjectTypeEnum.Forest:
+                    case TileTypeEnum.Forest:
                         mechActionTypeString = "Forest";
                         break;
 
-                    case TileObjectTypeEnum.Mountain:
+                    case TileTypeEnum.Mountain:
                         mechActionTypeString = "Mountains";
                         break;
 
-                    case TileObjectTypeEnum.Plains:
+                    case TileTypeEnum.Plains:
                         mechActionTypeString = "Plains";
                         break;
 
-                    case TileObjectTypeEnum.Road:
+                    case TileTypeEnum.Road:
                         mechActionTypeString = "Road";
                         break;
 
-                    case TileObjectTypeEnum.Water:
+                    case TileTypeEnum.Water:
                         mechActionTypeString = "Water";
                         break;
                 }

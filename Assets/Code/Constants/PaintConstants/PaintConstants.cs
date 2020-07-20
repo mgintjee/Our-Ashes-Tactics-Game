@@ -7,9 +7,9 @@ public static class PaintConstants
 {
     #region Public Methods
 
-    public static PaintColorEnum LoadRandomPaintColor()
+    public static ColorIdEnum LoadRandomPaintColor()
     {
-        return (PaintColorEnum)UnityEngine.Random.Range(0, Enum.GetValues(typeof(PaintColorEnum)).Length);
+        return (ColorIdEnum)UnityEngine.Random.Range(0, Enum.GetValues(typeof(ColorIdEnum)).Length);
     }
 
     public static PaintSchemeReport LoadRandomPaintSchemeReport()

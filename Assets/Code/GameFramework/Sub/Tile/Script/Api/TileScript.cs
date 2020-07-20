@@ -14,7 +14,7 @@ public abstract class TileScript
 
     public abstract TileObject GetTileObject();
 
-    public abstract TileObjectTypeEnum GetTileObjectType();
+    public abstract TileTypeEnum GetTileObjectType();
 
     public abstract TileVisual GetTileVisual();
 

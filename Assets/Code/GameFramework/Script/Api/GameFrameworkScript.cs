@@ -16,13 +16,13 @@ public abstract class GameFrameworkScript
 
     #region Public Methods
 
+    public abstract bool GameIsActive();
+
     public abstract GameFrameworkObject GetGameFrameworkObject();
 
-    public abstract bool GetGameIsActive();
+    public abstract ControllerScript GetMapControllerScript();
 
-    public abstract MapControllerScript GetMapControllerScript();
-
-    public abstract MapModelScript GetMapModelScript();
+    public abstract ViewScript GetMapModelScript();
 
     /// <summary>
     /// GameFrameworkScript Method, to initialize the GameFrameworkScript

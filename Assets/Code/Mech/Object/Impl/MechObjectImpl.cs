@@ -36,20 +36,20 @@ public class MechObjectImpl
 
     #region Public Methods
 
-    public override HashSet<MechActionReport> GetMechActionReportSet()
+    public override HashSet<ActionReport> GetMechActionReportSet()
     {
         this.GetMechBehavior().BeginPathFinding();
-        HashSet<MechActionReport> mechActionReportSet = new HashSet<MechActionReport>();
+        HashSet<ActionReport> mechActionReportSet = new HashSet<ActionReport>();
 
         foreach (PathObject pathObjectMove in this.mechBehavior.GetPathObjectMoveSet())
         {
-            mechActionReportSet.Add(new MechActionReport(this, pathObjectMove));
+            mechActionReportSet.Add(new ActionReport(this, pathObjectMove));
         }
-        foreach (PathObject pathObjectMove in this.mechBehavior.GetPathObjectFireSet())
+        foreach (PathObject pathObjectFire in this.mechBehavior.GetPathObjectFireSet())
         {
-            mechActionReportSet.Add(new MechActionReport(this, pathObjectMove));
+            mechActionReportSet.Add(new ActionReport(this, pathObjectFire));
         }
-        mechActionReportSet.Add(new MechActionReport(this));
+        mechActionReportSet.Add(new ActionReport(this));
 
         return mechActionReportSet;
     }
@@ -81,7 +81,7 @@ public class MechObjectImpl
 
     public override int GetMechTeam()
     {
-        return this.GetMechBehavior().GetMechTeam();
+        return this.GetMechBehavior().GetTeamId();
     }
 
     public override MechVisual GetMechVisual()

@@ -38,7 +38,7 @@ public class PainterUtil
     /// </summary>
     /// <param name="mechGameObject"></param>
     /// <param name="tileObjectType"></param>
-    public static void PaintMechGameObjectBase(GameObject mechGameObject, TileObjectTypeEnum tileObjectType)
+    public static void PaintMechGameObjectBase(GameObject mechGameObject, TileTypeEnum tileObjectType)
     {
         // Todo: Clean this crap up as well
         Material colorMaterial = MaterialResourceLoader.Tile.Top.LoadTileTopMaterialResource(tileObjectType);

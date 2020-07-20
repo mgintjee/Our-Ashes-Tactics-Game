@@ -12,23 +12,23 @@ public class TileBehaviorConstants
     private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
     // Todo
-    private static readonly Dictionary<TileObjectTypeEnum, int> TILE_OBJECT_TYPE_FIRE_COST_DICTIONARY = new Dictionary<TileObjectTypeEnum, int>()
+    private static readonly Dictionary<TileTypeEnum, int> TILE_OBJECT_TYPE_FIRE_COST_DICTIONARY = new Dictionary<TileTypeEnum, int>()
     {
-        {TileObjectTypeEnum.Road, 0 },
-        {TileObjectTypeEnum.Plains, 5 },
-        {TileObjectTypeEnum.Forest, 20 },
-        {TileObjectTypeEnum.Mountain, 35 },
-        {TileObjectTypeEnum.Water, 5 },
+        {TileTypeEnum.Road, 0 },
+        {TileTypeEnum.Plains, 5 },
+        {TileTypeEnum.Forest, 20 },
+        {TileTypeEnum.Mountain, 35 },
+        {TileTypeEnum.Water, 5 },
     };
 
     // Todo
-    private static readonly Dictionary<TileObjectTypeEnum, int> TILE_OBJECT_TYPE_MOVE_COST_DICTIONARY = new Dictionary<TileObjectTypeEnum, int>()
+    private static readonly Dictionary<TileTypeEnum, int> TILE_OBJECT_TYPE_MOVE_COST_DICTIONARY = new Dictionary<TileTypeEnum, int>()
     {
-        {TileObjectTypeEnum.Road, 1 },
-        {TileObjectTypeEnum.Plains, 2 },
-        {TileObjectTypeEnum.Forest, 3 },
-        {TileObjectTypeEnum.Mountain, 4 },
-        {TileObjectTypeEnum.Water, 3 },
+        {TileTypeEnum.Road, 1 },
+        {TileTypeEnum.Plains, 2 },
+        {TileTypeEnum.Forest, 3 },
+        {TileTypeEnum.Mountain, 4 },
+        {TileTypeEnum.Water, 3 },
     };
 
     #endregion Private Fields
@@ -39,7 +39,7 @@ public class TileBehaviorConstants
     /// </summary>
     /// <param name="tileObjectType"></param>
     /// <returns></returns>
-    public static int GetTileObjectTypeFireCost(TileObjectTypeEnum tileObjectType)
+    public static int GetTileObjectTypeFireCost(TileTypeEnum tileObjectType)
     {
         if (TILE_OBJECT_TYPE_FIRE_COST_DICTIONARY.ContainsKey(tileObjectType))
         {
@@ -56,7 +56,7 @@ public class TileBehaviorConstants
     /// </summary>
     /// <param name="tileObjectType"></param>
     /// <returns></returns>
-    public static int GetTileObjectTypeMoveCost(TileObjectTypeEnum tileObjectType)
+    public static int GetTileObjectTypeMoveCost(TileTypeEnum tileObjectType)
     {
         if (TILE_OBJECT_TYPE_MOVE_COST_DICTIONARY.ContainsKey(tileObjectType))
         {

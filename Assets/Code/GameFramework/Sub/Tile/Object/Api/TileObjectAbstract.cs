@@ -60,7 +60,7 @@ public abstract class TileObjectAbstract
         return this.GetTileBehavior().GetTileMoveCost();
     }
 
-    public override TileObjectTypeEnum GetTileObjectType()
+    public override TileTypeEnum GetTileObjectType()
     {
         return this.GetTileInfoReport().GetTileObjectType();
     }

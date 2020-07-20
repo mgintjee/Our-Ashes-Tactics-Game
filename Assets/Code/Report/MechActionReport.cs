@@ -3,11 +3,11 @@
 /// <summary>
 /// Todo
 /// </summary>
-public class MechActionReport
+public class ActionReport
 {
     #region Private Fields
 
-    private readonly MechActionTypeEnum mechActionTypeEnum;
+    private readonly ActionTypeEnum mechActionTypeEnum;
     private readonly MechObject mechObject;
     private readonly PathObject pathObject;
 
@@ -15,36 +15,36 @@ public class MechActionReport
 
     #region Public Constructors
 
-    public MechActionReport(MechObject mechObject, PathObject pathObject)
+    public ActionReport(MechObject mechObject, PathObject pathObject)
     {
         this.mechObject = mechObject;
         this.pathObject = pathObject;
         if (this.pathObject is PathObjectMove)
         {
-            this.mechActionTypeEnum = MechActionTypeEnum.Move;
+            this.mechActionTypeEnum = ActionTypeEnum.Move;
         }
         else if (this.pathObject is PathObjectFire)
         {
-            this.mechActionTypeEnum = MechActionTypeEnum.Fire;
+            this.mechActionTypeEnum = ActionTypeEnum.Fire;
         }
         else if (this.pathObject is PathObjectWait)
         {
-            this.mechActionTypeEnum = MechActionTypeEnum.Wait;
+            this.mechActionTypeEnum = ActionTypeEnum.Wait;
         }
     }
 
-    public MechActionReport(MechObject mechObject)
+    public ActionReport(MechObject mechObject)
     {
         this.mechObject = mechObject;
         this.pathObject = new PathObjectWait(new List<CubeCoordinates>() { this.mechObject.GetMechBehavior().GetCubeCoordinates() });
-        this.mechActionTypeEnum = MechActionTypeEnum.Wait;
+        this.mechActionTypeEnum = ActionTypeEnum.Wait;
     }
 
     #endregion Public Constructors
 
     #region Public Methods
 
-    public MechActionTypeEnum GetMechActionType()
+    public ActionTypeEnum GetMechActionType()
     {
         return this.mechActionTypeEnum;
     }

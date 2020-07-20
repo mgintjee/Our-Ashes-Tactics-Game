@@ -103,7 +103,7 @@ public class WeaponAttributes
         public MinigunImpl()
         {
             this.weaponId = WeaponIdEnum.Minigun;
-            this.accuracyPoints = 45;
+            this.accuracyPoints = 1000;
             this.damagePoints = 2;
             this.penetrationPoints = 1;
             this.rangePoints = 3;

@@ -47,7 +47,7 @@ public class TileScriptImpl
         return this.tileObject;
     }
 
-    public override TileObjectTypeEnum GetTileObjectType()
+    public override TileTypeEnum GetTileObjectType()
     {
         return this.GetTileInfoReport().GetTileObjectType();
     }

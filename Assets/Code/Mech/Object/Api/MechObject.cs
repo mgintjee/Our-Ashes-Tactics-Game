@@ -7,7 +7,7 @@ public abstract class MechObject
 {
     #region Public Methods
 
-    public abstract HashSet<MechActionReport> GetMechActionReportSet();
+    public abstract HashSet<ActionReport> GetMechActionReportSet();
 
     public abstract MechBehavior GetMechBehavior();
 

@@ -8,25 +8,25 @@ public class TileObjectTypeConstants
     #region Private Fields
 
     // Todo
-    private static readonly Dictionary<TileObjectTypeEnum, int> TileTypeCounts =
-        new Dictionary<TileObjectTypeEnum, int>
+    private static readonly Dictionary<TileTypeEnum, int> TileTypeCounts =
+        new Dictionary<TileTypeEnum, int>
         {
-            { TileObjectTypeEnum.Road, 2},
-            { TileObjectTypeEnum.Plains, 3},
-            { TileObjectTypeEnum.Forest, 2},
-            { TileObjectTypeEnum.Mountain, 1},
-            { TileObjectTypeEnum.Water, 1}
+            { TileTypeEnum.Road, 2},
+            { TileTypeEnum.Plains, 3},
+            { TileTypeEnum.Forest, 2},
+            { TileTypeEnum.Mountain, 1},
+            { TileTypeEnum.Water, 1}
         };
 
     // Todo
-    private static readonly Dictionary<TileObjectTypeEnum, float> TileTypeProbabilities =
-        new Dictionary<TileObjectTypeEnum, float>
+    private static readonly Dictionary<TileTypeEnum, float> TileTypeProbabilities =
+        new Dictionary<TileTypeEnum, float>
         {
-            { TileObjectTypeEnum.Road, 1f},
-            { TileObjectTypeEnum.Plains, 1f},
-            { TileObjectTypeEnum.Forest, 1f},
-            { TileObjectTypeEnum.Mountain, 1f},
-            { TileObjectTypeEnum.Water, 1f}
+            { TileTypeEnum.Road, 1f},
+            { TileTypeEnum.Plains, 1f},
+            { TileTypeEnum.Forest, 1f},
+            { TileTypeEnum.Mountain, 1f},
+            { TileTypeEnum.Water, 1f}
         };
 
     #endregion Private Fields
@@ -37,18 +37,18 @@ public class TileObjectTypeConstants
     /// Todo
     /// </summary>
     /// <returns></returns>
-    public static Dictionary<TileObjectTypeEnum, int> GetTileObjectTypeDefaultCounts()
+    public static Dictionary<TileTypeEnum, int> GetTileObjectTypeDefaultCounts()
     {
-        return new Dictionary<TileObjectTypeEnum, int>(TileTypeCounts);
+        return new Dictionary<TileTypeEnum, int>(TileTypeCounts);
     }
 
     /// <summary>
     /// Todo
     /// </summary>
     /// <returns></returns>
-    public static Dictionary<TileObjectTypeEnum, float> GetTileObjectTypeProbabilities()
+    public static Dictionary<TileTypeEnum, float> GetTileObjectTypeProbabilities()
     {
-        return new Dictionary<TileObjectTypeEnum, float>(TileTypeProbabilities);
+        return new Dictionary<TileTypeEnum, float>(TileTypeProbabilities);
     }
 
     #endregion Public Methods

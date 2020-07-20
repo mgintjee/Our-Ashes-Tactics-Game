@@ -19,11 +19,11 @@ public static class ArtificialIntelligence
     /// </summary>
     /// <param name="mechActionReportSet"></param>
     /// <returns></returns>
-    public static MechActionReport DetermineBestAction(HashSet<MechActionReport> mechActionReportSet)
+    public static ActionReport DetermineBestAction(HashSet<ActionReport> mechActionReportSet)
     {
         // Todo: Make this null-pointer safe
         int randomIndex = new Random().Next() % mechActionReportSet.Count;
-        return new List<MechActionReport>(mechActionReportSet)[randomIndex];
+        return new List<ActionReport>(mechActionReportSet)[randomIndex];
     }
 
     #endregion Public Methods

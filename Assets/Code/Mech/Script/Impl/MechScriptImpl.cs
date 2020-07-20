@@ -11,8 +11,8 @@ public class MechScriptImpl
     // Provide logging capability
     private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
+    private MechConstructionReport mechConstructionReport;
     private MechObject mechObject;
-    private MechConstructionReport weaponConstructionReport;
 
     #endregion Private Fields
 
@@ -34,12 +34,30 @@ public class MechScriptImpl
 
     public override MechBehavior GetMechBehavior()
     {
-        return this.GetMechObject().GetMechBehavior();
+        if (this.GetMechObject() != null)
+        {
+            return this.GetMechObject().GetMechBehavior();
+        }
+        else
+        {
+            logger.Warn("Unable to get ?. ? is null.",
+                typeof(MechBehavior), typeof(MechObject));
+            return null;
+        }
     }
 
     public override MechInfoReport GetMechInfoReport()
     {
-        return this.GetMechBehavior().GetMechInfoReport();
+        if (this.GetMechBehavior() != null)
+        {
+            return this.GetMechBehavior().GetMechInfoReport();
+        }
+        else
+        {
+            logger.Warn("Unable to get ?. ? is null.",
+                typeof(MechInfoReport), typeof(MechBehavior));
+            return null;
+        }
     }
 
     public override string GetMechName()
@@ -50,8 +68,9 @@ public class MechScriptImpl
         }
         else
         {
-            logger.Warn("Unable to get MechName. MechObject is null.");
-            return "null";
+            logger.Warn("Unable to get MechName. ? is null.",
+                typeof(MechObject));
+            return "";
         }
     }
 
@@ -72,12 +91,12 @@ public class MechScriptImpl
 
     public override void Initialize(MechConstructionReport mechConstructionReport)
     {
+        logger.Info("Constructing Mech: ?", mechConstructionReport);
         logger.Debug("Initializing Script=?", this.GetType().ToString());
         this.mechObject = new MechObjectImpl(this, mechConstructionReport);
-        this.weaponConstructionReport = mechConstructionReport;
+        this.mechConstructionReport = mechConstructionReport;
         this.name = mechConstructionReport.GetMechName();
         this.GetMechVisual().PaintMech();
-        logger.Info("Constructing Mech: ?", this.weaponConstructionReport);
         logger.Debug("Initialized Script=?", this.GetType().ToString());
     }
 

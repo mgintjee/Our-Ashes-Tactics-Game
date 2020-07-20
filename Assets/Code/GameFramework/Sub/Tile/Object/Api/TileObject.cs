@@ -19,7 +19,7 @@ public abstract class TileObject
 
     public abstract int GetTileObjectMoveCost();
 
-    public abstract TileObjectTypeEnum GetTileObjectType();
+    public abstract TileTypeEnum GetTileObjectType();
 
     public abstract TileScript GetTileScript();
 

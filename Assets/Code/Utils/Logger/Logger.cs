@@ -12,21 +12,14 @@ public class Logger
      private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
      */
 
+    // Todo: Have a text log generated?
+    // Todo: Have a log displayed in game?
+
     #region Private Fields
 
     // Todo
     private static readonly HashSet<Type> ALLOWED_LOGGING_TYPES = new HashSet<Type>()
     {
-        // typeof(MapControllerObject),
-        //typeof(MapControllerScript),
-        //typeof(GameFrameworkObject),
-        //typeof(GameFrameworkScript),
-        //typeof(MechMoveable),
-        //typeof(MechDestructable),
-        //typeof(MechFireable),
-        //typeof(MechBehavior),
-        //typeof(WeaponBehavior),
-        //typeof(PainterUtil),
     };
 
     private static readonly bool ENABLE_DEBUG = true;

@@ -54,7 +54,7 @@ public static class TileInfoReportGeneratorUtil
         HashSet<CubeCoordinates> neighboringTileCoordinates,
         Dictionary<CubeCoordinates, TileInfoReport> tileCoordsTileInfoReportDictionary)
     {
-        TileObjectTypeEnum tileObjectType;
+        TileTypeEnum tileObjectType;
         CubeCoordinates negatedTileCoordinates = CubeCoordinatesCommonUtil.GetNegatedCubeCoordinates(cubeCoordinates);
         if (tileCoordsTileInfoReportDictionary.ContainsKey(negatedTileCoordinates))
         {
@@ -83,18 +83,18 @@ public static class TileInfoReportGeneratorUtil
             .Build();
     }
 
-    private static TileObjectTypeEnum GenerateTileObjectTypeFromNeighbors(HashSet<TileInfoReport> neighboringTileInfoReportSet)
+    private static TileTypeEnum GenerateTileObjectTypeFromNeighbors(HashSet<TileInfoReport> neighboringTileInfoReportSet)
     {
         float randomProbability = UnityEngine.Random.Range(0, 1f);
         // TOdo store the following dictionaries in a Const file
-        Dictionary<TileObjectTypeEnum, float> tileTypeProbabilities = TileObjectTypeConstants.GetTileObjectTypeProbabilities();
-        Dictionary<TileObjectTypeEnum, int> tileTypeCounts = TileObjectTypeConstants.GetTileObjectTypeDefaultCounts();
+        Dictionary<TileTypeEnum, float> tileTypeProbabilities = TileObjectTypeConstants.GetTileObjectTypeProbabilities();
+        Dictionary<TileTypeEnum, int> tileTypeCounts = TileObjectTypeConstants.GetTileObjectTypeDefaultCounts();
 
         if (neighboringTileInfoReportSet.Count != 0)
         {
             foreach (TileInfoReport neighborTileInfoReport in neighboringTileInfoReportSet)
             {
-                TileObjectTypeEnum NeighborTileType = neighborTileInfoReport.GetTileObjectType();
+                TileTypeEnum NeighborTileType = neighborTileInfoReport.GetTileObjectType();
                 if (NeighborTileType > 0)
                 {
                     tileTypeCounts[NeighborTileType] += 1;
@@ -102,14 +102,14 @@ public static class TileInfoReportGeneratorUtil
             }
         }
 
-        foreach (TileObjectTypeEnum TileTypeIndex in tileTypeCounts.Keys)
+        foreach (TileTypeEnum TileTypeIndex in tileTypeCounts.Keys)
         {
             tileTypeProbabilities[TileTypeIndex] *= (tileTypeCounts[TileTypeIndex] / SumNeighborCountUp(tileTypeCounts));
         }
 
         float bound = 0;
 
-        foreach (TileObjectTypeEnum tileType in tileTypeProbabilities.Keys)
+        foreach (TileTypeEnum tileType in tileTypeProbabilities.Keys)
         {
             bound += tileTypeProbabilities[tileType];
             if (randomProbability < bound)
@@ -131,10 +131,10 @@ public static class TileInfoReportGeneratorUtil
     /// The dictionary representation of the neighboring tile types
     /// </param>
     /// <returns>The total sum of the neighboring tile types</returns>
-    private static float SumNeighborCountUp(Dictionary<TileObjectTypeEnum, int> tileTypeCountDictionary)
+    private static float SumNeighborCountUp(Dictionary<TileTypeEnum, int> tileTypeCountDictionary)
     {
         float sum = 0;
-        foreach (TileObjectTypeEnum tileTypeKey in tileTypeCountDictionary.Keys)
+        foreach (TileTypeEnum tileTypeKey in tileTypeCountDictionary.Keys)
         {
             if (tileTypeCountDictionary.ContainsKey(tileTypeKey))
             {

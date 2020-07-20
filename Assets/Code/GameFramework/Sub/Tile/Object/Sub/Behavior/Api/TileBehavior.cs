@@ -67,7 +67,7 @@ public abstract class TileBehavior
 
     public abstract int GetTileMoveCost();
 
-    public abstract TileObjectTypeEnum GetTileObjectType();
+    public abstract TileTypeEnum GetTileObjectType();
 
     public abstract void SetOccupyingMechObject(MechObject mechObject);
 

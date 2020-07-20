@@ -9,9 +9,11 @@ public abstract class MechVisual
 
     public abstract MechIdEnum GetMechId();
 
-    public abstract void PaintBase(TileObjectTypeEnum tileObjectType);
+    public abstract void PaintBase(TileTypeEnum tileObjectType);
 
     public abstract void PaintMech();
+
+    public abstract void UpdateMechCanvas();
 
     #endregion Public Methods
 }

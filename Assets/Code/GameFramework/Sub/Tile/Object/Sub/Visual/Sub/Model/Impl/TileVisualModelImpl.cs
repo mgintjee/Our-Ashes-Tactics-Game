@@ -29,7 +29,7 @@ public class TileVisualModelImpl
 
     private void PaintTopMaterial()
     {
-        TileObjectTypeEnum tileObjectType = this.tileObject.GetTileObjectType();
+        TileTypeEnum tileObjectType = this.tileObject.GetTileObjectType();
         Material material = MaterialResourceLoader.Tile.Top.LoadTileTopMaterialResource(tileObjectType);
         //TileObjectMaterialUtil.GetTileObjectTopTypeMaterial(tileObjectType);
         if (this.meshRenderer != null)

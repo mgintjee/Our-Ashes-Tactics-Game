@@ -19,10 +19,10 @@ public static class GameFrameworkObjectConstants
     private static readonly int MAX_MECH_PER_TEAM = 3;
 
     // Todo
-    private static readonly TeamControllerTypeEnum TEAM_1_CONTORLLER = TeamControllerTypeEnum.ROBOT;
+    private static readonly ControllerTypeEnum TEAM_1_CONTORLLER = ControllerTypeEnum.ROBOT;
 
     // Todo
-    private static readonly TeamControllerTypeEnum TEAM_2_CONTORLLER = TeamControllerTypeEnum.ROBOT;
+    private static readonly ControllerTypeEnum TEAM_2_CONTORLLER = ControllerTypeEnum.ROBOT;
 
     #endregion Private Fields
 
@@ -63,7 +63,7 @@ public static class GameFrameworkObjectConstants
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    public static TeamControllerTypeEnum GetTeam1Controller()
+    public static ControllerTypeEnum GetTeam1Controller()
     {
         return TEAM_1_CONTORLLER;
     }
@@ -71,7 +71,7 @@ public static class GameFrameworkObjectConstants
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    public static TeamControllerTypeEnum GetTeam2Controller()
+    public static ControllerTypeEnum GetTeam2Controller()
     {
         return TEAM_2_CONTORLLER;
     }

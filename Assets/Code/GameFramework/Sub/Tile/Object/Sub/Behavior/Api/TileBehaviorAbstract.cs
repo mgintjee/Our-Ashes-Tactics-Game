@@ -82,7 +82,7 @@ public abstract class TileBehaviorAbstract
     /// Todo
     /// </summary>
     /// <returns></returns>
-    public override TileObjectTypeEnum GetTileObjectType()
+    public override TileTypeEnum GetTileObjectType()
     {
         return this.tileObject.GetTileObjectType();
     }

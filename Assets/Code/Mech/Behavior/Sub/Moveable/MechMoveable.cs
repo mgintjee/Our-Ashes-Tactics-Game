@@ -113,22 +113,22 @@ public class MechBehaviorMoveable
         return pathObjectSet;
     }
 
-    public bool InputMechActionReport(MechActionReport mechActionReport)
+    public bool InputMechActionReport(ActionReport mechActionReport)
     {
-        MechActionTypeEnum mechActionTypeEnum = mechActionReport.GetMechActionType();
+        ActionTypeEnum mechActionTypeEnum = mechActionReport.GetMechActionType();
         logger.Debug("MechActionTypeEnum=?", mechActionTypeEnum);
         switch (mechActionTypeEnum)
         {
-            case MechActionTypeEnum.Wait:
-                this.turnPointsCurrent -= 2;
+            case ActionTypeEnum.Wait:
+                this.turnPointsCurrent -= this.turnPointsMaximum;
                 break;
 
-            case MechActionTypeEnum.Move:
+            case ActionTypeEnum.Move:
                 this.movePointsCurrent -= mechActionReport.GetPathObject().GetPathObjectCost();
                 this.turnPointsCurrent -= 1;
                 break;
 
-            case MechActionTypeEnum.Fire:
+            case ActionTypeEnum.Fire:
                 this.turnPointsCurrent -= 2;
                 this.movePointsCurrent -= this.movePointsMaximum;
                 break;

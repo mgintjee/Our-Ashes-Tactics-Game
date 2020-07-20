@@ -8,7 +8,8 @@ public class MechInfoReport
     #region Private Fields
 
     private readonly MechIdEnum mechId;
-    private readonly int mechTeam;
+    private readonly TeamIdEnum teamId;
+    private readonly int mechTeamIndex;
     private readonly List<WeaponIdEnum> weaponIdList;
 
     #endregion Private Fields
@@ -21,12 +22,13 @@ public class MechInfoReport
     /// Todo
     /// </summary>
     /// <param name="mechId">      </param>
-    /// <param name="mechTeam">    </param>
+    /// <param name="teamId">    </param>
     /// <param name="weaponIdList"></param>
-    private MechInfoReport(MechIdEnum mechId, int mechTeam, List<WeaponIdEnum> weaponIdList)
+    private MechInfoReport(MechIdEnum mechId, TeamIdEnum teamId, int mechTeamIndex, List<WeaponIdEnum> weaponIdList)
     {
         this.mechId = mechId;
-        this.mechTeam = mechTeam;
+        this.teamId = teamId;
+        this.mechTeamIndex = mechTeamIndex;
         this.weaponIdList = new List<WeaponIdEnum>(weaponIdList);
     }
 
@@ -47,9 +49,18 @@ public class MechInfoReport
     /// Todo
     /// </summary>
     /// <returns></returns>
-    public int GetMechTeam()
+    public TeamIdEnum GetTeamId()
     {
-        return this.mechTeam;
+        return this.teamId;
+    }
+
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
+    public int GetMechTeamId()
+    {
+        return this.mechTeamIndex;
     }
 
     /// <summary>
@@ -69,7 +80,8 @@ public class MechInfoReport
     {
         return this.GetType().ToString() + ": " +
             "\n MechId=" + this.GetMechId() +
-            ",\n MechTeam=" + this.GetMechTeam() +
+            ",\n MechTeam=" + this.GetTeamId() +
+            ",\n MechTeamId=" + this.GetMechTeamId() +
             ",\n WeaponIdSet=[" + string.Join(", ", this.GetWeaponIdList()) + "]";
     }
 
@@ -85,7 +97,8 @@ public class MechInfoReport
         #region Private Fields
 
         private MechIdEnum mechId;
-        private int mechTeam;
+        private TeamIdEnum teamId;
+        private int mechTeamIndex;
         private List<WeaponIdEnum> weaponIdList;
 
         #endregion Private Fields
@@ -98,7 +111,23 @@ public class MechInfoReport
         /// <returns></returns>
         public MechInfoReport Build()
         {
-            return new MechInfoReport(this.mechId, this.mechTeam, this.weaponIdList);
+            /*
+            if (this.mechId.Equals(MechIdEnum.NULL) ||
+                this.teamId.Equals(TeamIdEnum.NULL) ||
+                this.mechTeamIndex < 0 ||
+                this.paintSchemeReport == null ||
+                this.weaponIdList.Count == 0)
+            {
+                throw new ArgumentException("Unable to construct ?" + this.GetType().ToString() + ". Invalid Parameters." +
+                    "\nmechId=" + this.mechId +
+                    "\nteamId=" + this.teamId +
+                    "\nmechTeamIndex=" + this.mechTeamIndex +
+                    "\npaintSchemeReport=" + this.paintSchemeReport +
+                    "\nweaponIdList.Count=" + this.weaponIdList.Count);
+            }
+            */
+            // Todo: Have a safety check that all parameters have been filled
+            return new MechInfoReport(this.mechId, this.teamId, this.mechTeamIndex, this.weaponIdList);
         }
 
         /// <summary>
@@ -115,11 +144,22 @@ public class MechInfoReport
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="mechTeam"></param>
+        /// <param name="teamId"></param>
         /// <returns></returns>
-        public Builder SetMechTeam(int mechTeam)
+        public Builder SetMechTeam(TeamIdEnum teamId)
         {
-            this.mechTeam = mechTeam;
+            this.teamId = teamId;
+            return this;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="mechTeamIndex"></param>
+        /// <returns></returns>
+        public Builder SetMechTeamIndex(int mechTeamIndex)
+        {
+            this.mechTeamIndex = mechTeamIndex;
             return this;
         }
 

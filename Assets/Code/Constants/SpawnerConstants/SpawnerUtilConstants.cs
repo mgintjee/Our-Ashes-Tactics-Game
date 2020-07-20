@@ -11,13 +11,16 @@ public static class SpawnerUtilConstants
     private static readonly string MODELS_MECH_PREFIX = "Mech";
 
     // Todo
+    private static readonly string MODELS_WEAPON_PREFIX = "Weapon";
+
+    // Todo
+    private static readonly string MODELS_CANVAS_FOLDER_PATH = MODELS_FOLDER_PATH + "Canvases/MechCanvas";
+
+    // Todo
     private static readonly string MODELS_MECHS_FOLDER_PATH = MODELS_FOLDER_PATH + "Mechs/";
 
     // Todo
     private static readonly string MODELS_TILE_FOLDER_PATH = MODELS_FOLDER_PATH + "Tiles/TileModel";
-
-    // Todo
-    private static readonly string MODELS_WEAPON_PREFIX = "Weapon";
 
     // Todo
     private static readonly string MODELS_WEAPONS_FOLDER_PATH = MODELS_FOLDER_PATH + "Weapons/";
@@ -27,6 +30,16 @@ public static class SpawnerUtilConstants
     #region Public Methods
 
     /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
+    public static string GetCanvasModelFolderPath()
+    {
+        return MODELS_CANVAS_FOLDER_PATH;
+    }
+
+    /// <summary>
+    /// Todo
     /// </summary>
     /// <returns></returns>
     public static string GetMechModelsFolderPath()
@@ -35,6 +48,7 @@ public static class SpawnerUtilConstants
     }
 
     /// <summary>
+    /// Todo
     /// </summary>
     /// <returns></returns>
     public static string GetTileModelFolderPath()
@@ -43,6 +57,7 @@ public static class SpawnerUtilConstants
     }
 
     /// <summary>
+    /// Todo
     /// </summary>
     /// <returns></returns>
     public static string GetWeaponModelsFolderPath()

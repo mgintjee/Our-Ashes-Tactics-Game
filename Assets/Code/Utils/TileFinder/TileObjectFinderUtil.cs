@@ -12,7 +12,7 @@ public class TileObjectFinderUtil
     // Provide logging capability
     private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
-    private static MapModelObject mapModelObject;
+    private static ViewObject mapModelObject;
 
     #endregion Private Fields
 
@@ -84,7 +84,7 @@ public class TileObjectFinderUtil
         return mapModelObject.GetValidTileCoordinatesSet();
     }
 
-    public static void SetMapModelObject(MapModelObject newMapModelObject)
+    public static void SetMapModelObject(ViewObject newMapModelObject)
     {
         mapModelObject = newMapModelObject;
     }
@@ -95,10 +95,10 @@ public class TileObjectFinderUtil
 
     private static void CollectMapModelObject()
     {
-        GameObject gameObject = FinderUtil.FindGameObjectType(typeof(MapModelScript));
-        if (gameObject.GetComponent<MapModelScript>())
+        GameObject gameObject = FinderUtil.FindGameObjectType(typeof(ViewScript));
+        if (gameObject.GetComponent<ViewScript>())
         {
-            MapModelObject newMapModelObject = gameObject.GetComponent<MapModelScript>().GetMapModelObject();
+            ViewObject newMapModelObject = gameObject.GetComponent<ViewScript>().GetMapModelObject();
             if (newMapModelObject != null)
             {
                 mapModelObject = newMapModelObject;

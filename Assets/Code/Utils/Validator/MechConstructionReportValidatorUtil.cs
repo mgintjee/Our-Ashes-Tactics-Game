@@ -28,10 +28,10 @@ public class MechConstructionReportValidatorUtil
                 typeof(MechConstructionReport), typeof(MechIdEnum), mechConstructionReport.GetMechId());
             return false;
         }
-        if (!ValidMechTeam(mechConstructionReport.GetMechTeam()))
+        if (!ValidMechTeam(mechConstructionReport.GetTeamId()))
         {
             logger.Warn("? is contains an unsupported MechTeam=?.",
-                typeof(MechConstructionReport), mechConstructionReport.GetMechId());
+                typeof(MechConstructionReport), mechConstructionReport.GetTeamId());
             return false;
         }
         if (!ValidWeaponIdList(mechConstructionReport.GetWeaponIdList()))

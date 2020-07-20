@@ -16,44 +16,20 @@ public class GameFrameworkScriptImpl
     // Todo
     private GameFrameworkObject gameFrameworkObject;
 
-    private bool gameIsActive = false;
+    // Todo
+    private ControllerScript mapControllerScript;
 
     // Todo
-    private MapControllerScript mapControllerScript;
-
-    // Todo
-    private MapModelScript mapModelScript;
+    private ViewScript mapModelScript;
 
     #endregion Private Fields
 
     #region Public Methods
 
-    public void FixedUpdate()
+    public override bool GameIsActive()
     {
-        if (this.gameIsActive)
-        {
-            if (this.mapControllerScript.MechActionReportIsAvailable())
-            {
-                MechActionReport mechActionReport = this.mapControllerScript.CollectMechActionReport();
-                if (mechActionReport != null)
-                {
-                    this.gameFrameworkObject.InputMechActionReport(mechActionReport);
-                }
-                else
-                {
-                    logger.Warn("Controller returned a null MechActionReport");
-                }
-            }
-            else if (!this.mapControllerScript.WaitingForMechActionReport())
-            {
-                logger.Info("Controller is ready to determine next MechActionReport");
-                this.mapControllerScript.DetermineNextMechActionReport(this.GetGameFrameworkObject());
-            }
-            else
-            {
-                logger.Info("Controller is determining next MechActionReport");
-            }
-        }
+        return this.gameFrameworkObject != null &&
+            this.gameFrameworkObject.GameIsActive();
     }
 
     public override GameFrameworkObject GetGameFrameworkObject()
@@ -61,17 +37,12 @@ public class GameFrameworkScriptImpl
         return this.gameFrameworkObject;
     }
 
-    public override bool GetGameIsActive()
-    {
-        return this.gameIsActive;
-    }
-
-    public override MapControllerScript GetMapControllerScript()
+    public override ControllerScript GetMapControllerScript()
     {
         return this.mapControllerScript;
     }
 
-    public override MapModelScript GetMapModelScript()
+    public override ViewScript GetMapModelScript()
     {
         return this.mapModelScript;
     }
@@ -101,7 +72,52 @@ public class GameFrameworkScriptImpl
             this.gameFrameworkObject.CreateNewMechFrom(mechCreationReport);
         }
         this.gameFrameworkObject.InitializeNewGame();
-        this.gameIsActive = true;
+    }
+
+    public void LateUpdate()
+    {
+        if (this.gameFrameworkObject.GameIsActive())
+        {
+            if (!this.gameFrameworkObject.ProcessingActionReport())
+            {
+            }
+        }
+        else
+        {
+            logger.Debug("Game is not currently active");
+        }
+        // Check that the game is currently active and not currently processing an ActionReport
+        if (this.gameFrameworkObject.GameIsActive() &&
+            !this.gameFrameworkObject.ProcessingActionReport())
+        {
+            // Check if the MapController Script is not currently processing the Input
+            if (!this.mapControllerScript.ProcessingInput())
+            {
+                // Check if the the MapControllerScript has a new ActionReport available
+                if (this.mapControllerScript.ActionReportIsAvailable())
+                {
+                    ActionReport actionReport = this.mapControllerScript.CollectActionReport();
+                    if (actionReport != null)
+                    {
+                        this.gameFrameworkObject.InputMechActionReport(actionReport);
+                    }
+                    else
+                    {
+                        logger.Warn("? returned a null ?", typeof(ControllerScript), typeof(ActionReport));
+                    }
+                }
+                else
+                {
+                    logger.Info("? is ready to determine next ?", typeof(ControllerScript), typeof(ActionReport));
+                    this.mapControllerScript.DetermineNextActionReport();
+                }
+            }
+            // Otherwise inform the MapController Script to start processing the Input
+            else
+            {
+                logger.Debug("? is determining next ?", typeof(ControllerScript), typeof(ActionReport));
+            }
+        }
     }
 
     #endregion Public Methods
@@ -113,8 +129,8 @@ public class GameFrameworkScriptImpl
         logger.Debug("Generating GameObject=?", GameFrameworkScriptConstants.GetMapControllerGameObjectName());
         GameObject mapControllerGameObject = new GameObject(GameFrameworkScriptConstants.GetMapControllerGameObjectName());
         mapControllerGameObject.transform.parent = this.GetGameObject().transform;
-        this.mapControllerScript = mapControllerGameObject.AddComponent<MapControllerScriptImpl>();
-        //mapControllerScript.Initialize(this.gameFrameworkObject.GetMapControllerObject());
+        this.mapControllerScript = mapControllerGameObject.AddComponent<ControllerScriptImpl>();
+        this.mapControllerScript.Initialize(this);
         logger.Debug("Generated GameObject=?", GameFrameworkScriptConstants.GetMapControllerGameObjectName());
     }
 
@@ -123,7 +139,7 @@ public class GameFrameworkScriptImpl
         logger.Debug("Generating GameObject=?", GameFrameworkScriptConstants.GetMapModelGameObjectName());
         GameObject mapModelGameObject = new GameObject(GameFrameworkScriptConstants.GetMapModelGameObjectName());
         mapModelGameObject.transform.parent = this.GetGameObject().transform;
-        this.mapModelScript = mapModelGameObject.AddComponent<MapModelScriptImpl>();
+        this.mapModelScript = mapModelGameObject.AddComponent<ViewScriptImpl>();
         this.mapModelScript.Initialize(this);
         logger.Debug("Generated GameObject=?", GameFrameworkScriptConstants.GetMapModelGameObjectName());
     }
