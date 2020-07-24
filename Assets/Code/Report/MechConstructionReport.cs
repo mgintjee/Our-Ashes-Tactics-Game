@@ -102,7 +102,7 @@ public class MechConstructionReport
     /// <returns></returns>
     public override string ToString()
     {
-        return this.GetType().ToString() + ":" +
+        return this.GetType() + ":" +
             "\n MechName=" + this.GetMechName() +
             ",\n WeaponIdSet=[" + string.Join(", ", this.GetWeaponIdList()) + "]" +
             ",\n PaintSchemeReport=" + this.GetPaintSchemeReport().ToString();
@@ -141,7 +141,8 @@ public class MechConstructionReport
                 this.paintSchemeReport == null ||
                 this.weaponIdList.Count == 0)
             {
-                throw new ArgumentException("Unable to construct ?" + this.GetType().ToString() + ". Invalid Parameters." +
+                throw new ArgumentException("Unable to construct ?" +
+                    this.GetType() + ". Invalid Parameters." +
                     "\nmechId=" + this.mechId +
                     "\nteamId=" + this.teamId +
                     "\nmechTeamIndex=" + this.mechTeamIndex +

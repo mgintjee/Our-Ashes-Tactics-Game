@@ -51,7 +51,7 @@ public class WeaponConstructionReport
     /// <returns></returns>
     public override string ToString()
     {
-        return this.GetType().ToString() + ":" +
+        return this.GetType() + ":" +
             "\n WeaponId=" + this.GetWeaponId() +
             ",\n PaintSchemeReport=" + this.GetPaintSchemeReport().ToString();
     }

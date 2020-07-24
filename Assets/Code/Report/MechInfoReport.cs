@@ -22,7 +22,7 @@ public class MechInfoReport
     /// Todo
     /// </summary>
     /// <param name="mechId">      </param>
-    /// <param name="teamId">    </param>
+    /// <param name="teamId">      </param>
     /// <param name="weaponIdList"></param>
     private MechInfoReport(MechIdEnum mechId, TeamIdEnum teamId, int mechTeamIndex, List<WeaponIdEnum> weaponIdList)
     {
@@ -78,7 +78,7 @@ public class MechInfoReport
     /// <returns></returns>
     public override string ToString()
     {
-        return this.GetType().ToString() + ": " +
+        return this.GetType() + ": " +
             "\n MechId=" + this.GetMechId() +
             ",\n MechTeam=" + this.GetTeamId() +
             ",\n MechTeamId=" + this.GetMechTeamId() +
