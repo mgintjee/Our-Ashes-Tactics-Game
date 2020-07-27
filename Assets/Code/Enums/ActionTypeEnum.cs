@@ -3,7 +3,6 @@
 /// </summary>
 public enum ActionTypeEnum
 {
-    NULL,
     Wait,
     Move,
     Fire,

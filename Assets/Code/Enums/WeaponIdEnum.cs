@@ -3,6 +3,5 @@
 /// </summary>
 public enum WeaponIdEnum
 {
-    NULL,
     Minigun,
 }

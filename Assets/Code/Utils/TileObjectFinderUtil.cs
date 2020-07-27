@@ -12,7 +12,7 @@ public class TileObjectFinderUtil
     // Provide logging capability
     private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
-    private static ViewObject mapModelObject;
+    private static MapObject mapObject;
 
     #endregion Private Fields
 
@@ -24,7 +24,6 @@ public class TileObjectFinderUtil
         int tileObjectFireCost = (tileObject != null)
             ? tileObject.GetTileObjectFireCost()
             : int.MinValue;
-        logger.Debug("CubeCoordinates: ?, Cost=?", cubeCoordinates, tileObjectFireCost);
         return tileObjectFireCost;
     }
 
@@ -32,23 +31,15 @@ public class TileObjectFinderUtil
     {
         if (cubeCoordinates != null)
         {
-            if (mapModelObject == null)
+            if (mapObject == null)
             {
                 CollectMapModelObject();
             }
-            Dictionary<CubeCoordinates, TileObject> tileCoordinatesTileObjectDictionary = mapModelObject.GetTileCoordsTileObjectDictionary();
+            Dictionary<CubeCoordinates, TileObject> tileCoordinatesTileObjectDictionary = mapObject.GetCubeCoordinatesTileObjectDictionary();
             if (tileCoordinatesTileObjectDictionary.ContainsKey(cubeCoordinates))
             {
                 return tileCoordinatesTileObjectDictionary[cubeCoordinates];
             }
-            else
-            {
-                logger.Debug("Unable to Find TileObject from CubeCoordinates=?. MapModelObject does not contain the TileCoordinates.", cubeCoordinates);
-            }
-        }
-        else
-        {
-            logger.Debug("Unable to Find TileObject from CubeCoordinates. Parameterized TileCoordinates is null.");
         }
 
         return null;
@@ -63,30 +54,22 @@ public class TileObjectFinderUtil
             {
                 return tileObject.GetNeighborCubeCoordinates();
             }
-            else
-            {
-                logger.Debug("Unable to Find Neighbor Set: TileCoordinates from TileCoordinates. TileObject is null.");
-            }
-        }
-        else
-        {
-            logger.Debug("Unable to Find Neighbor Set: TileCoordinates  from TileCoordinates. Parameterized TileCoordinates is null.");
         }
         return new HashSet<CubeCoordinates>();
     }
 
     public static HashSet<CubeCoordinates> GetTileCoordinatesSet()
     {
-        if (mapModelObject == null)
+        if (mapObject == null)
         {
             CollectMapModelObject();
         }
-        return mapModelObject.GetValidTileCoordinatesSet();
+        return mapObject.GetCubeCoordinatesSet();
     }
 
-    public static void SetMapModelObject(ViewObject newMapModelObject)
+    public static void SetMapObject(MapObject newMapObject)
     {
-        mapModelObject = newMapModelObject;
+        mapObject = newMapObject;
     }
 
     #endregion Public Methods
@@ -95,22 +78,14 @@ public class TileObjectFinderUtil
 
     private static void CollectMapModelObject()
     {
-        GameObject gameObject = FinderUtil.FindGameObjectType(typeof(ViewScript));
-        if (gameObject.GetComponent<ViewScript>())
+        GameObject gameObject = FinderUtil.FindGameObjectType(typeof(MapScript));
+        if (gameObject.GetComponent<MapScript>())
         {
-            ViewObject newMapModelObject = gameObject.GetComponent<ViewScript>().GetMapModelObject();
-            if (newMapModelObject != null)
+            MapObject newMapObject = gameObject.GetComponent<MapScript>().GetMapObject();
+            if (newMapObject != null)
             {
-                mapModelObject = newMapModelObject;
+                mapObject = newMapObject;
             }
-            else
-            {
-                logger.Error("Error collecting MapModelObject. GameObject: Name=?, does not have an available MapModelObject.", gameObject.name);
-            }
-        }
-        else
-        {
-            logger.Error("Error collecting MapModelObject. GameObject: Name=?, does not have a MapModelScript.", gameObject.name);
         }
     }
 

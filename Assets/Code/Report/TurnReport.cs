@@ -1,0 +1,11 @@
+﻿using System.Collections.Generic;
+
+/// <summary>
+/// Todo
+/// </summary>
+public class TurnReport
+{
+    private readonly MechInfoReport actingMechInfoReport;
+    private readonly PathObject pathObject;
+    private readonly ActionTypeEnum actionType;
+}

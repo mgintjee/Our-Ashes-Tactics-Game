@@ -5,11 +5,19 @@
 /// </summary>
 public static class PaintConstants
 {
+    #region Private Fields
+
+    // Todo
+    private static readonly Random random = new Random();
+
+    #endregion Private Fields
+
     #region Public Methods
 
     public static ColorIdEnum LoadRandomPaintColor()
     {
-        return (ColorIdEnum)UnityEngine.Random.Range(0, Enum.GetValues(typeof(ColorIdEnum)).Length);
+        Array enumValues = Enum.GetValues(typeof(ColorIdEnum));
+        return (ColorIdEnum)enumValues.GetValue(random.Next(enumValues.Length));
     }
 
     public static PaintSchemeReport LoadRandomPaintSchemeReport()

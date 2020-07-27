@@ -24,7 +24,7 @@ public class SpawnerUtil
     public static GameObject SpawnCanvas()
     {
         string canvasResourcePath = SpawnerUtilConstants.GetCanvasModelFolderPath();
-        logger.Debug("Spawning: Canvas");
+        logger.Debug("Spawning: Canvas: Path=?", canvasResourcePath);
         return Spawn(canvasResourcePath);
     }
 

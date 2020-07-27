@@ -17,9 +17,17 @@ public class Logger
 
     #region Private Fields
 
-    // Todo
+    // Define the Set: Type that will display logging
     private static readonly HashSet<Type> ALLOWED_LOGGING_TYPES = new HashSet<Type>()
     {
+        //typeof(MvcControllerObject),
+        //typeof(MvcControllerScript),
+        //typeof(MvcFrameworkObject),
+        //typeof(MvcFrameworkScript),
+        //typeof(MvcModelObject),
+        //typeof(MvcModelScript),
+        //typeof(MvcViewObject),
+        //typeof(MvcViewScript),
     };
 
     private static readonly bool ENABLE_DEBUG = true;

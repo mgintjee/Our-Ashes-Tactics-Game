@@ -104,8 +104,8 @@ public class WeaponAttributes
         {
             this.weaponId = WeaponIdEnum.Minigun;
             this.accuracyPoints = 1000;
-            this.damagePoints = 2;
-            this.penetrationPoints = 1;
+            this.damagePoints = 1;
+            this.penetrationPoints = 0;
             this.rangePoints = 3;
             this.rangeProximityPoints = 30;
             this.shotCountPoints = 8;

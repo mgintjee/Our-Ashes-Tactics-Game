@@ -3,7 +3,6 @@
 /// </summary>
 public enum TeamIdEnum
 {
-    NULL,
     East,
     West,
     NorthEast,

@@ -67,7 +67,7 @@ public class MapInfoReport
                 // Check that the MapMirrored has been set
                 !setMapMirrored)
             {
-                throw new ArgumentException("Unable to construct ?" +
+                throw new ArgumentException("Unable to construct " +
                     this.GetType() + ". Invalid Parameters." +
                     "\n>mapSeed=" + this.mapSeed +
                     "\n>mapRadius=" + this.mapRadius +

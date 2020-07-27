@@ -47,8 +47,8 @@ public static class WeaponAttributeConstants
     /// <returns></returns>
     public static WeaponIdEnum GetRandomWeaponId()
     {
-        int randomIndex = random.Next() % WEAPON_ID_WEAPON_ATTRIBUTES_DICTIONARY.Keys.Count;
-        return new List<WeaponIdEnum>(WEAPON_ID_WEAPON_ATTRIBUTES_DICTIONARY.Keys)[randomIndex];
+        Array enumValues = Enum.GetValues(typeof(WeaponIdEnum));
+        return (WeaponIdEnum)enumValues.GetValue(random.Next(enumValues.Length));
     }
 
     #endregion Public Methods

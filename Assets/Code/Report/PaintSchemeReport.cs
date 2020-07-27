@@ -53,7 +53,7 @@ public class PaintSchemeReport
     public override string ToString()
     {
         return this.GetType() + ":" +
-            ",\n PrimaryColor=" + this.GetPrimaryPaintColor() +
+            "\n PrimaryColor=" + this.GetPrimaryPaintColor() +
             ",\n SecondaryColor=" + this.GetSecondaryPaintColor();
     }
 

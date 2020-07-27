@@ -29,8 +29,8 @@ public static class MvcModelConstants
         #region Private Fields
 
         private static readonly string MVC_MODEL_GAME_OBJECT_NAME = "mvcModelGameObject";
-        private static readonly string MAP_GAME_OBJECT_NAME = "mapGameObject";
-        private static readonly string MAP_LAYER_LEVEL_GAME_OBJECT_PREFIX = "layerLevel: ";
+        private static readonly string MECH_COLLECTION_GAME_OBJECT_NAME = "mechCollectionGameObject";
+        private static readonly string TEAM_ID_MECH_COLLECTION_GAME_OBJECT_PREFIX = "teamId: ";
 
         #endregion Private Fields
 
@@ -41,14 +41,14 @@ public static class MvcModelConstants
             return MVC_MODEL_GAME_OBJECT_NAME;
         }
 
-        public static string GetMapGameObjectName()
+        public static string GetMechCollectionGameObjectName()
         {
-            return MAP_GAME_OBJECT_NAME;
+            return MECH_COLLECTION_GAME_OBJECT_NAME;
         }
 
-        public static string GetMapLayerLevelGameObjectPrefix()
+        public static string GetTeamIdMechCollectionGameObjectPrefix()
         {
-            return MAP_LAYER_LEVEL_GAME_OBJECT_PREFIX;
+            return TEAM_ID_MECH_COLLECTION_GAME_OBJECT_PREFIX;
         }
 
         #endregion Public Methods

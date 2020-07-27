@@ -19,7 +19,6 @@ public class PathObjectValidatorUtil
     {
         if (pathObject != null)
         {
-            logger.Debug("Validating Path: ?", pathObject);
             bool validPathObjectCount = ValidPathObjectCount(pathObject);
             bool validPathObjectConnectivity = ValidPathObjectConnectivity(pathObject.GetCubeCoordinatesStepList());
             bool validPathObjectCompleteness = ValidPathObjectCompleteness(pathObject);
@@ -28,15 +27,12 @@ public class PathObjectValidatorUtil
                 || !validPathObjectConnectivity
                 || !validPathObjectCompleteness)
             {
-                logger.Debug("PathObject is not valid. PathObject:? has validPathObjectCount=?, validPathObjectCompleteness=?.",
-                    pathObject, validPathObjectCount, validPathObjectCompleteness);
                 return false;
             }
             return true;
         }
         else
         {
-            logger.Debug("PathObject is not valid. PathObject is null.");
             return false;
         }
     }
@@ -53,54 +49,35 @@ public class PathObjectValidatorUtil
                 int tileStepListCount = cubeCoordinatesStepList.Count;
                 if (cubeCoordinatesEnd != cubeCoordinatesStepList[tileStepListCount - 1])
                 {
-                    logger.Debug("PathObject is not valid. PathObject does not end where it is supposed to end");
                     return false;
                 }
                 return true;
             }
-            else
-            {
-                logger.Debug("PathObject is not valid. PathObject is empty.");
-            }
-        }
-        else
-        {
-            logger.Debug("PathObject is not valid. PathObject is null.");
         }
         return false;
     }
 
     public static bool ValidPathObjectConnectivity(List<CubeCoordinates> cubeCoordinatesList)
     {
-        if (cubeCoordinatesList != null)
+        if (cubeCoordinatesList != null &&
+            cubeCoordinatesList.Count > 0)
         {
-            if (cubeCoordinatesList.Count > 0)
+            CubeCoordinates previousCubeCoordinates = cubeCoordinatesList[0];
+
+            for (int i = 1; i < cubeCoordinatesList.Count; ++i)
             {
-                CubeCoordinates previousCubeCoordinates = cubeCoordinatesList[0];
-
-                for (int i = 1; i < cubeCoordinatesList.Count; ++i)
+                CubeCoordinates currentCubeCoordinates = cubeCoordinatesList[i];
+                TileObject previousTileObject = TileObjectFinderUtil.FindTileObjectFrom(previousCubeCoordinates);
+                if (!previousTileObject.GetNeighborCubeCoordinates().Contains(currentCubeCoordinates))
                 {
-                    CubeCoordinates currentCubeCoordinates = cubeCoordinatesList[i];
-                    TileObject previousTileObject = TileObjectFinderUtil.FindTileObjectFrom(previousCubeCoordinates);
-                    if (!previousTileObject.GetNeighborCubeCoordinates().Contains(currentCubeCoordinates))
-                    {
-                        logger.Debug("PathObject is not valid. PathObject is not connected.");
-                        return false;
-                    }
-
-                    previousCubeCoordinates = currentCubeCoordinates;
+                    logger.Debug("PathObject is not valid. PathObject is not connected.");
+                    return false;
                 }
 
-                return true;
+                previousCubeCoordinates = currentCubeCoordinates;
             }
-            else
-            {
-                logger.Debug("PathObject is not valid. PathObject is empty.");
-            }
-        }
-        else
-        {
-            logger.Debug("PathObject is not valid. PathObject is null.");
+
+            return true;
         }
         return false;
     }
@@ -122,14 +99,6 @@ public class PathObjectValidatorUtil
                 }
                 return true;
             }
-            else
-            {
-                logger.Debug("PathObject is not valid. PathObject does not have a cubeCoordinatesStart and cubeCoordinatesEnd.");
-            }
-        }
-        else
-        {
-            logger.Debug("PathObject is not valid. PathObject is null.");
         }
         return false;
     }

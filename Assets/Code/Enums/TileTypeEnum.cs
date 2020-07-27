@@ -3,7 +3,6 @@
 /// </summary>
 public enum TileTypeEnum
 {
-    NULL,
     Road,
     Plains,
     Forest,

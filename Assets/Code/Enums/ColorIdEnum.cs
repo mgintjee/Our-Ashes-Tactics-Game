@@ -3,7 +3,6 @@
 /// </summary>
 public enum ColorIdEnum
 {
-    NULL,
     Black,
     Red,
     Blue,

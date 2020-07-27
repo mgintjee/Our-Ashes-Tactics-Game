@@ -54,7 +54,7 @@ public class MechConstructionReportValidatorUtil
 
     private static bool ValidMechTeam(TeamIdEnum teamId)
     {
-        return !teamId.Equals(TeamIdEnum.NULL);
+        return true;
     }
 
     private static bool ValidWeaponIdList(List<WeaponIdEnum> weaponIdList)

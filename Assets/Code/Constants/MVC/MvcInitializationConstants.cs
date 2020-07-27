@@ -7,8 +7,6 @@ public static class MvcInitializationConstants
 {
     #region Private Fields
 
-    #region Private Fields
-
     // Provide logging capability
     private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 

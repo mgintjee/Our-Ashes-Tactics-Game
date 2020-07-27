@@ -51,6 +51,14 @@ public class MapConstructionReport
             .Build();
     }
 
+    public override string ToString()
+    {
+        return this.GetType() + ": " +
+            "\n>mapSeed: " + this.GetMapSeed() +
+            ",\n>mapRadius: " + this.GetMapRadius() +
+            ",\n>mapMirrored: " + this.GetMapMirrored();
+    }
+
     #endregion Public Methods
 
     #region Public Classes
@@ -78,7 +86,7 @@ public class MapConstructionReport
                 // Check that the MapMirrored has been set
                 !setMapMirrored)
             {
-                throw new ArgumentException("Unable to construct ?" +
+                throw new ArgumentException("Unable to construct " +
                     this.GetType() + ". Invalid Parameters." +
                     "\n>mapSeed=" + this.mapSeed +
                     "\n>mapRadius=" + this.mapRadius +

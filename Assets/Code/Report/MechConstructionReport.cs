@@ -119,8 +119,10 @@ public class MechConstructionReport
     {
         #region Private Fields
 
-        private MechIdEnum mechId = MechIdEnum.NULL;
-        private TeamIdEnum teamId = TeamIdEnum.NULL;
+        private MechIdEnum mechId;
+        private TeamIdEnum teamId;
+        private bool setMechId = false;
+        private bool setTeamId = false;
         private int mechTeamIndex = -1;
         private PaintSchemeReport paintSchemeReport;
         private List<WeaponIdEnum> weaponIdList = new List<WeaponIdEnum>();
@@ -135,19 +137,19 @@ public class MechConstructionReport
         /// <returns></returns>
         public MechConstructionReport Build()
         {
-            if (this.mechId.Equals(MechIdEnum.NULL) ||
-                this.teamId.Equals(TeamIdEnum.NULL) ||
+            if (!this.setMechId ||
+                !this.setTeamId ||
                 this.mechTeamIndex < 0 ||
                 this.paintSchemeReport == null ||
                 this.weaponIdList.Count == 0)
             {
-                throw new ArgumentException("Unable to construct ?" +
+                throw new ArgumentException("Unable to construct " +
                     this.GetType() + ". Invalid Parameters." +
-                    "\nmechId=" + this.mechId +
-                    "\nteamId=" + this.teamId +
-                    "\nmechTeamIndex=" + this.mechTeamIndex +
-                    "\npaintSchemeReport=" + this.paintSchemeReport +
-                    "\nweaponIdList.Count=" + this.weaponIdList.Count);
+                    "\n>setMechId=" + this.mechId +
+                    "\n>setTeamId=" + this.teamId +
+                    "\n>mechTeamIndex=" + this.mechTeamIndex +
+                    "\n>paintSchemeReport=" + this.paintSchemeReport +
+                    "\n>weaponIdList.Count=" + this.weaponIdList.Count);
             }
             return new MechConstructionReport(this.mechId, this.teamId, this.mechTeamIndex, this.paintSchemeReport, this.weaponIdList);
         }
@@ -160,6 +162,7 @@ public class MechConstructionReport
         public Builder SetMechId(MechIdEnum mechId)
         {
             this.mechId = mechId;
+            this.setMechId = true;
             return this;
         }
 
@@ -171,6 +174,7 @@ public class MechConstructionReport
         public Builder SetTeamId(TeamIdEnum teamId)
         {
             this.teamId = teamId;
+            this.setTeamId = true;
             return this;
         }
 
