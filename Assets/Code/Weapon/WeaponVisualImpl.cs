@@ -9,7 +9,7 @@ public class WeaponVisualImpl
     #region Private Fields
 
     // Todo
-    private readonly PaintSchemeReport paintSchemeReport;
+    private readonly TalonPaintSchemeReport paintSchemeReport;
 
     // Todo
     private readonly WeaponAnimator weaponAnimator;
@@ -58,7 +58,7 @@ public class WeaponVisualImpl
 
     public override void PaintWeapon()
     {
-        PainterUtil.PaintMechGameObject(this.weaponGameObject, this.paintSchemeReport);
+        //TalonPainterUtil.PaintMechGameObject(this.weaponGameObject, this.paintSchemeReport);
     }
 
     #endregion Public Methods

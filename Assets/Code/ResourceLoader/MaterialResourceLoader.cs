@@ -36,6 +36,74 @@ public class MaterialResourceLoader
 
     #region Public Classes
 
+    public class HexTile
+    {
+        #region Private Fields
+
+        // Todo
+        private static readonly string HEX_TILE_MATERIALS_FOLDER_HOME = MATERIALS_FOLDER_HOME + "TileMaterials/";
+
+        #endregion Private Fields
+
+        #region Public Classes
+
+        public class Base
+        {
+            #region Private Fields
+
+            private static readonly string MATERIAL_PREFIX = "TileBase_";
+
+            private static readonly string TILE_MATERIALS_BASE_FOLDER_HOME = HEX_TILE_MATERIALS_FOLDER_HOME + "Base/";
+
+            #endregion Private Fields
+        }
+
+        public class Top
+        {
+            #region Private Fields
+
+            private static readonly string MATERIAL_PREFIX = "TileTop_";
+
+            private static readonly string TILE_MATERIALS_TOP_FOLDER_HOME = HEX_TILE_MATERIALS_FOLDER_HOME + "Top/";
+
+            #endregion Private Fields
+
+            #region Public Methods
+
+            public static Material LoadHexTileTopMaterialResource(HexTileTypeEnum hexTileObjectType)
+            {
+                string mechActionTypeString = "";
+                switch (hexTileObjectType)
+                {
+                    case HexTileTypeEnum.Forest:
+                        mechActionTypeString = "Forest";
+                        break;
+
+                    case HexTileTypeEnum.Mountain:
+                        mechActionTypeString = "Mountains";
+                        break;
+
+                    case HexTileTypeEnum.Plains:
+                        mechActionTypeString = "Plains";
+                        break;
+
+                    case HexTileTypeEnum.Road:
+                        mechActionTypeString = "Road";
+                        break;
+
+                    case HexTileTypeEnum.Water:
+                        mechActionTypeString = "Water";
+                        break;
+                }
+                return LoadMaterialResource(TILE_MATERIALS_TOP_FOLDER_HOME + MATERIAL_PREFIX + mechActionTypeString);
+            }
+
+            #endregion Public Methods
+        }
+
+        #endregion Public Classes
+    }
+
     public class Paint
     {
         #region Private Fields
@@ -49,7 +117,7 @@ public class MaterialResourceLoader
 
         #region Public Methods
 
-        public static Material LoadPaintMaterialResource(ColorIdEnum paintColor)
+        public static Material LoadPaintMaterialResource(TalonColorIdEnum paintColor)
         {
             return LoadMaterialResource(PAINT_MATERIALS_FOLDER_HOME + MATERIAL_PREFIX + paintColor.ToString());
         }
@@ -70,20 +138,20 @@ public class MaterialResourceLoader
 
         #region Public Methods
 
-        public static Material LoadPathMaterialResource(ActionTypeEnum mechActionType)
+        public static Material LoadPathMaterialResource(TalonActionTypeEnum mechActionType)
         {
             string mechActionTypeString = "";
             switch (mechActionType)
             {
-                case ActionTypeEnum.Fire:
+                case TalonActionTypeEnum.Fire:
                     mechActionTypeString = "Fire";
                     break;
 
-                case ActionTypeEnum.Move:
+                case TalonActionTypeEnum.Move:
                     mechActionTypeString = "Move";
                     break;
 
-                case ActionTypeEnum.Wait:
+                case TalonActionTypeEnum.Wait:
                     mechActionTypeString = "Wait";
                     break;
             }
@@ -91,74 +159,6 @@ public class MaterialResourceLoader
         }
 
         #endregion Public Methods
-    }
-
-    public class Tile
-    {
-        #region Private Fields
-
-        // Todo
-        private static readonly string TILE_MATERIALS_FOLDER_HOME = MATERIALS_FOLDER_HOME + "TileMaterials/";
-
-        #endregion Private Fields
-
-        #region Public Classes
-
-        public class Base
-        {
-            #region Private Fields
-
-            private static readonly string MATERIAL_PREFIX = "TileBase_";
-
-            private static readonly string TILE_MATERIALS_BASE_FOLDER_HOME = TILE_MATERIALS_FOLDER_HOME + "Base/";
-
-            #endregion Private Fields
-        }
-
-        public class Top
-        {
-            #region Private Fields
-
-            private static readonly string MATERIAL_PREFIX = "TileTop_";
-
-            private static readonly string TILE_MATERIALS_TOP_FOLDER_HOME = TILE_MATERIALS_FOLDER_HOME + "Top/";
-
-            #endregion Private Fields
-
-            #region Public Methods
-
-            public static Material LoadTileTopMaterialResource(TileTypeEnum tileObjectType)
-            {
-                string mechActionTypeString = "";
-                switch (tileObjectType)
-                {
-                    case TileTypeEnum.Forest:
-                        mechActionTypeString = "Forest";
-                        break;
-
-                    case TileTypeEnum.Mountain:
-                        mechActionTypeString = "Mountains";
-                        break;
-
-                    case TileTypeEnum.Plains:
-                        mechActionTypeString = "Plains";
-                        break;
-
-                    case TileTypeEnum.Road:
-                        mechActionTypeString = "Road";
-                        break;
-
-                    case TileTypeEnum.Water:
-                        mechActionTypeString = "Water";
-                        break;
-                }
-                return LoadMaterialResource(TILE_MATERIALS_TOP_FOLDER_HOME + MATERIAL_PREFIX + mechActionTypeString);
-            }
-
-            #endregion Public Methods
-        }
-
-        #endregion Public Classes
     }
 
     #endregion Public Classes
