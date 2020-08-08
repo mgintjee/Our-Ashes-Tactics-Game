@@ -12,16 +12,13 @@ public class PathFinderFire
     // Provide logging capability
     private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
-    private readonly TalonFactionIdEnum factionId;
-
     #endregion Private Fields
 
     #region Public Constructors
 
-    public PathFinderFire(CubeCoordinates cubeCoordinatesStart, TalonFactionIdEnum factionId)
+    public PathFinderFire(CubeCoordinates cubeCoordinatesStart)
         : base(cubeCoordinatesStart)
     {
-        this.factionId = factionId;
     }
 
     #endregion Public Constructors
@@ -43,12 +40,7 @@ public class PathFinderFire
                     TalonIdentificationReport talonIdentificationReport = hexTileInformationReport.GetTalonIdentificationReport();
                     if (talonIdentificationReport != null)
                     {
-                        if (talonIdentificationReport.GetFactionId().Equals(factionId))
-                        {
-                            logger.Debug("For ?=?, Valid Target To Shoot At ?=? ", typeof(TalonFactionIdEnum), this.factionId,
-                                typeof(CubeCoordinates), cubeCoordinates);
-                            validCubeCoordinatesEndSet.Add(cubeCoordinates);
-                        }
+                        validCubeCoordinatesEndSet.Add(cubeCoordinates);
                     }
                 }
             }

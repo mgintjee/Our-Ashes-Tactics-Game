@@ -23,7 +23,7 @@ public abstract class TalonBehaviorMoveable
 
     public abstract HashSet<PathObject> GetPathObjectMoveSet();
 
-    public abstract bool InputTalonActionReport(TalonActionReport talonActionReport);
+    public abstract void InputTalonActionOrder(TalonActionOrderReport talonActionOrder);
 
     public abstract void ResetValuesForNewTurn();
 

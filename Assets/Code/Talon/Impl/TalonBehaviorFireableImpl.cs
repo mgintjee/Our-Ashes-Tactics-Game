@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Todo
@@ -8,7 +9,16 @@ public class TalonBehaviorFireableImpl
 {
     #region Private Fields
 
+    // Todo
     private readonly TalonAttributes talonAttributes = null;
+
+    // Todo
+    private Dictionary<CubeCoordinates, PathObject> cubeCoordinatesPathObjectDictionary = new Dictionary<CubeCoordinates, PathObject>();
+
+    // Todo
+    private CubeCoordinates currentCubeCoordinates;
+
+    private List<WeaponBehavior> weaponBehaviorSet = new List<WeaponBehavior>();
 
     #endregion Private Fields
 
@@ -19,6 +29,11 @@ public class TalonBehaviorFireableImpl
         if (talonAttributes != null)
         {
             this.talonAttributes = talonAttributes;
+        }
+        else
+        {
+            throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
+                "\n>" + typeof(TalonAttributes) + " is null");
         }
     }
 
@@ -33,30 +48,50 @@ public class TalonBehaviorFireableImpl
 
     public override void BeginPathFinding()
     {
-        //throw new System.NotImplementedException();
-    }
-
-    public override HashSet<WeaponCombatReport> GenerateWeaponReportSet(PathObjectFire pathObjectFire)
-    {
-        //throw new System.NotImplementedException();
-        return null;
+        this.cubeCoordinatesPathObjectDictionary = PathFinderFireUtil.BeginPathfindingFor(this.currentCubeCoordinates);
     }
 
     public override HashSet<PathObject> GetPathObjectFireSet()
     {
-        //throw new System.NotImplementedException();
-        return null;
+        return new HashSet<PathObject>(this.cubeCoordinatesPathObjectDictionary.Values);
+    }
+
+    public override TalonCombatOrderReport GetTalonCombatOrderReport(PathObjectFire pathObjectFire)
+    {
+        List<WeaponCombatOrderReport> weaponCombatOrderList = new List<WeaponCombatOrderReport>();
+        if (pathObjectFire != null)
+        {
+            foreach (WeaponBehavior weaponBehavior in this.weaponBehaviorSet)
+            {
+                // Collect the weaponCombatOrder from the weaponBehavior
+                WeaponCombatOrderReport weaponCombatOrder = weaponBehavior.GenerateWeaponReport(pathObjectFire.GetPathObjectCost(),
+                    pathObjectFire.GetPathObjectLength());
+                // Add the generated weaponCombatOrder to the list
+                weaponCombatOrderList.Add(weaponCombatOrder);
+            }
+        }
+        return new TalonCombatOrderReport.Builder()
+            .SetWeaponCombatOrderReportList(weaponCombatOrderList)
+            .Build();
     }
 
     public override List<WeaponIdEnum> GetWeaponIdList()
     {
-        //throw new System.NotImplementedException();
-        return null;
+        List<WeaponIdEnum> weaponIdList = new List<WeaponIdEnum>();
+
+        foreach (WeaponBehavior weaponBehavior in this.weaponBehaviorSet)
+        {
+            weaponIdList.Add(weaponBehavior.GetWeaponId());
+        }
+        return weaponIdList;
     }
 
     public override void SetCubeCoodinates(CubeCoordinates cubeCoordinates)
     {
-        //throw new System.NotImplementedException();
+        if (cubeCoordinates != null)
+        {
+            this.currentCubeCoordinates = cubeCoordinates;
+        }
     }
 
     #endregion Public Methods

@@ -105,12 +105,8 @@ public class SpawnerUtil
         if (spawnerUtilScript != null)
         {
             spawnedGameObject = spawnerUtilScript.Spawn(modelPath);
-            // Check if the spawnedGameObject is non-null
-            if (spawnedGameObject != null)
-            {
-                logger.Debug("Spawned Model: Path=?", modelPath);
-            }
-            else
+            // Check if the spawnedGameObject is null
+            if (spawnedGameObject == null)
             {
                 logger.Error("Error Spawning Model: SpawnerUtil Script loaded a null GameObject for Path=?", modelPath);
             }

@@ -12,12 +12,12 @@ public class TalonAttributesConstants
         {
             TalonIdEnum.CreativeName1,
             new TalonAttributes.Builder()
-            .SetArmourPoints(1)
-            .SetHealthPoints(16)
-            .SetMovePoints(8)
-            .SetTurnPoints(3)
-            .SetWeaponPoints(2)
-            .Build()
+                .SetArmourPoints(1)
+                .SetHealthPoints(12)
+                .SetMovePoints(10)
+                .SetTurnPoints(3)
+                .SetWeaponPoints(1)
+                .Build()
         },
     };
 

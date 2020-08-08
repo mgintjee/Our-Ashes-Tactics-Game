@@ -17,10 +17,10 @@ public static class PathFinderFireUtil
 
     #region Public Methods
 
-    public static Dictionary<CubeCoordinates, PathObject> BeginPathfindingFor(CubeCoordinates tileCoordinatesStart, TalonFactionIdEnum factionId)
+    public static Dictionary<CubeCoordinates, PathObject> BeginPathfindingFor(CubeCoordinates tileCoordinatesStart)
     {
-        logger.Debug("PathFinding for FIRING from CubeCoordinates: ?, for MechTeam=?", tileCoordinatesStart, factionId);
-        pathFinderFire = new PathFinderFire(tileCoordinatesStart, factionId);
+        logger.Debug("PathFinding for FIRING from CubeCoordinates: ?", tileCoordinatesStart);
+        pathFinderFire = new PathFinderFire(tileCoordinatesStart);
         pathFinderFire.BeginPathFinding();
         Dictionary<CubeCoordinates, PathObject> pathObjectDictionary = pathFinderFire.GetPathObjectDictionary();
         return pathObjectDictionary;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Todo
@@ -8,8 +9,19 @@ public class TalonBehaviorMoveableImpl
 {
     #region Private Fields
 
+    // Todo
     private readonly TalonAttributes talonAttributes = null;
+
+    // Todo
+    private Dictionary<CubeCoordinates, PathObject> cubeCoordinatesPathObjectDictionary = new Dictionary<CubeCoordinates, PathObject>();
+
+    // Todo
+    private CubeCoordinates currentCubeCoordinates;
+
+    // Todo
     private int currentTurnPoints = int.MinValue;
+
+    // Todo
     private int currrentMovePoints = int.MinValue;
 
     #endregion Private Fields
@@ -24,6 +36,11 @@ public class TalonBehaviorMoveableImpl
             this.currrentMovePoints = this.talonAttributes.GetMovePoints();
             this.currentTurnPoints = this.talonAttributes.GetTurnPoints();
         }
+        else
+        {
+            throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
+                "\n>" + typeof(TalonAttributes) + " is null");
+        }
     }
 
     #endregion Public Constructors
@@ -32,7 +49,7 @@ public class TalonBehaviorMoveableImpl
 
     public override void BeginPathFinding()
     {
-        //throw new System.NotImplementedException();
+        this.cubeCoordinatesPathObjectDictionary = PathFinderMoveUtil.BeginPathfindingFor(this.currentCubeCoordinates, this.GetMaximumMovePoints());
     }
 
     public override int GetCurrentMovePoints()
@@ -42,7 +59,17 @@ public class TalonBehaviorMoveableImpl
 
     public override int GetCurrentOrderPoints()
     {
-        return this.currrentMovePoints;
+        int currentTurnPoints = this.GetCurrentTurnPoints();
+        int currentMovePoints = this.GetCurrentMovePoints();
+        if (currentTurnPoints < 1)
+        {
+            currentTurnPoints = 1;
+        }
+        if (currentMovePoints < 1)
+        {
+            currentMovePoints = 1;
+        }
+        return currentMovePoints * currentTurnPoints;
     }
 
     public override int GetCurrentTurnPoints()
@@ -57,7 +84,7 @@ public class TalonBehaviorMoveableImpl
 
     public override int GetMaximumOrderPoints()
     {
-        return int.MinValue;
+        return this.GetMaximumMovePoints() * this.GetMaximumTurnPoints();
     }
 
     public override int GetMaximumTurnPoints()
@@ -67,24 +94,42 @@ public class TalonBehaviorMoveableImpl
 
     public override HashSet<PathObject> GetPathObjectMoveSet()
     {
-        //throw new System.NotImplementedException();
-        return null;
+        return new HashSet<PathObject>(this.cubeCoordinatesPathObjectDictionary.Values);
     }
 
-    public override bool InputTalonActionReport(TalonActionReport talonActionReport)
+    public override void InputTalonActionOrder(TalonActionOrderReport talonActionReport)
     {
-        //throw new System.NotImplementedException();
-        return true;
+        TalonActionTypeEnum talonActionType = talonActionReport.GetTalonActionType();
+        switch (talonActionType)
+        {
+            case TalonActionTypeEnum.Wait:
+                this.currentTurnPoints -= this.GetMaximumTurnPoints();
+                break;
+
+            case TalonActionTypeEnum.Move:
+                this.currrentMovePoints -= talonActionReport.GetPathObject().GetPathObjectCost();
+                this.currentTurnPoints -= 1;
+                break;
+
+            case TalonActionTypeEnum.Fire:
+                this.currentTurnPoints -= 2;
+                this.currrentMovePoints -= this.GetMaximumMovePoints();
+                break;
+        }
     }
 
     public override void ResetValuesForNewTurn()
     {
-        throw new System.NotImplementedException();
+        this.currentTurnPoints = this.GetMaximumTurnPoints();
+        this.currrentMovePoints = this.GetMaximumMovePoints();
     }
 
     public override void SetCubeCoodinates(CubeCoordinates cubeCoordinates)
     {
-        // throw new System.NotImplementedException();
+        if (cubeCoordinates != null)
+        {
+            this.currentCubeCoordinates = cubeCoordinates;
+        }
     }
 
     #endregion Public Methods

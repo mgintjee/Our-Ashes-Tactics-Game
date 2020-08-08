@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// Talon Behavior Destructable Impl
@@ -24,23 +26,16 @@ public class TalonBehaviorDestructableImpl
             this.currentArmourPoints = this.talonAttributes.GetArmourPoints();
             this.currentHealthPoints = this.talonAttributes.GetHealthPoints();
         }
+        else
+        {
+            throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
+                "\n>" + typeof(TalonAttributes) + " is null");
+        }
     }
 
     #endregion Public Constructors
 
     #region Public Methods
-
-    public override int CalculateDamageDealt(WeaponCombatReport weaponReport)
-    {
-        //throw new System.NotImplementedException();
-        return 0;
-    }
-
-    public override bool ConsumeWeaponReportSet(HashSet<WeaponCombatReport> weaponReportSet)
-    {
-        //throw new System.NotImplementedException();
-        return false;
-    }
 
     public override int GetCurrentArmourPoints()
     {
@@ -62,5 +57,82 @@ public class TalonBehaviorDestructableImpl
         return this.talonAttributes.GetHealthPoints();
     }
 
+    public override TalonCombatResultReport InputTalonCombatOrderReport(TalonCombatOrderReport talonCombatOrderReport)
+    {
+        if (talonCombatOrderReport != null)
+        {
+            List<WeaponCombatResultReport> weaponCombatResultReportList = new List<WeaponCombatResultReport>();
+            foreach (WeaponCombatOrderReport weaponCombatOrderReport in talonCombatOrderReport.GetWeaponCombatOrderReportList())
+            {
+                weaponCombatResultReportList.Add(this.InputWeaponCombatOrderReport(weaponCombatOrderReport));
+            }
+            return new TalonCombatResultReport.Builder()
+                .SetIsTargetDestroyed(this.currentArmourPoints > 0)
+                .SetTalonCombatOrderReport(talonCombatOrderReport)
+                .SetWeaponCombatResultReportList(weaponCombatResultReportList)
+                .Build();
+        }
+        else
+        {
+            throw new ArgumentException("Unable to InputTalonCombatOrderReport. Invalid Parameters." +
+                "\n>" + typeof(TalonCombatOrderReport) + " is null");
+        }
+    }
+
     #endregion Public Methods
+
+    #region Private Methods
+
+    private WeaponCombatResultReport InputWeaponCombatOrderReport(WeaponCombatOrderReport weaponCombatOrderReport)
+    {
+        if (weaponCombatOrderReport != null)
+        {
+            // Collect the number of shots that hit
+            int numberOfShots = weaponCombatOrderReport.GetNumberOfShots();
+            // Collect the damage per shots
+            int damagePerShot = weaponCombatOrderReport.GetDamagePerShot();
+            // Calculate the remaining armor after penetration
+            int armorRemaining = this.currentArmourPoints - weaponCombatOrderReport.GetPenetration();
+            // Check that the armorRemaining is not less than 0
+            if (armorRemaining < 0)
+            {
+                // Set the armorRemaining to 0
+                armorRemaining = 0;
+            }
+
+            // Initiatlize damageDealt
+            int damageDealt;
+
+            // Calculate minimum damage
+            if (armorRemaining >= damagePerShot)
+            {
+                // Multiply the NumberOfShots by the minimum damage ratio
+                float minimumDamageDealt = numberOfShots / 2;
+                // Get the ceiling to ensure at least 1 damage would be dealt
+                damageDealt = Mathf.CeilToInt(minimumDamageDealt);
+            }
+            // Calculate the damage after armor
+            else
+            {
+                // Multiply the Number of shots by the damage dealt after armour
+                damageDealt = numberOfShots * (damagePerShot - armorRemaining);
+            }
+
+            int potentialDamage = numberOfShots * damagePerShot;
+            int damageMitigated = potentialDamage - damageDealt;
+
+            this.currentHealthPoints -= damageDealt;
+            return new WeaponCombatResultReport.Builder()
+                .SetDamageDealt(damageDealt)
+                .SetDamageMitigated(damageMitigated)
+                .Build();
+        }
+        else
+        {
+            throw new ArgumentException("Unable to InputWeaponCombatOrderReport. Invalid Parameters." +
+                "\n>" + typeof(WeaponCombatOrderReport) + " is null");
+        }
+    }
+
+    #endregion Private Methods
 }

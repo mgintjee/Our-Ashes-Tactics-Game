@@ -1,9 +1,13 @@
-﻿/// <summary>
+﻿using System.Collections.Generic;
+
+/// <summary>
 /// Talon Object Api
 /// </summary>
 public abstract class TalonObject
 {
     #region Public Methods
+
+    public abstract CubeCoordinates GetCubeCoordinates();
 
     /// <summary>
     /// Todo
@@ -17,6 +21,10 @@ public abstract class TalonObject
     /// <returns></returns>
     public abstract TalonInformationReport GetMaximumTalonInformationReport();
 
+    public abstract HashSet<TalonActionOrderReport> GetPossibleTalonActionOrderReportSet();
+
+    public abstract TalonCombatOrderReport GetTalonCombatOrderReport(PathObjectFire pathObjectFire);
+
     /// <summary>
     /// Todo
     /// </summary>
@@ -25,7 +33,12 @@ public abstract class TalonObject
 
     public abstract void Initialize();
 
+    public abstract TalonActionResultReport InputTalonActionOrderReport(TalonActionOrderReport talonActionOrderReport);
+
+    public abstract TalonCombatResultReport InputTalonCombatOrderReport(TalonCombatOrderReport talonCombatOrderReport);
+
     public abstract bool IsInitialized();
+
     public abstract void SetCubeCoordinates(CubeCoordinates cubeCoordinates);
 
     #endregion Public Methods

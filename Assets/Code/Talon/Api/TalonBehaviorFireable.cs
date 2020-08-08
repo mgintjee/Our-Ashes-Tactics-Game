@@ -11,9 +11,9 @@ public abstract class TalonBehaviorFireable
 
     public abstract void BeginPathFinding();
 
-    public abstract HashSet<WeaponCombatReport> GenerateWeaponReportSet(PathObjectFire pathObjectFire);
-
     public abstract HashSet<PathObject> GetPathObjectFireSet();
+
+    public abstract TalonCombatOrderReport GetTalonCombatOrderReport(PathObjectFire pathObjectFire);
 
     public abstract List<WeaponIdEnum> GetWeaponIdList();
 

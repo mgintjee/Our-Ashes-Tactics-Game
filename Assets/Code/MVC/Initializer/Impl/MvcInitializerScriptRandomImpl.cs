@@ -110,7 +110,7 @@ public class MvcInitializerScriptRandomImpl
         TalonAttributes talonAttributes = TalonAttributesConstants.GetAttributes(talonId);
         for (int i = 0; i < talonAttributes.GetWeaponPoints(); ++i)
         {
-            weaponIdList.Add(WeaponAttributeConstants.GetRandomWeaponId());
+            weaponIdList.Add(WeaponIdEnum.CreativeName1);
         }
         return weaponIdList;
     }

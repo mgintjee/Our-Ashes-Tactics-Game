@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Talon Behavior Impl
@@ -11,16 +12,19 @@ public class TalonBehaviorImpl
     private readonly TalonBehaviorDestructable talonBehaviorDestructable = null;
     private readonly TalonBehaviorFireable talonBehaviorFireable = null;
     private readonly TalonBehaviorMoveable talonBehaviorMoveable = null;
+    private readonly TalonIdentificationReport talonIdentificationReport;
+    private CubeCoordinates cubeCoordinates = null;
 
     #endregion Private Fields
 
     #region Public Constructors
 
-    public TalonBehaviorImpl(TalonIdEnum talonId)
+    public TalonBehaviorImpl(TalonIdentificationReport talonIdentificationReport)
     {
-        if (talonId != TalonIdEnum.NULL)
+        if (talonIdentificationReport != null)
         {
-            TalonAttributes talonAttributes = TalonAttributesConstants.GetAttributes(talonId);
+            this.talonIdentificationReport = talonIdentificationReport;
+            TalonAttributes talonAttributes = TalonAttributesConstants.GetAttributes(this.talonIdentificationReport.GetTalonId());
             if (talonAttributes != null)
             {
                 this.talonBehaviorMoveable = new TalonBehaviorMoveableImpl(talonAttributes);
@@ -36,13 +40,18 @@ public class TalonBehaviorImpl
         else
         {
             throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                "\n>" + typeof(TalonIdEnum) + " is invalid");
+                "\n>" + typeof(TalonIdentificationReport) + " is null");
         }
     }
 
     #endregion Public Constructors
 
     #region Public Methods
+
+    public override CubeCoordinates GetCubeCoordinates()
+    {
+        return this.cubeCoordinates;
+    }
 
     public override TalonAttributesReport GetCurrentTalonAttributesReport()
     {
@@ -66,33 +75,95 @@ public class TalonBehaviorImpl
             .Build();
     }
 
-    public override TalonBehaviorDestructable GetTalonBehaviorDestructable()
+    public override HashSet<TalonActionOrderReport> GetPossibleTalonActionOrderReportSet()
     {
-        return this.talonBehaviorDestructable;
+        // Begin pathFinding for the Moveable
+        this.talonBehaviorMoveable.BeginPathFinding();
+        // Begin pathFinding for the Fireable
+        this.talonBehaviorFireable.BeginPathFinding();
+        // Default an empty Set
+        HashSet<TalonActionOrderReport> talonActionOrderReportSet = new HashSet<TalonActionOrderReport>();
+
+        // Iterate over all possible pathObjects for moving
+        foreach (PathObject pathObject in this.talonBehaviorMoveable.GetPathObjectMoveSet())
+        {
+            // Add the actionReport to fire
+            talonActionOrderReportSet.Add(new TalonActionOrderReport.Builder()
+                .SetActingTalonIdentificationReport(this.talonIdentificationReport)
+                .SetPathObject(pathObject)
+                .SetTargetTalonIdentificationReport(null)
+                .Build());
+        }
+        // Iterate over all possible pathObjects for firing
+        foreach (PathObject pathObject in this.talonBehaviorFireable.GetPathObjectFireSet())
+        {
+            // Collect the ending cubeCoordinates for the pathObject
+            CubeCoordinates cubeCoordinates = pathObject.GetCubeCoordinatesEnd();
+            // Collect the HexTileObject from the cubeCoordinates
+            HexTileObject hexTileObject = HexTileObjectFinderUtil.FindHexTileObjectFrom(cubeCoordinates);
+            // Check that the HexTileObject is non-null
+            if (hexTileObject != null)
+            {
+                // Colect the talonIdentificationReport from the hexTileObject
+                TalonIdentificationReport talonIdentificationReport = hexTileObject.GetHexTileInformationReport().GetTalonIdentificationReport();
+                // Check that the FactionIds are not the same
+                if (!this.talonIdentificationReport.GetFactionId().Equals(talonIdentificationReport.GetFactionId()))
+                {
+                    // Add the actionReport to fire
+                    talonActionOrderReportSet.Add(new TalonActionOrderReport.Builder()
+                        .SetActingTalonIdentificationReport(this.talonIdentificationReport)
+                        .SetPathObject(pathObject)
+                        .SetTargetTalonIdentificationReport(talonIdentificationReport)
+                        .Build());
+                }
+            }
+        }
+        // Add the TalonActionOrderReport for Waiting
+        talonActionOrderReportSet.Add(new TalonActionOrderReport.Builder()
+            .SetActingTalonIdentificationReport(this.talonIdentificationReport)
+            .SetPathObject(new PathObjectWait(new List<CubeCoordinates>() { this.GetCubeCoordinates() }))
+            .Build()
+            );
+
+        return talonActionOrderReportSet;
     }
 
-    public override TalonBehaviorFireable GetTalonBehaviorFireable()
+    public override TalonCombatOrderReport GetTalonCombatOrderReport(PathObjectFire pathObjectFire)
     {
-        return this.talonBehaviorFireable;
+        return this.talonBehaviorFireable.GetTalonCombatOrderReport(pathObjectFire);
     }
 
-    public override TalonBehaviorMoveable GetTalonBehaviorMoveable()
+    public override TalonActionResultReport InputTalonActionOrderReport(TalonActionOrderReport talonActionOrder)
     {
-        return this.talonBehaviorMoveable;
+        TalonActionResultReport talonActionReport = null;
+        if (talonActionOrder != null)
+        {
+            this.talonBehaviorMoveable.InputTalonActionOrder(talonActionOrder);
+            talonActionReport = new TalonActionResultReport.Builder()
+                .SetTalonActionOrder(talonActionOrder)
+                .SetTalonAttributesReport(this.GetCurrentTalonAttributesReport())
+                .Build();
+        }
+        return talonActionReport;
+    }
+
+    public override TalonCombatResultReport InputTalonCombatOrderReport(TalonCombatOrderReport talonCombatOrderReport)
+    {
+        return this.talonBehaviorDestructable.InputTalonCombatOrderReport(talonCombatOrderReport);
     }
 
     public override void SetCubeCoordinates(CubeCoordinates cubeCoordinates)
     {
         if (cubeCoordinates != null)
         {
+            this.cubeCoordinates = cubeCoordinates;
             this.talonBehaviorFireable.SetCubeCoodinates(cubeCoordinates);
             this.talonBehaviorMoveable.SetCubeCoodinates(cubeCoordinates);
         }
         else
         {
             throw new ArgumentException("Unable to SetCubeCoordinates" +
-                "\n>" + typeof(CubeCoordinates) + " is null: " + (cubeCoordinates == null));
-
+                "\n>" + typeof(CubeCoordinates) + " is null");
         }
     }
 

@@ -1,0 +1,571 @@
+7:02:06 PM INFO: MvcFrameworkScriptImpl: Initializing: MvcFrameworkScriptImpl
+7:02:06 PM INFO: MvcFrameworkObjectImpl: Contructing: MvcFrameworkObjectImpl
+7:02:06 PM INFO: MvcFrameworkScriptImpl: Building: MvcControllerScript
+7:02:06 PM INFO: MvcFrameworkScriptImpl: Building: MvcModelScript
+7:02:06 PM INFO: MvcFrameworkScriptImpl: Building: MvcViewScript
+7:02:06 PM INFO: MvcControllerScriptImpl: Initializing: MvcControllerScriptImpl
+7:02:06 PM INFO: MvcControllerScriptImpl: Setting: MvcFrameworkScript
+7:02:06 PM INFO: MvcControllerObjectImpl: Contructing: MvcControllerObjectImpl
+7:02:06 PM INFO: MvcControllerObjectImpl: Setting: MvcControllerScript=mvcControllerGameObject (MvcControllerScriptImpl)
+7:02:06 PM INFO: MvcModelScriptImpl: Initializing: MvcModelScriptImpl
+7:02:06 PM INFO: MvcModelScriptImpl: Setting: MvcFrameworkScript
+7:02:06 PM INFO: MvcModelScriptImpl: Building: MapScript
+7:02:06 PM INFO: MapScriptImpl: Initializing: MapScriptImpl.
+7:02:06 PM INFO: MapObjectImpl: Contructing Object: MapObjectImpl
+7:02:06 PM DEBUG: CubeCoordinatesGeneratorUtil: Generating HashSet: CubeCoordinates for Map Radius=2
+7:02:06 PM DEBUG: CubeCoordinatesGeneratorUtil: 19 CubeCoordinates: (0,0,0), (0,1,-1), (0,2,-2), (1,0,-1), (2,-1,-1), (2,-2,0), (1,-2,1), (0,-2,2), (-1,-1,2), (-2,0,2), (-2,1,1), (-2,2,0), (2,0,-2), (1,-1,0), (0,-1,1), (-1,0,1), (-1,1,0), (1,1,-2), (-1,2,-1)
+7:02:06 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(0,0,0)
+>HexTileTypeEnum=Mountain
+>neighborCubeCoordinatesSet=[(0,1,-1),(1,0,-1),(1,-1,0),(0,-1,1),(-1,0,1),(-1,1,0)]
+7:02:06 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:06 PM DEBUG: SpawnerUtil: Collected SpawnerUtilScript
+7:02:06 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:06 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:06 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:06 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(0,1,-1)
+>HexTileTypeEnum=Forest
+>neighborCubeCoordinatesSet=[(0,2,-2),(1,1,-2),(1,0,-1),(0,0,0),(-1,1,0),(-1,2,-1)]
+7:02:06 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:06 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:06 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:06 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:06 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(1,0,-1)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(1,1,-2),(2,0,-2),(2,-1,-1),(1,-1,0),(0,0,0),(0,1,-1)]
+7:02:06 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:06 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:06 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:06 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:06 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(1,-1,0)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(1,0,-1),(2,-1,-1),(2,-2,0),(1,-2,1),(0,-1,1),(0,0,0)]
+7:02:06 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:06 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:06 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:06 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:06 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(0,-1,1)
+>HexTileTypeEnum=Water
+>neighborCubeCoordinatesSet=[(0,0,0),(1,-1,0),(1,-2,1),(0,-2,2),(-1,-1,2),(-1,0,1)]
+7:02:06 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:06 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:06 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:06 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:06 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(-1,0,1)
+>HexTileTypeEnum=Road
+>neighborCubeCoordinatesSet=[(-1,1,0),(0,0,0),(0,-1,1),(-1,-1,2),(-2,0,2),(-2,1,1)]
+7:02:06 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:06 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:06 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:06 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:06 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(-1,1,0)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(-1,2,-1),(0,1,-1),(0,0,0),(-1,0,1),(-2,1,1),(-2,2,0)]
+7:02:06 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:06 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:06 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:06 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:06 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(0,2,-2)
+>HexTileTypeEnum=Mountain
+>neighborCubeCoordinatesSet=[(0,3,-3),(1,2,-3),(1,1,-2),(0,1,-1),(-1,2,-1),(-1,3,-2)]
+7:02:06 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:06 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:06 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:06 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:06 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(1,1,-2)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(1,2,-3),(2,1,-3),(2,0,-2),(1,0,-1),(0,1,-1),(0,2,-2)]
+7:02:06 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:06 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:06 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:06 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:06 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(-1,2,-1)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(-1,3,-2),(0,2,-2),(0,1,-1),(-1,1,0),(-2,2,0),(-2,3,-1)]
+7:02:06 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:06 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:06 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:06 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:06 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(2,0,-2)
+>HexTileTypeEnum=Forest
+>neighborCubeCoordinatesSet=[(2,1,-3),(3,0,-3),(3,-1,-2),(2,-1,-1),(1,0,-1),(1,1,-2)]
+7:02:06 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:06 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:06 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:06 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:06 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(2,-1,-1)
+>HexTileTypeEnum=Forest
+>neighborCubeCoordinatesSet=[(2,0,-2),(3,-1,-2),(3,-2,-1),(2,-2,0),(1,-1,0),(1,0,-1)]
+7:02:06 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:06 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:06 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:06 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:06 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(2,-2,0)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(2,-1,-1),(3,-2,-1),(3,-3,0),(2,-3,1),(1,-2,1),(1,-1,0)]
+7:02:06 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:06 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:06 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:06 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:06 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(1,-2,1)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(1,-1,0),(2,-2,0),(2,-3,1),(1,-3,2),(0,-2,2),(0,-1,1)]
+7:02:06 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:06 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:06 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:06 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:06 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(0,-2,2)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(0,-1,1),(1,-2,1),(1,-3,2),(0,-3,3),(-1,-2,3),(-1,-1,2)]
+7:02:06 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:06 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:06 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:06 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:06 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(-1,-1,2)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(-1,0,1),(0,-1,1),(0,-2,2),(-1,-2,3),(-2,-1,3),(-2,0,2)]
+7:02:06 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:06 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:06 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:06 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:06 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(-2,0,2)
+>HexTileTypeEnum=Road
+>neighborCubeCoordinatesSet=[(-2,1,1),(-1,0,1),(-1,-1,2),(-2,-1,3),(-3,0,3),(-3,1,2)]
+7:02:06 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:06 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:06 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:06 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:06 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(-2,1,1)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(-2,2,0),(-1,1,0),(-1,0,1),(-2,0,2),(-3,1,2),(-3,2,1)]
+7:02:06 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:06 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:06 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:06 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:06 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(-2,2,0)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(-2,3,-1),(-1,2,-1),(-1,1,0),(-2,1,1),(-3,2,1),(-3,3,0)]
+7:02:06 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:06 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:06 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:06 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:06 PM INFO: MvcModelObjectImpl: Contructing: MvcModelObjectImpl
+7:02:06 PM INFO: MvcModelObjectImpl: Setting: MvcModelScript=mvcModelGameObject (MvcModelScriptImpl)
+7:02:06 PM INFO: MvcViewScriptImpl: Initializing Script: MvcViewScriptImpl
+7:02:06 PM INFO: MvcViewScriptImpl: Setting Script: MvcFrameworkScript
+7:02:06 PM INFO: MvcViewObjectImpl: Contructing Object: MvcViewObjectImpl
+7:02:06 PM INFO: MvcViewObjectImpl: Setting Script: MvcViewScript=mvcViewGameObject (MvcViewScriptImpl)
+7:02:06 PM INFO: MvcFrameworkObjectImpl: Initializing: MvcFrameworkObjectImpl
+7:02:06 PM INFO: MvcFrameworkObjectImpl: Setting: MvcControllerObject=MvcControllerObjectImpl
+7:02:06 PM INFO: MvcControllerObjectImpl: Initializing: MvcControllerObjectImpl
+7:02:06 PM INFO: MvcControllerObjectImpl: Setting: MvcFrameworkObject
+7:02:06 PM INFO: MvcFrameworkObjectImpl: Setting: MvcModelObject=MvcModelObjectImpl
+7:02:07 PM INFO: MvcModelObjectImpl: Initializing: MvcModelObjectImpl
+7:02:07 PM DEBUG: TalonObjectBuilderUtil: Building: TalonConstructionReport: 
+>TalonIdentificationReport:
+>TalonFactionIdEnum: CreativeFaction2
+>TalonPhalanxIdEnum: PhalanxNorthEast
+>talonPhalanxIndex: 0
+>TalonIdEnum: CreativeName1
+>TalonPaintSchemeReport:
+>PrimaryColor=Black
+>SecondaryColor=Black
+>weaponIdList=[CreativeName1]
+7:02:07 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Talons/TalonCreativeName1
+7:02:07 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Talons/TalonCreativeName1
+7:02:07 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+7:02:07 PM DEBUG: TalonScriptImpl: TalonPaintSchemeReport:
+>PrimaryColor=Black
+>SecondaryColor=Black
+7:02:07 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+7:02:07 PM DEBUG: TalonObjectBuilderUtil: Building: TalonConstructionReport: 
+>TalonIdentificationReport:
+>TalonFactionIdEnum: CreativeFaction2
+>TalonPhalanxIdEnum: PhalanxSouthEast
+>talonPhalanxIndex: 0
+>TalonIdEnum: CreativeName1
+>TalonPaintSchemeReport:
+>PrimaryColor=Black
+>SecondaryColor=Black
+>weaponIdList=[CreativeName1]
+7:02:07 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Talons/TalonCreativeName1
+7:02:07 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Talons/TalonCreativeName1
+7:02:07 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+7:02:07 PM DEBUG: TalonScriptImpl: TalonPaintSchemeReport:
+>PrimaryColor=Black
+>SecondaryColor=Black
+7:02:07 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+7:02:07 PM DEBUG: TalonObjectBuilderUtil: Building: TalonConstructionReport: 
+>TalonIdentificationReport:
+>TalonFactionIdEnum: CreativeFaction1
+>TalonPhalanxIdEnum: PhalanxNorthWest
+>talonPhalanxIndex: 0
+>TalonIdEnum: CreativeName1
+>TalonPaintSchemeReport:
+>PrimaryColor=Green
+>SecondaryColor=Blue
+>weaponIdList=[CreativeName1]
+7:02:07 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Talons/TalonCreativeName1
+7:02:07 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Talons/TalonCreativeName1
+7:02:07 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+7:02:07 PM DEBUG: TalonScriptImpl: TalonPaintSchemeReport:
+>PrimaryColor=Green
+>SecondaryColor=Blue
+7:02:07 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+7:02:07 PM DEBUG: TalonObjectBuilderUtil: Building: TalonConstructionReport: 
+>TalonIdentificationReport:
+>TalonFactionIdEnum: CreativeFaction1
+>TalonPhalanxIdEnum: PhalanxSouthWest
+>talonPhalanxIndex: 0
+>TalonIdEnum: CreativeName1
+>TalonPaintSchemeReport:
+>PrimaryColor=Green
+>SecondaryColor=Blue
+>weaponIdList=[CreativeName1]
+7:02:07 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Talons/TalonCreativeName1
+7:02:07 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Talons/TalonCreativeName1
+7:02:07 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+7:02:07 PM DEBUG: TalonScriptImpl: TalonPaintSchemeReport:
+>PrimaryColor=Green
+>SecondaryColor=Blue
+7:02:07 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+7:02:07 PM DEBUG: MvcModelObjectImpl: TalonPhalanxIdEnum=PhalanxNorthEast
+7:02:07 PM DEBUG: MvcModelObjectImpl: TalonIdentificationReport=TalonIdentificationReport:
+>TalonFactionIdEnum: CreativeFaction2
+>TalonPhalanxIdEnum: PhalanxNorthEast
+>talonPhalanxIndex: 0
+>TalonIdEnum: CreativeName1. Setting CubeCoordinates
+7:02:07 PM DEBUG: TalonSpawnCubeCoordinatesUtil: Getting Spawn for: TeamId: PhalanxNorthEast, TeamIdMechCount: 1, MechTeamIndex: 0, MapRadius: 2, centerIndexDifference: 0
+7:02:07 PM DEBUG: TalonSpawnCubeCoordinatesUtil: xCoordinate: 2, yCoordinate: 0, zCoordinate: -2
+7:02:07 PM DEBUG: MvcModelObjectImpl: TalonPhalanxIdEnum=PhalanxSouthEast
+7:02:07 PM DEBUG: MvcModelObjectImpl: TalonIdentificationReport=TalonIdentificationReport:
+>TalonFactionIdEnum: CreativeFaction2
+>TalonPhalanxIdEnum: PhalanxSouthEast
+>talonPhalanxIndex: 0
+>TalonIdEnum: CreativeName1. Setting CubeCoordinates
+7:02:07 PM DEBUG: TalonSpawnCubeCoordinatesUtil: Getting Spawn for: TeamId: PhalanxSouthEast, TeamIdMechCount: 1, MechTeamIndex: 0, MapRadius: 2, centerIndexDifference: 0
+7:02:07 PM DEBUG: TalonSpawnCubeCoordinatesUtil: xCoordinate: -2, yCoordinate: 2, zCoordinate: 0
+7:02:07 PM DEBUG: MvcModelObjectImpl: TalonPhalanxIdEnum=PhalanxNorthWest
+7:02:07 PM DEBUG: MvcModelObjectImpl: TalonIdentificationReport=TalonIdentificationReport:
+>TalonFactionIdEnum: CreativeFaction1
+>TalonPhalanxIdEnum: PhalanxNorthWest
+>talonPhalanxIndex: 0
+>TalonIdEnum: CreativeName1. Setting CubeCoordinates
+7:02:07 PM DEBUG: TalonSpawnCubeCoordinatesUtil: Getting Spawn for: TeamId: PhalanxNorthWest, TeamIdMechCount: 1, MechTeamIndex: 0, MapRadius: 2, centerIndexDifference: 0
+7:02:07 PM DEBUG: TalonSpawnCubeCoordinatesUtil: xCoordinate: 2, yCoordinate: -2, zCoordinate: 0
+7:02:07 PM DEBUG: MvcModelObjectImpl: TalonPhalanxIdEnum=PhalanxSouthWest
+7:02:07 PM DEBUG: MvcModelObjectImpl: TalonIdentificationReport=TalonIdentificationReport:
+>TalonFactionIdEnum: CreativeFaction1
+>TalonPhalanxIdEnum: PhalanxSouthWest
+>talonPhalanxIndex: 0
+>TalonIdEnum: CreativeName1. Setting CubeCoordinates
+7:02:07 PM DEBUG: TalonSpawnCubeCoordinatesUtil: Getting Spawn for: TeamId: PhalanxSouthWest, TeamIdMechCount: 1, MechTeamIndex: 0, MapRadius: 2, centerIndexDifference: 0
+7:02:07 PM DEBUG: TalonSpawnCubeCoordinatesUtil: xCoordinate: -2, yCoordinate: 0, zCoordinate: 2
+7:02:07 PM INFO: MvcFrameworkObjectImpl: Setting: MvcViewObject=MvcViewObjectImpl
+7:02:07 PM INFO: MvcViewObjectImpl: Initializing Object: MvcViewObjectImpl
+7:02:07 PM INFO: MvcViewObjectImpl: Setting Object: MvcFrameworkObject
+7:02:07 PM DEBUG: MvcFrameworkScriptImpl: Starting New Game
+7:02:07 PM INFO: MvcFrameworkScriptImpl: Starting new game.
+7:02:07 PM DEBUG: MvcFrameworkScriptImpl: Continuing Game
+7:02:07 PM DEBUG: LineRendererUtil: Collected LineRendererUtilScript
+7:02:07 PM INFO: MvcFrameworkScriptImpl: Initializing: MvcFrameworkScriptImpl
+7:02:07 PM INFO: MvcFrameworkObjectImpl: Contructing: MvcFrameworkObjectImpl
+7:02:07 PM INFO: MvcFrameworkScriptImpl: Building: MvcControllerScript
+7:02:07 PM INFO: MvcFrameworkScriptImpl: Building: MvcModelScript
+7:02:07 PM INFO: MvcFrameworkScriptImpl: Building: MvcViewScript
+7:02:07 PM INFO: MvcControllerScriptImpl: Initializing: MvcControllerScriptImpl
+7:02:07 PM INFO: MvcControllerScriptImpl: Setting: MvcFrameworkScript
+7:02:07 PM INFO: MvcControllerObjectImpl: Contructing: MvcControllerObjectImpl
+7:02:07 PM INFO: MvcControllerObjectImpl: Setting: MvcControllerScript=mvcControllerGameObject (MvcControllerScriptImpl)
+7:02:07 PM INFO: MvcModelScriptImpl: Initializing: MvcModelScriptImpl
+7:02:07 PM INFO: MvcModelScriptImpl: Setting: MvcFrameworkScript
+7:02:07 PM INFO: MvcModelScriptImpl: Building: MapScript
+7:02:07 PM INFO: MapScriptImpl: Initializing: MapScriptImpl.
+7:02:07 PM INFO: MapObjectImpl: Contructing Object: MapObjectImpl
+7:02:07 PM DEBUG: CubeCoordinatesGeneratorUtil: Generating HashSet: CubeCoordinates for Map Radius=2
+7:02:07 PM DEBUG: CubeCoordinatesGeneratorUtil: 19 CubeCoordinates: (0,0,0), (0,1,-1), (0,2,-2), (1,0,-1), (2,-1,-1), (2,-2,0), (1,-2,1), (0,-2,2), (-1,-1,2), (-2,0,2), (-2,1,1), (-2,2,0), (2,0,-2), (1,-1,0), (0,-1,1), (-1,0,1), (-1,1,0), (1,1,-2), (-1,2,-1)
+7:02:07 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(0,0,0)
+>HexTileTypeEnum=Forest
+>neighborCubeCoordinatesSet=[(0,1,-1),(1,0,-1),(1,-1,0),(0,-1,1),(-1,0,1),(-1,1,0)]
+7:02:07 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:07 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:07 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:07 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:07 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(0,1,-1)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(0,2,-2),(1,1,-2),(1,0,-1),(0,0,0),(-1,1,0),(-1,2,-1)]
+7:02:07 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:07 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:07 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:07 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:07 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(1,0,-1)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(1,1,-2),(2,0,-2),(2,-1,-1),(1,-1,0),(0,0,0),(0,1,-1)]
+7:02:07 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:07 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:07 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:07 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:07 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(1,-1,0)
+>HexTileTypeEnum=Forest
+>neighborCubeCoordinatesSet=[(1,0,-1),(2,-1,-1),(2,-2,0),(1,-2,1),(0,-1,1),(0,0,0)]
+7:02:07 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:07 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:07 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:07 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:07 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(0,-1,1)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(0,0,0),(1,-1,0),(1,-2,1),(0,-2,2),(-1,-1,2),(-1,0,1)]
+7:02:07 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:07 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:07 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:07 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:07 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(-1,0,1)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(-1,1,0),(0,0,0),(0,-1,1),(-1,-1,2),(-2,0,2),(-2,1,1)]
+7:02:07 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:07 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:07 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:07 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:07 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(-1,1,0)
+>HexTileTypeEnum=Forest
+>neighborCubeCoordinatesSet=[(-1,2,-1),(0,1,-1),(0,0,0),(-1,0,1),(-2,1,1),(-2,2,0)]
+7:02:07 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:07 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:07 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:08 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:08 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(0,2,-2)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(0,3,-3),(1,2,-3),(1,1,-2),(0,1,-1),(-1,2,-1),(-1,3,-2)]
+7:02:08 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:08 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:08 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:08 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:08 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(1,1,-2)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(1,2,-3),(2,1,-3),(2,0,-2),(1,0,-1),(0,1,-1),(0,2,-2)]
+7:02:08 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:08 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:08 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:08 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:08 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(-1,2,-1)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(-1,3,-2),(0,2,-2),(0,1,-1),(-1,1,0),(-2,2,0),(-2,3,-1)]
+7:02:08 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:08 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:08 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:08 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:08 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(2,0,-2)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(2,1,-3),(3,0,-3),(3,-1,-2),(2,-1,-1),(1,0,-1),(1,1,-2)]
+7:02:08 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:08 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:08 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:08 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:08 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(2,-1,-1)
+>HexTileTypeEnum=Mountain
+>neighborCubeCoordinatesSet=[(2,0,-2),(3,-1,-2),(3,-2,-1),(2,-2,0),(1,-1,0),(1,0,-1)]
+7:02:08 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:08 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:08 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:08 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:08 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(2,-2,0)
+>HexTileTypeEnum=Water
+>neighborCubeCoordinatesSet=[(2,-1,-1),(3,-2,-1),(3,-3,0),(2,-3,1),(1,-2,1),(1,-1,0)]
+7:02:08 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:08 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:08 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:08 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:08 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(1,-2,1)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(1,-1,0),(2,-2,0),(2,-3,1),(1,-3,2),(0,-2,2),(0,-1,1)]
+7:02:08 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:08 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:08 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:08 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:08 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(0,-2,2)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(0,-1,1),(1,-2,1),(1,-3,2),(0,-3,3),(-1,-2,3),(-1,-1,2)]
+7:02:08 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:08 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:08 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:08 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:08 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(-1,-1,2)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(-1,0,1),(0,-1,1),(0,-2,2),(-1,-2,3),(-2,-1,3),(-2,0,2)]
+7:02:08 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:08 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:08 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:08 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:08 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(-2,0,2)
+>HexTileTypeEnum=Plains
+>neighborCubeCoordinatesSet=[(-2,1,1),(-1,0,1),(-1,-1,2),(-2,-1,3),(-3,0,3),(-3,1,2)]
+7:02:08 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:08 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:08 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:08 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:08 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(-2,1,1)
+>HexTileTypeEnum=Mountain
+>neighborCubeCoordinatesSet=[(-2,2,0),(-1,1,0),(-1,0,1),(-2,0,2),(-3,1,2),(-3,2,1)]
+7:02:08 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:08 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:08 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:08 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:08 PM DEBUG: HexTileObjectBuilderUtil: Building: HexTileConstructionReport:
+>CubeCoordinates=(-2,2,0)
+>HexTileTypeEnum=Water
+>neighborCubeCoordinatesSet=[(-2,3,-1),(-1,2,-1),(-1,1,0),(-2,1,1),(-3,2,1),(-3,3,0)]
+7:02:08 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Tiles/TileModel
+7:02:08 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Tiles/TileModel
+7:02:08 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+7:02:08 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+7:02:08 PM INFO: MvcModelObjectImpl: Contructing: MvcModelObjectImpl
+7:02:08 PM INFO: MvcModelObjectImpl: Setting: MvcModelScript=mvcModelGameObject (MvcModelScriptImpl)
+7:02:08 PM INFO: MvcViewScriptImpl: Initializing Script: MvcViewScriptImpl
+7:02:08 PM INFO: MvcViewScriptImpl: Setting Script: MvcFrameworkScript
+7:02:08 PM INFO: MvcViewObjectImpl: Contructing Object: MvcViewObjectImpl
+7:02:08 PM INFO: MvcViewObjectImpl: Setting Script: MvcViewScript=mvcViewGameObject (MvcViewScriptImpl)
+7:02:08 PM INFO: MvcFrameworkObjectImpl: Initializing: MvcFrameworkObjectImpl
+7:02:08 PM INFO: MvcFrameworkObjectImpl: Setting: MvcControllerObject=MvcControllerObjectImpl
+7:02:08 PM INFO: MvcControllerObjectImpl: Initializing: MvcControllerObjectImpl
+7:02:08 PM INFO: MvcControllerObjectImpl: Setting: MvcFrameworkObject
+7:02:08 PM INFO: MvcFrameworkObjectImpl: Setting: MvcModelObject=MvcModelObjectImpl
+7:02:08 PM INFO: MvcModelObjectImpl: Initializing: MvcModelObjectImpl
+7:02:08 PM DEBUG: TalonObjectBuilderUtil: Building: TalonConstructionReport: 
+>TalonIdentificationReport:
+>TalonFactionIdEnum: CreativeFaction2
+>TalonPhalanxIdEnum: PhalanxNorthEast
+>talonPhalanxIndex: 0
+>TalonIdEnum: CreativeName1
+>TalonPaintSchemeReport:
+>PrimaryColor=Red
+>SecondaryColor=Red
+>weaponIdList=[CreativeName1]
+7:02:08 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Talons/TalonCreativeName1
+7:02:08 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Talons/TalonCreativeName1
+7:02:08 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+7:02:08 PM DEBUG: TalonScriptImpl: TalonPaintSchemeReport:
+>PrimaryColor=Red
+>SecondaryColor=Red
+7:02:08 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+7:02:08 PM DEBUG: TalonObjectBuilderUtil: Building: TalonConstructionReport: 
+>TalonIdentificationReport:
+>TalonFactionIdEnum: CreativeFaction2
+>TalonPhalanxIdEnum: PhalanxSouthEast
+>talonPhalanxIndex: 0
+>TalonIdEnum: CreativeName1
+>TalonPaintSchemeReport:
+>PrimaryColor=Red
+>SecondaryColor=Red
+>weaponIdList=[CreativeName1]
+7:02:08 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Talons/TalonCreativeName1
+7:02:08 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Talons/TalonCreativeName1
+7:02:08 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+7:02:08 PM DEBUG: TalonScriptImpl: TalonPaintSchemeReport:
+>PrimaryColor=Red
+>SecondaryColor=Red
+7:02:08 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+7:02:08 PM DEBUG: TalonObjectBuilderUtil: Building: TalonConstructionReport: 
+>TalonIdentificationReport:
+>TalonFactionIdEnum: CreativeFaction1
+>TalonPhalanxIdEnum: PhalanxNorthWest
+>talonPhalanxIndex: 0
+>TalonIdEnum: CreativeName1
+>TalonPaintSchemeReport:
+>PrimaryColor=Black
+>SecondaryColor=Black
+>weaponIdList=[CreativeName1]
+7:02:08 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Talons/TalonCreativeName1
+7:02:08 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Talons/TalonCreativeName1
+7:02:08 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+7:02:08 PM DEBUG: TalonScriptImpl: TalonPaintSchemeReport:
+>PrimaryColor=Black
+>SecondaryColor=Black
+7:02:08 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+7:02:08 PM DEBUG: TalonObjectBuilderUtil: Building: TalonConstructionReport: 
+>TalonIdentificationReport:
+>TalonFactionIdEnum: CreativeFaction1
+>TalonPhalanxIdEnum: PhalanxSouthWest
+>talonPhalanxIndex: 0
+>TalonIdEnum: CreativeName1
+>TalonPaintSchemeReport:
+>PrimaryColor=Black
+>SecondaryColor=Black
+>weaponIdList=[CreativeName1]
+7:02:08 PM DEBUG: SpawnerUtil: Spawning: Path=Models/Talons/TalonCreativeName1
+7:02:08 PM DEBUG: SpawnerUtilScript: Spawning: GameObject with Path=Models/Talons/TalonCreativeName1
+7:02:08 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+7:02:08 PM DEBUG: TalonScriptImpl: TalonPaintSchemeReport:
+>PrimaryColor=Black
+>SecondaryColor=Black
+7:02:08 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+7:02:08 PM DEBUG: MvcModelObjectImpl: TalonPhalanxIdEnum=PhalanxNorthEast
+7:02:08 PM DEBUG: MvcModelObjectImpl: TalonIdentificationReport=TalonIdentificationReport:
+>TalonFactionIdEnum: CreativeFaction2
+>TalonPhalanxIdEnum: PhalanxNorthEast
+>talonPhalanxIndex: 0
+>TalonIdEnum: CreativeName1. Setting CubeCoordinates
+7:02:08 PM DEBUG: TalonSpawnCubeCoordinatesUtil: Getting Spawn for: TeamId: PhalanxNorthEast, TeamIdMechCount: 1, MechTeamIndex: 0, MapRadius: 2, centerIndexDifference: 0
+7:02:08 PM DEBUG: TalonSpawnCubeCoordinatesUtil: xCoordinate: 2, yCoordinate: 0, zCoordinate: -2
+7:02:08 PM DEBUG: MvcModelObjectImpl: TalonPhalanxIdEnum=PhalanxSouthEast
+7:02:08 PM DEBUG: MvcModelObjectImpl: TalonIdentificationReport=TalonIdentificationReport:
+>TalonFactionIdEnum: CreativeFaction2
+>TalonPhalanxIdEnum: PhalanxSouthEast
+>talonPhalanxIndex: 0
+>TalonIdEnum: CreativeName1. Setting CubeCoordinates
+7:02:08 PM DEBUG: TalonSpawnCubeCoordinatesUtil: Getting Spawn for: TeamId: PhalanxSouthEast, TeamIdMechCount: 1, MechTeamIndex: 0, MapRadius: 2, centerIndexDifference: 0
+7:02:08 PM DEBUG: TalonSpawnCubeCoordinatesUtil: xCoordinate: -2, yCoordinate: 2, zCoordinate: 0
+7:02:08 PM DEBUG: MvcModelObjectImpl: TalonPhalanxIdEnum=PhalanxNorthWest
+7:02:08 PM DEBUG: MvcModelObjectImpl: TalonIdentificationReport=TalonIdentificationReport:
+>TalonFactionIdEnum: CreativeFaction1
+>TalonPhalanxIdEnum: PhalanxNorthWest
+>talonPhalanxIndex: 0
+>TalonIdEnum: CreativeName1. Setting CubeCoordinates
+7:02:08 PM DEBUG: TalonSpawnCubeCoordinatesUtil: Getting Spawn for: TeamId: PhalanxNorthWest, TeamIdMechCount: 1, MechTeamIndex: 0, MapRadius: 2, centerIndexDifference: 0
+7:02:08 PM DEBUG: TalonSpawnCubeCoordinatesUtil: xCoordinate: 2, yCoordinate: -2, zCoordinate: 0
+7:02:08 PM DEBUG: MvcModelObjectImpl: TalonPhalanxIdEnum=PhalanxSouthWest
+7:02:08 PM DEBUG: MvcModelObjectImpl: TalonIdentificationReport=TalonIdentificationReport:
+>TalonFactionIdEnum: CreativeFaction1
+>TalonPhalanxIdEnum: PhalanxSouthWest
+>talonPhalanxIndex: 0
+>TalonIdEnum: CreativeName1. Setting CubeCoordinates
+7:02:08 PM DEBUG: TalonSpawnCubeCoordinatesUtil: Getting Spawn for: TeamId: PhalanxSouthWest, TeamIdMechCount: 1, MechTeamIndex: 0, MapRadius: 2, centerIndexDifference: 0
+7:02:08 PM DEBUG: TalonSpawnCubeCoordinatesUtil: xCoordinate: -2, yCoordinate: 0, zCoordinate: 2
+7:02:08 PM INFO: MvcFrameworkObjectImpl: Setting: MvcViewObject=MvcViewObjectImpl
+7:02:08 PM INFO: MvcViewObjectImpl: Initializing Object: MvcViewObjectImpl
+7:02:08 PM INFO: MvcViewObjectImpl: Setting Object: MvcFrameworkObject

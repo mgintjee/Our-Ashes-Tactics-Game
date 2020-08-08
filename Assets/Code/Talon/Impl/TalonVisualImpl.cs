@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 /// <summary>
 /// Talon Visual Impl
@@ -8,8 +9,8 @@ public class TalonVisualImpl
 {
     #region Private Fields
 
-    private TalonObject talonObject = null;
-    private TalonPaintSchemeReport talonPaintSchemeReport = null;
+    private readonly TalonConstructionReport talonConstructionReport = null;
+    private readonly TalonObject talonObject = null;
 
     #endregion Private Fields
 
@@ -21,8 +22,8 @@ public class TalonVisualImpl
             talonConstructionReport != null)
         {
             this.talonObject = talonObject;
-            this.talonPaintSchemeReport = talonConstructionReport.GetTalonPaintSchemeReport();
-            this.ApplyTalonPaintSchemeReport(this.talonPaintSchemeReport);
+            this.talonConstructionReport = talonConstructionReport;
+            this.ApplyTalonPaintSchemeReport(this.talonConstructionReport.GetTalonPaintSchemeReport());
         }
         else
         {
@@ -51,6 +52,59 @@ public class TalonVisualImpl
         {
             throw new ArgumentException("Unable to ApplyTalonPaintSchemeReport. Invalid Parameters." +
                 "\n>" + typeof(HexTileTypeEnum) + " is invalid");
+        }
+    }
+
+    public override void SetCubeCoordinates(CubeCoordinates cubeCoordinates)
+    {
+        if (cubeCoordinates != null)
+        {
+            HexTileObject hexTileObject = HexTileObjectFinderUtil.FindHexTileObjectFrom(cubeCoordinates);
+            if (hexTileObject != null)
+            {
+                Vector3 hexTileWorldPosition = hexTileObject.GetHexTileScript().GetGameObject().transform.position;
+                hexTileWorldPosition.y = 0;
+                this.talonObject.GetTalonScript().GetGameObject().transform.position = hexTileWorldPosition;
+
+                int angle = 90;
+                switch (this.talonConstructionReport.GetTalonIdentificationReport().GetTalonPhalanxId())
+                {
+                    case TalonPhalanxIdEnum.PhalanxEast:
+                        angle = 0;
+                        break;
+
+                    case TalonPhalanxIdEnum.PhalanxSouthEast:
+                        angle = 60;
+                        break;
+
+                    case TalonPhalanxIdEnum.PhalanxSouthWest:
+                        angle = 120;
+                        break;
+
+                    case TalonPhalanxIdEnum.PhalanxWest:
+                        angle = 180;
+                        break;
+
+                    case TalonPhalanxIdEnum.PhalanxNorthWest:
+                        angle = 240;
+                        break;
+
+                    case TalonPhalanxIdEnum.PhalanxNorthEast:
+                        angle = 300;
+                        break;
+                }
+                this.talonObject.GetTalonScript().GetGameObject().transform.localEulerAngles = new Vector3(0, angle, 0);
+            }
+            else
+            {
+                throw new ArgumentException("Unable to SetCubeCoordinates" +
+                    "\n>" + typeof(HexTileObject) + " is null");
+            }
+        }
+        else
+        {
+            throw new ArgumentException("Unable to SetCubeCoordinates" +
+                "\n>" + typeof(CubeCoordinates) + " is null");
         }
     }
 

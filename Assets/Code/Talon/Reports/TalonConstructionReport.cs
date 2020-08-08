@@ -43,6 +43,14 @@ public class TalonConstructionReport
         return new List<WeaponIdEnum>(this.weaponIdList);
     }
 
+    public override string ToString()
+    {
+        return this.GetType() + ": " +
+            "\n>" + this.GetTalonIdentificationReport() +
+            "\n>" + this.GetTalonPaintSchemeReport() +
+            "\n>weaponIdList=[" + string.Join(",", this.GetWeaponIdList()) + "]";
+    }
+
     #endregion Public Methods
 
     #region Public Classes

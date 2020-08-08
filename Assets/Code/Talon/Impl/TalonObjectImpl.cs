@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 /// <summary>
@@ -42,6 +43,11 @@ public class TalonObjectImpl
 
     #region Public Methods
 
+    public override CubeCoordinates GetCubeCoordinates()
+    {
+        return this.talonBehavior.GetCubeCoordinates();
+    }
+
     public override TalonInformationReport GetCurrentTalonInformationReport()
     {
         return new TalonInformationReport.Builder()
@@ -58,23 +64,19 @@ public class TalonObjectImpl
             .Build();
     }
 
+    public override HashSet<TalonActionOrderReport> GetPossibleTalonActionOrderReportSet()
+    {
+        return this.talonBehavior.GetPossibleTalonActionOrderReportSet();
+    }
+
+    public override TalonCombatOrderReport GetTalonCombatOrderReport(PathObjectFire pathObjectFire)
+    {
+        return this.talonBehavior.GetTalonCombatOrderReport(pathObjectFire);
+    }
+
     public override TalonScript GetTalonScript()
     {
         return this.talonScript;
-    }
-
-    public override void SetCubeCoordinates(CubeCoordinates cubeCoordinates)
-    {
-        if(cubeCoordinates != null)
-        {
-            this.talonBehavior.SetCubeCoordinates(cubeCoordinates);
-        }
-        else
-        {
-            throw new ArgumentException("Unable to SetCubeCoordinates" +
-                "\n>" + typeof(CubeCoordinates) + " is null: " + (cubeCoordinates == null));
-
-        }
     }
 
     public override void Initialize()
@@ -84,7 +86,7 @@ public class TalonObjectImpl
             TalonIdentificationReport talonIdentificationReport = this.GetTalonIdentificationReport();
             if (talonIdentificationReport != null)
             {
-                this.talonBehavior = new TalonBehaviorImpl(talonIdentificationReport.GetTalonId());
+                this.talonBehavior = new TalonBehaviorImpl(talonIdentificationReport);
                 this.talonVisual = new TalonVisualImpl(this, this.talonConstructionReport);
             }
             else
@@ -99,10 +101,34 @@ public class TalonObjectImpl
         }
     }
 
+    public override TalonActionResultReport InputTalonActionOrderReport(TalonActionOrderReport talonActionOrder)
+    {
+        return this.talonBehavior.InputTalonActionOrderReport(talonActionOrder);
+    }
+
+    public override TalonCombatResultReport InputTalonCombatOrderReport(TalonCombatOrderReport talonCombatOrderReport)
+    {
+        return this.talonBehavior.InputTalonCombatOrderReport(talonCombatOrderReport);
+    }
+
     public override bool IsInitialized()
     {
         return this.talonBehavior != null &&
             this.talonVisual != null;
+    }
+
+    public override void SetCubeCoordinates(CubeCoordinates cubeCoordinates)
+    {
+        if (cubeCoordinates != null)
+        {
+            this.talonBehavior.SetCubeCoordinates(cubeCoordinates);
+            this.talonVisual.SetCubeCoordinates(cubeCoordinates);
+        }
+        else
+        {
+            throw new ArgumentException("Unable to SetCubeCoordinates" +
+                "\n>" + typeof(CubeCoordinates) + " is null");
+        }
     }
 
     #endregion Public Methods
