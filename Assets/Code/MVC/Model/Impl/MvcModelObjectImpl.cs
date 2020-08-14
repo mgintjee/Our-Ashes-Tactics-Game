@@ -36,6 +36,9 @@ public class MvcModelObjectImpl
     private Dictionary<TalonFactionIdEnum, HashSet<TalonPhalanxIdEnum>> talonFactionIdPhalanxIdDictionary;
 
     // Todo
+    private Dictionary<TalonIdentificationReport, TalonInformationReport> talonIdentificationInformationDictionary;
+
+    // Todo
     private Dictionary<TalonIdentificationReport, TalonObject> talonIdentificationReportObjectDictionary;
 
     // Determines the order of the talons
@@ -60,7 +63,7 @@ public class MvcModelObjectImpl
         else
         {
             throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                "\n>" + typeof(MvcModelScript) + " is null: " + (mvcModelScript == null));
+                "\n\t>" + typeof(MvcModelScript) + " is null: " + (mvcModelScript == null));
         }
     }
 
@@ -75,17 +78,20 @@ public class MvcModelObjectImpl
 
     public override TalonInformationReport GetCurrentTalonInformationReport()
     {
-        if (this.talonObjectOrderList == null)
-        {
-            return null;
-        }
-        if (this.talonObjectOrderList.Count < 1)
+        TalonInformationReport talonInformationReport = null;
+        if (this.talonObjectOrderList == null ||
+                this.talonObjectOrderList.Count < 1)
         {
             this.talonObjectOrderList = this.GenerateTalonObjectTurnList();
         }
-        return (this.talonObjectOrderList.Count > 0)
-            ? this.talonObjectOrderList[0].GetCurrentTalonInformationReport()
-            : null;
+
+        if (this.talonObjectOrderList.Count > 0)
+        {
+            TalonIdentificationReport talonIdentificationReport = this.talonObjectOrderList[0].GetTalonIdentificationReport();
+            talonInformationReport = this.GetTalonInformationReport(talonIdentificationReport);
+        }
+
+        return talonInformationReport;
     }
 
     public override MvcModelScript GetMvcModelScript()
@@ -95,12 +101,16 @@ public class MvcModelObjectImpl
 
     public override TalonInformationReport GetTalonInformationReport(TalonIdentificationReport talonIdentificationReport)
     {
-        TalonInformationReport talonInformationReport = null;
-        if (this.talonIdentificationReportObjectDictionary.ContainsKey(talonIdentificationReport))
+        if (!this.talonIdentificationInformationDictionary.ContainsKey(talonIdentificationReport) &&
+            this.talonIdentificationReportObjectDictionary.ContainsKey(talonIdentificationReport))
         {
-            talonInformationReport = this.talonIdentificationReportObjectDictionary[talonIdentificationReport].GetCurrentTalonInformationReport();
+            TalonObject talonObject = this.talonIdentificationReportObjectDictionary[talonIdentificationReport];
+            this.talonIdentificationInformationDictionary.Add(talonIdentificationReport, talonObject.GetCurrentTalonInformationReport());
         }
-        return talonInformationReport;
+
+        return (this.talonIdentificationInformationDictionary.ContainsKey(talonIdentificationReport))
+            ? this.talonIdentificationInformationDictionary[talonIdentificationReport]
+            : null;
     }
 
     public override void Initialize(MvcFrameworkObject mvcFrameworkObject, MvcInitializationReport mvcInitializationReport)
@@ -122,8 +132,8 @@ public class MvcModelObjectImpl
             else
             {
                 throw new ArgumentException("Unable to initialize ?" + this.GetType() + ". Invalid Parameters." +
-                    "\n>" + typeof(MvcFrameworkObject) + " is null: " + (mvcFrameworkObject == null) +
-                    "\n>" + typeof(MvcInitializationReport) + " is null: " + (mvcInitializationReport == null));
+                    "\n\t>" + typeof(MvcFrameworkObject) + " is null: " + (mvcFrameworkObject == null) +
+                    "\n\t>" + typeof(MvcInitializationReport) + " is null: " + (mvcInitializationReport == null));
             }
         }
         else
@@ -152,6 +162,8 @@ public class MvcModelObjectImpl
                     if (talonActionOrderReport.GetTalonActionType().Equals(TalonActionTypeEnum.Fire))
                     {
                         TalonCombatOrderReport talonCombatOrderReport = actingTalonObject.GetTalonCombatOrderReport((PathObjectFire)talonActionOrderReport.GetPathObject());
+
+                        logger.Info("Phase: ? Action:?) Inputting ?=?", this.counterPhase, this.counterAction, typeof(TalonCombatOrderReport), talonCombatOrderReport);
                         TalonIdentificationReport targetTalonIdentificationReport = talonActionOrderReport.GetTargetTalonIdentificationReport();
                         if (targetTalonIdentificationReport != null &&
                                 this.talonIdentificationReportObjectDictionary.ContainsKey(targetTalonIdentificationReport))
@@ -183,6 +195,8 @@ public class MvcModelObjectImpl
                         this.talonObjectOrderList.Remove(actingTalonObject);
                     }
 
+                    this.talonIdentificationInformationDictionary.Remove(actingTalonIdentificationReport);
+
                     this.processingActionReport = false;
                     this.counterAction++;
 
@@ -196,19 +210,19 @@ public class MvcModelObjectImpl
                 else
                 {
                     throw new ArgumentException("Unable to InputTalonActionOrderReport. Invalid Parameters." +
-                        "\n>" + typeof(TalonObject) + " is null");
+                        "\n\t>" + typeof(TalonObject) + " is null");
                 }
             }
             else
             {
                 throw new ArgumentException("Unable to InputTalonActionOrderReport. Invalid Parameters." +
-                    "\n>" + typeof(TalonIdentificationReport) + " is null");
+                    "\n\t>" + typeof(TalonIdentificationReport) + " is null");
             }
         }
         else
         {
             throw new ArgumentException("Unable to InputTalonActionOrderReport. Invalid Parameters." +
-                "\n>" + typeof(TalonActionOrderReport) + " is null");
+                "\n\t>" + typeof(TalonActionOrderReport) + " is null");
         }
     }
 
@@ -237,10 +251,9 @@ public class MvcModelObjectImpl
         // Check that parameters are non-null
         if (talonObject != null)
         {
-            TalonInformationReport talonInformationReport = talonObject.GetCurrentTalonInformationReport();
-            if (talonInformationReport != null)
+            TalonIdentificationReport talonIdentificationReport = talonObject.GetTalonIdentificationReport();
+            if (talonIdentificationReport != null)
             {
-                TalonIdentificationReport talonIdentificationReport = talonInformationReport.GetTalonIdentificationReport();
                 if (!this.talonIdentificationReportObjectDictionary.ContainsKey(talonIdentificationReport))
                 {
                     this.talonIdentificationReportObjectDictionary.Add(talonIdentificationReport, talonObject);
@@ -301,7 +314,7 @@ public class MvcModelObjectImpl
             }
             else
             {
-                logger.Error("Unable to add ?. ? is null.", typeof(TalonObject), typeof(TalonInformationReport));
+                logger.Error("Unable to add ?. ? is null.", typeof(TalonObject), typeof(TalonIdentificationReport)); ;
             }
         }
         else
@@ -342,7 +355,7 @@ public class MvcModelObjectImpl
         else
         {
             throw new ArgumentException("Unable to CollectFactionIdTalonCount. Invalid Parameters." +
-                "\n>" + typeof(TalonFactionIdEnum) + " is not valid");
+                "\n\t>" + typeof(TalonFactionIdEnum) + " is not valid");
         }
     }
 
@@ -389,13 +402,19 @@ public class MvcModelObjectImpl
 
     private List<TalonObject> GenerateTalonObjectTurnList()
     {
-        this.counterPhase++;
         List<TalonObject> talonObjectOrderList = (this.talonIdentificationReportObjectDictionary != null)
             ? new List<TalonObject>(this.talonIdentificationReportObjectDictionary.Values)
             : new List<TalonObject>();
-
         talonObjectOrderList.Sort(new OrderPointComparer());
+        logger.Info("? Order List= [?]", string.Join(",", talonObjectOrderList));
 
+        this.talonIdentificationInformationDictionary = new Dictionary<TalonIdentificationReport, TalonInformationReport>();
+        foreach (TalonObject talonObject in talonObjectOrderList)
+        {
+            this.talonIdentificationInformationDictionary.Add(talonObject.GetTalonIdentificationReport(),
+                talonObject.GetCurrentTalonInformationReport());
+        }
+        this.counterPhase++;
         return talonObjectOrderList;
     }
 

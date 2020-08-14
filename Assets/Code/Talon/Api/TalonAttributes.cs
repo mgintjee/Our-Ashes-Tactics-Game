@@ -133,7 +133,7 @@ public class TalonAttributes
             else
             {
                 throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                    string.Join("\n>", invalidReasons));
+                    string.Join("\n\t>", invalidReasons));
             }
         }
 

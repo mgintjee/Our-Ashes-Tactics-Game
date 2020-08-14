@@ -6,11 +6,6 @@ public abstract class MvcFrameworkScript
 {
     #region Public Methods
 
-    public void FixedUpdate()
-    {
-        this.OnUpdate();
-    }
-
     public abstract MvcControllerScript GetMvcControllerScript();
 
     public abstract MvcFrameworkObject GetMvcFrameworkObject();
@@ -28,10 +23,4 @@ public abstract class MvcFrameworkScript
     public abstract void ResetMvcFramework();
 
     #endregion Public Methods
-
-    #region Protected Methods
-
-    protected abstract void OnUpdate();
-
-    #endregion Protected Methods
 }

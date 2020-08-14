@@ -213,7 +213,6 @@ public class Logger
         {
             UnityEngine.Debug.Log(message);
         }
-        LoggerUtil.WriteToLogFile(message);
     }
 
     /// <summary>

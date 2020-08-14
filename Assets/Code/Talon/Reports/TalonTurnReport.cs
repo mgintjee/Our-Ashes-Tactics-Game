@@ -52,10 +52,10 @@ public class TalonTurnReport
     public override string ToString()
     {
         return this.GetType() + ": " +
-            "\n>phaseCounter=" + this.GetPhaseCounter() +
-            "\n>actionCounter=" + this.GetActionCounter() +
-            "\n>" + this.GetTalonActionResultReport() +
-            "\n>" + this.GetTalonCombatResultReport();
+            "\n\t>phaseCounter=" + this.GetPhaseCounter() +
+            "\n\t>actionCounter=" + this.GetActionCounter() +
+            "\n\t>" + this.GetTalonActionResultReport() +
+            "\n\t>" + this.GetTalonCombatResultReport();
     }
 
     #endregion Public Methods
@@ -87,7 +87,7 @@ public class TalonTurnReport
             else
             {
                 throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                    string.Join("\n>", invalidReasons));
+                    string.Join("\n\t>", invalidReasons));
             }
         }
 

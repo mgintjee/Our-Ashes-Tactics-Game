@@ -45,9 +45,9 @@ public class HexTileConstructionReport
     public override string ToString()
     {
         return this.GetType() + ":" +
-            "\n>" + typeof(CubeCoordinates) + "=" + this.GetCubeCoordinates() +
-            "\n>" + typeof(HexTileTypeEnum) + "=" + this.GetHexTileType() +
-            "\n>neighborCubeCoordinatesSet=[" + string.Join(",", this.GetNeighborCubeCoordinatesSet()) + "]";
+            "\n\t>" + typeof(CubeCoordinates) + "=" + this.GetCubeCoordinates() +
+            "\n\t>" + typeof(HexTileTypeEnum) + "=" + this.GetHexTileType() +
+            "\n\t>neighborCubeCoordinatesSet=[" + string.Join(",", this.GetNeighborCubeCoordinatesSet()) + "]";
     }
 
     #endregion Public Methods
@@ -78,7 +78,7 @@ public class HexTileConstructionReport
             else
             {
                 throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                    string.Join("\n>", invalidReasons));
+                    string.Join("\n\t>", invalidReasons));
             }
         }
 

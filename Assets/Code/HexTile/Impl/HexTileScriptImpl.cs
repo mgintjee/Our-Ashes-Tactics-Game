@@ -41,7 +41,7 @@ public class HexTileScriptImpl
             else
             {
                 throw new ArgumentException("Unable to initialize " + this.GetType() + ". Invalid Parameters." +
-                    "\n>" + typeof(HexTileConstructionReport) + "=" + hexTileConstructionReport);
+                    "\n\t>" + typeof(HexTileConstructionReport) + "=" + hexTileConstructionReport);
             }
         }
         else

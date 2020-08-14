@@ -1,0 +1,124 @@
+2:39:54 PM INFO: MvcFrameworkScriptImpl: Initializing: MvcFrameworkScriptImpl
+2:39:54 PM INFO: MvcFrameworkObjectImpl: Contructing: MvcFrameworkObjectImpl
+2:39:54 PM INFO: MvcFrameworkScriptImpl: Building: MvcControllerScript
+2:39:54 PM INFO: MvcFrameworkScriptImpl: Building: MvcModelScript
+2:39:54 PM INFO: MvcFrameworkScriptImpl: Building: MvcViewScript
+2:39:54 PM INFO: MvcControllerScriptImpl: Initializing: MvcControllerScriptImpl
+2:39:54 PM INFO: MvcControllerScriptImpl: Setting: MvcFrameworkScript
+2:39:54 PM INFO: MvcControllerObjectImpl: Contructing: MvcControllerObjectImpl
+2:39:54 PM INFO: MvcControllerObjectImpl: Setting: MvcControllerScript=mvcControllerGameObject (MvcControllerScriptImpl)
+2:39:54 PM INFO: MvcModelScriptImpl: Initializing: MvcModelScriptImpl
+2:39:54 PM INFO: MvcModelScriptImpl: Setting: MvcFrameworkScript
+2:39:54 PM INFO: MvcModelScriptImpl: Building: MapScript
+2:39:54 PM INFO: MapScriptImpl: Initializing: MapScriptImpl.
+2:39:54 PM INFO: MapObjectImpl: Contructing Object: MapObjectImpl
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:54 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:54 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:55 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:55 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:39:55 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:39:55 PM INFO: MvcModelObjectImpl: Contructing: MvcModelObjectImpl
+2:39:55 PM INFO: MvcModelObjectImpl: Setting: MvcModelScript=mvcModelGameObject (MvcModelScriptImpl)
+2:39:55 PM INFO: MvcViewScriptImpl: Initializing Script: MvcViewScriptImpl
+2:39:55 PM INFO: MvcViewScriptImpl: Setting Script: MvcFrameworkScript
+2:39:55 PM INFO: MvcViewObjectImpl: Contructing Object: MvcViewObjectImpl
+2:39:55 PM INFO: MvcViewObjectImpl: Setting Script: MvcViewScript=mvcViewGameObject (MvcViewScriptImpl)
+2:39:55 PM INFO: MvcFrameworkObjectImpl: Initializing: MvcFrameworkObjectImpl
+2:39:55 PM INFO: MvcFrameworkObjectImpl: Setting: MvcControllerObject=MvcControllerObjectImpl
+2:39:55 PM INFO: MvcControllerObjectImpl: Initializing: MvcControllerObjectImpl
+2:39:55 PM INFO: MvcControllerObjectImpl: Setting: MvcFrameworkObject
+2:39:55 PM INFO: MvcFrameworkObjectImpl: Setting: MvcModelObject=MvcModelObjectImpl
+2:39:55 PM INFO: MvcModelObjectImpl: Initializing: MvcModelObjectImpl
+2:39:55 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+2:39:55 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+2:39:55 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+2:39:55 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+2:39:55 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+2:39:55 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+2:39:55 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+2:39:55 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+2:39:55 PM INFO: MvcFrameworkObjectImpl: Setting: MvcViewObject=MvcViewObjectImpl
+2:39:55 PM INFO: MvcViewObjectImpl: Initializing Object: MvcViewObjectImpl
+2:39:55 PM INFO: MvcViewObjectImpl: Setting Object: MvcFrameworkObject
+2:39:55 PM INFO: MvcFrameworkScriptImpl: Starting new game.
+2:39:56 PM INFO: MvcModelObjectImpl: TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl Order List= []
+2:39:56 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:40:00 PM INFO: MvcModelObjectImpl: Phase: 1 Action:0) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(3,0,-3), (2,1,-3), (1,1,-2), (0,1,-1), (-1,1,0), (-2,1,1)]
+2:40:00 PM INFO: MvcFrameworkScriptImpl: Continue Game=True

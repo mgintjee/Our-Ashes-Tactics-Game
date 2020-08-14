@@ -1,68 +1,79 @@
-﻿/// <summary>
+﻿using System;
+using System.Diagnostics;
+
+/// <summary>
+/// Weapon Object Impl
 /// </summary>
 public class WeaponObjectImpl
     : WeaponObject
 {
     #region Private Fields
 
-    // Todo
-    private readonly WeaponBehavior weaponBehavior;
+    // Provide logging capability
+    private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
-    // Todo
-    private readonly WeaponIdEnum weaponId;
-
-    // Todo
-    private readonly WeaponScript weaponScript;
-
-    // Todo
-    private readonly WeaponVisual weaponVisual;
+    private readonly WeaponIdEnum weaponId = WeaponIdEnum.NULL;
+    private readonly WeaponScript weaponScript = null;
+    private WeaponBehavior weaponBehavior = null;
+    private WeaponBehavior weaponVisual = null;
 
     #endregion Private Fields
 
     #region Public Constructors
 
-    public WeaponObjectImpl(WeaponScript weaponScript, WeaponConstructionReport weaponConstructionReport)
+    public WeaponObjectImpl(WeaponScript weaponScript, WeaponIdEnum weaponId)
     {
-        this.weaponId = weaponConstructionReport.GetWeaponId();
-        this.weaponScript = weaponScript;
-        this.weaponBehavior = new WeaponBehaviorImpl(this.GetWeaponId());
-        this.weaponVisual = new WeaponVisualImpl(this.weaponScript, weaponConstructionReport);
+        if (weaponScript != null &&
+            weaponId != WeaponIdEnum.NULL)
+        {
+            logger.Info("Constructing: ?.", this.GetType());
+            this.weaponScript = weaponScript;
+            this.weaponId = weaponId;
+        }
+        else
+        {
+            throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
+                "\n\t>" + typeof(WeaponScript) + " is null: " + (weaponScript == null) +
+                "\n\t>" + typeof(WeaponIdEnum) + " is null: " + (weaponId == WeaponIdEnum.NULL));
+        }
     }
 
     #endregion Public Constructors
 
     #region Public Methods
 
-    /// <summary>
-    /// </summary>
-    /// <returns></returns>
-    public override WeaponBehavior GetWeaponBehavior()
+    public override WeaponCombatOrderReport GenerateWeaponCombatOrderReport(int accuracyPenalty, int targetRange)
     {
-        return this.weaponBehavior;
+        return this.weaponBehavior.GenerateWeaponReport(accuracyPenalty, targetRange);
     }
 
-    /// <summary>
-    /// </summary>
-    /// <returns></returns>
     public override WeaponIdEnum GetWeaponId()
     {
         return this.weaponId;
     }
 
-    /// <summary>
-    /// </summary>
-    /// <returns></returns>
     public override WeaponScript GetWeaponScript()
     {
         return this.weaponScript;
     }
 
-    /// <summary>
-    /// </summary>
-    /// <returns></returns>
-    public override WeaponVisual GetWeaponVisual()
+    public override void Initialize()
     {
-        return this.weaponVisual;
+        if (!this.IsInitialized())
+        {
+            this.weaponBehavior = new WeaponBehaviorImpl(this.weaponId);
+            //this.talonVisual = new TalonVisualImpl(this, this.talonConstructionReport);
+        }
+        else
+        {
+            logger.Warn("Unable to Initialize: ?. Already initialized.", this.GetType());
+        }
+    }
+
+    public override bool IsInitialized()
+    {
+        return this.weaponBehavior != null &&
+            this.weaponVisual != null;
     }
 
     #endregion Public Methods

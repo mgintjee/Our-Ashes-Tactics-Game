@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 /// <summary>
@@ -16,6 +17,7 @@ public class MvcControllerObjectImpl
     private TalonActionOrderReport actionReportToOutput = null;
     private bool determiningActionReport = false;
     private MvcFrameworkObject mvcFrameworkObject;
+    private Dictionary<TalonPhalanxIdEnum, TalonControllerIdEnum> talonPhalanxIdControllerIdDictionary;
 
     #endregion Private Fields
 
@@ -34,7 +36,7 @@ public class MvcControllerObjectImpl
         {
             throw new ArgumentException("Unable to construct " +
                 this.GetType() + ". Invalid Parameters." +
-                "\n>mvcControllerScript is null: " + (mvcControllerScript == null));
+                "\n\t>mvcControllerScript is null: " + (mvcControllerScript == null));
         }
     }
 
@@ -42,23 +44,27 @@ public class MvcControllerObjectImpl
 
     #region Public Methods
 
-    public override void DetermineActionReport(TalonControllerTypeEnum controllerType, TalonObject talonObject)
+    public override void BeginDecisionProcess(TalonInformationReport talonInformationReport)
     {
         this.determiningActionReport = true;
-
-        switch (controllerType)
+        TalonPhalanxIdEnum talonPhalanxId = talonInformationReport.GetTalonIdentificationReport().GetTalonPhalanxId();
+        TalonControllerIdEnum talonControllerId = this.talonPhalanxIdControllerIdDictionary[talonPhalanxId];
+        logger.Debug("Using ?=? to determine action!", typeof(TalonControllerIdEnum), talonControllerId);
+        switch (talonControllerId)
         {
-            case TalonControllerTypeEnum.Human:
-                logger.Debug("Waiting on HUMAN!!!");
-                break;
-
-            case TalonControllerTypeEnum.Robot:
-                //this.actionReportToOutput = ArtificialIntelligence.DetermineBestAction(talonObject.GetMechActionReportSet());
+            //Todo: Have a map of TalonControllerId to ArtificalIntelligenceImpl if AI controlled, Null if human?
+            case TalonControllerIdEnum.Controller1:
+            case TalonControllerIdEnum.Controller2:
+            case TalonControllerIdEnum.Controller3:
+            case TalonControllerIdEnum.Controller4:
+            case TalonControllerIdEnum.Controller5:
+            case TalonControllerIdEnum.Controller6:
+                this.actionReportToOutput = ArtificialIntelligence.DetermineBestAction(talonInformationReport.GetPossibleTalonActionOrderReportSet());
                 this.determiningActionReport = false;
                 break;
 
             default:
-                logger.Error("Unable to DetermineActionReport. Invalid ?=?", typeof(TalonControllerTypeEnum), controllerType);
+                logger.Error("Unable to DetermineActionReport. Invalid ?=?", typeof(TalonControllerIdEnum), talonControllerId);
                 break;
         }
     }
@@ -68,15 +74,18 @@ public class MvcControllerObjectImpl
         return this.mvcControllerScript;
     }
 
-    public override void Initialize(MvcFrameworkObject mvcFrameworkObject)
+    public override void Initialize(MvcFrameworkObject mvcFrameworkObject, MvcInitializationReport mvcInitializationReport)
     {
-        if (mvcFrameworkObject != null)
+        if (mvcFrameworkObject != null &&
+            mvcInitializationReport != null)
         {
             logger.Info("Initializing: ?", this.GetType());
             if (!this.IsInitialized())
             {
                 logger.Info("Setting: ?", typeof(MvcFrameworkObject));
                 this.mvcFrameworkObject = mvcFrameworkObject;
+
+                this.talonPhalanxIdControllerIdDictionary = this.BuildTalonPhalanxIdControllerDictionary(mvcInitializationReport);
             }
             else
             {
@@ -112,4 +121,34 @@ public class MvcControllerObjectImpl
     }
 
     #endregion Public Methods
+
+    #region Private Methods
+
+    private Dictionary<TalonPhalanxIdEnum, TalonControllerIdEnum> BuildTalonPhalanxIdControllerDictionary(MvcInitializationReport mvcInitializationReport)
+    {
+        Dictionary<TalonPhalanxIdEnum, TalonControllerIdEnum> talonPhalanxIdControllerIdDictionary = new Dictionary<TalonPhalanxIdEnum, TalonControllerIdEnum>();
+
+        if (mvcInitializationReport != null)
+        {
+            Dictionary<TalonControllerIdEnum, HashSet<TalonPhalanxIdEnum>> talonControllerIdPhalanxIdSetDictionary =
+                mvcInitializationReport.GetTalonControllerIdPhalanxIdSetDictionary();
+            foreach (TalonControllerIdEnum talonControllerId in talonControllerIdPhalanxIdSetDictionary.Keys)
+            {
+                HashSet<TalonPhalanxIdEnum> talonPhalanxIdSet = talonControllerIdPhalanxIdSetDictionary[talonControllerId];
+                foreach (TalonPhalanxIdEnum talonPhalanxId in talonPhalanxIdSet)
+                {
+                    talonPhalanxIdControllerIdDictionary.Add(talonPhalanxId, talonControllerId);
+                }
+            }
+        }
+        else
+        {
+            throw new ArgumentException("Unable to build talonPhalanxIdControllerIdDictionary. Invalid Parameters." +
+                "\n\t>" + typeof(MvcInitializationReport) + " is null");
+        }
+
+        return talonPhalanxIdControllerIdDictionary;
+    }
+
+    #endregion Private Methods
 }

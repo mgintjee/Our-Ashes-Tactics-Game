@@ -46,9 +46,9 @@ public class TalonConstructionReport
     public override string ToString()
     {
         return this.GetType() + ": " +
-            "\n>" + this.GetTalonIdentificationReport() +
-            "\n>" + this.GetTalonPaintSchemeReport() +
-            "\n>weaponIdList=[" + string.Join(",", this.GetWeaponIdList()) + "]";
+            "\n\t>" + this.GetTalonIdentificationReport() +
+            "\n\t>" + this.GetTalonPaintSchemeReport() +
+            "\n\t>weaponIdList=[" + string.Join(",", this.GetWeaponIdList()) + "]";
     }
 
     #endregion Public Methods

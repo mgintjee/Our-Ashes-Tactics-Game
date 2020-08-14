@@ -32,7 +32,7 @@ public class MvcViewObjectImpl
         {
             throw new ArgumentException("Unable to construct " +
                 this.GetType() + ". Invalid Parameters." +
-                "\n>mvcViewScript is null: " + (mvcViewScript == null));
+                "\n\t>mvcViewScript is null: " + (mvcViewScript == null));
         }
     }
 
@@ -64,7 +64,7 @@ public class MvcViewObjectImpl
         {
             throw new ArgumentException("Unable to initialize " +
                 this.GetType() + ". Invalid Parameters." +
-                "\n>mvcFrameworkObject=" + mvcFrameworkObject);
+                "\n\t>mvcFrameworkObject=" + mvcFrameworkObject);
         }
     }
 

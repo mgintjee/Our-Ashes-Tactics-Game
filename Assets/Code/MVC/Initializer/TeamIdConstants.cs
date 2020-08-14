@@ -21,7 +21,7 @@ public static class TeamIdConstants
         {
             throw new ArgumentException("Unable to GetTeamIdSet: " +
                 typeof(SpawnIdEnum) + ". Invalid Parameters." +
-                "\n>teamCount: " + teamCount + " must be 1<teamCount<7");
+                "\n\t>teamCount: " + teamCount + " must be 1<teamCount<7");
         }
 
         HashSet<SpawnIdEnum> teamIdSet = new HashSet<SpawnIdEnum>();
@@ -77,7 +77,7 @@ public static class TeamIdConstants
 
             default:
                 throw new ArgumentException("Unable to GetOppositeTeamId. Invalid Parameters." +
-                    "\n>teamId: " + teamId + " is not valid");
+                    "\n\t>teamId: " + teamId + " is not valid");
         }
         return teamIdToReturn;
     }

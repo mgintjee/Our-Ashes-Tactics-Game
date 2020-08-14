@@ -45,9 +45,9 @@ public class MapInformationReport
     public override string ToString()
     {
         return this.GetType() + ": " +
-            "\n>mapSeed: " + this.GetMapSeed() +
-            ",\n>mapRadius: " + this.GetMapRadius() +
-            ",\n>mapMirrored: " + this.GetMapMirrored();
+            "\n\t>mapSeed: " + this.GetMapSeed() +
+            ",\n\t>mapRadius: " + this.GetMapRadius() +
+            ",\n\t>mapMirrored: " + this.GetMapMirrored();
     }
 
     #endregion Public Methods

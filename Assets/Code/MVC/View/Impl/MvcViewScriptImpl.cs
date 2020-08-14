@@ -45,7 +45,7 @@ public class MvcViewScriptImpl
         {
             throw new ArgumentException("Unable to initialize " +
                 this.GetType() + ". Invalid Parameters." +
-                "\n>mvcFrameworkScript=" + mvcFrameworkScript);
+                "\n\t>mvcFrameworkScript=" + mvcFrameworkScript);
         }
     }
 

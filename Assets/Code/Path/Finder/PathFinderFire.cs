@@ -31,16 +31,21 @@ public class PathFinderFire
         HashSet<CubeCoordinates> validCubeCoordinatesEndSet = new HashSet<CubeCoordinates>();
         foreach (CubeCoordinates cubeCoordinates in allCubeCoordinatesEndSet)
         {
-            HexTileObject tileObject = HexTileObjectFinderUtil.FindHexTileObjectFrom(cubeCoordinates);
-            if (tileObject != null)
+            // Check if the cubeCoordinates is not the starting one
+            if (!this.cubeCoordinatesStart.Equals(cubeCoordinates))
             {
-                HexTileInformationReport hexTileInformationReport = tileObject.GetHexTileInformationReport();
-                if (hexTileInformationReport != null)
+                HexTileObject tileObject = HexTileObjectFinderUtil.FindHexTileObjectFrom(cubeCoordinates);
+                if (tileObject != null)
                 {
-                    TalonIdentificationReport talonIdentificationReport = hexTileInformationReport.GetTalonIdentificationReport();
-                    if (talonIdentificationReport != null)
+                    HexTileInformationReport hexTileInformationReport = tileObject.GetHexTileInformationReport();
+                    if (hexTileInformationReport != null)
                     {
-                        validCubeCoordinatesEndSet.Add(cubeCoordinates);
+                        TalonIdentificationReport talonIdentificationReport = hexTileInformationReport.GetTalonIdentificationReport();
+                        if (talonIdentificationReport != null)
+                        {
+                            logger.Debug("Start=?, ValidEnd=?", this.cubeCoordinatesStart, cubeCoordinates);
+                            validCubeCoordinatesEndSet.Add(cubeCoordinates);
+                        }
                     }
                 }
             }
@@ -49,6 +54,7 @@ public class PathFinderFire
         foreach (CubeCoordinates cubeCoordinates in validCubeCoordinatesEndSet)
         {
             List<CubeCoordinates> straightLinePath = this.PathFindFor(this.cubeCoordinatesStart, cubeCoordinates);
+            logger.Debug("Start=?, End=?, straightLinePath=[?]", this.cubeCoordinatesStart, cubeCoordinates, string.Join(",", straightLinePath));
             this.pathObjectDictionary[cubeCoordinates] = new PathObjectFire(straightLinePath);
         }
     }

@@ -31,7 +31,7 @@ public class HexTileVisualImpl
         else
         {
             throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                "\n>" + typeof(HexTileObject) + " is null: " + (hexTileObject == null));
+                "\n\t>" + typeof(HexTileObject) + " is null: " + (hexTileObject == null));
         }
     }
 

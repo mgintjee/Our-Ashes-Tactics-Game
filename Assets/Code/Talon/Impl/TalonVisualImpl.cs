@@ -10,6 +10,7 @@ public class TalonVisualImpl
     #region Private Fields
 
     private readonly TalonConstructionReport talonConstructionReport = null;
+    private readonly TalonModel talonModel = null;
     private readonly TalonObject talonObject = null;
 
     #endregion Private Fields
@@ -23,13 +24,13 @@ public class TalonVisualImpl
         {
             this.talonObject = talonObject;
             this.talonConstructionReport = talonConstructionReport;
-            this.ApplyTalonPaintSchemeReport(this.talonConstructionReport.GetTalonPaintSchemeReport());
+            this.talonModel = new TalonModelImpl(this.talonObject);
         }
         else
         {
             throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                "\n>" + typeof(TalonObject) + " is null: " + (talonObject == null) +
-                "\n>" + typeof(TalonConstructionReport) + " is null: " + (talonConstructionReport == null));
+                "\n\t>" + typeof(TalonObject) + " is null: " + (talonObject == null) +
+                "\n\t>" + typeof(TalonConstructionReport) + " is null: " + (talonConstructionReport == null));
         }
     }
 
@@ -37,9 +38,27 @@ public class TalonVisualImpl
 
     #region Public Methods
 
-    public override void AddWeapon(WeaponVisual weaponVisual)
+    public override void AddWeaponObject(WeaponObject weaponObject)
     {
-        //throw new System.NotImplementedException();
+        if (weaponObject != null)
+        {
+            GameObject weaponMountGameObject = this.talonModel.GetNextEmptyWeaponMountGameObject();
+            if (weaponMountGameObject != null)
+            {
+                GameObject weaponGameObject = weaponObject.GetWeaponScript().GetGameObject();
+                weaponGameObject.transform.SetParent(weaponMountGameObject.transform);
+            }
+        }
+        else
+        {
+            throw new ArgumentException("Unable to add AddWeaponObject. Invalid Parameters." +
+                "\n\t>" + typeof(WeaponObject) + " is null");
+        }
+    }
+
+    public override void ApplyPaintScheme()
+    {
+        this.ApplyTalonPaintSchemeReport(this.talonConstructionReport.GetTalonPaintSchemeReport());
     }
 
     public override void PaintBase(HexTileTypeEnum hexTileType)
@@ -51,7 +70,7 @@ public class TalonVisualImpl
         else
         {
             throw new ArgumentException("Unable to ApplyTalonPaintSchemeReport. Invalid Parameters." +
-                "\n>" + typeof(HexTileTypeEnum) + " is invalid");
+                "\n\t>" + typeof(HexTileTypeEnum) + " is invalid");
         }
     }
 
@@ -98,13 +117,13 @@ public class TalonVisualImpl
             else
             {
                 throw new ArgumentException("Unable to SetCubeCoordinates" +
-                    "\n>" + typeof(HexTileObject) + " is null");
+                    "\n\t>" + typeof(HexTileObject) + " is null");
             }
         }
         else
         {
             throw new ArgumentException("Unable to SetCubeCoordinates" +
-                "\n>" + typeof(CubeCoordinates) + " is null");
+                "\n\t>" + typeof(CubeCoordinates) + " is null");
         }
     }
 
@@ -126,7 +145,7 @@ public class TalonVisualImpl
         else
         {
             throw new ArgumentException("Unable to ApplyTalonPaintSchemeReport. Invalid Parameters." +
-                "\n>" + typeof(TalonPaintSchemeReport) + " is null: " + (talonPaintSchemeReport == null));
+                "\n\t>" + typeof(TalonPaintSchemeReport) + " is null: " + (talonPaintSchemeReport == null));
         }
     }
 

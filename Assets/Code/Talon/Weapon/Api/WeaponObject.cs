@@ -1,33 +1,21 @@
 ﻿/// <summary>
-/// Todo
+/// Weapon Object Api
 /// </summary>
 public abstract class WeaponObject
 {
     #region Public Methods
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
-    public abstract WeaponBehavior GetWeaponBehavior();
+    public abstract WeaponCombatOrderReport GenerateWeaponCombatOrderReport(int accuracyPenalty, int targetRange);
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
     public abstract WeaponIdEnum GetWeaponId();
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
     public abstract WeaponScript GetWeaponScript();
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
-    public abstract WeaponVisual GetWeaponVisual();
+    public abstract void Initialize();
+
+    public abstract bool IsInitialized();
+
+    public abstract WeaponBehavior GetWeaponBehavior();
 
     #endregion Public Methods
 }

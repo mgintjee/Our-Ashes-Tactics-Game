@@ -42,6 +42,14 @@ public class TalonCombatResultReport
         return new List<WeaponCombatResultReport>(this.weaponCombatResultReportList);
     }
 
+    public override string ToString()
+    {
+        return this.GetType() + ": " +
+            "\n\t>" + this.GetTalonCombatOrderReport() +
+            "\n\t>weaponCombatResultReportList=[" + string.Join(",", this.GetWeaponCombatResultReportList()) + "]" +
+        "\n\t>isTargetDestroyed= " + this.GetIsTargetDestroyed();
+    }
+
     #endregion Public Methods
 
     #region Public Classes
@@ -71,7 +79,7 @@ public class TalonCombatResultReport
             else
             {
                 throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                    string.Join("\n>", invalidReasons));
+                    string.Join("\n\t>", invalidReasons));
             }
         }
 
@@ -123,7 +131,7 @@ public class TalonCombatResultReport
             }
             // Check that weaponCombatResultReportList is valid
             if (this.weaponCombatResultReportList != null &&
-                this.weaponCombatResultReportList.Count < 1)
+                this.weaponCombatResultReportList.Count == 0)
             {
                 argumentExceptionSet.Add("weaponCombatResultReportList is not valid");
             }

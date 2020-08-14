@@ -29,7 +29,7 @@ public class TalonBehaviorDestructableImpl
         else
         {
             throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                "\n>" + typeof(TalonAttributes) + " is null");
+                "\n\t>" + typeof(TalonAttributes) + " is null");
         }
     }
 
@@ -67,7 +67,7 @@ public class TalonBehaviorDestructableImpl
                 weaponCombatResultReportList.Add(this.InputWeaponCombatOrderReport(weaponCombatOrderReport));
             }
             return new TalonCombatResultReport.Builder()
-                .SetIsTargetDestroyed(this.currentArmourPoints > 0)
+                .SetIsTargetDestroyed(this.currentHealthPoints > 0)
                 .SetTalonCombatOrderReport(talonCombatOrderReport)
                 .SetWeaponCombatResultReportList(weaponCombatResultReportList)
                 .Build();
@@ -75,7 +75,7 @@ public class TalonBehaviorDestructableImpl
         else
         {
             throw new ArgumentException("Unable to InputTalonCombatOrderReport. Invalid Parameters." +
-                "\n>" + typeof(TalonCombatOrderReport) + " is null");
+                "\n\t>" + typeof(TalonCombatOrderReport) + " is null");
         }
     }
 
@@ -130,7 +130,7 @@ public class TalonBehaviorDestructableImpl
         else
         {
             throw new ArgumentException("Unable to InputWeaponCombatOrderReport. Invalid Parameters." +
-                "\n>" + typeof(WeaponCombatOrderReport) + " is null");
+                "\n\t>" + typeof(WeaponCombatOrderReport) + " is null");
         }
     }
 

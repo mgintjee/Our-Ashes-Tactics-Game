@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 /// <summary>
@@ -24,7 +25,7 @@ public class TalonScriptImpl
         return this.talonObject;
     }
 
-    public override void Initialize(TalonConstructionReport talonConstructionReport)
+    public override void Initialize(TalonConstructionReport talonConstructionReport, List<WeaponObject> weaponObjectList)
     {
         // Check that this has not already been initialized
         if (!this.IsInitialized())
@@ -38,11 +39,15 @@ public class TalonScriptImpl
                 logger.Debug("?", talonConstructionReport.GetTalonPaintSchemeReport());
                 this.talonObject = new TalonObjectImpl(this, this.talonConstructionReport);
                 this.talonObject.Initialize();
+                foreach(WeaponObject weaponObject in weaponObjectList)
+                {
+                    this.talonObject.AddWeapon(weaponObject);
+                }
             }
             else
             {
                 throw new ArgumentException("Unable to initialize " + this.GetType() + ". Invalid Parameters." +
-                    "\n>" + typeof(TalonConstructionReport) + "=" + talonConstructionReport);
+                    "\n\t>" + typeof(TalonConstructionReport) + " is null.");
             }
         }
         else
@@ -51,15 +56,12 @@ public class TalonScriptImpl
         }
     }
 
-    #endregion Public Methods
 
-    #region Private Methods
-
-    private bool IsInitialized()
+    public override bool IsInitialized()
     {
         return this.talonConstructionReport != null &&
             this.talonObject != null;
     }
 
-    #endregion Private Methods
+    #endregion Public Methods
 }

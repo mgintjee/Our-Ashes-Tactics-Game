@@ -5,7 +5,9 @@ public abstract class TalonVisual
 {
     #region Public Methods
 
-    public abstract void AddWeapon(WeaponVisual weaponVisual);
+    public abstract void AddWeaponObject(WeaponObject weaponObject);
+
+    public abstract void ApplyPaintScheme();
 
     public abstract void PaintBase(HexTileTypeEnum hexTileType);
 

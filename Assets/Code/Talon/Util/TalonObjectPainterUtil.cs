@@ -42,20 +42,20 @@ public class TalonObjectPainterUtil
                 else
                 {
                     throw new ArgumentException("Unable to PaintTalonObject. Invalid Parameters." +
-                        "\n>" + typeof(GameObject) + " is null: " + (talonGameObject == null));
+                        "\n\t>" + typeof(GameObject) + " is null: " + (talonGameObject == null));
                 }
             }
             else
             {
                 throw new ArgumentException("Unable to PaintTalonObject. Invalid Parameters." +
-                    "\n>" + typeof(TalonScript) + " is null: " + (talonScript == null));
+                    "\n\t>" + typeof(TalonScript) + " is null: " + (talonScript == null));
             }
         }
         else
         {
             throw new ArgumentException("Unable to PaintTalonObject. Invalid Parameters." +
-                "\n>" + typeof(TalonObject) + " is null: " + (talonObject == null) +
-                "\n>" + typeof(HexTileTypeEnum) + " is invalid.");
+                "\n\t>" + typeof(TalonObject) + " is null: " + (talonObject == null) +
+                "\n\t>" + typeof(HexTileTypeEnum) + " is invalid.");
         }
     }
 
@@ -88,20 +88,20 @@ public class TalonObjectPainterUtil
                 else
                 {
                     throw new ArgumentException("Unable to PaintTalonObject. Invalid Parameters." +
-                        "\n>" + typeof(GameObject) + " is null: " + (talonGameObject == null));
+                        "\n\t>" + typeof(GameObject) + " is null: " + (talonGameObject == null));
                 }
             }
             else
             {
                 throw new ArgumentException("Unable to PaintTalonObject. Invalid Parameters." +
-                    "\n>" + typeof(TalonScript) + " is null: " + (talonScript == null));
+                    "\n\t>" + typeof(TalonScript) + " is null: " + (talonScript == null));
             }
         }
         else
         {
             throw new ArgumentException("Unable to PaintTalonObject. Invalid Parameters." +
-                "\n>" + typeof(TalonObject) + " is null: " + (talonObject == null) +
-                "\n>" + typeof(TalonPaintSchemeReport) + " is null: " + (talonPaintSchemeReport == null));
+                "\n\t>" + typeof(TalonObject) + " is null: " + (talonObject == null) +
+                "\n\t>" + typeof(TalonPaintSchemeReport) + " is null: " + (talonPaintSchemeReport == null));
         }
     }
 

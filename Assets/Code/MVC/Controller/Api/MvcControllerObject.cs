@@ -5,11 +5,11 @@ public abstract class MvcControllerObject
 {
     #region Public Methods
 
-    public abstract void DetermineActionReport(TalonControllerTypeEnum controllerType, TalonObject mechObject);
+    public abstract void BeginDecisionProcess(TalonInformationReport talonInformationReport);
 
     public abstract MvcControllerScript GetMvcControllerScript();
 
-    public abstract void Initialize(MvcFrameworkObject mvcFrameworkObject);
+    public abstract void Initialize(MvcFrameworkObject mvcFrameworkObject, MvcInitializationReport mvcInitializationReport);
 
     public abstract bool IsDeterminingActionReport();
 

@@ -67,8 +67,8 @@ public class MapScriptImpl
             else
             {
                 throw new ArgumentException("Unable to initialize " + this.GetType() + ". Invalid Parameters." +
-                    "\n>" + typeof(MvcModelScript) + "=" + mcvModelScript +
-                    "\n>" + typeof(MapInformationReport) + "=" + mapInformationReport);
+                    "\n\t>" + typeof(MvcModelScript) + "=" + mcvModelScript +
+                    "\n\t>" + typeof(MapInformationReport) + "=" + mapInformationReport);
             }
         }
         else

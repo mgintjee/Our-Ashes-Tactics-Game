@@ -31,7 +31,7 @@ public class TalonCombatOrderReport
     public override string ToString()
     {
         return this.GetType() + ": " +
-            "\n>weaponCombatOrderReportList= [" + string.Join("\n", this.GetWeaponCombatOrderReportList()) + "]";
+            "\n\t>weaponCombatOrderReportList= [" + string.Join("\n", this.GetWeaponCombatOrderReportList()) + "]";
     }
 
     #endregion Public Methods
@@ -60,7 +60,7 @@ public class TalonCombatOrderReport
             else
             {
                 throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                    string.Join("\n>", invalidReasons));
+                    string.Join("\n\t>", invalidReasons));
             }
         }
 

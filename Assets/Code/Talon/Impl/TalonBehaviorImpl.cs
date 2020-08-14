@@ -34,19 +34,24 @@ public class TalonBehaviorImpl
             else
             {
                 throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                    "\n>" + typeof(TalonAttributes) + " is null");
+                    "\n\t>" + typeof(TalonAttributes) + " is null");
             }
         }
         else
         {
             throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                "\n>" + typeof(TalonIdentificationReport) + " is null");
+                "\n\t>" + typeof(TalonIdentificationReport) + " is null");
         }
     }
 
     #endregion Public Constructors
 
     #region Public Methods
+
+    public override void AddWeaponBehavior(WeaponBehavior weaponBehavior)
+    {
+        this.talonBehaviorFireable.AddWeapon(weaponBehavior);
+    }
 
     public override CubeCoordinates GetCubeCoordinates()
     {
@@ -163,7 +168,7 @@ public class TalonBehaviorImpl
         else
         {
             throw new ArgumentException("Unable to SetCubeCoordinates" +
-                "\n>" + typeof(CubeCoordinates) + " is null");
+                "\n\t>" + typeof(CubeCoordinates) + " is null");
         }
     }
 

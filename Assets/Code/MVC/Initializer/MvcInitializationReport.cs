@@ -14,9 +14,6 @@ public class MvcInitializationReport
     // Determines the information required for constructing Talons
     private readonly HashSet<TalonConstructionReport> talonConstructionReportSet;
 
-    // Determines which ControllerType is for a ControllerId
-    private readonly Dictionary<TalonControllerIdEnum, TalonControllerTypeEnum> talonControllerIdControllerTypeDictionary;
-
     // Determines which controller is responsible for a phalanx
     private readonly Dictionary<TalonControllerIdEnum, HashSet<TalonPhalanxIdEnum>> talonControllerIdPhalanxIdSetDictionary;
 
@@ -29,13 +26,11 @@ public class MvcInitializationReport
 
     private MvcInitializationReport(MapInformationReport mapInformationReport,
         Dictionary<TalonControllerIdEnum, HashSet<TalonPhalanxIdEnum>> talonControllerIdPhalanxIdSetDictionary,
-        Dictionary<TalonControllerIdEnum, TalonControllerTypeEnum> talonControllerIdControllerTypeDictionary,
         HashSet<TalonConstructionReport> talonConstructionReportSet,
         Dictionary<TalonFactionIdEnum, HashSet<TalonPhalanxIdEnum>> talonFactionIdPhalanxIdSetDictionary)
     {
         this.mapInformationReport = mapInformationReport;
         this.talonControllerIdPhalanxIdSetDictionary = talonControllerIdPhalanxIdSetDictionary;
-        this.talonControllerIdControllerTypeDictionary = talonControllerIdControllerTypeDictionary;
         this.talonConstructionReportSet = talonConstructionReportSet;
         this.talonFactionIdPhalanxIdSetDictionary = talonFactionIdPhalanxIdSetDictionary;
     }
@@ -52,11 +47,6 @@ public class MvcInitializationReport
     public HashSet<TalonConstructionReport> GetTalonConstructionReportSet()
     {
         return new HashSet<TalonConstructionReport>(this.talonConstructionReportSet);
-    }
-
-    public Dictionary<TalonControllerIdEnum, TalonControllerTypeEnum> GetTalonControllerIdControllerTypeDictionary()
-    {
-        return new Dictionary<TalonControllerIdEnum, TalonControllerTypeEnum>(this.talonControllerIdControllerTypeDictionary);
     }
 
     public Dictionary<TalonControllerIdEnum, HashSet<TalonPhalanxIdEnum>> GetTalonControllerIdPhalanxIdSetDictionary()
@@ -88,9 +78,6 @@ public class MvcInitializationReport
         // Determines the information required for constructing Talons
         private HashSet<TalonConstructionReport> talonConstructionReportSet = null;
 
-        // Determines which ControllerType is for a ControllerId
-        private Dictionary<TalonControllerIdEnum, TalonControllerTypeEnum> talonControllerIdControllerTypeDictionary = null;
-
         // Determines which controller is responsible for a phalanx
         private Dictionary<TalonControllerIdEnum, HashSet<TalonPhalanxIdEnum>> talonControllerIdPhalanxIdSetDictionary = null;
 
@@ -113,8 +100,7 @@ public class MvcInitializationReport
             {
                 // Instantiate a new Report
                 return new MvcInitializationReport(this.mapInformationReport, this.talonControllerIdPhalanxIdSetDictionary,
-                    this.talonControllerIdControllerTypeDictionary, this.talonConstructionReportSet,
-                    this.talonFactionIdPhalanxIdSetDictionary);
+                    this.talonConstructionReportSet, this.talonFactionIdPhalanxIdSetDictionary);
             }
             else
             {
@@ -132,13 +118,6 @@ public class MvcInitializationReport
         public Builder SetTalonConstructionReportSet(HashSet<TalonConstructionReport> talonConstructionReportSet)
         {
             this.talonConstructionReportSet = talonConstructionReportSet;
-            return this;
-        }
-
-        public Builder SetTalonControllerIdControllerTypeDictionary(
-            Dictionary<TalonControllerIdEnum, TalonControllerTypeEnum> talonControllerIdControllerTypeDictionary)
-        {
-            this.talonControllerIdControllerTypeDictionary = talonControllerIdControllerTypeDictionary;
             return this;
         }
 
@@ -176,11 +155,6 @@ public class MvcInitializationReport
             if (this.talonControllerIdPhalanxIdSetDictionary == null)
             {
                 argumentExceptionSet.Add("talonControllerIdPhalanxIdSetDictionary has not been set");
-            }
-            // Check if the talonControllerIdControllerTypeDictionary has been set
-            if (this.talonControllerIdControllerTypeDictionary == null)
-            {
-                argumentExceptionSet.Add("talonControllerIdControllerTypeDictionary has not been set");
             }
             // Check if the teamIdAlliedTeamIdSetDictionary has been set
             if (this.talonConstructionReportSet == null)

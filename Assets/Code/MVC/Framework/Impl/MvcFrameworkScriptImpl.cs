@@ -13,7 +13,6 @@ public class MvcFrameworkScriptImpl
     // Provide logging capability
     private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
-    private bool DEBUG = false;
     private bool isGameActive = false;
     private MvcControllerScript mvcControllerScript;
     private MvcFrameworkObject mvcFrameworkObject;
@@ -24,6 +23,22 @@ public class MvcFrameworkScriptImpl
     #endregion Private Fields
 
     #region Public Methods
+
+    public void FixedUpdate()
+    {
+        if (this.IsReadyToStart() &&
+            !this.isGameActive)
+        {
+            logger.Debug("Starting New Game");
+            this.StartNewGame();
+        }
+
+        if (this.isGameActive)
+        {
+            logger.Debug("Continuing Game");
+            this.ContinueGame();
+        }
+    }
 
     public override MvcControllerScript GetMvcControllerScript()
     {
@@ -73,7 +88,7 @@ public class MvcFrameworkScriptImpl
         else
         {
             throw new ArgumentException("Unable to initialize " + this.GetType() + ". Invalid Parameters." +
-                "\n>" + typeof(MvcInitializationReport) + " is null: " + (mvcInitializationReport == null));
+                "\n\t>" + typeof(MvcInitializationReport) + " is null: " + (mvcInitializationReport == null));
         }
     }
 
@@ -99,28 +114,6 @@ public class MvcFrameworkScriptImpl
     }
 
     #endregion Public Methods
-
-    #region Protected Methods
-
-    protected override void OnUpdate()
-    {
-        if (this.IsReadyToStart() &&
-            !this.isGameActive &&
-            !DEBUG)
-        {
-            logger.Debug("Starting New Game");
-            this.StartNewGame();
-            DEBUG = true;
-        }
-
-        if (this.isGameActive)
-        {
-            logger.Debug("Continuing Game");
-            this.ContinueGame();
-        }
-    }
-
-    #endregion Protected Methods
 
     #region Private Methods
 
@@ -154,11 +147,12 @@ public class MvcFrameworkScriptImpl
     private void ContinueGame()
     {
         this.isGameActive = this.GetMvcFrameworkObject().ContinueGame();
+        logger.Info("Continue Game=?", this.isGameActive);
         // Todo: Game is over. Do something
         if (!this.isGameActive)
         {
-            this.ResetMvcFramework();
             LineRendererUtil.ErasePath();
+            this.ResetMvcFramework();
         }
     }
 

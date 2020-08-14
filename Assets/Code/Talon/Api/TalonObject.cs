@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-
-/// <summary>
+﻿/// <summary>
 /// Talon Object Api
 /// </summary>
 public abstract class TalonObject
 {
     #region Public Methods
+
+    public abstract void AddWeapon(WeaponObject weaponObject);
 
     public abstract CubeCoordinates GetCubeCoordinates();
 
@@ -21,9 +21,13 @@ public abstract class TalonObject
     /// <returns></returns>
     public abstract TalonInformationReport GetMaximumTalonInformationReport();
 
-    public abstract HashSet<TalonActionOrderReport> GetPossibleTalonActionOrderReportSet();
-
     public abstract TalonCombatOrderReport GetTalonCombatOrderReport(PathObjectFire pathObjectFire);
+
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
+    public abstract TalonIdentificationReport GetTalonIdentificationReport();
 
     /// <summary>
     /// Todo

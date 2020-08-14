@@ -38,8 +38,8 @@ public class MapObjectImpl
         else
         {
             throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                "\n>" + typeof(MapScript) + " is null: " + (mapScript == null) +
-                "\n>" + typeof(MapInformationReport) + " is null: " + (mapConstructionReport == null));
+                "\n\t>" + typeof(MapScript) + " is null: " + (mapScript == null) +
+                "\n\t>" + typeof(MapInformationReport) + " is null: " + (mapConstructionReport == null));
         }
     }
 

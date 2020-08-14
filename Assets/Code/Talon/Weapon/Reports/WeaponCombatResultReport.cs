@@ -35,6 +35,13 @@ public class WeaponCombatResultReport
         return this.damageMitigated;
     }
 
+    public override string ToString()
+    {
+        return this.GetType() + ": " +
+            "\n\t>damageDealt=" + this.GetDamageDealt() +
+            "\n\t>damageMitigated=" + this.GetDamageMitigated();
+    }
+
     #endregion Public Methods
 
     #region Public Classes
@@ -62,7 +69,7 @@ public class WeaponCombatResultReport
             else
             {
                 throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                    string.Join("\n>", invalidReasons));
+                    string.Join("\n\t>", invalidReasons));
             }
         }
 

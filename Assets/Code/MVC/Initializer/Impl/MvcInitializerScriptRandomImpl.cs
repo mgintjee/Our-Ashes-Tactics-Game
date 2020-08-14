@@ -60,7 +60,6 @@ public class MvcInitializerScriptRandomImpl
         MvcInitializationReport mvcInitializationReport = new MvcInitializationReport.Builder()
            .SetMapInformationReport(this.BuildMapConstructionReport())
            .SetTalonConstructionReportSet(this.BuildTalonConstructionReportSet())
-           .SetTalonControllerIdControllerTypeDictionary(this.BuildTalonControllerIdControllerTypeDictionary())
            .SetTalonControllerIdPhalanxIdSetDictionary(this.BuildTalonControllerIdPhalanxIdSetDictionary())
            .SetTalonFactionIdPhalanxIdSetDictionary(this.BuildTalonFactionIdPhalanxIdSetDictionary())
            .Build();
@@ -137,19 +136,6 @@ public class MvcInitializerScriptRandomImpl
         }
 
         return talonConstructionReportSet;
-    }
-
-    private Dictionary<TalonControllerIdEnum, TalonControllerTypeEnum> BuildTalonControllerIdControllerTypeDictionary()
-    {
-        Dictionary<TalonControllerIdEnum, TalonControllerTypeEnum> talonControllerIdControllerTypeDictionary =
-            new Dictionary<TalonControllerIdEnum, TalonControllerTypeEnum>();
-
-        foreach (TalonControllerIdEnum talonControllerId in this.talonControllerIdSet)
-        {
-            talonControllerIdControllerTypeDictionary.Add(talonControllerId, TalonControllerTypeEnum.Robot);
-        }
-
-        return talonControllerIdControllerTypeDictionary;
     }
 
     private Dictionary<TalonControllerIdEnum, HashSet<TalonPhalanxIdEnum>> BuildTalonControllerIdPhalanxIdSetDictionary()

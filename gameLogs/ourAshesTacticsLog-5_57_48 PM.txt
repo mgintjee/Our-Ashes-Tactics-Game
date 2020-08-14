@@ -1,0 +1,806 @@
+5:57:48 PM INFO: MvcFrameworkScriptImpl: Initializing: MvcFrameworkScriptImpl
+5:57:48 PM INFO: MvcFrameworkObjectImpl: Contructing: MvcFrameworkObjectImpl
+5:57:48 PM INFO: MvcFrameworkScriptImpl: Building: MvcControllerScript
+5:57:48 PM INFO: MvcFrameworkScriptImpl: Building: MvcModelScript
+5:57:48 PM INFO: MvcFrameworkScriptImpl: Building: MvcViewScript
+5:57:48 PM INFO: MvcControllerScriptImpl: Initializing: MvcControllerScriptImpl
+5:57:48 PM INFO: MvcControllerScriptImpl: Setting: MvcFrameworkScript
+5:57:48 PM INFO: MvcControllerObjectImpl: Contructing: MvcControllerObjectImpl
+5:57:48 PM INFO: MvcControllerObjectImpl: Setting: MvcControllerScript=mvcControllerGameObject (MvcControllerScriptImpl)
+5:57:48 PM INFO: MvcModelScriptImpl: Initializing: MvcModelScriptImpl
+5:57:48 PM INFO: MvcModelScriptImpl: Setting: MvcFrameworkScript
+5:57:48 PM INFO: MvcModelScriptImpl: Building: MapScript
+5:57:48 PM INFO: MapScriptImpl: Initializing: MapScriptImpl.
+5:57:48 PM INFO: MapObjectImpl: Contructing Object: MapObjectImpl
+5:57:48 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+5:57:48 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+5:57:48 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+5:57:48 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+5:57:48 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+5:57:48 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+5:57:48 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+5:57:48 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+5:57:48 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+5:57:48 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+5:57:48 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+5:57:48 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+5:57:48 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+5:57:48 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+5:57:48 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+5:57:48 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+5:57:48 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+5:57:48 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+5:57:48 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+5:57:48 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+5:57:48 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+5:57:48 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+5:57:48 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+5:57:48 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+5:57:48 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+5:57:48 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+5:57:48 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+5:57:48 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+5:57:48 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+5:57:48 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+5:57:48 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+5:57:48 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+5:57:48 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+5:57:48 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+5:57:48 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+5:57:48 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+5:57:48 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+5:57:48 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+5:57:48 PM INFO: MvcModelObjectImpl: Contructing: MvcModelObjectImpl
+5:57:48 PM INFO: MvcModelObjectImpl: Setting: MvcModelScript=mvcModelGameObject (MvcModelScriptImpl)
+5:57:48 PM INFO: MvcViewScriptImpl: Initializing Script: MvcViewScriptImpl
+5:57:48 PM INFO: MvcViewScriptImpl: Setting Script: MvcFrameworkScript
+5:57:48 PM INFO: MvcViewObjectImpl: Contructing Object: MvcViewObjectImpl
+5:57:48 PM INFO: MvcViewObjectImpl: Setting Script: MvcViewScript=mvcViewGameObject (MvcViewScriptImpl)
+5:57:48 PM INFO: MvcFrameworkObjectImpl: Initializing: MvcFrameworkObjectImpl
+5:57:48 PM INFO: MvcFrameworkObjectImpl: Setting: MvcControllerObject=MvcControllerObjectImpl
+5:57:48 PM INFO: MvcControllerObjectImpl: Initializing: MvcControllerObjectImpl
+5:57:48 PM INFO: MvcControllerObjectImpl: Setting: MvcFrameworkObject
+5:57:48 PM INFO: MvcFrameworkObjectImpl: Setting: MvcModelObject=MvcModelObjectImpl
+5:57:48 PM INFO: MvcModelObjectImpl: Initializing: MvcModelObjectImpl
+5:57:48 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+5:57:48 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+5:57:48 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+5:57:48 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+5:57:48 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+5:57:48 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+5:57:48 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+5:57:48 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+5:57:48 PM INFO: MvcFrameworkObjectImpl: Setting: MvcViewObject=MvcViewObjectImpl
+5:57:48 PM INFO: MvcViewObjectImpl: Initializing Object: MvcViewObjectImpl
+5:57:48 PM INFO: MvcViewObjectImpl: Setting Object: MvcFrameworkObject
+5:57:48 PM INFO: MvcFrameworkScriptImpl: Starting new game.
+5:57:49 PM INFO: MvcModelObjectImpl: TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl Order List= []
+5:57:49 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:57:51 PM INFO: MvcModelObjectImpl: Phase: 1 Action:0) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(2,0,-2), (1,0,-1), (0,0,0), (0,-1,1), (-1,-1,2)]
+5:57:51 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:57:53 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:57:55 PM INFO: MvcModelObjectImpl: Phase: 1 Action:1) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-1,-1,2), (0,-1,1), (0,0,0), (0,1,-1)]
+5:57:55 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:57:57 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:02 PM INFO: MvcModelObjectImpl: Phase: 1 Action:2) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,1,-1), (0,2,-2)]
+5:58:02 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:04 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:06 PM INFO: MvcModelObjectImpl: Phase: 1 Action:3) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-2,2,0), (-1,2,-1), (0,1,-1), (1,0,-1), (1,-1,0)]
+5:58:06 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:08 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:10 PM INFO: MvcModelObjectImpl: Phase: 1 Action:4) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(1,-1,0), (1,0,-1), (1,1,-2)]
+5:58:10 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:12 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:14 PM INFO: MvcModelObjectImpl: Phase: 1 Action:5) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(1,1,-2), (0,1,-1), (0,0,0), (0,-1,1), (-1,-1,2)]
+5:58:14 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:16 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:18 PM INFO: MvcModelObjectImpl: Phase: 1 Action:6) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxNorthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(2,-2,0), (1,-2,1), (0,-1,1), (0,0,0)]
+5:58:18 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:20 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:22 PM INFO: MvcModelObjectImpl: Phase: 1 Action:7) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxNorthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Wait
+	>PathObject= [(0,0,0)]
+5:58:22 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:24 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:26 PM INFO: MvcModelObjectImpl: Phase: 1 Action:8) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxSouthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-2,0,2), (-1,0,1), (0,-1,1), (1,-1,0)]
+5:58:26 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:28 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:30 PM INFO: MvcModelObjectImpl: Phase: 1 Action:9) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxSouthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(1,-1,0), (1,0,-1), (0,1,-1)]
+5:58:30 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:32 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:34 PM INFO: MvcModelObjectImpl: Phase: 1 Action:10) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxSouthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,1,-1), (0,2,-2)]
+5:58:34 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:36 PM INFO: MvcModelObjectImpl: TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl Order List= []
+5:58:36 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:38 PM INFO: MvcModelObjectImpl: Phase: 2 Action:11) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxNorthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,0,0), (1,0,-1)]
+5:58:38 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:40 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:42 PM INFO: MvcModelObjectImpl: Phase: 2 Action:12) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,2,-2), (0,1,-1), (0,0,0), (0,-1,1), (0,-2,2)]
+5:58:42 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:44 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:46 PM INFO: MvcModelObjectImpl: Phase: 2 Action:13) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-1,-1,2), (0,-1,1), (0,0,0), (0,1,-1), (-1,2,-1)]
+5:58:46 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:48 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:50 PM INFO: MvcModelObjectImpl: Phase: 2 Action:14) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxSouthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,2,-2), (0,1,-1), (-1,1,0)]
+5:58:50 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:52 PM INFO: MvcModelObjectImpl: TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl Order List= []
+5:58:52 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:54 PM INFO: MvcModelObjectImpl: Phase: 3 Action:15) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxNorthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(1,0,-1), (1,-1,0)]
+5:58:54 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:56 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:58:58 PM INFO: MvcModelObjectImpl: Phase: 3 Action:16) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,-2,2), (0,-1,1)]
+5:58:58 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:00 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:02 PM INFO: MvcModelObjectImpl: Phase: 3 Action:17) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-1,2,-1), (0,1,-1), (1,0,-1), (2,-1,-1)]
+5:59:02 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:04 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:06 PM INFO: MvcModelObjectImpl: Phase: 3 Action:18) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxSouthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Wait
+	>PathObject= [(-1,1,0)]
+5:59:06 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:08 PM INFO: MvcModelObjectImpl: TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl Order List= []
+5:59:09 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:10 PM INFO: MvcModelObjectImpl: Phase: 4 Action:19) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,-1,1), (0,0,0), (0,1,-1)]
+5:59:10 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:12 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:14 PM INFO: MvcModelObjectImpl: Phase: 4 Action:20) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(2,-1,-1), (1,0,-1), (0,0,0)]
+5:59:14 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:16 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:18 PM INFO: MvcModelObjectImpl: Phase: 4 Action:21) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxNorthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(1,-1,0), (0,-1,1), (-1,-1,2)]
+5:59:18 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:20 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:22 PM INFO: MvcModelObjectImpl: Phase: 4 Action:22) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxSouthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-1,1,0), (0,1,-1), (1,0,-1)]
+5:59:22 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:25 PM INFO: MvcModelObjectImpl: TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl Order List= []
+5:59:25 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:26 PM INFO: MvcModelObjectImpl: Phase: 5 Action:23) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,1,-1), (-1,2,-1)]
+5:59:26 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:28 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:30 PM INFO: MvcModelObjectImpl: Phase: 5 Action:24) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,0,0), (0,-1,1), (1,-2,1)]
+5:59:30 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:32 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:34 PM INFO: MvcModelObjectImpl: Phase: 5 Action:25) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxNorthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-1,-1,2), (0,-1,1), (0,0,0)]
+5:59:34 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:36 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:38 PM INFO: MvcModelObjectImpl: Phase: 5 Action:26) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxSouthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(1,0,-1), (0,1,-1), (-1,1,0)]
+5:59:38 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:41 PM INFO: MvcModelObjectImpl: TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl Order List= []
+5:59:41 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:42 PM INFO: MvcModelObjectImpl: Phase: 6 Action:27) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-1,2,-1), (0,1,-1), (0,0,0), (0,-1,1), (-1,-1,2)]
+5:59:42 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:44 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:46 PM INFO: MvcModelObjectImpl: Phase: 6 Action:28) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(1,-2,1), (0,-1,1), (0,0,0), (0,1,-1), (0,2,-2)]
+5:59:46 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:48 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:50 PM INFO: MvcModelObjectImpl: Phase: 6 Action:29) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxNorthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,0,0), (0,-1,1), (-1,-1,2)]
+5:59:50 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:52 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:54 PM INFO: MvcModelObjectImpl: Phase: 6 Action:30) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxSouthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-1,1,0), (0,1,-1), (1,0,-1)]
+5:59:54 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:57 PM INFO: MvcModelObjectImpl: TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl Order List= []
+5:59:57 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+5:59:59 PM INFO: MvcModelObjectImpl: Phase: 7 Action:31) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-1,-1,2), (0,-1,1), (0,0,0), (1,0,-1)]
+5:59:59 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:01 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:03 PM INFO: MvcModelObjectImpl: Phase: 7 Action:32) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,2,-2), (0,1,-1)]
+6:00:03 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:05 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:07 PM INFO: MvcModelObjectImpl: Phase: 7 Action:33) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxNorthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-1,-1,2), (-1,0,1), (-2,1,1)]
+6:00:07 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:09 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:11 PM INFO: MvcModelObjectImpl: Phase: 7 Action:34) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxSouthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(1,0,-1), (0,0,0), (0,-1,1)]
+6:00:11 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:13 PM INFO: MvcModelObjectImpl: TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl Order List= []
+6:00:13 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:15 PM INFO: MvcModelObjectImpl: Phase: 8 Action:35) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(1,0,-1), (1,1,-2)]
+6:00:15 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:17 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:19 PM INFO: MvcModelObjectImpl: Phase: 8 Action:36) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,1,-1), (-1,1,0), (-2,1,1)]
+6:00:19 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:21 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:23 PM INFO: MvcModelObjectImpl: Phase: 8 Action:37) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxNorthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-2,1,1), (-1,0,1), (0,-1,1), (1,-1,0)]
+6:00:23 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:25 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:27 PM INFO: MvcModelObjectImpl: Phase: 8 Action:38) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxSouthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,-1,1), (0,0,0)]
+6:00:27 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:29 PM INFO: MvcModelObjectImpl: TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl Order List= []
+6:00:29 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:31 PM INFO: MvcModelObjectImpl: Phase: 9 Action:39) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(1,1,-2), (0,1,-1), (0,0,0), (0,-1,1)]
+6:00:31 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:33 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:35 PM INFO: MvcModelObjectImpl: Phase: 9 Action:40) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-2,1,1), (-1,1,0), (0,1,-1), (1,0,-1), (2,-1,-1)]
+6:00:35 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:37 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:39 PM INFO: MvcModelObjectImpl: Phase: 9 Action:41) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxNorthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(1,-1,0), (0,0,0)]
+6:00:39 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:41 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:43 PM INFO: MvcModelObjectImpl: Phase: 9 Action:42) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxSouthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,0,0), (-1,1,0)]
+6:00:43 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:46 PM INFO: MvcModelObjectImpl: TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl Order List= []
+6:00:46 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:47 PM INFO: MvcModelObjectImpl: Phase: 10 Action:43) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,-1,1), (0,0,0), (0,1,-1), (-1,2,-1)]
+6:00:47 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:49 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:51 PM INFO: MvcModelObjectImpl: Phase: 10 Action:44) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(2,-1,-1), (1,-1,0), (0,-1,1), (0,-2,2)]
+6:00:51 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:53 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:55 PM INFO: MvcModelObjectImpl: Phase: 10 Action:45) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxNorthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,0,0), (0,1,-1), (-1,2,-1)]
+6:00:55 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:57 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:00:59 PM INFO: MvcModelObjectImpl: Phase: 10 Action:46) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxSouthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-1,1,0), (-2,1,1)]
+6:00:59 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:02 PM INFO: MvcModelObjectImpl: TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl Order List= []
+6:01:02 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:03 PM INFO: MvcModelObjectImpl: Phase: 11 Action:47) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-1,2,-1), (0,1,-1), (0,0,0)]
+6:01:03 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:05 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:07 PM INFO: MvcModelObjectImpl: Phase: 11 Action:48) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,-2,2), (0,-1,1), (0,0,0), (1,0,-1)]
+6:01:07 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:09 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:11 PM INFO: MvcModelObjectImpl: Phase: 11 Action:49) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxNorthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-1,2,-1), (0,2,-2)]
+6:01:11 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:13 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:15 PM INFO: MvcModelObjectImpl: Phase: 11 Action:50) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxSouthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-2,1,1), (-1,0,1), (0,-1,1), (0,-2,2)]
+6:01:15 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:18 PM INFO: MvcModelObjectImpl: TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl Order List= []
+6:01:18 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:20 PM INFO: MvcModelObjectImpl: Phase: 12 Action:51) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,0,0), (0,1,-1)]
+6:01:20 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:22 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:24 PM INFO: MvcModelObjectImpl: Phase: 12 Action:52) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(1,0,-1), (1,-1,0)]
+6:01:24 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:26 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:28 PM INFO: MvcModelObjectImpl: Phase: 12 Action:53) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxNorthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,2,-2), (1,1,-2)]
+6:01:28 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:30 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:32 PM INFO: MvcModelObjectImpl: Phase: 12 Action:54) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxSouthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,-2,2), (-1,-1,2)]
+6:01:32 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:34 PM INFO: MvcModelObjectImpl: TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl Order List= []
+6:01:34 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:36 PM INFO: MvcModelObjectImpl: Phase: 13 Action:55) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,1,-1), (0,0,0)]
+6:01:36 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:38 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:40 PM INFO: MvcModelObjectImpl: Phase: 13 Action:56) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(1,-1,0), (1,0,-1), (0,1,-1), (0,2,-2)]
+6:01:40 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:42 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:44 PM INFO: MvcModelObjectImpl: Phase: 13 Action:57) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxNorthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(1,1,-2), (0,1,-1), (0,0,0), (0,-1,1), (0,-2,2)]
+6:01:44 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:46 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:48 PM INFO: MvcModelObjectImpl: Phase: 13 Action:58) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxSouthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-1,-1,2), (0,-1,1), (0,0,0), (0,1,-1)]
+6:01:48 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:50 PM INFO: MvcModelObjectImpl: TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl Order List= []
+6:01:50 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:52 PM INFO: MvcModelObjectImpl: Phase: 14 Action:59) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,0,0), (0,-1,1), (-1,-1,2)]
+6:01:52 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:54 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:56 PM INFO: MvcModelObjectImpl: Phase: 14 Action:60) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,2,-2), (0,1,-1), (0,0,0), (0,-1,1), (0,-2,2)]
+6:01:56 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:01:58 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:02:00 PM INFO: MvcModelObjectImpl: Phase: 14 Action:61) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxNorthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,-2,2), (0,-1,1)]
+6:02:00 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:02:02 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:02:05 PM INFO: MvcModelObjectImpl: Phase: 14 Action:62) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction1
+	>TalonPhalanxIdEnum: PhalanxSouthWest
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,1,-1), (-1,1,0), (-2,1,1)]
+6:02:05 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:02:07 PM INFO: MvcModelObjectImpl: TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl Order List= []
+6:02:07 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:02:09 PM INFO: MvcModelObjectImpl: Phase: 15 Action:63) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-1,-1,2), (0,-2,2)]
+6:02:09 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:02:11 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+6:02:13 PM INFO: MvcModelObjectImpl: Phase: 15 Action:64) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(0,-2,2), (0,-1,1), (1,-1,0), (2,-1,-1)]
+6:02:13 PM INFO: MvcFrameworkScriptImpl: Continue Game=True

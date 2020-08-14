@@ -1,7 +1,8 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 /// <summary>
-/// Todo
+/// Weapon Script Impl
 /// </summary>
 public class WeaponScriptImpl
     : WeaponScript
@@ -11,57 +12,52 @@ public class WeaponScriptImpl
     // Provide logging capability
     private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
-    // Todo
-    private WeaponConstructionReport weaponConstructionReport;
-
-    // Todo
-    private WeaponObject weaponObject;
+    private WeaponIdEnum weaponId = WeaponIdEnum.NULL;
+    private WeaponObject weaponObject = null;
 
     #endregion Private Fields
 
     #region Public Methods
 
-    /// <summary>
-    /// </summary>
-    /// <returns></returns>
-    public override WeaponBehavior GetWeaponBehavior()
+    public override WeaponIdEnum GetWeaponId()
     {
-        return this.GetWeaponObject().GetWeaponBehavior();
+        return this.weaponId;
     }
 
-    /// <summary>
-    /// </summary>
-    /// <returns></returns>
-    public override string GetWeaponName()
-    {
-        return this.GetWeaponObject().GetWeaponId().ToString();
-    }
-
-    /// <summary>
-    /// </summary>
-    /// <returns></returns>
     public override WeaponObject GetWeaponObject()
     {
         return this.weaponObject;
     }
 
-    /// <summary>
-    /// </summary>
-    /// <returns></returns>
-    public override WeaponVisual GetWeaponVisual()
+    public override void Initialize(WeaponIdEnum weaponId)
     {
-        return this.GetWeaponObject().GetWeaponVisual();
+        // Check that this has not already been initialized
+        if (!this.IsInitialized())
+        {
+            // Check that the parameters are non-null
+            if (weaponId != WeaponIdEnum.NULL)
+            {
+                logger.Info("Initializing: ?.", this.GetType());
+                this.weaponId = weaponId;
+                this.weaponObject = new WeaponObjectImpl(this, this.weaponId);
+                this.weaponObject.Initialize();
+            }
+            else
+            {
+                throw new ArgumentException("Unable to initialize " + this.GetType() + ". Invalid Parameters." +
+                    "\n\t>" + typeof(WeaponIdEnum) + "=" + weaponId);
+            }
+        }
+        else
+        {
+            logger.Warn("Unable to Initialize: ?. Already initialized.", this.GetType());
+        }
     }
 
-    public override void Initialize(WeaponConstructionReport weaponConstructionReport)
+    public override bool IsInitialized()
     {
-        logger.Debug("Initializing Script=?", this.GetType().ToString());
-        this.weaponObject = new WeaponObjectImpl(this, weaponConstructionReport);
-        this.weaponConstructionReport = weaponConstructionReport;
-        this.name = weaponConstructionReport.GetWeaponId().ToString();
-        this.GetWeaponVisual().PaintWeapon();
-        logger.Info("Constructing Weapon: ?", this.weaponConstructionReport);
-        logger.Debug("Initialized Script=?", this.GetType().ToString());
+        return this.weaponObject != null &&
+            this.weaponId != WeaponIdEnum.NULL;
     }
 
     #endregion Public Methods

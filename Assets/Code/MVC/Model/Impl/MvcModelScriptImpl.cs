@@ -47,8 +47,8 @@ public class MvcModelScriptImpl
             else
             {
                 throw new ArgumentException("Unable to initialize ?" + this.GetType() + ". Invalid Parameters." +
-                    "\n>" + typeof(MvcFrameworkScript) + " is null: " + (mvcFrameworkScript == null) +
-                    "\n>" + typeof(MapInformationReport) + " is null: " + (mapInformationReport == null));
+                    "\n\t>" + typeof(MvcFrameworkScript) + " is null: " + (mvcFrameworkScript == null) +
+                    "\n\t>" + typeof(MapInformationReport) + " is null: " + (mapInformationReport == null));
             }
         }
         else

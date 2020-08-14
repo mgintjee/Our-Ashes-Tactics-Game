@@ -53,8 +53,8 @@ public class TalonPaintSchemeReport
     public override string ToString()
     {
         return this.GetType() + ":" +
-            "\n>PrimaryColor=" + this.GetPrimaryPaintColor() +
-            "\n>SecondaryColor=" + this.GetSecondaryPaintColor();
+            "\n\t>PrimaryColor=" + this.GetPrimaryPaintColor() +
+            "\n\t>SecondaryColor=" + this.GetSecondaryPaintColor();
     }
 
     #endregion Public Methods

@@ -64,10 +64,10 @@ public class TalonActionOrderReport
     public override string ToString()
     {
         return this.GetType() + ": " +
-            "\n>Acting " + this.GetActingTalonIdentificationReport() +
-            "\n>Target " + this.GetTargetTalonIdentificationReport() +
-            "\n>" + typeof(TalonActionTypeEnum) + "= " + this.GetTalonActionType() +
-            "\n>" + typeof(PathObject) + "= [" + this.GetPathObject() + "]";
+            "\n\t>Acting " + this.GetActingTalonIdentificationReport() +
+            "\n\t>Target " + this.GetTargetTalonIdentificationReport() +
+            "\n\t>" + typeof(TalonActionTypeEnum) + "= " + this.GetTalonActionType() +
+            "\n\t>" + typeof(PathObject) + "= [" + this.GetPathObject() + "]";
     }
 
     #endregion Public Methods
@@ -98,7 +98,7 @@ public class TalonActionOrderReport
             else
             {
                 throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                    string.Join("\n>", invalidReasons));
+                    string.Join("\n\t>", invalidReasons));
             }
         }
 

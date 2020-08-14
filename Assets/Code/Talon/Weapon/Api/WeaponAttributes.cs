@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 /// <summary>
+/// Todo
 /// </summary>
 public class WeaponAttributes
 {
@@ -150,7 +151,7 @@ public class WeaponAttributes
             else
             {
                 throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                    string.Join("\n>", invalidReasons));
+                    string.Join("\n\t>", invalidReasons));
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 /// <summary>
@@ -14,11 +15,12 @@ public class MvcFrameworkObjectImpl
 
     private readonly MvcFrameworkScript mvcFrameworkScript;
     private readonly MvcInitializationReport mvcInitializationReport;
-    private bool continueGame = true;
+    private bool continueGame = false;
     private bool isGameActive = false;
     private MvcControllerObject mvcControllerObject;
     private MvcModelObject mvcModelObject;
     private MvcViewObject mvcViewObject;
+    private List<TalonTurnReport> talonTurnReportList;
 
     #endregion Private Fields
 
@@ -36,8 +38,8 @@ public class MvcFrameworkObjectImpl
         else
         {
             throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                "\n>" + typeof(MvcFrameworkScript) + " is null: " + (mvcFrameworkScript == null) +
-                "\n>" + typeof(MvcInitializationReport) + " is null: " + (mvcInitializationReport == null));
+                "\n\t>" + typeof(MvcFrameworkScript) + " is null: " + (mvcFrameworkScript == null) +
+                "\n\t>" + typeof(MvcInitializationReport) + " is null: " + (mvcInitializationReport == null));
         }
     }
 
@@ -47,53 +49,74 @@ public class MvcFrameworkObjectImpl
 
     public override bool ContinueGame()
     {
-        if (!this.mvcModelObject.IsProcessingActionReport())
+        if (this.mvcModelObject.IsInitialized())
         {
-            TalonObject nextTalonObject = null;
-            //MechObject nextMechObject = this.mvcModelObject.GetNextTalonObject();
-            this.continueGame = this.mvcModelObject.ContinueGame();
-            if (nextTalonObject != null)
+            if (!this.mvcModelObject.IsProcessingActionReport())
             {
+                this.continueGame = this.mvcModelObject.ContinueGame();
+
                 if (this.continueGame)
                 {
-                    if (this.mvcControllerObject.IsReadyToOutputActionReport())
+                    TalonInformationReport talonInformationReport = this.mvcModelObject.GetCurrentTalonInformationReport();
+                    if (talonInformationReport != null)
                     {
-                        TalonActionOrderReport actionReport = this.mvcControllerObject.OutputActionReport();
-                        TalonTurnReport talonTurnReport = this.mvcModelObject.InputTalonActionOrderReport(actionReport);
-                        logger.Debug("Outputting ?=?", typeof(TalonActionOrderReport), actionReport);
-                    }
-                    else
-                    {
-                        if (this.mvcControllerObject.IsDeterminingActionReport())
+                        logger.Debug("Deciding action for ?", talonInformationReport);
+                        if (this.mvcControllerObject.IsReadyToOutputActionReport())
                         {
-                            logger.Debug("Waiting for ? to finish IsDeterminingActionReport", this.mvcControllerObject);
+                            TalonActionOrderReport actionReport = this.mvcControllerObject.OutputActionReport();
+                            TalonTurnReport talonTurnReport = this.mvcModelObject.InputTalonActionOrderReport(actionReport);
+                            this.talonTurnReportList.Add(talonTurnReport);
+                            logger.Debug("Outputting ?=?", typeof(TalonActionOrderReport), actionReport);
                         }
                         else
                         {
-                            //  ControllerTypeEnum controllerType = this.mvcInitializationReport.GetTeamIdControllerTypeDictionary()[nextTalonObject.GetTeamId()];
-                            //this.mvcControllerObject.DetermineActionReport(controllerType, nextTalonObject);
+                            if (this.mvcControllerObject.IsDeterminingActionReport())
+                            {
+                                logger.Debug("Waiting for ? to finish IsDeterminingActionReport", this.mvcControllerObject);
+                            }
+                            else
+                            {
+                                if (this.mvcControllerObject.IsReadyToOutputActionReport())
+                                {
+                                    TalonActionOrderReport talonActionOrderReport = this.mvcControllerObject.OutputActionReport();
+                                    this.mvcModelObject.InputTalonActionOrderReport(talonActionOrderReport);
+                                    // TODO: ACTUALLY HAVE THE TALON MOVE!!!
+                                }
+                                else
+                                {
+                                    this.mvcControllerObject.BeginDecisionProcess(talonInformationReport);
+                                }
+                            }
                         }
+                    }
+                    else
+                    {
+                        logger.Error("No current ? available.", typeof(TalonInformationReport));
+                        // End the game
+                        this.isGameActive = false;
+                        this.continueGame = false;
                     }
                 }
                 else
                 {
-                    //logger.Info("Game Over! Winning ?=?", typeof(TeamIdEnum), nextTalonObject.GetTeamId());
+                    logger.Info("Game is over. TODO: Generate GameSummaryReport");
                     // End the game
-                    this.continueGame = false;
                     this.isGameActive = false;
                 }
             }
             else
             {
-                //logger.Error("No next ? available.", typeof(nextTalonObject));
-                // End the game
-                this.continueGame = false;
-                this.isGameActive = false;
+                logger.Debug("Waiting for ? to finish IsProcessingActionReport", this.mvcModelObject);
             }
         }
         else
         {
-            logger.Debug("Waiting for ? to finish IsProcessingActionReport", this.mvcModelObject);
+            logger.Debug("Waiting for ? to initialize", this.mvcModelObject);
+        }
+
+        if (!this.continueGame)
+        {
+            this.PrintTalonTurnReportList();
         }
 
         return this.continueGame;
@@ -129,7 +152,7 @@ public class MvcFrameworkObjectImpl
             {
                 logger.Info("Setting: ?=?", typeof(MvcControllerObject), mvcFrameworkScript.GetMvcControllerScript().GetMvcControllerObject());
                 this.mvcControllerObject = mvcFrameworkScript.GetMvcControllerScript().GetMvcControllerObject();
-                this.mvcControllerObject.Initialize(this);
+                this.mvcControllerObject.Initialize(this, this.mvcInitializationReport);
 
                 logger.Info("Setting: ?=?", typeof(MvcModelObject), mvcFrameworkScript.GetMvcModelScript().GetMvcModelObject());
                 this.mvcModelObject = mvcFrameworkScript.GetMvcModelScript().GetMvcModelObject();
@@ -147,7 +170,7 @@ public class MvcFrameworkObjectImpl
         else
         {
             throw new ArgumentException("Unable to initialize " + this.GetType() + ". Invalid Parameters." +
-                "\n>" + typeof(MvcInitializationReport) + " is null: " + (this.mvcInitializationReport == null));
+                "\n\t>" + typeof(MvcInitializationReport) + " is null: " + (this.mvcInitializationReport == null));
         }
     }
 
@@ -163,6 +186,7 @@ public class MvcFrameworkObjectImpl
     {
         if (!this.isGameActive)
         {
+            this.talonTurnReportList = new List<TalonTurnReport>();
             this.mvcModelObject.StartGame();
             this.isGameActive = true;
             this.continueGame = true;
@@ -170,4 +194,16 @@ public class MvcFrameworkObjectImpl
     }
 
     #endregion Public Methods
+
+    #region Private Methods
+
+    private void PrintTalonTurnReportList()
+    {
+        foreach (TalonTurnReport talonTurnReport in this.talonTurnReportList)
+        {
+            logger.Info("?=?", typeof(TalonTurnReport), talonTurnReport);
+        }
+    }
+
+    #endregion Private Methods
 }

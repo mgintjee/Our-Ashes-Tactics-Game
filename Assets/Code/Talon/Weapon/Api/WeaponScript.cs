@@ -1,35 +1,18 @@
 ﻿/// <summary>
-/// Todo
+/// Weapon Script Api
 /// </summary>
 public abstract class WeaponScript
     : AbstractUnityScript
 {
     #region Public Methods
 
-    /// <summary>
-    /// </summary>
-    /// <returns></returns>
-    public abstract WeaponBehavior GetWeaponBehavior();
+    public abstract WeaponIdEnum GetWeaponId();
 
-    /// <summary>
-    /// </summary>
-    /// <returns></returns>
-    public abstract string GetWeaponName();
-
-    /// <summary>
-    /// </summary>
-    /// <returns></returns>
     public abstract WeaponObject GetWeaponObject();
 
-    /// <summary>
-    /// </summary>
-    /// <returns></returns>
-    public abstract WeaponVisual GetWeaponVisual();
+    public abstract void Initialize(WeaponIdEnum weaponId);
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    public abstract void Initialize(WeaponConstructionReport weaponConstructionReport);
+    public abstract bool IsInitialized();
 
     #endregion Public Methods
 }

@@ -38,8 +38,8 @@ public class TalonActionResultReport
     public override string ToString()
     {
         return this.GetType() + ": " +
-            "\n>" + this.GetTalonAttributesReport() +
-            "\n>" + this.GetTalonAttributesReport();
+            "\n\t>" + this.GetTalonActionOrder() +
+            "\n\t>" + this.GetTalonAttributesReport();
     }
 
     #endregion Public Methods
@@ -69,7 +69,7 @@ public class TalonActionResultReport
             else
             {
                 throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                    string.Join("\n>", invalidReasons));
+                    string.Join("\n\t>", invalidReasons));
             }
         }
 

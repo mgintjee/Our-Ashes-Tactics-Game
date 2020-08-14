@@ -1,0 +1,428 @@
+2:38:38 PM INFO: MvcFrameworkScriptImpl: Initializing: MvcFrameworkScriptImpl
+2:38:38 PM INFO: MvcFrameworkObjectImpl: Contructing: MvcFrameworkObjectImpl
+2:38:38 PM INFO: MvcFrameworkScriptImpl: Building: MvcControllerScript
+2:38:38 PM INFO: MvcFrameworkScriptImpl: Building: MvcModelScript
+2:38:38 PM INFO: MvcFrameworkScriptImpl: Building: MvcViewScript
+2:38:38 PM INFO: MvcControllerScriptImpl: Initializing: MvcControllerScriptImpl
+2:38:38 PM INFO: MvcControllerScriptImpl: Setting: MvcFrameworkScript
+2:38:38 PM INFO: MvcControllerObjectImpl: Contructing: MvcControllerObjectImpl
+2:38:38 PM INFO: MvcControllerObjectImpl: Setting: MvcControllerScript=mvcControllerGameObject (MvcControllerScriptImpl)
+2:38:38 PM INFO: MvcModelScriptImpl: Initializing: MvcModelScriptImpl
+2:38:38 PM INFO: MvcModelScriptImpl: Setting: MvcFrameworkScript
+2:38:38 PM INFO: MvcModelScriptImpl: Building: MapScript
+2:38:38 PM INFO: MapScriptImpl: Initializing: MapScriptImpl.
+2:38:38 PM INFO: MapObjectImpl: Contructing Object: MapObjectImpl
+2:38:38 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:38 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:38 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:38 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:38 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:38 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:38 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:38 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:38 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:38 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:38 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:38 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:38 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:38 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:38 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:38 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:38 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:38 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:38 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:38 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:38 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:38 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:38 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:38 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:38 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:38 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:38 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:38 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:38 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: HexTileScriptImpl: Initializing: HexTileScriptImpl
+2:38:39 PM INFO: HexTileObjectImpl: Constructing: HexTileObjectImpl.
+2:38:39 PM INFO: MvcModelObjectImpl: Contructing: MvcModelObjectImpl
+2:38:39 PM INFO: MvcModelObjectImpl: Setting: MvcModelScript=mvcModelGameObject (MvcModelScriptImpl)
+2:38:39 PM INFO: MvcViewScriptImpl: Initializing Script: MvcViewScriptImpl
+2:38:39 PM INFO: MvcViewScriptImpl: Setting Script: MvcFrameworkScript
+2:38:39 PM INFO: MvcViewObjectImpl: Contructing Object: MvcViewObjectImpl
+2:38:39 PM INFO: MvcViewObjectImpl: Setting Script: MvcViewScript=mvcViewGameObject (MvcViewScriptImpl)
+2:38:39 PM INFO: MvcFrameworkObjectImpl: Initializing: MvcFrameworkObjectImpl
+2:38:39 PM INFO: MvcFrameworkObjectImpl: Setting: MvcControllerObject=MvcControllerObjectImpl
+2:38:39 PM INFO: MvcControllerObjectImpl: Initializing: MvcControllerObjectImpl
+2:38:39 PM INFO: MvcControllerObjectImpl: Setting: MvcFrameworkObject
+2:38:39 PM INFO: MvcFrameworkObjectImpl: Setting: MvcModelObject=MvcModelObjectImpl
+2:38:39 PM INFO: MvcModelObjectImpl: Initializing: MvcModelObjectImpl
+2:38:39 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+2:38:39 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+2:38:39 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+2:38:39 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+2:38:39 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+2:38:39 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+2:38:39 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+2:38:39 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+2:38:39 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+2:38:39 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+2:38:39 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+2:38:39 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+2:38:39 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+2:38:39 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+2:38:39 PM INFO: TalonScriptImpl: Initializing: TalonScriptImpl.
+2:38:39 PM INFO: TalonObjectImpl: Constructing: TalonObjectImpl.
+2:38:39 PM INFO: MvcFrameworkObjectImpl: Setting: MvcViewObject=MvcViewObjectImpl
+2:38:39 PM INFO: MvcViewObjectImpl: Initializing Object: MvcViewObjectImpl
+2:38:39 PM INFO: MvcViewObjectImpl: Setting Object: MvcFrameworkObject
+2:38:39 PM INFO: MvcFrameworkScriptImpl: Starting new game.
+2:38:45 PM INFO: MvcModelObjectImpl: TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl,TalonObjectImpl Order List= []
+2:38:46 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:38:50 PM INFO: MvcModelObjectImpl: Phase: 1 Action:0) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(4,-1,-3), (3,0,-3), (2,0,-2), (1,0,-1), (0,1,-1), (-1,2,-1), (-1,3,-2)]
+2:38:50 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:38:54 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:38:58 PM INFO: MvcModelObjectImpl: Phase: 1 Action:1) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-1,3,-2), (0,3,-3), (1,3,-4)]
+2:38:58 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:02 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:06 PM INFO: MvcModelObjectImpl: Phase: 1 Action:2) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(1,3,-4), (1,2,-3), (1,1,-2), (0,1,-1), (-1,2,-1), (-2,2,0)]
+2:39:06 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:10 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:13 PM INFO: MvcModelObjectImpl: Phase: 1 Action:3) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxNorthEast
+	>talonPhalanxIndex: 1
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Wait
+	>PathObject= [(4,0,-4)]
+2:39:13 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:15 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:17 PM INFO: MvcModelObjectImpl: Phase: 1 Action:4) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-3,4,-1), (-2,3,-1), (-1,2,-1), (0,1,-1), (1,0,-1), (2,0,-2), (3,-1,-2), (4,-2,-2), (4,-3,-1)]
+2:39:17 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:19 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:20 PM INFO: MvcModelObjectImpl: Phase: 1 Action:5) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(4,-3,-1), (4,-2,-2), (3,-1,-2), (2,0,-2), (1,1,-2), (1,2,-3)]
+2:39:20 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:20 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:20 PM INFO: MvcModelObjectImpl: Phase: 1 Action:6) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 0
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(1,2,-3), (1,1,-2), (1,0,-1), (1,-1,0), (1,-2,1), (1,-3,2), (0,-3,3)]
+2:39:20 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:20 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:20 PM INFO: MvcModelObjectImpl: Phase: 1 Action:7) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 1
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-4,4,0), (-4,3,1), (-4,2,2), (-3,1,2)]
+2:39:21 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:21 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:21 PM INFO: MvcModelObjectImpl: Phase: 1 Action:8) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 1
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(-3,1,2), (-2,0,2), (-1,-1,2), (-1,-2,3), (0,-3,3), (1,-4,3)]
+2:39:21 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:21 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:21 PM INFO: MvcModelObjectImpl: Phase: 1 Action:9) Inputting TalonActionOrderReport=TalonActionOrderReport: 
+	>Acting TalonIdentificationReport:
+	>TalonFactionIdEnum: CreativeFaction2
+	>TalonPhalanxIdEnum: PhalanxSouthEast
+	>talonPhalanxIndex: 1
+	>TalonIdEnum: CreativeName1
+	>Target 
+	>TalonActionTypeEnum= Move
+	>PathObject= [(1,-4,3), (1,-3,2), (1,-2,1), (1,-1,0), (1,0,-1)]
+2:39:21 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:21 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:22 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:22 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:22 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:22 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:22 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:23 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:23 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:23 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:23 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:23 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:24 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:24 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:24 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:24 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:24 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:25 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:25 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:25 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:25 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:25 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:26 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:26 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:26 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:26 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:26 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:27 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:27 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:27 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:27 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:28 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:28 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:28 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:28 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:28 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:28 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:29 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:29 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:29 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:29 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:29 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:30 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:30 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:30 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:30 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:30 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:31 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:31 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:31 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:31 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:31 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:32 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:32 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:32 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:32 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:32 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:33 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:33 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:33 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:33 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:34 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:34 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:34 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:34 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:34 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:34 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:35 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:35 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:35 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:35 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:35 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:36 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:36 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:36 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:36 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:36 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:37 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:37 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:37 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:37 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:38 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:38 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:38 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:38 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:38 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:38 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:39 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:39 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:39 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:39 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:39 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:40 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:40 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:40 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:40 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:41 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:41 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:41 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:41 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:41 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:41 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:42 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:42 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:42 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:42 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:42 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:43 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:43 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:43 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:43 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:43 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:44 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:44 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:44 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:44 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:44 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:45 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:45 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:45 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:45 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:45 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:46 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:46 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:46 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:46 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:46 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:47 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:47 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:47 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:47 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:47 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:48 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:48 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:48 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:48 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:48 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:49 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:49 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:49 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:49 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:49 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:50 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:50 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:50 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:50 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:50 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:51 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:51 PM INFO: MvcFrameworkScriptImpl: Continue Game=True
+2:39:51 PM INFO: MvcFrameworkScriptImpl: Continue Game=True

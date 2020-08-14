@@ -88,10 +88,10 @@ public class TalonIdentificationReport
     public override string ToString()
     {
         return this.GetType() + ":" +
-                       "\n>" + typeof(TalonFactionIdEnum) + ": " + this.GetFactionId() +
-                       "\n>" + typeof(TalonPhalanxIdEnum) + ": " + this.GetTalonPhalanxId() +
-                       "\n>talonPhalanxIndex: " + this.GetTalonPhalanxIndex() +
-                       "\n>" + typeof(TalonIdEnum) + ": " + this.GetTalonId();
+                       "\n\t>" + typeof(TalonFactionIdEnum) + ": " + this.GetFactionId() +
+                       "\n\t>" + typeof(TalonPhalanxIdEnum) + ": " + this.GetTalonPhalanxId() +
+                       "\n\t>talonPhalanxIndex: " + this.GetTalonPhalanxIndex() +
+                       "\n\t>" + typeof(TalonIdEnum) + ": " + this.GetTalonId();
     }
 
     #endregion Public Methods

@@ -41,8 +41,8 @@ public class HexTileObjectImpl
         else
         {
             throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                "\n>" + typeof(HexTileScript) + " is null: " + (hexTileScript == null) +
-                "\n>" + typeof(HexTileConstructionReport) + " is null: " + (hexTileConstructionReport == null));
+                "\n\t>" + typeof(HexTileScript) + " is null: " + (hexTileScript == null) +
+                "\n\t>" + typeof(HexTileConstructionReport) + " is null: " + (hexTileConstructionReport == null));
         }
     }
 

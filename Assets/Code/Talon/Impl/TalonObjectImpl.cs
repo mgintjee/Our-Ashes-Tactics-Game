@@ -34,14 +34,20 @@ public class TalonObjectImpl
         else
         {
             throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                "\n>" + typeof(TalonScript) + " is null: " + (talonScript == null) +
-                "\n>" + typeof(TalonConstructionReport) + " is null: " + (talonConstructionReport == null));
+                "\n\t>" + typeof(TalonScript) + " is null: " + (talonScript == null) +
+                "\n\t>" + typeof(TalonConstructionReport) + " is null: " + (talonConstructionReport == null));
         }
     }
 
     #endregion Public Constructors
 
     #region Public Methods
+
+    public override void AddWeapon(WeaponObject weaponObject)
+    {
+        this.talonVisual.AddWeaponObject(weaponObject);
+        this.talonBehavior.AddWeaponBehavior(weaponObject.GetWeaponBehavior());
+    }
 
     public override CubeCoordinates GetCubeCoordinates()
     {
@@ -53,6 +59,7 @@ public class TalonObjectImpl
         return new TalonInformationReport.Builder()
             .SetTalonAttributesReport(this.talonBehavior.GetCurrentTalonAttributesReport())
             .SetTalonIdentifcationReport(this.GetTalonIdentificationReport())
+            .SetPossibleTalonActionOrderReportSet(this.GetPossibleTalonActionOrderReportSet())
             .Build();
     }
 
@@ -61,17 +68,20 @@ public class TalonObjectImpl
         return new TalonInformationReport.Builder()
             .SetTalonAttributesReport(this.talonBehavior.GetMaximumTalonAttributesReport())
             .SetTalonIdentifcationReport(this.GetTalonIdentificationReport())
+            .SetPossibleTalonActionOrderReportSet(this.GetPossibleTalonActionOrderReportSet())
             .Build();
-    }
-
-    public override HashSet<TalonActionOrderReport> GetPossibleTalonActionOrderReportSet()
-    {
-        return this.talonBehavior.GetPossibleTalonActionOrderReportSet();
     }
 
     public override TalonCombatOrderReport GetTalonCombatOrderReport(PathObjectFire pathObjectFire)
     {
         return this.talonBehavior.GetTalonCombatOrderReport(pathObjectFire);
+    }
+
+    public override TalonIdentificationReport GetTalonIdentificationReport()
+    {
+        return (this.talonConstructionReport != null)
+            ? this.talonConstructionReport.GetTalonIdentificationReport()
+            : null;
     }
 
     public override TalonScript GetTalonScript()
@@ -92,7 +102,7 @@ public class TalonObjectImpl
             else
             {
                 throw new ArgumentException("Unable to initialize ?" + this.GetType() + ". Invalid Parameters." +
-                    "\n>" + typeof(TalonIdentificationReport) + " is null: " + (talonIdentificationReport == null));
+                    "\n\t>" + typeof(TalonIdentificationReport) + " is null: " + (talonIdentificationReport == null));
             }
         }
         else
@@ -103,6 +113,10 @@ public class TalonObjectImpl
 
     public override TalonActionResultReport InputTalonActionOrderReport(TalonActionOrderReport talonActionOrder)
     {
+        if (talonActionOrder.GetTalonActionType() == TalonActionTypeEnum.Move)
+        {
+            this.SetCubeCoordinates(talonActionOrder.GetPathObject().GetCubeCoordinatesEnd());
+        }
         return this.talonBehavior.InputTalonActionOrderReport(talonActionOrder);
     }
 
@@ -127,19 +141,24 @@ public class TalonObjectImpl
         else
         {
             throw new ArgumentException("Unable to SetCubeCoordinates" +
-                "\n>" + typeof(CubeCoordinates) + " is null");
+                "\n\t>" + typeof(CubeCoordinates) + " is null");
         }
+    }
+
+    public override string ToString()
+    {
+        return (this.GetTalonIdentificationReport() != null)
+            ? this.GetTalonIdentificationReport().ToString()
+            : "null";
     }
 
     #endregion Public Methods
 
     #region Private Methods
 
-    private TalonIdentificationReport GetTalonIdentificationReport()
+    private HashSet<TalonActionOrderReport> GetPossibleTalonActionOrderReportSet()
     {
-        return (this.talonConstructionReport != null)
-            ? this.talonConstructionReport.GetTalonIdentificationReport()
-            : null;
+        return this.talonBehavior.GetPossibleTalonActionOrderReportSet();
     }
 
     #endregion Private Methods

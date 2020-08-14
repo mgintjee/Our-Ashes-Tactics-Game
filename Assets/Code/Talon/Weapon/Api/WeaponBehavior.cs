@@ -1,5 +1,5 @@
 ﻿/// <summary>
-/// Todo
+/// Weapon Behvaior Api
 /// </summary>
 public abstract class WeaponBehavior
 {
@@ -13,46 +13,8 @@ public abstract class WeaponBehavior
     /// <returns></returns>
     public abstract WeaponCombatOrderReport GenerateWeaponReport(int accuracyPenalty, int targetRange);
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
-    public abstract int GetAccuracyPoints();
+    public abstract WeaponAttributes GetWeaponAttributes();
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
-    public abstract int GetDamagePoints();
-
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
-    public abstract int GetPenetrationPoints();
-
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
-    public abstract int GetRangePoints();
-
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
-    public abstract int GetRangeProximityPoints();
-
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
-    public abstract int GetShotCountPoints();
-
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
     public abstract WeaponIdEnum GetWeaponId();
 
     #endregion Public Methods

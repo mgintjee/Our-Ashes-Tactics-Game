@@ -12,8 +12,10 @@ public class MvcControllerScriptImpl
     // Provide logging capability
     private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
+    // Todo
     private MvcControllerObject mvcControllerObject;
 
+    // Todo
     private MvcFrameworkScript mvcFrameworkScript;
 
     #endregion Private Fields
@@ -45,7 +47,7 @@ public class MvcControllerScriptImpl
         else
         {
             throw new ArgumentException("Unable to initialize ?" + this.GetType() + ". Invalid Parameters." +
-                "\n>" + typeof(MvcFrameworkScript) + " is null: " + (mvcFrameworkScript == null));
+                "\n\t>" + typeof(MvcFrameworkScript) + " is null: " + (mvcFrameworkScript == null));
         }
     }
 

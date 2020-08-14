@@ -39,10 +39,6 @@ public class CubeCoordinates
         }
     }
 
-    /// <summary>
-    /// Constructor method, to construct a Coordinates using the provided Coordinates
-    /// </summary>
-    /// <param name="coordinates">The coordinates that will provide the xCoord and yCoord</param>
     public CubeCoordinates(CubeCoordinates coordinates)
     {
         xValue = coordinates.GetX();
@@ -54,13 +50,6 @@ public class CubeCoordinates
 
     #region Public Methods
 
-    /// <summary>
-    /// Comparison mehtod, to check if another Coordinates object equals this one
-    /// </summary>
-    /// <param name="obj">
-    /// THe other Coordinates object to test if it is equal to this Coordinates objecy
-    /// </param>
-    /// <returns>True if the obj is equal to this coordinates, False otherwise</returns>
     public override bool Equals(object obj)
     {
         // Check if same type
@@ -79,16 +68,14 @@ public class CubeCoordinates
         }
     }
 
-    ////////////////////////
-    // Comparison Methods
-    ////////////////////////
-    /// <summary>
-    /// Comparison method, to get the hash code of this object
-    /// </summary>
-    /// <returns>The hash code representation of this object</returns>
     public override int GetHashCode()
     {
-        return this.ToString().GetHashCode();
+        // Auto-generated HashCode
+        var hashCode = 230791427;
+        hashCode = hashCode * -1521134295 + xValue.GetHashCode();
+        hashCode = hashCode * -1521134295 + yValue.GetHashCode();
+        hashCode = hashCode * -1521134295 + zValue.GetHashCode();
+        return hashCode;
     }
 
     public CubeCoordinates GetNegatedCubeCoordinates()
@@ -111,10 +98,6 @@ public class CubeCoordinates
         return this.zValue;
     }
 
-    /// <summary>
-    /// Comparison method, to get the hash code of this object
-    /// </summary>
-    /// <returns>The hash code representation of this object</returns>
     public override string ToString()
     {
         return string.Format("({0},{1},{2})",
