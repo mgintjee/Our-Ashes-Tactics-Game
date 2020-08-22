@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Todo
-/// </summary>
 public class LineRendererUtilScript
     : AbstractUnityScript
 {

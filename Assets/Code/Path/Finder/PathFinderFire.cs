@@ -43,7 +43,6 @@ public class PathFinderFire
                         TalonIdentificationReport talonIdentificationReport = hexTileInformationReport.GetTalonIdentificationReport();
                         if (talonIdentificationReport != null)
                         {
-                            logger.Debug("Start=?, ValidEnd=?", this.cubeCoordinatesStart, cubeCoordinates);
                             validCubeCoordinatesEndSet.Add(cubeCoordinates);
                         }
                     }

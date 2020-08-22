@@ -17,7 +17,7 @@ public abstract class MvcModelScript
 
     public abstract MvcModelObject GetMvcModelObject();
 
-    public abstract void Initialize(MvcFrameworkScript mvcFrameworkScript, MapInformationReport mapConstructionReport);
+    public abstract void Initialize(MvcFrameworkScript mvcFrameworkScript, MapConstructionReport mapConstructionReport);
 
     public abstract bool IsInitialized();
 

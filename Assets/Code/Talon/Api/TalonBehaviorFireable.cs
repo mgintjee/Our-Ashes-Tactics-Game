@@ -11,6 +11,8 @@ public abstract class TalonBehaviorFireable
 
     public abstract void BeginPathFinding();
 
+    public abstract int GetMaxAccuracyPenalty(int targetRange);
+
     public abstract HashSet<PathObject> GetPathObjectFireSet();
 
     public abstract TalonCombatOrderReport GetTalonCombatOrderReport(PathObjectFire pathObjectFire);

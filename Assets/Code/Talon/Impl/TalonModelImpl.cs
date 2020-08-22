@@ -24,7 +24,6 @@ public class TalonModelImpl
         if (talonObject != null)
         {
             this.talonModelGameObject = talonObject.GetTalonScript().GetGameObject();
-            logger.Info("Name=?", this.talonModelGameObject.name);
         }
         else
         {

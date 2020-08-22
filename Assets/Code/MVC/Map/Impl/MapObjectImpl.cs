@@ -14,7 +14,7 @@ public class MapObjectImpl
     // Provide logging capability
     private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
-    private readonly MapInformationReport mapInformationReport;
+    private readonly MapConstructionReport mapInformationReport;
     private readonly MapScript mapScript;
     private Dictionary<CubeCoordinates, HexTileObject> cubeCoordinatesHexTileObjectDictionary;
     private System.Random random;
@@ -23,7 +23,7 @@ public class MapObjectImpl
 
     #region Public Constructors
 
-    public MapObjectImpl(MapScript mapScript, MapInformationReport mapConstructionReport)
+    public MapObjectImpl(MapScript mapScript, MapConstructionReport mapConstructionReport)
     {
         if (mapScript != null &&
             mapConstructionReport != null)
@@ -39,7 +39,7 @@ public class MapObjectImpl
         {
             throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
                 "\n\t>" + typeof(MapScript) + " is null: " + (mapScript == null) +
-                "\n\t>" + typeof(MapInformationReport) + " is null: " + (mapConstructionReport == null));
+                "\n\t>" + typeof(MapConstructionReport) + " is null: " + (mapConstructionReport == null));
         }
     }
 
@@ -57,9 +57,23 @@ public class MapObjectImpl
         return new HashSet<CubeCoordinates>(this.cubeCoordinatesHexTileObjectDictionary.Keys);
     }
 
-    public override MapInformationReport GetMapInformationReport()
+    public override MapConstructionReport GetMapConstructionReport()
     {
         return this.mapInformationReport;
+    }
+
+    public override MapInformationReport GetMapInformationReport()
+    {
+        HashSet<HexTileInformationReport> hexTileInformationReportSet = new HashSet<HexTileInformationReport>();
+
+        foreach (HexTileObject hexTileObject in this.cubeCoordinatesHexTileObjectDictionary.Values)
+        {
+            hexTileInformationReportSet.Add(hexTileObject.GetHexTileInformationReport());
+        }
+
+        return new MapInformationReport.Builder()
+            .SetHexTileInformationReportSet(hexTileInformationReportSet)
+            .Build();
     }
 
     public override MapScript GetMapScript()

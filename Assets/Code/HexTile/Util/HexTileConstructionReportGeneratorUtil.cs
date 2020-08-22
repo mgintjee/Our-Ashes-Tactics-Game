@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
-/// <summary>
-/// Todo
-/// </summary>
 public static class HexTileConstructionReportGeneratorUtil
 {
     #region Private Fields
-
-    // Provide logging capability
-    private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
     private static bool mapMirrored;
     private static Random random;

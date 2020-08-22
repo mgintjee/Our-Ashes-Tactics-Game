@@ -22,15 +22,13 @@ public class OrderPointComparer
     {
         // Check if Left is null or is unable to provide its order points
         if (talonObjectLeft == null ||
-            talonObjectLeft.GetCurrentTalonInformationReport() == null ||
-            talonObjectLeft.GetCurrentTalonInformationReport().GetTalonAttributesReport() == null)
+            talonObjectLeft.GetTalonAttributesReport() == null)
         {
             return 1;
         }
         // Check if Right is null or is unable to provide its order points
         else if (talonObjectRight == null ||
-            talonObjectRight.GetCurrentTalonInformationReport() == null ||
-            talonObjectRight.GetCurrentTalonInformationReport().GetTalonAttributesReport() == null)
+            talonObjectRight.GetTalonAttributesReport() == null)
         {
             return -1;
         }
@@ -38,8 +36,8 @@ public class OrderPointComparer
         else
         {
             // Collect the Order Points from both Left and Right
-            int orderPointsLeft = talonObjectLeft.GetCurrentTalonInformationReport().GetTalonAttributesReport().GetOrderPoints();
-            int orderPointsRight = talonObjectRight.GetCurrentTalonInformationReport().GetTalonAttributesReport().GetOrderPoints();
+            int orderPointsLeft = talonObjectLeft.GetTalonAttributesReport().GetOrderPoints();
+            int orderPointsRight = talonObjectRight.GetTalonAttributesReport().GetOrderPoints();
             // Check if the orderPoints for Left is less than the orderPoints for Right
             if (orderPointsLeft < orderPointsRight)
             {

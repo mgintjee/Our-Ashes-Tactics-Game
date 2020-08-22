@@ -1,4 +1,5 @@
 ﻿/// <summary>
+/// Todo
 /// </summary>
 public static class FinderScriptConstants
 {
@@ -12,6 +13,7 @@ public static class FinderScriptConstants
     #region Public Methods
 
     /// <summary>
+    /// Todo
     /// </summary>
     /// <returns></returns>
     public static string GetFinderUtilGameObjectName()

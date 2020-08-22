@@ -47,6 +47,11 @@ public class WeaponObjectImpl
         return this.weaponBehavior.GenerateWeaponReport(accuracyPenalty, targetRange);
     }
 
+    public override WeaponBehavior GetWeaponBehavior()
+    {
+        return this.weaponBehavior;
+    }
+
     public override WeaponIdEnum GetWeaponId()
     {
         return this.weaponId;

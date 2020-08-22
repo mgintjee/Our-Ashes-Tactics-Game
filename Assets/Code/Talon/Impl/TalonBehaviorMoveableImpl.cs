@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 /// <summary>
 /// Todo
@@ -8,6 +9,9 @@ public class TalonBehaviorMoveableImpl
     : TalonBehaviorMoveable
 {
     #region Private Fields
+
+    // Provide logging capability
+    private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
     // Todo
     private readonly TalonAttributes talonAttributes = null;
@@ -61,6 +65,8 @@ public class TalonBehaviorMoveableImpl
     {
         int currentTurnPoints = this.GetCurrentTurnPoints();
         int currentMovePoints = this.GetCurrentMovePoints();
+        logger.Info("Turn=?, Move=?, Prod=?", currentTurnPoints, currentMovePoints, currentTurnPoints * currentMovePoints);
+        // Things TODO: Fix this calculation. Update the TalonCanvas
         if (currentTurnPoints < 1)
         {
             currentTurnPoints = 1;
@@ -118,7 +124,7 @@ public class TalonBehaviorMoveableImpl
         }
     }
 
-    public override void ResetValuesForNewTurn()
+    public override void ResetTalonAttributeValues()
     {
         this.currentTurnPoints = this.GetMaximumTurnPoints();
         this.currrentMovePoints = this.GetMaximumMovePoints();

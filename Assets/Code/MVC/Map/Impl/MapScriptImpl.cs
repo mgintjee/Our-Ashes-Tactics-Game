@@ -13,21 +13,15 @@ public class MapScriptImpl
     // Provide logging capability
     private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
-    // Todo
-    private MapInformationReport mapInformationReport;
+    private MapConstructionReport mapInformationReport;
 
-    // Todo
     private MapObject mapObject;
 
     #endregion Private Fields
 
     #region Public Methods
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
-    public override MapInformationReport GetMapInfoReport()
+    public override MapConstructionReport GetMapInfoReport()
     {
         if (this.mapInformationReport != null)
         {
@@ -36,21 +30,12 @@ public class MapScriptImpl
         return null;
     }
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
     public override MapObject GetMapObject()
     {
         return this.mapObject;
     }
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <param name="mcvModelScript">      </param>
-    /// <param name="mapInformationReport"></param>
-    public override void Initialize(MvcModelScript mcvModelScript, MapInformationReport mapInformationReport)
+    public override void Initialize(MvcModelScript mcvModelScript, MapConstructionReport mapInformationReport)
     {
         logger.Info("Initializing: ?.", this.GetType());
         if (!this.IsInitialized())
@@ -68,7 +53,7 @@ public class MapScriptImpl
             {
                 throw new ArgumentException("Unable to initialize " + this.GetType() + ". Invalid Parameters." +
                     "\n\t>" + typeof(MvcModelScript) + "=" + mcvModelScript +
-                    "\n\t>" + typeof(MapInformationReport) + "=" + mapInformationReport);
+                    "\n\t>" + typeof(MapConstructionReport) + "=" + mapInformationReport);
             }
         }
         else

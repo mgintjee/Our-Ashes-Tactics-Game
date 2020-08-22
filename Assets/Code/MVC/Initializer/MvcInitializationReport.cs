@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-/// <summary>
-/// Todo
-/// </summary>
 public class MvcInitializationReport
 {
     #region Private Fields
 
     // Determines the dimensions of the map
-    private readonly MapInformationReport mapInformationReport;
+    private readonly MapConstructionReport mapInformationReport;
 
     // Determines the information required for constructing Talons
     private readonly HashSet<TalonConstructionReport> talonConstructionReportSet;
@@ -24,7 +21,7 @@ public class MvcInitializationReport
 
     #region Private Constructors
 
-    private MvcInitializationReport(MapInformationReport mapInformationReport,
+    private MvcInitializationReport(MapConstructionReport mapInformationReport,
         Dictionary<TalonControllerIdEnum, HashSet<TalonPhalanxIdEnum>> talonControllerIdPhalanxIdSetDictionary,
         HashSet<TalonConstructionReport> talonConstructionReportSet,
         Dictionary<TalonFactionIdEnum, HashSet<TalonPhalanxIdEnum>> talonFactionIdPhalanxIdSetDictionary)
@@ -39,7 +36,7 @@ public class MvcInitializationReport
 
     #region Public Methods
 
-    public MapInformationReport GetMapConstructionReport()
+    public MapConstructionReport GetMapConstructionReport()
     {
         return this.mapInformationReport;
     }
@@ -73,7 +70,7 @@ public class MvcInitializationReport
         #region Private Fields
 
         // Determines the dimensions of the map
-        private MapInformationReport mapInformationReport = null;
+        private MapConstructionReport mapInformationReport = null;
 
         // Determines the information required for constructing Talons
         private HashSet<TalonConstructionReport> talonConstructionReportSet = null;
@@ -88,10 +85,6 @@ public class MvcInitializationReport
 
         #region Public Methods
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
         public MvcInitializationReport Build()
         {
             HashSet<string> invalidReasons = this.IsValid();
@@ -109,7 +102,7 @@ public class MvcInitializationReport
             }
         }
 
-        public Builder SetMapInformationReport(MapInformationReport mapInformationReport)
+        public Builder SetMapInformationReport(MapConstructionReport mapInformationReport)
         {
             this.mapInformationReport = mapInformationReport;
             return this;
@@ -138,10 +131,6 @@ public class MvcInitializationReport
 
         #region Private Methods
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
         private HashSet<string> IsValid()
         {
             // Default an empty Set: String

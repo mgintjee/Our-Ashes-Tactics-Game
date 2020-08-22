@@ -26,7 +26,7 @@ public class MvcModelScriptImpl
         return this.mvcModelObject;
     }
 
-    public override void Initialize(MvcFrameworkScript mvcFrameworkScript, MapInformationReport mapInformationReport)
+    public override void Initialize(MvcFrameworkScript mvcFrameworkScript, MapConstructionReport mapInformationReport)
     {
         logger.Info("Initializing: ?", this.GetType());
         if (!this.IsInitialized())
@@ -42,13 +42,13 @@ public class MvcModelScriptImpl
                 this.mapScript = this.BuildMap();
                 this.mapScript.Initialize(this, mapInformationReport);
 
-                this.mvcModelObject = new MvcModelObjectImpl(this);
+                this.mvcModelObject = new MvcModelObjectImpl(this, this.mapScript);
             }
             else
             {
                 throw new ArgumentException("Unable to initialize ?" + this.GetType() + ". Invalid Parameters." +
                     "\n\t>" + typeof(MvcFrameworkScript) + " is null: " + (mvcFrameworkScript == null) +
-                    "\n\t>" + typeof(MapInformationReport) + " is null: " + (mapInformationReport == null));
+                    "\n\t>" + typeof(MapConstructionReport) + " is null: " + (mapInformationReport == null));
             }
         }
         else

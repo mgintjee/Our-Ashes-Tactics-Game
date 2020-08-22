@@ -34,10 +34,13 @@ public class TalonObjectPainterUtil
                 {
                     // Todo: Clean this crap up as well
                     Material colorMaterial = MaterialResourceLoader.HexTile.Top.LoadHexTileTopMaterialResource(tileObjectType);
-                    GameObject talonLegsGameObject = talonGameObject.transform.GetChild(0).GetChild(0).gameObject;
+                    GameObject talonLegsGameObject = talonGameObject.transform.GetChild(0).gameObject;
                     string gameObjectName = talonLegsGameObject.name;
                     int paintIndex = TalonPaintConstants.GetTilePaintIndexForName(gameObjectName);
-                    PaintGameObject(talonLegsGameObject, paintIndex, colorMaterial);
+                    if (paintIndex >= 0)
+                    {
+                        PaintGameObject(talonLegsGameObject, paintIndex, colorMaterial);
+                    }
                 }
                 else
                 {
@@ -133,6 +136,13 @@ public class TalonObjectPainterUtil
                 logger.Warn("Unable to paint gameObject. MeshRenderer is null.");
             }
         }
+        else
+        {
+            throw new ArgumentException("Unable to PaintGameObject. Invalid Parameters." +
+                "\n\t>" + typeof(GameObject) + " is null: " + (gameObject == null) +
+                "\n\t>paintIndex is invalid: " + (paintIndex) +
+                "\n\t>" + typeof(Material) + " is null: " + (material == null));
+        }
     }
 
     /// <summary>
@@ -150,7 +160,11 @@ public class TalonObjectPainterUtil
             int paintIndex = (gameObjectName.Contains(WeaponPaintConstants.GetWeaponKeyword()))
                 ? WeaponPaintConstants.GetPaintIndexForWeaponName(gameObjectName)
                 : TalonPaintConstants.GetPaintIndexForName(gameObjectName);
-            PaintGameObject(gameObject, paintIndex, material);
+
+            if (paintIndex >= 0)
+            {
+                PaintGameObject(gameObject, paintIndex, material);
+            }
 
             foreach (Transform childTransform in gameObject.transform)
             {

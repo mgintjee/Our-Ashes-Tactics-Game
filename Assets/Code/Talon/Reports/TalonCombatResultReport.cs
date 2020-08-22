@@ -46,8 +46,8 @@ public class TalonCombatResultReport
     {
         return this.GetType() + ": " +
             "\n\t>" + this.GetTalonCombatOrderReport() +
-            "\n\t>weaponCombatResultReportList=[" + string.Join(",", this.GetWeaponCombatResultReportList()) + "]" +
-        "\n\t>isTargetDestroyed= " + this.GetIsTargetDestroyed();
+            "\n\t>weaponCombatResultReportList=[\n\t>" + string.Join("\n\t>", this.GetWeaponCombatResultReportList()) + "\n]" +
+            "\n\t>isTargetDestroyed= " + this.GetIsTargetDestroyed();
     }
 
     #endregion Public Methods

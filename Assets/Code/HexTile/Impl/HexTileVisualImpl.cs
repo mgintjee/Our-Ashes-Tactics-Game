@@ -94,6 +94,4 @@ public class HexTileVisualImpl
     }
 
     #endregion Private Methods
-
-    /// Todo: Have a method to paint the bottom of the tile
 }

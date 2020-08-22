@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using UnityEngine;
 
 /// <summary>
 /// MvcFramework Object Impl
@@ -20,6 +21,7 @@ public class MvcFrameworkObjectImpl
     private MvcControllerObject mvcControllerObject;
     private MvcModelObject mvcModelObject;
     private MvcViewObject mvcViewObject;
+    private bool processingAction = false;
     private List<TalonTurnReport> talonTurnReportList;
 
     #endregion Private Fields
@@ -49,38 +51,35 @@ public class MvcFrameworkObjectImpl
 
     public override bool ContinueGame()
     {
-        if (this.mvcModelObject.IsInitialized())
+        if (this.isGameActive)
         {
-            if (!this.mvcModelObject.IsProcessingActionReport())
+            if (this.mvcModelObject.IsInitialized())
             {
-                this.continueGame = this.mvcModelObject.ContinueGame();
-
-                if (this.continueGame)
+                this.processingAction = this.mvcModelObject.IsProcessingActionReport();
+                if (!this.processingAction)
                 {
-                    TalonInformationReport talonInformationReport = this.mvcModelObject.GetCurrentTalonInformationReport();
-                    if (talonInformationReport != null)
+                    this.continueGame = this.mvcModelObject.ContinueGame();
+
+                    if (this.continueGame)
                     {
-                        logger.Debug("Deciding action for ?", talonInformationReport);
-                        if (this.mvcControllerObject.IsReadyToOutputActionReport())
+                        TalonInformationReport talonInformationReport = this.mvcModelObject.GetCurrentTalonInformationReport();
+                        if (talonInformationReport != null)
                         {
-                            TalonActionOrderReport actionReport = this.mvcControllerObject.OutputActionReport();
-                            TalonTurnReport talonTurnReport = this.mvcModelObject.InputTalonActionOrderReport(actionReport);
-                            this.talonTurnReportList.Add(talonTurnReport);
-                            logger.Debug("Outputting ?=?", typeof(TalonActionOrderReport), actionReport);
-                        }
-                        else
-                        {
-                            if (this.mvcControllerObject.IsDeterminingActionReport())
+                            logger.Info("Deciding action for ?", talonInformationReport);
+                            if (this.mvcControllerObject.IsReadyToOutputActionReport())
                             {
-                                logger.Debug("Waiting for ? to finish IsDeterminingActionReport", this.mvcControllerObject);
+                                TalonActionOrderReport actionReport = this.mvcControllerObject.OutputActionReport();
+                                logger.Info("?=?", typeof(TalonActionOrderReport), actionReport);
+                                TalonTurnReport talonTurnReport = this.mvcModelObject.InputTalonActionOrderReport(actionReport);
+                                logger.Info("?=?", typeof(TalonTurnReport), talonTurnReport);
+                                logger.Info("?=?", typeof(MvcModelInformationReport), this.mvcModelObject.GetMvcModelInformationReport());
+                                this.talonTurnReportList.Add(talonTurnReport);
                             }
                             else
                             {
-                                if (this.mvcControllerObject.IsReadyToOutputActionReport())
+                                if (this.mvcControllerObject.IsDeterminingActionReport())
                                 {
-                                    TalonActionOrderReport talonActionOrderReport = this.mvcControllerObject.OutputActionReport();
-                                    this.mvcModelObject.InputTalonActionOrderReport(talonActionOrderReport);
-                                    // TODO: ACTUALLY HAVE THE TALON MOVE!!!
+                                    logger.Debug("Waiting for ? to finish IsDeterminingActionReport", this.mvcControllerObject);
                                 }
                                 else
                                 {
@@ -88,38 +87,37 @@ public class MvcFrameworkObjectImpl
                                 }
                             }
                         }
+                        else
+                        {
+                            Time.timeScale = 0;
+                            throw new ArgumentException("No current " + typeof(TalonInformationReport) + " available.");
+                        }
                     }
                     else
                     {
-                        logger.Error("No current ? available.", typeof(TalonInformationReport));
+                        logger.Info("Game is over. TODO: Generate GameSummaryReport");
                         // End the game
                         this.isGameActive = false;
-                        this.continueGame = false;
                     }
                 }
                 else
                 {
-                    logger.Info("Game is over. TODO: Generate GameSummaryReport");
-                    // End the game
-                    this.isGameActive = false;
+                    logger.Debug("Waiting for ? to finish IsProcessingActionReport", this.mvcModelObject);
                 }
             }
             else
             {
-                logger.Debug("Waiting for ? to finish IsProcessingActionReport", this.mvcModelObject);
+                logger.Debug("Waiting for ? to initialize", this.mvcModelObject);
             }
-        }
-        else
-        {
-            logger.Debug("Waiting for ? to initialize", this.mvcModelObject);
-        }
 
-        if (!this.continueGame)
-        {
-            this.PrintTalonTurnReportList();
-        }
+            if (!this.continueGame)
+            {
+                this.PrintTalonTurnReportList();
+            }
 
-        return this.continueGame;
+            return this.continueGame;
+        }
+        return this.isGameActive;
     }
 
     public override MvcControllerObject GetMvcControllerObject()

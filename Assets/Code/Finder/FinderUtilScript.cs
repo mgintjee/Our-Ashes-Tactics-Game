@@ -2,9 +2,6 @@
 using System.Diagnostics;
 using UnityEngine;
 
-/// <summary>
-/// Todo
-/// </summary>
 public class FinderUtilScript
     : MonoBehaviour
 {
@@ -17,10 +14,6 @@ public class FinderUtilScript
 
     #region Public Methods
 
-    /// <summary>
-    /// </summary>
-    /// <param name="gameObjectType"></param>
-    /// <returns></returns>
     public HashSet<GameObject> FindAllGameObjects(System.Type gameObjectType)
     {
         // Todo Look at this logic again

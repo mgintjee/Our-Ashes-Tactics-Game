@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 /// <summary>
 /// Weapon Behvaior Impl
@@ -7,6 +8,9 @@ public class WeaponBehaviorImpl
     : WeaponBehavior
 {
     #region Private Fields
+
+    // Provide logging capability
+    private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
     private readonly WeaponAttributes weaponAttributes = null;
     private readonly WeaponIdEnum weaponId = WeaponIdEnum.NULL;
@@ -35,7 +39,54 @@ public class WeaponBehaviorImpl
 
     public override WeaponCombatOrderReport GenerateWeaponReport(int accuracyPenalty, int targetRange)
     {
-        return null;
+        int accuracyRemaining = this.CalculateRemainingAccuracy(accuracyPenalty, targetRange);
+        int shotsHit;
+        // Check if the accuracy remaining makes it impossible to hit
+        if (accuracyRemaining <= 0)
+        {
+            logger.Debug("Generating Auto-Miss WeaponReport. AccuracyDifference=? is less than or equal to 0.",
+        accuracyRemaining);
+            shotsHit = 0;
+        }
+        // Check if the accuracy remaining makes it impossible to miss
+        else if (accuracyRemaining >= 100)
+        {
+            logger.Debug("Generating Auto-Hit WeaponReport. AccuracyDifference=? is greater than or equal to 100.",
+                accuracyRemaining);
+            shotsHit = this.GetWeaponAttributes().GetShotCountPoints();
+        }
+        else
+        {
+            logger.Debug("Generating Regular WeaponReport.");
+            // Calculate the accuracyRatio: accuracyRemaining / maxAccuracy
+            float accuracyRatio = accuracyRemaining / 100f;
+            // Default 0 shots landed
+            shotsHit = 0;
+            // Iterate over the number of shots
+            for (int i = 0; i < this.GetWeaponAttributes().GetShotCountPoints(); ++i)
+            {
+                // Collect a random float
+                float randomValue = new Random().Next(0, 100);
+                // Check that random float is less than the accuracyRatio
+                if (randomValue <= accuracyRatio)
+                {
+                    // Increment the shotsLanded
+                    shotsHit++;
+                }
+            }
+        }
+
+        // Build a WeaponReport with all shots that hit
+        return new WeaponCombatOrderReport.Builder()
+            .SetDamagePerShot(this.GetWeaponAttributes().GetDamagePoints())
+            .SetPenetration(this.GetWeaponAttributes().GetPenetrationPoints())
+            .SetNumberOfShots(shotsHit)
+            .Build();
+    }
+
+    public override int GetMaxAccuracyPenalty(int targetRange)
+    {
+        return this.CalculateRemainingAccuracy(0, targetRange);
     }
 
     public override WeaponAttributes GetWeaponAttributes()
@@ -49,4 +100,19 @@ public class WeaponBehaviorImpl
     }
 
     #endregion Public Methods
+
+    #region Private Methods
+
+    private int CalculateRemainingAccuracy(int accuracyPenalty, int targetRange)
+    {
+        // Calculate the difference in ideal range and
+        int rangeDifference = this.GetWeaponAttributes().GetRangePoints() - targetRange;
+        // Calculate the proximity bonus points for the range
+        int accuracyProximityBonus = this.GetWeaponAttributes().GetRangeProximityPoints() * rangeDifference;
+        // Calculate the remaining accuracy after penalties
+        int accuracyRemaining = this.GetWeaponAttributes().GetAccuracyPoints() + accuracyProximityBonus - accuracyPenalty;
+        return accuracyRemaining;
+    }
+
+    #endregion Private Methods
 }

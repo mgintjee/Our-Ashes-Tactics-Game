@@ -7,6 +7,8 @@ public abstract class WeaponObject
 
     public abstract WeaponCombatOrderReport GenerateWeaponCombatOrderReport(int accuracyPenalty, int targetRange);
 
+    public abstract WeaponBehavior GetWeaponBehavior();
+
     public abstract WeaponIdEnum GetWeaponId();
 
     public abstract WeaponScript GetWeaponScript();
@@ -14,8 +16,6 @@ public abstract class WeaponObject
     public abstract void Initialize();
 
     public abstract bool IsInitialized();
-
-    public abstract WeaponBehavior GetWeaponBehavior();
 
     #endregion Public Methods
 }

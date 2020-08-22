@@ -1,7 +1,4 @@
-﻿/// <summary>
-/// Todo
-/// </summary>
-public static class HexTileGameObjectConstants
+﻿public static class HexTileGameObjectConstants
 {
     #region Private Fields
 
@@ -18,28 +15,16 @@ public static class HexTileGameObjectConstants
 
     #region Public Methods
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
     public static float GetOffsetX()
     {
         return OFFSET_X;
     }
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
     public static float GetOffsetY()
     {
         return OFFSET_Y;
     }
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
     public static float GetOffsetZ()
     {
         return OFFSET_Z;

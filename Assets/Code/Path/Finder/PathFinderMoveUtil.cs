@@ -19,7 +19,6 @@ public static class PathFinderMoveUtil
 
     public static Dictionary<CubeCoordinates, PathObject> BeginPathfindingFor(CubeCoordinates tileCoordinatesStart, int pathObjectCostThreshold)
     {
-        logger.Debug("PathFinding for MOVING from CubeCoordinates: ?, with a PathObjectCostThreshold=?", tileCoordinatesStart, pathObjectCostThreshold);
         pathFinderMove = new PathFinderMove(tileCoordinatesStart, pathObjectCostThreshold);
         pathFinderMove.BeginPathFinding();
         Dictionary<CubeCoordinates, PathObject> pathObjectDictionary = pathFinderMove.GetPathObjectDictionary();

@@ -78,7 +78,6 @@ public class PathObjectValidatorUtil
                         {
                             if (!hexTileConstructionReport.GetNeighborCubeCoordinatesSet().Contains(currentCubeCoordinates))
                             {
-                                logger.Debug("PathObject is not valid. PathObject is not connected.");
                                 return false;
                             }
                         }
@@ -105,7 +104,6 @@ public class PathObjectValidatorUtil
                 int pathCount = CubeCoordinatesCommonUtil.GetCubeCoordinatesDistanceFrom(cubeCoordinatesStart, cubeCoordinatesEnd) + 1;
                 if (pathCount <= 0 || pathObject.GetPathObjectLength() < pathCount)
                 {
-                    logger.Debug("PathObject is not valid. PathObject length=?, is not the minimum distance: ? Tiles.", pathObject.GetPathObjectLength(), pathCount);
                     return false;
                 }
                 return true;

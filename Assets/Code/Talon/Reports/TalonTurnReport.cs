@@ -9,6 +9,7 @@ public class TalonTurnReport
     #region Private Fields
 
     private readonly int actionCounter = int.MinValue;
+    private readonly MapInformationReport mapInformationReport = null;
     private readonly int phaseCounter = int.MinValue;
     private readonly TalonActionResultReport talonActionResultReport = null;
     private readonly TalonCombatResultReport talonCombatResultReport = null;
@@ -17,12 +18,14 @@ public class TalonTurnReport
 
     #region Private Constructors
 
-    private TalonTurnReport(int phaseCounter, int actionCounter, TalonActionResultReport talonActionResultReport, TalonCombatResultReport talonCombatResultReport)
+    private TalonTurnReport(int phaseCounter, int actionCounter, TalonActionResultReport talonActionResultReport,
+        TalonCombatResultReport talonCombatResultReport, MapInformationReport mapInformationReport)
     {
         this.phaseCounter = phaseCounter;
         this.actionCounter = actionCounter;
         this.talonActionResultReport = talonActionResultReport;
         this.talonCombatResultReport = talonCombatResultReport;
+        this.mapInformationReport = mapInformationReport;
     }
 
     #endregion Private Constructors
@@ -32,6 +35,11 @@ public class TalonTurnReport
     public int GetActionCounter()
     {
         return this.actionCounter;
+    }
+
+    public MapInformationReport GetMapInformationReport()
+    {
+        return this.mapInformationReport;
     }
 
     public int GetPhaseCounter()
@@ -51,11 +59,15 @@ public class TalonTurnReport
 
     public override string ToString()
     {
+        string talonCombatResultReportString = (this.GetTalonCombatResultReport() != null)
+            ? "\n\t>" + this.GetTalonCombatResultReport()
+            : "";
         return this.GetType() + ": " +
             "\n\t>phaseCounter=" + this.GetPhaseCounter() +
             "\n\t>actionCounter=" + this.GetActionCounter() +
             "\n\t>" + this.GetTalonActionResultReport() +
-            "\n\t>" + this.GetTalonCombatResultReport();
+            talonCombatResultReportString +
+            "\n\t>" + this.GetMapInformationReport();
     }
 
     #endregion Public Methods
@@ -67,6 +79,7 @@ public class TalonTurnReport
         #region Private Fields
 
         private int actionCounter = int.MinValue;
+        private MapInformationReport mapInformationReport = null;
         private int phaseCounter = int.MinValue;
         private TalonActionResultReport talonActionResultReport = null;
         private TalonCombatResultReport talonCombatResultReport = null;
@@ -82,7 +95,8 @@ public class TalonTurnReport
             if (invalidReasons.Count == 0)
             {
                 // Instantiate a new Report
-                return new TalonTurnReport(this.phaseCounter, this.actionCounter, this.talonActionResultReport, this.talonCombatResultReport);
+                return new TalonTurnReport(this.phaseCounter, this.actionCounter, this.talonActionResultReport,
+                    this.talonCombatResultReport, this.mapInformationReport);
             }
             else
             {
@@ -94,6 +108,12 @@ public class TalonTurnReport
         public Builder SetActionCounter(int actionCounter)
         {
             this.actionCounter = actionCounter;
+            return this;
+        }
+
+        public Builder SetMapInformationReport(MapInformationReport mapInformationReport)
+        {
+            this.mapInformationReport = mapInformationReport;
             return this;
         }
 
@@ -149,6 +169,11 @@ public class TalonTurnReport
                 this.talonCombatResultReport == null)
             {
                 argumentExceptionSet.Add(typeof(TalonCombatResultReport) + " has not been set");
+            }
+            // Check that mapInformationReport has been set
+            if (this.mapInformationReport == null)
+            {
+                argumentExceptionSet.Add(typeof(MapInformationReport) + " has not been set");
             }
             return argumentExceptionSet;
         }

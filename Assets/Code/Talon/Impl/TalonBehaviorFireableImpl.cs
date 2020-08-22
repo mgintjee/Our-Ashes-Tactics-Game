@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 /// <summary>
 /// Todo
@@ -8,6 +9,9 @@ public class TalonBehaviorFireableImpl
     : TalonBehaviorFireable
 {
     #region Private Fields
+
+    // Provide logging capability
+    private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
     // Todo
     private readonly TalonAttributes talonAttributes = null;
@@ -65,6 +69,21 @@ public class TalonBehaviorFireableImpl
             : new Dictionary<CubeCoordinates, PathObject>();
     }
 
+    public override int GetMaxAccuracyPenalty(int targetRange)
+    {
+        int maxAccuracyPenalty = int.MinValue;
+        foreach (WeaponBehavior weaponBehavior in this.weaponBehaviorList)
+        {
+            int weaponMaxAccuracyPenalty = weaponBehavior.GetMaxAccuracyPenalty(targetRange);
+            if (maxAccuracyPenalty < weaponMaxAccuracyPenalty)
+            {
+                maxAccuracyPenalty = weaponMaxAccuracyPenalty;
+            }
+        }
+
+        return maxAccuracyPenalty;
+    }
+
     public override HashSet<PathObject> GetPathObjectFireSet()
     {
         return new HashSet<PathObject>(this.cubeCoordinatesPathObjectDictionary.Values);
@@ -80,6 +99,7 @@ public class TalonBehaviorFireableImpl
                 // Collect the weaponCombatOrder from the weaponBehavior
                 WeaponCombatOrderReport weaponCombatOrder = weaponBehavior.GenerateWeaponReport(pathObjectFire.GetPathObjectCost(),
                     pathObjectFire.GetPathObjectLength());
+                logger.Debug("Added ?", weaponCombatOrder);
                 // Add the generated weaponCombatOrder to the list
                 weaponCombatOrderList.Add(weaponCombatOrder);
             }

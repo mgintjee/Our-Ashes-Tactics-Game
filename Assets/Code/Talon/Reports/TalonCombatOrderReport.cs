@@ -31,7 +31,7 @@ public class TalonCombatOrderReport
     public override string ToString()
     {
         return this.GetType() + ": " +
-            "\n\t>weaponCombatOrderReportList= [" + string.Join("\n", this.GetWeaponCombatOrderReportList()) + "]";
+            "\n\t>weaponCombatOrderReportList= [\n\t>" + string.Join("\n\t>", this.GetWeaponCombatOrderReportList()) + "\n]";
     }
 
     #endregion Public Methods

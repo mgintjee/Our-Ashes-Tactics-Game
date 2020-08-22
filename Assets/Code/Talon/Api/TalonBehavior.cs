@@ -23,6 +23,8 @@ public abstract class TalonBehavior
 
     public abstract TalonCombatResultReport InputTalonCombatOrderReport(TalonCombatOrderReport talonCombatOrderReport);
 
+    public abstract void ResetTalonAttributeValues();
+
     public abstract void SetCubeCoordinates(CubeCoordinates cubeCoordinates);
 
     #endregion Public Methods

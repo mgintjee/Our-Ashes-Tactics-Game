@@ -2,9 +2,6 @@
 using System.Diagnostics;
 using UnityEngine;
 
-/// <summary>
-/// Todo
-/// </summary>
 public class HexTileObjectFinderUtil
 {
     #region Private Fields

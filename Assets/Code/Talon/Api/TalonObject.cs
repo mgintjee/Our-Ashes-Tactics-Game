@@ -7,19 +7,15 @@ public abstract class TalonObject
 
     public abstract void AddWeapon(WeaponObject weaponObject);
 
+    public abstract void ApplyPaintScheme();
+
     public abstract CubeCoordinates GetCubeCoordinates();
 
     /// <summary>
     /// Todo
     /// </summary>
     /// <returns></returns>
-    public abstract TalonInformationReport GetCurrentTalonInformationReport();
-
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
-    public abstract TalonInformationReport GetMaximumTalonInformationReport();
+    public abstract TalonAttributesReport GetTalonAttributesReport();
 
     public abstract TalonCombatOrderReport GetTalonCombatOrderReport(PathObjectFire pathObjectFire);
 
@@ -28,6 +24,12 @@ public abstract class TalonObject
     /// </summary>
     /// <returns></returns>
     public abstract TalonIdentificationReport GetTalonIdentificationReport();
+
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
+    public abstract TalonInformationReport GetTalonInformationReport();
 
     /// <summary>
     /// Todo
@@ -42,6 +44,8 @@ public abstract class TalonObject
     public abstract TalonCombatResultReport InputTalonCombatOrderReport(TalonCombatOrderReport talonCombatOrderReport);
 
     public abstract bool IsInitialized();
+
+    public abstract void ResetTalonAttributeValues();
 
     public abstract void SetCubeCoordinates(CubeCoordinates cubeCoordinates);
 

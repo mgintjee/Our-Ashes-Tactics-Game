@@ -9,6 +9,8 @@ public abstract class MvcModelObject
 
     public abstract TalonInformationReport GetCurrentTalonInformationReport();
 
+    public abstract MvcModelInformationReport GetMvcModelInformationReport();
+
     public abstract MvcModelScript GetMvcModelScript();
 
     public abstract TalonInformationReport GetTalonInformationReport(TalonIdentificationReport talonIdentificationReport);

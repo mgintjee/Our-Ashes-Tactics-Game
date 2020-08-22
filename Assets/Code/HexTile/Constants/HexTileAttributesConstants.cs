@@ -50,11 +50,6 @@ public class HexTileAttributesConstants
 
     #region Public Methods
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <param name="hexTileType"></param>
-    /// <returns></returns>
     public static HexTileAttributes GetAttributes(HexTileTypeEnum hexTileType)
     {
         if (HEX_TILE_TYPE_ATTRIBUTES_DICTIONARY.ContainsKey(hexTileType))

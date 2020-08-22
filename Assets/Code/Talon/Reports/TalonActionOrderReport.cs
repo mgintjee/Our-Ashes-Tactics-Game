@@ -63,11 +63,14 @@ public class TalonActionOrderReport
 
     public override string ToString()
     {
+        string targetTalonIdentificationReportString = (this.GetTargetTalonIdentificationReport() != null)
+            ? "\n\t>Target " + this.GetTargetTalonIdentificationReport()
+            : "";
         return this.GetType() + ": " +
             "\n\t>Acting " + this.GetActingTalonIdentificationReport() +
-            "\n\t>Target " + this.GetTargetTalonIdentificationReport() +
-            "\n\t>" + typeof(TalonActionTypeEnum) + "= " + this.GetTalonActionType() +
-            "\n\t>" + typeof(PathObject) + "= [" + this.GetPathObject() + "]";
+            "\n\t>" + typeof(TalonActionTypeEnum) + ": " + this.GetTalonActionType() +
+            "\n\t>" + typeof(PathObject) + ": [" + this.GetPathObject() + "]" +
+            targetTalonIdentificationReportString;
     }
 
     #endregion Public Methods

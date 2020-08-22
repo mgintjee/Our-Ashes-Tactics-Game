@@ -2,52 +2,38 @@
 using System.Collections.Generic;
 
 /// <summary>
-/// Report used to generate the Map
+/// Report used to display the current information of the Map
 /// </summary>
 public class MapInformationReport
 {
     #region Private Fields
 
-    private readonly bool mapMirrored = false;
-    private readonly int mapRadius = int.MinValue;
-    private readonly int mapSeed = int.MinValue;
+    private readonly HashSet<HexTileInformationReport> hexTileInformationReportSet = null;
 
     #endregion Private Fields
 
     #region Private Constructors
 
-    private MapInformationReport(int mapSeed, int mapRadius, bool mapMirrored)
+    private MapInformationReport(HashSet<HexTileInformationReport> hexTileInformationReportSet)
     {
-        this.mapSeed = mapSeed;
-        this.mapRadius = mapRadius;
-        this.mapMirrored = mapMirrored;
+        this.hexTileInformationReportSet = new HashSet<HexTileInformationReport>(hexTileInformationReportSet);
     }
 
     #endregion Private Constructors
 
     #region Public Methods
 
-    public bool GetMapMirrored()
+    public HashSet<HexTileInformationReport> GetHexTileInformationReportSet()
     {
-        return this.mapMirrored;
-    }
-
-    public int GetMapRadius()
-    {
-        return this.mapRadius;
-    }
-
-    public int GetMapSeed()
-    {
-        return this.mapSeed;
+        return new HashSet<HexTileInformationReport>(this.hexTileInformationReportSet);
     }
 
     public override string ToString()
     {
         return this.GetType() + ": " +
-            "\n\t>mapSeed: " + this.GetMapSeed() +
-            ",\n\t>mapRadius: " + this.GetMapRadius() +
-            ",\n\t>mapMirrored: " + this.GetMapMirrored();
+            "\n\t>hexTileInformationReportSet:[" +
+            "\n\t>" + string.Join("\n\t>", this.GetHexTileInformationReportSet()) +
+            "\n]";
     }
 
     #endregion Public Methods
@@ -58,19 +44,12 @@ public class MapInformationReport
     {
         #region Private Fields
 
-        private bool mapMirrored;
-        private int mapRadius = -1;
-        private int mapSeed = -1;
-        private bool setMapMirrored = false;
+        private HashSet<HexTileInformationReport> hexTileInformationReportSet = null;
 
         #endregion Private Fields
 
         #region Public Methods
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
         public MapInformationReport Build()
         {
             HashSet<string> invalidReasons = this.IsValid();
@@ -78,7 +57,7 @@ public class MapInformationReport
             if (invalidReasons.Count == 0)
             {
                 // Instantiate a new Report
-                return new MapInformationReport(this.mapSeed, this.mapRadius, this.mapMirrored);
+                return new MapInformationReport(this.hexTileInformationReportSet);
             }
             else
             {
@@ -87,37 +66,9 @@ public class MapInformationReport
             }
         }
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="mapMirrored"></param>
-        /// <returns></returns>
-        public Builder SetMapMirrored(bool mapMirrored)
+        public Builder SetHexTileInformationReportSet(HashSet<HexTileInformationReport> hexTileInformationReportSet)
         {
-            this.mapMirrored = mapMirrored;
-            this.setMapMirrored = true;
-            return this;
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="mapRadius"></param>
-        /// <returns></returns>
-        public Builder SetMapRadius(int mapRadius)
-        {
-            this.mapRadius = mapRadius;
-            return this;
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="mapSeed"></param>
-        /// <returns></returns>
-        public Builder SetMapSeed(int mapSeed)
-        {
-            this.mapSeed = mapSeed;
+            this.hexTileInformationReportSet = hexTileInformationReportSet;
             return this;
         }
 
@@ -125,29 +76,22 @@ public class MapInformationReport
 
         #region Private Methods
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
         private HashSet<string> IsValid()
         {
             // Default an empty Set: String
             HashSet<string> argumentExceptionSet = new HashSet<string>();
-            // Check that mapMirrored has been set
-            if (!this.setMapMirrored)
+            // Check that hexTileInformationReportSet has been set
+            if (this.hexTileInformationReportSet == null)
             {
-                argumentExceptionSet.Add("mapMirrored has not been set");
+                argumentExceptionSet.Add("hexTileInformationReportSet has not been set");
             }
-            // Check that mapSeed has been set
-            if (this.mapSeed == int.MinValue)
+            // Check that cubeCoordinatesHexTileAttributesDictionary is valid
+            if (this.hexTileInformationReportSet != null &&
+                this.hexTileInformationReportSet.Count == 0)
             {
-                argumentExceptionSet.Add("mapSeed has not been set");
+                argumentExceptionSet.Add("hexTileInformationReportSet is invalid");
             }
-            // Check that mapSeed is valid
-            if (this.mapRadius < 2)
-            {
-                argumentExceptionSet.Add("mapRadius= " + this.mapRadius + " is invalid");
-            }
+
             return argumentExceptionSet;
         }
 

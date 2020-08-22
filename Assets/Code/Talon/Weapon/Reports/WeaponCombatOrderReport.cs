@@ -12,7 +12,7 @@ public class WeaponCombatOrderReport
     private readonly int damagePerShot = int.MinValue;
 
     // Todo
-    private readonly int shotsHit = int.MinValue;
+    private readonly int numberOfShots = int.MinValue;
 
     // Todo
     private readonly int penetration = int.MinValue;
@@ -27,10 +27,10 @@ public class WeaponCombatOrderReport
     /// <param name="numberOfShots">     The amount of shots from a weapon that hit</param>
     /// <param name="damagePerShot">     The amount of damage per shot</param>
     /// <param name="penetrationPerShot">The amount of armour ignored per shot</param>
-    private WeaponCombatOrderReport(int numberOfShots, int damagePerShot, int penetrationPerShot)
+    private WeaponCombatOrderReport(int damagePerShot, int numberOfShots, int penetrationPerShot)
     {
-        this.shotsHit = numberOfShots;
         this.damagePerShot = damagePerShot;
+        this.numberOfShots = numberOfShots;
         this.penetration = penetrationPerShot;
     }
 
@@ -57,7 +57,7 @@ public class WeaponCombatOrderReport
     /// <returns>Integer NumberOfShots</returns>
     public int GetNumberOfShots()
     {
-        return this.shotsHit;
+        return this.numberOfShots;
     }
 
     /// <summary>
@@ -71,10 +71,10 @@ public class WeaponCombatOrderReport
 
     public override string ToString()
     {
-        return this.GetType().ToString() + ":" +
-            "\n damagePerShot =" + this.GetDamagePerShot() +
-            "\n shotsHit=" + this.GetNumberOfShots() +
-            "\n penetration=" + this.GetPenetration();
+        return this.GetType().ToString() + ": " +
+            "damagePerShot=" + this.GetDamagePerShot() +
+            ", numberOfShots=" + this.GetNumberOfShots() +
+            ", penetration=" + this.GetPenetration();
     }
 
     public class Builder
@@ -83,7 +83,7 @@ public class WeaponCombatOrderReport
         private int damagePerShot = int.MinValue;
 
         // Todo
-        private int shotsHit = int.MinValue;
+        private int numberOfShots = int.MinValue;
 
         // Todo
         private int penetration = int.MinValue;
@@ -95,7 +95,7 @@ public class WeaponCombatOrderReport
             if (invalidReasons.Count == 0)
             {
                 // Instantiate a new Report
-                return new WeaponCombatOrderReport(this.damagePerShot, this.shotsHit, this.penetration);
+                return new WeaponCombatOrderReport(this.damagePerShot, this.numberOfShots, this.penetration);
             }
             else
             {
@@ -110,9 +110,9 @@ public class WeaponCombatOrderReport
             return this;
         }
 
-        public Builder SetShotsHit(int shotsHit)
+        public Builder SetNumberOfShots(int numberOfShots)
         {
-            this.shotsHit = shotsHit;
+            this.numberOfShots = numberOfShots;
             return this;
         }
 
@@ -139,10 +139,10 @@ public class WeaponCombatOrderReport
             {
                 argumentExceptionSet.Add("damagePerShot=" + this.damagePerShot + " is not valid");
             }
-            // Check that shotsHit has been set
-            if (this.shotsHit < 0)
+            // Check that numberOfShots has been set
+            if (this.numberOfShots < 0)
             {
-                argumentExceptionSet.Add("shotsHit=" + this.shotsHit + " is not valid");
+                argumentExceptionSet.Add("numberOfShots=" + this.numberOfShots + " is not valid");
             }
             // Check that penetration has been set
             if (this.penetration < 0)

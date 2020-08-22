@@ -1,29 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 /// <summary>
+/// Workaround until I implement an actual AI
 /// </summary>
 public static class ArtificialIntelligence
 {
-    #region Private Fields
-
-    // Provide logging capability
-    private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
-
-    #endregion Private Fields
-
     #region Public Methods
 
-    /// <summary>
-    /// </summary>
-    /// <param name="mechActionReportSet"></param>
-    /// <returns></returns>
-    public static TalonActionOrderReport DetermineBestAction(HashSet<TalonActionOrderReport> mechActionReportSet)
+    public static TalonActionOrderReport DetermineBestAction(HashSet<TalonActionOrderReport> talonActionOrderReportSet)
     {
-        // Todo: Make this null-pointer safe
-        int randomIndex = new Random().Next() % mechActionReportSet.Count;
-        return new List<TalonActionOrderReport>(mechActionReportSet)[randomIndex];
+        if (talonActionOrderReportSet != null &&
+            talonActionOrderReportSet.Count > 0)
+        {
+            int randomIndex = new Random().Next() % talonActionOrderReportSet.Count;
+            return new List<TalonActionOrderReport>(talonActionOrderReportSet)[randomIndex];
+        }
+        else
+        {
+            throw new ArgumentException("Unable to DetermineBestAction. Invalid Parameters." +
+                "\n\t>talonActionOrderReportSet is null/invalid: " +
+                (talonActionOrderReportSet == null || talonActionOrderReportSet.Count < 1));
+        }
     }
 
     #endregion Public Methods

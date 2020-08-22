@@ -13,6 +13,8 @@ public abstract class WeaponBehavior
     /// <returns></returns>
     public abstract WeaponCombatOrderReport GenerateWeaponReport(int accuracyPenalty, int targetRange);
 
+    public abstract int GetMaxAccuracyPenalty(int targetRange);
+
     public abstract WeaponAttributes GetWeaponAttributes();
 
     public abstract WeaponIdEnum GetWeaponId();

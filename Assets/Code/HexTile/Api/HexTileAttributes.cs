@@ -46,10 +46,14 @@ public class HexTileAttributes
     /// Get the moveCost
     /// </summary>
     /// <returns>The int moveCost</returns>
-
     public int GetMoveCost()
     {
         return this.moveCost;
+    }
+
+    public override string ToString()
+    {
+        return this.GetType() + ": fireCost: " + this.GetFireCost() + ", moveCost: " + this.GetMoveCost();
     }
 
     #endregion Public Methods
@@ -119,10 +123,6 @@ public class HexTileAttributes
 
         #region Private Methods
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
         private HashSet<string> IsValid()
         {
             // Default an empty Set: String

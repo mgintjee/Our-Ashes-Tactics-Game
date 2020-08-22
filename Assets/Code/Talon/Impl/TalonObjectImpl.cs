@@ -49,27 +49,19 @@ public class TalonObjectImpl
         this.talonBehavior.AddWeaponBehavior(weaponObject.GetWeaponBehavior());
     }
 
+    public override void ApplyPaintScheme()
+    {
+        this.talonVisual.ApplyPaintScheme();
+    }
+
     public override CubeCoordinates GetCubeCoordinates()
     {
         return this.talonBehavior.GetCubeCoordinates();
     }
 
-    public override TalonInformationReport GetCurrentTalonInformationReport()
+    public override TalonAttributesReport GetTalonAttributesReport()
     {
-        return new TalonInformationReport.Builder()
-            .SetTalonAttributesReport(this.talonBehavior.GetCurrentTalonAttributesReport())
-            .SetTalonIdentifcationReport(this.GetTalonIdentificationReport())
-            .SetPossibleTalonActionOrderReportSet(this.GetPossibleTalonActionOrderReportSet())
-            .Build();
-    }
-
-    public override TalonInformationReport GetMaximumTalonInformationReport()
-    {
-        return new TalonInformationReport.Builder()
-            .SetTalonAttributesReport(this.talonBehavior.GetMaximumTalonAttributesReport())
-            .SetTalonIdentifcationReport(this.GetTalonIdentificationReport())
-            .SetPossibleTalonActionOrderReportSet(this.GetPossibleTalonActionOrderReportSet())
-            .Build();
+        return this.talonBehavior.GetCurrentTalonAttributesReport();
     }
 
     public override TalonCombatOrderReport GetTalonCombatOrderReport(PathObjectFire pathObjectFire)
@@ -82,6 +74,15 @@ public class TalonObjectImpl
         return (this.talonConstructionReport != null)
             ? this.talonConstructionReport.GetTalonIdentificationReport()
             : null;
+    }
+
+    public override TalonInformationReport GetTalonInformationReport()
+    {
+        return new TalonInformationReport.Builder()
+            .SetTalonAttributesReport(this.talonBehavior.GetCurrentTalonAttributesReport())
+            .SetTalonIdentifcationReport(this.GetTalonIdentificationReport())
+            .SetPossibleTalonActionOrderReportSet(this.GetPossibleTalonActionOrderReportSet())
+            .Build();
     }
 
     public override TalonScript GetTalonScript()
@@ -131,12 +132,27 @@ public class TalonObjectImpl
             this.talonVisual != null;
     }
 
+    public override void ResetTalonAttributeValues()
+    {
+        this.talonBehavior.ResetTalonAttributeValues();
+    }
+
     public override void SetCubeCoordinates(CubeCoordinates cubeCoordinates)
     {
         if (cubeCoordinates != null)
         {
+            CubeCoordinates currentCubeCoordinates = this.talonBehavior.GetCubeCoordinates();
+            if (currentCubeCoordinates != null)
+            {
+                HexTileObject currentHexTileObject = HexTileObjectFinderUtil.FindHexTileObjectFrom(currentCubeCoordinates);
+                currentHexTileObject.SetOccupyingTalonIdentificationReport(null);
+            }
+
             this.talonBehavior.SetCubeCoordinates(cubeCoordinates);
             this.talonVisual.SetCubeCoordinates(cubeCoordinates);
+
+            HexTileObject hexTileObject = HexTileObjectFinderUtil.FindHexTileObjectFrom(cubeCoordinates);
+            hexTileObject.SetOccupyingTalonIdentificationReport(this.GetTalonIdentificationReport());
         }
         else
         {

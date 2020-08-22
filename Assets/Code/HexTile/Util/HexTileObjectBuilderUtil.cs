@@ -1,9 +1,6 @@
 ﻿using System.Diagnostics;
 using UnityEngine;
 
-/// <summary>
-/// Todo
-/// </summary>
 public static class HexTileObjectBuilderUtil
 {
     #region Private Fields

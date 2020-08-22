@@ -22,17 +22,12 @@ public class HexTileObjectImpl
 
     #region Public Constructors
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <param name="hexTileScript">            </param>
-    /// <param name="hexTileConstructionReport"></param>
     public HexTileObjectImpl(HexTileScript hexTileScript, HexTileConstructionReport hexTileConstructionReport)
     {
         if (hexTileScript != null &&
             hexTileConstructionReport != null)
         {
-            logger.Info("Constructing: ?.", this.GetType());
+            logger.Info("Constructing: ? with ?=?", this.GetType(), typeof(HexTileConstructionReport), hexTileConstructionReport);
             this.hexTileScript = hexTileScript;
             this.hexTileConstructionReport = hexTileConstructionReport;
             this.hexTileAttributes = HexTileAttributesConstants.GetAttributes(this.hexTileConstructionReport.GetHexTileType());
@@ -50,10 +45,6 @@ public class HexTileObjectImpl
 
     #region Public Methods
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
     public override HexTileInformationReport GetHexTileInformationReport()
     {
         return new HexTileInformationReport.Builder()
@@ -63,10 +54,6 @@ public class HexTileObjectImpl
             .Build();
     }
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
     public override HexTileScript GetHexTileScript()
     {
         return this.hexTileScript;
@@ -79,14 +66,7 @@ public class HexTileObjectImpl
 
     public override void SetOccupyingTalonIdentificationReport(TalonIdentificationReport talonIdentificationReport)
     {
-        if (this.occupyingTalonIdentificationReport == null)
-        {
-            this.occupyingTalonIdentificationReport = talonIdentificationReport;
-        }
-        else
-        {
-            logger.Warn("Unable to set ?", typeof(TalonIdentificationReport));
-        }
+        this.occupyingTalonIdentificationReport = talonIdentificationReport;
     }
 
     #endregion Public Methods

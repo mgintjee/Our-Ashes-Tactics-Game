@@ -12,10 +12,8 @@ public class MvcControllerScriptImpl
     // Provide logging capability
     private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
-    // Todo
     private MvcControllerObject mvcControllerObject;
 
-    // Todo
     private MvcFrameworkScript mvcFrameworkScript;
 
     #endregion Private Fields

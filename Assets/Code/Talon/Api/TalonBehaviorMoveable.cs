@@ -25,7 +25,7 @@ public abstract class TalonBehaviorMoveable
 
     public abstract void InputTalonActionOrder(TalonActionOrderReport talonActionOrder);
 
-    public abstract void ResetValuesForNewTurn();
+    public abstract void ResetTalonAttributeValues();
 
     public abstract void SetCubeCoodinates(CubeCoordinates cubeCoordinates);
 

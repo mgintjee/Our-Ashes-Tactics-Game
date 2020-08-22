@@ -104,10 +104,6 @@ public class HexTileConstructionReport
 
         #region Private Methods
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
         private HashSet<string> IsValid()
         {
             // Default an empty Set: String

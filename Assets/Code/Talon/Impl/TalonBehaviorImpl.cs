@@ -102,24 +102,29 @@ public class TalonBehaviorImpl
         // Iterate over all possible pathObjects for firing
         foreach (PathObject pathObject in this.talonBehaviorFireable.GetPathObjectFireSet())
         {
-            // Collect the ending cubeCoordinates for the pathObject
-            CubeCoordinates cubeCoordinates = pathObject.GetCubeCoordinatesEnd();
-            // Collect the HexTileObject from the cubeCoordinates
-            HexTileObject hexTileObject = HexTileObjectFinderUtil.FindHexTileObjectFrom(cubeCoordinates);
-            // Check that the HexTileObject is non-null
-            if (hexTileObject != null)
+            int pathObjectCost = pathObject.GetPathObjectCost();
+            int maxFireAccuracyPenalty = this.talonBehaviorFireable.GetMaxAccuracyPenalty(pathObject.GetPathObjectLength());
+            if (pathObjectCost < maxFireAccuracyPenalty)
             {
-                // Colect the talonIdentificationReport from the hexTileObject
-                TalonIdentificationReport talonIdentificationReport = hexTileObject.GetHexTileInformationReport().GetTalonIdentificationReport();
-                // Check that the FactionIds are not the same
-                if (!this.talonIdentificationReport.GetFactionId().Equals(talonIdentificationReport.GetFactionId()))
+                // Collect the ending cubeCoordinates for the pathObject
+                CubeCoordinates cubeCoordinates = pathObject.GetCubeCoordinatesEnd();
+                // Collect the HexTileObject from the cubeCoordinates
+                HexTileObject hexTileObject = HexTileObjectFinderUtil.FindHexTileObjectFrom(cubeCoordinates);
+                // Check that the HexTileObject is non-null
+                if (hexTileObject != null)
                 {
-                    // Add the actionReport to fire
-                    talonActionOrderReportSet.Add(new TalonActionOrderReport.Builder()
-                        .SetActingTalonIdentificationReport(this.talonIdentificationReport)
-                        .SetPathObject(pathObject)
-                        .SetTargetTalonIdentificationReport(talonIdentificationReport)
-                        .Build());
+                    // Colect the talonIdentificationReport from the hexTileObject
+                    TalonIdentificationReport talonIdentificationReport = hexTileObject.GetHexTileInformationReport().GetTalonIdentificationReport();
+                    // Check that the FactionIds are not the same
+                    if (!this.talonIdentificationReport.GetFactionId().Equals(talonIdentificationReport.GetFactionId()))
+                    {
+                        // Add the actionReport to fire
+                        talonActionOrderReportSet.Add(new TalonActionOrderReport.Builder()
+                            .SetActingTalonIdentificationReport(this.talonIdentificationReport)
+                            .SetPathObject(pathObject)
+                            .SetTargetTalonIdentificationReport(talonIdentificationReport)
+                            .Build());
+                    }
                 }
             }
         }
@@ -155,6 +160,11 @@ public class TalonBehaviorImpl
     public override TalonCombatResultReport InputTalonCombatOrderReport(TalonCombatOrderReport talonCombatOrderReport)
     {
         return this.talonBehaviorDestructable.InputTalonCombatOrderReport(talonCombatOrderReport);
+    }
+
+    public override void ResetTalonAttributeValues()
+    {
+        this.talonBehaviorMoveable.ResetTalonAttributeValues();
     }
 
     public override void SetCubeCoordinates(CubeCoordinates cubeCoordinates)

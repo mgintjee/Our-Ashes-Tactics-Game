@@ -39,10 +39,12 @@ public class TalonScriptImpl
                 logger.Debug("?", talonConstructionReport.GetTalonPaintSchemeReport());
                 this.talonObject = new TalonObjectImpl(this, this.talonConstructionReport);
                 this.talonObject.Initialize();
-                foreach(WeaponObject weaponObject in weaponObjectList)
+                foreach (WeaponObject weaponObject in weaponObjectList)
                 {
+                    logger.Debug("Adding ?=?", typeof(WeaponObject), weaponObject);
                     this.talonObject.AddWeapon(weaponObject);
                 }
+                this.talonObject.ApplyPaintScheme();
             }
             else
             {
@@ -55,7 +57,6 @@ public class TalonScriptImpl
             logger.Warn("Unable to Initialize: ?. Already initialized.", this.GetType());
         }
     }
-
 
     public override bool IsInitialized()
     {

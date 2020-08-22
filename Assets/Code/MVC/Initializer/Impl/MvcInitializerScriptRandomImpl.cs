@@ -54,7 +54,7 @@ public class MvcInitializerScriptRandomImpl
     protected override MvcInitializationReport BuildMvcInitializationReport()
     {
         this.mapIsMirrored = this.random.Next() % 2 == 0;
-        this.mapRadius = this.random.Next(2, 5);
+        this.mapRadius = this.random.Next(2, 3);
         this.mapSeed = this.random.Next();
         talonFactionIdPaintSchemeReportDictionary = this.BuildTalonFactionIdPaintSchemeReportDictionary();
         MvcInitializationReport mvcInitializationReport = new MvcInitializationReport.Builder()
@@ -70,9 +70,9 @@ public class MvcInitializerScriptRandomImpl
 
     #region Private Methods
 
-    private MapInformationReport BuildMapConstructionReport()
+    private MapConstructionReport BuildMapConstructionReport()
     {
-        return new MapInformationReport.Builder()
+        return new MapConstructionReport.Builder()
             .SetMapMirrored(this.mapIsMirrored)
             .SetMapRadius(this.mapRadius)
             .SetMapSeed(this.mapSeed)

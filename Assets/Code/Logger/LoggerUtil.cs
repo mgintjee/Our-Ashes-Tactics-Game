@@ -1,9 +1,6 @@
 ﻿using System;
 using System.IO;
 
-/// <summary>
-/// Todo
-/// </summary>
 public class LoggerUtil
 {
     #region Private Fields

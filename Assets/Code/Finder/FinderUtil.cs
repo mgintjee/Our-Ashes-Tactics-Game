@@ -2,9 +2,6 @@
 using System.Diagnostics;
 using UnityEngine;
 
-/// <summary>
-/// Todo
-/// </summary>
 public class FinderUtil
 {
     #region Private Fields
@@ -12,27 +9,18 @@ public class FinderUtil
     // Provide logging capability
     private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
-    // Todo
     private static FinderUtilScript finderUtilScript;
 
     #endregion Private Fields
 
     #region Public Methods
 
-    /// <summary>
-    /// </summary>
-    /// <param name="type"></param>
-    /// <returns></returns>
     public static HashSet<GameObject> FindAllGameObjectType(System.Type type)
     {
         logger.Debug("Finding Type: Name=?", type.Name);
         return Find(type);
     }
 
-    /// <summary>
-    /// </summary>
-    /// <param name="type"></param>
-    /// <returns></returns>
     public static GameObject FindGameObjectType(System.Type type)
     {
         logger.Debug("Finding Type: Name=?", type.Name);
@@ -54,8 +42,6 @@ public class FinderUtil
 
     #region Private Methods
 
-    /// <summary>
-    /// </summary>
     private static void CollectFinderUtilGameObject()
     {
         // Find the FinderUtil GameObject
@@ -82,10 +68,6 @@ public class FinderUtil
         }
     }
 
-    /// <summary>
-    /// </summary>
-    /// <param name="type"></param>
-    /// <returns></returns>
     private static HashSet<GameObject> Find(System.Type type)
     {
         // Default a null found GameObject

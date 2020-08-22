@@ -43,6 +43,15 @@ public class HexTileInformationReport
         return this.talonIdentificationReport;
     }
 
+    public override string ToString()
+    {
+        return this.GetType() + ":" +
+            "\n\t>" + this.GetHexTileAttributes() +
+            "\n\t>" + ((this.GetTalonIdentificationReport() != null)
+                ? this.GetTalonIdentificationReport().ToString()
+                : "Empty");
+    }
+
     #endregion Public Methods
 
     #region Public Classes
@@ -98,10 +107,6 @@ public class HexTileInformationReport
 
         #region Private Methods
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
         private HashSet<string> IsValid()
         {
             // Default an empty Set: String

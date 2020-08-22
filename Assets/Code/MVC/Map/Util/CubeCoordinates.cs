@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 
-/// <summary>
-/// Todo
-/// </summary>
 public class CubeCoordinates
 {
     #region Private Fields

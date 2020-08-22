@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 /// <summary>
 /// </summary>
 public static class WeaponAttributeConstants
 {
     #region Private Fields
-
-    // Provide logging capability
-    private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
     // Todo
     private static readonly Random random = new Random();

@@ -94,6 +94,16 @@ public class TalonAttributesReport
         return this.turnPoints;
     }
 
+    public override string ToString()
+    {
+        return this.GetType() + ":" +
+            "\n\t>armourPoints= " + this.GetArmourPoints() +
+            "\n\t>healthPoints= " + this.GetHealthPoints() +
+            "\n\t>turnPoints= " + this.GetTurnPoints() +
+            "\n\t>movePoints= " + this.GetMovePoints() +
+            "\n\t>orderPoints= " + this.GetOrderPoints();
+    }
+
     #endregion Public Methods
 
     #region Public Classes

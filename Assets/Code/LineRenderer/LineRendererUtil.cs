@@ -2,9 +2,6 @@
 using System.Diagnostics;
 using UnityEngine;
 
-/// <summary>
-/// Todo
-/// </summary>
 public class LineRendererUtil
 {
     #region Private Fields
@@ -12,7 +9,6 @@ public class LineRendererUtil
     // Provide logging capability
     private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
-    // Todo
     private static LineRendererUtilScript lineRendererUtilScript;
 
     #endregion Private Fields
@@ -38,9 +34,6 @@ public class LineRendererUtil
         }
     }
 
-    /// <summary>
-    /// Todo
-    /// </summary>
     public static void ErasePath()
     {
         // Checking if the GameObjectSpawnerUtil is non-null
@@ -63,9 +56,6 @@ public class LineRendererUtil
 
     #region Private Methods
 
-    /// <summary>
-    /// Todo
-    /// </summary>
     private static void CollectLineRendererUtilGameObject()
     {
         // Find the LineRendererUtil GameObject
@@ -92,11 +82,6 @@ public class LineRendererUtil
         }
     }
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <param name="cubeCoordinates"></param>
-    /// <returns></returns>
     private static List<Vector3> CollectTileVertexList(CubeCoordinates cubeCoordinates)
     {
         // Default an empty list
@@ -156,11 +141,6 @@ public class LineRendererUtil
         return tileVertexList;
     }
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <param name="pathObject">  </param>
-    /// <param name="lineRenderer"></param>
     private static void DetermineLineRendererMaterial(PathObject pathObject, LineRenderer lineRenderer)
     {
         if (pathObject == null)
@@ -188,11 +168,6 @@ public class LineRendererUtil
         }
     }
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <param name="pathObject">  </param>
-    /// <param name="lineRenderer"></param>
     private static void DetermineLineRendererPositions(PathObject pathObject, LineRenderer lineRenderer)
     {
         if (pathObject == null)

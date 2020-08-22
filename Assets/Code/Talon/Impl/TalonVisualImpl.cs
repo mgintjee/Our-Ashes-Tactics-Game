@@ -9,6 +9,7 @@ public class TalonVisualImpl
 {
     #region Private Fields
 
+    private readonly TalonCanvasObject talonCanvasObject = null;
     private readonly TalonConstructionReport talonConstructionReport = null;
     private readonly TalonModel talonModel = null;
     private readonly TalonObject talonObject = null;
@@ -25,6 +26,7 @@ public class TalonVisualImpl
             this.talonObject = talonObject;
             this.talonConstructionReport = talonConstructionReport;
             this.talonModel = new TalonModelImpl(this.talonObject);
+            this.talonCanvasObject = this.BuildTalonCanvas();
         }
         else
         {
@@ -47,6 +49,7 @@ public class TalonVisualImpl
             {
                 GameObject weaponGameObject = weaponObject.GetWeaponScript().GetGameObject();
                 weaponGameObject.transform.SetParent(weaponMountGameObject.transform);
+                weaponGameObject.transform.localPosition = Vector3.zero;
             }
         }
         else
@@ -81,6 +84,7 @@ public class TalonVisualImpl
             HexTileObject hexTileObject = HexTileObjectFinderUtil.FindHexTileObjectFrom(cubeCoordinates);
             if (hexTileObject != null)
             {
+                this.PaintBase(hexTileObject.GetHexTileType());
                 Vector3 hexTileWorldPosition = hexTileObject.GetHexTileScript().GetGameObject().transform.position;
                 hexTileWorldPosition.y = 0;
                 this.talonObject.GetTalonScript().GetGameObject().transform.position = hexTileWorldPosition;
@@ -112,7 +116,8 @@ public class TalonVisualImpl
                         angle = 300;
                         break;
                 }
-                this.talonObject.GetTalonScript().GetGameObject().transform.localEulerAngles = new Vector3(0, angle, 0);
+                // Clean this up
+                this.talonObject.GetTalonScript().GetGameObject().transform.GetChild(0).localEulerAngles = new Vector3(0, angle, 0);
             }
             else
             {
@@ -147,6 +152,14 @@ public class TalonVisualImpl
             throw new ArgumentException("Unable to ApplyTalonPaintSchemeReport. Invalid Parameters." +
                 "\n\t>" + typeof(TalonPaintSchemeReport) + " is null: " + (talonPaintSchemeReport == null));
         }
+    }
+
+    private TalonCanvasObject BuildTalonCanvas()
+    {
+        GameObject talonCanvasGameObject = new GameObject("TalonCanvasPlaceHolder");
+        TalonCanvasScript talonCanvasScript = talonCanvasGameObject.AddComponent<TalonCanvasScriptImpl>();
+        talonCanvasScript.Initialize(this.talonObject);
+        return talonCanvasScript.GetTalonCanvasObject();
     }
 
     #endregion Private Methods

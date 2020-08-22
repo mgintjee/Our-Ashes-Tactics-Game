@@ -90,13 +90,12 @@ public class TalonInformationReport
             }
         }
         return this.GetType() + ":" +
-            "\n\t>" + this.GetTalonAttributesReport() +
             "\n\t>" + this.GetTalonIdentificationReport() +
+            "\n\t>" + this.GetTalonAttributesReport() +
             "\n\t>possibleTalonActionOrderReportSet=[" +
-            "\n\t\t> Fire Actions= " + fireActionCount +
-            "\n\t\t> Move Actions= " + moveActionCount +
-            "\n\t\t> Wait Actions= " + waitActionCount +
-            "\n]";
+            "Fire= " + fireActionCount +
+            ", Move= " + moveActionCount +
+            ", Wait= " + waitActionCount + "]";
     }
 
     #endregion Public Methods

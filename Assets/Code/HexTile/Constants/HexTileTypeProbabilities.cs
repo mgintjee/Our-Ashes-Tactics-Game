@@ -1,13 +1,9 @@
 ﻿using System.Collections.Generic;
 
-/// <summary>
-/// Todo
-/// </summary>
 public class HexTileTypeProbabilities
 {
     #region Private Fields
 
-    // Todo
     private static readonly Dictionary<HexTileTypeEnum, int> HEX_TILE_TYPE_DEFAULT_COUNTS =
         new Dictionary<HexTileTypeEnum, int>
         {
@@ -18,7 +14,6 @@ public class HexTileTypeProbabilities
             { HexTileTypeEnum.Water, 1}
         };
 
-    // Todo
     private static readonly Dictionary<HexTileTypeEnum, float> HEX_TILE_TYPE_DEFAULT_PROBABILITIES =
         new Dictionary<HexTileTypeEnum, float>
         {
@@ -33,19 +28,11 @@ public class HexTileTypeProbabilities
 
     #region Public Methods
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
     public static Dictionary<HexTileTypeEnum, int> GetHexTileObjectTypeDefaultCounts()
     {
         return new Dictionary<HexTileTypeEnum, int>(HEX_TILE_TYPE_DEFAULT_COUNTS);
     }
 
-    /// <summary>
-    /// Todo
-    /// </summary>
-    /// <returns></returns>
     public static Dictionary<HexTileTypeEnum, float> GetHexTileObjectTypeProbabilities()
     {
         return new Dictionary<HexTileTypeEnum, float>(HEX_TILE_TYPE_DEFAULT_PROBABILITIES);

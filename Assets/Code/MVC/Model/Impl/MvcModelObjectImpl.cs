@@ -14,6 +14,8 @@ public class MvcModelObjectImpl
     // Provide logging capability
     private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
+    private readonly MapObject mapObject = null;
+
     // Todo
     private readonly MvcModelScript mvcModelScript;
 
@@ -51,19 +53,23 @@ public class MvcModelObjectImpl
 
     #region Public Constructors
 
-    public MvcModelObjectImpl(MvcModelScript mvcModelScript)
+    public MvcModelObjectImpl(MvcModelScript mvcModelScript, MapScript mapScript)
     {
-        if (mvcModelScript != null)
+        if (mvcModelScript != null &&
+            mapScript != null)
         {
             logger.Info("Contructing: ?", this.GetType());
 
             logger.Info("Setting: ?=?", typeof(MvcModelScript), mvcModelScript);
             this.mvcModelScript = mvcModelScript;
+
+            this.mapObject = mapScript.GetMapObject();
         }
         else
         {
             throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
-                "\n\t>" + typeof(MvcModelScript) + " is null: " + (mvcModelScript == null));
+                "\n\t>" + typeof(MvcModelScript) + " is null: " + (mvcModelScript == null) +
+                "\n\t>" + typeof(MapScript) + " is null: " + (mapScript == null));
         }
     }
 
@@ -78,6 +84,8 @@ public class MvcModelObjectImpl
 
     public override TalonInformationReport GetCurrentTalonInformationReport()
     {
+        logger.Debug("GetCurrentTalonInformationReport");
+
         TalonInformationReport talonInformationReport = null;
         if (this.talonObjectOrderList == null ||
                 this.talonObjectOrderList.Count < 1)
@@ -85,13 +93,32 @@ public class MvcModelObjectImpl
             this.talonObjectOrderList = this.GenerateTalonObjectTurnList();
         }
 
+        logger.Debug("talonObjectOrderList=?", string.Join(",\n", this.talonObjectOrderList));
+
         if (this.talonObjectOrderList.Count > 0)
         {
-            TalonIdentificationReport talonIdentificationReport = this.talonObjectOrderList[0].GetTalonIdentificationReport();
+            TalonObject talonObject = this.talonObjectOrderList[0];
+            TalonIdentificationReport talonIdentificationReport = talonObject.GetTalonIdentificationReport();
             talonInformationReport = this.GetTalonInformationReport(talonIdentificationReport);
         }
 
+        logger.Debug("Found ?=?", typeof(TalonInformationReport), talonInformationReport);
         return talonInformationReport;
+    }
+
+    public override MvcModelInformationReport GetMvcModelInformationReport()
+    {
+        Dictionary<TalonIdentificationReport, TalonInformationReport> talonIdentificationInformationReportDictionary = new Dictionary<TalonIdentificationReport, TalonInformationReport>();
+
+        foreach (TalonIdentificationReport talonIdentificationReport in this.talonIdentificationReportObjectDictionary.Keys)
+        {
+            talonIdentificationInformationReportDictionary.Add(talonIdentificationReport,
+                this.talonIdentificationReportObjectDictionary[talonIdentificationReport].GetTalonInformationReport());
+        }
+        return new MvcModelInformationReport.Builder()
+            .SetMapInformationReport(this.mapObject.GetMapInformationReport())
+            .SetTalonIdentificationInformationReportDictionary(talonIdentificationInformationReportDictionary)
+            .Build();
     }
 
     public override MvcModelScript GetMvcModelScript()
@@ -101,16 +128,29 @@ public class MvcModelObjectImpl
 
     public override TalonInformationReport GetTalonInformationReport(TalonIdentificationReport talonIdentificationReport)
     {
-        if (!this.talonIdentificationInformationDictionary.ContainsKey(talonIdentificationReport) &&
-            this.talonIdentificationReportObjectDictionary.ContainsKey(talonIdentificationReport))
+        logger.Debug("GetTalonInformationReport: ?=?", typeof(TalonIdentificationReport), talonIdentificationReport);
+        TalonInformationReport talonInformationReport = null;
+        if (this.talonIdentificationInformationDictionary.ContainsKey(talonIdentificationReport))
         {
-            TalonObject talonObject = this.talonIdentificationReportObjectDictionary[talonIdentificationReport];
-            this.talonIdentificationInformationDictionary.Add(talonIdentificationReport, talonObject.GetCurrentTalonInformationReport());
+            talonInformationReport = this.talonIdentificationInformationDictionary[talonIdentificationReport];
+        }
+        else
+        {
+            if (this.talonIdentificationReportObjectDictionary.ContainsKey(talonIdentificationReport))
+            {
+                TalonObject talonObject = this.talonIdentificationReportObjectDictionary[talonIdentificationReport];
+                talonInformationReport = talonObject.GetTalonInformationReport();
+                this.talonIdentificationInformationDictionary.Add(talonIdentificationReport, talonInformationReport);
+                logger.Debug("Cache ? for ?", talonInformationReport, talonIdentificationReport);
+            }
         }
 
-        return (this.talonIdentificationInformationDictionary.ContainsKey(talonIdentificationReport))
-            ? this.talonIdentificationInformationDictionary[talonIdentificationReport]
-            : null;
+        if (talonInformationReport == null)
+        {
+            logger.Warn("Unable to GetTalonInformationReport. ?=? is no longer tracked.", typeof(TalonIdentificationReport), talonIdentificationReport);
+        }
+
+        return talonInformationReport;
     }
 
     public override void Initialize(MvcFrameworkObject mvcFrameworkObject, MvcInitializationReport mvcInitializationReport)
@@ -126,6 +166,7 @@ public class MvcModelObjectImpl
                 this.talonPhalanxIdTalonIdentificationReportDictionary = new Dictionary<TalonPhalanxIdEnum, HashSet<TalonIdentificationReport>>();
                 this.talonIdentificationReportObjectDictionary = new Dictionary<TalonIdentificationReport, TalonObject>();
                 this.talonFactionIdPhalanxIdDictionary = new Dictionary<TalonFactionIdEnum, HashSet<TalonPhalanxIdEnum>>();
+                this.talonIdentificationInformationDictionary = new Dictionary<TalonIdentificationReport, TalonInformationReport>();
 
                 this.Initialize();
             }
@@ -163,7 +204,7 @@ public class MvcModelObjectImpl
                     {
                         TalonCombatOrderReport talonCombatOrderReport = actingTalonObject.GetTalonCombatOrderReport((PathObjectFire)talonActionOrderReport.GetPathObject());
 
-                        logger.Info("Phase: ? Action:?) Inputting ?=?", this.counterPhase, this.counterAction, typeof(TalonCombatOrderReport), talonCombatOrderReport);
+                        logger.Info("?=?", typeof(TalonCombatOrderReport), talonCombatOrderReport);
                         TalonIdentificationReport targetTalonIdentificationReport = talonActionOrderReport.GetTargetTalonIdentificationReport();
                         if (targetTalonIdentificationReport != null &&
                                 this.talonIdentificationReportObjectDictionary.ContainsKey(targetTalonIdentificationReport))
@@ -172,8 +213,10 @@ public class MvcModelObjectImpl
                             if (targetTalonObject != null)
                             {
                                 talonCombatResultReport = targetTalonObject.InputTalonCombatOrderReport(talonCombatOrderReport);
+                                logger.Info("?=?", typeof(TalonCombatResultReport), talonCombatResultReport);
                                 if (talonCombatResultReport.GetIsTargetDestroyed())
                                 {
+                                    logger.Info("Destroy ?=?", typeof(TalonIdentificationReport), targetTalonIdentificationReport);
                                     this.DestroyTalon(targetTalonIdentificationReport);
                                 }
                             }
@@ -195,8 +238,7 @@ public class MvcModelObjectImpl
                         this.talonObjectOrderList.Remove(actingTalonObject);
                     }
 
-                    this.talonIdentificationInformationDictionary.Remove(actingTalonIdentificationReport);
-
+                    this.talonIdentificationInformationDictionary = new Dictionary<TalonIdentificationReport, TalonInformationReport>();
                     this.processingActionReport = false;
                     this.counterAction++;
 
@@ -205,6 +247,7 @@ public class MvcModelObjectImpl
                         .SetActionCounter(this.counterAction)
                         .SetTalonActionResultReport(talonActionResultReport)
                         .SetTalonCombatResultReport(talonCombatResultReport)
+                        .SetMapInformationReport(this.mapObject.GetMapInformationReport())
                         .Build();
                 }
                 else
@@ -374,30 +417,12 @@ public class MvcModelObjectImpl
                 {
                     this.talonPhalanxIdTalonIdentificationReportDictionary[talonIdentificationReport.GetTalonPhalanxId()].Remove(talonIdentificationReport);
                 }
+                this.talonObjectOrderList.Remove(talonObject);
                 HexTileObject hexTileObject = HexTileObjectFinderUtil.FindHexTileObjectFrom(talonObject.GetCubeCoordinates());
                 hexTileObject.SetOccupyingTalonIdentificationReport(null);
                 GameObject.Destroy(talonObject.GetTalonScript().GetGameObject());
             }
         }
-        /*
-        logger.Debug("? is being destroyed!", mechObject);
-        if (mechObject != null &&
-            mechObject.GetMechScript() != null)
-        {
-            GameObject mechGameObject = mechObject.GetMechScript().GetGameObject();
-
-            TileObject occupiedTileObject = HexTileObjectFinderUtil.FindHexTileObjectFrom(mechObject.GetMechBehavior().GetCubeCoordinates());
-            occupiedTileObject.SetOccupyingMechObject(null);
-
-            this.mechObjectTurnList.Remove(mechObject);
-            this.teamIdMechObjectSetDictionary[mechObject.GetTeamId()].Remove(mechObject);
-
-            if (this.teamIdMechObjectSetDictionary[mechObject.GetTeamId()].Count == 0)
-            {
-                this.teamIdMechObjectSetDictionary.Remove(mechObject.GetTeamId());
-            }
-        }
-        */
     }
 
     private List<TalonObject> GenerateTalonObjectTurnList()
@@ -406,14 +431,15 @@ public class MvcModelObjectImpl
             ? new List<TalonObject>(this.talonIdentificationReportObjectDictionary.Values)
             : new List<TalonObject>();
         talonObjectOrderList.Sort(new OrderPointComparer());
-        logger.Info("? Order List= [?]", string.Join(",", talonObjectOrderList));
-
-        this.talonIdentificationInformationDictionary = new Dictionary<TalonIdentificationReport, TalonInformationReport>();
+        string talonObjectOrderListString = "[";
         foreach (TalonObject talonObject in talonObjectOrderList)
         {
-            this.talonIdentificationInformationDictionary.Add(talonObject.GetTalonIdentificationReport(),
-                talonObject.GetCurrentTalonInformationReport());
+            talonObjectOrderListString += "\n\t> Order Points: " + talonObject.GetTalonAttributesReport().GetOrderPoints() + ", " + talonObject.GetTalonIdentificationReport();
+            talonObject.ResetTalonAttributeValues();
         }
+        talonObjectOrderListString += "\n]";
+        logger.Info("Order List: ?", talonObjectOrderListString);
+
         this.counterPhase++;
         return talonObjectOrderList;
     }

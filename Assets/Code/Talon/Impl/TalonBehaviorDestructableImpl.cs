@@ -67,7 +67,7 @@ public class TalonBehaviorDestructableImpl
                 weaponCombatResultReportList.Add(this.InputWeaponCombatOrderReport(weaponCombatOrderReport));
             }
             return new TalonCombatResultReport.Builder()
-                .SetIsTargetDestroyed(this.currentHealthPoints > 0)
+                .SetIsTargetDestroyed(this.currentHealthPoints <= 0)
                 .SetTalonCombatOrderReport(talonCombatOrderReport)
                 .SetWeaponCombatResultReportList(weaponCombatResultReportList)
                 .Build();

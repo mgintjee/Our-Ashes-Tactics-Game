@@ -38,8 +38,8 @@ public class WeaponCombatResultReport
     public override string ToString()
     {
         return this.GetType() + ": " +
-            "\n\t>damageDealt=" + this.GetDamageDealt() +
-            "\n\t>damageMitigated=" + this.GetDamageMitigated();
+            "damageDealt=" + this.GetDamageDealt() +
+            ", damageMitigated=" + this.GetDamageMitigated();
     }
 
     #endregion Public Methods
