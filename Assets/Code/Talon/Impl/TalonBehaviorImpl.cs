@@ -116,7 +116,7 @@ public class TalonBehaviorImpl
                     // Colect the talonIdentificationReport from the hexTileObject
                     TalonIdentificationReport talonIdentificationReport = hexTileObject.GetHexTileInformationReport().GetTalonIdentificationReport();
                     // Check that the FactionIds are not the same
-                    if (!this.talonIdentificationReport.GetFactionId().Equals(talonIdentificationReport.GetFactionId()))
+                    if (!this.talonIdentificationReport.GetTalonFactionId().Equals(talonIdentificationReport.GetTalonFactionId()))
                     {
                         // Add the actionReport to fire
                         talonActionOrderReportSet.Add(new TalonActionOrderReport.Builder()

@@ -123,7 +123,8 @@ public class TalonObjectImpl
 
     public override TalonCombatResultReport InputTalonCombatOrderReport(TalonCombatOrderReport talonCombatOrderReport)
     {
-        return this.talonBehavior.InputTalonCombatOrderReport(talonCombatOrderReport);
+        TalonCombatResultReport talonCombatResultReport = this.talonBehavior.InputTalonCombatOrderReport(talonCombatOrderReport);
+        return talonCombatResultReport;
     }
 
     public override bool IsInitialized()

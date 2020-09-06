@@ -19,7 +19,6 @@ public static class PathFinderFireUtil
 
     public static Dictionary<CubeCoordinates, PathObject> BeginPathfindingFor(CubeCoordinates tileCoordinatesStart)
     {
-        logger.Debug("PathFinding for FIRING from CubeCoordinates: ?", tileCoordinatesStart);
         pathFinderFire = new PathFinderFire(tileCoordinatesStart);
         pathFinderFire.BeginPathFinding();
         Dictionary<CubeCoordinates, PathObject> pathObjectDictionary = pathFinderFire.GetPathObjectDictionary();

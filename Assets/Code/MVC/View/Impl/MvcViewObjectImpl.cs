@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using UnityEngine;
 
 /// <summary>
 /// MvcView Object Impl
@@ -12,21 +14,27 @@ public class MvcViewObjectImpl
     // Provide logging capability
     private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
+    private readonly GameObject mvcCanvasGameObject;
     private readonly MvcViewScript mvcViewScript;
     private MvcFrameworkObject mvcFrameworkObject;
+
+    private Dictionary<TalonIdentificationReport, TalonCanvasObject> talonIdentificationCanvasDictionary =
+        new Dictionary<TalonIdentificationReport, TalonCanvasObject>();
 
     #endregion Private Fields
 
     #region Public Constructors
 
-    public MvcViewObjectImpl(MvcViewScript mvcViewScript)
+    public MvcViewObjectImpl(MvcViewScript mvcViewScript, GameObject mvcCanvasGameObject)
     {
         if (mvcViewScript != null)
         {
-            logger.Info("Contructing Object: ?", this.GetType());
+            logger.Info("Contructing: ?", this.GetType());
 
-            logger.Info("Setting Script: ?=?", typeof(MvcViewScript), mvcViewScript);
+            logger.Info("Setting: ?=?", typeof(MvcViewScript), mvcViewScript);
             this.mvcViewScript = mvcViewScript;
+            logger.Info("Setting: ?=?", typeof(GameObject), mvcCanvasGameObject);
+            this.mvcCanvasGameObject = mvcCanvasGameObject;
         }
         else
         {
@@ -39,6 +47,20 @@ public class MvcViewObjectImpl
     #endregion Public Constructors
 
     #region Public Methods
+
+    public override void DestroyTalonCanvas(TalonIdentificationReport talonIdentificationReport)
+    {
+        if (this.talonIdentificationCanvasDictionary.ContainsKey(talonIdentificationReport))
+        {
+            TalonCanvasObject talonCanvasObject = this.talonIdentificationCanvasDictionary[talonIdentificationReport];
+            talonCanvasObject.DestroyTalonCanvas();
+            this.talonIdentificationCanvasDictionary.Remove(talonIdentificationReport);
+        }
+        else
+        {
+            logger.Warn("Unable to DestroyTalonCanvas. ? is not tracked.", talonIdentificationReport);
+        }
+    }
 
     public override MvcViewScript GetMvcViewScript()
     {
@@ -54,6 +76,17 @@ public class MvcViewObjectImpl
             {
                 logger.Info("Setting Object: ?", typeof(MvcFrameworkObject));
                 this.mvcFrameworkObject = mvcFrameworkObject;
+                /*
+                HashSet<TalonObject> talonObjectSet = this.mvcFrameworkObject.GetMvcModelObject().GetActiveTalonObjectSet();
+                foreach (TalonObject talonObject in talonObjectSet)
+                {
+                    logger.Debug("?", talonObject);
+                    TalonCanvasObject talonCanvasObject = this.BuildTalonCanvas(talonObject);
+                    GameObject talonCanvasGameObject = GameObjectResourceLoader.Canvas.LoadTalonCanvasGameObject();
+                    talonCanvasGameObject.transform.SetParent(this.mvcCanvasGameObject.transform);
+                    this.talonIdentificationCanvasDictionary.Add(talonObject.GetTalonIdentificationReport(), talonCanvasObject);
+                }
+                */
             }
             else
             {
@@ -70,8 +103,42 @@ public class MvcViewObjectImpl
 
     public override bool IsInitialized()
     {
-        return false;
+        return this.mvcFrameworkObject != null;
+    }
+
+    public override void UpdateTalonCanvas(TalonIdentificationReport talonIdentificationReport)
+    {
+        if (this.talonIdentificationCanvasDictionary.ContainsKey(talonIdentificationReport))
+        {
+            this.talonIdentificationCanvasDictionary[talonIdentificationReport].UpdateCanvas();
+        }
+        else
+        {
+            logger.Warn("Unable to UpdateTalonCanvas. ? is not tracked.", talonIdentificationReport);
+        }
+    }
+
+    public override void UpdateTalonOrderList(List<TalonObject> talonObjectOrderList)
+    {
+        foreach (TalonObject talonObject in talonObjectOrderList)
+        {
+        }
+        //throw new NotImplementedException();
     }
 
     #endregion Public Methods
+
+    #region Private Methods
+
+    private TalonCanvasObject BuildTalonCanvas(TalonObject talonObject)
+    {
+        GameObject talonCanvasPlaceHolder = new GameObject("TalonCanvasPlaceHolder");
+        talonCanvasPlaceHolder.transform.SetParent(this.mvcViewScript.transform);
+        talonCanvasPlaceHolder.transform.localPosition = Vector3.zero;
+        TalonCanvasScript talonCanvasScript = talonCanvasPlaceHolder.AddComponent<TalonCanvasScriptImpl>();
+        talonCanvasScript.Initialize(talonObject);
+        return talonCanvasScript.GetTalonCanvasObject();
+    }
+
+    #endregion Private Methods
 }

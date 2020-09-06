@@ -40,20 +40,20 @@ public class WeaponBehaviorImpl
     public override WeaponCombatOrderReport GenerateWeaponReport(int accuracyPenalty, int targetRange)
     {
         int accuracyRemaining = this.CalculateRemainingAccuracy(accuracyPenalty, targetRange);
-        int shotsHit;
+        int numberOfShots;
         // Check if the accuracy remaining makes it impossible to hit
         if (accuracyRemaining <= 0)
         {
             logger.Debug("Generating Auto-Miss WeaponReport. AccuracyDifference=? is less than or equal to 0.",
         accuracyRemaining);
-            shotsHit = 0;
+            numberOfShots = 0;
         }
         // Check if the accuracy remaining makes it impossible to miss
         else if (accuracyRemaining >= 100)
         {
             logger.Debug("Generating Auto-Hit WeaponReport. AccuracyDifference=? is greater than or equal to 100.",
                 accuracyRemaining);
-            shotsHit = this.GetWeaponAttributes().GetShotCountPoints();
+            numberOfShots = this.GetWeaponAttributes().GetNumberOfShots();
         }
         else
         {
@@ -61,26 +61,29 @@ public class WeaponBehaviorImpl
             // Calculate the accuracyRatio: accuracyRemaining / maxAccuracy
             float accuracyRatio = accuracyRemaining / 100f;
             // Default 0 shots landed
-            shotsHit = 0;
+            numberOfShots = 0;
             // Iterate over the number of shots
-            for (int i = 0; i < this.GetWeaponAttributes().GetShotCountPoints(); ++i)
+            for (int i = 0; i < this.GetWeaponAttributes().GetNumberOfShots(); ++i)
             {
                 // Collect a random float
-                float randomValue = new Random().Next(0, 100);
+                float randomValue = RandomNumberGeneratorUtil.GetNextFloat();
+                logger.Debug("?/?", randomValue, accuracyRatio);
                 // Check that random float is less than the accuracyRatio
                 if (randomValue <= accuracyRatio)
                 {
-                    // Increment the shotsLanded
-                    shotsHit++;
+                    logger.Debug("Hit!");
+                    // Increment the numberOfShots
+                    numberOfShots++;
                 }
             }
+            logger.Debug("Generating Regular WeaponReport. NumberOfShots=?/?", numberOfShots, this.GetWeaponAttributes().GetNumberOfShots());
         }
 
         // Build a WeaponReport with all shots that hit
         return new WeaponCombatOrderReport.Builder()
             .SetDamagePerShot(this.GetWeaponAttributes().GetDamagePoints())
+            .SetNumberOfShots(numberOfShots)
             .SetPenetration(this.GetWeaponAttributes().GetPenetrationPoints())
-            .SetNumberOfShots(shotsHit)
             .Build();
     }
 

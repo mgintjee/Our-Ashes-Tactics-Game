@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using UnityEngine;
 
 /// <summary>
@@ -9,7 +10,9 @@ public class TalonVisualImpl
 {
     #region Private Fields
 
-    private readonly TalonCanvasObject talonCanvasObject = null;
+    // Provide logging capability
+    private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
+
     private readonly TalonConstructionReport talonConstructionReport = null;
     private readonly TalonModel talonModel = null;
     private readonly TalonObject talonObject = null;
@@ -23,10 +26,10 @@ public class TalonVisualImpl
         if (talonObject != null &&
             talonConstructionReport != null)
         {
+            logger.Info("Contructing: ?", this.GetType());
             this.talonObject = talonObject;
             this.talonConstructionReport = talonConstructionReport;
             this.talonModel = new TalonModelImpl(this.talonObject);
-            this.talonCanvasObject = this.BuildTalonCanvas();
         }
         else
         {
@@ -132,11 +135,6 @@ public class TalonVisualImpl
         }
     }
 
-    public override void UpdateMechCanvas()
-    {
-        //throw new System.NotImplementedException();
-    }
-
     #endregion Public Methods
 
     #region Private Methods
@@ -152,14 +150,6 @@ public class TalonVisualImpl
             throw new ArgumentException("Unable to ApplyTalonPaintSchemeReport. Invalid Parameters." +
                 "\n\t>" + typeof(TalonPaintSchemeReport) + " is null: " + (talonPaintSchemeReport == null));
         }
-    }
-
-    private TalonCanvasObject BuildTalonCanvas()
-    {
-        GameObject talonCanvasGameObject = new GameObject("TalonCanvasPlaceHolder");
-        TalonCanvasScript talonCanvasScript = talonCanvasGameObject.AddComponent<TalonCanvasScriptImpl>();
-        talonCanvasScript.Initialize(this.talonObject);
-        return talonCanvasScript.GetTalonCanvasObject();
     }
 
     #endregion Private Methods

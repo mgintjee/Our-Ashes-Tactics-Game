@@ -57,11 +57,21 @@ public class GameObjectResourceLoader
         private static readonly string CANVAS_GAMEOBJECTS_FOLDER_HOME = GAMEOBJECTS_FOLDER_HOME + "Canvases/";
 
         // Todo
-        private static readonly string TALON_CANVAS_GAMEOBJECT_NAME = "TalonCanvasGameObject";
+        private static readonly string MVC_CANVAS_GAMEOBJECT_NAME = "mvcCanvasGameObject";
+
+        // Todo
+        private static readonly string TALON_CANVAS_GAMEOBJECT_NAME = "talonCanvasGameObject";
 
         #endregion Private Fields
 
         #region Public Methods
+
+        public static GameObject LoadMvcCanvasGameObject()
+        {
+            GameObject gameObject = LoadGameObjectResource(CANVAS_GAMEOBJECTS_FOLDER_HOME + MVC_CANVAS_GAMEOBJECT_NAME);
+            gameObject.name = MVC_CANVAS_GAMEOBJECT_NAME;
+            return gameObject;
+        }
 
         public static GameObject LoadTalonCanvasGameObject()
         {

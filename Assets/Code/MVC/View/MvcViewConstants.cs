@@ -28,11 +28,17 @@ public static class MvcViewConstants
     {
         #region Private Fields
 
+        private static readonly string MVC_CANVAS_GAME_OBJECT = "mvcCanvasGameObject";
         private static readonly string MVC_VIEW_GAME_OBJECT_NAME = "mvcViewGameObject";
 
         #endregion Private Fields
 
         #region Public Methods
+
+        public static string GetMvcCanvasGameObjectName()
+        {
+            return MVC_CANVAS_GAME_OBJECT;
+        }
 
         public static string GetMvcViewGameObjectName()
         {

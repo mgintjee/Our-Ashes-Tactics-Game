@@ -16,12 +16,12 @@ public static class WeaponAttributeConstants
         {
             WeaponIdEnum.CreativeName1,
             new WeaponAttributes.Builder()
-                .SetAccuracyPoints(65)
+                .SetAccuracyPoints(95)
                 .SetDamagePoints(1)
                 .SetPenetrationPoints(0)
                 .SetRangePoints(3)
                 .SetRangeProximityPoints(30)
-                .SetShotCountPoints(8)
+                .SetShotCountPoints(3)
                 .Build()
         },
     };

@@ -130,6 +130,7 @@ public class MvcControllerObjectImpl
 
         if (mvcInitializationReport != null)
         {
+            /*
             Dictionary<TalonControllerIdEnum, HashSet<TalonPhalanxIdEnum>> talonControllerIdPhalanxIdSetDictionary =
                 mvcInitializationReport.GetTalonControllerIdPhalanxIdSetDictionary();
             foreach (TalonControllerIdEnum talonControllerId in talonControllerIdPhalanxIdSetDictionary.Keys)
@@ -140,6 +141,7 @@ public class MvcControllerObjectImpl
                     talonPhalanxIdControllerIdDictionary.Add(talonPhalanxId, talonControllerId);
                 }
             }
+            */
         }
         else
         {

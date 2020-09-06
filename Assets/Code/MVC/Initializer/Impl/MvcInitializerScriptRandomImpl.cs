@@ -34,7 +34,6 @@ public class MvcInitializerScriptRandomImpl
 
     private bool mapIsMirrored;
     private int mapRadius;
-    private int mapSeed;
     private Dictionary<TalonFactionIdEnum, TalonPaintSchemeReport> talonFactionIdPaintSchemeReportDictionary;
 
     #endregion Private Fields
@@ -55,13 +54,11 @@ public class MvcInitializerScriptRandomImpl
     {
         this.mapIsMirrored = this.random.Next() % 2 == 0;
         this.mapRadius = this.random.Next(2, 3);
-        this.mapSeed = this.random.Next();
         talonFactionIdPaintSchemeReportDictionary = this.BuildTalonFactionIdPaintSchemeReportDictionary();
         MvcInitializationReport mvcInitializationReport = new MvcInitializationReport.Builder()
-           .SetMapInformationReport(this.BuildMapConstructionReport())
-           .SetTalonConstructionReportSet(this.BuildTalonConstructionReportSet())
-           .SetTalonControllerIdPhalanxIdSetDictionary(this.BuildTalonControllerIdPhalanxIdSetDictionary())
-           .SetTalonFactionIdPhalanxIdSetDictionary(this.BuildTalonFactionIdPhalanxIdSetDictionary())
+            .SetGameSeed(this.random.Next())
+           .SetMapConstructionReport(this.BuildMapConstructionReport())
+           .SetRosterContructionReport(this.BuildRosterConstructionReport())
            .Build();
         return mvcInitializationReport;
     }
@@ -75,7 +72,6 @@ public class MvcInitializerScriptRandomImpl
         return new MapConstructionReport.Builder()
             .SetMapMirrored(this.mapIsMirrored)
             .SetMapRadius(this.mapRadius)
-            .SetMapSeed(this.mapSeed)
             .Build();
     }
 
@@ -112,6 +108,15 @@ public class MvcInitializerScriptRandomImpl
             weaponIdList.Add(WeaponIdEnum.CreativeName1);
         }
         return weaponIdList;
+    }
+
+    private RosterConstructionReport BuildRosterConstructionReport()
+    {
+        return new RosterConstructionReport.Builder()
+            .SetTalonConstructionReportSet(this.BuildTalonConstructionReportSet())
+            .SetTalonControllerIdPhalanxIdSetDictionary(this.BuildTalonControllerIdPhalanxIdSetDictionary())
+            .SetTalonFactionIdPhalanxIdSetDictionary(this.BuildTalonFactionIdPhalanxIdSetDictionary())
+            .Build();
     }
 
     private HashSet<TalonConstructionReport> BuildTalonConstructionReportSet()

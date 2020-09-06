@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using UnityEngine;
 
 /// <summary>
 /// MvcModel Object Impl
@@ -14,10 +13,14 @@ public class MvcModelObjectImpl
     // Provide logging capability
     private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
+    // Todo
     private readonly MapObject mapObject = null;
 
     // Todo
     private readonly MvcModelScript mvcModelScript;
+
+    // Todo
+    private readonly RosterObject rosterObject = null;
 
     // Todo
     private int counterAction = 0;
@@ -34,42 +37,32 @@ public class MvcModelObjectImpl
     // Todo
     private bool processingActionReport = false;
 
-    // Todo
-    private Dictionary<TalonFactionIdEnum, HashSet<TalonPhalanxIdEnum>> talonFactionIdPhalanxIdDictionary;
-
-    // Todo
-    private Dictionary<TalonIdentificationReport, TalonInformationReport> talonIdentificationInformationDictionary;
-
-    // Todo
-    private Dictionary<TalonIdentificationReport, TalonObject> talonIdentificationReportObjectDictionary;
-
-    // Determines the order of the talons
-    private List<TalonObject> talonObjectOrderList;
-
-    // Todo
-    private Dictionary<TalonPhalanxIdEnum, HashSet<TalonIdentificationReport>> talonPhalanxIdTalonIdentificationReportDictionary;
-
     #endregion Private Fields
 
     #region Public Constructors
 
-    public MvcModelObjectImpl(MvcModelScript mvcModelScript, MapScript mapScript)
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <param name="mvcModelScript"></param>
+    /// <param name="mapScript">     </param>
+    public MvcModelObjectImpl(MvcModelScript mvcModelScript, MapScript mapScript, RosterScript rosterScript)
     {
         if (mvcModelScript != null &&
-            mapScript != null)
+            mapScript != null &&
+            rosterScript != null)
         {
             logger.Info("Contructing: ?", this.GetType());
-
-            logger.Info("Setting: ?=?", typeof(MvcModelScript), mvcModelScript);
             this.mvcModelScript = mvcModelScript;
-
             this.mapObject = mapScript.GetMapObject();
+            this.rosterObject = rosterScript.GetRosterObject();
         }
         else
         {
             throw new ArgumentException("Unable to construct " + this.GetType() + ". Invalid Parameters." +
                 "\n\t>" + typeof(MvcModelScript) + " is null: " + (mvcModelScript == null) +
-                "\n\t>" + typeof(MapScript) + " is null: " + (mapScript == null));
+                "\n\t>" + typeof(MapScript) + " is null: " + (mapScript == null) +
+                "\n\t>" + typeof(RosterScript) + " is null: " + (rosterScript == null));
         }
     }
 
@@ -77,47 +70,34 @@ public class MvcModelObjectImpl
 
     #region Public Methods
 
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
     public override bool ContinueGame()
     {
         return this.CheckWinConditions();
     }
 
-    public override TalonInformationReport GetCurrentTalonInformationReport()
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
+    public override HashSet<TalonIdentificationReport> GetActiveTalonIdentificationReportSet()
     {
-        logger.Debug("GetCurrentTalonInformationReport");
+        return this.rosterObject.GetActiveTalonIdentificationReportSet();
+    }
 
-        TalonInformationReport talonInformationReport = null;
-        if (this.talonObjectOrderList == null ||
-                this.talonObjectOrderList.Count < 1)
-        {
-            this.talonObjectOrderList = this.GenerateTalonObjectTurnList();
-        }
-
-        logger.Debug("talonObjectOrderList=?", string.Join(",\n", this.talonObjectOrderList));
-
-        if (this.talonObjectOrderList.Count > 0)
-        {
-            TalonObject talonObject = this.talonObjectOrderList[0];
-            TalonIdentificationReport talonIdentificationReport = talonObject.GetTalonIdentificationReport();
-            talonInformationReport = this.GetTalonInformationReport(talonIdentificationReport);
-        }
-
-        logger.Debug("Found ?=?", typeof(TalonInformationReport), talonInformationReport);
-        return talonInformationReport;
+    public override TalonIdentificationReport GetCurrentTalonIdentificationReport()
+    {
+        return this.rosterObject.GetOrderedTalonIdentificationReportList()[0];
     }
 
     public override MvcModelInformationReport GetMvcModelInformationReport()
     {
-        Dictionary<TalonIdentificationReport, TalonInformationReport> talonIdentificationInformationReportDictionary = new Dictionary<TalonIdentificationReport, TalonInformationReport>();
-
-        foreach (TalonIdentificationReport talonIdentificationReport in this.talonIdentificationReportObjectDictionary.Keys)
-        {
-            talonIdentificationInformationReportDictionary.Add(talonIdentificationReport,
-                this.talonIdentificationReportObjectDictionary[talonIdentificationReport].GetTalonInformationReport());
-        }
         return new MvcModelInformationReport.Builder()
             .SetMapInformationReport(this.mapObject.GetMapInformationReport())
-            .SetTalonIdentificationInformationReportDictionary(talonIdentificationInformationReportDictionary)
+            .SetRosterInformationReport(this.rosterObject.GetRosterInformationReport())
             .Build();
     }
 
@@ -126,6 +106,98 @@ public class MvcModelObjectImpl
         return this.mvcModelScript;
     }
 
+    public override List<TalonIdentificationReport> GetOrderedTalonIdentificationReportList()
+    {
+        return this.rosterObject.GetOrderedTalonIdentificationReportList();
+    }
+
+    public override TalonInformationReport GetTalonInformationReport(TalonIdentificationReport talonIdentificationReport)
+    {
+        return this.rosterObject.GetTalonObject(talonIdentificationReport).GetTalonInformationReport();
+    }
+
+    /*
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
+    public override TalonInformationReport GetCurrentTalonInformationReport()
+    {
+        logger.Debug("GetCurrentTalonInformationReport");
+
+        TalonInformationReport talonInformationReport = null;
+        if (this.orderedTalonIdentificationReportList == null ||
+                this.orderedTalonIdentificationReportList.Count < 1)
+        {
+            this.orderedTalonIdentificationReportList = this.GenerateTalonObjectTurnList();
+        }
+
+        logger.Debug("talonObjectOrderList=?", string.Join(",\n", this.orderedTalonIdentificationReportList));
+
+        if (this.orderedTalonIdentificationReportList.Count > 0)
+        {
+            TalonObject talonObject = this.orderedTalonIdentificationReportList[0];
+            TalonIdentificationReport talonIdentificationReport = talonObject.GetTalonIdentificationReport();
+            talonInformationReport = this.GetTalonInformationReport(talonIdentificationReport);
+        }
+
+        logger.Debug("Found ?=?", typeof(TalonInformationReport), talonInformationReport);
+        return talonInformationReport;
+    }
+
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
+    public override List<TalonObject> GetCurrentTalonObjectTurnList()
+    {
+        if (this.orderedTalonIdentificationReportList == null)
+        {
+            this.orderedTalonIdentificationReportList = this.GenerateTalonObjectTurnList();
+        }
+        return new List<TalonObject>(this.orderedTalonIdentificationReportList);
+    }
+
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
+    public override MvcModelInformationReport GetMvcModelInformationReport()
+    {
+        Dictionary<TalonIdentificationReport, TalonInformationReport> talonIdentificationInformationReportDictionary =
+            new Dictionary<TalonIdentificationReport, TalonInformationReport>();
+
+        foreach (TalonIdentificationReport talonIdentificationReport in this.talonIdentificationReportObjectDictionary.Keys)
+        {
+            talonIdentificationInformationReportDictionary.Add(talonIdentificationReport,
+                this.talonIdentificationReportObjectDictionary[talonIdentificationReport].GetTalonInformationReport());
+        }
+
+        return new MvcModelInformationReport.Builder()
+            .SetMapInformationReport(this.mapObject.GetMapInformationReport())
+            .SetTalonIdentificationInformationReportDictionary(talonIdentificationInformationReportDictionary)
+            .Build();
+    }
+
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
+    public override MvcModelScript GetMvcModelScript()
+    {
+        return this.mvcModelScript;
+    }
+
+    public override List<TalonIdentificationReport> GetOrderedTalonIdentificationReportList()
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <param name="talonIdentificationReport"></param>
+    /// <returns></returns>
     public override TalonInformationReport GetTalonInformationReport(TalonIdentificationReport talonIdentificationReport)
     {
         logger.Debug("GetTalonInformationReport: ?=?", typeof(TalonIdentificationReport), talonIdentificationReport);
@@ -152,7 +224,13 @@ public class MvcModelObjectImpl
 
         return talonInformationReport;
     }
+    */
 
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <param name="mvcFrameworkObject">     </param>
+    /// <param name="mvcInitializationReport"></param>
     public override void Initialize(MvcFrameworkObject mvcFrameworkObject, MvcInitializationReport mvcInitializationReport)
     {
         logger.Info("Initializing: ?", this.GetType());
@@ -163,12 +241,32 @@ public class MvcModelObjectImpl
             {
                 this.mvcFrameworkObject = mvcFrameworkObject;
                 this.mvcInitializationReport = mvcInitializationReport;
-                this.talonPhalanxIdTalonIdentificationReportDictionary = new Dictionary<TalonPhalanxIdEnum, HashSet<TalonIdentificationReport>>();
-                this.talonIdentificationReportObjectDictionary = new Dictionary<TalonIdentificationReport, TalonObject>();
-                this.talonFactionIdPhalanxIdDictionary = new Dictionary<TalonFactionIdEnum, HashSet<TalonPhalanxIdEnum>>();
-                this.talonIdentificationInformationDictionary = new Dictionary<TalonIdentificationReport, TalonInformationReport>();
-
-                this.Initialize();
+                int mapRadius = this.mvcInitializationReport.GetMapConstructionReport().GetMapRadius();
+                Dictionary<TalonPhalanxIdEnum, int> talonPhalanxIdCountDictionary = new Dictionary<TalonPhalanxIdEnum, int>();
+                foreach (TalonObject talonObject in this.rosterObject.GetAllTalonObjectSet())
+                {
+                    TalonIdentificationReport talonIdentificationReport = talonObject.GetTalonIdentificationReport();
+                    if (!talonPhalanxIdCountDictionary.ContainsKey(talonIdentificationReport.GetTalonPhalanxId()))
+                    {
+                        talonPhalanxIdCountDictionary.Add(talonIdentificationReport.GetTalonPhalanxId(),
+                            this.rosterObject.GetAllTalonObjectSet(talonIdentificationReport.GetTalonPhalanxId()).Count);
+                    }
+                    CubeCoordinates spawnCubeCoordinates = TalonSpawnCubeCoordinatesUtil.GetSpawningCubeCoordinatesFor(
+                        talonIdentificationReport.GetTalonPhalanxId(),
+                        talonPhalanxIdCountDictionary[talonIdentificationReport.GetTalonPhalanxId()],
+                        talonIdentificationReport.GetTalonPhalanxIndex(),
+                        mapRadius);
+                    HexTileObject hexTileObject = HexTileObjectFinderUtil.FindHexTileObjectFrom(spawnCubeCoordinates);
+                    if (hexTileObject != null)
+                    {
+                        talonObject.SetCubeCoordinates(spawnCubeCoordinates);
+                        hexTileObject.SetOccupyingTalonIdentificationReport(talonIdentificationReport);
+                    }
+                    else
+                    {
+                        logger.Debug("?=? is not valid", typeof(CubeCoordinates), spawnCubeCoordinates);
+                    }
+                }
             }
             else
             {
@@ -183,10 +281,16 @@ public class MvcModelObjectImpl
         }
     }
 
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <param name="talonActionOrderReport"></param>
+    /// <returns></returns>
     public override TalonTurnReport InputTalonActionOrderReport(TalonActionOrderReport talonActionOrderReport)
     {
         if (talonActionOrderReport != null)
         {
+            /*
             TalonIdentificationReport actingTalonIdentificationReport = talonActionOrderReport.GetActingTalonIdentificationReport();
             if (actingTalonIdentificationReport != null &&
                     this.talonIdentificationReportObjectDictionary.ContainsKey(actingTalonIdentificationReport))
@@ -261,25 +365,38 @@ public class MvcModelObjectImpl
                 throw new ArgumentException("Unable to InputTalonActionOrderReport. Invalid Parameters." +
                     "\n\t>" + typeof(TalonIdentificationReport) + " is null");
             }
+            */
         }
         else
         {
             throw new ArgumentException("Unable to InputTalonActionOrderReport. Invalid Parameters." +
                 "\n\t>" + typeof(TalonActionOrderReport) + " is null");
         }
+        return null;
     }
 
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
     public override bool IsInitialized()
     {
         return this.mvcFrameworkObject != null &&
             this.mvcInitializationReport != null;
     }
 
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
     public override bool IsProcessingActionReport()
     {
         return this.processingActionReport;
     }
 
+    /// <summary>
+    /// Todo
+    /// </summary>
     public override void StartGame()
     {
         //this.mechObjectTurnList = this.GenerateTalonObjectTurnList();
@@ -289,11 +406,16 @@ public class MvcModelObjectImpl
 
     #region Private Methods
 
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <param name="talonObject"></param>
     private void AddTalonObject(TalonObject talonObject)
     {
         // Check that parameters are non-null
         if (talonObject != null)
         {
+            /*
             TalonIdentificationReport talonIdentificationReport = talonObject.GetTalonIdentificationReport();
             if (talonIdentificationReport != null)
             {
@@ -313,7 +435,7 @@ public class MvcModelObjectImpl
                         new HashSet<TalonIdentificationReport>());
                 }
                 this.talonPhalanxIdTalonIdentificationReportDictionary[talonPhalanxId].Add(talonIdentificationReport);
-                TalonFactionIdEnum talonFactionId = talonIdentificationReport.GetFactionId();
+                TalonFactionIdEnum talonFactionId = talonIdentificationReport.GetTalonFactionId();
                 if (!this.talonFactionIdPhalanxIdDictionary.ContainsKey(talonFactionId))
                 {
                     // Add the FactionId key and an empty Set: PhalanxId
@@ -331,12 +453,12 @@ public class MvcModelObjectImpl
                 else
                 {
                     Transform factionIdPhalanxIdCollectionTransform = talonCollectionTransform.Find(
-                        MvcModelConstants.Script.GetFactionIdPhalanxIdCollectionGameObjectPrefix() + talonIdentificationReport.GetFactionId());
+                        MvcModelConstants.Script.GetFactionIdPhalanxIdCollectionGameObjectPrefix() + talonIdentificationReport.GetTalonFactionId());
 
                     if (factionIdPhalanxIdCollectionTransform == null)
                     {
                         GameObject factionidPhalanxIdCollectionGameObject = new GameObject(
-                            MvcModelConstants.Script.GetFactionIdPhalanxIdCollectionGameObjectPrefix() + talonIdentificationReport.GetFactionId());
+                            MvcModelConstants.Script.GetFactionIdPhalanxIdCollectionGameObjectPrefix() + talonIdentificationReport.GetTalonFactionId());
                         factionIdPhalanxIdCollectionTransform = factionidPhalanxIdCollectionGameObject.transform;
                         factionIdPhalanxIdCollectionTransform.SetParent(talonCollectionTransform);
                     }
@@ -359,6 +481,7 @@ public class MvcModelObjectImpl
             {
                 logger.Error("Unable to add ?. ? is null.", typeof(TalonObject), typeof(TalonIdentificationReport)); ;
             }
+            */
         }
         else
         {
@@ -366,43 +489,26 @@ public class MvcModelObjectImpl
         }
     }
 
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
     private bool CheckWinConditions()
     {
-        bool multipleTalonFactionsRemaining = true;
-        foreach (TalonFactionIdEnum talonFactionId in this.talonFactionIdPhalanxIdDictionary.Keys)
+        HashSet<TalonFactionIdEnum> remainingTalonFactionIdSet = new HashSet<TalonFactionIdEnum>();
+        foreach (TalonIdentificationReport talonIdentificationReport in this.rosterObject.GetActiveTalonIdentificationReportSet())
         {
-            int talonFactionIdTalonCount = this.CollectFactionIdTalonCount(talonFactionId);
-            multipleTalonFactionsRemaining = multipleTalonFactionsRemaining && talonFactionIdTalonCount > 0;
+            remainingTalonFactionIdSet.Add(talonIdentificationReport.GetTalonFactionId());
         }
-        return multipleTalonFactionsRemaining;
+        return remainingTalonFactionIdSet.Count > 1;
     }
 
-    private int CollectFactionIdTalonCount(TalonFactionIdEnum talonFactionId)
-    {
-        if (this.talonFactionIdPhalanxIdDictionary.ContainsKey(talonFactionId))
-        {
-            int talonFactionIdTalonCount = 0;
-            foreach (TalonPhalanxIdEnum talonPhalanxId in this.talonFactionIdPhalanxIdDictionary[talonFactionId])
-            {
-                if (this.talonPhalanxIdTalonIdentificationReportDictionary.ContainsKey(talonPhalanxId))
-                {
-                    talonFactionIdTalonCount += this.talonPhalanxIdTalonIdentificationReportDictionary[talonPhalanxId].Count;
-                }
-                else
-                {
-                    logger.Error("Invalid ?=?", typeof(TalonPhalanxIdEnum), talonPhalanxId);
-                }
-            }
-            return talonFactionIdTalonCount;
-        }
-        else
-        {
-            throw new ArgumentException("Unable to CollectFactionIdTalonCount. Invalid Parameters." +
-                "\n\t>" + typeof(TalonFactionIdEnum) + " is not valid");
-        }
-    }
+    #endregion Private Methods
+
+    /*
 
     /// <summary>
+    /// Todo
     /// </summary>
     /// <param name="mechObject"></param>
     private void DestroyTalon(TalonIdentificationReport talonIdentificationReport)
@@ -417,7 +523,7 @@ public class MvcModelObjectImpl
                 {
                     this.talonPhalanxIdTalonIdentificationReportDictionary[talonIdentificationReport.GetTalonPhalanxId()].Remove(talonIdentificationReport);
                 }
-                this.talonObjectOrderList.Remove(talonObject);
+                this.orderedTalonIdentificationReportList.Remove(talonObject);
                 HexTileObject hexTileObject = HexTileObjectFinderUtil.FindHexTileObjectFrom(talonObject.GetCubeCoordinates());
                 hexTileObject.SetOccupyingTalonIdentificationReport(null);
                 GameObject.Destroy(talonObject.GetTalonScript().GetGameObject());
@@ -425,6 +531,10 @@ public class MvcModelObjectImpl
         }
     }
 
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
     private List<TalonObject> GenerateTalonObjectTurnList()
     {
         List<TalonObject> talonObjectOrderList = (this.talonIdentificationReportObjectDictionary != null)
@@ -443,60 +553,5 @@ public class MvcModelObjectImpl
         this.counterPhase++;
         return talonObjectOrderList;
     }
-
-    private void Initialize()
-    {
-        if (this.mvcFrameworkObject != null &&
-            this.mvcInitializationReport != null)
-        {
-            foreach (TalonConstructionReport talonConstructionReport in this.mvcInitializationReport.GetTalonConstructionReportSet())
-            {
-                TalonObject talonObject = TalonObjectBuilderUtil.BuildTalonObject(talonConstructionReport);
-                if (talonObject != null)
-                {
-                    this.AddTalonObject(talonObject);
-                }
-                else
-                {
-                    logger.Error("Failed to add: ?. Failed to build.", typeof(TalonObject));
-                }
-            }
-
-            int mapRadius = this.mvcInitializationReport.GetMapConstructionReport().GetMapRadius();
-            foreach (TalonPhalanxIdEnum talonPhalanxId in this.talonPhalanxIdTalonIdentificationReportDictionary.Keys)
-            {
-                logger.Debug("?=?", typeof(TalonPhalanxIdEnum), talonPhalanxId);
-                int talonPhalanxCount = this.talonPhalanxIdTalonIdentificationReportDictionary[talonPhalanxId].Count;
-                foreach (TalonIdentificationReport talonIdentificationReport in this.talonPhalanxIdTalonIdentificationReportDictionary[talonPhalanxId])
-                {
-                    if (this.talonIdentificationReportObjectDictionary.ContainsKey(talonIdentificationReport))
-                    {
-                        logger.Debug("?=?. Setting ?", typeof(TalonIdentificationReport), talonIdentificationReport, typeof(CubeCoordinates));
-                        TalonObject talonObject = this.talonIdentificationReportObjectDictionary[talonIdentificationReport];
-                        CubeCoordinates spawnCubeCoordinates = TalonSpawnCubeCoordinatesUtil.GetSpawningCubeCoordinatesFor(talonPhalanxId, talonPhalanxCount, talonIdentificationReport.GetTalonPhalanxIndex(), mapRadius);
-                        HexTileObject hexTileObject = HexTileObjectFinderUtil.FindHexTileObjectFrom(spawnCubeCoordinates);
-                        if (hexTileObject != null)
-                        {
-                            talonObject.SetCubeCoordinates(spawnCubeCoordinates);
-                            hexTileObject.SetOccupyingTalonIdentificationReport(talonIdentificationReport);
-                        }
-                        else
-                        {
-                            logger.Debug("?=? is not valid", typeof(CubeCoordinates), spawnCubeCoordinates);
-                        }
-                    }
-                    else
-                    {
-                        logger.Debug("?=? is not currently tracked", typeof(TalonIdentificationReport), talonIdentificationReport);
-                    }
-                }
-            }
-        }
-        else
-        {
-            logger.Error("Unable to Initialize: ?. Missing Attributes.", this.GetType());
-        }
-    }
-
-    #endregion Private Methods
+    */
 }

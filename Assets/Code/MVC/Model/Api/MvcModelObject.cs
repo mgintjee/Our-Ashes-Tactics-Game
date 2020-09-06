@@ -1,4 +1,6 @@
-﻿/// <summary>
+﻿using System.Collections.Generic;
+
+/// <summary>
 /// MvcModel Object Api
 /// </summary>
 public abstract class MvcModelObject
@@ -7,11 +9,15 @@ public abstract class MvcModelObject
 
     public abstract bool ContinueGame();
 
-    public abstract TalonInformationReport GetCurrentTalonInformationReport();
+    public abstract HashSet<TalonIdentificationReport> GetActiveTalonIdentificationReportSet();
+
+    public abstract TalonIdentificationReport GetCurrentTalonIdentificationReport();
 
     public abstract MvcModelInformationReport GetMvcModelInformationReport();
 
     public abstract MvcModelScript GetMvcModelScript();
+
+    public abstract List<TalonIdentificationReport> GetOrderedTalonIdentificationReportList();
 
     public abstract TalonInformationReport GetTalonInformationReport(TalonIdentificationReport talonIdentificationReport);
 

@@ -2,68 +2,92 @@
 using System.Collections.Generic;
 
 /// <summary>
-/// Report used to convey the state of the MvcModel
+/// Report used to describe the MvcModel
 /// </summary>
 public class MvcModelInformationReport
 {
     #region Private Fields
 
+    //Todo
     private readonly MapInformationReport mapInformationReport = null;
-    private readonly Dictionary<TalonIdentificationReport, TalonInformationReport> talonIdentificationInformationReportDictionary = null;
+
+    //Todo
+    private readonly RosterInformationReport rosterInformationReport = null;
 
     #endregion Private Fields
 
     #region Private Constructors
 
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <param name="mapInformationReport">   </param>
+    /// <param name="rosterInformationReport"></param>
     private MvcModelInformationReport(MapInformationReport mapInformationReport,
-        Dictionary<TalonIdentificationReport, TalonInformationReport> talonIdentificationInformationReportDictionary)
+        RosterInformationReport rosterInformationReport)
     {
         this.mapInformationReport = mapInformationReport;
-        this.talonIdentificationInformationReportDictionary = new Dictionary<TalonIdentificationReport, TalonInformationReport>(talonIdentificationInformationReportDictionary);
+        this.rosterInformationReport = rosterInformationReport;
     }
 
     #endregion Private Constructors
 
     #region Public Methods
 
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
     public MapInformationReport GetMapInformationReport()
     {
         return this.mapInformationReport;
     }
 
-    public Dictionary<TalonIdentificationReport, TalonInformationReport> GetTalonInformationReportSet()
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
+    public RosterInformationReport GetRosterInformationReport()
     {
-        return new Dictionary<TalonIdentificationReport, TalonInformationReport>(this.talonIdentificationInformationReportDictionary);
+        return this.rosterInformationReport;
     }
 
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
     public override string ToString()
     {
-        string talonInformationReportDictionaryString = "";
-        foreach (TalonIdentificationReport talonIdentificationReport in this.GetTalonInformationReportSet().Keys)
-        {
-            talonInformationReportDictionaryString += "\n\t>" + talonIdentificationReport +
-                "\n\t>" + this.GetTalonInformationReportSet()[talonIdentificationReport];
-        }
         return this.GetType() + ":" +
             "\n\t>" + this.GetMapInformationReport() +
-            "\n\t>talonIdentificationInformationReportDictionary:" + talonInformationReportDictionaryString;
+            "\n\t>:" + this.GetRosterInformationReport();
     }
 
     #endregion Public Methods
 
     #region Public Classes
 
+    /// <summary>
+    /// Todo
+    /// </summary>
     public class Builder
     {
         #region Private Fields
 
+        // Todo
         private MapInformationReport mapInformationReport = null;
-        private Dictionary<TalonIdentificationReport, TalonInformationReport> talonIdentificationInformationReportDictionary = null;
+
+        //Todo
+        private RosterInformationReport rosterInformationReport = null;
 
         #endregion Private Fields
 
         #region Public Methods
 
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
         public MvcModelInformationReport Build()
         {
             HashSet<string> invalidReasons = this.IsValid();
@@ -71,7 +95,7 @@ public class MvcModelInformationReport
             if (invalidReasons.Count == 0)
             {
                 // Instantiate a new Report
-                return new MvcModelInformationReport(this.mapInformationReport, this.talonIdentificationInformationReportDictionary);
+                return new MvcModelInformationReport(this.mapInformationReport, this.rosterInformationReport);
             }
             else
             {
@@ -80,16 +104,25 @@ public class MvcModelInformationReport
             }
         }
 
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="mapInformationReport"></param>
+        /// <returns></returns>
         public Builder SetMapInformationReport(MapInformationReport mapInformationReport)
         {
             this.mapInformationReport = mapInformationReport;
             return this;
         }
 
-        public Builder SetTalonIdentificationInformationReportDictionary(
-            Dictionary<TalonIdentificationReport, TalonInformationReport> talonIdentificationInformationReportDictionary)
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="rosterInformationReport"></param>
+        /// <returns></returns>
+        public Builder SetRosterInformationReport(RosterInformationReport rosterInformationReport)
         {
-            this.talonIdentificationInformationReportDictionary = talonIdentificationInformationReportDictionary;
+            this.rosterInformationReport = rosterInformationReport;
             return this;
         }
 
@@ -110,16 +143,10 @@ public class MvcModelInformationReport
             {
                 argumentExceptionSet.Add(typeof(MapInformationReport) + " has not been set");
             }
-            // Check that talonIdentificationInformationReportDictionary has been set
-            if (this.talonIdentificationInformationReportDictionary == null)
+            // Check that rosterInformationReport has been set
+            if (this.rosterInformationReport == null)
             {
-                argumentExceptionSet.Add("talonIdentificationInformationReportDictionary has not been set");
-            }
-            // Check that talonIdentificationInformationReportDictionary is valid
-            if (this.talonIdentificationInformationReportDictionary != null &&
-                this.talonIdentificationInformationReportDictionary.Count == 0)
-            {
-                argumentExceptionSet.Add("talonIdentificationInformationReportDictionary is invalid");
+                argumentExceptionSet.Add(typeof(RosterInformationReport) + " has not been set");
             }
             return argumentExceptionSet;
         }

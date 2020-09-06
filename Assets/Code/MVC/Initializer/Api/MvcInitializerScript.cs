@@ -8,6 +8,7 @@ public abstract class MvcInitializerScript
 {
     #region Private Fields
 
+    private bool game = false;
     private MvcFrameworkScript mvcFrameworkScript;
 
     #endregion Private Fields
@@ -16,11 +17,15 @@ public abstract class MvcInitializerScript
 
     public void FixedUpdate()
     {
-        if (this.mvcFrameworkScript != null)
+        if (!game)
         {
-            if (!this.mvcFrameworkScript.IsInitialized())
+            if (this.mvcFrameworkScript != null)
             {
-                this.mvcFrameworkScript.Initialize(BuildMvcInitializationReport());
+                if (!this.mvcFrameworkScript.IsInitialized())
+                {
+                    game = true;
+                    this.mvcFrameworkScript.Initialize(BuildMvcInitializationReport());
+                }
             }
         }
     }

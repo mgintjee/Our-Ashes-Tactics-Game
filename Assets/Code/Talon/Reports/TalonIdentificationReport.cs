@@ -40,7 +40,7 @@ public class TalonIdentificationReport
     /// Todo
     /// </summary>
     /// <returns></returns>
-    public TalonFactionIdEnum GetFactionId()
+    public TalonFactionIdEnum GetTalonFactionId()
     {
         return this.factionId;
     }
@@ -60,7 +60,8 @@ public class TalonIdentificationReport
     /// <returns></returns>
     public string GetTalonName()
     {
-        return "" + this.GetFactionId() + "_" + this.GetTalonPhalanxId() + "_" + this.GetTalonPhalanxIndex() + "_" + this.GetTalonId();
+        return TalonConstants.Script.GetPhalanxIndexGameObjectPrefix() + this.GetTalonPhalanxIndex() + ", " +
+            TalonConstants.Script.GetTalonIdGameObjectPrefix() + this.GetTalonId();
     }
 
     /// <summary>
@@ -88,7 +89,7 @@ public class TalonIdentificationReport
     public override string ToString()
     {
         return this.GetType() + ": " +
-            typeof(TalonFactionIdEnum) + ": " + this.GetFactionId() +
+            typeof(TalonFactionIdEnum) + ": " + this.GetTalonFactionId() +
             ", " + typeof(TalonPhalanxIdEnum) + ": " + this.GetTalonPhalanxId() +
             ", talonPhalanxIndex: " + this.GetTalonPhalanxIndex() +
             ", " + typeof(TalonIdEnum) + ": " + this.GetTalonId();
@@ -105,9 +106,16 @@ public class TalonIdentificationReport
     {
         #region Private Fields
 
+        // Todo
         private TalonFactionIdEnum factionId = TalonFactionIdEnum.NULL;
+
+        // Todo
         private TalonIdEnum talonId = TalonIdEnum.NULL;
+
+        // Todo
         private TalonPhalanxIdEnum talonPhalanxId = TalonPhalanxIdEnum.NULL;
+
+        // Todo
         private int talonPhalanxIndex = int.MinValue;
 
         #endregion Private Fields
@@ -200,10 +208,18 @@ public class TalonIdentificationReport
             {
                 argumentExceptionSet.Add(typeof(TalonPhalanxIdEnum) + " has not been set");
             }
-            // Check that factionTalonId is valid
+            // Check that talonPhalanxIndex has been set
             if (this.talonPhalanxIndex == int.MinValue)
             {
                 argumentExceptionSet.Add("talonPhalanxIndex has not been set");
+            }
+            else
+            {
+                // Check that talonPhalanxIndex is valid
+                if (this.talonPhalanxIndex < 0)
+                {
+                    argumentExceptionSet.Add("talonPhalanxIndex=" + this.talonPhalanxIndex + ", is invalid");
+                }
             }
             // Check that talonId has been set
             if (this.talonId == TalonIdEnum.NULL)

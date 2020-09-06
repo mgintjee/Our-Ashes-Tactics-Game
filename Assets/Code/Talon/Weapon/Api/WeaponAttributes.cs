@@ -72,6 +72,14 @@ public class WeaponAttributes
     /// <summary>
     /// </summary>
     /// <returns></returns>
+    public int GetNumberOfShots()
+    {
+        return this.shotCountPoints;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <returns></returns>
     public int GetPenetrationPoints()
     {
         return this.penetrationPoints;
@@ -91,14 +99,6 @@ public class WeaponAttributes
     public int GetRangeProximityPoints()
     {
         return this.rangeProximityPoints;
-    }
-
-    /// <summary>
-    /// </summary>
-    /// <returns></returns>
-    public int GetShotCountPoints()
-    {
-        return this.shotCountPoints;
     }
 
     #endregion Public Methods

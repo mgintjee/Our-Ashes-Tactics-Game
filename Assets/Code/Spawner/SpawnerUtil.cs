@@ -91,8 +91,6 @@ public class SpawnerUtil
     /// <returns></returns>
     private static GameObject Spawn(string modelPath)
     {
-        logger.Debug("Spawning: Path=?", modelPath);
-
         // Default a null spawned GameObject
         GameObject spawnedGameObject = null;
 

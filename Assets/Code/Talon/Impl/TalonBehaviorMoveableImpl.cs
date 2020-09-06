@@ -22,6 +22,8 @@ public class TalonBehaviorMoveableImpl
     // Todo
     private CubeCoordinates currentCubeCoordinates;
 
+    private int currentOrderPoints = 0;
+
     // Todo
     private int currentTurnPoints = int.MinValue;
 
@@ -37,8 +39,7 @@ public class TalonBehaviorMoveableImpl
         if (talonAttributes != null)
         {
             this.talonAttributes = talonAttributes;
-            this.currrentMovePoints = this.talonAttributes.GetMovePoints();
-            this.currentTurnPoints = this.talonAttributes.GetTurnPoints();
+            this.ResetTalonAttributeValues();
         }
         else
         {
@@ -65,17 +66,9 @@ public class TalonBehaviorMoveableImpl
     {
         int currentTurnPoints = this.GetCurrentTurnPoints();
         int currentMovePoints = this.GetCurrentMovePoints();
-        logger.Info("Turn=?, Move=?, Prod=?", currentTurnPoints, currentMovePoints, currentTurnPoints * currentMovePoints);
-        // Things TODO: Fix this calculation. Update the TalonCanvas
-        if (currentTurnPoints < 1)
-        {
-            currentTurnPoints = 1;
-        }
-        if (currentMovePoints < 1)
-        {
-            currentMovePoints = 1;
-        }
-        return currentMovePoints * currentTurnPoints;
+        logger.Info("Turn=?, Move=?, Sum=?, Prod=?, Order=?", currentTurnPoints, currentMovePoints,
+            currentTurnPoints + currentMovePoints, currentTurnPoints * currentMovePoints, currentOrderPoints);
+        return currentMovePoints + currentTurnPoints;
     }
 
     public override int GetCurrentTurnPoints()
@@ -109,15 +102,18 @@ public class TalonBehaviorMoveableImpl
         switch (talonActionType)
         {
             case TalonActionTypeEnum.Wait:
+                this.currentOrderPoints += this.GetMaximumMovePoints() * this.currentTurnPoints;
                 this.currentTurnPoints -= this.GetMaximumTurnPoints();
                 break;
 
             case TalonActionTypeEnum.Move:
+                this.currentOrderPoints += talonActionReport.GetPathObject().GetPathObjectCost();
                 this.currrentMovePoints -= talonActionReport.GetPathObject().GetPathObjectCost();
                 this.currentTurnPoints -= 1;
                 break;
 
             case TalonActionTypeEnum.Fire:
+                this.currentOrderPoints += this.GetMaximumMovePoints();
                 this.currentTurnPoints -= 2;
                 this.currrentMovePoints -= this.GetMaximumMovePoints();
                 break;
@@ -128,6 +124,7 @@ public class TalonBehaviorMoveableImpl
     {
         this.currentTurnPoints = this.GetMaximumTurnPoints();
         this.currrentMovePoints = this.GetMaximumMovePoints();
+        this.currentOrderPoints = 0;
     }
 
     public override void SetCubeCoodinates(CubeCoordinates cubeCoordinates)

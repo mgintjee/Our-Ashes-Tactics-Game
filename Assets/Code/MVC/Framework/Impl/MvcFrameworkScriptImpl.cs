@@ -67,6 +67,7 @@ public class MvcFrameworkScriptImpl
             logger.Info("Initializing: ?", this.GetType());
             if (!this.IsInitialized())
             {
+                RandomNumberGeneratorUtil.SetSeed(mvcInitializationReport.GetGameSeed());
                 this.mvcInitializationReport = mvcInitializationReport;
 
                 this.mvcFrameworkObject = new MvcFrameworkObjectImpl(this, this.mvcInitializationReport);
@@ -76,7 +77,9 @@ public class MvcFrameworkScriptImpl
                 this.mvcViewScript = this.BuildMvcView();
 
                 this.mvcControllerScript.Initialize(this);
-                this.mvcModelScript.Initialize(this, this.mvcInitializationReport.GetMapConstructionReport());
+                this.mvcModelScript.Initialize(this,
+                    this.mvcInitializationReport.GetMapConstructionReport(),
+                    this.mvcInitializationReport.GetRosterConstructionReport());
                 this.mvcViewScript.Initialize(this);
                 this.mvcFrameworkObject.Initialize();
             }

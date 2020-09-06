@@ -13,7 +13,5 @@ public abstract class TalonVisual
 
     public abstract void SetCubeCoordinates(CubeCoordinates cubeCoordinates);
 
-    public abstract void UpdateMechCanvas();
-
     #endregion Public Methods
 }

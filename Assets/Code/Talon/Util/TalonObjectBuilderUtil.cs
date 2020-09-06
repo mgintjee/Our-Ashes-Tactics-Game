@@ -23,7 +23,6 @@ public static class TalonObjectBuilderUtil
     /// <returns></returns>
     public static TalonObject BuildTalonObject(TalonConstructionReport talonConstructionReport)
     {
-        logger.Debug("Building: ?", talonConstructionReport);
         // Check that the TalonConstructionReport is non-null
         if (talonConstructionReport != null)
         {

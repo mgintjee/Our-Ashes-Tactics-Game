@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using UnityEngine;
 
 /// <summary>
 /// MvcView Script Impl
@@ -12,48 +13,83 @@ public class MvcViewScriptImpl
     // Provide logging capability
     private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
+    // Todo
+    private GameObject mvcCanvasGameObject;
+
+    // Todo
     private MvcFrameworkScript mvcFrameworkScript;
+
+    // Todo
     private MvcViewObject mvcViewObject;
 
     #endregion Private Fields
 
     #region Public Methods
 
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
     public override MvcViewObject GetMvcViewObject()
     {
         return this.mvcViewObject;
     }
 
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <param name="mvcFrameworkScript"></param>
     public override void Initialize(MvcFrameworkScript mvcFrameworkScript)
     {
-        if (mvcFrameworkScript != null)
+        if (!this.IsInitialized())
         {
-            logger.Info("Initializing Script: ?", this.GetType());
-            if (!this.IsInitialized())
+            if (mvcFrameworkScript != null)
             {
+                logger.Info("Initializing Script: ?", this.GetType());
                 logger.Info("Setting Script: ?", typeof(MvcFrameworkScript));
                 this.mvcFrameworkScript = mvcFrameworkScript;
 
-                this.mvcViewObject = new MvcViewObjectImpl(this);
+                this.mvcCanvasGameObject = this.BuildMvcCanvas();
+
+                this.mvcViewObject = new MvcViewObjectImpl(this, this.mvcCanvasGameObject);
             }
             else
             {
-                logger.Warn("Unable to Initialize: ?. Already initialized.", this.GetType());
+                throw new ArgumentException("Unable to initialize " + this.GetType() + ". Invalid Parameters." +
+                    "\n\t>mvcFrameworkScript=" + mvcFrameworkScript);
             }
         }
         else
         {
-            throw new ArgumentException("Unable to initialize " +
-                this.GetType() + ". Invalid Parameters." +
-                "\n\t>mvcFrameworkScript=" + mvcFrameworkScript);
+            logger.Warn("Unable to Initialize: ?. Already initialized.", this.GetType());
         }
     }
 
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
     public override bool IsInitialized()
     {
         return this.mvcFrameworkScript != null &&
-            this.mvcViewObject != null;
+            this.mvcViewObject != null &&
+            this.mvcCanvasGameObject != null;
     }
 
     #endregion Public Methods
+
+    #region Private Methods
+
+    /// <summary>
+    /// Todo
+    /// </summary>
+    /// <returns></returns>
+    private GameObject BuildMvcCanvas()
+    {
+        GameObject mvcCanvasGameObject = GameObjectResourceLoader.Canvas.LoadMvcCanvasGameObject();
+        mvcCanvasGameObject.transform.SetParent(this.transform);
+        return mvcCanvasGameObject;
+    }
+
+    #endregion Private Methods
 }

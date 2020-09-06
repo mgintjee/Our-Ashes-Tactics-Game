@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public static class HexTileConstructionReportGeneratorUtil
 {
     #region Private Fields
 
     private static bool mapMirrored;
-    private static Random random;
 
     #endregion Private Fields
 
     #region Public Methods
 
     public static HashSet<HexTileConstructionReport> GenerateHexTileInformationReportSet(
-        HashSet<CubeCoordinates> cubeCoordinatesSet, bool isMapMirrored, Random randomToUse)
+        HashSet<CubeCoordinates> cubeCoordinatesSet, bool isMapMirrored)
     {
         // Set if the mapIsMirrored
         mapMirrored = isMapMirrored;
-        // Set the Random to use
-        random = randomToUse;
         // Default an empty Dictioanry: CubeCoordinates, HexTileConstructionReport
         Dictionary<CubeCoordinates, HexTileConstructionReport> cubeCoordindatesHexTileConstructionReportDictionary = new Dictionary<CubeCoordinates, HexTileConstructionReport>();
         // Default an empty Set: CubeCoordinates
@@ -94,7 +90,7 @@ public static class HexTileConstructionReportGeneratorUtil
 
     private static HexTileTypeEnum GenerateTileObjectTypeFromNeighbors(HashSet<HexTileConstructionReport> neighboringTileInfoReportSet)
     {
-        float randomProbability = random.Next(100) / 100f;
+        float randomProbability = RandomNumberGeneratorUtil.GetNextFloat();
         Dictionary<HexTileTypeEnum, float> tileTypeProbabilities = HexTileTypeProbabilities.GetHexTileObjectTypeProbabilities();
         Dictionary<HexTileTypeEnum, int> tileTypeCountDictionary = HexTileTypeProbabilities.GetHexTileObjectTypeDefaultCounts();
 

@@ -13,7 +13,7 @@ public static class ArtificialIntelligence
         if (talonActionOrderReportSet != null &&
             talonActionOrderReportSet.Count > 0)
         {
-            int randomIndex = new Random().Next() % talonActionOrderReportSet.Count;
+            int randomIndex = RandomNumberGeneratorUtil.GetNextInt(talonActionOrderReportSet.Count);
             return new List<TalonActionOrderReport>(talonActionOrderReportSet)[randomIndex];
         }
         else

@@ -30,7 +30,6 @@ public class PathFinderMove
 
     public override void BeginPathFinding()
     {
-        logger.Debug("Beginning Path Finding for Moving starting at=?", this.cubeCoordinatesStart);
         this.GatherAllTileCoordinatesEnds();
         this.GatherAllPathObjects();
         this.CleanUpPathObjectDictionary();

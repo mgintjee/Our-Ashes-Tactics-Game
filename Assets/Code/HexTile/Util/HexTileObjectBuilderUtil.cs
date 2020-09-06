@@ -14,7 +14,6 @@ public static class HexTileObjectBuilderUtil
 
     public static HexTileObject BuildHexTileObject(HexTileConstructionReport hexTileConstructionReport)
     {
-        logger.Debug("Building: ?", hexTileConstructionReport);
         // Check that the HexTileConstructionReport is non-null
         if (hexTileConstructionReport != null)
         {

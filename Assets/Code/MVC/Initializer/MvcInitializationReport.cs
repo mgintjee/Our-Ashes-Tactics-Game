@@ -5,55 +5,44 @@ public class MvcInitializationReport
 {
     #region Private Fields
 
+    private readonly int gameSeed;
+
     // Determines the dimensions of the map
-    private readonly MapConstructionReport mapInformationReport;
+    private readonly MapConstructionReport mapConstructionReport;
 
-    // Determines the information required for constructing Talons
-    private readonly HashSet<TalonConstructionReport> talonConstructionReportSet;
-
-    // Determines which controller is responsible for a phalanx
-    private readonly Dictionary<TalonControllerIdEnum, HashSet<TalonPhalanxIdEnum>> talonControllerIdPhalanxIdSetDictionary;
-
-    // Determines which Faction a phalanx is fighting for
-    private readonly Dictionary<TalonFactionIdEnum, HashSet<TalonPhalanxIdEnum>> talonFactionIdPhalanxIdSetDictionary;
+    // Determines the dynamics of the roster
+    private readonly RosterConstructionReport rosterConstructionReport;
 
     #endregion Private Fields
 
     #region Private Constructors
 
-    private MvcInitializationReport(MapConstructionReport mapInformationReport,
-        Dictionary<TalonControllerIdEnum, HashSet<TalonPhalanxIdEnum>> talonControllerIdPhalanxIdSetDictionary,
-        HashSet<TalonConstructionReport> talonConstructionReportSet,
-        Dictionary<TalonFactionIdEnum, HashSet<TalonPhalanxIdEnum>> talonFactionIdPhalanxIdSetDictionary)
+    private MvcInitializationReport(int gameSeed,
+        MapConstructionReport mapConstructionReport,
+        RosterConstructionReport rosterConstructionReport)
     {
-        this.mapInformationReport = mapInformationReport;
-        this.talonControllerIdPhalanxIdSetDictionary = talonControllerIdPhalanxIdSetDictionary;
-        this.talonConstructionReportSet = talonConstructionReportSet;
-        this.talonFactionIdPhalanxIdSetDictionary = talonFactionIdPhalanxIdSetDictionary;
+        this.gameSeed = gameSeed;
+        this.mapConstructionReport = mapConstructionReport;
+        this.rosterConstructionReport = rosterConstructionReport;
     }
 
     #endregion Private Constructors
 
     #region Public Methods
 
+    public int GetGameSeed()
+    {
+        return this.gameSeed;
+    }
+
     public MapConstructionReport GetMapConstructionReport()
     {
-        return this.mapInformationReport;
+        return this.mapConstructionReport;
     }
 
-    public HashSet<TalonConstructionReport> GetTalonConstructionReportSet()
+    public RosterConstructionReport GetRosterConstructionReport()
     {
-        return new HashSet<TalonConstructionReport>(this.talonConstructionReportSet);
-    }
-
-    public Dictionary<TalonControllerIdEnum, HashSet<TalonPhalanxIdEnum>> GetTalonControllerIdPhalanxIdSetDictionary()
-    {
-        return new Dictionary<TalonControllerIdEnum, HashSet<TalonPhalanxIdEnum>>(this.talonControllerIdPhalanxIdSetDictionary);
-    }
-
-    public Dictionary<TalonFactionIdEnum, HashSet<TalonPhalanxIdEnum>> GetTalonFactionIdPhalanxIdSetDictionary()
-    {
-        return new Dictionary<TalonFactionIdEnum, HashSet<TalonPhalanxIdEnum>>(this.talonFactionIdPhalanxIdSetDictionary);
+        return this.rosterConstructionReport;
     }
 
     public override string ToString()
@@ -69,17 +58,17 @@ public class MvcInitializationReport
     {
         #region Private Fields
 
+        // Todo
+        private int gameSeed = int.MinValue;
+
+        // Todo
+        private bool gameSeedSet = false;
+
         // Determines the dimensions of the map
-        private MapConstructionReport mapInformationReport = null;
+        private MapConstructionReport mapConstructionReport = null;
 
-        // Determines the information required for constructing Talons
-        private HashSet<TalonConstructionReport> talonConstructionReportSet = null;
-
-        // Determines which controller is responsible for a phalanx
-        private Dictionary<TalonControllerIdEnum, HashSet<TalonPhalanxIdEnum>> talonControllerIdPhalanxIdSetDictionary = null;
-
-        // Determines which Faction a phalanx is fighting for
-        private Dictionary<TalonFactionIdEnum, HashSet<TalonPhalanxIdEnum>> talonFactionIdPhalanxIdSetDictionary = null;
+        // Determines the dynamics of the roster
+        private RosterConstructionReport rosterConstructionReport = null;
 
         #endregion Private Fields
 
@@ -92,8 +81,7 @@ public class MvcInitializationReport
             if (invalidReasons.Count == 0)
             {
                 // Instantiate a new Report
-                return new MvcInitializationReport(this.mapInformationReport, this.talonControllerIdPhalanxIdSetDictionary,
-                    this.talonConstructionReportSet, this.talonFactionIdPhalanxIdSetDictionary);
+                return new MvcInitializationReport(this.gameSeed, this.mapConstructionReport, this.rosterConstructionReport);
             }
             else
             {
@@ -102,28 +90,22 @@ public class MvcInitializationReport
             }
         }
 
-        public Builder SetMapInformationReport(MapConstructionReport mapInformationReport)
+        public Builder SetGameSeed(int gameSeed)
         {
-            this.mapInformationReport = mapInformationReport;
+            this.gameSeed = gameSeed;
+            this.gameSeedSet = true;
             return this;
         }
 
-        public Builder SetTalonConstructionReportSet(HashSet<TalonConstructionReport> talonConstructionReportSet)
+        public Builder SetMapConstructionReport(MapConstructionReport mapConstructionReport)
         {
-            this.talonConstructionReportSet = talonConstructionReportSet;
+            this.mapConstructionReport = mapConstructionReport;
             return this;
         }
 
-        public Builder SetTalonControllerIdPhalanxIdSetDictionary(
-                            Dictionary<TalonControllerIdEnum, HashSet<TalonPhalanxIdEnum>> talonControllerIdPhalanxIdSetDictionary)
+        public Builder SetRosterContructionReport(RosterConstructionReport rosterConstructionReport)
         {
-            this.talonControllerIdPhalanxIdSetDictionary = talonControllerIdPhalanxIdSetDictionary;
-            return this;
-        }
-
-        public Builder SetTalonFactionIdPhalanxIdSetDictionary(Dictionary<TalonFactionIdEnum, HashSet<TalonPhalanxIdEnum>> talonFactionIdPhalanxIdSetDictionary)
-        {
-            this.talonFactionIdPhalanxIdSetDictionary = talonFactionIdPhalanxIdSetDictionary;
+            this.rosterConstructionReport = rosterConstructionReport;
             return this;
         }
 
@@ -135,25 +117,20 @@ public class MvcInitializationReport
         {
             // Default an empty Set: String
             HashSet<string> argumentExceptionSet = new HashSet<string>();
-            // Check if the mapInformationReport has been set
-            if (this.mapInformationReport == null)
+            // Check if the gameSeed has been set
+            if (!this.gameSeedSet)
             {
-                argumentExceptionSet.Add("mapInformationReport has not been set");
+                argumentExceptionSet.Add("gameSeed has not been set");
             }
-            // Check if the talonControllerIdPhalanxIdSetDictionary has been set
-            if (this.talonControllerIdPhalanxIdSetDictionary == null)
+            // Check if the mapConstructionReport has been set
+            if (this.mapConstructionReport == null)
             {
-                argumentExceptionSet.Add("talonControllerIdPhalanxIdSetDictionary has not been set");
+                argumentExceptionSet.Add(typeof(MapConstructionReport) + " has not been set");
             }
-            // Check if the teamIdAlliedTeamIdSetDictionary has been set
-            if (this.talonConstructionReportSet == null)
+            // Check if the rosterConstructionReport has been set
+            if (this.rosterConstructionReport == null)
             {
-                argumentExceptionSet.Add("teamIdAlliedTeamIdSet has not been set");
-            }
-            // Check if the teamIdAlliedTeamIdSetDictionary has been set
-            if (this.talonFactionIdPhalanxIdSetDictionary == null)
-            {
-                argumentExceptionSet.Add("teamIdAlliedTeamIdSet has not been set");
+                argumentExceptionSet.Add(typeof(RosterConstructionReport) + " has not been set");
             }
 
             return argumentExceptionSet;
