@@ -20,11 +20,13 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Api
         /// </summary>
         /// <returns></returns>
         public abstract ITalonCanvasObject GetTalonCanvasObject();
+
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="talonObject"></param>
         public abstract void Initialize(ITalonObject talonObject);
+
         /// <summary>
         /// Todo
         /// </summary>

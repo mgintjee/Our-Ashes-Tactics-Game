@@ -6,8 +6,8 @@
 namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Enums
 {
     /// <summary>
- /// Enum to identify supported Faction Ids
- /// </summary>
+    /// Enum to identify supported Faction Ids
+    /// </summary>
     public enum TalonFactionIdEnum
     {
         NULL,

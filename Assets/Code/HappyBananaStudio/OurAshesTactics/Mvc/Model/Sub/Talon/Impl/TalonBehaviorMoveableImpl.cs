@@ -66,6 +66,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
         #endregion Public Constructors
 
         #region Public Methods
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -73,6 +74,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
         {
             this.cubeCoordinatesPathObjectDictionary = PathFinderMoveUtil.BeginPathfindingFor(this.currentCubeCoordinates, this.GetMaximumMovePoints());
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -81,6 +83,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
         {
             return this.currrentMovePoints;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -93,6 +96,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
                 currentTurnPoints + currentMovePoints, currentTurnPoints * currentMovePoints, currentOrderPoints);
             return currentMovePoints + currentTurnPoints;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -101,6 +105,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
         {
             return this.currentTurnPoints;
         }
+
         /// <summary>
         /// Topdo
         /// </summary>
@@ -109,6 +114,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
         {
             return this.talonAttributes.GetMovePoints();
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -117,6 +123,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
         {
             return this.GetMaximumMovePoints() * this.GetMaximumTurnPoints();
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -125,6 +132,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
         {
             return this.talonAttributes.GetTurnPoints();
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -133,6 +141,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
         {
             return new HashSet<IPathObject>(this.cubeCoordinatesPathObjectDictionary.Values);
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -160,6 +169,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
                     break;
             }
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -169,6 +179,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
             this.currrentMovePoints = this.GetMaximumMovePoints();
             this.currentOrderPoints = 0;
         }
+
         /// <summary>
         /// Todo
         /// </summary>

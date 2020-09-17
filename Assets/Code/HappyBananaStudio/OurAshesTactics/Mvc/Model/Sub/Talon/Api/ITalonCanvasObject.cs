@@ -9,10 +9,12 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Api
     public interface ITalonCanvasObject
     {
         #region Public Methods
+
         /// <summary>
         /// Todo
         /// </summary>
         void DestroyTalonCanvas();
+
         /// <summary>
         /// Todo
         /// </summary>

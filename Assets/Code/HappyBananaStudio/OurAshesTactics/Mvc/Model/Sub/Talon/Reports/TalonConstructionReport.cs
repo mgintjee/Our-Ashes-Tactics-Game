@@ -18,20 +18,23 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
 
         // Todo
         private readonly TalonIdentificationReport talonIdentificationReport = null;
+
         // Todo
         private readonly TalonPaintSchemeReport talonPaintSchemeReport = null;
+
         // Todo
         private readonly List<WeaponIdEnum> weaponIdList = null;
 
         #endregion Private Fields
 
         #region Private Constructors
+
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="talonIdentificationReport"></param>
-        /// <param name="talonPaintSchemeReport"></param>
-        /// <param name="weaponIdList"></param>
+        /// <param name="talonPaintSchemeReport">   </param>
+        /// <param name="weaponIdList">             </param>
         private TalonConstructionReport(TalonIdentificationReport talonIdentificationReport,
             TalonPaintSchemeReport talonPaintSchemeReport, List<WeaponIdEnum> weaponIdList)
         {
@@ -43,6 +46,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         #endregion Private Constructors
 
         #region Public Methods
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -51,6 +55,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         {
             return this.talonIdentificationReport;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -59,6 +64,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         {
             return this.talonPaintSchemeReport;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -67,6 +73,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         {
             return new List<WeaponIdEnum>(this.weaponIdList);
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -82,6 +89,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         #endregion Public Methods
 
         #region Public Classes
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -91,14 +99,17 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
 
             // Todo
             private TalonIdentificationReport talonIdentificationReport = null;
+
             // Todo
             private TalonPaintSchemeReport talonPaintSchemeReport = null;
+
             // Todo
             private List<WeaponIdEnum> weaponIdList = null;
 
             #endregion Private Fields
 
             #region Public Methods
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -118,6 +129,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
                         string.Join("\n", invalidReasons));
                 }
             }
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -128,6 +140,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
                 this.talonIdentificationReport = talonIdentificationReport;
                 return this;
             }
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -138,6 +151,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
                 this.talonPaintSchemeReport = talonPaintSchemeReport;
                 return this;
             }
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -152,6 +166,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
             #endregion Public Methods
 
             #region Private Methods
+
             /// <summary>
             /// Todo
             /// </summary>

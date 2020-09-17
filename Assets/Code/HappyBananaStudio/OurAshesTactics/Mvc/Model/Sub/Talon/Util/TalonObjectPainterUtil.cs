@@ -32,7 +32,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Util
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="talonObject"></param>
+        /// <param name="talonObject">   </param>
         /// <param name="tileObjectType"></param>
         public static void PaintMechGameObjectBase(ITalonObject talonObject, HexTileTypeEnum tileObjectType)
         {

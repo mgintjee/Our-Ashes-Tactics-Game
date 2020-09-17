@@ -61,6 +61,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
         #endregion Public Constructors
 
         #region Public Methods
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -68,6 +69,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
         {
             // Todo: Destroy this Canvas
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -98,6 +100,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
         #endregion Public Methods
 
         #region Private Methods
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -131,11 +134,12 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
                 logger.Error("Failed to collect Text objects for ?.", this.GetType());
             }
         }
+
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="backgroundId"></param>
-        /// <param name="textId"></param>
+        /// <param name="textId">      </param>
         /// <returns></returns>
         private Text CollectTextObjectFrom(string backgroundId, string textId)
         {

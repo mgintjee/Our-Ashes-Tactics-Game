@@ -15,21 +15,25 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
     public class TalonCombatResultReport
     {
         #region Private Fields
+
         // Todo
         private readonly bool isTargetDestroyed = false;
+
         // Todo
         private readonly TalonCombatOrderReport talonCombatOrderReport = null;
+
         // Todo
         private readonly List<WeaponCombatResultReport> weaponCombatResultReportList = new List<WeaponCombatResultReport>();
 
         #endregion Private Fields
 
         #region Private Constructors
+
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="isTargetDestroyed"></param>
-        /// <param name="talonCombatOrderReport"></param>
+        /// <param name="isTargetDestroyed">           </param>
+        /// <param name="talonCombatOrderReport">      </param>
         /// <param name="weaponCombatResultReportList"></param>
         private TalonCombatResultReport(bool isTargetDestroyed, TalonCombatOrderReport talonCombatOrderReport, List<WeaponCombatResultReport> weaponCombatResultReportList)
         {
@@ -41,6 +45,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         #endregion Private Constructors
 
         #region Public Methods
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -49,6 +54,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         {
             return this.isTargetDestroyed;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -57,6 +63,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         {
             return this.talonCombatOrderReport;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -65,6 +72,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         {
             return new List<WeaponCombatResultReport>(this.weaponCombatResultReportList);
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -80,24 +88,30 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         #endregion Public Methods
 
         #region Public Classes
+
         /// <summary>
         /// Todo
         /// </summary>
         public class Builder
         {
             #region Private Fields
+
             // Todo
             private bool isTargetDestroyed = false;
+
             // Todo
             private bool setIsTargetDestroyed = false;
+
             // Todo
             private TalonCombatOrderReport talonCombatOrderReport = null;
+
             // Todo
             private List<WeaponCombatResultReport> weaponCombatResultReportList = new List<WeaponCombatResultReport>();
 
             #endregion Private Fields
 
             #region Public Methods
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -117,6 +131,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
                         string.Join("\n\t>", invalidReasons));
                 }
             }
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -128,8 +143,9 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
                 this.isTargetDestroyed = isTargetDestroyed;
                 return this;
             }
+
             /// <summary>
-            ///  Todo
+            /// Todo
             /// </summary>
             /// <param name="talonCombatOrderReport"></param>
             /// <returns></returns>
@@ -138,8 +154,9 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
                 this.talonCombatOrderReport = talonCombatOrderReport;
                 return this;
             }
+
             /// <summary>
-            ///  Todo
+            /// Todo
             /// </summary>
             /// <param name="weaponCombatResultReportList"></param>
             /// <returns></returns>

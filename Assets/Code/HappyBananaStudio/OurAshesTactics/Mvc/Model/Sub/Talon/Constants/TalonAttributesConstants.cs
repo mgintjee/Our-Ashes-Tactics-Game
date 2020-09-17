@@ -15,6 +15,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Constants
     public class TalonAttributesConstants
     {
         #region Private Fields
+
         // Todo
         private static readonly Dictionary<TalonIdEnum, TalonAttributes> TALON_ID_ATTRIBUTES_DICTIONARY = new Dictionary<TalonIdEnum, TalonAttributes>()
         {

@@ -17,16 +17,18 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
 
         // Todo
         private readonly TalonActionOrderReport talonActionOrder = null;
+
         // Todo
         private readonly TalonAttributesReport talonAttributesReport = null;
 
         #endregion Private Fields
 
         #region Private Constructors
+
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="talonActionOrder"></param>
+        /// <param name="talonActionOrder">     </param>
         /// <param name="talonAttributesReport"></param>
         private TalonActionResultReport(TalonActionOrderReport talonActionOrder, TalonAttributesReport talonAttributesReport)
         {
@@ -37,6 +39,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         #endregion Private Constructors
 
         #region Public Methods
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -45,6 +48,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         {
             return this.talonActionOrder;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -53,6 +57,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         {
             return this.talonAttributesReport;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -67,6 +72,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         #endregion Public Methods
 
         #region Public Classes
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -76,12 +82,14 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
 
             // Todo
             private TalonActionOrderReport talonActionOrder = null;
+
             // Todo
             private TalonAttributesReport talonAttributesReport = null;
 
             #endregion Private Fields
 
             #region Public Methods
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -101,6 +109,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
                         string.Join("\n\t>", invalidReasons));
                 }
             }
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -111,6 +120,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
                 this.talonActionOrder = talonActionOrder;
                 return this;
             }
+
             /// <summary>
             /// Todo
             /// </summary>

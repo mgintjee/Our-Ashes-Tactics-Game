@@ -8,14 +8,15 @@ using HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Enums;
 namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
 {
     /// <summary>
- /// Todo
- /// </summary>
+    /// Todo
+    /// </summary>
     public class TalonPaintSchemeReport
     {
         #region Private Fields
 
         // Todo
         private readonly TalonColorIdEnum primaryPaintColor;
+
         // Todo
         private readonly TalonColorIdEnum secondaryPaintColor;
 

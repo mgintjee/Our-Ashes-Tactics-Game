@@ -23,10 +23,11 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Constants
         #endregion Private Fields
 
         #region Public Methods
+
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="teamCount"></param>
+        /// <param name="teamCount"> </param>
         /// <param name="randomized"></param>
         /// <returns></returns>
         public static HashSet<SpawnIdEnum> GetTeamIdSet(int teamCount, bool randomized)
@@ -57,6 +58,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Constants
         #endregion Public Methods
 
         #region Private Methods
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -105,6 +107,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Constants
             }
             return teamIdToReturn;
         }
+
         /// <summary>
         /// Todo
         /// </summary>

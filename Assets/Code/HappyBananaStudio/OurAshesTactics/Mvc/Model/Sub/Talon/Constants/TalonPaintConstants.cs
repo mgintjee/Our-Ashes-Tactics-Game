@@ -16,12 +16,16 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Constants
 
         // Todo
         private static readonly string MECH_MODEL_NAME_COCKPIT = "MechCockpitModel";
+
         // Todo
         private static readonly string MECH_MODEL_NAME_LEGS = "MechLegsModel";
+
         // Todo
         private static readonly int MECH_MODEL_PAINT_INDEX_COCKPIT = 1;
+
         // Todo
         private static readonly int MECH_MODEL_PAINT_INDEX_LEGS = 2;
+
         // Todo
         private static readonly int MECH_MODEL_TILE_TOP_PAINT_INDEX_LEGS = 0;
 

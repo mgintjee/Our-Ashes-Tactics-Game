@@ -17,17 +17,20 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Api
     : AbstractUnityScript
     {
         #region Public Methods
+
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
         public abstract ITalonObject GetTalonObject();
+
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="talonConstructionReport"></param>
-        /// <param name="weaponObjectList"></param>
+        /// <param name="weaponObjectList">       </param>
         public abstract void Initialize(TalonConstructionReport talonConstructionReport, List<IWeaponObject> weaponObjectList);
+
         /// <summary>
         /// Todo
         /// </summary>

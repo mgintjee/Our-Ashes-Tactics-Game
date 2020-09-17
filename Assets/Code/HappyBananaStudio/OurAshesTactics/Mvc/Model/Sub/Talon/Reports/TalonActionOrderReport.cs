@@ -20,22 +20,26 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
 
         // Todo
         private readonly TalonIdentificationReport actingTalonIdentificationReport = null;
+
         // Todo
         private readonly TalonActionTypeEnum actionType = TalonActionTypeEnum.NULL;
+
         // Todo
         private readonly IPathObject pathObject = null;
+
         // Todo
         private readonly TalonIdentificationReport targetTalonIdentificationReport = null;
 
         #endregion Private Fields
 
         #region Public Constructors
+
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="actingTalonIdentificationReport"></param>
         /// <param name="targetTalonIdentificationReport"></param>
-        /// <param name="pathObject"></param>
+        /// <param name="pathObject">                     </param>
         public TalonActionOrderReport(TalonIdentificationReport actingTalonIdentificationReport,
             TalonIdentificationReport targetTalonIdentificationReport, IPathObject pathObject)
         {
@@ -59,6 +63,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         #endregion Public Constructors
 
         #region Public Methods
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -67,6 +72,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         {
             return this.actingTalonIdentificationReport;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -75,6 +81,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         {
             return this.pathObject;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -83,6 +90,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         {
             return this.actionType;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -91,6 +99,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         {
             return this.targetTalonIdentificationReport;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -110,23 +119,28 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         #endregion Public Methods
 
         #region Public Classes
+
         /// <summary>
         /// Todo
         /// </summary>
         public class Builder
         {
-            #region Private Fields
             // Todo
 
+            #region Private Fields
+
             private TalonIdentificationReport actingTalonIdentificationReport = null;
+
             // Todo
             private IPathObject pathObject = null;
+
             // Todo
             private TalonIdentificationReport targetTalonIdentificationReport = null;
 
             #endregion Private Fields
 
             #region Public Methods
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -146,6 +160,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
                         string.Join("\n\t>", invalidReasons));
                 }
             }
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -156,6 +171,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
                 this.actingTalonIdentificationReport = actingTalonIdentificationReport;
                 return this;
             }
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -166,6 +182,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
                 this.pathObject = pathObject;
                 return this;
             }
+
             /// <summary>
             /// Todo
             /// </summary>

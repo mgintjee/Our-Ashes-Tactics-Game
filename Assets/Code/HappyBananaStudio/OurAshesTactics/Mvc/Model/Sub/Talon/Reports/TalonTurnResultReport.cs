@@ -57,6 +57,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         #endregion Private Constructors
 
         #region Public Methods
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -83,6 +84,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         {
             return this.phaseCounter;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -122,26 +124,33 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
         #endregion Public Methods
 
         #region Public Classes
+
         /// <summary>
         /// Todo
         /// </summary>
         public class Builder
         {
             #region Private Fields
+
             // Todo
             private int actionCounter = int.MinValue;
+
             // Todo
             private MapInformationReport mapInformationReport = null;
+
             // Todo
             private int phaseCounter = int.MinValue;
+
             // Todo
             private TalonActionResultReport talonActionResultReport = null;
+
             // Todo
             private TalonCombatResultReport talonCombatResultReport = null;
 
             #endregion Private Fields
 
             #region Public Methods
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -162,6 +171,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
                         string.Join("\n\t>", invalidReasons));
                 }
             }
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -172,6 +182,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
                 this.actionCounter = actionCounter;
                 return this;
             }
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -182,6 +193,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
                 this.mapInformationReport = mapInformationReport;
                 return this;
             }
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -192,6 +204,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
                 this.phaseCounter = phaseCounter;
                 return this;
             }
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -202,6 +215,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
                 this.talonActionResultReport = talonActionResultReport;
                 return this;
             }
+
             /// <summary>
             /// Todo
             /// </summary>

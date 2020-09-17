@@ -24,13 +24,14 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Util
         #endregion Private Fields
 
         #region Public Methods
+
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="teamId"></param>
+        /// <param name="teamId">         </param>
         /// <param name="teamIdMechCount"></param>
-        /// <param name="mechTeamIndex"></param>
-        /// <param name="mapRadius"></param>
+        /// <param name="mechTeamIndex">  </param>
+        /// <param name="mapRadius">      </param>
         /// <returns></returns>
         public static CubeCoordinates GetSpawningCubeCoordinatesFor(TalonPhalanxIdEnum teamId, int teamIdMechCount, int mechTeamIndex, int mapRadius)
         {

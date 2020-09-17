@@ -19,10 +19,13 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports
 
         // Todo
         private readonly TalonFactionIdEnum factionId = TalonFactionIdEnum.NULL;
+
         // Todo
         private readonly TalonIdEnum talonId = TalonIdEnum.NULL;
+
         // Todo
         private readonly TalonPhalanxIdEnum talonPhalanxId = TalonPhalanxIdEnum.NULL;
+
         // Todo
         private readonly int talonPhalanxIndex = int.MinValue;
 

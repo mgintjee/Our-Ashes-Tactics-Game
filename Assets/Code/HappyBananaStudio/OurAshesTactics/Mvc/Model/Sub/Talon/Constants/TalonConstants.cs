@@ -38,12 +38,14 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Constants
 
             // Todo
             private static readonly string PHALANX_INDEX__GAME_OBJECT_PREFIX = "PhanlanxIndex: ";
+
             // Todo
             private static readonly string TALON_ID_GAME_OBJECT_PREFIX = "TalonId: ";
 
             #endregion Private Fields
 
             #region Public Methods
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -52,6 +54,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Constants
             {
                 return PHALANX_INDEX__GAME_OBJECT_PREFIX;
             }
+
             /// <summary>
             /// Todo
             /// </summary>

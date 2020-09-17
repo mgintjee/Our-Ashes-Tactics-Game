@@ -30,19 +30,21 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
         #endregion Private Fields
 
         #region Public Methods
+
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        public override  ITalonObject GetTalonObject()
+        public override ITalonObject GetTalonObject()
         {
             return this.talonObject;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="talonConstructionReport"></param>
-        /// <param name="weaponObjectList"></param>
+        /// <param name="weaponObjectList">       </param>
         public override void Initialize(TalonConstructionReport talonConstructionReport, List<IWeaponObject> weaponObjectList)
         {
             // Check that this has not already been initialized
@@ -75,6 +77,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
                 logger.Warn("Unable to Initialize: ?. Already initialized.", this.GetType());
             }
         }
+
         /// <summary>
         /// Todo
         /// </summary>

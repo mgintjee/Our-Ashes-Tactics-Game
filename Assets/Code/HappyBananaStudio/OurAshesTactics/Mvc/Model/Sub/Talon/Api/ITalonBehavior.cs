@@ -16,6 +16,8 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Api
     /// </summary>
     public interface ITalonBehavior
     {
+        #region Public Methods
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -71,5 +73,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Api
         /// </summary>
         /// <param name="cubeCoordinates"></param>
         void SetCubeCoordinates(CubeCoordinates cubeCoordinates);
+
+        #endregion Public Methods
     }
 }

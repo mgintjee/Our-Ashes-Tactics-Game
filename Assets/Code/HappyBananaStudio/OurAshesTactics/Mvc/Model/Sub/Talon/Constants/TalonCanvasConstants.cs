@@ -6,23 +6,30 @@
 namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Constants
 {
     /// <summary>
- /// Todo
- /// </summary>
+    /// Todo
+    /// </summary>
     public class TalonCanvasConstants
     {
         #region Private Fields
+
         // Todo
         private static readonly string ARMOUR_BACKGROUND_NAME = "ArmourBackground";
+
         // Todo
         private static readonly string ARMOUR_TEXT_NAME = "ArmourText";
+
         // Todo
         private static readonly string CANVAS_BACKGROUND_NAME = "CanvasBackground";
+
         // Todo
         private static readonly string HEALTH_BACKGROUND_NAME = "HealthBackground";
+
         // Todo
         private static readonly string HEALTH_TEXT_NAME = "HealthText";
+
         // Todo
         private static readonly string TEAMID_BACKGROUND_NAME = "TeamIdBackground";
+
         // Todo
         private static readonly string TEAMID_TEXT_NAME = "TeamIdText";
 

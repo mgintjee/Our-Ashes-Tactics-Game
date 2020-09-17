@@ -30,6 +30,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
         #endregion Private Fields
 
         #region Public Methods
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -38,6 +39,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
         {
             return this.talonCanvasObject;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -65,6 +67,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
                     "\n\t>" + typeof(ITalonObject) + " is null");
             }
         }
+
         /// <summary>
         /// Todo
         /// </summary>

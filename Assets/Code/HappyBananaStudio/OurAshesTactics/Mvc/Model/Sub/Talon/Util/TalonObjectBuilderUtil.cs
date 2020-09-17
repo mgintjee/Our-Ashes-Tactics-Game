@@ -80,6 +80,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Util
         #endregion Public Methods
 
         #region Private Methods
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -104,6 +105,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Util
             }
             return null;
         }
+
         /// <summary>
         /// Todo
         /// </summary>

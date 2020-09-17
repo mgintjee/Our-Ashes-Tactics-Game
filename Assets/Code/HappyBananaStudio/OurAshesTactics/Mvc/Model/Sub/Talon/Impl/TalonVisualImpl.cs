@@ -28,20 +28,24 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
 
         // Provide logging capability
         private static readonly Common.Logging.Logger logger = new Common.Logging.Logger(new StackFrame().GetMethod().DeclaringType);
+
         // Todo
         private readonly TalonConstructionReport talonConstructionReport = null;
+
         // Todo
         private readonly ITalonModel talonModel = null;
+
         // Todo
         private readonly ITalonObject talonObject = null;
 
         #endregion Private Fields
 
         #region Public Constructors
+
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="talonObject"></param>
+        /// <param name="talonObject">            </param>
         /// <param name="talonConstructionReport"></param>
         public TalonVisualImpl(ITalonObject talonObject, TalonConstructionReport talonConstructionReport)
         {
@@ -64,6 +68,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
         #endregion Public Constructors
 
         #region Public Methods
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -86,6 +91,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
                     "\n\t>" + typeof(IWeaponObject) + " is null");
             }
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -93,6 +99,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
         {
             this.ApplyTalonPaintSchemeReport(this.talonConstructionReport.GetTalonPaintSchemeReport());
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -109,6 +116,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
                     "\n\t>" + typeof(HexTileTypeEnum) + " is invalid");
             }
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -171,6 +179,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Impl
         #endregion Public Methods
 
         #region Private Methods
+
         /// <summary>
         /// Todo
         /// </summary>

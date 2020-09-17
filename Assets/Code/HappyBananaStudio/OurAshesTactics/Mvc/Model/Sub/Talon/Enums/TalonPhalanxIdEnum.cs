@@ -6,8 +6,8 @@
 namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Enums
 {
     /// <summary>
- /// Todo
- /// </summary>
+    /// Todo
+    /// </summary>
     public enum TalonPhalanxIdEnum
     {
         PhalanxEast,
