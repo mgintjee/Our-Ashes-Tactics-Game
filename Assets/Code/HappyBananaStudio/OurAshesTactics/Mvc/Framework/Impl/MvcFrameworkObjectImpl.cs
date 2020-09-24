@@ -9,6 +9,7 @@ using HappyBananaStudio.OurAshesTactics.Mvc.Framework.Api;
 using HappyBananaStudio.OurAshesTactics.Mvc.Initializer.Reports;
 using HappyBananaStudio.OurAshesTactics.Mvc.Model.Api;
 using HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports;
+using HappyBananaStudio.OurAshesTactics.Mvc.Util.Renderer;
 using HappyBananaStudio.OurAshesTactics.Mvc.View.Api;
 using System;
 using System.Collections.Generic;
@@ -34,9 +35,6 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Framework.Impl
         private readonly MvcInitializationReport mvcInitializationReport;
 
         // Todo
-        private bool continueGame = false;
-
-        // Todo
         private bool isGameActive = false;
 
         // Todo
@@ -47,9 +45,6 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Framework.Impl
 
         // Todo
         private IMvcViewObject mvcViewObject;
-
-        // Todo
-        private bool processingAction = false;
 
         // Todo
         private List<TalonTurnResultReport> talonTurnReportList;
@@ -71,6 +66,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Framework.Impl
                 logger.Info("Contructing: ?", this.GetType());
                 this.mvcFrameworkScript = mvcFrameworkScript;
                 this.mvcInitializationReport = mvcInitializationReport;
+                this.talonTurnReportList = new List<TalonTurnResultReport>();
             }
             else
             {
@@ -90,11 +86,64 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Framework.Impl
         /// <returns></returns>
         public bool ContinueGame()
         {
-            if (this.mvcModelObject.IsInitialized() &&
-                this.mvcControllerObject.IsInitialized() &&
-                this.mvcViewObject.IsInitialized())
+            // Check if the Game is currently active
+            if (this.isGameActive)
             {
-                logger.Debug("Waiting for ? to initialize", this.mvcModelObject);
+                // Check the win conditions from the model
+                bool isGameComplete = this.mvcModelObject.CheckWinConditions();
+                // Check if the Game is complete
+                if (!isGameComplete)
+                {
+                    // Check if the Model is processing an Action
+                    if (this.mvcModelObject.IsProcessingAction())
+                    {
+                        logger.Debug("Waiting for ? IsProcessingActionReport", typeof(IMvcModelObject));
+                    }
+                    else
+                    {
+                        TalonIdentificationReport talonIdentificationReport = this.mvcModelObject.GetActingTalonIdentificationReport();
+                        if (talonIdentificationReport != null)
+                        {
+                            logger.Debug("Determine Action for ?", talonIdentificationReport);
+                            // Check if the Controller is ready to output an action
+                            if (this.mvcControllerObject.IsReadyToOutputActionReport())
+                            {
+                                logger.Debug("Ready to output ?", typeof(TalonActionOrderReport));
+                                // Output the Action from the Controller
+                                TalonActionOrderReport talonActionOrderReport = this.mvcControllerObject.OutputActionReport();
+                                // Use the LineRenderer to draw the path
+                                LineRendererUtil.DrawPath(talonActionOrderReport.GetPathObject());
+                                // Input the Action to the Model
+                                TalonTurnResultReport talonTurnResultReport = this.mvcModelObject.InputTalonActionOrderReport(talonActionOrderReport);
+                                logger.Debug("?", talonTurnResultReport);
+                                // Cache the TalonTurnResult
+                                this.talonTurnReportList.Add(talonTurnResultReport);
+                            }
+                            else
+                            {
+                                // Check if the Controller is determining an Action
+                                if (this.mvcControllerObject.IsDeterminingActionReport())
+                                {
+                                    logger.Debug("Waiting for ? IsDeterminingActionReport", typeof(IMvcControllerObject));
+                                }
+                                else
+                                {
+                                    TalonActionInformationReport talonActionInformationReport = this.mvcModelObject.GetTalonActionInformationReport(talonIdentificationReport);
+                                    logger.Debug("BeginDecisionProcess for ?", talonActionInformationReport);
+                                    this.mvcControllerObject.BeginDecisionProcess(talonActionInformationReport);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            logger.Debug("Unable to ContinueGame. ?'s ? is null", typeof(IMvcModelObject), typeof(TalonIdentificationReport));
+                        }
+                    }
+                }
+                else
+                {
+                    logger.Debug("Unable to ContinueGame. ?'s ContinueGame is false", typeof(IMvcModelObject));
+                }
             }
             /*
             {
@@ -154,12 +203,13 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Framework.Impl
             }
             */
 
-            if (!this.continueGame)
+            if (!this.isGameActive)
             {
+                LineRendererUtil.ErasePath();
                 this.PrintTalonTurnReportList();
             }
 
-            return this.continueGame;
+            return this.isGameActive;
         }
 
         /// <summary>
@@ -245,38 +295,35 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Framework.Impl
                 this.mvcViewObject != null;
         }
 
-        public bool StartGame()
+        /// <summary>
+        /// Todo
+        /// </summary>
+        public void StartNewGame()
         {
             if (this.mvcModelObject.IsInitialized() &&
                 this.mvcControllerObject.IsInitialized() &&
                 this.mvcViewObject.IsInitialized())
             {
-                this.isGameActive = this.ContinueGame();
+                if (!this.isGameActive)
+                {
+                    this.talonTurnReportList = new List<TalonTurnResultReport>();
+                    this.mvcModelObject.StartNewGame();
+                    this.isGameActive = true;
+                }
+                else
+                {
+                    logger.Warn("Unable to StartGame. Game is currently active.");
+                }
             }
             else
             {
-                logger.Info("Unable to StartGame. " +
+                logger.Warn("Unable to StartGame. " +
                     "\n\t>? isInitialized = ?" +
                     "\n\t>? isInitialized = ?" +
                     "\n\t>? isInitialized = ?",
                     typeof(IMvcModelObject), mvcModelObject.IsInitialized(),
                     typeof(IMvcControllerObject), mvcControllerObject.IsInitialized(),
                     typeof(IMvcViewObject), mvcViewObject.IsInitialized());
-            }
-            return this.isGameActive;
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        public void StartNewGame()
-        {
-            if (!this.isGameActive)
-            {
-                this.talonTurnReportList = new List<TalonTurnResultReport>();
-                this.mvcModelObject.StartGame();
-                this.isGameActive = true;
-                this.continueGame = true;
             }
         }
 
@@ -289,6 +336,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Framework.Impl
         /// </summary>
         private void PrintTalonTurnReportList()
         {
+            logger.Info("Printing List: ?", typeof(TalonTurnResultReport));
             foreach (TalonTurnResultReport talonTurnReport in this.talonTurnReportList)
             {
                 logger.Info("?=?", typeof(TalonTurnResultReport), talonTurnReport);

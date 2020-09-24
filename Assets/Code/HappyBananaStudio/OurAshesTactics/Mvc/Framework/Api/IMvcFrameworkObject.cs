@@ -60,12 +60,6 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Framework.Api
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
-        bool StartGame();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
         void StartNewGame();
 
         #endregion Public Methods

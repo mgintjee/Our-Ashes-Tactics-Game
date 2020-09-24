@@ -12,7 +12,6 @@ using HappyBananaStudio.OurAshesTactics.Mvc.Model.Api;
 using HappyBananaStudio.OurAshesTactics.Mvc.Model.Constants;
 using HappyBananaStudio.OurAshesTactics.Mvc.Model.Impl;
 using HappyBananaStudio.OurAshesTactics.Mvc.Util.RandomNumberGenerator;
-using HappyBananaStudio.OurAshesTactics.Mvc.Util.Renderer;
 using HappyBananaStudio.OurAshesTactics.Mvc.View.Api;
 using HappyBananaStudio.OurAshesTactics.Mvc.View.Constants;
 using HappyBananaStudio.OurAshesTactics.Mvc.View.Impl;
@@ -60,17 +59,25 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Framework.Impl
         /// </summary>
         public void FixedUpdate()
         {
-            if (this.IsReadyToStart() &&
-                !this.isGameActive)
-            {
-                logger.Debug("Starting New Game");
-                this.StartNewGame();
-            }
-
+            // Check if the game is active
             if (this.isGameActive)
             {
-                logger.Debug("Continuing Game");
-                this.ContinueGame();
+                // Determine if the game should continue
+                this.isGameActive = this.GetMvcFrameworkObject().ContinueGame();
+                // Todo: Game is over. Do something
+                if (!this.isGameActive)
+                {
+                    logger.Info("Game Is Over!!!");
+                }
+            }
+            else
+            {
+                // Check if the game is ready to start
+                if (this.IsReadyToStart())
+                {
+                    logger.Debug("Starting New Game");
+                    this.StartNewGame();
+                }
             }
         }
 
@@ -116,36 +123,37 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Framework.Impl
         /// <param name="mvcInitializationReport"></param>
         public override void Initialize(MvcInitializationReport mvcInitializationReport)
         {
-            if (mvcInitializationReport != null)
+            // Check that if this was initialized yet
+            if (!this.IsInitialized())
             {
                 logger.Info("Initializing: ?", this.GetType());
-                if (!this.IsInitialized())
+                // Check that the parameters are non-null
+                if (mvcInitializationReport != null)
                 {
-                    RandomNumberGeneratorUtil.SetSeed(mvcInitializationReport.GetGameSeed());
+                    // Build the RandomNumberGenerator for this game
+                    RandomNumberGeneratorUtil.BuildRandom(mvcInitializationReport.GetGameSeed());
+                    // Set the MvcInitializationReport
                     this.mvcInitializationReport = mvcInitializationReport;
-
+                    // Build the MvcFrameworkObject
                     this.mvcFrameworkObject = new MvcFrameworkObjectImpl(this, this.mvcInitializationReport);
-
+                    // Build the MvcControllerScript
                     this.mvcControllerScript = this.BuildMvcController();
+                    // Build the MvcModelScript
                     this.mvcModelScript = this.BuildMvcModel();
+                    // Build the MvcViewScript
                     this.mvcViewScript = this.BuildMvcView();
-
-                    this.mvcControllerScript.Initialize(this);
-                    this.mvcModelScript.Initialize(this,
-                        this.mvcInitializationReport.GetMapConstructionReport(),
-                        this.mvcInitializationReport.GetRosterConstructionReport());
-                    this.mvcViewScript.Initialize(this);
+                    // Initialize the MvcFrameworkObject
                     this.mvcFrameworkObject.Initialize();
                 }
                 else
                 {
-                    logger.Warn("Unable to Initialize: ?. Already initialized.", this.GetType());
+                    throw new ArgumentException("Unable to initialize " + this.GetType() + ". Invalid Parameters." +
+                        "\n\t>" + typeof(MvcInitializationReport) + " is null: " + (mvcInitializationReport == null));
                 }
             }
             else
             {
-                throw new ArgumentException("Unable to initialize " + this.GetType() + ". Invalid Parameters." +
-                    "\n\t>" + typeof(MvcInitializationReport) + " is null: " + (mvcInitializationReport == null));
+                logger.Warn("Unable to Initialize: ?. Already initialized.", this.GetType());
             }
         }
 
@@ -175,10 +183,11 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Framework.Impl
         /// </summary>
         public override void ResetMvcFramework()
         {
+            this.mvcFrameworkObject = null;
             this.mvcInitializationReport = null;
-            GameObject.Destroy(this.mvcControllerScript.GetGameObject());
-            GameObject.Destroy(this.mvcModelScript.GetGameObject());
-            GameObject.Destroy(this.mvcViewScript.GetGameObject());
+            this.mvcControllerScript.Destroy();
+            this.mvcModelScript.Destroy();
+            this.mvcViewScript.Destroy();
         }
 
         #endregion Public Methods
@@ -195,6 +204,7 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Framework.Impl
             GameObject mvcControllerGameObject = new GameObject(MvcControllerConstants.Script.GetMvcControllerGameObjectName());
             MvcControllerScript mvcControllerScript = mvcControllerGameObject.AddComponent<MvcControllerScriptImpl>();
             mvcControllerGameObject.transform.SetParent(this.transform);
+            mvcControllerScript.Initialize(this);
             return mvcControllerScript;
         }
 
@@ -208,6 +218,9 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Framework.Impl
             GameObject mvcModelGameObject = new GameObject(MvcModelConstants.Script.GetMvcModelGameObjectName());
             MvcModelScript mvcModelScript = mvcModelGameObject.AddComponent<MvcModelScriptImpl>();
             mvcModelGameObject.transform.SetParent(this.transform);
+            mvcModelScript.Initialize(this,
+                this.mvcInitializationReport.GetMapConstructionReport(),
+                this.mvcInitializationReport.GetRosterConstructionReport());
             return mvcModelScript;
         }
 
@@ -221,22 +234,8 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Framework.Impl
             GameObject mvcViewGameObject = new GameObject(MvcViewConstants.Script.GetMvcViewGameObjectName());
             MvcViewScript mvcViewScript = mvcViewGameObject.AddComponent<MvcViewScriptImpl>();
             mvcViewGameObject.transform.SetParent(this.transform);
+            mvcViewScript.Initialize(this);
             return mvcViewScript;
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        private void ContinueGame()
-        {
-            this.isGameActive = this.GetMvcFrameworkObject().ContinueGame();
-            logger.Info("Continue Game=?", this.isGameActive);
-            // Todo: Game is over. Do something
-            if (!this.isGameActive)
-            {
-                LineRendererUtil.ErasePath();
-                this.ResetMvcFramework();
-            }
         }
 
         /// <summary>
@@ -258,9 +257,16 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Framework.Impl
         /// </summary>
         private void StartNewGame()
         {
-            logger.Info("Starting new game.");
-            this.GetMvcFrameworkObject().StartNewGame();
-            this.isGameActive = true;
+            if (!this.isGameActive)
+            {
+                logger.Info("Starting new game.");
+                this.GetMvcFrameworkObject().StartNewGame();
+                this.isGameActive = true;
+            }
+            else
+            {
+                logger.Warn("Unable to StartGame. Game is active.");
+            }
         }
 
         #endregion Private Methods

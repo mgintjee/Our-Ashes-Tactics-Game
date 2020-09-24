@@ -7,11 +7,12 @@ using HappyBananaStudio.OurAshesTactics.Mvc.Initializer.Api;
 using HappyBananaStudio.OurAshesTactics.Mvc.Initializer.Reports;
 using HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Map.Reports;
 using HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Roster.Reports;
-using HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Api;
-using HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Constants;
 using HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Enums;
 using HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports;
+using HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Weapon.Constants;
 using HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Weapon.Enums;
+using HappyBananaStudio.OurAshesTactics.Talon.Attributes.Api;
+using HappyBananaStudio.OurAshesTactics.Talon.Attributes.Constants;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,28 +30,28 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Initializer.Impl
         private readonly System.Random random = new System.Random();
 
         private readonly HashSet<TalonControllerIdEnum> talonControllerIdSet = new HashSet<TalonControllerIdEnum>()
-    {
-        TalonControllerIdEnum.Controller1,
-        TalonControllerIdEnum.Controller2,
-    };
+        {
+            TalonControllerIdEnum.Controller1,
+            TalonControllerIdEnum.Controller2,
+        };
 
         private readonly HashSet<TalonFactionIdEnum> talonFactionIdSet = new HashSet<TalonFactionIdEnum>()
-    {
-        TalonFactionIdEnum.CreativeFaction1,
-        TalonFactionIdEnum.CreativeFaction2,
-    };
+        {
+            TalonFactionIdEnum.CreativeFaction1,
+            TalonFactionIdEnum.CreativeFaction2,
+        };
 
         private readonly HashSet<TalonPhalanxIdEnum> talonPhalanxIdSet = new HashSet<TalonPhalanxIdEnum>()
-    {
-        TalonPhalanxIdEnum.PhalanxNorthEast,
-        TalonPhalanxIdEnum.PhalanxSouthEast,
-        TalonPhalanxIdEnum.PhalanxNorthWest,
-        TalonPhalanxIdEnum.PhalanxSouthWest,
-    };
+        {
+            TalonPhalanxIdEnum.PhalanxNorthEast,
+            TalonPhalanxIdEnum.PhalanxSouthEast,
+            TalonPhalanxIdEnum.PhalanxNorthWest,
+            TalonPhalanxIdEnum.PhalanxSouthWest,
+        };
 
         private bool mapIsMirrored;
         private int mapRadius;
-        private Dictionary<TalonFactionIdEnum, TalonPaintSchemeReport> talonFactionIdPaintSchemeReportDictionary;
+        private Dictionary<TalonPhalanxIdEnum, TalonPaintSchemeReport> talonPhalanxIdPaintSchemeReportDictionary;
 
         #endregion Private Fields
 
@@ -70,9 +71,9 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Initializer.Impl
         {
             this.mapIsMirrored = this.random.Next() % 2 == 0;
             this.mapRadius = this.random.Next(2, 3);
-            talonFactionIdPaintSchemeReportDictionary = this.BuildTalonFactionIdPaintSchemeReportDictionary();
+            this.talonPhalanxIdPaintSchemeReportDictionary = this.BuildTalonFactionIdPaintSchemeReportDictionary();
             MvcInitializationReport mvcInitializationReport = new MvcInitializationReport.Builder()
-                .SetGameSeed(this.random.Next())
+               .SetGameSeed(this.random.Next())
                .SetMapConstructionReport(this.BuildMapConstructionReport())
                .SetRosterContructionReport(this.BuildRosterConstructionReport())
                .Build();
@@ -101,7 +102,8 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Initializer.Impl
 
         private TalonConstructionReport BuildRandomTalonConstructionReport(TalonFactionIdEnum talonFactionId, TalonPhalanxIdEnum talonPhalanxId, int talonPhalanxIndex)
         {
-            TalonIdEnum talonId = TalonIdEnum.CreativeName1;
+            HashSet<TalonIdEnum> talonIdSet = TalonAttributesConstants.GetSupportedTalonIds();
+            TalonIdEnum talonId = new List<TalonIdEnum>(talonIdSet)[this.random.Next(talonIdSet.Count)];
             TalonIdentificationReport talonIdentificationReport = new TalonIdentificationReport.Builder()
                 .SetTalonFactionId(talonFactionId)
                 .SetTalonId(talonId)
@@ -111,17 +113,18 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Initializer.Impl
             return new TalonConstructionReport.Builder()
                 .SetTalonIdentificationReport(talonIdentificationReport)
                 .SetWeaponIdList(this.BuildRandomWeaponIdList(talonId))
-                .SetTalonPaintSchemeReport(this.talonFactionIdPaintSchemeReportDictionary[talonFactionId])
+                .SetTalonPaintSchemeReport(this.talonPhalanxIdPaintSchemeReportDictionary[talonPhalanxId])
                 .Build();
         }
 
         private List<WeaponIdEnum> BuildRandomWeaponIdList(TalonIdEnum talonId)
         {
             List<WeaponIdEnum> weaponIdList = new List<WeaponIdEnum>();
-            TalonAttributes talonAttributes = TalonAttributesConstants.GetAttributes(talonId);
-            for (int i = 0; i < talonAttributes.GetWeaponPoints(); ++i)
+            ITalonAttributes talonAttributes = TalonAttributesConstants.GetAttributes(talonId);
+            HashSet<WeaponIdEnum> weaponIdSet = WeaponAttributesConstants.GetSupportedWeaponIds();
+            for (int i = 0; i < talonAttributes.GetFireableAttributes().GetWeaponPoints(); ++i)
             {
-                weaponIdList.Add(WeaponIdEnum.CreativeName1);
+                weaponIdList.Add(new List<WeaponIdEnum>(weaponIdSet)[this.random.Next(weaponIdSet.Count)]);
             }
             return weaponIdList;
         }
@@ -143,12 +146,20 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Initializer.Impl
             int phalanxCount = this.talonPhalanxIdSet.Count;
             int talonPerPhalanx = Mathf.CeilToInt(maxTalonOnMap / phalanxCount);
 
+            Dictionary<TalonFactionIdEnum, HashSet<TalonPhalanxIdEnum>> talonFactionPhalanxIdDictionary = this.BuildTalonFactionIdPhalanxIdSetDictionary();
+            Dictionary<TalonPhalanxIdEnum, TalonFactionIdEnum> talonPhalanxFactionIdDictionary = new Dictionary<TalonPhalanxIdEnum, TalonFactionIdEnum>();
+
+            foreach (TalonFactionIdEnum talonFactionId in talonFactionPhalanxIdDictionary.Keys)
+            {
+                foreach (TalonPhalanxIdEnum talonPhalanxId in talonFactionPhalanxIdDictionary[talonFactionId])
+                {
+                    talonPhalanxFactionIdDictionary.Add(talonPhalanxId, talonFactionId);
+                }
+            }
+
             foreach (TalonPhalanxIdEnum talonPhalanxId in this.talonPhalanxIdSet)
             {
-                TalonFactionIdEnum talonFactionId = (talonPhalanxId.Equals(TalonPhalanxIdEnum.PhalanxNorthWest) ||
-                    talonPhalanxId.Equals(TalonPhalanxIdEnum.PhalanxSouthWest))
-                    ? TalonFactionIdEnum.CreativeFaction1
-                    : TalonFactionIdEnum.CreativeFaction2;
+                TalonFactionIdEnum talonFactionId = talonPhalanxFactionIdDictionary[talonPhalanxId];
 
                 for (int i = 0; i < talonPerPhalanx; ++i)
                 {
@@ -170,20 +181,20 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Initializer.Impl
             }
 
             talonControllerIdPhalanxIdSetDictionary[TalonControllerIdEnum.Controller1].Add(TalonPhalanxIdEnum.PhalanxNorthWest);
-            talonControllerIdPhalanxIdSetDictionary[TalonControllerIdEnum.Controller1].Add(TalonPhalanxIdEnum.PhalanxSouthWest);
-            talonControllerIdPhalanxIdSetDictionary[TalonControllerIdEnum.Controller2].Add(TalonPhalanxIdEnum.PhalanxNorthEast);
+            talonControllerIdPhalanxIdSetDictionary[TalonControllerIdEnum.Controller2].Add(TalonPhalanxIdEnum.PhalanxSouthWest);
+            talonControllerIdPhalanxIdSetDictionary[TalonControllerIdEnum.Controller1].Add(TalonPhalanxIdEnum.PhalanxNorthEast);
             talonControllerIdPhalanxIdSetDictionary[TalonControllerIdEnum.Controller2].Add(TalonPhalanxIdEnum.PhalanxSouthEast);
 
             return talonControllerIdPhalanxIdSetDictionary;
         }
 
-        private Dictionary<TalonFactionIdEnum, TalonPaintSchemeReport> BuildTalonFactionIdPaintSchemeReportDictionary()
+        private Dictionary<TalonPhalanxIdEnum, TalonPaintSchemeReport> BuildTalonFactionIdPaintSchemeReportDictionary()
         {
-            Dictionary<TalonFactionIdEnum, TalonPaintSchemeReport> talonFactionIdPaintSchemeReportDictionary = new Dictionary<TalonFactionIdEnum, TalonPaintSchemeReport>();
+            Dictionary<TalonPhalanxIdEnum, TalonPaintSchemeReport> talonFactionIdPaintSchemeReportDictionary = new Dictionary<TalonPhalanxIdEnum, TalonPaintSchemeReport>();
 
-            foreach (TalonFactionIdEnum talonFactionId in this.talonFactionIdSet)
+            foreach (TalonPhalanxIdEnum talonPhalanxId in this.talonPhalanxIdSet)
             {
-                talonFactionIdPaintSchemeReportDictionary.Add(talonFactionId, this.BuildRandomPaintSchemeReport());
+                talonFactionIdPaintSchemeReportDictionary.Add(talonPhalanxId, this.BuildRandomPaintSchemeReport());
             }
             return talonFactionIdPaintSchemeReportDictionary;
         }
@@ -197,10 +208,10 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Initializer.Impl
             {
                 talonFactionIdPhalanxIdSetDictionary.Add(talonFactionId, new HashSet<TalonPhalanxIdEnum>());
             }
-
+            // Todo: think of a good way to randomize this
             talonFactionIdPhalanxIdSetDictionary[TalonFactionIdEnum.CreativeFaction1].Add(TalonPhalanxIdEnum.PhalanxNorthWest);
-            talonFactionIdPhalanxIdSetDictionary[TalonFactionIdEnum.CreativeFaction1].Add(TalonPhalanxIdEnum.PhalanxSouthWest);
-            talonFactionIdPhalanxIdSetDictionary[TalonFactionIdEnum.CreativeFaction2].Add(TalonPhalanxIdEnum.PhalanxNorthEast);
+            talonFactionIdPhalanxIdSetDictionary[TalonFactionIdEnum.CreativeFaction1].Add(TalonPhalanxIdEnum.PhalanxNorthEast);
+            talonFactionIdPhalanxIdSetDictionary[TalonFactionIdEnum.CreativeFaction2].Add(TalonPhalanxIdEnum.PhalanxSouthWest);
             talonFactionIdPhalanxIdSetDictionary[TalonFactionIdEnum.CreativeFaction2].Add(TalonPhalanxIdEnum.PhalanxSouthEast);
 
             return talonFactionIdPhalanxIdSetDictionary;

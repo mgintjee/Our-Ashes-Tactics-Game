@@ -52,11 +52,11 @@ namespace HappyBananaStudio.OurAshesTactics.Common.Logging
         // Todo: Think about having multiples of these based off of the time
         private static readonly string LOG_FILE_NAME = LOG_FILE_DIRECTORY + "/ourAshesTacticsLog-" + LOG_FILE_INDEX + ".txt";
 
+        // The String of what to split on when logging to insert the parameterized String
+        private readonly char DELIMETER = '?';
+
         // The Type that will identify which class is currently logging
         private readonly Type loggingType;
-
-        // The String of what to split on when logging to insert the parameterized String
-        private readonly char splitOn = '?';
 
         #endregion Private Fields
 
@@ -108,7 +108,7 @@ namespace HappyBananaStudio.OurAshesTactics.Common.Logging
         /// </summary>
         /// <param name="message">       The String message to Log</param>
         /// <param name="parameterArray">The Array: Object that will be logged</param>
-        public void Error(string message, params System.Object[] parameterArray)
+        public void Error(string message, params object[] parameterArray)
         {
             this.LogError(this.ConvertMessage(HEADER_ERROR, message, parameterArray));
         }
@@ -196,12 +196,12 @@ namespace HappyBananaStudio.OurAshesTactics.Common.Logging
         /// <param name="message">       The String message to Log</param>
         /// <param name="parameterArray">The Array: Object that will be logged</param>
         /// <returns>The String of the message with the parameterArray and loggingClass included</returns>
-        private string ConvertMessage(string prefix, string message, params System.Object[] parameterArray)
+        private string ConvertMessage(string prefix, string message, params object[] parameterArray)
         {
-            // Default the String to the prefix
+            // Default the String to empty
             string convertedMessage = "";
             // Split the message based off of the character to split on
-            string[] messageParts = message.Split(this.splitOn);
+            string[] messageParts = message.Split(this.DELIMETER);
             // Iterate over the MessageParts
             for (int i = 0; i < messageParts.Length; ++i)
             {
@@ -211,12 +211,20 @@ namespace HappyBananaStudio.OurAshesTactics.Common.Logging
                 if (i < parameterArray.Length)
                 {
                     // Collect the parameterObject from the parameterArray
-                    System.Object parameterObject = parameterArray[i];
+                    object parameterObject = parameterArray[i];
                     // Check if the parameterObject is non-null
                     if (parameterObject != null)
                     {
-                        // Append the String of the parameterObject
-                        convertedMessage += parameterObject.ToString();
+                        if (parameterObject is Type)
+                        {
+                            // Append the String of the parameterObject
+                            convertedMessage += ((Type)parameterObject).Name;
+                        }
+                        else
+                        {
+                            // Append the String of the parameterObject
+                            convertedMessage += parameterObject.ToString();
+                        }
                     }
                     else
                     {
@@ -237,7 +245,7 @@ namespace HappyBananaStudio.OurAshesTactics.Common.Logging
         /// <returns>The String of the message with the loggingClass included</returns>
         private string ConvertMessage(string prefix, string message)
         {
-            return prefix + this.loggingType.ToString() + ": " + message;
+            return prefix + this.loggingType.Name + ": " + message;
         }
 
         /// <summary>
