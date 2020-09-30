@@ -5,26 +5,21 @@
 
 using System;
 
-namespace HappyBananaStudio.OurAshesTactics.Common.Exceptions
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions
 {
     /// <summary>
     /// Todo
     /// </summary>
     public class ArgumentExceptionUtil
     {
-        #region Private Fields
-
         // The String of what to split on when logging to insert the parameterized String
         private static readonly char DELIMETER = '?';
-
-        #endregion Private Fields
-
-        #region Public Methods
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         public static ArgumentException Build()
         {
             return new ArgumentException();
@@ -33,8 +28,10 @@ namespace HappyBananaStudio.OurAshesTactics.Common.Exceptions
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="message"></param>
-        /// <returns></returns>
+        /// <param name="message">
+        /// </param>
+        /// <returns>
+        /// </returns>
         public static ArgumentException Build(string message)
         {
             return new ArgumentException(message);
@@ -43,24 +40,26 @@ namespace HappyBananaStudio.OurAshesTactics.Common.Exceptions
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="message">       </param>
-        /// <param name="parameterArray"></param>
-        /// <returns></returns>
+        /// <param name="message">
+        /// </param>
+        /// <param name="parameterArray">
+        /// </param>
+        /// <returns>
+        /// </returns>
         public static ArgumentException Build(string message, params object[] parameterArray)
         {
             return new ArgumentException(ConvertMessage(message, parameterArray));
         }
 
-        #endregion Public Methods
-
-        #region Private Methods
-
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="message">       </param>
-        /// <param name="parameterArray"></param>
-        /// <returns></returns>
+        /// <param name="message">
+        /// </param>
+        /// <param name="parameterArray">
+        /// </param>
+        /// <returns>
+        /// </returns>
         private static string ConvertMessage(string message, params object[] parameterArray)
         {
             // Default the String to empty
@@ -101,7 +100,5 @@ namespace HappyBananaStudio.OurAshesTactics.Common.Exceptions
 
             return convertedMessage;
         }
-
-        #endregion Private Methods
     }
 }

@@ -3,7 +3,7 @@
 * Author: Matthew Gintjee
 */
 
-namespace HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Enums
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums
 {
     /// <summary>
     /// Enum to identify supported spawn vertices

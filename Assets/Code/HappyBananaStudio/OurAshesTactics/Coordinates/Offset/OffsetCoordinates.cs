@@ -3,17 +3,17 @@
 * Author: Matthew Gintjee
 */
 
-using HappyBananaStudio.OurAshesTactics.Mvc.Coordinates.Util;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Coordinates;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
 
-namespace HappyBananaStudio.OurAshesTactics.Mvc.Coordinates.Offset
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Coordinates.Offset
 {
     /// <summary>
     /// Todo
     /// </summary>
-    public class OffsetCoordinates
+    public struct OffsetCoordinates
+        : IOffsetCoordinates
     {
-        #region Private Fields
-
         // Todo
         private readonly int colCoordinate;
 
@@ -23,16 +23,15 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Coordinates.Offset
         // Todo
         private readonly int rowCoordinate;
 
-        #endregion Private Fields
-
-        #region Public Constructors
-
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="colCoordinate">       </param>
-        /// <param name="rowCoordinate">       </param>
-        /// <param name="offsetCoordinateType"></param>
+        /// <param name="colCoordinate">
+        /// </param>
+        /// <param name="rowCoordinate">
+        /// </param>
+        /// <param name="offsetCoordinateType">
+        /// </param>
         public OffsetCoordinates(int colCoordinate, int rowCoordinate, OffsetCoordinateTypeEnum offsetCoordinateType)
         {
             this.colCoordinate = colCoordinate;
@@ -40,14 +39,11 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Coordinates.Offset
             this.offsetCoordinateType = offsetCoordinateType;
         }
 
-        #endregion Public Constructors
-
-        #region Public Methods
-
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         public int GetCol()
         {
             return this.colCoordinate;
@@ -56,7 +52,8 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Coordinates.Offset
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         public OffsetCoordinateTypeEnum GetOffsetCoordinateType()
         {
             return this.offsetCoordinateType;
@@ -65,12 +62,11 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Coordinates.Offset
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         public int GetRow()
         {
             return this.rowCoordinate;
         }
-
-        #endregion Public Methods
     }
 }

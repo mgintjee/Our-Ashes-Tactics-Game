@@ -3,32 +3,32 @@
 * Author: Matthew Gintjee
 */
 
-using HappyBananaStudio.OurAshesTactics.Mvc.Model.Sub.Talon.Reports;
-using HappyBananaStudio.OurAshesTactics.Mvc.Util.RandomNumberGenerator;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Action;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.RandomNumberGenerators;
 using System;
 using System.Collections.Generic;
 
-namespace HappyBananaStudio.OurAshesTactics.ArtificialIntelligence.Api
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.ArtificialIntelligence
 {
     /// <summary>
     /// Workaround until I implement an actual AI
     /// </summary>
     public static class RandomArtificialIntelligence
     {
-        #region Public Methods
-
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="talonActionOrderReportSet"></param>
-        /// <returns></returns>
-        public static TalonActionOrderReport DetermineBestAction(HashSet<TalonActionOrderReport> talonActionOrderReportSet)
+        /// <param name="talonActionOrderReportSet">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static ITalonActionOrderReport DetermineBestAction(HashSet<ITalonActionOrderReport> talonActionOrderReportSet)
         {
             if (talonActionOrderReportSet != null &&
                 talonActionOrderReportSet.Count > 0)
             {
                 int randomIndex = RandomNumberGeneratorUtil.GetNextInt(talonActionOrderReportSet.Count);
-                return new List<TalonActionOrderReport>(talonActionOrderReportSet)[randomIndex];
+                return new List<ITalonActionOrderReport>(talonActionOrderReportSet)[randomIndex];
             }
             else
             {
@@ -37,7 +37,5 @@ namespace HappyBananaStudio.OurAshesTactics.ArtificialIntelligence.Api
                     (talonActionOrderReportSet == null || talonActionOrderReportSet.Count < 1));
             }
         }
-
-        #endregion Public Methods
     }
 }

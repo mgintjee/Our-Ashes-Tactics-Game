@@ -3,17 +3,17 @@
 * Author: Matthew Gintjee
 */
 
-using System;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Coordinates;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
 
-namespace HappyBananaStudio.OurAshesTactics.Mvc.Coordinates.Cube
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Coordinates.Cube
 {
     /// <summary>
     /// Todo
     /// </summary>
-    public class CubeCoordinates
+    public struct CubeCoordinates
+        : ICubeCoordinates
     {
-        #region Private Fields
-
         // Todo
         private readonly int xValue;
 
@@ -23,16 +23,15 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Coordinates.Cube
         // Todo
         private readonly int zValue;
 
-        #endregion Private Fields
-
-        #region Public Constructors
-
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
+        /// <param name="x">
+        /// </param>
+        /// <param name="y">
+        /// </param>
+        /// <param name="z">
+        /// </param>
         public CubeCoordinates(int x, int y, int z)
         {
             // Todo
@@ -44,29 +43,25 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Coordinates.Cube
             }
             else
             {
-                throw new ArgumentException("Invalid parameters for " + this.GetType() + ". Parameters must sum to 0." +
-                    "\n\t>x=" + x +
-                    "\n\t>y=" + y +
-                    "\n\t>z=" + z);
+                throw ArgumentExceptionUtil.Build("Unable to construct ?. Invalid Parameters. Sum must equal 0." +
+                    "\n\t> x=? + y=? + z=? == ?", typeof(ICubeCoordinates), x, y, z, (x + y + z));
             }
         }
-
-        #endregion Public Constructors
-
-        #region Public Methods
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">
+        /// </param>
+        /// <returns>
+        /// </returns>
         public override bool Equals(object obj)
         {
             // Check if same type
             if (obj != null &&
                 obj.GetType() == this.GetType())
             {
-                CubeCoordinates OtherCoord = (CubeCoordinates)obj;
+                ICubeCoordinates OtherCoord = (ICubeCoordinates)obj;
                 bool SameX = this.GetX() == OtherCoord.GetX();
                 bool SameY = this.GetY() == OtherCoord.GetY();
                 bool SameZ = this.GetZ() == OtherCoord.GetZ();
@@ -81,7 +76,8 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Coordinates.Cube
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         public override int GetHashCode()
         {
             // Auto-generated HashCode
@@ -95,8 +91,9 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Coordinates.Cube
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
-        public CubeCoordinates GetNegatedCubeCoordinates()
+        /// <returns>
+        /// </returns>
+        public ICubeCoordinates GetNegatedCubeCoordinates()
         {
             return new CubeCoordinates(-this.xValue, -this.yValue, -this.zValue);
         }
@@ -104,7 +101,8 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Coordinates.Cube
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         public int GetX()
         {
             return this.xValue;
@@ -113,7 +111,8 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Coordinates.Cube
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         public int GetY()
         {
             return this.yValue;
@@ -122,7 +121,8 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Coordinates.Cube
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         public int GetZ()
         {
             return this.zValue;
@@ -131,13 +131,12 @@ namespace HappyBananaStudio.OurAshesTactics.Mvc.Coordinates.Cube
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         public override string ToString()
         {
             return string.Format("({0},{1},{2})",
                 this.GetX(), this.GetY(), this.GetZ());
         }
-
-        #endregion Public Methods
     }
 }
