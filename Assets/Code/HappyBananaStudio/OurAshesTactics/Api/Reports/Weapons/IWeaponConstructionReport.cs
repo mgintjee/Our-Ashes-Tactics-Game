@@ -17,6 +17,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Weapons
         /// </summary>
         /// <returns>
         /// </returns>
-        WeaponIdEnum GetWeaponId();
+        WeaponModelIdEnum GetWeaponId();
     }
 }

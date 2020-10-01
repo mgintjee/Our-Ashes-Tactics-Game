@@ -31,17 +31,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Talons
         // Todo
         private static readonly Dictionary<string, int> MECH_NAME_PAINT_INDEX_DICTIONARY = new Dictionary<string, int>()
         {
-            { TalonIdEnum.Talon0.ToString(), 1 },
-            { TalonIdEnum.Talon1.ToString(), 1 },
-            { TalonIdEnum.Talon2.ToString(), 1 },
+            { TalonModelIdEnum.Talon0.ToString(), 1 },
+            { TalonModelIdEnum.Talon1.ToString(), 1 },
+            { TalonModelIdEnum.Talon2.ToString(), 1 },
         };
 
         // Todo
         private static readonly Dictionary<string, int> MECH_NAME_TILE_TOP_PAINT_INDEX_DICTIONARY = new Dictionary<string, int>()
         {
-            { TalonIdEnum.Talon0.ToString(), 0 },
-            { TalonIdEnum.Talon1.ToString(), 0 },
-            { TalonIdEnum.Talon2.ToString(), 0 },
+            { TalonModelIdEnum.Talon0.ToString(), 0 },
+            { TalonModelIdEnum.Talon1.ToString(), 0 },
+            { TalonModelIdEnum.Talon2.ToString(), 0 },
         };
 
         /// <summary>

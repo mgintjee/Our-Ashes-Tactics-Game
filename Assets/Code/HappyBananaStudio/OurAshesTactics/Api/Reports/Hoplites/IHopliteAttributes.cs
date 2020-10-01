@@ -3,7 +3,7 @@
 * Author: Matthew Gintjee
 */
 
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Api.Hoplites;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Hoplites;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Hoplites

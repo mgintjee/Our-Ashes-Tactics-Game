@@ -3,7 +3,7 @@
 * Author: Matthew Gintjee
 */
 
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Api.Hoplites;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Hoplites;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Paints;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
 using System.Collections.Generic;
@@ -41,13 +41,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons
         /// </summary>
         /// <returns>
         /// </returns>
-        List<UtilityIdEnum> GetUtilityIdList();
+        List<UtilityModelIdEnum> GetUtilityIdList();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns>
         /// </returns>
-        List<WeaponIdEnum> GetWeaponIdList();
+        List<WeaponModelIdEnum> GetWeaponIdList();
     }
 }

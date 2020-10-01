@@ -3,22 +3,22 @@
 * Author: Matthew Gintjee
 */
 
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Reports.Faction;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Reports.Game;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Reports.HexTiles;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Reports.Hoplites;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Reports.Maps.Game;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Reports.Mvc.Initializers;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Reports.Mvc.Models;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Reports.Paint;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Reports.Phalanx;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Reports.Rosters;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Reports.Talons;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Reports.Talons.Action;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Reports.Talons.Attributes;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Reports.Talons.Combat;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Reports.Talons.Turn;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Reports.Weapons;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Faction;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Game;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.HexTiles;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Hoplites;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Maps.Game;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Mvc.Initializers;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Mvc.Models;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Paint;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Phalanx;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Rosters;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Attributes;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Combat;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Turn;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Weapons;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
 {
@@ -37,9 +37,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
             /// </summary>
             /// <returns>
             /// </returns>
-            public static FactionReport.Builder GetBuilder()
+            public static FactionReportImpl.Builder GetBuilder()
             {
-                return new FactionReport.Builder();
+                return new FactionReportImpl.Builder();
             }
         }
 
@@ -58,9 +58,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                 /// </summary>
                 /// <returns>
                 /// </returns>
-                public static GameActionReport.Builder GetBuilder()
+                public static GameActionReportImpl.Builder GetBuilder()
                 {
-                    return new GameActionReport.Builder();
+                    return new GameActionReportImpl.Builder();
                 }
             }
         }
@@ -80,9 +80,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                 /// </summary>
                 /// <returns>
                 /// </returns>
-                public static HexTileConstructionReport.Builder GetBuilder()
+                public static HexTileConstructionReportImpl.Builder GetBuilder()
                 {
-                    return new HexTileConstructionReport.Builder();
+                    return new HexTileConstructionReportImpl.Builder();
                 }
             }
 
@@ -96,10 +96,26 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                 /// </summary>
                 /// <returns>
                 /// </returns>
-                public static HexTileInformationReport.Builder GetBuilder()
+                public static HexTileInformationReportImpl.Builder GetBuilder()
                 {
-                    return new HexTileInformationReport.Builder();
+                    return new HexTileInformationReportImpl.Builder();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        public static class Hoplite
+        {
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <returns>
+            /// </returns>
+            public static HopliteReportImpl.Builder GetBuilder()
+            {
+                return new HopliteReportImpl.Builder();
             }
         }
 
@@ -123,9 +139,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                     /// </summary>
                     /// <returns>
                     /// </returns>
-                    public static GameMapConstructionReport.Builder GetBuilder()
+                    public static GameMapConstructionReportImpl.Builder GetBuilder()
                     {
-                        return new GameMapConstructionReport.Builder();
+                        return new GameMapConstructionReportImpl.Builder();
                     }
                 }
 
@@ -139,9 +155,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                     /// </summary>
                     /// <returns>
                     /// </returns>
-                    public static GameMapInformationReport.Builder GetBuilder()
+                    public static GameMapInformationReportImpl.Builder GetBuilder()
                     {
-                        return new GameMapInformationReport.Builder();
+                        return new GameMapInformationReportImpl.Builder();
                     }
                 }
             }
@@ -162,9 +178,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                 /// </summary>
                 /// <returns>
                 /// </returns>
-                public static MvcInitializationReport.Builder GetBuilder()
+                public static MvcInitializationReportImpl.Builder GetBuilder()
                 {
-                    return new MvcInitializationReport.Builder();
+                    return new MvcInitializationReportImpl.Builder();
                 }
             }
 
@@ -178,10 +194,26 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                 /// </summary>
                 /// <returns>
                 /// </returns>
-                public static MvcModelInformationReport.Builder GetBuilder()
+                public static MvcModelInformationReportImpl.Builder GetBuilder()
                 {
-                    return new MvcModelInformationReport.Builder();
+                    return new MvcModelInformationReportImpl.Builder();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        public static class Paint
+        {
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <returns>
+            /// </returns>
+            public static PaintSchemeReportImpl.Builder GetBuilder()
+            {
+                return new PaintSchemeReportImpl.Builder();
             }
         }
 
@@ -195,9 +227,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
             /// </summary>
             /// <returns>
             /// </returns>
-            public static PhalanxReport.Builder GetBuilder()
+            public static PhalanxReportImpl.Builder GetBuilder()
             {
-                return new PhalanxReport.Builder();
+                return new PhalanxReportImpl.Builder();
             }
         }
 
@@ -216,9 +248,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                 /// </summary>
                 /// <returns>
                 /// </returns>
-                public static RosterConstructionReport.Builder GetBuilder()
+                public static RosterConstructionReportImpl.Builder GetBuilder()
                 {
-                    return new RosterConstructionReport.Builder();
+                    return new RosterConstructionReportImpl.Builder();
                 }
             }
 
@@ -232,9 +264,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                 /// </summary>
                 /// <returns>
                 /// </returns>
-                public static RosterInformationReport.Builder GetBuilder()
+                public static RosterInformationReportImpl.Builder GetBuilder()
                 {
-                    return new RosterInformationReport.Builder();
+                    return new RosterInformationReportImpl.Builder();
                 }
             }
         }
@@ -259,9 +291,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                     /// </summary>
                     /// <returns>
                     /// </returns>
-                    public static TalonActionOrderReport.Builder GetBuilder()
+                    public static TalonActionOrderReportImpl.Builder GetBuilder()
                     {
-                        return new TalonActionOrderReport.Builder();
+                        return new TalonActionOrderReportImpl.Builder();
                     }
                 }
 
@@ -275,9 +307,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                     /// </summary>
                     /// <returns>
                     /// </returns>
-                    public static TalonActionResultReport.Builder GetBuilder()
+                    public static TalonActionResultReportImpl.Builder GetBuilder()
                     {
-                        return new TalonActionResultReport.Builder();
+                        return new TalonActionResultReportImpl.Builder();
                     }
                 }
             }
@@ -292,9 +324,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                 /// </summary>
                 /// <returns>
                 /// </returns>
-                public static TalonAttributesReport.Builder GetBuilder()
+                public static TalonAttributesReportImpl.Builder GetBuilder()
                 {
-                    return new TalonAttributesReport.Builder();
+                    return new TalonAttributesReportImpl.Builder();
                 }
 
                 /// <summary>
@@ -307,9 +339,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                     /// </summary>
                     /// <returns>
                     /// </returns>
-                    public static DestructibleReport.Builder GetBuilder()
+                    public static DestructibleReportImpl.Builder GetBuilder()
                     {
-                        return new DestructibleReport.Builder();
+                        return new DestructibleReportImpl.Builder();
                     }
                 }
 
@@ -323,9 +355,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                     /// </summary>
                     /// <returns>
                     /// </returns>
-                    public static FireableReport.Builder GetBuilder()
+                    public static FireableReportImpl.Builder GetBuilder()
                     {
-                        return new FireableReport.Builder();
+                        return new FireableReportImpl.Builder();
                     }
                 }
 
@@ -339,9 +371,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                     /// </summary>
                     /// <returns>
                     /// </returns>
-                    public static MovableReport.Builder GetBuilder()
+                    public static MovableReportImpl.Builder GetBuilder()
                     {
-                        return new MovableReport.Builder();
+                        return new MovableReportImpl.Builder();
                     }
                 }
             }
@@ -361,9 +393,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                     /// </summary>
                     /// <returns>
                     /// </returns>
-                    public static TalonCombatOrderReport.Builder GetBuilder()
+                    public static TalonCombatOrderReportImpl.Builder GetBuilder()
                     {
-                        return new TalonCombatOrderReport.Builder();
+                        return new TalonCombatOrderReportImpl.Builder();
                     }
                 }
 
@@ -377,9 +409,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                     /// </summary>
                     /// <returns>
                     /// </returns>
-                    public static TalonCombatResultReport.Builder GetBuilder()
+                    public static TalonCombatResultReportImpl.Builder GetBuilder()
                     {
-                        return new TalonCombatResultReport.Builder();
+                        return new TalonCombatResultReportImpl.Builder();
                     }
                 }
             }
@@ -394,9 +426,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                 /// </summary>
                 /// <returns>
                 /// </returns>
-                public static TalonConstructionReport.Builder GetBuilder()
+                public static TalonConstructionReportImpl.Builder GetBuilder()
                 {
-                    return new TalonConstructionReport.Builder();
+                    return new TalonConstructionReportImpl.Builder();
                 }
             }
 
@@ -410,9 +442,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                 /// </summary>
                 /// <returns>
                 /// </returns>
-                public static TalonIdentificationReport.Builder GetBuilder()
+                public static TalonIdentificationReportImpl.Builder GetBuilder()
                 {
-                    return new TalonIdentificationReport.Builder();
+                    return new TalonIdentificationReportImpl.Builder();
                 }
             }
 
@@ -426,9 +458,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                 /// </summary>
                 /// <returns>
                 /// </returns>
-                public static TalonInformationReport.Builder GetBuilder()
+                public static TalonInformationReportImpl.Builder GetBuilder()
                 {
-                    return new TalonInformationReport.Builder();
+                    return new TalonInformationReportImpl.Builder();
                 }
             }
 
@@ -447,9 +479,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                     /// </summary>
                     /// <returns>
                     /// </returns>
-                    public static TalonTurnInformationReport.Builder GetBuilder()
+                    public static TalonTurnInformationReportImpl.Builder GetBuilder()
                     {
-                        return new TalonTurnInformationReport.Builder();
+                        return new TalonTurnInformationReportImpl.Builder();
                     }
                 }
 
@@ -463,43 +495,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                     /// </summary>
                     /// <returns>
                     /// </returns>
-                    public static TalonTurnResultReport.Builder GetBuilder()
+                    public static TalonTurnResultReportImpl.Builder GetBuilder()
                     {
-                        return new TalonTurnResultReport.Builder();
+                        return new TalonTurnResultReportImpl.Builder();
                     }
                 }
-            }
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        public static class Hoplite
-        {
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <returns>
-            /// </returns>
-            public static HopliteReport.Builder GetBuilder()
-            {
-                return new HopliteReport.Builder();
-            }
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        public static class Paint
-        {
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <returns>
-            /// </returns>
-            public static PaintSchemeReport.Builder GetBuilder()
-            {
-                return new PaintSchemeReport.Builder();
             }
         }
 
@@ -518,12 +518,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                 /// </summary>
                 /// <returns>
                 /// </returns>
-                public static WeaponConstructionReport.Builder GetBuilder()
+                public static WeaponConstructionReportImpl.Builder GetBuilder()
                 {
-                    return new WeaponConstructionReport.Builder();
+                    return new WeaponConstructionReportImpl.Builder();
                 }
             }
-
 
             /// <summary>
             /// Todo
@@ -535,9 +534,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                 /// </summary>
                 /// <returns>
                 /// </returns>
-                public static WeaponInformationReport.Builder GetBuilder()
+                public static WeaponInformationReportImpl.Builder GetBuilder()
                 {
-                    return new WeaponInformationReport.Builder();
+                    return new WeaponInformationReportImpl.Builder();
                 }
             }
 
@@ -551,9 +550,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                 /// </summary>
                 /// <returns>
                 /// </returns>
-                public static WeaponOrderReport.Builder GetBuilder()
+                public static WeaponOrderReportImpl.Builder GetBuilder()
                 {
-                    return new WeaponOrderReport.Builder();
+                    return new WeaponOrderReportImpl.Builder();
                 }
             }
 
@@ -567,9 +566,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                 /// </summary>
                 /// <returns>
                 /// </returns>
-                public static WeaponResultReport.Builder GetBuilder()
+                public static WeaponResultReportImpl.Builder GetBuilder()
                 {
-                    return new WeaponResultReport.Builder();
+                    return new WeaponResultReportImpl.Builder();
                 }
             }
         }

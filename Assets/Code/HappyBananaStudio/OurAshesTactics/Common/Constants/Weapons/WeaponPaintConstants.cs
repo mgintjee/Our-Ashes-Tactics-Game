@@ -25,11 +25,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Weapons
         // Todo
         private static readonly Dictionary<string, int> WEAPON_NAME_PAINT_INDEX_DICTIONARY = new Dictionary<string, int>()
         {
-            { WeaponIdEnum.Weapon0.ToString(), 0 },
-            { WeaponIdEnum.Weapon1.ToString(), 0 },
-            { WeaponIdEnum.Weapon2.ToString(), 0 },
-            { WeaponIdEnum.Weapon3.ToString(), 0 },
-            { WeaponIdEnum.Weapon4.ToString(), 0 },
+            { WeaponModelIdEnum.Weapon0.ToString(), 0 },
+            { WeaponModelIdEnum.Weapon1.ToString(), 0 },
+            { WeaponModelIdEnum.Weapon2.ToString(), 0 },
+            { WeaponModelIdEnum.Weapon3.ToString(), 0 },
+            { WeaponModelIdEnum.Weapon4.ToString(), 0 },
         };
 
         /// <summary>

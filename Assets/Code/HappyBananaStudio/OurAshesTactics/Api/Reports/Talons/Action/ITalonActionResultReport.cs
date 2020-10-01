@@ -4,7 +4,6 @@
 */
 
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Attributes;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Combat;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Action
 {
@@ -26,12 +25,5 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Actio
         /// <returns>
         /// </returns>
         ITalonAttributesReport GetTalonAttributesReport();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        ITalonCombatResultReport GetTalonCombatResultReport();
     }
 }

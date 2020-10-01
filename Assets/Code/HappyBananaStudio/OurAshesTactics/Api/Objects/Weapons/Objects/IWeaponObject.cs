@@ -38,7 +38,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Weapons.Obje
         /// </summary>
         /// <returns>
         /// </returns>
-        WeaponIdEnum GetWeaponId();
+        WeaponModelIdEnum GetWeaponId();
 
         /// <summary>
         /// Todo

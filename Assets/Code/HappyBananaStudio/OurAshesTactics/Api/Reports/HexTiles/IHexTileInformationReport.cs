@@ -3,7 +3,7 @@
 * Author: Matthew Gintjee
 */
 
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Api.HexTiles;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.HexTiles;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.HexTiles

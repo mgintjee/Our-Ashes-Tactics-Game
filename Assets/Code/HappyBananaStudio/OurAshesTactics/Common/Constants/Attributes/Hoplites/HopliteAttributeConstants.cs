@@ -3,9 +3,9 @@
 * Author: Matthew Gintjee
 */
 
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Api;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Api.Talons;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Api.Weapons;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Bonus;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Talons;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Weapons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;

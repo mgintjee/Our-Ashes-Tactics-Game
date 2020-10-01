@@ -123,9 +123,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.ResourceLoaders
             /// </param>
             /// <returns>
             /// </returns>
-            public static GameObject LoadTalonGameObjectResource(TalonIdEnum talonId)
+            public static GameObject LoadTalonGameObjectResource(TalonModelIdEnum talonId)
             {
-                if (!talonId.Equals(TalonIdEnum.None))
+                if (!talonId.Equals(TalonModelIdEnum.None))
                 {
                     GameObject gameObject = LoadGameObjectResource(TALON_GAMEOBJECTS_FOLDER_HOME + talonId.ToString() + GAMEOBJECTS_SUFFIX);
                     gameObject.name = talonId.ToString();
@@ -151,9 +151,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.ResourceLoaders
             /// </param>
             /// <returns>
             /// </returns>
-            public static GameObject LoadWeaponGameObjectResource(WeaponIdEnum weaponId)
+            public static GameObject LoadWeaponGameObjectResource(WeaponModelIdEnum weaponId)
             {
-                if (!weaponId.Equals(WeaponIdEnum.None))
+                if (!weaponId.Equals(WeaponModelIdEnum.None))
                 {
                     GameObject gameObject = LoadGameObjectResource(WEAPON_GAMEOBJECTS_FOLDER_HOME + weaponId.ToString() + GAMEOBJECTS_SUFFIX);
                     gameObject.name = weaponId.ToString();

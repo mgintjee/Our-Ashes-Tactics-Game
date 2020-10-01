@@ -3,11 +3,11 @@
 * Author: Matthew Gintjee
 */
 
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Attributes.Impl;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Attributes.Impl.HexTiles;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Attributes.Impl.Hoplites;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Attributes.Impl.Talons;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Attributes.Impl.Weapons;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Attributes.Bonus;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Attributes.HexTiles;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Attributes.Hoplites;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Attributes.Talons;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Attributes.Weapons;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
 {
@@ -26,9 +26,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
             /// </summary>
             /// <returns>
             /// </returns>
-            public static HexTileAttributes.Builder GetBuilder()
+            public static HexTileAttributesImpl.Builder GetBuilder()
             {
-                return new HexTileAttributes.Builder();
+                return new HexTileAttributesImpl.Builder();
             }
         }
 
@@ -42,9 +42,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
             /// </summary>
             /// <returns>
             /// </returns>
-            public static HopliteAttributes.Builder GetBuilder()
+            public static HopliteAttributesImpl.Builder GetBuilder()
             {
-                return new HopliteAttributes.Builder();
+                return new HopliteAttributesImpl.Builder();
             }
         }
 
@@ -58,9 +58,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
             /// </summary>
             /// <returns>
             /// </returns>
-            public static TalonAttributes.Builder GetBuilder()
+            public static TalonAttributesImpl.Builder GetBuilder()
             {
-                return new TalonAttributes.Builder();
+                return new TalonAttributesImpl.Builder();
             }
 
             /// <summary>
@@ -89,9 +89,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                 /// </summary>
                 /// <returns>
                 /// </returns>
-                public static DestructibleAttributes.Builder GetBuilder()
+                public static DestructibleAttributesImpl.Builder GetBuilder()
                 {
-                    return new DestructibleAttributes.Builder();
+                    return new DestructibleAttributesImpl.Builder();
                 }
             }
 
@@ -105,9 +105,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                 /// </summary>
                 /// <returns>
                 /// </returns>
-                public static FireableAttributes.Builder GetBuilder()
+                public static FireableAttributesImpl.Builder GetBuilder()
                 {
-                    return new FireableAttributes.Builder();
+                    return new FireableAttributesImpl.Builder();
                 }
             }
 
@@ -121,9 +121,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                 /// </summary>
                 /// <returns>
                 /// </returns>
-                public static MovableAttributes.Builder GetBuilder()
+                public static MovableAttributesImpl.Builder GetBuilder()
                 {
-                    return new MovableAttributes.Builder();
+                    return new MovableAttributesImpl.Builder();
                 }
             }
 
@@ -137,9 +137,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                 /// </summary>
                 /// <returns>
                 /// </returns>
-                public static UtilityAttributes.Builder GetBuilder()
+                public static UtilityAttributesImpl.Builder GetBuilder()
                 {
-                    return new UtilityAttributes.Builder();
+                    return new UtilityAttributesImpl.Builder();
                 }
             }
         }

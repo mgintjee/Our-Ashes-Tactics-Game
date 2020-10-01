@@ -38,6 +38,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons
         /// </summary>
         /// <returns>
         /// </returns>
-        TalonIdEnum GetTalonId();
+        TalonModelIdEnum GetTalonId();
     }
 }

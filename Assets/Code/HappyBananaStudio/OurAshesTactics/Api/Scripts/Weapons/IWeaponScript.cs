@@ -20,7 +20,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Weapons
         /// </summary>
         /// <returns>
         /// </returns>
-        WeaponIdEnum GetWeaponId();
+        WeaponModelIdEnum GetWeaponId();
 
         /// <summary>
         /// Todo
@@ -34,7 +34,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Weapons
         /// </summary>
         /// <param name="weaponId">
         /// </param>
-        void Initialize(WeaponIdEnum weaponId);
+        void Initialize(WeaponModelIdEnum weaponId);
 
         /// <summary>
         /// Todo

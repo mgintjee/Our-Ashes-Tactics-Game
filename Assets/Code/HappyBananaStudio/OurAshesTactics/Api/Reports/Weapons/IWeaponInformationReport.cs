@@ -3,7 +3,7 @@
 * Author: Matthew Gintjee
 */
 
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Api.Weapons;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Weapons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Weapons
@@ -25,6 +25,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Weapons
         /// </summary>
         /// <returns>
         /// </returns>
-        WeaponIdEnum GetWeaponId();
+        WeaponModelIdEnum GetWeaponId();
     }
 }

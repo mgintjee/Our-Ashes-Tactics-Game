@@ -3,7 +3,7 @@
 * Author: Matthew Gintjee
 */
 
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Api.Weapons;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Weapons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
@@ -18,11 +18,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Attribu
     public class WeaponAttributesConstants
     {
         // Todo
-        private static readonly Dictionary<WeaponIdEnum, IWeaponAttributes> WEAPON_ID_ATTRIBUTES_DICTIONARY =
-                new Dictionary<WeaponIdEnum, IWeaponAttributes>()
+        private static readonly Dictionary<WeaponModelIdEnum, IWeaponAttributes> WEAPON_ID_ATTRIBUTES_DICTIONARY =
+                new Dictionary<WeaponModelIdEnum, IWeaponAttributes>()
                 {
                     {
-                        WeaponIdEnum.Weapon0,
+                        WeaponModelIdEnum.Weapon0,
                         AttributesBuilder.Weapon.GetBuilder()
                             .SetAccuracyPoints(65)
                             .SetDamagePoints(1)
@@ -33,7 +33,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Attribu
                             .Build()
                     },
                     {
-                        WeaponIdEnum.Weapon1,
+                        WeaponModelIdEnum.Weapon1,
                         AttributesBuilder.Weapon.GetBuilder()
                             .SetAccuracyPoints(85)
                             .SetDamagePoints(2)
@@ -44,7 +44,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Attribu
                             .Build()
                     },
                     {
-                        WeaponIdEnum.Weapon2,
+                        WeaponModelIdEnum.Weapon2,
                         AttributesBuilder.Weapon.GetBuilder()
                             .SetAccuracyPoints(75)
                             .SetDamagePoints(4)
@@ -55,7 +55,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Attribu
                             .Build()
                     },
                     {
-                        WeaponIdEnum.Weapon3,
+                        WeaponModelIdEnum.Weapon3,
                         AttributesBuilder.Weapon.GetBuilder()
                             .SetAccuracyPoints(95)
                             .SetDamagePoints(6)
@@ -66,7 +66,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Attribu
                             .Build()
                     },
                     {
-                        WeaponIdEnum.Weapon4,
+                        WeaponModelIdEnum.Weapon4,
                         AttributesBuilder.Weapon.GetBuilder()
                             .SetAccuracyPoints(105)
                             .SetDamagePoints(3)
@@ -85,7 +85,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Attribu
         /// </param>
         /// <returns>
         /// </returns>
-        public static IWeaponAttributes GetAttributes(WeaponIdEnum weaponId)
+        public static IWeaponAttributes GetAttributes(WeaponModelIdEnum weaponId)
         {
             if (WEAPON_ID_ATTRIBUTES_DICTIONARY.ContainsKey(weaponId))
             {
@@ -103,9 +103,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Attribu
         /// </summary>
         /// <returns>
         /// </returns>
-        public static HashSet<WeaponIdEnum> GetSupportedWeaponIds()
+        public static HashSet<WeaponModelIdEnum> GetSupportedWeaponIds()
         {
-            return new HashSet<WeaponIdEnum>(WEAPON_ID_ATTRIBUTES_DICTIONARY.Keys);
+            return new HashSet<WeaponModelIdEnum>(WEAPON_ID_ATTRIBUTES_DICTIONARY.Keys);
         }
     }
 }
