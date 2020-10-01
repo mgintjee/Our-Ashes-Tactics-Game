@@ -120,7 +120,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Acti
                 "\n\t>" + this.GetActionType() +
                 "\n\t>Acting " + this.GetActingTalonIdentificationReport() +
                 ((this.GetTargetTalonIdentificationReport() != null)
-                ? "\n\t>Target " + this.GetActingTalonIdentificationReport()
+                ? "\n\t>Target " + this.GetTargetTalonIdentificationReport()
                 : "");
         }
 

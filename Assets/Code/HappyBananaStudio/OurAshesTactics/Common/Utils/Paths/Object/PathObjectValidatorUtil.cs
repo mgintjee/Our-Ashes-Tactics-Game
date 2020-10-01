@@ -41,7 +41,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Paths.Object
                     || !validPathObjectConnectivity
                     || !validPathObjectCompleteness)
                 {
-                    logger.Debug("?/?/?",!validPathObjectCount,!validPathObjectConnectivity,!validPathObjectCompleteness);
                     return false;
                 }
                 return true;
@@ -96,8 +95,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Paths.Object
                 for (int i = 1; i < cubeCoordinatesList.Count; ++i)
                 {
                     ICubeCoordinates currentCubeCoordinates = cubeCoordinatesList[i];
-                    IHexTileObject previousTileObject = GameMapObjectManager.FindHexTileObjectFrom(previousCubeCoordinates);
-                    if (GameMapObjectManager.GetNeighborCubeCoordinates(previousCubeCoordinates)
+                    if (!GameMapObjectManager.GetNeighborCubeCoordinates(previousCubeCoordinates)
                         .Contains(currentCubeCoordinates))
                     {
                         return false;

@@ -78,6 +78,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Attributes.Talons
         /// <summary>
         /// Todo
         /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return this.GetType().Name + ":" +
+            "\n\t>movePoints = " + this.GetMovePoints() +
+            "\n\t>turnPoints = " + this.GetTurnPoints();
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
         public class Builder
         {
             // Todo

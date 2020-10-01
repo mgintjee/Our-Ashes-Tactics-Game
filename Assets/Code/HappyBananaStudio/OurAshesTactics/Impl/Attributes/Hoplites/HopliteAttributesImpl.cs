@@ -104,6 +104,20 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Attributes.Hoplites
         /// <summary>
         /// Todo
         /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return this.GetType().Name + ":" +
+            "\n\t>" +typeof(ControllerIdEnum).Name + ": " + this.GetControllerId() +
+            "\n\t>Set: " +typeof(HopliteTraitEnum).Name +": " + string.Join(", ", this.GetHopliteTraitSet()) +
+            "\n\t>" + this.GetDestructibleAttributes() +
+            "\n\t>" + this.GetMoveableAttributes() +
+            "\n\t>" + this.GetWeaponAttributes();
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
         public class Builder
         {
             // Todo

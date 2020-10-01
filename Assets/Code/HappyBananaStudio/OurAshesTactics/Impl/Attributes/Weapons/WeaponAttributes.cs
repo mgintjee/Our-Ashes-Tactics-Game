@@ -152,6 +152,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Attributes.Weapons
             return this.rangeProximityPoints;
         }
 
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return this.GetType().Name + ":" +

@@ -65,23 +65,30 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Rosters
         /// </returns>
         public override string ToString()
         {
-            string phalanxIdTalonConstructionReportDictionaryString = "Dictionary(" + typeof(PhalanxIdEnum).Name + ", Set: " + typeof(ITalonConstructionReport) + "): [";
-            string factionIdPhalanxIdSetDictionaryString = "Dictionary(" + typeof(FactionIdEnum).Name + ", Set: " + typeof(PhalanxIdEnum) + "):";
+            string factionIdPhalanxIdSetDictionaryString = "Dictionary(" + typeof(FactionIdEnum).Name + ", Set: " + typeof(PhalanxIdEnum).Name + "):";
 
-            foreach (PhalanxIdEnum phalanxId in this.phalanxIdTalonConstructionReportDictionary.Keys)
-            {
-                phalanxIdTalonConstructionReportDictionaryString += "\n\t\t>" + typeof(PhalanxIdEnum).Name + "=" + phalanxId +
-                    ", Set: " + typeof(ITalonConstructionReport).Name + "=" + string.Join("\n\t\t\t>", this.phalanxIdTalonConstructionReportDictionary[phalanxId]);
-            }
+            string phalanxIdTalonConstructionReportDictionaryString = "Dictionary(" + typeof(PhalanxIdEnum).Name + ", Set: " + typeof(ITalonConstructionReport).Name + "): [";
+
             foreach (FactionIdEnum factionId in this.factionIdPhalanxIdSetDictionary.Keys)
             {
                 factionIdPhalanxIdSetDictionaryString += "\n\t\t>" + typeof(FactionIdEnum).Name + "=" + factionId +
-                    ", Set: " + typeof(PhalanxIdEnum).Name + "=" + string.Join("\n\t\t\t>", this.factionIdPhalanxIdSetDictionary[factionId]);
+                    ", Set: " + typeof(PhalanxIdEnum).Name + "=[" +
+                    "\n\t\t>" + string.Join("\n\t\t\t>", this.factionIdPhalanxIdSetDictionary[factionId]) + "" +
+                    "\n\t]";
+            }
+            foreach (PhalanxIdEnum phalanxId in this.phalanxIdTalonConstructionReportDictionary.Keys)
+            {
+                phalanxIdTalonConstructionReportDictionaryString += "\n\t\t>" + typeof(PhalanxIdEnum).Name + "=" + phalanxId +
+                    ", Set: " + typeof(ITalonConstructionReport).Name + "=[" +
+                    "\n\t\t>" + string.Join("\n\t\t\t>", this.phalanxIdTalonConstructionReportDictionary[phalanxId]) + "" +
+                    "\n\t]";
             }
 
             return this.GetType().Name + ":" +
-                "\n\t>" + phalanxIdTalonConstructionReportDictionaryString + "\n]" +
-                "\n\t>" + factionIdPhalanxIdSetDictionaryString + "\n]";
+                "\n\t>" + factionIdPhalanxIdSetDictionaryString + "" +
+                "\n]" +
+                "\n\t>" + phalanxIdTalonConstructionReportDictionaryString + "" +
+                "\n]";
         }
 
         /// <summary>

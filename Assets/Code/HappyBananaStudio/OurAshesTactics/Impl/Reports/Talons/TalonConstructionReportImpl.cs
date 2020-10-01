@@ -113,10 +113,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons
                 "\n\t>" + this.GetHopliteAttributes() +
                 "\n\t>" + this.GetPaintSchemeReport() +
                 "\n\t>" + this.GetTalonIdentificationReport() +
-                "\n\t>List: " + typeof(WeaponModelIdEnum).Name + "=[" + string.Join("\n\t\t>", this.weaponIdList)
-                + "\n]" +
-                "\n\t>List: " + typeof(UtilityModelIdEnum).Name + "=[" + string.Join("\n\t\t>", this.utilityIdList)
-                + "\n]";
+                "\n\t>List: " + typeof(WeaponModelIdEnum).Name + "=[" + string.Join("\n\t\t>", this.weaponIdList) +
+                "\n]" +
+                "\n\t>List: " + typeof(UtilityModelIdEnum).Name + "=[" + string.Join("\n\t\t>", this.utilityIdList) +
+                "\n]";
         }
 
         /// <summary>
