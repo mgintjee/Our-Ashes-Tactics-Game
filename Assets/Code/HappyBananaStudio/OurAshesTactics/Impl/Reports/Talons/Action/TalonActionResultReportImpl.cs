@@ -5,9 +5,7 @@
 
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Action;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Attributes;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Combat;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action
@@ -58,7 +56,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Acti
             return this.talonAttributesReport;
         }
 
-
         /// <summary>
         /// Todo
         /// </summary>
@@ -82,7 +79,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Acti
             // Todo
             private ITalonAttributesReport talonAttributesReport = null;
 
-
             /// <summary>
             /// Build the TalonActionResultReport with the set parameters
             /// </summary>
@@ -95,8 +91,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Acti
                 // Check that the set parameters are valid
                 if (invalidReasons.Count == 0)
                 {
-                        // Instantiate a new Report
-                        return new TalonActionResultReportImpl(this.talonActionOrderReport, this.talonAttributesReport);
+                    // Instantiate a new Report
+                    return new TalonActionResultReportImpl(this.talonActionOrderReport, this.talonAttributesReport);
                 }
                 else
                 {
@@ -134,7 +130,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Acti
                 this.talonAttributesReport = talonAttributesReport;
                 return this;
             }
-
 
             /// <summary>
             /// Todo

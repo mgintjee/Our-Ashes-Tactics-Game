@@ -8,7 +8,7 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Talons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Weapons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using System.Collections.Generic;
 using System.Diagnostics;
 

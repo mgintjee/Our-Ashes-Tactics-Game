@@ -3,10 +3,10 @@
 * Author: Matthew Gintjee
 */
 
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Unity;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Scripts.Unity;
 using UnityEngine;
 
-namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.LineRenderers
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.LineRenderers
 {
     /// <summary>
     /// Todo

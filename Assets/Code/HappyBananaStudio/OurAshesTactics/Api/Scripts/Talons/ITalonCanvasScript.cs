@@ -3,7 +3,6 @@
 * Author: Matthew Gintjee
 */
 
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Talons.Canvas;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Talons.Objects;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Unity;
 
@@ -15,13 +14,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Talons
     public interface ITalonCanvasScript
         : IUnityScript
     {
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        ITalonCanvasObject GetTalonCanvasObject();
-
         /// <summary>
         /// Todo
         /// </summary>

@@ -6,7 +6,7 @@
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Talons.Models;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Talons.Objects;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Talons;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Talons;
 using System.Diagnostics;
 using UnityEngine;
@@ -54,27 +54,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Talons
         /// </param>
         /// <returns>
         /// </returns>
-        public GameObject GetWeaponMountGameObject(int index)
-        {
-            if (index >= 0 &&
-                index < this.talonMountsScript.GetWeaponMountCount())
-            {
-                return this.talonMountsScript.GetWeaponMountGameObject(index);
-            }
-            else
-            {
-                throw ArgumentExceptionUtil.Build("Unable to ?. Invalid parameters." +
-                    "\n\t> Index=? must be in range=[0,?]", new StackFrame().GetMethod().Name,
-                    index, this.talonMountsScript.GetWeaponMountCount());
-            }
-        }
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="index">
-        /// </param>
-        /// <returns>
-        /// </returns>
         public GameObject GetUtilityMountGameObject(int index)
         {
             if (index >= 0 &&
@@ -87,6 +66,28 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Talons
                 throw ArgumentExceptionUtil.Build("Unable to ?. Invalid parameters." +
                     "\n\t> Index=? must be in range=[0,?]", new StackFrame().GetMethod().Name,
                     index, this.talonMountsScript.GetUtilityMountCount());
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="index">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public GameObject GetWeaponMountGameObject(int index)
+        {
+            if (index >= 0 &&
+                index < this.talonMountsScript.GetWeaponMountCount())
+            {
+                return this.talonMountsScript.GetWeaponMountGameObject(index);
+            }
+            else
+            {
+                throw ArgumentExceptionUtil.Build("Unable to ?. Invalid parameters." +
+                    "\n\t> Index=? must be in range=[0,?]", new StackFrame().GetMethod().Name,
+                    index, this.talonMountsScript.GetWeaponMountCount());
             }
         }
 

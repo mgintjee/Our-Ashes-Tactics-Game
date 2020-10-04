@@ -6,7 +6,7 @@
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Attributes;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Weapons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Attributes
@@ -88,10 +88,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Attr
         /// </returns>
         public override string ToString()
         {
-            return this.GetType().Name + ":" +
-                "\n\t>Current WeaponPoints=" + this.GetCurrentWeaponPoints() +
-                "\n\t>Maximum WeaponPoints=" + this.GetMaximumWeaponPoints() +
-                "\n\t>List: " + typeof(IWeaponInformationReport).Name + "=[" +
+            return this.GetType().Name + ": Current WeaponPoints=" + this.GetCurrentWeaponPoints() +
+                ", Maximum WeaponPoints=" + this.GetMaximumWeaponPoints() +
+                "\n\t>List: " + typeof(IWeaponInformationReport).Name + "=[\n\t>" +
                 string.Join("\n\t>", this.weaponInformationReportList) +
                 "\n]";
         }

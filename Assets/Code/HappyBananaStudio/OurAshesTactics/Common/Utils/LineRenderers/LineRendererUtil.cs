@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.LineRenderers
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.LineRenderers
 {
     /// <summary>
     /// Todo
@@ -119,7 +119,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.LineRenderers
             // Check that the CubeCoordinates is non-null
             if (cubeCoordinates != null)
             {
-                IHexTileObject hexTileObject = GameMapObjectManager.FindHexTileObjectFrom(cubeCoordinates);
+                IHexTileObject hexTileObject = GameMapObjectManager.GetHexTileObjectFrom(cubeCoordinates);
                 // Check that the tileObject is non-null
                 if (hexTileObject != null)
                 {
@@ -234,7 +234,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.LineRenderers
                     List<ICubeCoordinates> cubeCoordinatesStepList = pathObject.GetCubeCoordinatesStepList();
                     foreach (ICubeCoordinates cubeCoordinates in cubeCoordinatesStepList)
                     {
-                        IHexTileObject tileObject = GameMapObjectManager.FindHexTileObjectFrom(cubeCoordinates);
+                        IHexTileObject tileObject = GameMapObjectManager.GetHexTileObjectFrom(cubeCoordinates);
                         IHexTileScript tileScript = tileObject.GetHexTileScript();
                         Vector3 tileWorldPosition = tileScript.GetGameObject().transform.position;
                         tileWorldPosition.y += Mathf.Abs(HexTileGameObjectConstants.GetOffsetY() * 2);

@@ -3,11 +3,11 @@
 * Author: Matthew Gintjee
 */
 
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using System;
 using System.Diagnostics;
 
-namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.RandomNumberGenerators
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.RandomNumberGenerators
 {
     /// <summary>
     /// Todo

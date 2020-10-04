@@ -12,11 +12,11 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Maps.Game;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Maps.Game;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Maps.Game;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Coordinates;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.HexTiles;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Managers;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Unity;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Scripts.Unity;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.HexTiles;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -247,7 +247,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Maps.Game
             if (cubeCoordinates != null)
             {
                 HashSet<ICubeCoordinates> neighborCubeCoordinatesSet = CubeCoordinatesCommonUtil.GetPossibleNeighborCubeCoordinatesSet(cubeCoordinates);
-                neighborCubeCoordinatesSet.UnionWith(this.cubeCoordinatesHexTileObjectDictionary.Keys);
+                neighborCubeCoordinatesSet.IntersectWith(this.cubeCoordinatesHexTileObjectDictionary.Keys);
                 return neighborCubeCoordinatesSet;
             }
             else

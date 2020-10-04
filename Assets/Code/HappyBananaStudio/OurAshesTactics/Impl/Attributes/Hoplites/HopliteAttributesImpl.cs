@@ -10,7 +10,7 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Weapons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Attributes.Hoplites;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Attributes.Hoplites
@@ -104,12 +104,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Attributes.Hoplites
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         public override string ToString()
         {
-            return this.GetType().Name + ":" +
-            "\n\t>" +typeof(ControllerIdEnum).Name + ": " + this.GetControllerId() +
-            "\n\t>Set: " +typeof(HopliteTraitEnum).Name +": " + string.Join(", ", this.GetHopliteTraitSet()) +
+            return this.GetType().Name + ": " + typeof(ControllerIdEnum).Name + ": " + this.GetControllerId() + ", Set: " + typeof(HopliteTraitEnum).Name + ": " + string.Join(", ", this.GetHopliteTraitSet()) +
             "\n\t>" + this.GetDestructibleAttributes() +
             "\n\t>" + this.GetMoveableAttributes() +
             "\n\t>" + this.GetWeaponAttributes();

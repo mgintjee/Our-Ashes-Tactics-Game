@@ -5,9 +5,9 @@
 
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Coordinates;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Paths.Object;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Coordinates;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Loggers;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Paths.Object;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Paths.Object;
 using System.Collections.Generic;
 using System.Diagnostics;
 

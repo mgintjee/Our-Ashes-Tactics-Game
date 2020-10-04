@@ -9,7 +9,7 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Coordinates.Cub
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Coordinates
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates
 {
     /// <summary>
     /// Todo

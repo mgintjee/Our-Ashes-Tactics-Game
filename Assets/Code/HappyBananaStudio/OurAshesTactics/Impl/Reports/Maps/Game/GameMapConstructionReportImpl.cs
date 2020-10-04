@@ -5,7 +5,7 @@
 
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Coordinates;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Maps.Game;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Maps.Game

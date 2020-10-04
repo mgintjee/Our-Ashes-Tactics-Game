@@ -10,13 +10,13 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Hoplites;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Maps.Game;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Mvc.Initializers;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Mvc.Models;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Paint;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Phalanx;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Rosters;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Attributes;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Combat;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Customization;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Turn;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Weapons;
 
@@ -27,6 +27,48 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
     /// </summary>
     public static class ReportBuilder
     {
+        /// <summary>
+        /// Todo
+        /// </summary>
+        public static class Customization
+        {
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <returns>
+            /// </returns>
+            public static TalonCustomizationReportImpl.Builder GetBuilder()
+            {
+                return new TalonCustomizationReportImpl.Builder();
+            }
+
+            public static class Color
+            {
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <returns>
+                /// </returns>
+                public static ColorSchemeReportImpl.Builder GetBuilder()
+                {
+                    return new ColorSchemeReportImpl.Builder();
+                }
+            }
+
+            public static class Emblem
+            {
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <returns>
+                /// </returns>
+                public static EmblemSchemeReportImpl.Builder GetBuilder()
+                {
+                    return new EmblemSchemeReportImpl.Builder();
+                }
+            }
+        }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -198,22 +240,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders
                 {
                     return new MvcModelInformationReportImpl.Builder();
                 }
-            }
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        public static class Paint
-        {
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <returns>
-            /// </returns>
-            public static PaintSchemeReportImpl.Builder GetBuilder()
-            {
-                return new PaintSchemeReportImpl.Builder();
             }
         }
 

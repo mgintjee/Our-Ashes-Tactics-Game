@@ -49,7 +49,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Objec
         {
             if (tileCoordinates != null)
             {
-                IHexTileObject hexTileObject = GameMapObjectManager.FindHexTileObjectFrom(tileCoordinates);
+                IHexTileObject hexTileObject = GameMapObjectManager.GetHexTileObjectFrom(tileCoordinates);
                 if (hexTileObject != null)
                 {
                     IHexTileInformationReport hexTileInformationReport = hexTileObject.GetHexTileInformationReport();

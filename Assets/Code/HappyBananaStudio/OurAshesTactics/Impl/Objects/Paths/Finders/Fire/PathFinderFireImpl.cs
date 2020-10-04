@@ -7,10 +7,10 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Coordinates;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.HexTile;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.HexTiles;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Coordinates;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Loggers;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Managers;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Coordinates.Cube;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finders.Abs;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Objects.Fire;
@@ -43,7 +43,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finde
                 // Check if the cubeCoordinates is not the starting one
                 if (!this.cubeCoordinatesStart.Equals(cubeCoordinates))
                 {
-                    IHexTileObject tileObject = GameMapObjectManager.FindHexTileObjectFrom(cubeCoordinates);
+                    IHexTileObject tileObject = GameMapObjectManager.GetHexTileObjectFrom(cubeCoordinates);
                     if (tileObject != null)
                     {
                         IHexTileInformationReport hexTileInformationReport = tileObject.GetHexTileInformationReport();
@@ -151,7 +151,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finde
                 {
                     logger.Debug("Error in ?. E=?", new StackFrame().GetMethod().Name, e);
                 }
-
             }
             return cubeCoordinatesList;
         }

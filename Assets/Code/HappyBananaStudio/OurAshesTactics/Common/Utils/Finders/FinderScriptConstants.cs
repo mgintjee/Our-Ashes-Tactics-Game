@@ -3,7 +3,7 @@
 * Author: Matthew Gintjee
 */
 
-namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Finders
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Finders
 {
     /// <summary>
     /// Todo

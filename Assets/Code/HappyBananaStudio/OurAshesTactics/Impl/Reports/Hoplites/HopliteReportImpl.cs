@@ -6,7 +6,7 @@
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Hoplites;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Hoplites;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Hoplites

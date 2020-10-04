@@ -5,7 +5,7 @@
 
 using System;
 
-namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions
 {
     /// <summary>
     /// Todo

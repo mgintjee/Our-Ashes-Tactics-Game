@@ -4,15 +4,14 @@
 */
 
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Coordinates;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.HexTile;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Paths.Object;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Coordinates;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Loggers;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Managers;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Paths.Object
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Paths.Object
 {
     /// <summary>
     /// Todo
@@ -125,7 +124,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Paths.Object
                 if (cubeCoordinatesStart != null &&
                     cubeCoordinatesEnd != null)
                 {
-                    int pathCount = CubeCoordinatesCommonUtil.GetCubeCoordinatesDistanceFrom(cubeCoordinatesStart, cubeCoordinatesEnd) + 1;
+                    int pathCount = CubeCoordinatesCommonUtil.GetCubeCoordinatesDistanceFrom(
+                        cubeCoordinatesStart, cubeCoordinatesEnd) + 1;
                     if (pathCount <= 0 || pathObject.GetPathObjectLength() < pathCount)
                     {
                         return false;

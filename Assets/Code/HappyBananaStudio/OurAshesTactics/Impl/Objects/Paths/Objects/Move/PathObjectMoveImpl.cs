@@ -70,7 +70,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Objec
         {
             if (cubeCoordinates != null)
             {
-                IHexTileObject hexTileObject = GameMapObjectManager.FindHexTileObjectFrom(cubeCoordinates);
+                IHexTileObject hexTileObject = GameMapObjectManager.GetHexTileObjectFrom(cubeCoordinates);
                 if (hexTileObject != null)
                 {
                     IHexTileInformationReport hexTileInformationReport = hexTileObject.GetHexTileInformationReport();

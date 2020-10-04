@@ -44,6 +44,30 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.ResourceLoaders
         /// <summary>
         /// Todo
         /// </summary>
+        public class Color
+        {
+            // Todo
+            private static readonly string Color_MATERIALS_FOLDER_HOME = MATERIALS_FOLDER_HOME + "ColorMaterials/";
+
+            // Todo
+            private static readonly string MATERIAL_PREFIX = "Color_";
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <param name="paintColor">
+            /// </param>
+            /// <returns>
+            /// </returns>
+            public static Material LoadColorMaterialResource(ColorIdEnum paintColor)
+            {
+                return LoadMaterialResource(Color_MATERIALS_FOLDER_HOME + MATERIAL_PREFIX + paintColor.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
         public class HexTile
         {
             // Todo
@@ -101,30 +125,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.ResourceLoaders
                     }
                     return LoadMaterialResource(TILE_MATERIALS_TOP_FOLDER_HOME + MATERIAL_PREFIX + mechActionTypeString);
                 }
-            }
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        public class Paint
-        {
-            // Todo
-            private static readonly string MATERIAL_PREFIX = "Paint_";
-
-            // Todo
-            private static readonly string PAINT_MATERIALS_FOLDER_HOME = MATERIALS_FOLDER_HOME + "PaintMaterials/";
-
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="paintColor">
-            /// </param>
-            /// <returns>
-            /// </returns>
-            public static Material LoadPaintMaterialResource(PaintColorIdEnum paintColor)
-            {
-                return LoadMaterialResource(PAINT_MATERIALS_FOLDER_HOME + MATERIAL_PREFIX + paintColor.ToString());
             }
         }
 

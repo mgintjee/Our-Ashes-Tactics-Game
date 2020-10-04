@@ -9,12 +9,12 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Talons.Models;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Talons.Objects;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Talons.Visuals;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Weapons.Objects;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Paints;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Customization;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Managers;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Talons;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Talons;
 using System;
 using System.Diagnostics;
 using UnityEngine;
@@ -95,7 +95,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Talons
         /// </summary>
         public void ApplyPaintScheme()
         {
-            this.ApplyTalonPaintSchemeReport(this.talonConstructionReport.GetPaintSchemeReport());
+            this.ApplyTalonPaintSchemeReport(this.talonConstructionReport
+                .GetTalonCustomizationReport()
+                .GetPhalanxColorSchemeReport());
         }
 
         /// <summary>
@@ -125,7 +127,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Talons
         {
             if (cubeCoordinates != null)
             {
-                IHexTileObject hexTileObject = GameMapObjectManager.FindHexTileObjectFrom(cubeCoordinates);
+                IHexTileObject hexTileObject = GameMapObjectManager.GetHexTileObjectFrom(cubeCoordinates);
                 if (hexTileObject != null)
                 {
                     this.PaintBase(hexTileObject.GetHexTileType());
@@ -179,7 +181,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Talons
         /// </summary>
         /// <param name="talonPaintSchemeReport">
         /// </param>
-        private void ApplyTalonPaintSchemeReport(IPaintSchemeReport talonPaintSchemeReport)
+        private void ApplyTalonPaintSchemeReport(IColorSchemeReport talonPaintSchemeReport)
         {
             if (talonPaintSchemeReport != null)
             {
@@ -188,7 +190,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Talons
             else
             {
                 throw ArgumentExceptionUtil.Build("Unable to ?. Invalid Parameters. " +
-                    "\n\t> ? is null", new StackFrame().GetMethod().Name, typeof(IPaintSchemeReport));
+                    "\n\t> ? is null", new StackFrame().GetMethod().Name, typeof(IColorSchemeReport));
             }
         }
     }

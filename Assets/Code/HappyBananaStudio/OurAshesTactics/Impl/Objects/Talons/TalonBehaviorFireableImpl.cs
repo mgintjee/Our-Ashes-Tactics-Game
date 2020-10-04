@@ -13,9 +13,9 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Combat;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Weapons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Loggers;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Paths.Finder;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Paths.Finder;
 using System.Collections.Generic;
 using System.Diagnostics;
 

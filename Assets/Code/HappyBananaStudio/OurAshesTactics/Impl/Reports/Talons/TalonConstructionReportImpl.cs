@@ -4,10 +4,10 @@
 */
 
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Hoplites;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Paints;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Customization;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons
@@ -22,7 +22,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons
         private readonly IHopliteAttributes hopliteAttributes;
 
         // Todo
-        private readonly IPaintSchemeReport paintSchemeReport;
+        private readonly ITalonCustomizationReport talonCustomizationReport;
 
         // Todo
         private readonly ITalonIdentificationReport talonIdentificationReport;
@@ -42,11 +42,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons
         /// </param>
         /// <param name="weaponIdList">
         /// </param>
-        private TalonConstructionReportImpl(IHopliteAttributes hopliteAttributes, IPaintSchemeReport paintSchemeReport,
-            ITalonIdentificationReport talonIdentificationReport, List<UtilityModelIdEnum> utilityIdList, List<WeaponModelIdEnum> weaponIdList)
+        private TalonConstructionReportImpl(IHopliteAttributes hopliteAttributes,
+            ITalonCustomizationReport talonCustomizationReport, ITalonIdentificationReport talonIdentificationReport,
+            List<UtilityModelIdEnum> utilityIdList, List<WeaponModelIdEnum> weaponIdList)
         {
             this.hopliteAttributes = hopliteAttributes;
-            this.paintSchemeReport = paintSchemeReport;
+            this.talonCustomizationReport = talonCustomizationReport;
             this.talonIdentificationReport = talonIdentificationReport;
             this.utilityIdList = utilityIdList;
             this.weaponIdList = weaponIdList;
@@ -67,9 +68,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons
         /// </summary>
         /// <returns>
         /// </returns>
-        public IPaintSchemeReport GetPaintSchemeReport()
+        public ITalonCustomizationReport GetTalonCustomizationReport()
         {
-            return this.paintSchemeReport;
+            return this.talonCustomizationReport;
         }
 
         /// <summary>
@@ -110,9 +111,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons
         public override string ToString()
         {
             return this.GetType().Name + ":" +
-                "\n\t>" + this.GetHopliteAttributes() +
-                "\n\t>" + this.GetPaintSchemeReport() +
                 "\n\t>" + this.GetTalonIdentificationReport() +
+                "\n\t>" + this.GetHopliteAttributes() +
+                "\n\t>" + this.GetTalonCustomizationReport() +
                 "\n\t>List: " + typeof(WeaponModelIdEnum).Name + "=[" + string.Join("\n\t\t>", this.weaponIdList) +
                 "\n]" +
                 "\n\t>List: " + typeof(UtilityModelIdEnum).Name + "=[" + string.Join("\n\t\t>", this.utilityIdList) +
@@ -128,7 +129,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons
             private IHopliteAttributes hopliteAttributes = null;
 
             // Todo
-            private IPaintSchemeReport paintSchemeReport = null;
+            private ITalonCustomizationReport talonCustomizationReport = null;
 
             // Todo
             private ITalonIdentificationReport talonIdentificationReport = null;
@@ -152,7 +153,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new Report
-                    return new TalonConstructionReportImpl(this.hopliteAttributes, this.paintSchemeReport,
+                    return new TalonConstructionReportImpl(this.hopliteAttributes, this.talonCustomizationReport,
                         this.talonIdentificationReport, this.utilityIdList, this.weaponIdList);
                 }
                 else
@@ -178,17 +179,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons
             }
 
             /// <summary>
-            /// Set the value of the IPaintSchemeReport
+            /// Set the value of the ITalonCustomizationReport
             /// </summary>
-            /// <param name="paintSchemeReport">
-            /// The IPaintSchemeReport to set
+            /// <param name="talonCustomizationReport">
+            /// The ITalonCustomizationReport to set
             /// </param>
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetPaintSchemeReport(IPaintSchemeReport paintSchemeReport)
+            public Builder SetTalonCustomizationReport(ITalonCustomizationReport talonCustomizationReport)
             {
-                this.paintSchemeReport = paintSchemeReport;
+                this.talonCustomizationReport = talonCustomizationReport;
                 return this;
             }
 
@@ -251,10 +252,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons
                 {
                     argumentExceptionSet.Add(typeof(IHopliteAttributes).Name + " has not been set");
                 }
-                // Check that paintSchemeReport has been set
-                if (this.paintSchemeReport == null)
+                // Check that talonCustomizationReport has been set
+                if (this.talonCustomizationReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(IPaintSchemeReport).Name + " has not been set");
+                    argumentExceptionSet.Add(typeof(ITalonCustomizationReport).Name + " has not been set");
                 }
                 // Check that talonIdentificationReport has been set
                 if (this.talonIdentificationReport == null)

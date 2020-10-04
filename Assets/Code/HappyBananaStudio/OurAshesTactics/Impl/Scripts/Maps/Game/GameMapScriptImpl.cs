@@ -9,9 +9,9 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Maps.Game;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Maps.Game;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Mvc.Models;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Maps.Game;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Coordinates;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Unity;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Scripts.Unity;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Maps.Game;
 using System.Diagnostics;
 using UnityEngine;
@@ -28,10 +28,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Maps.Game
         private static readonly Common.Loggers.Logger logger = new Common.Loggers.Logger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
-        private IGameMapObject gameMapObject;
+        private IGameMapConstructionReport gameMapConstructionReport;
 
         // Todo
-        private IGameMapConstructionReport gameMapConstructionReport;
+        private IGameMapObject gameMapObject;
 
         /// <summary>
         /// Todo
@@ -63,7 +63,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Maps.Game
                     this.BuildLayerLevelGameObjects();
 
                     this.gameMapObject = new GameMapObjectImpl(this, gameMapInformationReport);
-
                 }
                 else
                 {
@@ -100,7 +99,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Maps.Game
             int maxDistanceFromCenter = 0;
             foreach (ICubeCoordinates cubeCoordinates in this.gameMapConstructionReport.GetCubeCoordinatesSet())
             {
-                int distanceFromCenter = CubeCoordinatesCommonUtil.GetCubeCoordinatesDistanceFromCenter( cubeCoordinates);
+                int distanceFromCenter = CubeCoordinatesCommonUtil.GetCubeCoordinatesDistanceFromCenter(cubeCoordinates);
                 if (distanceFromCenter > maxDistanceFromCenter)
                 {
                     maxDistanceFromCenter = distanceFromCenter;

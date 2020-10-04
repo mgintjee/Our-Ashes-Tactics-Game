@@ -4,6 +4,7 @@
 */
 
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Action;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Combat;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Turn
 {
@@ -18,6 +19,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Turn
         /// <returns>
         /// </returns>
         ITalonActionResultReport GetTalonActionResultReport();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        ITalonCombatResultReport GetTalonCombatResultReport();
 
         /// <summary>
         /// Todo

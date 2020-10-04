@@ -11,8 +11,8 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.HexTiles;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Attributes.HexTiles;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Loggers;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using System.Diagnostics;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.HexTiles

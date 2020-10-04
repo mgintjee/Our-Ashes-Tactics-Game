@@ -6,7 +6,7 @@
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Rosters;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Rosters
@@ -135,7 +135,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Rosters
             /// </returns>
             public Builder SetFactionIdPhalanxIdSetDictionary(Dictionary<FactionIdEnum, HashSet<PhalanxIdEnum>> factionIdPhalanxIdSetDictionary)
             {
-                this.factionIdPhalanxIdSetDictionary = new Dictionary<FactionIdEnum, HashSet<PhalanxIdEnum>>( factionIdPhalanxIdSetDictionary);
+                this.factionIdPhalanxIdSetDictionary = new Dictionary<FactionIdEnum, HashSet<PhalanxIdEnum>>(factionIdPhalanxIdSetDictionary);
                 return this;
             }
 

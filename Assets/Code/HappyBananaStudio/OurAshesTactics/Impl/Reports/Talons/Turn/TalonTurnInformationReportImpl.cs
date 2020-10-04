@@ -6,7 +6,7 @@
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Action;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Turn;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Turn
@@ -66,7 +66,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Turn
         {
             return this.GetType().Name + ":" +
                 "\n\t>" + this.GetTalonInformationReport() +
-                "\n\t>Set: " + typeof(ITalonActionOrderReport).Name + "=[" +
+                "\n\t>Set: " + typeof(ITalonActionOrderReport).Name + "=[\n\t\t>" +
                 string.Join("\n\t\t>", this.GetPossibleTalonActionOrderReportSet()) +
                 "\n]";
         }

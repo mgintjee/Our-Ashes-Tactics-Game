@@ -7,17 +7,18 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Hoplites;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Coordinates;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Maps.Game;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Mvc.Initializers;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Paints;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Rosters;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Customization;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Mvc.Frameworks;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Mvc.Initializers;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Attributes.Talons;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Factions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Mvc.Frameworks;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Coordinates;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Unity;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Scripts.Unity;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Mvc.Frameworks;
 using System;
 using System.Collections.Generic;
@@ -42,16 +43,16 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Mvc.Initial
                 FactionIdEnum.CreativeFaction1,
                 new HashSet<PhalanxIdEnum>()
                 {
-                    PhalanxIdEnum.PhalanxNorthEast,
-                    PhalanxIdEnum.PhalanxSouthEast,
+                    PhalanxIdEnum.Charlie,
+                    PhalanxIdEnum.Echo,
                 }
             },
             {
                 FactionIdEnum.CreativeFaction2,
                 new HashSet<PhalanxIdEnum>()
                 {
-                    PhalanxIdEnum.PhalanxNorthWest,
-                    PhalanxIdEnum.PhalanxSouthWest,
+                    PhalanxIdEnum.Delta,
+                    PhalanxIdEnum.Foxtrot,
                 }
             }
         };
@@ -62,11 +63,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Mvc.Initial
         private readonly System.Random random = new System.Random();
 
         // Todo
-        private readonly Dictionary<PhalanxIdEnum, IPaintSchemeReport> talonPhalanxIdPaintSchemeReportDictionary =
-            new Dictionary<PhalanxIdEnum, IPaintSchemeReport>();
+        private readonly Dictionary<PhalanxIdEnum, IColorSchemeReport> talonPhalanxIdPaintSchemeReportDictionary =
+            new Dictionary<PhalanxIdEnum, IColorSchemeReport>();
 
-        private IMvcFrameworkScript mvcFrameworkScript;
         private bool foo = false;
+        private IMvcFrameworkScript mvcFrameworkScript;
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -99,7 +101,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Mvc.Initial
             }
         }
 
-
         public void Start()
         {
             GameObject mvcFrameworkGameObject = new GameObject(MvcFrameworkConstants.Script.GetMvcFrameworkGameObjectName());
@@ -115,7 +116,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Mvc.Initial
 
             Array enumValues = Enum.GetValues(typeof(CallSignEnum));
             while (callSignSet.Count != count &&
-                callSignSet.Count!= enumValues.Length - 1)
+                callSignSet.Count != enumValues.Length - 1)
             {
                 callSignSet.Add((CallSignEnum)enumValues.GetValue(random.Next(1, enumValues.Length)));
             }
@@ -126,7 +127,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Mvc.Initial
         private HashSet<ICubeCoordinates> BuildCubeCoordinatesSet()
         {
             logger.Debug("?", new StackFrame().GetMethod().Name);
-            return CubeCoordinatesGeneratorUtil.GenerateHexagonCubeCoordinatesSet(this.mapRadius);
+            return CubeCoordinatesGeneratorUtil.GenerateHexagonCubeCoordinatesSet(this.random.Next(2, 4));
         }
 
         private Dictionary<FactionIdEnum, HashSet<PhalanxIdEnum>> BuildFactionIdPhalanxIdSetDictionary()
@@ -214,19 +215,33 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Mvc.Initial
             int maxTalonCount = phalanxCount * 2;
             foreach (FactionIdEnum factionId in factionIdPhalanxIdSetDictionary.Keys)
             {
+                IColorSchemeReport factionColorSchemeReport = FactionConstants.GetFactionColorSchemeReport(factionId);
+                IEmblemSchemeReport factionEmblemSchemeReport = FactionConstants.GetFactionEmblemSchemeReport(factionId);
+
                 foreach (PhalanxIdEnum phalanxId in factionIdPhalanxIdSetDictionary[factionId])
                 {
+                    IEmblemSchemeReport phalanxEmblemSchemeReport = ReportBuilder.Customization.Emblem.GetBuilder()
+                                .SetEmblemIconId(this.GetRandomEmblemIconId())
+                                .SetEmblemBackgroundId(this.GetRandomEmblemBackgroundId())
+                                .Build();
+                    IColorSchemeReport phalanxColorSchemeReport = ReportBuilder.Customization.Color.GetBuilder()
+                                .SetPrimaryPaintColorId(this.GetRandomPaintColorId())
+                                .SetSecondaryPaintColorId(this.GetRandomPaintColorId())
+                                .SetTertiaryPaintColorId(this.GetRandomPaintColorId())
+                                .Build();
                     phalanxIdTalonConstructionReportSetDictionary.Add(phalanxId, new HashSet<ITalonConstructionReport>());
-                    IPaintSchemeReport paintSchemeReport = ReportBuilder.Paint.GetBuilder()
-                        .SetPrimaryPaintColorId(this.GetRandomPaintColorId())
-                        .SetSecondaryPaintColorId(this.GetRandomPaintColorId())
-                        .SetTertiaryPaintColorId(this.GetRandomPaintColorId())
-                        .Build();
                     HashSet<CallSignEnum> callSignSet = this.BuildCallSignSet((int)(maxTalonCount / phalanxCount));
                     foreach (CallSignEnum callSign in callSignSet)
                     {
-                        phalanxIdTalonConstructionReportSetDictionary[phalanxId].Add(this.BuildRandomTalonConstructionReport(
-                            factionId, phalanxId, callSign, paintSchemeReport));
+                        phalanxIdTalonConstructionReportSetDictionary[phalanxId].Add(
+                            this.BuildRandomTalonConstructionReport(
+                            factionId, phalanxId, callSign, ReportBuilder.Customization.GetBuilder()
+                            .SetFactionColorSchemeReport(factionColorSchemeReport)
+                            .SetFactionEmblemSchemeReport(factionEmblemSchemeReport)
+                            .SetPhalanxColorSchemeReport(phalanxColorSchemeReport)
+                            .SetPhalanxEmblemSchemeReoprt(phalanxEmblemSchemeReport)
+                            .Build()
+                            ));
                     }
                 }
             }
@@ -244,13 +259,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Mvc.Initial
         }
 
         private ITalonConstructionReport BuildRandomTalonConstructionReport(FactionIdEnum factionId, PhalanxIdEnum phalanxId,
-            CallSignEnum callSign, IPaintSchemeReport paintSchemeReport)
+            CallSignEnum callSign, ITalonCustomizationReport talonCustomizationReport)
         {
             logger.Debug("?", new StackFrame().GetMethod().Name);
             TalonModelIdEnum talonModelId = this.GetRandomTalonModelId();
             return ReportBuilder.Talon.Construction.GetBuilder()
                 .SetHopliteAttributes(this.BuildRandomHopliteAttributes())
-                .SetPaintSchemeReport(paintSchemeReport)
+                .SetTalonCustomizationReport(talonCustomizationReport)
                 .SetTalonIdentificationReport(ReportBuilder.Talon.Identification.GetBuilder()
                         .SetCallSign(callSign)
                         .SetFactionid(factionId)
@@ -298,11 +313,25 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Mvc.Initial
                 .Build();
         }
 
-        private PaintColorIdEnum GetRandomPaintColorId()
+        private EmblemBackgroundIdEnum GetRandomEmblemBackgroundId()
         {
             logger.Debug("?", new StackFrame().GetMethod().Name);
-            Array enumValues = Enum.GetValues(typeof(PaintColorIdEnum));
-            return (PaintColorIdEnum)enumValues.GetValue(random.Next(1, enumValues.Length));
+            Array enumValues = Enum.GetValues(typeof(EmblemBackgroundIdEnum));
+            return (EmblemBackgroundIdEnum)enumValues.GetValue(random.Next(1, enumValues.Length));
+        }
+
+        private EmblemIconIdEnum GetRandomEmblemIconId()
+        {
+            logger.Debug("?", new StackFrame().GetMethod().Name);
+            Array enumValues = Enum.GetValues(typeof(EmblemIconIdEnum));
+            return (EmblemIconIdEnum)enumValues.GetValue(random.Next(1, enumValues.Length));
+        }
+
+        private ColorIdEnum GetRandomPaintColorId()
+        {
+            logger.Debug("?", new StackFrame().GetMethod().Name);
+            Array enumValues = Enum.GetValues(typeof(ColorIdEnum));
+            return (ColorIdEnum)enumValues.GetValue(random.Next(1, enumValues.Length));
         }
 
         private TalonModelIdEnum GetRandomTalonModelId()

@@ -8,7 +8,7 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.HexTiles;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
 using UnityEngine;
 
-namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Coordinates
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates
 {
     /// <summary>
     /// Todo

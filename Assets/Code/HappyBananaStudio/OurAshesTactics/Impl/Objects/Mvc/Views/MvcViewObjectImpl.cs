@@ -9,9 +9,7 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Talons.Canvas;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Talons.Objects;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Mvc.Views;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Talons;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Talons;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
@@ -137,16 +135,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Views
             {
             }
             //throw new NotImplementedException();
-        }
-
-        private ITalonCanvasObject BuildTalonCanvas(ITalonObject talonObject)
-        {
-            GameObject talonCanvasPlaceHolder = new GameObject("TalonCanvasPlaceHolder");
-            talonCanvasPlaceHolder.transform.SetParent(this.mvcViewScript.GetTransform());
-            talonCanvasPlaceHolder.transform.localPosition = Vector3.zero;
-            ITalonCanvasScript talonCanvasScript = talonCanvasPlaceHolder.AddComponent<TalonCanvasScriptImpl>();
-            talonCanvasScript.Initialize(talonObject);
-            return talonCanvasScript.GetTalonCanvasObject();
         }
     }
 }

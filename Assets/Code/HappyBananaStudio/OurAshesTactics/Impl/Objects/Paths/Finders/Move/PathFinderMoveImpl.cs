@@ -25,8 +25,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finde
         // Provide logging capability
         private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
-        // Todo
-        private readonly int pathCostThreshold = int.MaxValue;
+        private readonly int pathCostThreshold;
 
         /// <summary>
         /// Todo
@@ -46,12 +45,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finde
         /// </summary>
         public override void BeginPathFinding()
         {
-            this.GatherAllTileCoordinatesEnds();
-            logger.Debug("Count=?",this.pathObjectDictionary.Count);
+            this.GatherAllCubeCoordinatesEnds();
             this.DijkstraAlgorithm();
-            logger.Debug("Count=?", this.pathObjectDictionary.Count);
             this.CleanUpPathObjectDictionary();
-            logger.Debug("Count=?", this.pathObjectDictionary.Count);
         }
 
         /// <summary>
@@ -61,13 +57,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finde
         {
             // Todo: Store in some other method Remove all that are too expensive?
             HashSet<ICubeCoordinates> invalidPathObjectSet = new HashSet<ICubeCoordinates>();
+            int initialCount = this.pathObjectDictionary.Count;
             foreach (ICubeCoordinates cubeCoordinates in this.pathObjectDictionary.Keys)
             {
                 IPathObject pathObject = this.pathObjectDictionary[cubeCoordinates];
-                if (pathObject == null ||
-                    !pathObject.IsValid())
+                if (pathObject == null || !pathObject.IsValid())
                 {
-                    logger.Debug("?/?)Remove ? ",pathObject == null ,((pathObject != null) ? (!pathObject.IsValid()).ToString(): "NULL"), pathObject);
                     invalidPathObjectSet.Add(cubeCoordinates);
                 }
             }
@@ -76,7 +71,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finde
             {
                 this.pathObjectDictionary.Remove(cubeCoordinates);
             }
+
             this.pathObjectDictionary.Remove(this.cubeCoordinatesStart);
+            logger.Debug("?/? Valid CubeCoordiantes", this.pathObjectDictionary.Count,
+                initialCount);
         }
 
         /// <summary>
@@ -88,6 +86,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finde
             HashSet<ICubeCoordinates> unvisitedCubeCoordinatesSet = new HashSet<ICubeCoordinates> { this.cubeCoordinatesStart };
             this.pathObjectDictionary[this.cubeCoordinatesStart] = new PathObjectMoveImpl(new List<ICubeCoordinates>()
             { this.cubeCoordinatesStart });
+            logger.Info("MaxDistance = ?", this.pathCostThreshold);
             // Continue iterating until all CubeCoordinates have been visited
             while (unvisitedCubeCoordinatesSet.Count > 0)
             {
@@ -116,7 +115,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finde
                                 unvisitedCubeCoordinatesSet.Add(neighborCubeCoordinates);
                             }
                             // Collect the neighbor HexTileObject
-                            IHexTileObject neighborHexTileObject = GameMapObjectManager.FindHexTileObjectFrom(neighborCubeCoordinates);
+                            IHexTileObject neighborHexTileObject = GameMapObjectManager.GetHexTileObjectFrom(neighborCubeCoordinates);
                             // Check that the HexTileObject is non-null
                             if (neighborHexTileObject != null)
                             {
@@ -131,8 +130,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finde
                                 // Build the new PathObject using the Closest List: CubeCoordinates
                                 // + neighbor CubeCoordinates
                                 IPathObject newNeighborPathObject = new PathObjectMoveImpl(closestPathObjectCubeCoordinatesStepList);
-                                if (oldNeighborPathObject == null ||
-                                    oldNeighborPathObject.GetPathObjectCost() > newNeighborPathObject.GetPathObjectCost())
+                                if ((oldNeighborPathObject == null ||
+                                    oldNeighborPathObject.GetPathObjectCost() > newNeighborPathObject.GetPathObjectCost()) &&
+                                    newNeighborPathObject.GetPathObjectCost() < this.pathCostThreshold)
                                 {
                                     this.pathObjectDictionary[neighborCubeCoordinates] = newNeighborPathObject;
                                 }
@@ -143,6 +143,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finde
                 else
                 {
                     // End the iteration
+                    logger.Debug("Unable to get the closest CubeCoordinates in ?",
+                        string.Join(", ", unvisitedCubeCoordinatesSet));
                     break;
                 }
             }
@@ -151,17 +153,20 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finde
         /// <summary>
         /// Todo
         /// </summary>
-        private void GatherAllTileCoordinatesEnds()
+        private void GatherAllCubeCoordinatesEnds()
         {
             this.pathObjectDictionary = new Dictionary<ICubeCoordinates, IPathObject>();
             foreach (ICubeCoordinates cubeCoordinates in GameMapObjectManager.GetAllCubeCoordinatesSet())
             {
-                IHexTileObject tileObject = GameMapObjectManager.FindHexTileObjectFrom(cubeCoordinates);
-                if (tileObject.GetHexTileInformationReport().GetTalonIdentificationReport() == null)
+                IHexTileObject tileObject = GameMapObjectManager.GetHexTileObjectFrom(cubeCoordinates);
+                if (tileObject.GetHexTileInformationReport().GetTalonIdentificationReport() == null ||
+                    cubeCoordinates == this.cubeCoordinatesStart)
                 {
                     this.pathObjectDictionary.Add(cubeCoordinates, null);
                 }
             }
+            logger.Debug("?/? Empty CubeCoordiantes", this.pathObjectDictionary.Count,
+                GameMapObjectManager.GetAllCubeCoordinatesSet().Count);
         }
 
         /// <summary>

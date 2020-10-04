@@ -9,9 +9,9 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Weapons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Attributes.Weapons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Loggers;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.RandomNumberGenerators;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.RandomNumberGenerators;
 using System.Diagnostics;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Weapons

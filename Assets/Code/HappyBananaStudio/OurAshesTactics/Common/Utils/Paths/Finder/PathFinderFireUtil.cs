@@ -10,7 +10,7 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finders.F
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Paths.Finder
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Paths.Finder
 {
     /// <summary>
     /// Todo

@@ -11,9 +11,9 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Rosters;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Rosters;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Managers;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Talons;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Talons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Rosters.Comparer;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -80,7 +80,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Rosters
                         {
                             logger.Info("Building ?", talonConstructionReport);
                             // Build the TalonObject
-                            ITalonObject talonObject = TalonObjectBuilderUtil.BuildTalonObject(factionId, phalanxId, talonConstructionReport);
+                            ITalonObject talonObject = TalonObjectBuilderUtil.BuildTalonObject(
+                                factionId, phalanxId, talonConstructionReport);
                             // Check that the TalonObject was built successfully
                             if (talonObject != null)
                             {

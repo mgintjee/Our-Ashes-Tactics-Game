@@ -8,7 +8,7 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Coordinates.Cube;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Coordinates.Offset;
 
-namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Coordinates
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates
 {
     /// <summary>
     /// Todo

@@ -11,7 +11,7 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.HexTiles;
 using System.Diagnostics;
 using UnityEngine;
 
-namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.HexTiles
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.HexTiles
 {
     public static class HexTileObjectBuilderUtil
     {

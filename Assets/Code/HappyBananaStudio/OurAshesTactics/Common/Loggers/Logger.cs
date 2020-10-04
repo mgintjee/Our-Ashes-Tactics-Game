@@ -25,9 +25,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Loggers
         // Define the Set: Type that will display logging Empty means there will be no filter
         private static readonly HashSet<Type> ALLOWED_LOGGING_TYPES = new HashSet<Type>()
         {
-            //typeof(MvcControllerObject),
-            //typeof(MvcControllerScript),
-            //typeof(MvcFrameworkObject),
+            //typeof(MvcFrameworkObjectImpl),
+            //typeof(PathFinderMoveUtil),
+            //typeof(PathFinderMoveImpl),
             //typeof(MvcFrameworkScript),
             //typeof(MvcModelObject),
             //typeof(MvcModelScript),

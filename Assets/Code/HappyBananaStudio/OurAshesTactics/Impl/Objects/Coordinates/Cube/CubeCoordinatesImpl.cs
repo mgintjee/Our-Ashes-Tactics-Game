@@ -4,7 +4,7 @@
 */
 
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Coordinates;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Coordinates.Cube
 {

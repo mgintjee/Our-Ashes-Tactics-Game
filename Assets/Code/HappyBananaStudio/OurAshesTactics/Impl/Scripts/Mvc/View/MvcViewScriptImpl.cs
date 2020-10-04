@@ -6,9 +6,9 @@
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Mvc.Views;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Mvc.Frameworks;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Mvc.Views;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.ResourceLoaders;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Unity;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Scripts.Unity;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Views;
 using System.Diagnostics;
 using UnityEngine;

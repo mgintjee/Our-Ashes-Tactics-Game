@@ -16,8 +16,8 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Combat;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Attributes.Talons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Managers;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Objects.Wait;
 using System;
 using System.Collections.Generic;
@@ -132,7 +132,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Talons
                     // Collect the ending cubeCoordinates for the pathObject
                     ICubeCoordinates cubeCoordinates = pathObject.GetCubeCoordinatesEnd();
                     // Collect the HexTileObject from the cubeCoordinates
-                    IHexTileObject hexTileObject = GameMapObjectManager.FindHexTileObjectFrom(cubeCoordinates);
+                    IHexTileObject hexTileObject = GameMapObjectManager.GetHexTileObjectFrom(cubeCoordinates);
                     // Check that the HexTileObject is non-null
                     if (hexTileObject != null)
                     {

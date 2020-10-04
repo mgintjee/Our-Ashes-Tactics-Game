@@ -4,7 +4,7 @@
 */
 
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.HexTiles;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Attributes.HexTiles
@@ -52,6 +52,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Attributes.HexTiles
         public int GetMoveCost()
         {
             return this.moveCost;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        public override string ToString()
+        {
+            return this.GetType().Name + ": fireCost = " + this.GetFireCost() +
+                ", moveCost = " + this.GetMoveCost();
         }
 
         /// <summary>

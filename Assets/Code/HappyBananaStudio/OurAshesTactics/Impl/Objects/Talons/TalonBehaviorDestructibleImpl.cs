@@ -9,7 +9,7 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Attribute
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Combat;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Weapons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;

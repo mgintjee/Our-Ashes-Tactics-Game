@@ -20,10 +20,10 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Turn;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Mvc.Models;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Loggers;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Managers;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Talons;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Talons;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -222,7 +222,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Models
                         //talonIdentificationReport.GetPhalanxId(),
                         //talonPhalanxIdCountDictionary[talonIdentificationReport.GetPhalanxId()],
                         //talonIdentificationReport.GetCallSign());
-                        IHexTileObject hexTileObject = GameMapObjectManager.FindHexTileObjectFrom(spawnCubeCoordinates);
+                        IHexTileObject hexTileObject = GameMapObjectManager.GetHexTileObjectFrom(spawnCubeCoordinates);
                         if (hexTileObject != null)
                         {
                             this.rosterObject.GetTalonObject(talonIdentificationReport).SetCubeCoordinates(spawnCubeCoordinates);
@@ -275,7 +275,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Models
                             logger.Info("Phase: ? Action:?) Inputting ?=?", this.counterPhase, this.counterAction, typeof(ITalonActionOrderReport), talonActionOrderReport);
                             ITalonCombatResultReport talonCombatResultReport = null;
                             ITalonActionResultReport talonActionResultReport = actingTalonObject.InputTalonActionOrderReport(talonActionOrderReport);
-
+                            this.mvcModelScript.AnimatePath(talonActionOrderReport);
                             if (talonActionOrderReport.GetActionType().Equals(ActionTypeEnum.Fire))
                             {
                                 ITalonCombatOrderReport talonCombatOrderReport = actingTalonObject.GetTalonCombatOrderReport(talonActionOrderReport.GetPathObject());
@@ -297,7 +297,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Models
                                             targetTalonObject.GetTalonScript().Destroy();
                                             this.orderedTalonIdentificationReportList.Remove(targetTalonIdentificationReport);
                                             this.talonIdentificationActionInformationDictionary.Remove(targetTalonIdentificationReport);
-                                            GameMapObjectManager.FindHexTileObjectFrom(targetTalonObject.GetCubeCoordinates())
+                                            GameMapObjectManager.GetHexTileObjectFrom(targetTalonObject.GetCubeCoordinates())
                                                 .SetOccupyingTalonIdentificationReport(null);
                                         }
                                     }
@@ -324,6 +324,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Models
 
                             return ReportBuilder.Talon.Turn.Result.GetBuilder()
                                 .SetTalonActionResultReport(talonActionResultReport)
+                                .SetTalonCombatResultReport(talonCombatResultReport)
                                 .SetTalonTurnInformationReport(talonTurnInformationReport)
                                 .Build();
                         }

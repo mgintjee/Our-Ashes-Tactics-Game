@@ -4,7 +4,7 @@
 */
 
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Action;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.RandomNumberGenerators;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.RandomNumberGenerators;
 using System;
 using System.Collections.Generic;
 

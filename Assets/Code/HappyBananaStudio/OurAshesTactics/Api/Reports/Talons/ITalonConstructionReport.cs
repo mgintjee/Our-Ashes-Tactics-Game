@@ -4,7 +4,7 @@
 */
 
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Hoplites;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Paints;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Customization;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
 using System.Collections.Generic;
 
@@ -27,7 +27,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons
         /// </summary>
         /// <returns>
         /// </returns>
-        IPaintSchemeReport GetPaintSchemeReport();
+        ITalonCustomizationReport GetTalonCustomizationReport();
 
         /// <summary>
         /// Todo

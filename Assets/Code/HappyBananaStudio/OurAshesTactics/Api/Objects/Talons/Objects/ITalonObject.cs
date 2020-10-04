@@ -9,6 +9,7 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Weapons.Objects;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Action;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Combat;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Customization;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Turn;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Talons;
 
@@ -60,6 +61,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Talons.Objec
         /// <returns>
         /// </returns>
         ITalonCombatOrderReport GetTalonCombatOrderReport(IPathObject pathObject);
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        ITalonCustomizationReport GetTalonCustomizationReport();
 
         /// <summary>
         /// Todo

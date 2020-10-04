@@ -5,16 +5,16 @@
 
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Coordinates;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Managers;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.RandomNumberGenerators;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.RandomNumberGenerators;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Coordinates.Cube;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Talons
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Talons
 {
     /// <summary>
     /// Todo
@@ -71,7 +71,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Talons
                 // Determine the coordinate values based off of the teamId
                 switch (teamId)
                 {
-                    case PhalanxIdEnum.PhalanxNorthEast:
+                    case PhalanxIdEnum.Charlie:
                         xCoordinate = mapRadius;
                         yCoordinate = 0;
                         zCoordinate = -mapRadius;
@@ -95,7 +95,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Talons
                         // Otherwise it is the center Index
                         break;
 
-                    case PhalanxIdEnum.PhalanxEast:
+                    case PhalanxIdEnum.Alfa:
                         xCoordinate = 0;
                         yCoordinate = mapRadius;
                         zCoordinate = -mapRadius;
@@ -119,7 +119,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Talons
                         // Otherwise it is the center Index
                         break;
 
-                    case PhalanxIdEnum.PhalanxSouthEast:
+                    case PhalanxIdEnum.Echo:
                         xCoordinate = -mapRadius;
                         yCoordinate = mapRadius;
                         zCoordinate = 0;
@@ -143,7 +143,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Talons
                         // Otherwise it is the center Index
                         break;
 
-                    case PhalanxIdEnum.PhalanxSouthWest:
+                    case PhalanxIdEnum.Foxtrot:
                         xCoordinate = -mapRadius;
                         yCoordinate = 0;
                         zCoordinate = mapRadius;
@@ -167,7 +167,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Talons
                         // Otherwise it is the center Index
                         break;
 
-                    case PhalanxIdEnum.PhalanxWest:
+                    case PhalanxIdEnum.Bravo:
                         xCoordinate = 0;
                         yCoordinate = -mapRadius;
                         zCoordinate = mapRadius;
@@ -191,7 +191,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Talons
                         // Otherwise it is the center Index
                         break;
 
-                    case PhalanxIdEnum.PhalanxNorthWest:
+                    case PhalanxIdEnum.Delta:
                         xCoordinate = mapRadius;
                         yCoordinate = -mapRadius;
                         zCoordinate = 0;
@@ -231,8 +231,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Talons
         private static ICubeCoordinates GetSpawningCubeCoordinatesForDeathmatch(GameTypeEnum gameType)
         {
             HashSet<ICubeCoordinates> cubeCoordinatesSet = GameMapObjectManager.GetAllCubeCoordinatesSet();
-            ICubeCoordinates randomCubeCoordinates = new List<ICubeCoordinates>(cubeCoordinatesSet)[RandomNumberGeneratorUtil.GetNextInt(cubeCoordinatesSet.Count)];
-            if (GameMapObjectManager.FindHexTileObjectFrom(randomCubeCoordinates).GetHexTileInformationReport().GetTalonIdentificationReport() != null)
+            ICubeCoordinates randomCubeCoordinates = new List<ICubeCoordinates>(cubeCoordinatesSet)
+                [RandomNumberGeneratorUtil.GetNextInt(cubeCoordinatesSet.Count)];
+            if (GameMapObjectManager.GetHexTileObjectFrom(randomCubeCoordinates).GetHexTileInformationReport().GetTalonIdentificationReport() != null)
             {
                 return GetSpawningCubeCoordinatesForDeathmatch(gameType);
             }

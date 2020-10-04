@@ -6,6 +6,7 @@
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Mvc.Models;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Maps.Game;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Rosters;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Action;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Maps.Game;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Mvc.Frameworks;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Mvc.Models;
@@ -13,8 +14,8 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Rosters;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Maps.Game;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Mvc.Models;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Rosters;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Unity;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Scripts.Unity;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Models;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Maps.Game;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Rosters;
@@ -43,6 +44,18 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Mvc.Model
 
         // Todo
         private IRosterScript rosterScript;
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="pathObject">
+        /// </param>
+        public void AnimatePath(ITalonActionOrderReport talonActionOrderReport)
+        {
+            AnimatorMoveUtilScript animatorMoveUtilScript = GameObject.FindObjectOfType<AnimatorMoveUtilScript>()
+                .GetComponent<AnimatorMoveUtilScript>();
+            animatorMoveUtilScript.AnimateTalonActionOrderReport(talonActionOrderReport);
+        }
 
         /// <summary>
         /// Todo
@@ -103,6 +116,18 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Mvc.Model
             {
                 logger.Warn("Unable to Initialize: ?. Already initialized.", this.GetType());
             }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        public bool IsAnimating()
+        {
+            AnimatorMoveUtilScript animatorMoveUtilScript = GameObject.FindObjectOfType<AnimatorMoveUtilScript>()
+                .GetComponent<AnimatorMoveUtilScript>();
+            return animatorMoveUtilScript.IsAnimating();
         }
 
         /// <summary>

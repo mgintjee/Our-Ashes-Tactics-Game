@@ -4,7 +4,6 @@
 */
 
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Talons;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Unity;
 using System.Collections.Generic;
 using UnityEngine;
 

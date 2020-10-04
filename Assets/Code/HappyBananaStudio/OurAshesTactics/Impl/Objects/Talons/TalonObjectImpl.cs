@@ -11,17 +11,16 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Talons.Behaviors
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Talons.Objects;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Talons.Visuals;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Weapons.Objects;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Hoplites;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Action;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Combat;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Customization;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Turn;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Talons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Loggers;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Managers;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using System.Diagnostics;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Talons
@@ -36,7 +35,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Talons
         private static readonly Logger logger = new Logger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
+        private readonly IHopliteAttributes hopliteAttributes;
+
+        // Todo
         private readonly ITalonConstructionReport talonConstructionReport;
+
+        // Todo
+        private readonly ITalonCustomizationReport talonCustomizationReport;
 
         // Todo
         private readonly ITalonScript talonScript;
@@ -46,9 +51,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Talons
 
         // Todo
         private ITalonVisual talonVisual;
-
-        // Todo
-        private readonly IHopliteAttributes hopliteAttributes;
 
         /// <summary>
         /// Todo
@@ -66,6 +68,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Talons
                 this.talonScript = talonScript;
                 this.talonConstructionReport = talonConstructionReport;
                 this.hopliteAttributes = this.talonConstructionReport.GetHopliteAttributes();
+                this.talonCustomizationReport = this.talonConstructionReport.GetTalonCustomizationReport();
             }
             else
             {
@@ -104,7 +107,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Talons
             ICubeCoordinates currentCubeCoordinates = this.talonBehavior.GetCubeCoordinates();
             if (currentCubeCoordinates != null)
             {
-                IHexTileObject currentHexTileObject = GameMapObjectManager.FindHexTileObjectFrom(currentCubeCoordinates);
+                IHexTileObject currentHexTileObject = GameMapObjectManager.GetHexTileObjectFrom(currentCubeCoordinates);
                 currentHexTileObject.SetOccupyingTalonIdentificationReport(null);
             }
         }
@@ -141,6 +144,16 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Talons
         public ITalonCombatOrderReport GetTalonCombatOrderReport(IPathObject pathObjectFire)
         {
             return this.talonBehavior.GetTalonCombatOrderReport(pathObjectFire);
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        public ITalonCustomizationReport GetTalonCustomizationReport()
+        {
+            return this.talonCustomizationReport;
         }
 
         /// <summary>
@@ -204,10 +217,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Talons
         /// </returns>
         public ITalonActionResultReport InputTalonActionOrderReport(ITalonActionOrderReport talonActionOrder)
         {
+            /*
             if (talonActionOrder.GetActionType() == ActionTypeEnum.Move)
             {
                 this.SetCubeCoordinates(talonActionOrder.GetPathObject().GetCubeCoordinatesEnd());
             }
+            */
             return this.talonBehavior.InputTalonActionOrderReport(talonActionOrder);
         }
 
@@ -254,14 +269,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Talons
                 ICubeCoordinates currentCubeCoordinates = this.talonBehavior.GetCubeCoordinates();
                 if (currentCubeCoordinates != null)
                 {
-                    IHexTileObject currentHexTileObject = GameMapObjectManager.FindHexTileObjectFrom(currentCubeCoordinates);
+                    IHexTileObject currentHexTileObject = GameMapObjectManager.GetHexTileObjectFrom(currentCubeCoordinates);
                     currentHexTileObject.SetOccupyingTalonIdentificationReport(null);
                 }
 
                 this.talonBehavior.SetCubeCoordinates(cubeCoordinates);
                 this.talonVisual.SetCubeCoordinates(cubeCoordinates);
 
-                IHexTileObject hexTileObject = GameMapObjectManager.FindHexTileObjectFrom(cubeCoordinates);
+                IHexTileObject hexTileObject = GameMapObjectManager.GetHexTileObjectFrom(cubeCoordinates);
                 hexTileObject.SetOccupyingTalonIdentificationReport(this.talonConstructionReport.GetTalonIdentificationReport());
             }
             else

@@ -4,7 +4,7 @@
 */
 
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Talons.Objects;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Paints;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Customization;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Talons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Talons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Weapons;
@@ -14,7 +14,7 @@ using System;
 using System.Diagnostics;
 using UnityEngine;
 
-namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Talons
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Talons
 {
     /// <summary>
     /// Todo
@@ -78,7 +78,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Talons
         /// </param>
         /// <param name="primaryPaintColor">
         /// </param>
-        public static void PaintTalonObject(ITalonObject talonObject, IPaintSchemeReport talonPaintSchemeReport)
+        public static void PaintTalonObject(ITalonObject talonObject, IColorSchemeReport talonPaintSchemeReport)
         {
             if (talonObject != null &&
                 talonPaintSchemeReport != null)
@@ -89,7 +89,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Talons
                     GameObject talonGameObject = talonScript.GetGameObject();
                     if (talonGameObject != null)
                     {
-                        Material colorMaterial = MaterialResourceLoader.Paint.LoadPaintMaterialResource(
+                        Material colorMaterial = MaterialResourceLoader.Color.LoadColorMaterialResource(
                             talonPaintSchemeReport.GetPrimaryPaintColorId());
                         if (colorMaterial != null)
                         {
@@ -117,7 +117,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Talons
             {
                 throw new ArgumentException("Unable to PaintTalonObject. Invalid Parameters." +
                     "\n\t>" + typeof(ITalonObject) + " is null: " + (talonObject == null) +
-                    "\n\t>" + typeof(IPaintSchemeReport) + " is null: " + (talonPaintSchemeReport == null));
+                    "\n\t>" + typeof(IColorSchemeReport) + " is null: " + (talonPaintSchemeReport == null));
             }
         }
 

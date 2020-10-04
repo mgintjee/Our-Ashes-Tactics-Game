@@ -5,7 +5,7 @@
 
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.HexTiles;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Maps.Game;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Maps.Game
@@ -47,8 +47,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Maps.Game
         public override string ToString()
         {
             return this.GetType().Name + ":" +
-                "\n\t>Set: " + typeof(IHexTileInformationReport) + "=[" +
-                string.Join("\n\t\t>", this.hexTileInformationReportSet) +
+                "\n\t>Set: " + typeof(IHexTileInformationReport).Name + "=[" +
+                "\n\t\t>" + string.Join("\n\t\t>", this.hexTileInformationReportSet) +
                 "\n]";
         }
 

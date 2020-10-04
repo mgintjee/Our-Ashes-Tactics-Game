@@ -4,13 +4,13 @@
 */
 
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Coordinates;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Coordinates.Cube;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Coordinates
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates
 {
     public static class CubeCoordinatesCommonUtil
     {

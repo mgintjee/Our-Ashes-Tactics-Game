@@ -3,12 +3,12 @@
 * Author: Matthew Gintjee
 */
 
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Unity;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Scripts.Unity;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Finders
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Finders
 {
     public class FinderUtilScript
     : UnityScript

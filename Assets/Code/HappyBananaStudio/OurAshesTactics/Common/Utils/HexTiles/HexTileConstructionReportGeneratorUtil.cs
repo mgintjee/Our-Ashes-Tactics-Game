@@ -8,14 +8,14 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.HexTiles;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Maps.Game;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Builders;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.HexTiles;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Coordinates;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.RandomNumberGenerators;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.RandomNumberGenerators;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.HexTiles
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.HexTiles
 {
     /// <summary>
     /// Todo

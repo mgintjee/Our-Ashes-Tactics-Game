@@ -6,9 +6,9 @@
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Weapons.Objects;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Weapons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Loggers;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Unity;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Scripts.Unity;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Weapons;
 using System.Diagnostics;
 

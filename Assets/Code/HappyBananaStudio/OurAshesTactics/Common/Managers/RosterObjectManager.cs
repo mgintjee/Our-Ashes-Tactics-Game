@@ -4,10 +4,11 @@
 */
 
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Rosters;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Talons.Objects;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Rosters;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -103,6 +104,25 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Managers
             if (rosterObject != null)
             {
                 return rosterObject.GetRosterInformationReport();
+            }
+            else
+            {
+                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IRosterObject));
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="talonIdentificationReport">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static ITalonObject GetTalonObjectFrom(ITalonIdentificationReport talonIdentificationReport)
+        {
+            if (rosterObject != null)
+            {
+                return rosterObject.GetTalonObject(talonIdentificationReport);
             }
             else
             {

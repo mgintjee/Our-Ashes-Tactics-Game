@@ -4,7 +4,7 @@
 */
 
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Talons;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Attributes.Talons
@@ -78,12 +78,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Attributes.Talons
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         public override string ToString()
         {
-            return this.GetType().Name + ":" +
-            "\n\t>armorPoints = " + this.GetArmorPoints() +
-            "\n\t>healthPoints = " + this.GetHealthPoints();
+            return this.GetType().Name + ": armorPoints = " + this.GetArmorPoints() +
+                ", healthPoints = " + this.GetHealthPoints();
         }
 
         /// <summary>

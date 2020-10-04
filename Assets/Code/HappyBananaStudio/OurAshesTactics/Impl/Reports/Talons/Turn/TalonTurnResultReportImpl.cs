@@ -4,8 +4,9 @@
 */
 
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Action;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Combat;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Turn;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Turn
@@ -20,6 +21,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Turn
         private readonly ITalonActionResultReport talonActionResultReport;
 
         // Todo
+        private readonly ITalonCombatResultReport talonCombatResultReport;
+
+        // Todo
         private readonly ITalonTurnInformationReport talonTurnInformationReport;
 
         /// <summary>
@@ -30,9 +34,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Turn
         /// <param name="talonTurnInformationReport">
         /// </param>
         private TalonTurnResultReportImpl(ITalonActionResultReport talonActionResultReport,
-            ITalonTurnInformationReport talonTurnInformationReport)
+            ITalonCombatResultReport talonCombatResultReport, ITalonTurnInformationReport talonTurnInformationReport)
         {
             this.talonActionResultReport = talonActionResultReport;
+            this.talonCombatResultReport = talonCombatResultReport;
             this.talonTurnInformationReport = talonTurnInformationReport;
         }
 
@@ -44,6 +49,16 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Turn
         public ITalonActionResultReport GetTalonActionResultReport()
         {
             return this.talonActionResultReport;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        public ITalonCombatResultReport GetTalonCombatResultReport()
+        {
+            return this.talonCombatResultReport;
         }
 
         /// <summary>
@@ -64,8 +79,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Turn
         public override string ToString()
         {
             return this.GetType().Name + ":" +
+                "\n\t>" + this.GetTalonTurnInformationReport() +
                 "\n\t>" + this.GetTalonActionResultReport() +
-                "\n\t>" + this.GetTalonTurnInformationReport();
+                ((this.GetTalonCombatResultReport() != null)
+                ? "\n\t>" + this.GetTalonCombatResultReport().ToString()
+                : "");
         }
 
         /// <summary>
@@ -75,6 +93,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Turn
         {
             // Todo
             private ITalonActionResultReport talonActionResultReport = null;
+
+            // Todo
+            private ITalonCombatResultReport talonCombatResultReport = null;
 
             // Todo
             private ITalonTurnInformationReport talonTurnInformationReport = null;
@@ -92,7 +113,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Turn
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new Report
-                    return new TalonTurnResultReportImpl(this.talonActionResultReport, this.talonTurnInformationReport);
+                    return new TalonTurnResultReportImpl(this.talonActionResultReport, this.talonCombatResultReport, this.talonTurnInformationReport);
                 }
                 else
                 {
@@ -113,6 +134,21 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Turn
             public Builder SetTalonActionResultReport(ITalonActionResultReport talonActionResultReport)
             {
                 this.talonActionResultReport = talonActionResultReport;
+                return this;
+            }
+
+            /// <summary>
+            /// Set the value of the ITalonCombatResultReport
+            /// </summary>
+            /// <param name="talonCombatResultReport">
+            /// The ITalonCombatResultReport to set
+            /// </param>
+            /// <returns>
+            /// The Builder to continue building with
+            /// </returns>
+            public Builder SetTalonCombatResultReport(ITalonCombatResultReport talonCombatResultReport)
+            {
+                this.talonCombatResultReport = talonCombatResultReport;
                 return this;
             }
 

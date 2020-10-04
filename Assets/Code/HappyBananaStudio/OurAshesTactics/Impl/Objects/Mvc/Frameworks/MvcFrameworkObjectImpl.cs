@@ -12,9 +12,11 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Action;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Turn;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Mvc.Frameworks;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.LineRenderers;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Enums;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Loggers;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Managers;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.LineRenderers;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -112,10 +114,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Framewo
                                 // Use the LineRenderer to draw the path
                                 LineRendererUtil.DrawPath(talonActionOrderReport.GetPathObject());
                                 // Input the Action to the Model
-                                ITalonTurnResultReport talonTurnResultReport = this.mvcModelObject.InputTalonActionOrderReport( talonActionOrderReport);
-                                logger.Debug("?", talonTurnResultReport);
+                                ITalonTurnResultReport talonTurnResultReport = this.mvcModelObject.InputTalonActionOrderReport(talonActionOrderReport);
+                                logger.Info("?", talonTurnResultReport);
                                 // Cache the TalonTurnResult
                                 this.talonTurnReportList.Add(talonTurnResultReport);
+                                logger.Info("?", GameMapObjectManager.GetGameMapInformationReport());
                             }
                             else
                             {
@@ -206,6 +209,30 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Framewo
             if (!this.isGameActive)
             {
                 LineRendererUtil.ErasePath();
+                foreach (ITalonTurnResultReport talonTurnResultReport in this.talonTurnReportList)
+                {
+                    int wait = 0;
+                    int move = 0;
+                    int fire = 0;
+                    foreach (ITalonActionOrderReport talonActionOrderReport in talonTurnResultReport.GetTalonTurnInformationReport().GetPossibleTalonActionOrderReportSet())
+                    {
+                        switch (talonActionOrderReport.GetActionType())
+                        {
+                            case ActionTypeEnum.Wait:
+                                wait++;
+                                break;
+
+                            case ActionTypeEnum.Fire:
+                                fire++;
+                                break;
+
+                            case ActionTypeEnum.Move:
+                                move++;
+                                break;
+                        }
+                    }
+                    logger.Debug("Wait=?, Move=?, Fire=?\n?", wait, move, fire, talonTurnResultReport);
+                }
             }
 
             return this.isGameActive;

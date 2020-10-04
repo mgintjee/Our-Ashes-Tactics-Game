@@ -12,9 +12,9 @@ using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Mvc.Views;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Mvc.Controllers;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Mvc.Models;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Constants.Mvc.Views;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.RandomNumberGenerators;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Unity;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Scripts.Unity;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.RandomNumberGenerators;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Frameworks;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Mvc.Controllers;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Mvc.Model;
@@ -59,13 +59,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Scripts.Mvc.Framewo
             // Check if the game is active
             if (this.isGameActive)
             {
-                // Determine if the game should continue
-                this.isGameActive = this.GetMvcFrameworkObject().ContinueGame();
-                // Todo: Game is over. Do something
-                if (!this.isGameActive)
+                // Check if the Model is currently animating an action
+                if (!this.mvcModelScript.IsAnimating())
                 {
-                    logger.Info("Game Is Over!!!");
-                    Time.timeScale = 0;
+                    // Determine if the game should continue
+                    this.isGameActive = this.GetMvcFrameworkObject().ContinueGame();
+                    // Todo: Game is over. Do something
+                    if (!this.isGameActive)
+                    {
+                        logger.Info("Game Is Over!!!");
+                        Time.timeScale = 0;
+                    }
                 }
             }
             else

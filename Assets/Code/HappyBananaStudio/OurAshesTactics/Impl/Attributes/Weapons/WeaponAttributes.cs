@@ -4,7 +4,7 @@
 */
 
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Attributes.Weapons;
-using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Attributes.Weapons
@@ -155,16 +155,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Impl.Attributes.Weapons
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         public override string ToString()
         {
             return this.GetType().Name + ":" +
-            "\n\t>accuracyPoints = " + this.GetAccuracyPoints() +
-            "\n\t>damagePoints = " + this.GetDamagePoints() +
-            "\n\t>numberOfShots = " + this.GetNumberOfShots() +
-            "\n\t>penetrationPoints = " + this.GetPenetrationPoints() +
-            "\n\t>rangePoints = " + this.GetRangePoints() +
-            "\n\t>rangeProximityPoints = "+this.GetRangeProximityPoints();
+                " accuracyPoints = " + this.GetAccuracyPoints() +
+                ", damagePoints = " + this.GetDamagePoints() +
+                ", numberOfShots = " + this.GetNumberOfShots() +
+                ", penetrationPoints = " + this.GetPenetrationPoints() +
+                ", rangePoints = " + this.GetRangePoints() +
+                ", rangeProximityPoints = " + this.GetRangeProximityPoints();
         }
 
         /// <summary>

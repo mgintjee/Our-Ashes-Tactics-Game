@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Finders
+namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Common.Utils.Finders
 {
     public class FinderUtil
     {

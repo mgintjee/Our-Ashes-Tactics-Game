@@ -6,6 +6,7 @@
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Objects.Mvc.Models;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Maps.Game;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Rosters;
+using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Reports.Talons.Action;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Mvc.Frameworks;
 using Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Unity;
 
@@ -17,6 +18,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Mvc.Models
     public interface IMvcModelScript
         : IUnityScript
     {
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="talonActionOrderReport">
+        /// </param>
+        void AnimatePath(ITalonActionOrderReport talonActionOrderReport);
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -36,6 +44,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshesTactics.Api.Scripts.Mvc.Models
         void Initialize(IMvcFrameworkScript mvcFrameworkScript,
             IGameMapConstructionReport mapConstructionReport,
             IRosterConstructionReport rosterConstructionReport);
+
+        /// <summary>
+        /// /Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        bool IsAnimating();
 
         /// <summary>
         /// Todo
