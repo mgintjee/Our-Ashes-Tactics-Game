@@ -1,0 +1,174 @@
+﻿/// <summary>
+/// Company: HappyBananaStudio
+/// Author: Matthew Gintjee
+/// </summary>
+/*
+* HappyBananaStudio
+* Author: Matthew Gintjee
+*/
+
+using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Customization;
+using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Enums;
+using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Schemes.Enums;
+using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+using HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Customization;
+using System.Collections.Generic;
+using System.Diagnostics;
+
+namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Schemes
+{
+    /// <summary>
+    /// Todo
+    /// </summary>
+    public static class FactionSchemeConstants
+    {
+        // Todo
+        private static readonly IDictionary<FactionIdEnum, IColorSchemeReport> factionIdColorSchemeReportDictionary =
+                new Dictionary<FactionIdEnum, IColorSchemeReport>();
+
+        // Todo
+        private static readonly IDictionary<FactionIdEnum, IEmblemSchemeReport> factionIdEmblemSchemeReportDictionary =
+                new Dictionary<FactionIdEnum, IEmblemSchemeReport>();
+
+        // Todo
+        private static readonly ISet<FactionIdEnum> supportedFactionIdSet = new HashSet<FactionIdEnum>()
+        {
+            FactionIdEnum.CreativeFaction1, FactionIdEnum.CreativeFaction2,
+            FactionIdEnum.CreativeFaction3, FactionIdEnum.CreativeFaction4
+        };
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="factionId">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static IColorSchemeReport GetFactionColorSchemeReport(FactionIdEnum factionId)
+        {
+            if (supportedFactionIdSet.Contains(factionId))
+            {
+                if (!factionIdColorSchemeReportDictionary.ContainsKey(factionId))
+                {
+                    factionIdColorSchemeReportDictionary.Add(factionId, BuildColorSchemeReport(factionId));
+                }
+                return factionIdColorSchemeReportDictionary[factionId];
+            }
+            else
+            {
+                throw ArgumentExceptionUtil.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+                    new StackFrame().GetMethod().Name, factionId);
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="factionId">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static IEmblemSchemeReport GetFactionEmblemSchemeReport(FactionIdEnum factionId)
+        {
+            if (supportedFactionIdSet.Contains(factionId))
+            {
+                if (!factionIdEmblemSchemeReportDictionary.ContainsKey(factionId))
+                {
+                    factionIdEmblemSchemeReportDictionary.Add(factionId, BuildEmblemSchemeReport(factionId));
+                }
+                return factionIdEmblemSchemeReportDictionary[factionId];
+            }
+            else
+            {
+                throw ArgumentExceptionUtil.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+                    new StackFrame().GetMethod().Name, factionId);
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="factionId">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        private static IColorSchemeReport BuildColorSchemeReport(FactionIdEnum factionId)
+        {
+            switch (factionId)
+            {
+                case FactionIdEnum.CreativeFaction1:
+                    return new ColorSchemeReportImpl.Builder()
+                            .SetPrimaryColorId(ColorIdEnum.Purple)
+                            .SetSecondaryColorId(ColorIdEnum.Orange)
+                            .SetTertiaryColorId(ColorIdEnum.Navy)
+                            .Build();
+
+                case FactionIdEnum.CreativeFaction2:
+                    return new ColorSchemeReportImpl.Builder()
+                            .SetPrimaryColorId(ColorIdEnum.Purple)
+                            .SetSecondaryColorId(ColorIdEnum.Orange)
+                            .SetTertiaryColorId(ColorIdEnum.Navy)
+                            .Build();
+
+                case FactionIdEnum.CreativeFaction3:
+                    return new ColorSchemeReportImpl.Builder()
+                            .SetPrimaryColorId(ColorIdEnum.Purple)
+                            .SetSecondaryColorId(ColorIdEnum.Orange)
+                            .SetTertiaryColorId(ColorIdEnum.Navy)
+                            .Build();
+
+                case FactionIdEnum.CreativeFaction4:
+                    return new ColorSchemeReportImpl.Builder()
+                            .SetPrimaryColorId(ColorIdEnum.Purple)
+                            .SetSecondaryColorId(ColorIdEnum.Orange)
+                            .SetTertiaryColorId(ColorIdEnum.Navy)
+                            .Build();
+
+                default:
+                    throw ArgumentExceptionUtil.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+                        new StackFrame().GetMethod().Name, factionId);
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="factionId">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        private static IEmblemSchemeReport BuildEmblemSchemeReport(FactionIdEnum factionId)
+        {
+            switch (factionId)
+            {
+                case FactionIdEnum.CreativeFaction1:
+                    return new EmblemSchemeReportImpl.Builder()
+                                .SetEmblemBackgroundId(EmblemBackgroundIdEnum.Circle)
+                                .SetEmblemIconId(EmblemIconIdEnum.Heart)
+                            .Build();
+
+                case FactionIdEnum.CreativeFaction2:
+                    return new EmblemSchemeReportImpl.Builder()
+                                .SetEmblemBackgroundId(EmblemBackgroundIdEnum.Circle)
+                                .SetEmblemIconId(EmblemIconIdEnum.Heart)
+                            .Build();
+
+                case FactionIdEnum.CreativeFaction3:
+                    return new EmblemSchemeReportImpl.Builder()
+                                .SetEmblemBackgroundId(EmblemBackgroundIdEnum.Circle)
+                                .SetEmblemIconId(EmblemIconIdEnum.Heart)
+                            .Build();
+
+                case FactionIdEnum.CreativeFaction4:
+                    return new EmblemSchemeReportImpl.Builder()
+                                .SetEmblemBackgroundId(EmblemBackgroundIdEnum.Circle)
+                                .SetEmblemIconId(EmblemIconIdEnum.Heart)
+                            .Build();
+
+                default:
+                    throw ArgumentExceptionUtil.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+                        new StackFrame().GetMethod().Name, factionId);
+            }
+        }
+    }
+}
