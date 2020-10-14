@@ -1,8 +1,8 @@
 ﻿
-namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Weapons
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Reports
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Weapons.Reports;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
     using System.Collections.Generic;
 
     /// <summary>

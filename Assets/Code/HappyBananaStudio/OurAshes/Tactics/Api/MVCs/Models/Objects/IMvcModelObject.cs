@@ -2,8 +2,8 @@
 
 namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Models.Objects
 {
+    using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.GameActions.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Models.Reports;
-    using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Turns;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Turn;

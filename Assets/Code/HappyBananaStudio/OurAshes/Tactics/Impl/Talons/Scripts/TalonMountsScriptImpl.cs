@@ -1,10 +1,10 @@
 ﻿
-namespace HappyBananaStudio.OurAshesTactics.Impl.Scripts.Talons
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Scripts
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
-    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Script;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Scripts;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
-    using HappyBananaStudio.OurAshesTactics.Common.Scripts.Unity;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Unity.Scripts;
     using System.Collections.Generic;
     using System.Diagnostics;
     using UnityEngine;

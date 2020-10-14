@@ -13,11 +13,11 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
     using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Hoplites.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Attributes;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Enums;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Paths.Finder;
-    using HappyBananaStudio.OurAshesTactics.Impl.Attributes.Talons;
-    using HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action;
-    using HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Attributes;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Utilities;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Paths.Finder;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Attributes;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Orders;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Attributes;
     using System.Collections.Generic;
 
     /// <summary>
@@ -117,12 +117,14 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="actionCost"></param>
-        /// <param name="moveCost"></param>
+        /// <param name="actionCost">
+        /// </param>
+        /// <param name="moveCost">
+        /// </param>
         void IMovableObject.InputActionCosts(int actionCost, int moveCost)
         {
-            this.movePoints -= moveCost;
             this.actionPoints -= actionCost;
+            this.movePoints -= moveCost;
         }
     }
 }

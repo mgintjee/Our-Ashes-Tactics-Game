@@ -1,13 +1,10 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
+﻿
 
-namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Faction
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.Rosters.Reports
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Reports;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Enums;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Factions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
     using System.Collections.Generic;
 
     /// <summary>

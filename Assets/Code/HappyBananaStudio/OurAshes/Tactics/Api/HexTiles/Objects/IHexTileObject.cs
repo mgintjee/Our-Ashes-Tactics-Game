@@ -1,12 +1,4 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
+﻿
 namespace HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Reports;

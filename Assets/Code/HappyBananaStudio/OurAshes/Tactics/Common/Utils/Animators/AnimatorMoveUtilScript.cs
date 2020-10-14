@@ -1,13 +1,6 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
+﻿
 
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Animators
+namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Animators
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;

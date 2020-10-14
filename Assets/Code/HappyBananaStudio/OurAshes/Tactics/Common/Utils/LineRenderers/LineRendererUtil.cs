@@ -1,29 +1,21 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
-using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
-using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
-using HappyBananaStudio.OurAshes.Tactics.Api.Paths.Objects;
-using HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles;
-using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Enums;
-using HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects;
-using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
-using HappyBananaStudio.OurAshesTactics.Common.ResourceLoaders;
-using HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Objects.Fire;
-using HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Objects.Move;
-using HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Objects.Wait;
-using System.Collections.Generic;
-using System.Diagnostics;
-using UnityEngine;
-
-namespace HappyBananaStudio.OurAshesTactics.Common.Utils.LineRenderers
+﻿
+namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.LineRenderers
 {
+    using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Paths.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects;
+    using HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Objects.Fire;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Objects.Move;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Objects.Wait;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using UnityEngine;
+
     /// <summary>
     /// Todo
     /// </summary>

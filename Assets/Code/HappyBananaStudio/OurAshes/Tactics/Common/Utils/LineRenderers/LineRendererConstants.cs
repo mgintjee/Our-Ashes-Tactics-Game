@@ -1,13 +1,5 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
-namespace HappyBananaStudio.OurAshesTactics.Common.Utils.LineRenderers
+﻿
+namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.LineRenderers
 {
     /// <summary>
     /// Todo

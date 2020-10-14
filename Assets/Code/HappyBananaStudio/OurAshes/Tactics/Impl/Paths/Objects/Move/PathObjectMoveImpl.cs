@@ -1,9 +1,6 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
+﻿
 
-namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Objects.Move
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Objects.Move
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Objects;
@@ -12,7 +9,7 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Objects.Move
     using HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
-    using HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Objects.Abs;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Objects.Abs;
     using System.Collections.Generic;
     using System.Diagnostics;
 

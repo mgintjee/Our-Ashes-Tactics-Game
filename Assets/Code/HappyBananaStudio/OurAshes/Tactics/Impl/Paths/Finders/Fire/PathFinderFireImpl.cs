@@ -1,30 +1,23 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
+﻿
 
-using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
-using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Objects;
-using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Reports;
-using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
-using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
-using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
-using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
-using HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates;
-using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
-using HappyBananaStudio.OurAshesTactics.Impl.Objects.Coordinates.Cube;
-using HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finders.Abs;
-using HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Objects.Fire;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-
-namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finders.Fire
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Finders.Fire
 {
+    using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
+    using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Reports;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Coordinates.Objects.Cube;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Finders.Abs;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Objects.Fire;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+
     /// <summary>
     /// Todo
     /// </summary>
@@ -34,14 +27,18 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finders.Fire
         // Provide logging capability
         private static readonly ICodeLogger logger = new CodeLoggerImpl(new StackFrame().GetMethod().DeclaringType);
 
+        // Todo
+        private readonly int maxRange = int.MinValue;
+
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="cubeCoordinatesStart">
         /// </param>
-        public PathFinderFireImpl(ICubeCoordinates cubeCoordinatesStart)
+        public PathFinderFireImpl(ICubeCoordinates cubeCoordinatesStart, int maxRange)
             : base(cubeCoordinatesStart)
         {
+            this.maxRange = maxRange;
         }
 
         /// <summary>
@@ -75,7 +72,10 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finders.Fire
             foreach (ICubeCoordinates cubeCoordinates in validCubeCoordinatesEndSet)
             {
                 IList<ICubeCoordinates> straightLinePath = this.PathFindFor(this.cubeCoordinatesStart, cubeCoordinates);
-                this.pathObjectDictionary[cubeCoordinates] = new PathObjectFireImpl(straightLinePath);
+                if (straightLinePath.Count <= this.maxRange)
+                {
+                    this.pathObjectDictionary[cubeCoordinates] = new PathObjectFireImpl(straightLinePath);
+                }
             }
         }
 

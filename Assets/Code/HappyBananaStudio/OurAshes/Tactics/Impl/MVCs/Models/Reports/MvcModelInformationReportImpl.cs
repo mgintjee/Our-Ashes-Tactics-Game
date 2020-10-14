@@ -1,14 +1,11 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
+﻿
 
-namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Mvc.Models
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Models.Reports
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Maps.Games.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Models.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Reports;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
     using System.Collections.Generic;
 
     /// <summary>

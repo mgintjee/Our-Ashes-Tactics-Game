@@ -1,13 +1,6 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
+﻿
 
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Weapons.Enums
+namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.Weapons
 {
     /// <summary>
     /// Todo

@@ -1,20 +1,13 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
+﻿
 
-using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
-using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Offset;
-using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Coordinates.Enums;
-using HappyBananaStudio.OurAshesTactics.Impl.Objects.Coordinates.Cube;
-using HappyBananaStudio.OurAshesTactics.Impl.Objects.Coordinates.Offset;
-
-namespace HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates
+namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates
 {
+    using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Offset;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Coordinates;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Coordinates.Objects.Cube;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Coordinates.Objects.Offset;
+
     /// <summary>
     /// Todo
     /// </summary>
@@ -93,6 +86,11 @@ namespace HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates
             return cubeCoordinates;
         }
 
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="cubeCoordinates"></param>
+        /// <returns></returns>
         private static IOffsetCoordinates CubeToEvenq(ICubeCoordinates cubeCoordinates)
         {
             int col = cubeCoordinates.GetX();
@@ -100,6 +98,11 @@ namespace HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates
             return new OffsetCoordinatesImpl(col, row, OffsetCoordinateTypeEnum.EVEN_Q);
         }
 
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="cubeCoordinates"></param>
+        /// <returns></returns>
         private static IOffsetCoordinates CubeToEvenr(ICubeCoordinates cubeCoordinates)
         {
             int col = cubeCoordinates.GetX() + (cubeCoordinates.GetZ() + (cubeCoordinates.GetZ() & 1)) / 2;
@@ -107,6 +110,11 @@ namespace HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates
             return new OffsetCoordinatesImpl(col, row, OffsetCoordinateTypeEnum.EVEN_R);
         }
 
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="cubeCoordinates"></param>
+        /// <returns></returns>
         private static IOffsetCoordinates CubeToOddq(ICubeCoordinates cubeCoordinates)
         {
             int col = cubeCoordinates.GetX();
@@ -114,6 +122,11 @@ namespace HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates
             return new OffsetCoordinatesImpl(col, row, OffsetCoordinateTypeEnum.ODD_Q);
         }
 
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="cubeCoordinates"></param>
+        /// <returns></returns>
         private static IOffsetCoordinates CubeToOddr(ICubeCoordinates cubeCoordinates)
         {
             int col = cubeCoordinates.GetX() + (cubeCoordinates.GetZ() - (cubeCoordinates.GetZ() & 1)) / 2;
@@ -121,6 +134,12 @@ namespace HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates
             return new OffsetCoordinatesImpl(col, row, OffsetCoordinateTypeEnum.ODD_R);
         }
 
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="col"></param>
+        /// <param name="row"></param>
+        /// <returns></returns>
         private static ICubeCoordinates EvenqToCube(int col, int row)
         {
             int x = row;
@@ -129,6 +148,12 @@ namespace HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates
             return new CubeCoordinatesImpl(x, y, z);
         }
 
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="col"></param>
+        /// <param name="row"></param>
+        /// <returns></returns>
         private static ICubeCoordinates EvenrToCube(int col, int row)
         {
             int x = col - (row + (row & 1)) / 2;
@@ -137,6 +162,12 @@ namespace HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates
             return new CubeCoordinatesImpl(x, y, z);
         }
 
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="col"></param>
+        /// <param name="row"></param>
+        /// <returns></returns>
         private static ICubeCoordinates OddqToCube(int col, int row)
         {
             int x = row;
@@ -145,6 +176,12 @@ namespace HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates
             return new CubeCoordinatesImpl(x, y, z);
         }
 
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="col"></param>
+        /// <param name="row"></param>
+        /// <returns></returns>
         private static ICubeCoordinates OddrToCube(int col, int row)
         {
             int x = col - (row - (row & 1)) / 2;

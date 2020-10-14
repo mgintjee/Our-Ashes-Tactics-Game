@@ -13,16 +13,16 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
     using HappyBananaStudio.OurAshes.Tactics.Api.Weapons.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Hoplites.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Attributes;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Enums;
     using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Weapons.Attributes;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Weapons.Enums;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Utilities;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Weapons;
     using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Paths.Finder;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Orders;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Utilities.Reports;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Paths.Finder;
-    using HappyBananaStudio.OurAshesTactics.Impl.Attributes.Weapons;
-    using HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action;
-    using HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Attributes;
-    using HappyBananaStudio.OurAshesTactics.Impl.Reports.Weapons;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Attributes;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Reports;
     using System.Collections.Generic;
 
     /// <summary>
@@ -39,6 +39,8 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
 
         // Todo
         private readonly IList<IWeaponInformationReport> weaponInformationReportList;
+
+        private readonly int maxRange = int.MinValue;
 
         /// <summary>
         /// Todo
@@ -86,16 +88,19 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
             {
                 if (!weaponModelId.Equals(WeaponModelIdEnum.None))
                 {
-                    this.weaponInformationReportList.Add(
-                        new WeaponInformationReportImpl.Builder()
+                    IWeaponInformationReport weaponInformationReport = new WeaponInformationReportImpl.Builder()
                             .SetWeaponAttributes(new WeaponAttributesImpl.Builder()
                                 .SetWeaponAttributesCollection(new HashSet<IWeaponAttributes>()
                                     { weaponAttributes, WeaponAttributesConstants.GetAttributes(weaponModelId) })
                                 .Build()
                                 )
                             .SetWeaponModelId(weaponModelId)
-                            .Build()
-                        );
+                            .Build();
+                    if (weaponInformationReport.GetWeaponAttributes().GetMaxRangePoints() > this.maxRange)
+                    {
+                        this.maxRange = weaponInformationReport.GetWeaponAttributes().GetMaxRangePoints();
+                    }
+                    this.weaponInformationReportList.Add(weaponInformationReport);
                 }
                 else
                 {
@@ -126,7 +131,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
         {
             ISet<ITalonActionOrderFireReport> talonActionOrderReportSet = new HashSet<ITalonActionOrderFireReport>();
             IDictionary<ICubeCoordinates, IPathObject> cubeCoordinatesPathObjectDictionary = PathFinderFireUtil
-                .BeginPathfindingFor(cubeCoordinates);
+                .BeginPathfindingFor(cubeCoordinates, this.maxRange);
 
             foreach (ICubeCoordinates pathCubeCoordinates in cubeCoordinatesPathObjectDictionary.Keys)
             {

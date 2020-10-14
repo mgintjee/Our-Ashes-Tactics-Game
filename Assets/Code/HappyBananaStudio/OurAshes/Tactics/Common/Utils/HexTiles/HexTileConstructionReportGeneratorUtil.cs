@@ -1,26 +1,19 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
+﻿
 
-using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
-using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Reports;
-using HappyBananaStudio.OurAshes.Tactics.Api.Maps.Games.Reports;
-using HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles;
-using HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles.Enums;
-using HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates;
-using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
-using HappyBananaStudio.OurAshesTactics.Common.Utils.RandomNumberGenerators;
-using HappyBananaStudio.OurAshesTactics.Impl.Reports.HexTiles;
-using System.Collections.Generic;
-using System.Diagnostics;
-
-namespace HappyBananaStudio.OurAshesTactics.Common.Utils.HexTiles
+namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.HexTiles
 {
+    using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
+    using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Reports;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Maps.Games.Reports;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.HexTiles;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.RandomNumberGenerators;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.HexTiles.Reports;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+
     /// <summary>
     /// Todo
     /// </summary>
@@ -32,15 +25,11 @@ namespace HappyBananaStudio.OurAshesTactics.Common.Utils.HexTiles
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="cubeCoordinatesSet">
-        /// </param>
-        /// <param name="isMapMirrored">
-        /// </param>
-        /// <param name="mapRadius">
+        /// <param name="gameMapConstructionReport">
         /// </param>
         /// <returns>
         /// </returns>
-        public static ISet<IHexTileConstructionReport> GenerateHexTileInformationReportSet(
+        public static ISet<IHexTileConstructionReport> GenerateHexTileConstructionReportSet(
             IGameMapConstructionReport gameMapConstructionReport)
         {
             // Set if the mapIsMirrored

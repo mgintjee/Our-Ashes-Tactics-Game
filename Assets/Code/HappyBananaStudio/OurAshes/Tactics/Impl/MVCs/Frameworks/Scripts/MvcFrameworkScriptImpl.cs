@@ -1,26 +1,19 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
+﻿
 
-using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
-using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Objects;
-using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Scripts;
-using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Initializers.Reports;
-using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
-using HappyBananaStudio.OurAshesTactics.Common.Scripts.Unity;
-using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
-using HappyBananaStudio.OurAshesTactics.Common.Utils.RandomNumberGenerators;
-using HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Frameworks;
-using System.Diagnostics;
-using UnityEngine;
-
-namespace HappyBananaStudio.OurAshesTactics.Impl.Scripts.Mvc.Frameworks
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Frameworks.Scripts
 {
+    using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
+    using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Scripts;
+    using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Initializers.Reports;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.RandomNumberGenerators;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Frameworks.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Unity.Scripts;
+    using System.Diagnostics;
+    using UnityEngine;
+
     /// <summary>
     /// MvcFramework Script Api
     /// </summary>

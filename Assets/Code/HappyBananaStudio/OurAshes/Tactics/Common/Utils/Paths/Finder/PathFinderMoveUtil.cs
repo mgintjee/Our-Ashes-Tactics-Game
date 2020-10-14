@@ -1,15 +1,12 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
+﻿
 
-namespace HappyBananaStudio.OurAshesTactics.Common.Utils.Paths.Finder
+namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Paths.Finder
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Api.Paths.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
-    using HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finders.Move;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Finders.Move;
     using System.Collections.Generic;
     using System.Diagnostics;
 

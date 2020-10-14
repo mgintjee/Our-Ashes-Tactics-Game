@@ -1,21 +1,13 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
-using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
-using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
-using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
-using HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Objects.Abs;
-using System.Collections.Generic;
-using System.Diagnostics;
-
-namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Objects.Wait
+﻿
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Objects.Wait
 {
+    using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Objects.Abs;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+
     /// <summary>
     /// Todo
     /// </summary>

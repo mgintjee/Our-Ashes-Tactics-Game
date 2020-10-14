@@ -1,15 +1,7 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
+﻿
 namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles
 {
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles.Enums;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.HexTiles;
     using System.Collections.Generic;
 
     /// <summary>

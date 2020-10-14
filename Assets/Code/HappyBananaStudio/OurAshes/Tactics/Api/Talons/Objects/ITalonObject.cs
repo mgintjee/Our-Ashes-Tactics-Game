@@ -46,15 +46,19 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="talonActionOrderReport"></param>
-        /// <returns></returns>
+        /// <param name="talonActionOrderReport">
+        /// </param>
+        /// <returns>
+        /// </returns>
         ITalonActionResultReport InputAction(ITalonActionOrderReport talonActionOrderReport);
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="armorCost"></param>
-        /// <param name="healthCost"></param>
+        /// <param name="armorCost">
+        /// </param>
+        /// <param name="healthCost">
+        /// </param>
         void InputDamage(int armorCost, int healthCost);
     }
 }

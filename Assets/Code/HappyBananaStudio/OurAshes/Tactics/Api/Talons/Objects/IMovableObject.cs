@@ -33,8 +33,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="actionCost"></param>
-        /// <param name="moveCost"></param>
+        /// <param name="actionCost">
+        /// </param>
+        /// <param name="moveCost">
+        /// </param>
         void InputActionCosts(int actionCost, int moveCost);
     }
 }

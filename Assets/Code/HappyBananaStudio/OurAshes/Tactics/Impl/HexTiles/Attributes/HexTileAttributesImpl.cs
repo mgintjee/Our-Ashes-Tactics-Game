@@ -1,18 +1,11 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
+﻿
 
-using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Attributes;
-using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
-using System.Collections.Generic;
-
-namespace HappyBananaStudio.OurAshesTactics.Impl.Attributes.HexTiles
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.HexTiles.Attributes
 {
+    using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Attributes;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
+    using System.Collections.Generic;
+
     /// <summary>
     /// Todo
     /// </summary>

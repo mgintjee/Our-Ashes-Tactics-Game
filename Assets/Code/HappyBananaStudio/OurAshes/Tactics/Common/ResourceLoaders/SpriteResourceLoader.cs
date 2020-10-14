@@ -1,12 +1,9 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
+﻿
 
-namespace HappyBananaStudio.OurAshesTactics.Common.ResourceLoaders
+namespace HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Schemes.Enums;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Schemes.Emblem;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
     using System.Diagnostics;
     using UnityEngine;

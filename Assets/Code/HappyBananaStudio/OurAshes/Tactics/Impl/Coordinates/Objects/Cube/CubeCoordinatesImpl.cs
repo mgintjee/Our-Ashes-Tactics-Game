@@ -1,12 +1,9 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
+﻿
 
-namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Coordinates.Cube
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.Coordinates.Objects.Cube
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
 
     /// <summary>
     /// Todo

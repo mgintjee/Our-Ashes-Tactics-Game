@@ -1,19 +1,11 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
-using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Controllers.Objects;
-using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Scripts;
-using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Models.Objects;
-using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Views.Objects;
-
+﻿
 namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Objects
 {
+    using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Controllers.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Scripts;
+    using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Models.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Views.Objects;
+
     /// <summary>
     /// MvcFramework Object Api
     /// </summary>

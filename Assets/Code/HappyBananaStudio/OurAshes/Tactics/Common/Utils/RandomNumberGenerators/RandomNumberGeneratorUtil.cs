@@ -1,18 +1,10 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
-using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
-using System;
-using System.Diagnostics;
-
-namespace HappyBananaStudio.OurAshesTactics.Common.Utils.RandomNumberGenerators
+﻿
+namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.RandomNumberGenerators
 {
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
+    using System;
+    using System.Diagnostics;
+
     /// <summary>
     /// Todo
     /// </summary>

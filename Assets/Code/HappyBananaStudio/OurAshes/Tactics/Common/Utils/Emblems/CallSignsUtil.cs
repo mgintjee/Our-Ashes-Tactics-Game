@@ -1,19 +1,7 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
-/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-namespace HappyBananaStudio.OurAshesTactics.Common.Utils.Emblems
+﻿
+namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Emblems
 {
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Enums;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons;
     using System.Collections.Generic;
 
     /// <summary>

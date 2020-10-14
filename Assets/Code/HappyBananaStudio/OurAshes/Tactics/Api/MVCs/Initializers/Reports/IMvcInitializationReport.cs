@@ -1,12 +1,4 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
+﻿
 namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Initializers.Reports
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Maps.Games.Reports;

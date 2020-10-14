@@ -1,8 +1,5 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-namespace HappyBananaStudio.OurAshesTactics.Impl.Scripts.Mvc.Initializers
+﻿
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.Hoplites.Reports;
@@ -14,26 +11,28 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Scripts.Mvc.Initializers
     using HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Construction;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Customization;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Enums;
     using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Schemes;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Hoplites.Enums;
     using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Mvc.Frameworks;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Phalanxes.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Schemes.Enums;
     using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Attributes;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Weapons.Enums;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Factions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Hoplites;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Phalanxes;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Schemes.Color;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Schemes.Emblem;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Utilities;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Weapons;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Hoplites.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
-    using HappyBananaStudio.OurAshesTactics.Common.Scripts.Unity;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates;
-    using HappyBananaStudio.OurAshesTactics.Impl.Reports.Maps.Game;
-    using HappyBananaStudio.OurAshesTactics.Impl.Reports.Mvc.Initializers;
-    using HappyBananaStudio.OurAshesTactics.Impl.Reports.Rosters;
-    using HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons;
-    using HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Customization;
-    using HappyBananaStudio.OurAshesTactics.Impl.Scripts.Mvc.Frameworks;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Maps.Games.Reports;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Frameworks.Scripts;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Reports;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Rosters.Reports;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Constuction;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Information;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Unity.Scripts;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -68,8 +67,6 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Scripts.Mvc.Initializers
                 }
             }
         };
-
-        private readonly int mapRadius = 4;
 
         // Todo
         private readonly System.Random random = new System.Random();

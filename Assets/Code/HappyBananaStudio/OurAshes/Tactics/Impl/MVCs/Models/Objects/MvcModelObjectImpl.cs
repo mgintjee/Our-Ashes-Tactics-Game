@@ -1,19 +1,16 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
+﻿
 
-namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Models
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Models.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Api.Maps.Games.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.GameActions.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Initializers.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Models.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Models.Reports;
-    using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Turns;
     using HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
@@ -21,18 +18,17 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Models
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Turn;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Enums;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Factions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.GameTypes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
     using HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Talons;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Talons;
-    using HappyBananaStudio.OurAshesTactics.Impl.Objects.Maps.Game;
-    using HappyBananaStudio.OurAshesTactics.Impl.Objects.Rosters;
-    using HappyBananaStudio.OurAshesTactics.Impl.Reports.Game;
-    using HappyBananaStudio.OurAshesTactics.Impl.Reports.Mvc.Models;
-    using HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Turn;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Maps.Games.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.GameActions.Reports;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Models.Reports;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Rosters.Objects;
     using System.Collections.Generic;
     using System.Diagnostics;
 
@@ -52,7 +48,7 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Models
         private readonly IRosterObject rosterObject = null;
 
         // Todo
-        private readonly IDictionary<ITalonIdentificationReport, ITalonTurnReport> talonIdentificationActionInformationIDictionary =
+        private readonly IDictionary<ITalonIdentificationReport, ITalonTurnReport> talonIdentificationActionInformationDictionary =
             new Dictionary<ITalonIdentificationReport, ITalonTurnReport>();
 
         // Todo
@@ -186,14 +182,14 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Models
                 if (talonObject != null)
                 {
                     // Check if the TalonActionInformationReport is not currently cached
-                    if (!this.talonIdentificationActionInformationIDictionary.ContainsKey(talonIdentificationReport))
+                    if (!this.talonIdentificationActionInformationDictionary.ContainsKey(talonIdentificationReport))
                     {
                         logger.Debug("Caching ? for ?", typeof(ITalonTurnReport), talonIdentificationReport);
-                        this.talonIdentificationActionInformationIDictionary.Add(
+                        this.talonIdentificationActionInformationDictionary.Add(
                             talonIdentificationReport,
                             talonObject.GetTalonTurnReport());
                     }
-                    return this.talonIdentificationActionInformationIDictionary[talonIdentificationReport];
+                    return this.talonIdentificationActionInformationDictionary[talonIdentificationReport];
                 }
                 else
                 {
@@ -228,8 +224,19 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Models
 
                 if (talonActionOrderReport is ITalonActionOrderFireReport talonActionOrderFireReport)
                 {
-                    talonActionResultReport = TalonCombatManager.GetTalonActionResultReport(talonActionOrderFireReport);
-                    // Check if the target has any health remaining
+                    ITalonActionResultFireReport talonActionResultFireReport = TalonCombatManager
+                        .GetTalonActionResultReport(talonActionOrderFireReport);
+                    if (talonActionResultFireReport.GetTargetTalonAttributesReport()
+                        .GetDestructibleAttributesReport().GetCurrentHealthPoints() <= 0)
+                    {
+                        ITalonIdentificationReport targetTalonIdentificationReport = talonActionOrderFireReport.GetTargetTalonIdentificationReport();
+                        this.rosterObject.GetTalonObject(targetTalonIdentificationReport).SetCubeCoordinates(null);
+                        this.talonIdentificationActionInformationDictionary.Remove(targetTalonIdentificationReport);
+                        this.orderedTalonIdentificationReportList.Remove(targetTalonIdentificationReport);
+                        this.rosterObject.DeactivateTalonIdentificationReport(targetTalonIdentificationReport);
+                        TalonGameObjectManager.DeactivateTalonIdentificationReport(targetTalonIdentificationReport);
+                    }
+                    talonActionResultReport = talonActionResultFireReport;
                 }
 
                 ITalonAttributesReport talonAttributesReport = talonActionResultReport.GetActingTalonAttributesReport();
@@ -240,7 +247,7 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Models
                 }
 
                 this.counterAction++;
-                this.talonIdentificationActionInformationIDictionary.Clear();
+                this.talonIdentificationActionInformationDictionary.Clear();
                 return new GameActionReportImpl.Builder()
                     .SetActionCounter(this.counterAction)
                     .SetPhaseCounter(this.counterPhase)

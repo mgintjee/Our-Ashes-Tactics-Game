@@ -1,28 +1,24 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Frameworks
+﻿
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Frameworks.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Controllers.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Scripts;
+    using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.GameActions.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Initializers.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Models.Objects;
-    using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Turns;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Views.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Turn;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Enums;
     using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.LineRenderers;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.LineRenderers;
-    using HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Controllers;
-    using HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Models;
-    using HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Views;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Controllers.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Models.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Views;
     using System.Collections.Generic;
     using System.Diagnostics;
 

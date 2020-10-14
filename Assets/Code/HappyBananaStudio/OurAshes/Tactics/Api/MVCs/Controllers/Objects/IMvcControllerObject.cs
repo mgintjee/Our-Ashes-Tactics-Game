@@ -1,17 +1,10 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
-using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
-using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Turn;
+﻿
 
 namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Controllers.Objects
 {
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Turn;
+
     /// <summary>
     /// MvcController Object Api
     /// </summary>

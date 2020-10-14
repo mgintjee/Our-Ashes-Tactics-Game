@@ -3,11 +3,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Reports;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles.Enums;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.HexTiles;
     using HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders;
-    using HappyBananaStudio.OurAshesTactics.Common.ResourceLoaders;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
     using System.Collections.Generic;
     using System.Diagnostics;
     using UnityEngine;

@@ -1,9 +1,5 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-
-namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finders.Move
+﻿
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Finders.Move
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Objects;
@@ -11,8 +7,8 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finders.Move
     using HappyBananaStudio.OurAshes.Tactics.Api.Paths.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
-    using HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finders.Abs;
-    using HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Objects.Move;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Finders.Abs;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Objects.Move;
     using System.Collections.Generic;
     using System.Diagnostics;
 
@@ -73,8 +69,6 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finders.Move
             }
 
             this.pathObjectDictionary.Remove(this.cubeCoordinatesStart);
-            logger.Debug("?/? Valid CubeCoordiantes", this.pathObjectDictionary.Count,
-                initialCount);
         }
 
         /// <summary>
@@ -86,7 +80,6 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finders.Move
             ISet<ICubeCoordinates> unvisitedCubeCoordinatesSet = new HashSet<ICubeCoordinates> { this.cubeCoordinatesStart };
             this.pathObjectDictionary[this.cubeCoordinatesStart] = new PathObjectMoveImpl(new List<ICubeCoordinates>()
             { this.cubeCoordinatesStart });
-            logger.Info("MaxDistance = ?", this.pathCostThreshold);
             // Continue iterating until all CubeCoordinates have been visited
             while (unvisitedCubeCoordinatesSet.Count > 0)
             {

@@ -1,8 +1,4 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-
+﻿
 namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Views.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;

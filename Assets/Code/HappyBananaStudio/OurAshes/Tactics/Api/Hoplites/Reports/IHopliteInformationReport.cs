@@ -1,17 +1,9 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
+﻿
 namespace HappyBananaStudio.OurAshes.Tactics.Api.Hoplites.Reports
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Attributes;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Hoplites.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Enums;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Hoplites;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons;
     using System.Collections.Generic;
 
     /// <summary>

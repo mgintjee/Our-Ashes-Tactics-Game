@@ -1,9 +1,6 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
+﻿
 
-namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Controllers
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Controllers.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Hoplites.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
@@ -12,10 +9,10 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Controllers
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Initializers.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Turn;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Enums;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.AIs.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
-    using HappyBananaStudio.OurAshesTactics.Impl.Objects.AIs;
     using System.Diagnostics;
 
     /// <summary>

@@ -4,7 +4,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Results;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Attributes;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
     using System.Collections.Generic;
 
     /// <summary>
@@ -15,31 +15,51 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
     {
         // Todo
         private readonly ITalonActionOrderReport talonActionOrderReport;
+
         // Todo
         private readonly ITalonAttributesReport actingTalonAttributesReport;
+
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="talonActionOrderReport"></param>
-        /// <param name="talonAttributesReport"></param>
+        /// <param name="talonActionOrderReport">
+        /// </param>
+        /// <param name="talonAttributesReport">
+        /// </param>
         private TalonActionResultReportImpl(ITalonActionOrderReport talonActionOrderReport,
             ITalonAttributesReport talonAttributesReport)
         {
             this.talonActionOrderReport = talonActionOrderReport;
             this.actingTalonAttributesReport = talonAttributesReport;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
+        public override string ToString()
+        {
+            return this.GetType().Name + ":" +
+                "\n\t>" + this.talonActionOrderReport +
+                "\n\t>" + this.actingTalonAttributesReport;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
         ITalonActionOrderReport ITalonActionResultReport.GetTalonActionOrder()
         {
             return this.talonActionOrderReport;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         ITalonAttributesReport ITalonActionResultReport.GetActingTalonAttributesReport()
         {
             return this.actingTalonAttributesReport;
@@ -51,9 +71,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
         public class Builder
         {
             // Todo
-            private  ITalonActionOrderReport talonActionOrderReport = null;
+            private ITalonActionOrderReport talonActionOrderReport = null;
+
             // Todo
-            private  ITalonAttributesReport talonAttributesReport = null;
+            private ITalonAttributesReport talonAttributesReport = null;
 
             /// <summary>
             /// Build the report with the set parameters

@@ -1,22 +1,16 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
-using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Customization;
-using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Enums;
-using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Schemes.Enums;
-using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
-using HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Customization;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿
 
 namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Schemes
 {
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Customization;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Factions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Schemes.Color;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Schemes.Emblem;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+
     /// <summary>
     /// Todo
     /// </summary>
@@ -98,30 +92,30 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Schemes
             {
                 case FactionIdEnum.CreativeFaction1:
                     return new ColorSchemeReportImpl.Builder()
-                            .SetPrimaryColorId(ColorIdEnum.Purple)
-                            .SetSecondaryColorId(ColorIdEnum.Orange)
-                            .SetTertiaryColorId(ColorIdEnum.Navy)
+                            .SetPrimaryColorId(ColorIdEnum.Yellow)
+                            .SetSecondaryColorId(ColorIdEnum.Purple)
+                            .SetTertiaryColorId(ColorIdEnum.Red)
                             .Build();
 
                 case FactionIdEnum.CreativeFaction2:
                     return new ColorSchemeReportImpl.Builder()
-                            .SetPrimaryColorId(ColorIdEnum.Purple)
-                            .SetSecondaryColorId(ColorIdEnum.Orange)
-                            .SetTertiaryColorId(ColorIdEnum.Navy)
+                            .SetPrimaryColorId(ColorIdEnum.Teal)
+                            .SetSecondaryColorId(ColorIdEnum.Lime)
+                            .SetTertiaryColorId(ColorIdEnum.Purple)
                             .Build();
 
                 case FactionIdEnum.CreativeFaction3:
                     return new ColorSchemeReportImpl.Builder()
-                            .SetPrimaryColorId(ColorIdEnum.Purple)
-                            .SetSecondaryColorId(ColorIdEnum.Orange)
-                            .SetTertiaryColorId(ColorIdEnum.Navy)
+                            .SetPrimaryColorId(ColorIdEnum.Red)
+                            .SetSecondaryColorId(ColorIdEnum.Black)
+                            .SetTertiaryColorId(ColorIdEnum.Green)
                             .Build();
 
                 case FactionIdEnum.CreativeFaction4:
                     return new ColorSchemeReportImpl.Builder()
-                            .SetPrimaryColorId(ColorIdEnum.Purple)
-                            .SetSecondaryColorId(ColorIdEnum.Orange)
-                            .SetTertiaryColorId(ColorIdEnum.Navy)
+                            .SetPrimaryColorId(ColorIdEnum.Maroon)
+                            .SetSecondaryColorId(ColorIdEnum.Red)
+                            .SetTertiaryColorId(ColorIdEnum.Black)
                             .Build();
 
                 default:

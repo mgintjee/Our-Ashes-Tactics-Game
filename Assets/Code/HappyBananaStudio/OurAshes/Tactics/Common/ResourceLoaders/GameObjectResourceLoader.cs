@@ -2,13 +2,16 @@
 namespace HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Weapons.Enums;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Customization;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Utilities;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Weapons;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Emblems;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
     using System.Diagnostics;
     using UnityEngine;
+    using UnityEngine.UI;
 
     /// <summary>
     /// Todo
@@ -53,6 +56,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders
             return null;
         }
 
+        /// <summary>
+        /// Todo
+        /// </summary>
         public class Canvas
         {
             // Todo
@@ -89,6 +95,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders
             }
         }
 
+        /// <summary>
+        /// Todo
+        /// </summary>
         public class HexTiles
         {
             // Todo
@@ -111,6 +120,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders
             }
         }
 
+        /// <summary>
+        /// Todo
+        /// </summary>
         public class Talons
         {
             // Todo
@@ -139,6 +151,95 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders
             }
         }
 
+        /// <summary>
+        /// Todo
+        /// </summary>
+        public class Emblems
+        {
+            // Todo
+            private static readonly string EmblemGameObjectsFolderHome = GameObjectsFolderHome + "Emblems/";
+
+            // Todo
+            private static readonly string EmblemGameObjectName = "talonEmblemGameObject";
+
+            // Todo
+            private static readonly string BackgroundGameObjectName = "backgroundImage";
+
+            // Todo
+            private static readonly string IconGameObjectName = "iconImage";
+
+            // Todo
+            private static readonly string FactionEmblemGameObjectName = "factionEmblem";
+
+            // Todo
+            private static readonly string PhalanxEmblemGameObjectName = "phalanxEmblem";
+
+            // Todo
+            private static readonly string CallSignGameObjectName = "callSignText";
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <param name="callSign">
+            /// </param>
+            /// <param name="talonCustomizationReport">
+            /// </param>
+            /// <returns>
+            /// </returns>
+            public static GameObject LoadEmblemGameObjectResource(CallSignEnum callSign,
+                ITalonCustomizationReport talonCustomizationReport)
+            {
+                if (talonCustomizationReport != null)
+                {
+                    GameObject talonEmblemGameObject = LoadGameObjectResource(EmblemGameObjectsFolderHome + EmblemGameObjectName);
+                    GameObject factionEmblemGameObject = talonEmblemGameObject.transform.Find(FactionEmblemGameObjectName).gameObject;
+                    GameObject phalanxEmblemGameObject = talonEmblemGameObject.transform.Find(PhalanxEmblemGameObjectName).gameObject;
+                    GameObject callSignTextGameObject = talonEmblemGameObject.transform.Find(CallSignGameObjectName).gameObject;
+                    callSignTextGameObject.GetComponent<Text>().text = CallSignsUtil.GetCharacter(callSign);
+
+                    UpdateEmblemGameObject(factionEmblemGameObject, talonCustomizationReport.GetFactionColorSchemeReport(),
+                        talonCustomizationReport.GetFactionEmblemSchemeReport());
+                    UpdateEmblemGameObject(phalanxEmblemGameObject, talonCustomizationReport.GetPhalanxColorSchemeReport(),
+                        talonCustomizationReport.GetPhalanxEmblemSchemeReport());
+                    talonEmblemGameObject.name = EmblemGameObjectName;
+
+                    return talonEmblemGameObject;
+                }
+                else
+                {
+                    throw ArgumentExceptionUtil.Build("Unable to ?. Invalid Parameters.",
+                        new StackFrame().GetMethod().Name);
+                }
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <param name="emblemGameObject">
+            /// </param>
+            /// <param name="colorSchemeReport">
+            /// </param>
+            /// <param name="emblemSchemeReport">
+            /// </param>
+            private static void UpdateEmblemGameObject(GameObject emblemGameObject,
+                IColorSchemeReport colorSchemeReport, IEmblemSchemeReport emblemSchemeReport)
+            {
+                emblemGameObject.transform.Find(BackgroundGameObjectName).GetComponent<Image>().sprite =
+                    SpriteResourceLoader.Background.LoadSpriteBackgroundResource(emblemSchemeReport.GetEmblemBackgroundId());
+                emblemGameObject.transform.Find(IconGameObjectName).GetComponent<Image>().sprite =
+                    SpriteResourceLoader.Icon.LoadSpriteIconResource(emblemSchemeReport.GetEmblemIconId());
+
+                emblemGameObject.GetComponent<Image>().color = EmblemColorUtil.GetColor(colorSchemeReport.GetPrimaryPaintColorId());
+                emblemGameObject.transform.Find(BackgroundGameObjectName).GetComponent<Image>().color =
+                    EmblemColorUtil.GetColor(colorSchemeReport.GetSecondaryPaintColorId());
+                emblemGameObject.transform.Find(IconGameObjectName).GetComponent<Image>().color =
+                    EmblemColorUtil.GetColor(colorSchemeReport.GetTertiaryPaintColorId());
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
         public class Weapons
         {
             // Todo
@@ -166,6 +267,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders
             }
         }
 
+        /// <summary>
+        /// Todo
+        /// </summary>
         public class Utilities
         {
             // Todo

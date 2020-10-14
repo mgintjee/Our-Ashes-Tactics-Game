@@ -1,16 +1,9 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
+﻿
 
-namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Coordinates.Offset
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.Coordinates.Objects.Offset
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Offset;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Coordinates.Enums;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Coordinates;
 
     /// <summary>
     /// Todo

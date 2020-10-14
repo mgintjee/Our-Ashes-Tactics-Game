@@ -1,12 +1,12 @@
 ﻿
 
-namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Orders
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Paths.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Enums;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
     using System.Collections.Generic;
 
     /// <summary>

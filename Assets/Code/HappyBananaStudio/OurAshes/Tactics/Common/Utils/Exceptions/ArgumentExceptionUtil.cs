@@ -1,16 +1,9 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
+﻿
 
-using System;
-
-namespace HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions
+namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions
 {
+    using System;
+
     /// <summary>
     /// Todo
     /// </summary>

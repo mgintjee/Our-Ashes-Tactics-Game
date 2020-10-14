@@ -1,14 +1,11 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
+﻿
 
-namespace HappyBananaStudio.OurAshesTactics.Common.ResourceLoaders
+namespace HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Schemes.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Enums;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.HexTiles;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Schemes.Color;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
     using System.Diagnostics;
     using UnityEngine;

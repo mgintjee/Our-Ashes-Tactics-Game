@@ -1,13 +1,5 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
-namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Maps.Game
+﻿
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.Maps.Games.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Attributes;
@@ -19,12 +11,12 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Maps.Game
     using HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
     using HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.HexTiles;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.HexTiles.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.HexTiles;
-    using HappyBananaStudio.OurAshesTactics.Impl.Objects.HexTiles;
-    using HappyBananaStudio.OurAshesTactics.Impl.Reports.Maps.Game;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Maps.Games.Reports;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -60,7 +52,7 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Maps.Game
                 this.gameMapConstructionReport = gameMapConstructionReport;
 
                 ISet<IHexTileConstructionReport> HexTileConstructionReportSet = HexTileConstructionReportGeneratorUtil
-                    .GenerateHexTileInformationReportSet(this.gameMapConstructionReport);
+                    .GenerateHexTileConstructionReportSet(this.gameMapConstructionReport);
                 this.cubeCoordinatesHexTileObjectDictionary = new Dictionary<ICubeCoordinates, IHexTileObject>();
                 foreach (IHexTileConstructionReport hexTileConstructionReport in HexTileConstructionReportSet)
                 {
@@ -287,17 +279,6 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Maps.Game
             {
                 logger.Error("Unable to add ?. {} is null.", typeof(IHexTileObject), typeof(IHexTileObject));
             }
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        private ISet<IHexTileConstructionReport> BuildTileInfoReportSet()
-        {
-            return HexTileConstructionReportGeneratorUtil.GenerateHexTileInformationReportSet(
-                this.gameMapConstructionReport);
         }
     }
 }

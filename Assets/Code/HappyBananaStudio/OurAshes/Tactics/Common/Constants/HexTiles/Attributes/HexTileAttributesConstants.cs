@@ -1,18 +1,10 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
+﻿
 namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles.Attributes
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Attributes;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles.Enums;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
-    using HappyBananaStudio.OurAshesTactics.Impl.Attributes.HexTiles;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.HexTiles;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.HexTiles.Attributes;
     using System.Collections.Generic;
     using System.Diagnostics;
 
@@ -24,9 +16,15 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles.Attribute
         // Todo
         private static readonly IDictionary<HexTileTypeEnum, IHexTileAttributes> hexTileTypeAttributesDictionary =
                 new Dictionary<HexTileTypeEnum, IHexTileAttributes>();
-
+        // Todo
         private static readonly ISet<HexTileTypeEnum> supportedHexTileTypeSet = new HashSet<HexTileTypeEnum>()
-        { HexTileTypeEnum.Road, HexTileTypeEnum.Plains, HexTileTypeEnum.Forest, HexTileTypeEnum.Mountain, HexTileTypeEnum.Water};
+        {
+            HexTileTypeEnum.Road,
+            HexTileTypeEnum.Plains,
+            HexTileTypeEnum.Forest,
+            HexTileTypeEnum.Mountain,
+            HexTileTypeEnum.Water
+        };
 
         /// <summary>
         /// Todo

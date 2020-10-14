@@ -1,32 +1,25 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
+﻿
 
-using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
-using HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Objects;
-using HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Reports;
-using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;
-using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Construction;
-using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
-using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Enums;
-using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Phalanxes.Enums;
-using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
-using HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects;
-using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
-using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
-using HappyBananaStudio.OurAshesTactics.Impl.Objects.Rosters.Comparer;
-using HappyBananaStudio.OurAshesTactics.Impl.Objects.Talons;
-using HappyBananaStudio.OurAshesTactics.Impl.Reports.Rosters;
-using System.Collections.Generic;
-using System.Diagnostics;
-
-namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Rosters
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.Rosters.Objects
 {
+    using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Reports;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Construction;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Factions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Phalanxes;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Rosters.Comparer;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Rosters.Reports;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+
     /// <summary>
     /// Roster Object Impl
     /// </summary>

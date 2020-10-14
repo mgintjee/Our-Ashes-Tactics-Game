@@ -1,20 +1,13 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
+﻿
 
-namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Attributes
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Attributes
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Api.Utilities.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.Weapons.Reports;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Weapons.Enums;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Utilities;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Weapons;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
     using System.Collections.Generic;
 
     /// <summary>

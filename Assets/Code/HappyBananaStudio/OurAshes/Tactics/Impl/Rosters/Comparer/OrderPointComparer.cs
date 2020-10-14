@@ -1,20 +1,13 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
+﻿
 
-using HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Objects;
-using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;
-using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Attributes;
-using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
-using System.Collections.Generic;
-
-namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Rosters.Comparer
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.Rosters.Comparer
 {
+    using HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Attributes;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
+    using System.Collections.Generic;
+
     /// <summary>
     /// Todo
     /// </summary>

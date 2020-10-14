@@ -5,7 +5,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Results;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Api.Weapons.Reports;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
     using System.Collections.Generic;
 
     /// <summary>
@@ -14,24 +14,29 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
     public struct TalonActionResultFireReportImpl
         : ITalonActionResultFireReport
     {
-
         // Todo
         private readonly ITalonActionOrderReport talonActionOrderReport;
 
         // Todo
         private readonly ITalonAttributesReport actingTalonAttributesReport;
+
         // Todo
         private readonly ITalonAttributesReport targetTalonAttributesReport;
 
         // Todo
         private readonly IList<IWeaponResultReport> weaponResultReportList;
+
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="talonActionOrderReport"></param>
-        /// <param name="actingTalonAttributesReport"></param>
-        /// <param name="targetTalonAttributesReport"></param>
-        /// <param name="weaponResultReportList"></param>
+        /// <param name="talonActionOrderReport">
+        /// </param>
+        /// <param name="actingTalonAttributesReport">
+        /// </param>
+        /// <param name="targetTalonAttributesReport">
+        /// </param>
+        /// <param name="weaponResultReportList">
+        /// </param>
         private TalonActionResultFireReportImpl(ITalonActionOrderReport talonActionOrderReport,
             ITalonAttributesReport actingTalonAttributesReport, ITalonAttributesReport targetTalonAttributesReport,
             IList<IWeaponResultReport> weaponResultReportList)
@@ -45,7 +50,23 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
+        public override string ToString()
+        {
+            return this.GetType().Name + ":" +
+                "\n\t>" + this.talonActionOrderReport +
+                "\n\t>" + this.actingTalonAttributesReport +
+                "\n\t>" + this.targetTalonAttributesReport +
+                "\n\t> List:" + typeof(IWeaponResultReport).Name +
+                "=[\n\t>" + string.Join(" \n\t>", this.talonActionOrderReport) + "\n]";
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
         ITalonActionOrderReport ITalonActionResultReport.GetTalonActionOrder()
         {
             return this.talonActionOrderReport;
@@ -54,15 +75,18 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         ITalonAttributesReport ITalonActionResultReport.GetActingTalonAttributesReport()
         {
             return this.actingTalonAttributesReport;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         ITalonAttributesReport ITalonActionResultFireReport.GetTargetTalonAttributesReport()
         {
             return this.targetTalonAttributesReport;
@@ -71,20 +95,11 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         IList<IWeaponResultReport> ITalonActionResultFireReport.GetWeaponResultReportList()
         {
             return new List<IWeaponResultReport>(this.weaponResultReportList);
-        }
-
-        public override string ToString()
-        {
-            return this.GetType().Name + ":" +
-                "\n\t>" + this.talonActionOrderReport +
-                "\n\t>" + this.actingTalonAttributesReport +
-                "\n\t>" + this.targetTalonAttributesReport +
-                "\n\t> List:" +typeof(IWeaponResultReport).Name +
-                "=[\n\t>" + string.Join(" \n\t>", this.talonActionOrderReport) + "\n]";
         }
 
         /// <summary>
@@ -92,7 +107,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
         /// </summary>
         public class Builder
         {
-
             // Todo
             private ITalonActionOrderReport talonActionOrderReport = null;
 
@@ -118,7 +132,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new Report
-                    return new TalonActionResultFireReportImpl( this.talonActionOrderReport,
+                    return new TalonActionResultFireReportImpl(this.talonActionOrderReport,
                         this.targetTalonAttributesReport, this.targetTalonAttributesReport, this.weaponResultReportList);
                 }
                 else
@@ -142,6 +156,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
                 this.talonActionOrderReport = talonActionOrderReport;
                 return this;
             }
+
             /// <summary>
             /// Set the value of the Acting ITalonAttributesReport
             /// </summary>
@@ -156,6 +171,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
                 this.actingTalonAttributesReport = actingTalonAttributesReport;
                 return this;
             }
+
             /// <summary>
             /// Set the value of the Target ITalonAttributesReport
             /// </summary>
@@ -170,6 +186,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
                 this.targetTalonAttributesReport = targetTalonAttributesReport;
                 return this;
             }
+
             /// <summary>
             /// Set the value of the List: IWeaponResultReport
             /// </summary>
@@ -181,7 +198,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
             /// </returns>
             public Builder SetWeaponResultReportList(IList<IWeaponResultReport> weaponResultReportList)
             {
-                this.weaponResultReportList = new List<IWeaponResultReport>( weaponResultReportList);
+                this.weaponResultReportList = new List<IWeaponResultReport>(weaponResultReportList);
                 return this;
             }
 

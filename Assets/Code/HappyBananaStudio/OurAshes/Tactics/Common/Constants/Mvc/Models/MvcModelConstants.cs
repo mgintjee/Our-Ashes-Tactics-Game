@@ -1,7 +1,4 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
+﻿
 namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Mvc.Models
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;

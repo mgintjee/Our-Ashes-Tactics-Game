@@ -1,28 +1,20 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
-using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
-using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
-using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Phalanxes.Enums;
-using HappyBananaStudio.OurAshes.Tactics.Common.Enums;
-using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
-using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
-using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
-using HappyBananaStudio.OurAshesTactics.Common.Utils.RandomNumberGenerators;
-using HappyBananaStudio.OurAshesTactics.Impl.Objects.Coordinates.Cube;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using UnityEngine;
-
-namespace HappyBananaStudio.OurAshesTactics.Common.Utils.Talons
+﻿
+namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Talons
 {
+    using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.GameTypes;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Phalanxes;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.RandomNumberGenerators;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Coordinates.Objects.Cube;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using UnityEngine;
+
     /// <summary>
     /// Todo
     /// </summary>

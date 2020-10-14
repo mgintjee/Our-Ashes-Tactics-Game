@@ -1,13 +1,6 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
+﻿
 
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Enums
+namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons
 {
     /// <summary>
     /// Enum to identify supported Talon Ids

@@ -1,13 +1,5 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
-namespace HappyBananaStudio.OurAshesTactics.Common.Scripts.Unity
+﻿
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.Unity.Scripts
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Unity.Scripts;
     using UnityEngine;

@@ -1,16 +1,8 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
+﻿
 namespace HappyBananaStudio.OurAshes.Tactics.Api.Utilities.Reports
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Attributes;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Enums;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Utilities;
 
     /// <summary>
     /// Todo

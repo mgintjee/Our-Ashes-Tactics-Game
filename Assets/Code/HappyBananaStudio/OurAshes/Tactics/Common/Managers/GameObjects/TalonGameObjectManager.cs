@@ -5,16 +5,15 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Construction;
-    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Customization;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
-    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Script;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Phalanxes.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Weapons.Enums;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Scripts;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Factions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Phalanxes;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Utilities;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Weapons;
     using HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
     using System.Collections.Generic;
     using System.Diagnostics;
     using UnityEngine;
@@ -126,6 +125,8 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
                 GameObject talonGameObject = GameObjectResourceLoader.Talons.LoadTalonGameObjectResource(talonIdentificationReport.GetTalonModelId());
                 ITalonMountsScript talonMountsScript = talonGameObject.GetComponent<ITalonMountsScript>();
                 AttachMounts(talonMountsScript, talonConstructionReport);
+                // Todo: Rotate the talonGameObject based off of the faction here? or the phalanx?
+                UpdateTalonGameObjectVisuals(talonGameObject, talonConstructionReport);
                 talonIdentificationReportGameObjectDictionary.Add(talonIdentificationReport, talonGameObject);
                 talonGameObject.transform.SetParent(phalanxIdGameObjectDictionary[talonIdentificationReport.GetPhalanxId()].transform);
             }
@@ -138,6 +139,17 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
         /// <summary>
         /// Todo
         /// </summary>
+        /// <param name="talonIdentificationReport">
+        /// </param>
+        public static void DeactivateTalonIdentificationReport(ITalonIdentificationReport talonIdentificationReport)
+        {
+            GameObject.Destroy(talonIdentificationReportGameObjectDictionary[talonIdentificationReport]);
+            talonIdentificationReportGameObjectDictionary.Remove(talonIdentificationReport);
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
         /// <param name="talonMountsScript">
         /// </param>
         /// <param name="talonConstructionReport">
@@ -145,12 +157,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
         private static void AttachMounts(ITalonMountsScript talonMountsScript, ITalonConstructionReport talonConstructionReport)
         {
             int index = 0;
-            logger.Debug("Attaching mounts for ?", talonConstructionReport);
             foreach (WeaponModelIdEnum weaponModelId in talonConstructionReport.GetWeaponModelIdList())
             {
                 if (index < talonMountsScript.GetWeaponMountCount())
                 {
-                    logger.Debug("Attaching ?", weaponModelId);
                     GameObject weaponMountGameObject = talonMountsScript.GetWeaponMountGameObject(index);
                     GameObject weaponGameObject = GameObjectResourceLoader.Weapons.LoadWeaponGameObjectResource(weaponModelId);
                     weaponGameObject.name = weaponModelId.ToString();
@@ -169,7 +179,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
             {
                 if (index < talonMountsScript.GetUtilityMountCount())
                 {
-                    logger.Debug("Attaching ?", utilityModelId);
                     GameObject utilityMountGameObject = talonMountsScript.GetUtilityMountGameObject(index);
                     GameObject utilityGameObject = GameObjectResourceLoader.Utilities.LoadUtilityGameObjectResource(utilityModelId);
                     utilityGameObject.name = utilityModelId.ToString();
@@ -191,8 +200,21 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
         /// </param>
         /// <param name="talonCustomizationReport">
         /// </param>
-        private static void UpdateTalonGameObjectVisuals(GameObject talonGameObject, ITalonCustomizationReport talonCustomizationReport)
+        private static void UpdateTalonGameObjectVisuals(GameObject talonGameObject, ITalonConstructionReport talonConstructionReport)
         {
+            GameObject talonEmblemGameObject = GameObjectResourceLoader.Emblems.LoadEmblemGameObjectResource(
+                talonConstructionReport.GetTalonIdentificationReport().GetCallSign(),
+                talonConstructionReport.GetTalonCustomizationReport());
+            talonEmblemGameObject.transform.SetParent(talonGameObject.transform);
+            // Todo: Determine best place to have the emblem stay? If there is no x/z adjustment
+            //       then it will be consistent positioning regardless of the rotations
+            talonEmblemGameObject.transform.localPosition = new Vector3(0, 17.5f, 0);
+            talonEmblemGameObject.transform.localEulerAngles = new Vector3(45, -talonGameObject.transform.localEulerAngles.y, 0);
+            // Todo: Load the Phalanx Emblem here Then attach it to the talonGameObject Paint the
+            // talonGameObject with the materials loaded from the customizationReportHave some
+            // constants file that will generate the Material[] based off the
+            // talonCustomizationReport and TalonModelId? Or just work to have it all be constantly
+            // the same indices in the material
             /*
             MeshRenderer meshRenderer = talonGameObject.GetComponent<MeshRenderer>();
             Material[] materials = meshRenderer.materials;

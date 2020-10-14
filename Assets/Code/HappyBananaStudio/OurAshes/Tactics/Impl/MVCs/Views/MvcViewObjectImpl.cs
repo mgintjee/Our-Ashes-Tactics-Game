@@ -1,6 +1,6 @@
 ﻿
 
-namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Views
+namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Views
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Objects;
@@ -9,11 +9,11 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Views
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Animators;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Animators;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.LineRenderers;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
-    using HappyBananaStudio.OurAshesTactics.Common.Utils.LineRenderers;
-    using HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Objects.Move;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Objects.Move;
     using System.Collections.Generic;
     using System.Diagnostics;
     using UnityEngine;

@@ -1,9 +1,5 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Weapons.Enums
+﻿
+namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.Weapons
 {
     /// <summary>
     /// Enum to identify supported weapons
