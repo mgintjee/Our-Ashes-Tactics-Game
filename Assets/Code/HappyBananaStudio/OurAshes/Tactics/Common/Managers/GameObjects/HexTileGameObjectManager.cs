@@ -1,18 +1,11 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
+﻿
 namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
-    using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Offset;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Coordinates.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles;
+    using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Reports;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles.Enums;
+    using HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders;
+    using HappyBananaStudio.OurAshesTactics.Common.ResourceLoaders;
     using HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates;
     using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
     using System.Collections.Generic;
@@ -24,6 +17,19 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
     /// </summary>
     public class HexTileGameObjectManager
     {
+        // Todo
+        private static readonly IDictionary<int, GameObject> layerLevelGameObjectDictionary = new Dictionary<int, GameObject>();
+
+        // Todo
+        private static readonly string layerGameObjectCollectionName = "layerGameObjectCollection";
+
+        // Todo
+        private static readonly string layerLevelGameObjectPrefix = "layerLevel: ";
+
+        // Todo
+        private static GameObject layerGameObjectCollection = null;
+
+        // Todo
         private static IDictionary<ICubeCoordinates, GameObject> cubeCoordinatesGameObjectDictionary =
             new Dictionary<ICubeCoordinates, GameObject>();
 
@@ -42,33 +48,77 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
             }
             else
             {
-                throw ArgumentExceptionUtil.Build("Unable to ?. Invalid Parameters. ?=? is not tracked",
-                    new StackFrame().GetMethod().Name, typeof(ICubeCoordinates), cubeCoordinates);
+                return CubeCoordinatesPositionUtil.CubeCoordinatesToWorldVector(cubeCoordinates);
             }
         }
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="cubeCoordinates">
+        /// <param name="hexTileConstructionReport">
         /// </param>
-        private static void UpdateHexTilePositionFor(ICubeCoordinates cubeCoordinates)
+        /// <returns>
+        /// </returns>
+        public static void BuildHexTileGameObject(IHexTileConstructionReport hexTileConstructionReport)
         {
-            // TODO: Not needed. Just put this in the HexTile Buidlder util
-            if (cubeCoordinatesGameObjectDictionary.ContainsKey(cubeCoordinates))
+            BuildLayerGameObjectCollection();
+            if (hexTileConstructionReport != null)
             {
-                IOffsetCoordinates offsetCoordinates = CoordinatesConvertorUtil.CubeToOffset(
-                    cubeCoordinates, OffsetCoordinateTypeEnum.EVEN_Q);
-                float xWorldPosition = offsetCoordinates.GetCol() * HexTileGameObjectConstants.GetOffsetX();
-                float yWorldPosition = HexTileGameObjectConstants.GetOffsetY();
-                float zWorldPosition = offsetCoordinates.GetRow() * HexTileGameObjectConstants.GetOffsetZ() +
-                    (offsetCoordinates.GetCol() & 1) * -HexTileGameObjectConstants.GetOffsetZ() / 2;
-                cubeCoordinatesGameObjectDictionary[cubeCoordinates].transform.position = new Vector3(xWorldPosition, yWorldPosition, zWorldPosition);
+                int hexTileLayerLevel = CubeCoordinatesCommonUtil.GetCubeCoordinatesDistanceFromCenter(
+                    hexTileConstructionReport.GetCubeCoordinates());
+                BuildLayerGameObject(hexTileLayerLevel);
+                GameObject hexTileGameObject = GameObjectResourceLoader.HexTiles.LoadHexTileGameObjectResource();
+                UpdateHexTileGameObjectVisuals(hexTileGameObject, hexTileConstructionReport.GetHexTileType());
+                hexTileGameObject.name = hexTileConstructionReport.GetCubeCoordinates().ToString();
+                hexTileGameObject.transform.SetParent(layerLevelGameObjectDictionary[hexTileLayerLevel].transform);
+                hexTileGameObject.transform.position = CubeCoordinatesPositionUtil.CubeCoordinatesToWorldVector(
+                    hexTileConstructionReport.GetCubeCoordinates());
             }
             else
             {
-                throw ArgumentExceptionUtil.Build("Unable to ?. Invalid Parameters. ?=? is not tracked",
-                    new StackFrame().GetMethod().Name, typeof(ICubeCoordinates), cubeCoordinates);
+                throw ArgumentExceptionUtil.Build("Unable to ?. Invalid parameters. ? is null.",
+                    new StackFrame().GetMethod().Name, typeof(IHexTileConstructionReport));
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="hexTileGameObject">
+        /// </param>
+        /// <param name="hexTileType">
+        /// </param>
+        private static void UpdateHexTileGameObjectVisuals(GameObject hexTileGameObject, HexTileTypeEnum hexTileType)
+        {
+            MeshRenderer meshRenderer = hexTileGameObject.GetComponent<MeshRenderer>();
+            Material[] materials = meshRenderer.materials;
+            materials[1] = MaterialResourceLoader.HexTile.Top.LoadHexTileTopMaterialResource(hexTileType);
+            meshRenderer.materials = materials;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="hexTileLayerLevel">
+        /// </param>
+        private static void BuildLayerGameObject(int hexTileLayerLevel)
+        {
+            if (!layerLevelGameObjectDictionary.ContainsKey(hexTileLayerLevel))
+            {
+                GameObject layerGameObject = new GameObject(layerLevelGameObjectPrefix + hexTileLayerLevel);
+                layerGameObject.transform.SetParent(layerGameObjectCollection.transform);
+                layerLevelGameObjectDictionary.Add(hexTileLayerLevel, layerGameObject);
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        private static void BuildLayerGameObjectCollection()
+        {
+            if (layerGameObjectCollection == null)
+            {
+                layerGameObjectCollection = new GameObject(layerGameObjectCollectionName);
             }
         }
     }

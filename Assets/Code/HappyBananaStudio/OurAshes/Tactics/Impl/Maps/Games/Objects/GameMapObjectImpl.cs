@@ -18,6 +18,7 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Maps.Game
     using HappyBananaStudio.OurAshes.Tactics.Api.Maps.Games.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
     using HappyBananaStudio.OurAshesTactics.Common.Utils.Coordinates;
     using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
@@ -49,8 +50,6 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Maps.Game
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="mapScript">
-        /// </param>
         /// <param name="gameMapConstructionReport">
         /// </param>
         public GameMapObjectImpl(IGameMapConstructionReport gameMapConstructionReport)
@@ -68,7 +67,7 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Maps.Game
                     ICubeCoordinates hexTileObjectCubeCoordinates = hexTileConstructionReport.GetCubeCoordinates();
                     this.cubeCoordinatesHexTileObjectDictionary.Add(hexTileObjectCubeCoordinates,
                         new HexTileObjectImpl(hexTileConstructionReport));
-                    HexTileGameObjectBuilderUtil.BuildHexTileGameObject(hexTileConstructionReport);
+                    HexTileGameObjectManager.BuildHexTileGameObject(hexTileConstructionReport);
                     int distanceFromCenter = CubeCoordinatesCommonUtil.GetCubeCoordinatesDistanceFromCenter(
                         hexTileConstructionReport.GetCubeCoordinates());
                     if (distanceFromCenter > this.maxDistanceFromCenter)

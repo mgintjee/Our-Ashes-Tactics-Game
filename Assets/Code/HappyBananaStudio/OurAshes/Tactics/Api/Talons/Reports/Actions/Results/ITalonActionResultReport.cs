@@ -1,12 +1,4 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
+﻿
 namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Results
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
@@ -29,6 +21,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Results
         /// </summary>
         /// <returns>
         /// </returns>
-        ITalonAttributesReport GetTalonAttributesReport();
+        ITalonAttributesReport GetActingTalonAttributesReport();
     }
 }

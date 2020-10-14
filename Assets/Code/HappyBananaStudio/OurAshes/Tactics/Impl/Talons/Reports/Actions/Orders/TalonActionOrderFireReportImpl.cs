@@ -1,11 +1,4 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
+﻿
 
 namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action
 {
@@ -19,8 +12,8 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action
     /// <summary>
     /// Todo
     /// </summary>
-    public struct TalonActionOrderReportImpl
-        : ITalonActionOrderReport
+    public struct TalonActionOrderFireReportImpl
+        : ITalonActionOrderFireReport
     {
         // Todo
         private readonly ITalonIdentificationReport actingTalonIdentificationReport;
@@ -31,6 +24,9 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action
         // Todo
         private readonly ActionTypeEnum actionType;
 
+        // Todo
+        private readonly ITalonIdentificationReport targetTalonIdentificationReport;
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -38,11 +34,13 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action
         /// </param>
         /// <param name="pathObject">
         /// </param>
-        private TalonActionOrderReportImpl(ITalonIdentificationReport actingTalonIdentificationReport, IPathObject pathObject)
+        private TalonActionOrderFireReportImpl(ITalonIdentificationReport actingTalonIdentificationReport,
+            IPathObject pathObject, ITalonIdentificationReport targetTalonIdentificationReport)
         {
-            this.actionType = ActionTypeEnum.Move;
+            this.actionType = ActionTypeEnum.Fire;
             this.pathObject = pathObject;
             this.actingTalonIdentificationReport = actingTalonIdentificationReport;
+            this.targetTalonIdentificationReport = targetTalonIdentificationReport;
         }
 
         /// <summary>
@@ -55,6 +53,7 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action
             return this.GetType().Name + ":" +
                 "\n\t>" + this.actionType +
                 "\n\t>" + this.actingTalonIdentificationReport +
+                "\n\t>" + this.targetTalonIdentificationReport +
                 "\n\t>" + this.pathObject;
         }
 
@@ -66,6 +65,16 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action
         ITalonIdentificationReport ITalonActionOrderReport.GetActingTalonIdentificationReport()
         {
             return this.actingTalonIdentificationReport;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        ITalonIdentificationReport ITalonActionOrderFireReport.GetTargetTalonIdentificationReport()
+        {
+            return this.targetTalonIdentificationReport;
         }
 
         /// <summary>
@@ -99,20 +108,24 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action
             // Todo
             private IPathObject pathObject = null;
 
+            // Todo
+            private ITalonIdentificationReport targetTalonIdentificationReport = null;
+
             /// <summary>
             /// Build the report with the set parameters
             /// </summary>
             /// <returns>
             /// The report interface
             /// </returns>
-            public ITalonActionOrderReport Build()
+            public ITalonActionOrderFireReport Build()
             {
                 ISet<string> invalidReasons = this.IsInvalid();
                 // Check that the set parameters are valid
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new Report
-                    return new TalonActionOrderReportImpl(this.actingTalonIdentificationReport, this.pathObject);
+                    return new TalonActionOrderFireReportImpl(this.actingTalonIdentificationReport,
+                        this.pathObject, this.targetTalonIdentificationReport);
                 }
                 else
                 {
@@ -152,6 +165,21 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action
             }
 
             /// <summary>
+            /// Set the value of the ITalonIdentificationReport
+            /// </summary>
+            /// <param name="targetTalonIdentificationReport">
+            /// The ITalonIdentificationReport to set
+            /// </param>
+            /// <returns>
+            /// The Builder to continue building with
+            /// </returns>
+            public Builder SetTargetTalonIdentificationReport(ITalonIdentificationReport targetTalonIdentificationReport)
+            {
+                this.targetTalonIdentificationReport = targetTalonIdentificationReport;
+                return this;
+            }
+
+            /// <summary>
             /// Todo
             /// </summary>
             /// <returns>
@@ -169,6 +197,11 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action
                 if (this.pathObject == null)
                 {
                     argumentExceptionSet.Add(typeof(IPathObject).Name + " has not been set");
+                }
+                // Check that targetTalonIdentificationReport has been set
+                if (this.targetTalonIdentificationReport == null)
+                {
+                    argumentExceptionSet.Add("Target " + typeof(ITalonIdentificationReport).Name + " has not been set");
                 }
                 return argumentExceptionSet;
             }

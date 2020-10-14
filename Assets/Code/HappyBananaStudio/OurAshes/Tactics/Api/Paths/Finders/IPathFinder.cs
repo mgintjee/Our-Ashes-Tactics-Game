@@ -44,6 +44,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.Paths.Finders
         /// </summary>
         /// <returns>
         /// </returns>
-        IDictionary<ICubeCoordinates, IPathObject> GetPathObjectIDictionary();
+        IDictionary<ICubeCoordinates, IPathObject> GetPathObjectDictionary();
     }
 }

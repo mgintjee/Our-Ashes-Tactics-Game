@@ -19,14 +19,14 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.Weapons.Reports
         /// </summary>
         /// <returns>
         /// </returns>
-        int GetDamageCaused();
+        int GetHealthDamageCaused();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns>
         /// </returns>
-        int GetDamageMitigated();
+        int GetArmorDamageCaused();
 
         /// <summary>
         /// Todo

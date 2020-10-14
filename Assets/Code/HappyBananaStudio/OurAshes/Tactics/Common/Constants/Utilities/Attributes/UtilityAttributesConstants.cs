@@ -26,7 +26,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Attribut
         // Todo
         private static readonly ISet<UtilityModelIdEnum> utilityModelIdSet = new HashSet<UtilityModelIdEnum>()
         {
-            UtilityModelIdEnum.Utility0,
+            UtilityModelIdEnum.Default,
         };
 
         /// <summary>
@@ -62,7 +62,8 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Attribut
         /// </returns>
         public static IBonusAttributes GetAttributes(ISet<UtilityModelIdEnum> utilityModelIdSet)
         {
-            ISet<IBonusAttributes> bonusAttributesSet = new HashSet<IBonusAttributes>();
+            ISet<IBonusAttributes> bonusAttributesSet = new HashSet<IBonusAttributes>()
+            { BuildAttributes(UtilityModelIdEnum.None) };
             foreach (UtilityModelIdEnum utilityModelId in utilityModelIdSet)
             {
                 bonusAttributesSet.Add(GetAttributes(utilityModelId));
@@ -93,7 +94,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Attribut
         {
             switch (utilityModelId)
             {
-                case UtilityModelIdEnum.Utility0:
+                case UtilityModelIdEnum.None:
                     return new BonusAttributesImpl.Builder()
                         .SetDestructibleAttributes(new DestructibleAttributesImpl.Builder()
                                 .SetArmourPoints(0)

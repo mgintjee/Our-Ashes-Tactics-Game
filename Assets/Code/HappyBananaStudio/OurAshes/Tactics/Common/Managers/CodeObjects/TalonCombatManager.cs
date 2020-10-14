@@ -7,15 +7,21 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Api.Paths.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Results;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Api.Weapons.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Api.Weapons.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results;
+    using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
     using HappyBananaStudio.OurAshesTactics.Common.Utils.RandomNumberGenerators;
     using HappyBananaStudio.OurAshesTactics.Impl.Reports.Weapons;
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using UnityEngine;
 
     /// <summary>
     /// Todo
@@ -142,6 +148,127 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
                 .SetShotsThatHit(numberOfShots)
                 .SetWeaponInformationReport(weaponInformationReport)
                 .Build();
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="talonActionOrderFireReport"></param>
+        /// <returns></returns>
+        public static ITalonActionResultReport GetTalonActionResultReport(ITalonActionOrderFireReport talonActionOrderFireReport)
+        {
+            if(talonActionOrderFireReport != null)
+            {
+                ITalonObject actingTalonObject = RosterObjectManager.GetTalonObjectFrom(talonActionOrderFireReport.GetActingTalonIdentificationReport());
+                ITalonObject targetTalonObject = RosterObjectManager.GetTalonObjectFrom(talonActionOrderFireReport.GetTargetTalonIdentificationReport());
+
+                ITalonAttributesReport actingTalonAttributesReport = actingTalonObject.GetTalonInformationReport()
+                    .GetTalonAttributesReport();
+                ITalonAttributesReport targetTalonAttributesReport = targetTalonObject.GetTalonInformationReport()
+                    .GetTalonAttributesReport();
+                IList<IWeaponResultReport> weaponResultReportList = GetWeaponResultReportList(talonActionOrderFireReport.GetPathObject(),
+                    actingTalonAttributesReport, targetTalonAttributesReport);
+                foreach(IWeaponResultReport weaponResultReport in weaponResultReportList)
+                {
+                    targetTalonObject.InputDamage(weaponResultReport.GetArmorDamageCaused(),
+                        weaponResultReport.GetHealthDamageCaused());
+                }
+                return new TalonActionResultFireReportImpl.Builder()
+                    .SetTalonActionOrderReport(talonActionOrderFireReport)
+                    .SetActingTalonAttributesReport(actingTalonAttributesReport)
+                    .SetTargetTalonAttributesReport(targetTalonObject.GetTalonInformationReport().GetTalonAttributesReport())
+                    .SetWeaponResultReportList(weaponResultReportList)
+                    .Build();
+            }
+            else
+            {
+                throw ArgumentExceptionUtil.Build("Unable to ?. Invalid parameters.", new StackFrame().GetMethod().Name);
+            }
+        }
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="pathObject"></param>
+        /// <param name="actingTalonAttributesReport"></param>
+        /// <param name="targetTalonAttributesReport"></param>
+        /// <returns></returns>
+        private static IList<IWeaponResultReport> GetWeaponResultReportList(IPathObject pathObject,
+            ITalonAttributesReport actingTalonAttributesReport, ITalonAttributesReport targetTalonAttributesReport)
+        {
+            IList<IWeaponResultReport> weaponResultReportList = new List<IWeaponResultReport>();
+            int pathObjectCost = pathObject.GetPathObjectCost();
+            int pathObjectLength = pathObject.GetPathObjectLength();
+            IDestructibleAttributesReport targetDestructibleAttributesReport = targetTalonAttributesReport.GetDestructibleAttributesReport();
+            foreach(IWeaponInformationReport weaponInformationReport in actingTalonAttributesReport.GetMountableAttributesReport().GetWeaponInformationReportList())
+            {
+                IWeaponOrderReport weaponOrderReport = new WeaponOrderReportImpl.Builder()
+                        .SetShotsThatHit(GetShotsThatHit(pathObjectCost, pathObjectLength, weaponInformationReport))
+                        .SetWeaponInformationReport(weaponInformationReport)
+                        .Build();
+
+                weaponResultReportList.Add(GetWeaponResultReport(weaponOrderReport, targetDestructibleAttributesReport));
+            }
+
+            return weaponResultReportList;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="pathObjectCost"></param>
+        /// <param name="pathObjectLength"></param>
+        /// <param name="weaponInformationReport"></param>
+        /// <returns></returns>
+        private static int GetShotsThatHit(int pathObjectCost, int pathObjectLength, IWeaponInformationReport weaponInformationReport)
+        {
+            int shotsThatHit = 0;
+            IWeaponAttributes weaponAttributes = weaponInformationReport.GetWeaponAttributes();
+            if(weaponAttributes.GetMaxRangePoints() >= pathObjectLength)
+            {
+                int accuracyRemaining = weaponAttributes.GetAccuracyPoints() - pathObjectCost;
+                if (accuracyRemaining >= 100)
+                {
+                    shotsThatHit = weaponAttributes.GetNumberOfShots();
+                }
+                else if(accuracyRemaining > 0)
+                {
+                    for(int i =0; i < weaponAttributes.GetNumberOfShots(); ++i)
+                    {
+                        if(RandomNumberGeneratorUtil.GetNextInt(100) < accuracyRemaining)
+                        {
+                            shotsThatHit++;
+                        }
+                    }
+                }
+            }
+            return shotsThatHit;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="weaponOrderReport"></param>
+        /// <param name="destructibleAttributesReport"></param>
+        /// <returns></returns>
+        private static IWeaponResultReport GetWeaponResultReport(IWeaponOrderReport weaponOrderReport, IDestructibleAttributesReport destructibleAttributesReport)
+        {
+            IWeaponAttributes weaponAttributes = weaponOrderReport.GetWeaponInformationReport().GetWeaponAttributes();
+            int armor = destructibleAttributesReport.GetCurrentArmorPoints();
+            int armorRemaining = armor - weaponAttributes.GetPenetrationPoints();
+            if(armorRemaining < 0)
+            {
+                armorRemaining = 0;
+            }
+            int damageRemaining = weaponAttributes.GetDamagePoints() - armorRemaining;
+            if(damageRemaining <= 0)
+            {
+                damageRemaining = Mathf.CeilToInt(weaponAttributes.GetNumberOfShots() / 2f);
+            }
+            return new WeaponResultReportImpl.Builder()
+                    .SetHealthDamageCaused(damageRemaining)
+                    .SetArmorDamageCaused(0)
+                    .SetWeaponOrderReport(weaponOrderReport)
+                    .Build();
         }
     }
 }

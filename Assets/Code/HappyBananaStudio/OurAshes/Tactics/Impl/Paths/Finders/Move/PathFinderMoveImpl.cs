@@ -165,8 +165,6 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finders.Move
                     this.pathObjectDictionary.Add(cubeCoordinates, null);
                 }
             }
-            logger.Debug("?/? Empty CubeCoordiantes", this.pathObjectDictionary.Count,
-                GameMapObjectManager.GetAllCubeCoordinatesSet().Count);
         }
 
         /// <summary>

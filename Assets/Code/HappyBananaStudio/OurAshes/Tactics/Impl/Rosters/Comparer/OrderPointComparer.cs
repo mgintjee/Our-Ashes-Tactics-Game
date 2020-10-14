@@ -45,7 +45,8 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Rosters.Comparer
         /// </param>
         /// <returns>
         /// </returns>
-        int IComparer<ITalonIdentificationReport>.Compare(ITalonIdentificationReport xTalonIdentificationReport,
+        int IComparer<ITalonIdentificationReport>.Compare(
+            ITalonIdentificationReport xTalonIdentificationReport,
             ITalonIdentificationReport yTalonIdentificationReport)
         {
             if (this.rosterObject.IsTalonIdentificationReportActive(xTalonIdentificationReport) &&
@@ -59,11 +60,11 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Rosters.Comparer
                 int orderPointsY = talonAttributesReportY.GetMovableAttributesReport().GetCurrentMovePoints();
                 if (orderPointsX > orderPointsY)
                 {
-                    return 1;
+                    return -1;
                 }
                 else if (orderPointsX < orderPointsY)
                 {
-                    return -1;
+                    return 1;
                 }
                 else
                 {

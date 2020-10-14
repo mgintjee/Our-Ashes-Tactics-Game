@@ -20,5 +20,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Enums
         Utility2,
         Utility3,
         Utility4,
+        Default,
     }
 }

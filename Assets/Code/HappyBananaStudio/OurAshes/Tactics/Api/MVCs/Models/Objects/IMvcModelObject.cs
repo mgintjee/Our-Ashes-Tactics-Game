@@ -50,7 +50,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Models.Objects
         /// </param>
         /// <returns>
         /// </returns>
-        IGameTurnResultReport InputTalonActionOrderReport(ITalonActionOrderReport actionReport);
+        IGameActionReport InputTalonActionOrderReport(ITalonActionOrderReport actionReport);
 
         /// <summary>
         /// Todo
@@ -58,13 +58,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Models.Objects
         /// <returns>
         /// </returns>
         bool IsInitialized();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        bool IsProcessingAction();
 
         /// <summary>
         /// Todo

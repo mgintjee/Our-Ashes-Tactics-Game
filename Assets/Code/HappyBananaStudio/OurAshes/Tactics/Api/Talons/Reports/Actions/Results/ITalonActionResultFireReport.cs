@@ -1,14 +1,7 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
+﻿
 namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Results
 {
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Api.Weapons.Reports;
     using System.Collections.Generic;
 
@@ -23,13 +16,13 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Results
         /// </summary>
         /// <returns>
         /// </returns>
-        bool GetIsTargetDestroyed();
+        IList<IWeaponResultReport> GetWeaponResultReportList();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns>
         /// </returns>
-        IList<IWeaponResultReport> GetWeaponResultReportList();
+        ITalonAttributesReport GetTargetTalonAttributesReport();
     }
 }

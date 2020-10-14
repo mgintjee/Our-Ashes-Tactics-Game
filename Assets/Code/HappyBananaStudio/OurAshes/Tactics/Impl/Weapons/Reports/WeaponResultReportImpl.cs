@@ -1,12 +1,4 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
+﻿
 namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Weapons
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Weapons.Reports;
@@ -20,10 +12,10 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Weapons
         : IWeaponResultReport
     {
         // Todo
-        private readonly int damageCaused;
+        private readonly int healthDamageCaused;
 
         // Todo
-        private readonly int damageMitigated;
+        private readonly int armorDamageCaused;
 
         // Todo
         private readonly IWeaponOrderReport weaponOrderReport;
@@ -33,14 +25,14 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Weapons
         /// </summary>
         /// <param name="damageCaused">
         /// </param>
-        /// <param name="damageMitigated">
+        /// <param name="armorDamageCaused">
         /// </param>
         /// <param name="weaponOrderReport">
         /// </param>
-        private WeaponResultReportImpl(int damageCaused, int damageMitigated, IWeaponOrderReport weaponOrderReport)
+        private WeaponResultReportImpl(int damageCaused, int armorDamageCaused, IWeaponOrderReport weaponOrderReport)
         {
-            this.damageCaused = damageCaused;
-            this.damageMitigated = damageMitigated;
+            this.healthDamageCaused = damageCaused;
+            this.armorDamageCaused = armorDamageCaused;
             this.weaponOrderReport = weaponOrderReport;
         }
 
@@ -52,8 +44,8 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Weapons
         public override string ToString()
         {
             return this.GetType().Name + ":" +
-                "\n\t>Damage Caused= " + this.damageCaused +
-                "\n\t>Damage Mitigated= " + this.damageMitigated +
+                "\n\t>Health Damage Caused= " + this.healthDamageCaused +
+                "\n\t>Armor Damage Caused= " + this.armorDamageCaused +
                 "\n\t>" + this.weaponOrderReport;
         }
 
@@ -62,9 +54,9 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Weapons
         /// </summary>
         /// <returns>
         /// </returns>
-        int IWeaponResultReport.GetDamageCaused()
+        int IWeaponResultReport.GetHealthDamageCaused()
         {
-            return this.damageCaused;
+            return this.healthDamageCaused;
         }
 
         /// <summary>
@@ -72,9 +64,9 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Weapons
         /// </summary>
         /// <returns>
         /// </returns>
-        int IWeaponResultReport.GetDamageMitigated()
+        int IWeaponResultReport.GetArmorDamageCaused()
         {
-            return this.damageMitigated;
+            return this.armorDamageCaused;
         }
 
         /// <summary>
@@ -93,16 +85,16 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Weapons
         public class Builder
         {
             // Todo
-            private int damageCaused;
+            private int healthDamageCaused;
 
             // Todo
-            private int damageMitigated;
+            private int armorDamageCaused;
 
             // Todo
-            private bool setDamageCaused = false;
+            private bool setHealthDamageCaused = false;
 
             // Todo
-            private bool setDamageMitigated = false;
+            private bool setArmorDamageCaused = false;
 
             // Todo
             private IWeaponOrderReport weaponOrderReport;
@@ -120,7 +112,7 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Weapons
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new Report
-                    return new WeaponResultReportImpl(this.damageCaused, this.damageMitigated, this.weaponOrderReport);
+                    return new WeaponResultReportImpl(this.healthDamageCaused, this.armorDamageCaused, this.weaponOrderReport);
                 }
                 else
                 {
@@ -132,32 +124,32 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Weapons
             /// <summary>
             /// Set the value of the int damageCaused
             /// </summary>
-            /// <param name="damageCaused">
+            /// <param name="healthDamageCaused">
             /// The int damageCaused to set
             /// </param>
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetDamageCaused(int damageCaused)
+            public Builder SetHealthDamageCaused(int healthDamageCaused)
             {
-                this.damageCaused = damageCaused;
-                this.setDamageCaused = true;
+                this.healthDamageCaused = healthDamageCaused;
+                this.setHealthDamageCaused = true;
                 return this;
             }
 
             /// <summary>
             /// Set the value of the int damageMitigated
             /// </summary>
-            /// <param name="damageMitigated">
+            /// <param name="armorDamageCaused">
             /// The int damageMitigated to set
             /// </param>
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetDamageMitigated(int damageMitigated)
+            public Builder SetArmorDamageCaused(int armorDamageCaused)
             {
-                this.damageMitigated = damageMitigated;
-                this.setDamageMitigated = true;
+                this.armorDamageCaused = armorDamageCaused;
+                this.setArmorDamageCaused = true;
                 return this;
             }
 
@@ -185,15 +177,15 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Weapons
             {
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
-                // Check that damageCaused has been set
-                if (!this.setDamageCaused)
+                // Check that healthDamageCaused has been set
+                if (!this.setHealthDamageCaused)
                 {
-                    argumentExceptionSet.Add("damageCaused has not been set");
+                    argumentExceptionSet.Add("healthDamageCaused has not been set");
                 }
-                // Check that damageMitigated has been set
-                if (!this.setDamageMitigated)
+                // Check that armorDamageCaused has been set
+                if (!this.setArmorDamageCaused)
                 {
-                    argumentExceptionSet.Add("damageMitigated has not been set");
+                    argumentExceptionSet.Add("armorDamageCaused has not been set");
                 }
                 // Check that weaponOrderReport has been set
                 if (this.weaponOrderReport == null)

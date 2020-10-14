@@ -76,8 +76,8 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
             return new DestructibleAttributesReportImpl.Builder()
                 .SetCurrentArmourPoints(this.armorPoints)
                 .SetCurrentHealthPoints(this.healthPoints)
-                .SetMaximumArmourPoints(this.destructibleAttributes.GetHealthPoints())
-                .SetMaximumHealthPoints(this.destructibleAttributes.GetArmorPoints())
+                .SetMaximumArmourPoints(this.destructibleAttributes.GetArmorPoints())
+                .SetMaximumHealthPoints(this.destructibleAttributes.GetHealthPoints())
                 .Build();
         }
 

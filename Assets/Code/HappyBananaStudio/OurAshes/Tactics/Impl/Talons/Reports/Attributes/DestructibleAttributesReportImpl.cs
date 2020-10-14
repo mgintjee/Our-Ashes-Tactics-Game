@@ -1,8 +1,4 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-
+﻿
 namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Attributes
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Attributes;
@@ -54,7 +50,7 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Attributes
         /// </summary>
         /// <returns>
         /// </returns>
-        public int GetCurrentArmorPoints()
+        int IDestructibleAttributesReport.GetCurrentArmorPoints()
         {
             return this.currentArmorPoints;
         }
@@ -64,7 +60,7 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Attributes
         /// </summary>
         /// <returns>
         /// </returns>
-        public int GetCurrentHealthPoints()
+        int IDestructibleAttributesReport.GetCurrentHealthPoints()
         {
             return this.currentHealthPoints;
         }
@@ -74,7 +70,7 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Attributes
         /// </summary>
         /// <returns>
         /// </returns>
-        public int GetMaximumArmorPoints()
+         int IDestructibleAttributesReport.GetMaximumArmorPoints()
         {
             return this.maximumArmorPoints;
         }
@@ -84,7 +80,7 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Attributes
         /// </summary>
         /// <returns>
         /// </returns>
-        public int GetMaximumHealthPoints()
+        int IDestructibleAttributesReport.GetMaximumHealthPoints()
         {
             return this.maximumHealthPoints;
         }
@@ -97,10 +93,10 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Attributes
         public override string ToString()
         {
             return this.GetType().Name + ":" +
-                "\n\t>Current ArmorPoints=" + this.GetCurrentArmorPoints() +
-                "\n\t>Current HealthPoints=" + this.GetCurrentHealthPoints() +
-                "\n\t>Maximum ArmorPoints=" + this.GetMaximumArmorPoints() +
-                "\n\t>Maximum ArmorPoints=" + this.GetMaximumHealthPoints();
+                "\n\t>Current ArmorPoints=" + this.currentArmorPoints +
+                "\n\t>Current HealthPoints=" + this.currentHealthPoints +
+                "\n\t>Maximum ArmorPoints=" + this.maximumArmorPoints +
+                "\n\t>Maximum HealthPoints=" + this.maximumHealthPoints;
         }
 
         /// <summary>

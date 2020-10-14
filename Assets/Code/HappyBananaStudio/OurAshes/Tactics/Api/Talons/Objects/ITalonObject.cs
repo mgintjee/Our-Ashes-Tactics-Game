@@ -1,15 +1,9 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
+﻿
 namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Results;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Turn;
 
@@ -48,5 +42,19 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects
         /// <param name="cubeCoordinates">
         /// </param>
         void SetCubeCoordinates(ICubeCoordinates cubeCoordinates);
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="talonActionOrderReport"></param>
+        /// <returns></returns>
+        ITalonActionResultReport InputAction(ITalonActionOrderReport talonActionOrderReport);
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="armorCost"></param>
+        /// <param name="healthCost"></param>
+        void InputDamage(int armorCost, int healthCost);
     }
 }

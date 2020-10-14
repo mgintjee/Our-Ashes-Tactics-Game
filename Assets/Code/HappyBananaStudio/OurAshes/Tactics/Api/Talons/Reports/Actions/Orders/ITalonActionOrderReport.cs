@@ -1,8 +1,4 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-
+﻿
 namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Paths.Objects;

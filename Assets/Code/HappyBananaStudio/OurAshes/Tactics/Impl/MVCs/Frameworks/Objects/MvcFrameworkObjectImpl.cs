@@ -15,7 +15,6 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Frameworks
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Turn;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Animators;
     using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Enums;
     using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
@@ -26,7 +25,6 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Frameworks
     using HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Views;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using UnityEngine;
 
     /// <summary>
     /// MvcFramework Object Impl
@@ -56,7 +54,7 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Frameworks
         private IMvcViewObject mvcViewObject;
 
         // Todo
-        private IList<IGameTurnResultReport> talonTurnReportList;
+        private IList<IGameActionReport> gameActionReportList;
 
         /// <summary>
         /// Todo
@@ -73,7 +71,7 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Frameworks
                 Logger.Info("Constructing: ?", this.GetType());
                 this.mvcFrameworkScript = mvcFrameworkScript;
                 this.mvcInitializationReport = mvcInitializationReport;
-                this.talonTurnReportList = new List<IGameTurnResultReport>();
+                this.gameActionReportList = new List<IGameActionReport>();
             }
             else
             {
@@ -100,52 +98,45 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Frameworks
                 // Check if the Game is complete
                 if (!isGameComplete)
                 {
-                    // Check if the Model is processing an Action
-                    if (this.mvcModelObject.IsProcessingAction())
+                    ITalonIdentificationReport talonIdentificationReport = this.mvcModelObject.GetActingTalonIdentificationReport();
+                    if (talonIdentificationReport != null)
                     {
-                        Logger.Debug("Waiting for ? IsProcessingActionReport", typeof(IMvcModelObject));
-                    }
-                    else
-                    {
-                        ITalonIdentificationReport talonIdentificationReport = this.mvcModelObject.GetActingTalonIdentificationReport();
-                        if (talonIdentificationReport != null)
+                        Logger.Debug("Determine Action for ?", talonIdentificationReport);
+                        // Check if the Controller is ready to output an action
+                        if (this.mvcControllerObject.IsReadyToOutputActionReport())
                         {
-                            Logger.Debug("Determine Action for ?", talonIdentificationReport);
-                            // Check if the Controller is ready to output an action
-                            if (this.mvcControllerObject.IsReadyToOutputActionReport())
-                            {
-                                Logger.Debug("Ready to output ?", typeof(ITalonActionOrderReport));
-                                // Output the Action from the Controller
-                                ITalonActionOrderReport talonActionOrderReport = this.mvcControllerObject.OutputActionReport();
-                                // Use the LineRenderer to draw the path
-                                LineRendererUtil.DrawPath(talonActionOrderReport.GetPathObject());
-                                // Input the Action to the Model
-                                IGameTurnResultReport talonTurnResultReport = this.mvcModelObject.InputTalonActionOrderReport(talonActionOrderReport);
-                                Logger.Info("?", talonTurnResultReport);
-                                // Cache the TalonTurnResult
-                                this.talonTurnReportList.Add(talonTurnResultReport);
-                                Logger.Info("?", GameMapObjectManager.GetGameMapInformationReport());
-                            }
-                            else
-                            {
-                                // Check if the Controller is determining an Action
-                                if (this.mvcControllerObject.IsDeterminingActionReport())
-                                {
-                                    Logger.Debug("Waiting for ? IsDeterminingActionReport", typeof(IMvcControllerObject));
-                                }
-                                else
-                                {
-                                    ITalonTurnReport talonActionInformationReport = this.mvcModelObject
-                                        .GetTalonTurnInformationReport(talonIdentificationReport);
-                                    Logger.Debug("BeginDecisionProcess for ?", talonActionInformationReport);
-                                    this.mvcControllerObject.BeginDecisionProcess(talonActionInformationReport);
-                                }
-                            }
+                            Logger.Debug("Ready to output ?", typeof(ITalonActionOrderReport));
+                            // Output the Action from the Controller
+                            ITalonActionOrderReport talonActionOrderReport = this.mvcControllerObject.OutputActionReport();
+                            // Animate and update the View based off of the actionReport
+                            this.mvcViewObject.AnimateActionOrderReport(talonActionOrderReport);
+                            // Input the Action to the Model
+                            IGameActionReport gameActionReport = this.mvcModelObject
+                                .InputTalonActionOrderReport(talonActionOrderReport);
+                            Logger.Info("?", gameActionReport);
+                            // Cache the IGameActionReport
+                            this.gameActionReportList.Add(gameActionReport);
+                            Logger.Info("?", GameMapObjectManager.GetGameMapInformationReport());
                         }
                         else
                         {
-                            Logger.Debug("Unable to ContinueGame. ?'s ? is null", typeof(IMvcModelObject), typeof(ITalonIdentificationReport));
+                            // Check if the Controller is determining an Action
+                            if (this.mvcControllerObject.IsDeterminingActionReport())
+                            {
+                                Logger.Debug("Waiting for ? IsDeterminingActionReport", typeof(IMvcControllerObject));
+                            }
+                            else
+                            {
+                                ITalonTurnReport talonActionInformationReport = this.mvcModelObject
+                                    .GetTalonTurnInformationReport(talonIdentificationReport);
+                                Logger.Debug("BeginDecisionProcess for ?", talonActionInformationReport);
+                                this.mvcControllerObject.BeginDecisionProcess(talonActionInformationReport);
+                            }
                         }
+                    }
+                    else
+                    {
+                        Logger.Debug("Unable to ContinueGame. ?'s ? is null", typeof(IMvcModelObject), typeof(ITalonIdentificationReport));
                     }
                 }
                 else
@@ -215,30 +206,6 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Frameworks
             if (!this.isGameActive)
             {
                 LineRendererUtil.ErasePath();
-                foreach (IGameTurnResultReport talonTurnResultReport in this.talonTurnReportList)
-                {
-                    int wait = 0;
-                    int move = 0;
-                    int fire = 0;
-                    foreach (ITalonActionOrderReport talonActionOrderReport in talonTurnResultReport.GetTalonTurnInformationReport().GetPossibleTalonActionOrderReportSet())
-                    {
-                        switch (talonActionOrderReport.GetActionType())
-                        {
-                            case ActionTypeEnum.Wait:
-                                wait++;
-                                break;
-
-                            case ActionTypeEnum.Fire:
-                                fire++;
-                                break;
-
-                            case ActionTypeEnum.Move:
-                                move++;
-                                break;
-                        }
-                    }
-                    Logger.Debug("Wait=?, Move=?, Fire=?\n?", wait, move, fire, talonTurnResultReport);
-                }
             }
 
             return this.isGameActive;
@@ -317,8 +284,7 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Frameworks
         /// </returns>
         public bool IsAnimating()
         {
-            return GameObject.FindObjectOfType<AnimatorMoveUtilScript>()
-                   .GetComponent<AnimatorMoveUtilScript>().IsAnimating();
+            return this.mvcViewObject.IsAnimating();
         }
 
         /// <summary>
@@ -345,7 +311,7 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Frameworks
             {
                 if (!this.isGameActive)
                 {
-                    this.talonTurnReportList = new List<IGameTurnResultReport>();
+                    this.gameActionReportList = new List<IGameActionReport>();
                     this.mvcModelObject.StartNewGame();
                     this.isGameActive = true;
                 }

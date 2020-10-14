@@ -7,6 +7,7 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Game
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Maps.Games.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Turns;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Results;
     using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
     using System.Collections.Generic;
 
@@ -26,55 +27,15 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Game
         private readonly int phaseCounter;
 
         // Todo
-        private readonly IGameTurnResultReport talonTurnResultReport;
+        private readonly ITalonActionResultReport talonActionResultReport;
 
         private GameActionReportImpl(int actionCounter, IGameMapInformationReport gameMapInformationReport,
-            int phaseCounter, IGameTurnResultReport talonTurnResultReport)
+            int phaseCounter, ITalonActionResultReport talonActionResultReport)
         {
             this.actionCounter = actionCounter;
             this.gameMapInformationReport = gameMapInformationReport;
             this.phaseCounter = phaseCounter;
-            this.talonTurnResultReport = talonTurnResultReport;
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        public int GetActionCounter()
-        {
-            return this.actionCounter;
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        public IGameMapInformationReport GetGameMapInformationReport()
-        {
-            return this.gameMapInformationReport;
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        public int GetPhaseCounter()
-        {
-            return this.phaseCounter;
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        public IGameTurnResultReport GetTalonTurnResultReport()
-        {
-            return this.talonTurnResultReport;
+            this.talonActionResultReport = talonActionResultReport;
         }
 
         /// <summary>
@@ -85,10 +46,50 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Game
         public override string ToString()
         {
             return this.GetType().Name + ": " +
-                "\n\t>Action Counter: " + this.GetActionCounter() +
-                "\n\t>" + this.GetGameMapInformationReport() +
-                "\n\t>Phase Counter: " + this.GetPhaseCounter() +
-                "\n\t>" + this.GetTalonTurnResultReport();
+                "\n\t>Action Counter: " + this.actionCounter +
+                "\n\t>" + this.gameMapInformationReport +
+                "\n\t>Phase Counter: " + this.phaseCounter +
+                "\n\t>" + this.talonActionResultReport;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        int IGameActionReport.GetActionCounter()
+        {
+            return this.actionCounter;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        IGameMapInformationReport IGameActionReport.GetGameMapInformationReport()
+        {
+            return this.gameMapInformationReport;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        int IGameActionReport.GetPhaseCounter()
+        {
+            return this.phaseCounter;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        ITalonActionResultReport IGameActionReport.GetTalonActionResultReport()
+        {
+            return this.talonActionResultReport;
         }
 
         /// <summary>
@@ -112,13 +113,13 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Game
             private bool setPhaseCounter = false;
 
             // Todo
-            private IGameTurnResultReport talonTurnResultReport;
+            private ITalonActionResultReport talonActionResultReport;
 
             /// <summary>
             /// Build the GameActionReport with the set parameters
             /// </summary>
             /// <returns>
-            /// The IGameActionReport
+            /// The report interface
             /// </returns>
             public IGameActionReport Build()
             {
@@ -128,7 +129,7 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Game
                 {
                     // Instantiate a new Report
                     return new GameActionReportImpl(this.actionCounter, this.gameMapInformationReport,
-                        this.phaseCounter, this.talonTurnResultReport);
+                        this.phaseCounter, this.talonActionResultReport);
                 }
                 else
                 {
@@ -185,17 +186,17 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Game
             }
 
             /// <summary>
-            /// Set the value of the ITalonTurnResultReport
+            /// Set the value of the ITalonActionResultReport
             /// </summary>
-            /// <param name="talonTurnResultReport">
-            /// The ITalonTurnResultReport to set
+            /// <param name="talonActionResultReport">
+            /// The ITalonActionResultReport to set
             /// </param>
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetTalonTurnResultReport(IGameTurnResultReport talonTurnResultReport)
+            public Builder SetTalonActionResultReport(ITalonActionResultReport talonActionResultReport)
             {
-                this.talonTurnResultReport = talonTurnResultReport;
+                this.talonActionResultReport = talonActionResultReport;
                 return this;
             }
 
@@ -223,10 +224,10 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Game
                 {
                     argumentExceptionSet.Add("setPhaseCounter has not been set");
                 }
-                // Check that talonTurnResultReport has been set
-                if (this.talonTurnResultReport == null)
+                // Check that talonActionResultReport has been set
+                if (this.talonActionResultReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(IGameTurnResultReport).Name + " has not been set");
+                    argumentExceptionSet.Add(typeof(ITalonActionResultReport).Name + " has not been set");
                 }
                 return argumentExceptionSet;
             }

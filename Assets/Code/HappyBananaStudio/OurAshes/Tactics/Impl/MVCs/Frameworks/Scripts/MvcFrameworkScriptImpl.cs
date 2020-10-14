@@ -94,7 +94,7 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Scripts.Mvc.Frameworks
         void IMvcFrameworkScript.Initialize(IMvcInitializationReport mvcInitializationReport)
         {
             // Check that if this was initialized yet
-            if (this.mvcFrameworkObject != null)
+            if (this.mvcFrameworkObject == null)
             {
                 logger.Info("Initializing: ?", this.GetType());
                 // Check that the parameters are non-null

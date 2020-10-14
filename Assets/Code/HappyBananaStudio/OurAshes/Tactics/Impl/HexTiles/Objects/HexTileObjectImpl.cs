@@ -38,7 +38,6 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.HexTiles
         {
             if (hexTileConstructionReport != null)
             {
-                logger.Info("Constructing: ? with ?", this.GetType(), hexTileConstructionReport);
                 this.hexTileConstructionReport = hexTileConstructionReport;
             }
             else

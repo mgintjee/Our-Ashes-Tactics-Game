@@ -1,16 +1,9 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
-using HappyBananaStudio.OurAshes.Tactics.Api.Maps.Games.Reports;
-
+﻿
 namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Turns
 {
+    using HappyBananaStudio.OurAshes.Tactics.Api.Maps.Games.Reports;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Results;
+
     /// <summary>
     /// Todo
     /// </summary>
@@ -42,6 +35,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Turns
         /// </summary>
         /// <returns>
         /// </returns>
-        IGameTurnResultReport GetTalonTurnResultReport();
+        ITalonActionResultReport GetTalonActionResultReport();
     }
 }

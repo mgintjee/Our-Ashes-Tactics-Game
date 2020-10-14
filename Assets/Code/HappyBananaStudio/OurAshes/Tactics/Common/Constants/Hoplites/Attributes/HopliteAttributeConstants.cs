@@ -66,7 +66,8 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Hoplites.Attribute
         /// </returns>
         public static IBonusAttributes GetAttributes(ISet<HopliteTraitEnum> hopliteTraitSet)
         {
-            ISet<IBonusAttributes> bonusAttributesSet = new HashSet<IBonusAttributes>();
+            ISet<IBonusAttributes> bonusAttributesSet = new HashSet<IBonusAttributes>()
+            {BuildAttributes(HopliteTraitEnum.None) };
             foreach (HopliteTraitEnum hopliteTrait in hopliteTraitSet)
             {
                 if (!hopliteTrait.Equals(HopliteTraitEnum.None))
@@ -100,6 +101,25 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Hoplites.Attribute
         {
             switch (hopliteTrait)
             {
+                case HopliteTraitEnum.None:
+                    return new BonusAttributesImpl.Builder()
+                        .SetDestructibleAttributes(new DestructibleAttributesImpl.Builder()
+                                .SetArmourPoints(0)
+                                .SetHealthPoints(0)
+                                .Build())
+                        .SetMovableAttributes(new MovableAttributesImpl.Builder()
+                                .SetMovePoints(0)
+                                .SetTurnPoints(0)
+                                .Build())
+                        .SetWeaponAttributes(new WeaponAttributesImpl.Builder()
+                                .SetAccuracyPoints(0)
+                                .SetDamagePoints(0)
+                                .SetNumberOfShots(0)
+                                .SetPenetrationPoints(0)
+                                .SetRangePoints(0)
+                                .Build())
+                        .Build();
+
                 case HopliteTraitEnum.Default:
                     return new BonusAttributesImpl.Builder()
                         .SetDestructibleAttributes(new DestructibleAttributesImpl.Builder()

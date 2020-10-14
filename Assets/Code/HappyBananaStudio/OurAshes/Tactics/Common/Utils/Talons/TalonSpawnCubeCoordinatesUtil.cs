@@ -247,7 +247,8 @@ namespace HappyBananaStudio.OurAshesTactics.Common.Utils.Talons
             ISet<ICubeCoordinates> cubeCoordinatesSet = GameMapObjectManager.GetAllCubeCoordinatesSet();
             ICubeCoordinates randomCubeCoordinates = new List<ICubeCoordinates>(cubeCoordinatesSet)
                 [RandomNumberGeneratorUtil.GetNextInt(cubeCoordinatesSet.Count)];
-            if (GameMapObjectManager.GetHexTileObjectFrom(randomCubeCoordinates).GetHexTileInformationReport().GetTalonIdentificationReport() != null)
+            if (GameMapObjectManager.GetHexTileObjectFrom(randomCubeCoordinates)
+                .GetHexTileInformationReport().GetTalonIdentificationReport() != null)
             {
                 return GetSpawningCubeCoordinatesForDeathmatch(gameType);
             }

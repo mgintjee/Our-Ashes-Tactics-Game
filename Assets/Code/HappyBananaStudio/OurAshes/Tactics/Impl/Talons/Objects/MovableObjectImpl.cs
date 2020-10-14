@@ -1,32 +1,34 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
-using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Attributes;
-using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;
-using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Attributes;
-using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Construction;
-using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Hoplites.Attributes;
-using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Attributes;
-using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Attributes;
-using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Enums;
-using HappyBananaStudio.OurAshesTactics.Impl.Attributes.Talons;
-using HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Attributes;
-using System.Collections.Generic;
+﻿
 
 namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
 {
+    using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Paths.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Attributes;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Attributes;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Construction;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Hoplites.Attributes;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Attributes;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Attributes;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Enums;
+    using HappyBananaStudio.OurAshesTactics.Common.Utils.Paths.Finder;
+    using HappyBananaStudio.OurAshesTactics.Impl.Attributes.Talons;
+    using HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action;
+    using HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Attributes;
+    using System.Collections.Generic;
+
     /// <summary>
     /// Movable Object Api
     /// </summary>
     public class MovableObjectImpl
         : IMovableObject
     {
+        // Todo
+        private readonly ITalonIdentificationReport talonIdentificationReport = null;
+
         // Todo
         private readonly IMovableAttributes movableAttributes = null;
 
@@ -43,6 +45,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
         /// </param>
         public MovableObjectImpl(ITalonConstructionReport talonConstructionReport)
         {
+            this.talonIdentificationReport = talonConstructionReport.GetTalonIdentificationReport();
             this.movableAttributes = new MovableAttributesImpl.Builder()
                 .SetMovableAttributesCollection(new HashSet<IMovableAttributes>()
                     {
@@ -87,6 +90,39 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
                 .SetMaximumMovePoints(this.movableAttributes.GetMovePoints())
                 .SetMaximumActionPoints(this.movableAttributes.GetActionPoints())
                 .Build();
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        ISet<ITalonActionOrderReport> IMovableObject.GetTalonActionOrderReportSet(ICubeCoordinates cubeCoordinates)
+        {
+            ISet<ITalonActionOrderReport> talonActionOrderReportSet = new HashSet<ITalonActionOrderReport>();
+            IDictionary<ICubeCoordinates, IPathObject> cubeCoordinatesPathObjectDictionary = PathFinderMoveUtil
+                .BeginPathfindingFor(cubeCoordinates, this.movableAttributes.GetMovePoints());
+            foreach (IPathObject pathObject in cubeCoordinatesPathObjectDictionary.Values)
+            {
+                talonActionOrderReportSet.Add(
+                    new TalonActionOrderReportImpl.Builder()
+                        .SetActingTalonIdentificationReport(this.talonIdentificationReport)
+                        .SetPathObject(pathObject)
+                        .Build()
+                    );
+            }
+            return talonActionOrderReportSet;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="actionCost"></param>
+        /// <param name="moveCost"></param>
+        void IMovableObject.InputActionCosts(int actionCost, int moveCost)
+        {
+            this.movePoints -= moveCost;
+            this.actionPoints -= actionCost;
         }
     }
 }

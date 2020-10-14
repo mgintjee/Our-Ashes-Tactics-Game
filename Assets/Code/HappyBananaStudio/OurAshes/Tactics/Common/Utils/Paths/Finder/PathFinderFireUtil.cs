@@ -36,8 +36,7 @@ namespace HappyBananaStudio.OurAshesTactics.Common.Utils.Paths.Finder
             logger.Debug("BeginPathFinding for Fire: Start=?", tileCoordinatesStart);
             pathFinderFire = new PathFinderFireImpl(tileCoordinatesStart);
             pathFinderFire.BeginPathFinding();
-            IDictionary<ICubeCoordinates, IPathObject> pathObjectIDictionary = pathFinderFire.GetPathObjectIDictionary();
-            return pathObjectIDictionary;
+            return pathFinderFire.GetPathObjectDictionary();
         }
     }
 }

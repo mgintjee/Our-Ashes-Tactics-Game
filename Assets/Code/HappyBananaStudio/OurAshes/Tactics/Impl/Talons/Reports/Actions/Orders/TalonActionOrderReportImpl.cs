@@ -1,26 +1,19 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
-using HappyBananaStudio.OurAshes.Tactics.Api.Paths.Objects;
-using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
-using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
-using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Enums;
-using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
-using System.Collections.Generic;
+﻿
 
 namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action
 {
+    using HappyBananaStudio.OurAshes.Tactics.Api.Paths.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Enums;
+    using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+    using System.Collections.Generic;
+
     /// <summary>
     /// Todo
     /// </summary>
-    public struct TalonActionOrderFireReportImpl
-        : ITalonActionOrderFireReport
+    public struct TalonActionOrderReportImpl
+        : ITalonActionOrderReport
     {
         // Todo
         private readonly ITalonIdentificationReport actingTalonIdentificationReport;
@@ -31,9 +24,6 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action
         // Todo
         private readonly ActionTypeEnum actionType;
 
-        // Todo
-        private readonly ITalonIdentificationReport targetTalonIdentificationReport;
-
         /// <summary>
         /// Todo
         /// </summary>
@@ -41,13 +31,11 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action
         /// </param>
         /// <param name="pathObject">
         /// </param>
-        private TalonActionOrderFireReportImpl(ITalonIdentificationReport actingTalonIdentificationReport,
-            IPathObject pathObject, ITalonIdentificationReport targetTalonIdentificationReport)
+        private TalonActionOrderReportImpl(ITalonIdentificationReport actingTalonIdentificationReport, IPathObject pathObject)
         {
-            this.actionType = ActionTypeEnum.Fire;
+            this.actionType = ActionTypeEnum.Move;
             this.pathObject = pathObject;
             this.actingTalonIdentificationReport = actingTalonIdentificationReport;
-            this.targetTalonIdentificationReport = targetTalonIdentificationReport;
         }
 
         /// <summary>
@@ -60,7 +48,6 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action
             return this.GetType().Name + ":" +
                 "\n\t>" + this.actionType +
                 "\n\t>" + this.actingTalonIdentificationReport +
-                "\n\t>" + this.targetTalonIdentificationReport +
                 "\n\t>" + this.pathObject;
         }
 
@@ -72,16 +59,6 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action
         ITalonIdentificationReport ITalonActionOrderReport.GetActingTalonIdentificationReport()
         {
             return this.actingTalonIdentificationReport;
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        ITalonIdentificationReport ITalonActionOrderFireReport.GetTargetTalonIdentificationReport()
-        {
-            return this.targetTalonIdentificationReport;
         }
 
         /// <summary>
@@ -115,24 +92,20 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action
             // Todo
             private IPathObject pathObject = null;
 
-            // Todo
-            private ITalonIdentificationReport targetTalonIdentificationReport = null;
-
             /// <summary>
             /// Build the report with the set parameters
             /// </summary>
             /// <returns>
             /// The report interface
             /// </returns>
-            public ITalonActionOrderFireReport Build()
+            public ITalonActionOrderReport Build()
             {
                 ISet<string> invalidReasons = this.IsInvalid();
                 // Check that the set parameters are valid
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new Report
-                    return new TalonActionOrderFireReportImpl(this.actingTalonIdentificationReport,
-                        this.pathObject, this.targetTalonIdentificationReport);
+                    return new TalonActionOrderReportImpl(this.actingTalonIdentificationReport, this.pathObject);
                 }
                 else
                 {
@@ -172,21 +145,6 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action
             }
 
             /// <summary>
-            /// Set the value of the ITalonIdentificationReport
-            /// </summary>
-            /// <param name="targetTalonIdentificationReport">
-            /// The ITalonIdentificationReport to set
-            /// </param>
-            /// <returns>
-            /// The Builder to continue building with
-            /// </returns>
-            public Builder SetTargetTalonIdentificationReport(ITalonIdentificationReport targetTalonIdentificationReport)
-            {
-                this.targetTalonIdentificationReport = targetTalonIdentificationReport;
-                return this;
-            }
-
-            /// <summary>
             /// Todo
             /// </summary>
             /// <returns>
@@ -204,11 +162,6 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Action
                 if (this.pathObject == null)
                 {
                     argumentExceptionSet.Add(typeof(IPathObject).Name + " has not been set");
-                }
-                // Check that targetTalonIdentificationReport has been set
-                if (this.targetTalonIdentificationReport == null)
-                {
-                    argumentExceptionSet.Add("Target " + typeof(ITalonIdentificationReport).Name + " has not been set");
                 }
                 return argumentExceptionSet;
             }

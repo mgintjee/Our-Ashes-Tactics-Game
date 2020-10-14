@@ -16,6 +16,7 @@ using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
 using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Enums;
 using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Phalanxes.Enums;
 using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
+using HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects;
 using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
 using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
 using HappyBananaStudio.OurAshesTactics.Impl.Objects.Rosters.Comparer;
@@ -78,7 +79,13 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Rosters
                         foreach (ITalonConstructionReport talonConstructionReport in this.rosterConstructionReport.GetPhalanxIdTalonConstructionReportIDictionary()[phalanxId])
                         {
                             logger.Info("Building ?", talonConstructionReport);
-                            this.AddTalonObject(new TalonObjectImpl(talonConstructionReport));
+                            ITalonObject talonObject = new TalonObjectImpl(talonConstructionReport);
+                            // Add the TalonIdentificationReport to the activeTalonIdentificationReportSet
+                            this.activeTalonIdentificationReportSet.Add(talonConstructionReport.GetTalonIdentificationReport());
+                            // Add the TalonIdentificationReport to the talonIdentificationObjectDictionary
+                            this.talonIdentificationObjectDictionary.Add(talonConstructionReport.GetTalonIdentificationReport(), talonObject);
+                            // Build the unity GameObject
+                            TalonGameObjectManager.BuildTalonGameObject(talonConstructionReport);
                         }
                     }
                 }
@@ -270,71 +277,6 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Rosters
         {
             return talonIdentificationReport != null &&
                 this.activeTalonIdentificationReportSet.Contains(talonIdentificationReport);
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="talonObject">
-        /// </param>
-        private void AddTalonObject(ITalonObject talonObject)
-        {
-            // Check that the TalonObject is non-null
-            if (talonObject != null)
-            {
-                // Get the TalonInformationReport from the TalonObject
-                ITalonInformationReport talonInformationReport = talonObject.GetTalonInformationReport();
-                // Get the TalonIdentificationReport from the TalonInformationReport
-                ITalonIdentificationReport talonIdentificationReport = talonInformationReport.GetTalonIdentificationReport();
-                // Check that the TalonIdentificationReport is non-null
-                if (talonIdentificationReport != null)
-                {
-                    // Add the TalonIdentificationReport to the activeTalonIdentificationReportList
-                    this.activeTalonIdentificationReportSet.Add(talonIdentificationReport);
-                    // Add the TalonIdentificationReport to the activeTalonIdentificationReportList
-                    this.talonIdentificationObjectDictionary.Add(talonIdentificationReport, talonObject);
-                    //TalonGameObjectManager.AddTalonGameObject(talonObject);
-
-                    /*
-                    // Get the Transform for this Roster
-                    Transform rosterTransform = this.rosterScript.GetGameObject().transform;
-                    // Get the Transform for the FactionId
-                    Transform factionTransform = rosterTransform.Find(RosterConstants.Script.GetFactionIdGameObjectPrefix() + talonIdentificationReport.GetFactionId());
-                    // Check that the Transform is non-null
-                    if (factionTransform != null)
-                    {
-                        Transform phalanxTransform = factionTransform.Find(RosterConstants.Script.GetPhalanxIdGameObjectPrefix() + talonIdentificationReport.GetPhalanxId());
-                        // Check that the Transform is non-null
-                        if (phalanxTransform != null)
-                        {
-                            talonObject.GetTalonScript().GetGameObject().transform.SetParent(phalanxTransform);
-                        }
-                        else
-                        {
-                            throw ArgumentExceptionUtil.Build("Unable to ?. Invalid Parameters. Cannot find: \"?\"." +
-                                "\n\t> ? is null: ?", new StackFrame().GetMethod().Name,
-                                (RosterConstants.Script.GetPhalanxIdGameObjectPrefix() + talonIdentificationReport.GetPhalanxId()));
-                        }
-                    }
-                    else
-                    {
-                        throw ArgumentExceptionUtil.Build("Unable to ?. Invalid Parameters. Cannot find: \"?\"." +
-                            "\n\t> ? is null: ?", new StackFrame().GetMethod().Name,
-                            (RosterConstants.Script.GetFactionIdGameObjectPrefix() + talonIdentificationReport.GetPhalanxId()));
-                    }
-                    */
-                }
-                else
-                {
-                    throw ArgumentExceptionUtil.Build("Unable to ?. Invalid Parameters. ? is null." +
-                        "\n\t> ? is null: ?", new StackFrame().GetMethod().Name, typeof(ITalonIdentificationReport));
-                }
-            }
-            else
-            {
-                throw ArgumentExceptionUtil.Build("Unable to ?. Invalid Parameters. ? is null." +
-                    "\n\t> ? is null: ?", new StackFrame().GetMethod().Name, typeof(ITalonObject));
-            }
         }
     }
 }

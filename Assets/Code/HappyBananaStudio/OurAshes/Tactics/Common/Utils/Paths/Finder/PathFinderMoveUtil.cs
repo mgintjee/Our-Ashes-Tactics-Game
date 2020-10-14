@@ -38,8 +38,7 @@ namespace HappyBananaStudio.OurAshesTactics.Common.Utils.Paths.Finder
             logger.Debug("BeginPathFinding for Move: Start=? with MaxCost=", tileCoordinatesStart, pathObjectCostThreshold);
             pathFinderMove = new PathFinderMoveImpl(tileCoordinatesStart, pathObjectCostThreshold);
             pathFinderMove.BeginPathFinding();
-            IDictionary<ICubeCoordinates, IPathObject> pathObjectIDictionary = pathFinderMove.GetPathObjectIDictionary();
-            return pathObjectIDictionary;
+            return pathFinderMove.GetPathObjectDictionary();
         }
     }
 }

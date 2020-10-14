@@ -85,7 +85,7 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Finders.Abs
         /// </summary>
         /// <returns>
         /// </returns>
-        public IDictionary<ICubeCoordinates, IPathObject> GetPathObjectIDictionary()
+        public IDictionary<ICubeCoordinates, IPathObject> GetPathObjectDictionary()
         {
             return new Dictionary<ICubeCoordinates, IPathObject>(this.pathObjectDictionary);
         }

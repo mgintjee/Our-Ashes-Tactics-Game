@@ -6,6 +6,7 @@
 namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Views.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
     using System.Collections.Generic;
 
@@ -41,5 +42,19 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Views.Objects
         /// <param name="talonObjectOrderList">
         /// </param>
         void UpdateTalonOrderList(IList<ITalonObject> talonObjectOrderList);
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="pathObject">
+        /// </param>
+        void AnimateActionOrderReport(ITalonActionOrderReport talonActionOrderReport);
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        bool IsAnimating();
     }
 }

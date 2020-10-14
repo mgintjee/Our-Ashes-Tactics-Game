@@ -83,12 +83,13 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Reports.Talons.Attributes
         /// </returns>
         public override string ToString()
         {
-            return this.GetType().Name + ": \nCurrent WeaponPoints=" + this.currentWeaponMountPoints +
+            return this.GetType().Name + ":" +
+                "\n\t>Current WeaponPoints=" + this.currentWeaponMountPoints +
                 ", Maximum WeaponPoints=" + this.maximumWeaponMountPoints +
                 "\n\t>List: " + typeof(IWeaponInformationReport).Name + "=[\n\t>" +
                 string.Join("\n\t>", this.weaponInformationReportList) +
                 "\n]" +
-                "\nCurrent UtilityPoints = " + this.currentUtilityMountPoints +
+                "\n\t>Current UtilityPoints = " + this.currentUtilityMountPoints +
                 ", Maximum UtilityPoints=" + this.maximumUtilityMountPoints +
                 "\n\t>List: " + typeof(IUtilityInformationReport).Name + "=[\n\t>" +
                 string.Join("\n\t>", this.utilityInformationReportList) +

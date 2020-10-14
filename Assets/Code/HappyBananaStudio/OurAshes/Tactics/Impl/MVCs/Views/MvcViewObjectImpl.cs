@@ -1,26 +1,23 @@
-﻿/// <summary>
-/// Company: HappyBananaStudio
-/// Author: Matthew Gintjee
-/// </summary>
-/*
-* HappyBananaStudio
-* Author: Matthew Gintjee
-*/
-
-using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
-using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Objects;
-using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Initializers.Reports;
-using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Views.Objects;
-using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;
-using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
-using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
-using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
-using System.Collections.Generic;
-using System.Diagnostics;
-using UnityEngine;
+﻿
 
 namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Views
 {
+    using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
+    using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Initializers.Reports;
+    using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Views.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Animators;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
+    using HappyBananaStudio.OurAshesTactics.Common.Utils.Exceptions;
+    using HappyBananaStudio.OurAshesTactics.Common.Utils.LineRenderers;
+    using HappyBananaStudio.OurAshesTactics.Impl.Objects.Paths.Objects.Move;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using UnityEngine;
+
     /// <summary>
     /// MvcView Object Impl
     /// </summary>
@@ -58,20 +55,68 @@ namespace HappyBananaStudio.OurAshesTactics.Impl.Objects.Mvc.Views
             }
         }
 
-        public void DestroyTalonCanvas(ITalonIdentificationReport talonIdentificationReport)
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="talonActionOrderReport">
+        /// </param>
+        void IMvcViewObject.AnimateActionOrderReport(ITalonActionOrderReport talonActionOrderReport)
         {
+            // Use the LineRenderer to draw the path
+            LineRendererUtil.DrawPath(talonActionOrderReport.GetPathObject());
+            if (talonActionOrderReport.GetPathObject() is PathObjectMoveImpl)
+            {
+                GameObject.FindObjectOfType<AnimatorMoveUtilScript>().AnimateTalonActionOrderReport(talonActionOrderReport);
+            }
         }
 
-        public bool IsInitialized()
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="talonIdentificationReport">
+        /// </param>
+        void IMvcViewObject.DestroyTalonCanvas(ITalonIdentificationReport talonIdentificationReport)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        bool IMvcViewObject.IsAnimating()
+        {
+            return GameObject.FindObjectOfType<AnimatorMoveUtilScript>()
+                   .GetComponent<AnimatorMoveUtilScript>().IsAnimating();
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        bool IMvcViewObject.IsInitialized()
         {
             return this.mvcFrameworkObject != null;
         }
 
-        public void UpdateTalonCanvas(ITalonIdentificationReport talonIdentificationReport)
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="talonIdentificationReport">
+        /// </param>
+        void IMvcViewObject.UpdateTalonCanvas(ITalonIdentificationReport talonIdentificationReport)
         {
+            throw new System.NotImplementedException();
         }
 
-        public void UpdateTalonOrderList(IList<ITalonObject> talonObjectOrderList)
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="talonObjectOrderList">
+        /// </param>
+        void IMvcViewObject.UpdateTalonOrderList(IList<ITalonObject> talonObjectOrderList)
         {
             throw new System.NotImplementedException();
         }
