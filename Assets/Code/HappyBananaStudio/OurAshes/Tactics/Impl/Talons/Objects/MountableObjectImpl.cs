@@ -40,7 +40,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
         // Todo
         private readonly IList<IWeaponInformationReport> weaponInformationReportList;
 
+        // Todo
         private readonly int maxRange = int.MinValue;
+        // Todo
+        private readonly int maxAccuracy = int.MinValue;
 
         /// <summary>
         /// Todo
@@ -88,19 +91,24 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
             {
                 if (!weaponModelId.Equals(WeaponModelIdEnum.None))
                 {
-                    IWeaponInformationReport weaponInformationReport = new WeaponInformationReportImpl.Builder()
-                            .SetWeaponAttributes(new WeaponAttributesImpl.Builder()
+                    IWeaponAttributes newWeaponAttributes = new WeaponAttributesImpl.Builder()
                                 .SetWeaponAttributesCollection(new HashSet<IWeaponAttributes>()
                                     { weaponAttributes, WeaponAttributesConstants.GetAttributes(weaponModelId) })
-                                .Build()
-                                )
-                            .SetWeaponModelId(weaponModelId)
-                            .Build();
-                    if (weaponInformationReport.GetWeaponAttributes().GetMaxRangePoints() > this.maxRange)
+                                .Build();
+                    if (newWeaponAttributes.GetMaxRangePoints() > this.maxRange)
                     {
-                        this.maxRange = weaponInformationReport.GetWeaponAttributes().GetMaxRangePoints();
+                        this.maxRange = newWeaponAttributes.GetMaxRangePoints();
                     }
-                    this.weaponInformationReportList.Add(weaponInformationReport);
+                    if (newWeaponAttributes.GetAccuracyPoints() > this.maxAccuracy)
+                    {
+                        this.maxAccuracy = newWeaponAttributes.GetAccuracyPoints();
+                    }
+                    this.weaponInformationReportList.Add(
+                        new WeaponInformationReportImpl.Builder()
+                            .SetWeaponAttributes(newWeaponAttributes)
+                            .SetWeaponModelId(weaponModelId)
+                            .Build()
+                            );
                 }
                 else
                 {
@@ -131,7 +139,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
         {
             ISet<ITalonActionOrderFireReport> talonActionOrderReportSet = new HashSet<ITalonActionOrderFireReport>();
             IDictionary<ICubeCoordinates, IPathObject> cubeCoordinatesPathObjectDictionary = PathFinderFireUtil
-                .BeginPathfindingFor(cubeCoordinates, this.maxRange);
+                .BeginPathfindingFor(cubeCoordinates, this.maxRange, this.maxAccuracy);
 
             foreach (ICubeCoordinates pathCubeCoordinates in cubeCoordinatesPathObjectDictionary.Keys)
             {

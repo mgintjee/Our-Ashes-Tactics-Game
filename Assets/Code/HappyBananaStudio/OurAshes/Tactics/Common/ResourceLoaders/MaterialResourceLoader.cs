@@ -50,19 +50,17 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders
             // Todo
             private static readonly string Color_MATERIALS_FOLDER_HOME = MATERIALS_FOLDER_HOME + "ColorMaterials/";
 
-            // Todo
-            private static readonly string MATERIAL_PREFIX = "Color_";
 
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="paintColor">
+            /// <param name="colorId">
             /// </param>
             /// <returns>
             /// </returns>
-            public static Material LoadColorMaterialResource(ColorIdEnum paintColor)
+            public static Material LoadColorMaterialResource(ColorIdEnum colorId)
             {
-                return LoadMaterialResource(Color_MATERIALS_FOLDER_HOME + MATERIAL_PREFIX + paintColor.ToString());
+                return LoadMaterialResource(Color_MATERIALS_FOLDER_HOME + colorId.ToString());
             }
         }
 

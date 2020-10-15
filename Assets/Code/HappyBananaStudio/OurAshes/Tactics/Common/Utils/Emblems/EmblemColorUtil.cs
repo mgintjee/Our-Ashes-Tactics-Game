@@ -1,9 +1,12 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Emblems
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Emblems
 {
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Schemes.Color;
+    using HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
+    using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
     using UnityEngine;
 
     /// <summary>
@@ -12,26 +15,14 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Emblems
     public static class EmblemColorUtil
     {
         // Todo
-        private static readonly IDictionary<ColorIdEnum, Color> colorIdColorIDictionary = new Dictionary<ColorIdEnum, Color>()
-        {
-            {ColorIdEnum.Aqua, new Color(0, 1, 1) },
-            {ColorIdEnum.Black, new Color(0, 0, 0) },
-            {ColorIdEnum.Blue, new Color(0, 0, 1) },
-            {ColorIdEnum.Chocolate, new Color(210/255f, 105/255f, 30/255f) },
-            {ColorIdEnum.Gray, new Color(128/255f,128/255f,128/255f) },
-            {ColorIdEnum.Green, new Color(0,128/255f,0) },
-            {ColorIdEnum.Lime, new Color(0, 1, 0) },
-            {ColorIdEnum.Magenta, new Color(1, 0, 1) },
-            {ColorIdEnum.Maroon, new Color(128/255f, 0, 0) },
-            {ColorIdEnum.Navy, new Color(0, 0, 128/255f) },
-            {ColorIdEnum.Olive, new Color(128/255f, 128/255f, 0) },
-            {ColorIdEnum.Orange, new Color(1, 165/255f, 0) },
-            {ColorIdEnum.Purple, new Color(128/255f, 0, 128/255f) },
-            {ColorIdEnum.Red, new Color(1, 0, 0) },
-            {ColorIdEnum.Teal, new Color(0, 128/255f, 128/255f) },
-            {ColorIdEnum.White, new Color(1, 1, 1) },
-            {ColorIdEnum.Yellow, new Color(1,1, 0) },
-        };
+        private static readonly IDictionary<ColorIdEnum, Color> ColorIdColorDictionary = new Dictionary<ColorIdEnum, Color>();
+        // Todo
+        private static readonly HashSet<ColorIdEnum> SupportedColorIdSet = new HashSet<ColorIdEnum>(
+            new List<ColorIdEnum>(
+                (ColorIdEnum[])Enum.GetValues(typeof(ColorIdEnum))
+                )
+            .Where(colorId => !colorId.Equals(ColorIdEnum.None)).ToList()
+            );
 
         /// <summary>
         /// Todo
@@ -42,12 +33,20 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Emblems
         /// </returns>
         public static Color GetColor(ColorIdEnum colorId)
         {
-            Color color = new Color();
-            if (colorIdColorIDictionary.ContainsKey(colorId))
+            if (SupportedColorIdSet.Contains(colorId))
             {
-                color = colorIdColorIDictionary[colorId];
+                if (!ColorIdColorDictionary.ContainsKey(colorId))
+                {
+                    Color color = MaterialResourceLoader.Color.LoadColorMaterialResource(colorId).color;
+                    color.a = 0.5f;
+                    ColorIdColorDictionary.Add(colorId,color);
+                }
+                return ColorIdColorDictionary[colorId];
             }
-            return color;
+            else
+            {
+                throw ArgumentExceptionUtil.Build("Unable to ?. ? is not supported.", new StackFrame().GetMethod().Name, colorId);
+            }
         }
     }
 }

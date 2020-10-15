@@ -6,6 +6,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Finders.Fire
     using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Paths.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
     using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates;
@@ -29,16 +30,19 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Finders.Fire
 
         // Todo
         private readonly int maxRange = int.MinValue;
+        // Todo
+        private readonly int maxAccuracy = int.MinValue;
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="cubeCoordinatesStart">
         /// </param>
-        public PathFinderFireImpl(ICubeCoordinates cubeCoordinatesStart, int maxRange)
+        public PathFinderFireImpl(ICubeCoordinates cubeCoordinatesStart, int maxRange, int maxAccuracy)
             : base(cubeCoordinatesStart)
         {
             this.maxRange = maxRange;
+            this.maxAccuracy = maxAccuracy;
         }
 
         /// <summary>
@@ -74,7 +78,11 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Finders.Fire
                 IList<ICubeCoordinates> straightLinePath = this.PathFindFor(this.cubeCoordinatesStart, cubeCoordinates);
                 if (straightLinePath.Count <= this.maxRange)
                 {
-                    this.pathObjectDictionary[cubeCoordinates] = new PathObjectFireImpl(straightLinePath);
+                    IPathObject pathObject =  new PathObjectFireImpl(straightLinePath);
+                    if(pathObject.GetPathObjectCost() < this.maxAccuracy)
+                    {
+                        this.pathObjectDictionary.Add(cubeCoordinates, pathObject);
+                    }
                 }
             }
         }

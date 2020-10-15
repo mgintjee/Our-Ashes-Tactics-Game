@@ -107,15 +107,15 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Schemes
                 case FactionIdEnum.CreativeFaction3:
                     return new ColorSchemeReportImpl.Builder()
                             .SetPrimaryColorId(ColorIdEnum.Red)
-                            .SetSecondaryColorId(ColorIdEnum.Black)
+                            .SetSecondaryColorId(ColorIdEnum.DimGray)
                             .SetTertiaryColorId(ColorIdEnum.Green)
                             .Build();
 
                 case FactionIdEnum.CreativeFaction4:
                     return new ColorSchemeReportImpl.Builder()
-                            .SetPrimaryColorId(ColorIdEnum.Maroon)
-                            .SetSecondaryColorId(ColorIdEnum.Red)
-                            .SetTertiaryColorId(ColorIdEnum.Black)
+                            .SetPrimaryColorId(ColorIdEnum.LightSkyBlue)
+                            .SetSecondaryColorId(ColorIdEnum.Silver)
+                            .SetTertiaryColorId(ColorIdEnum.Coral)
                             .Build();
 
                 default:

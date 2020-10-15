@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Paths.Finder
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Paths.Finder
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
@@ -27,10 +26,11 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Paths.Finder
         /// </param>
         /// <returns>
         /// </returns>
-        public static IDictionary<ICubeCoordinates, IPathObject> BeginPathfindingFor(ICubeCoordinates tileCoordinatesStart, int maxRange)
+        public static IDictionary<ICubeCoordinates, IPathObject> BeginPathfindingFor(
+            ICubeCoordinates tileCoordinatesStart, int maxRange, int maxAccuracy)
         {
             logger.Debug("BeginPathFinding for Fire: Start=?", tileCoordinatesStart);
-            pathFinderFire = new PathFinderFireImpl(tileCoordinatesStart, maxRange);
+            pathFinderFire = new PathFinderFireImpl(tileCoordinatesStart, maxRange, maxAccuracy);
             pathFinderFire.BeginPathFinding();
             return pathFinderFire.GetPathObjectDictionary();
         }

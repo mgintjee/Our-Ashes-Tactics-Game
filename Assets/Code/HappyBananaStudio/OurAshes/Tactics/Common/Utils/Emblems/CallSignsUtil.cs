@@ -10,7 +10,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Emblems
     public static class CallSignsUtil
     {
         // Todo
-        private static IDictionary<CallSignEnum, string> callSignCharacterIDictionary = new Dictionary<CallSignEnum, string>()
+        private static readonly IDictionary<CallSignEnum, string> CallSignCharacterDictionary = new Dictionary<CallSignEnum, string>()
         {
             {CallSignEnum.Alpha, "\u0391" },
             {CallSignEnum.Beta, "\u0392" },
@@ -48,9 +48,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Emblems
         public static string GetCharacter(CallSignEnum callSign)
         {
             string character = "-";
-            if (callSignCharacterIDictionary.ContainsKey(callSign))
+            if (CallSignCharacterDictionary.ContainsKey(callSign))
             {
-                character = callSignCharacterIDictionary[callSign];
+                character = CallSignCharacterDictionary[callSign];
             }
             return character;
         }
