@@ -62,7 +62,11 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Loggers
         private static readonly string LOG_FILE_DIRECTORY = "gameLogs";
 
         // Todo
-        private static readonly string LOG_FILE_INDEX = DateTime.Now.ToLongTimeString().Replace(':', '_');
+        private static readonly string LOG_FILE_INDEX = DateTime.Now.ToLongDateString().Replace(':', '_') + "-" +
+            DateTime.Now.ToLongTimeString().Replace(':', '_');
+
+        // Todo
+        //private static readonly string LOG_FILE_INDEX = DateTime.Now.ToLongDateString().Replace(':', '_');
 
         // Todo
         private static readonly string LOG_FILE_NAME = LOG_FILE_DIRECTORY + "/ourAshesTacticsLog-" + LOG_FILE_INDEX + ".txt";

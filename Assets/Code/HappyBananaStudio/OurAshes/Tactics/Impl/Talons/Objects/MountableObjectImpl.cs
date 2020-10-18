@@ -42,6 +42,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
 
         // Todo
         private readonly int maxRange = int.MinValue;
+
         // Todo
         private readonly int maxAccuracy = int.MinValue;
 

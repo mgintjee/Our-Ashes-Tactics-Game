@@ -51,7 +51,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Orders
         public override string ToString()
         {
             return this.GetType().Name + ":" +
-                "\n\t>" + this.actionType +
+                "\n\t> ActionType: " + this.actionType +
                 "\n\t>" + this.actingTalonIdentificationReport +
                 "\n\t>" + this.targetTalonIdentificationReport +
                 "\n\t>" + this.pathObject;

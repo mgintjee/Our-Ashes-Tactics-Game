@@ -137,25 +137,25 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Schemes
             {
                 case FactionIdEnum.CreativeFaction1:
                     return new EmblemSchemeReportImpl.Builder()
-                                .SetEmblemBackgroundId(EmblemBackgroundIdEnum.Circle)
+                                .SetEmblemBackgroundId(EmblemForegroundIdEnum.Circle)
                                 .SetEmblemIconId(EmblemIconIdEnum.Heart)
                             .Build();
 
                 case FactionIdEnum.CreativeFaction2:
                     return new EmblemSchemeReportImpl.Builder()
-                                .SetEmblemBackgroundId(EmblemBackgroundIdEnum.Circle)
+                                .SetEmblemBackgroundId(EmblemForegroundIdEnum.Circle)
                                 .SetEmblemIconId(EmblemIconIdEnum.Heart)
                             .Build();
 
                 case FactionIdEnum.CreativeFaction3:
                     return new EmblemSchemeReportImpl.Builder()
-                                .SetEmblemBackgroundId(EmblemBackgroundIdEnum.Circle)
+                                .SetEmblemBackgroundId(EmblemForegroundIdEnum.Circle)
                                 .SetEmblemIconId(EmblemIconIdEnum.Heart)
                             .Build();
 
                 case FactionIdEnum.CreativeFaction4:
                     return new EmblemSchemeReportImpl.Builder()
-                                .SetEmblemBackgroundId(EmblemBackgroundIdEnum.Circle)
+                                .SetEmblemBackgroundId(EmblemForegroundIdEnum.Circle)
                                 .SetEmblemIconId(EmblemIconIdEnum.Heart)
                             .Build();
 

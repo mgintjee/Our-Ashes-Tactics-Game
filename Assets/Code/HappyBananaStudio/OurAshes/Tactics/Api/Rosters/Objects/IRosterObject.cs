@@ -25,6 +25,13 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Objects
         /// </summary>
         /// <returns>
         /// </returns>
+        ISet<FactionIdEnum> GetFactionIdSet();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
         ISet<ITalonIdentificationReport> GetActiveTalonIdentificationReportSet();
 
         /// <summary>

@@ -8,6 +8,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.GameTypes
     public enum GameTypeEnum
     {
         None,
-        Deathmatch,
+        Skirmish,
     }
 }

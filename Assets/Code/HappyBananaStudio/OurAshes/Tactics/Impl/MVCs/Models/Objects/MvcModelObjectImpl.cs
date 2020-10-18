@@ -88,7 +88,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Models.Objects
                 foreach (ITalonIdentificationReport talonIdentificationReport in this.rosterObject.GetAllTalonIdentificationReportSet())
                 {
                     ICubeCoordinates spawnCubeCoordinates = TalonSpawnCubeCoordinatesUtil
-                        .GetSpawningCubeCoordinatesFor(GameTypeEnum.Deathmatch);
+                        .GetSpawningCubeCoordinatesFor(GameTypeEnum.Skirmish);
                     IHexTileObject hexTileObject = GameMapObjectManager.GetHexTileObjectFrom(spawnCubeCoordinates);
                     if (hexTileObject != null)
                     {
@@ -225,7 +225,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Models.Objects
                 if (talonActionOrderReport is ITalonActionOrderFireReport talonActionOrderFireReport)
                 {
                     ITalonActionResultFireReport talonActionResultFireReport = TalonCombatManager
-                        .GetTalonActionResultReport(talonActionOrderFireReport);
+                        .GetTalonActionResultFireReport(talonActionOrderFireReport);
                     if (talonActionResultFireReport.GetTargetTalonAttributesReport()
                         .GetDestructibleAttributesReport().GetCurrentHealthPoints() <= 0)
                     {

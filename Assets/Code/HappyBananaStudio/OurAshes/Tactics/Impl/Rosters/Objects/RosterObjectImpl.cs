@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Rosters.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Rosters.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Objects;
@@ -28,6 +26,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Rosters.Objects
     {
         // Provide logging capability
         private static readonly ICodeLogger logger = new CodeLoggerImpl(new StackFrame().GetMethod().DeclaringType);
+
+        // Todo
+        private readonly ISet<FactionIdEnum> factionIdSet = new HashSet<FactionIdEnum>();
 
         // Todo
         private readonly ISet<ITalonIdentificationReport> activeTalonIdentificationReportSet =
@@ -64,6 +65,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Rosters.Objects
                 foreach (FactionIdEnum factionId in this.rosterConstructionReport.GetFactionIdPhalanxIdSetIDictionary().Keys)
                 {
                     logger.Info("Building ?'s ?s", factionId, typeof(ITalonConstructionReport));
+                    this.factionIdSet.Add(factionId);
                     // Iterate over the Phalanxes
                     foreach (PhalanxIdEnum phalanxId in this.rosterConstructionReport.GetFactionIdPhalanxIdSetIDictionary()[factionId])
                     {
@@ -175,6 +177,16 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Rosters.Objects
                 }
             }
             return talonObjectSet;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        ISet<FactionIdEnum> IRosterObject.GetFactionIdSet()
+        {
+            return new HashSet<FactionIdEnum>(this.factionIdSet);
         }
 
         /// <summary>

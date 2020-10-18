@@ -30,6 +30,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Finders.Fire
 
         // Todo
         private readonly int maxRange = int.MinValue;
+
         // Todo
         private readonly int maxAccuracy = int.MinValue;
 
@@ -78,8 +79,8 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Finders.Fire
                 IList<ICubeCoordinates> straightLinePath = this.PathFindFor(this.cubeCoordinatesStart, cubeCoordinates);
                 if (straightLinePath.Count <= this.maxRange)
                 {
-                    IPathObject pathObject =  new PathObjectFireImpl(straightLinePath);
-                    if(pathObject.GetPathObjectCost() < this.maxAccuracy)
+                    IPathObject pathObject = new PathObjectFireImpl(straightLinePath);
+                    if (pathObject.GetPathObjectCost() < this.maxAccuracy)
                     {
                         this.pathObjectDictionary.Add(cubeCoordinates, pathObject);
                     }

@@ -17,26 +17,27 @@
 - **DONE** Use emblem generator for the phalanx/faction images (Can be expanded)
 - **DONE** Use nato alphabet for phalanx ids 
 - **DONE** Implement Pilots (Similar to how Battle Brothers are generated)
+- **DONE** Simplify Talon/Weapon objects by just tracking the the attribute structures and going from there (Ideally, I want to simplify the complexity)
+- **DONE** Since I do not plan on animating weapons, I should remove the weapon scripts. And jsut add the game objects to the talon game object and keep track of the weapons as objects (Not game objects)
+- **DONE** Arguably remove the scripts for most Talon functionality if I have a manager involved to move the game object
+- **DONE** Update the spawning system
+- **OBE**/**DONE** Add Weapon/Talon Animations
+- **DONE** Update Talons to have a utility slot (Need to add Utility Models)
+- **DONE** Break out talon emblem generation into some util/manager. "public static GameObject GetTalonEmblem(...)"
+- **OBE** Update weapons to track their index
 - Implement World Map generation that is made up of giant hex tiles
 - Have a world map that the battles zoom in on and exist on top of a world tile maybe have a new scene that generates the landscape by using some parameters from the world map to minimize unused world tiles off screen
 - Have the pilots look like Among Us style (Arms are overrated)
 - Have the talons look less...terrible
-- **DONE** Update Talons to have a utility slot (Need to add Utility Models)
 - Update what the factions are
-- **DONE** Update the spawning system
-- **OBE**/**DONE** Add Weapon/Talon Animations
 - Add different battle types (Ambush, King of the hill, deathmatch)
-- **OBE** Update weapons to track their index
 - Have day and night cycle working at some point
 - Have armor be dynamic as the battle goes on, you lose armor or something based off of penetration (If the penetration makes the armor remaining negative, lose 1 armor point?)
 - Update the logging system for reporting how the turns are going
 - Update how to create the game log using the reports
-- Need to finally implement the UI instead of relying on logs
+- Need to finally implement the UI instead of relying on logs (Added the scoreboard so there is that)
 - Change the base of the Talon to be the Faction color. It seems pretty obv to determine wihch tile a talon is on
-- Have the callsigns be unique per faction (NOT PER PHALANX)
-- **DONE** Break out talon emblem generation into some util/manager. "public static GameObject GetTalonEmblem(...)"
+- Have the callsigns be unique per faction (NOT PER PHALANX) Update: Callsigns unique per talon might be best
 - Have a pop-up with detailed talon combat results (Per weapon, each roll, ...)
-- **DONE** Simplify Talon/Weapon objects by just tracking the the attribute structures and going from there (Ideally, I want to simplify the complexity)
-- **DONE** Since I do not plan on animating weapons, I should remove the weapon scripts. And jsut add the game objects to the talon game object and keep track of the weapons as objects (Not game objects)
-- **DONE** Arguably remove the scripts for most Talon functionality if I have a manager involved to move the game object
 - Update the sprites to no longer have a black outline. I think I can use Unity's Outline component to get the effect I desire
+- Have doodads on the hexTile tops 

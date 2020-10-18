@@ -23,15 +23,15 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Reports
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="damageCaused">
+        /// <param name="healthDamageCaused">
         /// </param>
         /// <param name="armorDamageCaused">
         /// </param>
         /// <param name="weaponOrderReport">
         /// </param>
-        private WeaponResultReportImpl(int damageCaused, int armorDamageCaused, IWeaponOrderReport weaponOrderReport)
+        private WeaponResultReportImpl(int healthDamageCaused, int armorDamageCaused, IWeaponOrderReport weaponOrderReport)
         {
-            this.healthDamageCaused = damageCaused;
+            this.healthDamageCaused = healthDamageCaused;
             this.armorDamageCaused = armorDamageCaused;
             this.weaponOrderReport = weaponOrderReport;
         }

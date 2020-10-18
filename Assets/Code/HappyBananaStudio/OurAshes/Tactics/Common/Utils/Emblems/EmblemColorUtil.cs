@@ -16,6 +16,7 @@
     {
         // Todo
         private static readonly IDictionary<ColorIdEnum, Color> ColorIdColorDictionary = new Dictionary<ColorIdEnum, Color>();
+
         // Todo
         private static readonly HashSet<ColorIdEnum> SupportedColorIdSet = new HashSet<ColorIdEnum>(
             new List<ColorIdEnum>(
@@ -39,7 +40,7 @@
                 {
                     Color color = MaterialResourceLoader.Color.LoadColorMaterialResource(colorId).color;
                     color.a = 0.5f;
-                    ColorIdColorDictionary.Add(colorId,color);
+                    ColorIdColorDictionary.Add(colorId, color);
                 }
                 return ColorIdColorDictionary[colorId];
             }

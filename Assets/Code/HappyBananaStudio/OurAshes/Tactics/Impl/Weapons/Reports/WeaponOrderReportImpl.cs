@@ -58,8 +58,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Reports
         /// </returns>
         public override string ToString()
         {
-            return this.GetType().Name + ":" +
-                "\n\t>Shots that Hit= " + this.GetShotsThatHit() +
+            return this.GetType().Name + ": Shots that Hit= " + this.GetShotsThatHit() +
                 "\n\t>" + typeof(IWeaponInformationReport).Name + "= " + this.GetWeaponInformationReport();
         }
 

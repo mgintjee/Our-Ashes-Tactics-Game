@@ -89,8 +89,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="cubeCoordinates"></param>
-        /// <returns></returns>
+        /// <param name="cubeCoordinates">
+        /// </param>
+        /// <returns>
+        /// </returns>
         private static IOffsetCoordinates CubeToEvenq(ICubeCoordinates cubeCoordinates)
         {
             int col = cubeCoordinates.GetX();
@@ -101,8 +103,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="cubeCoordinates"></param>
-        /// <returns></returns>
+        /// <param name="cubeCoordinates">
+        /// </param>
+        /// <returns>
+        /// </returns>
         private static IOffsetCoordinates CubeToEvenr(ICubeCoordinates cubeCoordinates)
         {
             int col = cubeCoordinates.GetX() + (cubeCoordinates.GetZ() + (cubeCoordinates.GetZ() & 1)) / 2;
@@ -113,8 +117,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="cubeCoordinates"></param>
-        /// <returns></returns>
+        /// <param name="cubeCoordinates">
+        /// </param>
+        /// <returns>
+        /// </returns>
         private static IOffsetCoordinates CubeToOddq(ICubeCoordinates cubeCoordinates)
         {
             int col = cubeCoordinates.GetX();
@@ -125,8 +131,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="cubeCoordinates"></param>
-        /// <returns></returns>
+        /// <param name="cubeCoordinates">
+        /// </param>
+        /// <returns>
+        /// </returns>
         private static IOffsetCoordinates CubeToOddr(ICubeCoordinates cubeCoordinates)
         {
             int col = cubeCoordinates.GetX() + (cubeCoordinates.GetZ() - (cubeCoordinates.GetZ() & 1)) / 2;
@@ -137,9 +145,12 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="col"></param>
-        /// <param name="row"></param>
-        /// <returns></returns>
+        /// <param name="col">
+        /// </param>
+        /// <param name="row">
+        /// </param>
+        /// <returns>
+        /// </returns>
         private static ICubeCoordinates EvenqToCube(int col, int row)
         {
             int x = row;
@@ -151,9 +162,12 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="col"></param>
-        /// <param name="row"></param>
-        /// <returns></returns>
+        /// <param name="col">
+        /// </param>
+        /// <param name="row">
+        /// </param>
+        /// <returns>
+        /// </returns>
         private static ICubeCoordinates EvenrToCube(int col, int row)
         {
             int x = col - (row + (row & 1)) / 2;
@@ -165,9 +179,12 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="col"></param>
-        /// <param name="row"></param>
-        /// <returns></returns>
+        /// <param name="col">
+        /// </param>
+        /// <param name="row">
+        /// </param>
+        /// <returns>
+        /// </returns>
         private static ICubeCoordinates OddqToCube(int col, int row)
         {
             int x = row;
@@ -179,9 +196,12 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="col"></param>
-        /// <param name="row"></param>
-        /// <returns></returns>
+        /// <param name="col">
+        /// </param>
+        /// <param name="row">
+        /// </param>
+        /// <returns>
+        /// </returns>
         private static ICubeCoordinates OddrToCube(int col, int row)
         {
             int x = col - (row - (row & 1)) / 2;

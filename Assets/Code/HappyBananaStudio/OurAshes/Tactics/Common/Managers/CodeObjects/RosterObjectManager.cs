@@ -42,6 +42,23 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
         /// </summary>
         /// <returns>
         /// </returns>
+        public static ISet<FactionIdEnum> GetFactionIdSet()
+        {
+            if (rosterObject != null)
+            {
+                return rosterObject.GetFactionIdSet();
+            }
+            else
+            {
+                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IRosterObject));
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
         public static ISet<ITalonIdentificationReport> GetAllTalonIdentificationReportSet()
         {
             if (rosterObject != null)

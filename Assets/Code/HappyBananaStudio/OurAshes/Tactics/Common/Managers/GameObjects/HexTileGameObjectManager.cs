@@ -93,6 +93,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
             Material[] materials = meshRenderer.materials;
             materials[1] = MaterialResourceLoader.HexTile.Top.LoadHexTileTopMaterialResource(hexTileType);
             meshRenderer.materials = materials;
+            // Todo: Add doodads to the tops here?
         }
 
         /// <summary>

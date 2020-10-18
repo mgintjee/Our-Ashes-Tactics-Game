@@ -85,7 +85,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
         /// </returns>
         public IMvcInitializationReport BuildMvcInitializationReport()
         {
-            logger.Debug("?", new StackFrame().GetMethod().Name);
             IMvcInitializationReport mvcInitializationReport = new MvcInitializationReportImpl.Builder()
                .SetGameRNGSeed(this.random.Next())
                .SetGameMapConstructionReport(this.BuildGameMapConstructionReport())
@@ -120,7 +119,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
 
         private ISet<CallSignEnum> BuildCallSignSet(int count)
         {
-            logger.Debug("?", new StackFrame().GetMethod().Name);
             ISet<CallSignEnum> callSignSet = new HashSet<CallSignEnum>();
 
             Array enumValues = Enum.GetValues(typeof(CallSignEnum));
@@ -135,13 +133,11 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
 
         private ISet<ICubeCoordinates> BuildCubeCoordinatesSet()
         {
-            logger.Debug("?", new StackFrame().GetMethod().Name);
             return CubeCoordinatesGeneratorUtil.GenerateHexagonCubeCoordinatesSet(this.random.Next(2, 4));
         }
 
         private IDictionary<FactionIdEnum, ISet<PhalanxIdEnum>> BuildFactionIdPhalanxIdSetIDictionary()
         {
-            logger.Debug("?", new StackFrame().GetMethod().Name);
             IDictionary<FactionIdEnum, ISet<PhalanxIdEnum>> factionIdPhalanxIdSetIDictionary = new Dictionary<FactionIdEnum, ISet<PhalanxIdEnum>>();
 
             int factionCount = this.random.Next(2, 4);
@@ -170,7 +166,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
 
         private ISet<FactionIdEnum> BuildFactionIdSet(int factionCount)
         {
-            logger.Debug("?", new StackFrame().GetMethod().Name);
             ISet<FactionIdEnum> factionIdSet = new HashSet<FactionIdEnum>();
 
             Array enumValues = Enum.GetValues(typeof(FactionIdEnum));
@@ -185,7 +180,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
 
         private IGameMapConstructionReport BuildGameMapConstructionReport()
         {
-            logger.Debug("?", new StackFrame().GetMethod().Name);
             return new GameMapConstructionReportImpl.Builder()
                 .SetCubeCoordinatesSet(this.BuildCubeCoordinatesSet())
                 .SetMapMirrored(this.IsMapMirrored())
@@ -194,11 +188,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
 
         private ISet<PhalanxIdEnum> BuildPhalanxIdSet(int factionCount)
         {
-            logger.Debug("?", new StackFrame().GetMethod().Name);
             ISet<PhalanxIdEnum> phalanxIdSet = new HashSet<PhalanxIdEnum>();
 
             Array enumValues = Enum.GetValues(typeof(PhalanxIdEnum));
-            logger.Debug("PosVals: ?", string.Join(",", enumValues));
             while (phalanxIdSet.Count < factionCount * 2 &&
                 phalanxIdSet.Count != enumValues.Length - 1)
             {
@@ -211,7 +203,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
         private IDictionary<PhalanxIdEnum, ISet<ITalonConstructionReport>> BuildPhalanxIdTalonConstructionReportDictionaey(
             IDictionary<FactionIdEnum, ISet<PhalanxIdEnum>> factionIdPhalanxIdSetIDictionary)
         {
-            logger.Debug("?", new StackFrame().GetMethod().Name);
             IDictionary<PhalanxIdEnum, ISet<ITalonConstructionReport>> phalanxIdTalonConstructionReportSetIDictionary =
                 new Dictionary<PhalanxIdEnum, ISet<ITalonConstructionReport>>();
 
@@ -260,7 +251,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
 
         private IHopliteConstructionReport BuildRandomHopliteConstructionReport()
         {
-            logger.Debug("?", new StackFrame().GetMethod().Name);
             return new HopliteConstructionReportImpl.Builder()
                 .SetControllerId(ControllerIdEnum.Random)
                 .SetHopliteTraitSet(new HashSet<HopliteTraitEnum>() { HopliteTraitEnum.Default })
@@ -270,7 +260,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
         private ITalonConstructionReport BuildRandomTalonConstructionReport(FactionIdEnum factionId, PhalanxIdEnum phalanxId,
             CallSignEnum callSign, ITalonCustomizationReport talonCustomizationReport)
         {
-            logger.Debug("?", new StackFrame().GetMethod().Name);
             TalonModelIdEnum talonModelId = this.GetRandomTalonModelId();
             return new TalonConstructionReportImpl.Builder()
                 .SetHopliteConstructionReport(this.BuildRandomHopliteConstructionReport())
@@ -288,7 +277,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
 
         private IList<UtilityModelIdEnum> BuildRandomUtilityModelIdList(TalonModelIdEnum talonModelId)
         {
-            logger.Debug("?", new StackFrame().GetMethod().Name);
             int utilityPoints = TalonAttributesConstants.GetAttributes(talonModelId).GetMountableAttributes().GetUtilityMountPoints();
             IList<UtilityModelIdEnum> utilityModelIdList = new List<UtilityModelIdEnum>();
 
@@ -301,7 +289,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
 
         private IList<WeaponModelIdEnum> BuildRandomWeaponModelIdList(TalonModelIdEnum talonModelId)
         {
-            logger.Debug("?", new StackFrame().GetMethod().Name);
             int weaponPoints = TalonAttributesConstants.GetAttributes(talonModelId).GetMountableAttributes().GetWeaponMountPoints();
 
             IList<WeaponModelIdEnum> utilityModelIdList = new List<WeaponModelIdEnum>();
@@ -314,7 +301,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
 
         private IRosterConstructionReport BuildRosterConstructionReport()
         {
-            logger.Debug("?", new StackFrame().GetMethod().Name);
             IDictionary<FactionIdEnum, ISet<PhalanxIdEnum>> factionIdPhalanxIdSet = this.BuildFactionIdPhalanxIdSetIDictionary();
 
             return new RosterConstructionReportImpl.Builder()
@@ -323,51 +309,44 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
                 .Build();
         }
 
-        private EmblemBackgroundIdEnum GetRandomEmblemBackgroundId()
+        private EmblemForegroundIdEnum GetRandomEmblemBackgroundId()
         {
-            logger.Debug("?", new StackFrame().GetMethod().Name);
-            Array enumValues = Enum.GetValues(typeof(EmblemBackgroundIdEnum));
-            return (EmblemBackgroundIdEnum)enumValues.GetValue(random.Next(1, enumValues.Length));
+            Array enumValues = Enum.GetValues(typeof(EmblemForegroundIdEnum));
+            return (EmblemForegroundIdEnum)enumValues.GetValue(random.Next(1, enumValues.Length));
         }
 
         private EmblemIconIdEnum GetRandomEmblemIconId()
         {
-            logger.Debug("?", new StackFrame().GetMethod().Name);
             Array enumValues = Enum.GetValues(typeof(EmblemIconIdEnum));
             return (EmblemIconIdEnum)enumValues.GetValue(random.Next(1, enumValues.Length));
         }
 
         private ColorIdEnum GetRandomPaintColorId()
         {
-            logger.Debug("?", new StackFrame().GetMethod().Name);
             Array enumValues = Enum.GetValues(typeof(ColorIdEnum));
             return (ColorIdEnum)enumValues.GetValue(random.Next(1, enumValues.Length));
         }
 
         private TalonModelIdEnum GetRandomTalonModelId()
         {
-            logger.Debug("?", new StackFrame().GetMethod().Name);
             Array enumValues = Enum.GetValues(typeof(TalonModelIdEnum));
             return (TalonModelIdEnum)enumValues.GetValue(random.Next(1, enumValues.Length));
         }
 
         private UtilityModelIdEnum GetRandomUtilityModelId()
         {
-            logger.Debug("?", new StackFrame().GetMethod().Name);
             Array enumValues = Enum.GetValues(typeof(UtilityModelIdEnum));
             return (UtilityModelIdEnum)enumValues.GetValue(random.Next(1, enumValues.Length));
         }
 
         private WeaponModelIdEnum GetRandomWeaponModelId()
         {
-            logger.Debug("?", new StackFrame().GetMethod().Name);
             Array enumValues = Enum.GetValues(typeof(WeaponModelIdEnum));
             return (WeaponModelIdEnum)enumValues.GetValue(random.Next(1, enumValues.Length));
         }
 
         private bool IsMapMirrored()
         {
-            logger.Debug("?", new StackFrame().GetMethod().Name);
             return this.random.Next() % 2 == 0;
         }
     }

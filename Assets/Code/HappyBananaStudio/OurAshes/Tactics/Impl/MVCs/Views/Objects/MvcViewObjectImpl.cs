@@ -1,14 +1,17 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Views
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Views
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.GameActions.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Initializers.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Views.Objects;
+    using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Views.Scripts;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Results;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
+    using HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Animators;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.LineRenderers;
@@ -27,7 +30,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Views
         // Provide logging capability
         private static readonly ICodeLogger logger = new CodeLoggerImpl(new StackFrame().GetMethod().DeclaringType);
 
-        // TODO
+        // Todo
         private readonly GameObject mvcCanvasGameObject;
 
         // Todo
@@ -36,6 +39,16 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Views
         // Todo
         private readonly IMvcInitializationReport mvcInitializationReport;
 
+        // Todo
+        private readonly IMvcViewScript mvcViewScript;
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="mvcFrameworkObject">
+        /// </param>
+        /// <param name="mvcInitializationReport">
+        /// </param>
         public MvcViewObjectImpl(IMvcFrameworkObject mvcFrameworkObject, IMvcInitializationReport mvcInitializationReport)
         {
             if (mvcFrameworkObject != null &&
@@ -44,6 +57,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Views
                 logger.Info("Constructing: ?", this.GetType());
                 this.mvcFrameworkObject = mvcFrameworkObject;
                 this.mvcInitializationReport = mvcInitializationReport;
+                this.mvcViewScript = GameObjectResourceLoader.Canvas.LoadMvcCanvasGameObject().GetComponent<IMvcViewScript>();
+                this.mvcViewScript.LoadWidgets();
+                this.mvcViewScript.UpdateWidgets();
             }
             else
             {
@@ -83,6 +99,20 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Views
         /// <summary>
         /// Todo
         /// </summary>
+        /// <param name="gameActionReport">
+        /// </param>
+        void IMvcViewObject.DisplayCombatReportPopUp(IGameActionReport gameActionReport)
+        {
+            ITalonActionResultFireReport actualTalonActionOrderFireReport = (ITalonActionResultFireReport)gameActionReport.GetTalonActionResultReport();
+            ITalonActionResultFireReport expectedTalonActionOrderFireReport = TalonCombatManager.GetExpectedTalonActionResultFireReport(
+                (ITalonActionOrderFireReport)actualTalonActionOrderFireReport.GetTalonActionOrder());
+            logger.Debug("Actual=?" +
+                "\nExpected=?", actualTalonActionOrderFireReport, expectedTalonActionOrderFireReport);
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
         /// <returns>
         /// </returns>
         bool IMvcViewObject.IsAnimating()
@@ -100,25 +130,12 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Views
         {
             return this.mvcFrameworkObject != null;
         }
-
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="talonIdentificationReport">
-        /// </param>
-        void IMvcViewObject.UpdateTalonCanvas(ITalonIdentificationReport talonIdentificationReport)
+        void IMvcViewObject.UpdateCanvas()
         {
-            throw new System.NotImplementedException();
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="talonObjectOrderList">
-        /// </param>
-        void IMvcViewObject.UpdateTalonOrderList(IList<ITalonObject> talonObjectOrderList)
-        {
-            throw new System.NotImplementedException();
+            this.mvcViewScript.UpdateWidgets();
         }
     }
 }

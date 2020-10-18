@@ -15,6 +15,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Frameworks.Objects
     using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.LineRenderers;
+    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.RandomNumberGenerators;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Controllers.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Models.Objects;
@@ -109,6 +110,14 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Frameworks.Objects
                             // Input the Action to the Model
                             IGameActionReport gameActionReport = this.mvcModelObject
                                 .InputTalonActionOrderReport(talonActionOrderReport);
+
+                            if (talonActionOrderReport is ITalonActionOrderFireReport)
+                            {
+                                this.mvcViewObject.DisplayCombatReportPopUp(gameActionReport);
+                            }
+                            this.mvcViewObject.UpdateCanvas();
+                            // Cycle the next random value
+                            RandomNumberGeneratorUtil.GetNextInt();
                             Logger.Info("?", gameActionReport);
                             // Cache the IGameActionReport
                             this.gameActionReportList.Add(gameActionReport);

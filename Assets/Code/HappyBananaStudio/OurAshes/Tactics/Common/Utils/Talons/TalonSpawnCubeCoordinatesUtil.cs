@@ -29,7 +29,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Talons
         {
             switch (gameType)
             {
-                case GameTypeEnum.Deathmatch:
+                case GameTypeEnum.Skirmish:
                     return GetSpawningCubeCoordinatesForDeathmatch(gameType);
 
                 default:

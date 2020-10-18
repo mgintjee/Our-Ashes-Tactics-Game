@@ -16,6 +16,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles.Attribute
         // Todo
         private static readonly IDictionary<HexTileTypeEnum, IHexTileAttributes> hexTileTypeAttributesDictionary =
                 new Dictionary<HexTileTypeEnum, IHexTileAttributes>();
+
         // Todo
         private static readonly ISet<HexTileTypeEnum> supportedHexTileTypeSet = new HashSet<HexTileTypeEnum>()
         {

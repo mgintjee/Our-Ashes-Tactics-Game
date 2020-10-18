@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Rosters.Comparer
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Rosters.Comparer
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;

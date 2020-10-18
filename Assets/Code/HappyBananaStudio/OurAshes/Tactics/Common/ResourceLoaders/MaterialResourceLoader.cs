@@ -50,7 +50,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders
             // Todo
             private static readonly string Color_MATERIALS_FOLDER_HOME = MATERIALS_FOLDER_HOME + "ColorMaterials/";
 
-
             /// <summary>
             /// Todo
             /// </summary>

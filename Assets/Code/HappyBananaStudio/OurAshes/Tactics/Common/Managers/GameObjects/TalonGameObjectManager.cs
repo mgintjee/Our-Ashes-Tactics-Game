@@ -1,8 +1,7 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
+    using HappyBananaStudio.OurAshes.Tactics.Api.Emblems.Widgets.Emblems;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Construction;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
@@ -125,7 +124,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
                 GameObject talonGameObject = GameObjectResourceLoader.Talons.LoadTalonGameObjectResource(talonIdentificationReport.GetTalonModelId());
                 ITalonMountsScript talonMountsScript = talonGameObject.GetComponent<ITalonMountsScript>();
                 AttachMounts(talonMountsScript, talonConstructionReport);
-                // Todo: Rotate the talonGameObject based off of the faction here? or the phalanx?
                 UpdateTalonGameObjectVisuals(talonGameObject, talonConstructionReport);
                 talonIdentificationReportGameObjectDictionary.Add(talonIdentificationReport, talonGameObject);
                 talonGameObject.transform.SetParent(phalanxIdGameObjectDictionary[talonIdentificationReport.GetPhalanxId()].transform);
@@ -202,19 +200,20 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
         /// </param>
         private static void UpdateTalonGameObjectVisuals(GameObject talonGameObject, ITalonConstructionReport talonConstructionReport)
         {
-            GameObject talonEmblemGameObject = GameObjectResourceLoader.Emblems.LoadEmblemGameObjectResource(
+            ITalonEmblemWidget talonEmblemWidget = WidgetResourceLoader.Emblems.LoadTalonEmblemWidgetResource(
                 talonConstructionReport.GetTalonIdentificationReport().GetCallSign(),
                 talonConstructionReport.GetTalonCustomizationReport());
-            talonEmblemGameObject.transform.SetParent(talonGameObject.transform);
-            // Todo: Determine best place to have the emblem stay? If there is no x/z adjustment
-            //       then it will be consistent positioning regardless of the rotations
-            talonEmblemGameObject.transform.localPosition = new Vector3(0, 17.5f, 0);
-            talonEmblemGameObject.transform.localEulerAngles = new Vector3(45, -talonGameObject.transform.localEulerAngles.y, 0);
+            talonEmblemWidget.GetTransform().SetParent(talonGameObject.transform);
+            // Todo: Store these somewhere
+            talonEmblemWidget.GetTransform().localPosition = new Vector3(0, 17.5f, 0);
+            talonEmblemWidget.GetTransform().localEulerAngles = new Vector3(-45, 0, 0);
+
             // Todo: Load the Phalanx Emblem here Then attach it to the talonGameObject Paint the
             // talonGameObject with the materials loaded from the customizationReportHave some
             // constants file that will generate the Material[] based off the
             // talonCustomizationReport and TalonModelId? Or just work to have it all be constantly
             // the same indices in the material
+            // Todo: color the GameObject with Materials
             /*
             MeshRenderer meshRenderer = talonGameObject.GetComponent<MeshRenderer>();
             Material[] materials = meshRenderer.materials;
@@ -226,22 +225,51 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="factionIdEnum">
+        /// <param name="factionId">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        private static Vector3 GetLocalEulerAnglesFor(FactionIdEnum factionId)
+        {
+            switch (factionId)
+            {
+                case FactionIdEnum.CreativeFaction1:
+                    return new Vector3(0, 60, 0);
+
+                case FactionIdEnum.CreativeFaction2:
+                    return new Vector3(0, 120, 0);
+
+                case FactionIdEnum.CreativeFaction3:
+                    return new Vector3(0, 240, 0);
+
+                case FactionIdEnum.CreativeFaction4:
+                    return new Vector3(0, 300, 0);
+
+                default:
+                    throw ArgumentExceptionUtil.Build("Unable to ?. ? is not supported.",
+                        new StackFrame().GetMethod().Name, factionId);
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="factionId">
         /// </param>
         /// <param name="phalanxId">
         /// </param>
-        private static void BuildPhalanxIdGameObject(FactionIdEnum factionIdEnum, PhalanxIdEnum phalanxId)
+        private static void BuildPhalanxIdGameObject(FactionIdEnum factionId, PhalanxIdEnum phalanxId)
         {
             BuildTalonGameObjectCollection();
-            if (!factionIdEnum.Equals(FactionIdEnum.None))
+            if (!factionId.Equals(FactionIdEnum.None))
             {
-                BuildFactionIdGameObject(factionIdEnum);
+                BuildFactionIdGameObject(factionId);
                 if (!phalanxId.Equals(PhalanxIdEnum.None))
                 {
                     if (!phalanxIdGameObjectDictionary.ContainsKey(phalanxId))
                     {
-                        GameObject phalanxIdGameObject = new GameObject(phalanxIdGameObjectPrefix + factionIdEnum);
-                        phalanxIdGameObject.transform.SetParent(factionIdGameObjectDictionary[factionIdEnum].transform);
+                        GameObject phalanxIdGameObject = new GameObject(phalanxIdGameObjectPrefix + factionId);
+                        phalanxIdGameObject.transform.SetParent(factionIdGameObjectDictionary[factionId].transform);
                         phalanxIdGameObjectDictionary.Add(phalanxId, phalanxIdGameObject);
                     }
                 }
@@ -254,14 +282,14 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
             else
             {
                 throw ArgumentExceptionUtil.Build("Unable to ?. Invalid parameters. ? is not supported.",
-                    new StackFrame().GetMethod().Name, factionIdEnum);
+                    new StackFrame().GetMethod().Name, factionId);
             }
         }
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="factionIdEnum">
+        /// <param name="factionId">
         /// </param>
         private static void BuildFactionIdGameObject(FactionIdEnum factionIdEnum)
         {

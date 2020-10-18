@@ -56,10 +56,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
         {
             return this.GetType().Name + ":" +
                 "\n\t>" + this.talonActionOrderReport +
-                "\n\t>" + this.actingTalonAttributesReport +
-                "\n\t>" + this.targetTalonAttributesReport +
                 "\n\t> List:" + typeof(IWeaponResultReport).Name +
-                "=[\n\t>" + string.Join(" \n\t>", this.talonActionOrderReport) + "\n]";
+                "=[\n\t>" + string.Join(" \n\t>", this.weaponResultReportList) + "\n]" +
+                "\n\t>" + this.actingTalonAttributesReport +
+                "\n\t>" + this.targetTalonAttributesReport;
         }
 
         /// <summary>

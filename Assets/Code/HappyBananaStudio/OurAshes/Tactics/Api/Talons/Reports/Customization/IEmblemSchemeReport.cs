@@ -3,6 +3,7 @@
 namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Customization
 {
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Schemes.Emblem;
+
     /// <summary>
     /// Todo
     /// </summary>
@@ -13,7 +14,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Customization
         /// </summary>
         /// <returns>
         /// </returns>
-        EmblemBackgroundIdEnum GetEmblemBackgroundId();
+        EmblemForegroundIdEnum GetEmblemBackgroundId();
 
         /// <summary>
         /// Todo

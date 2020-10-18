@@ -1,6 +1,7 @@
 ﻿
 namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Views.Objects
 {
+    using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.GameActions.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
@@ -28,20 +29,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Views.Objects
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="talonIdentificationReport">
-        /// </param>
-        void UpdateTalonCanvas(ITalonIdentificationReport talonIdentificationReport);
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="talonObjectOrderList">
-        /// </param>
-        void UpdateTalonOrderList(IList<ITalonObject> talonObjectOrderList);
-
-        /// <summary>
-        /// Todo
-        /// </summary>
         /// <param name="pathObject">
         /// </param>
         void AnimateActionOrderReport(ITalonActionOrderReport talonActionOrderReport);
@@ -52,5 +39,16 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Views.Objects
         /// <returns>
         /// </returns>
         bool IsAnimating();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="gameActionReport">
+        /// </param>
+        void DisplayCombatReportPopUp(IGameActionReport gameActionReport);
+        /// <summary>
+        /// Todo
+        /// </summary>
+        void UpdateCanvas();
     }
 }

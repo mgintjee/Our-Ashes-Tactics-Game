@@ -43,7 +43,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders
         /// <summary>
         /// Todo
         /// </summary>
-        public class Background
+        public class Foreground
         {
             /// <summary>
             /// Todo
@@ -52,15 +52,15 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders
             /// </param>
             /// <returns>
             /// </returns>
-            public static Sprite LoadSpriteBackgroundResource(EmblemBackgroundIdEnum emblemBackgroundId)
+            public static Sprite LoadSpriteForegroundResource(EmblemForegroundIdEnum emblemBackgroundId)
             {
-                if (!emblemBackgroundId.Equals(EmblemBackgroundIdEnum.None))
+                if (!emblemBackgroundId.Equals(EmblemForegroundIdEnum.None))
                 {
                     return LoadSpriteResource(SPRITE_FOLDER_HOME + emblemBackgroundId.ToString());
                 }
                 else
                 {
-                    return LoadSpriteBackgroundResource(EmblemBackgroundIdEnum.Circle);
+                    return LoadSpriteForegroundResource(EmblemForegroundIdEnum.Circle);
                 }
             }
         }

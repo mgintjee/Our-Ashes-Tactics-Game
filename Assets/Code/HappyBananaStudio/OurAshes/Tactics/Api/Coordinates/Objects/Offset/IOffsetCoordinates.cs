@@ -1,6 +1,7 @@
 ﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Offset
 {
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Coordinates;
+
     /// <summary>
     /// Todo
     /// </summary>
