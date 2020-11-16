@@ -1,7 +1,6 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Frameworks.Scripts
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Frameworks.Scripts
 {
+    using HappyBananaStudio.OurAshes.Tactics.Abs.Unity.Scripts;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Scripts;
@@ -10,7 +9,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Frameworks.Scripts
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.RandomNumberGenerators;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Frameworks.Objects;
-    using HappyBananaStudio.OurAshes.Tactics.Impl.Unity.Scripts;
     using System.Diagnostics;
     using UnityEngine;
 
@@ -18,7 +16,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Frameworks.Scripts
     /// MvcFramework Script Api
     /// </summary>
     public class MvcFrameworkScriptImpl
-    : UnityScriptImpl, IMvcFrameworkScript
+    : AbstractUnityScriptImpl, IMvcFrameworkScript
     {
         // Provide logging capability
         private static readonly ICodeLogger logger = new CodeLoggerImpl(new StackFrame().GetMethod().DeclaringType);

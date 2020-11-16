@@ -15,16 +15,16 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Information
         : ITalonIdentificationReport
     {
         // Todo
-        private readonly CallSignEnum callSign;
+        private readonly CallSign callSign;
 
         // Todo
-        private readonly FactionIdEnum factionId;
+        private readonly FactionId factionId;
 
         // Todo
-        private readonly PhalanxIdEnum phalanxId;
+        private readonly PhalanxId phalanxId;
 
         // Todo
-        private readonly TalonModelIdEnum talonModelId;
+        private readonly TalonModelId talonModelId;
 
         /// <summary>
         /// Todo
@@ -35,8 +35,8 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Information
         /// </param>
         /// <param name="callSign">
         /// </param>
-        private TalonIdentificationReportImpl(TalonModelIdEnum talonId, FactionIdEnum factionId,
-            PhalanxIdEnum phalanxId, CallSignEnum callSign)
+        private TalonIdentificationReportImpl(TalonModelId talonId, FactionId factionId,
+            PhalanxId phalanxId, CallSign callSign)
         {
             this.talonModelId = talonId;
             this.phalanxId = phalanxId;
@@ -51,11 +51,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Information
         /// </returns>
         public override string ToString()
         {
-            return this.GetType().Name + ":" +
-                "\n\t>" + typeof(TalonModelIdEnum).Name + "=" + this.talonModelId +
-                "\n\t>" + typeof(FactionIdEnum).Name + "=" + this.factionId +
-                "\n\t>" + typeof(PhalanxIdEnum).Name + "=" + this.phalanxId +
-                "\n\t>" + typeof(CallSignEnum).Name + "=" + this.callSign;
+            return this.GetType().Name + ": " + this.factionId + ", " + this.phalanxId + ", " + this.callSign + ", " + this.talonModelId;
         }
 
         /// <summary>
@@ -63,7 +59,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Information
         /// </summary>
         /// <returns>
         /// </returns>
-        CallSignEnum ITalonIdentificationReport.GetCallSign()
+        CallSign ITalonIdentificationReport.GetCallSign()
         {
             return this.callSign;
         }
@@ -73,7 +69,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Information
         /// </summary>
         /// <returns>
         /// </returns>
-        FactionIdEnum ITalonIdentificationReport.GetFactionId()
+        FactionId ITalonIdentificationReport.GetFactionId()
         {
             return this.factionId;
         }
@@ -83,7 +79,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Information
         /// </summary>
         /// <returns>
         /// </returns>
-        PhalanxIdEnum ITalonIdentificationReport.GetPhalanxId()
+        PhalanxId ITalonIdentificationReport.GetPhalanxId()
         {
             return this.phalanxId;
         }
@@ -93,7 +89,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Information
         /// </summary>
         /// <returns>
         /// </returns>
-        TalonModelIdEnum ITalonIdentificationReport.GetTalonModelId()
+        TalonModelId ITalonIdentificationReport.GetTalonModelId()
         {
             return this.talonModelId;
         }
@@ -104,16 +100,16 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Information
         public class Builder
         {
             // Todo
-            private CallSignEnum callSign = CallSignEnum.None;
+            private CallSign callSign = CallSign.None;
 
             // Todo
-            private FactionIdEnum factionId = FactionIdEnum.None;
+            private FactionId factionId = FactionId.None;
 
             // Todo
-            private PhalanxIdEnum phalanxId = PhalanxIdEnum.None;
+            private PhalanxId phalanxId = PhalanxId.None;
 
             // Todo
-            private TalonModelIdEnum talonId = TalonModelIdEnum.None;
+            private TalonModelId talonId = TalonModelId.None;
 
             /// <summary>
             /// Build the report with the set parameters
@@ -146,7 +142,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Information
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetCallSign(CallSignEnum callSign)
+            public Builder SetCallSign(CallSign callSign)
             {
                 this.callSign = callSign;
                 return this;
@@ -161,7 +157,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Information
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetFactionId(FactionIdEnum factionId)
+            public Builder SetFactionId(FactionId factionId)
             {
                 this.factionId = factionId;
                 return this;
@@ -176,7 +172,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Information
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetPhalanxId(PhalanxIdEnum phalanxId)
+            public Builder SetPhalanxId(PhalanxId phalanxId)
             {
                 this.phalanxId = phalanxId;
                 return this;
@@ -191,7 +187,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Information
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetTalonModelId(TalonModelIdEnum talonId)
+            public Builder SetTalonModelId(TalonModelId talonId)
             {
                 this.talonId = talonId;
                 return this;
@@ -207,24 +203,24 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Information
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
                 // Check that factionId has been set
-                if (this.factionId == FactionIdEnum.None)
+                if (this.factionId == FactionId.None)
                 {
-                    argumentExceptionSet.Add(typeof(FactionIdEnum).Name + " has not been set");
+                    argumentExceptionSet.Add(typeof(FactionId).Name + " has not been set");
                 }
                 // Check that talonId has been set
-                if (this.talonId == TalonModelIdEnum.None)
+                if (this.talonId == TalonModelId.None)
                 {
-                    argumentExceptionSet.Add(typeof(TalonModelIdEnum).Name + " has not been set");
+                    argumentExceptionSet.Add(typeof(TalonModelId).Name + " has not been set");
                 }
                 // Check that phalanxId has been set
-                if (this.phalanxId == PhalanxIdEnum.None)
+                if (this.phalanxId == PhalanxId.None)
                 {
-                    argumentExceptionSet.Add(typeof(PhalanxIdEnum).Name + " has not been set");
+                    argumentExceptionSet.Add(typeof(PhalanxId).Name + " has not been set");
                 }
                 // Check that callSign has been set
-                if (this.callSign == CallSignEnum.None)
+                if (this.callSign == CallSign.None)
                 {
-                    argumentExceptionSet.Add(typeof(CallSignEnum).Name + " has not been set");
+                    argumentExceptionSet.Add(typeof(CallSign).Name + " has not been set");
                 }
                 return argumentExceptionSet;
             }

@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
@@ -21,11 +20,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects
         /// <summary>
         /// Todo
         /// </summary>
-        void ResetForNewTurn();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
         /// <returns>
         /// </returns>
         ISet<ITalonActionOrderReport> GetTalonActionOrderReportSet(ICubeCoordinates cubeCoordinates);
@@ -38,5 +32,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects
         /// <param name="moveCost">
         /// </param>
         void InputActionCosts(int actionCost, int moveCost);
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        void ResetForNewTurn();
     }
 }

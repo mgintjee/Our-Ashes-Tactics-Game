@@ -10,32 +10,32 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Emblems
     public static class CallSignsUtil
     {
         // Todo
-        private static readonly IDictionary<CallSignEnum, string> CallSignCharacterDictionary = new Dictionary<CallSignEnum, string>()
+        private static readonly IDictionary<CallSign, string> CallSignCharacterDictionary = new Dictionary<CallSign, string>()
         {
-            {CallSignEnum.Alpha, "\u0391" },
-            {CallSignEnum.Beta, "\u0392" },
-            {CallSignEnum.Gamma, "\u0393" },
-            {CallSignEnum.Delta, "\u0394" },
-            {CallSignEnum.Epsilon, "\u0395" },
-            {CallSignEnum.Zeta, "\u0396" },
-            {CallSignEnum.Eta, "\u0397" },
-            {CallSignEnum.Theta, "\u0398" },
-            {CallSignEnum.Iota, "\u0399" },
-            {CallSignEnum.Kappa, "\u039A" },
-            {CallSignEnum.Lambda, "\u039B" },
-            {CallSignEnum.Mu, "\u039C" },
-            {CallSignEnum.Nu, "\u039D" },
-            {CallSignEnum.Xi, "\u039E" },
-            {CallSignEnum.Omicron, "\u039F" },
-            {CallSignEnum.Pi, "\u03A0" },
-            {CallSignEnum.Rho, "\u03A1" },
-            {CallSignEnum.Sigma, "\u03A3" },
-            {CallSignEnum.Tau, "\u03A4" },
-            {CallSignEnum.Upsilon, "\u03A5" },
-            {CallSignEnum.Phi, "\u03A6" },
-            {CallSignEnum.Chi, "\u03A7" },
-            {CallSignEnum.Psi, "\u03A8" },
-            {CallSignEnum.Omega, "\u03A9" },
+            {CallSign.Alpha, "\u0391" },
+            {CallSign.Beta, "\u0392" },
+            {CallSign.Gamma, "\u0393" },
+            {CallSign.Delta, "\u0394" },
+            {CallSign.Epsilon, "\u0395" },
+            {CallSign.Zeta, "\u0396" },
+            {CallSign.Eta, "\u0397" },
+            {CallSign.Theta, "\u0398" },
+            {CallSign.Iota, "\u0399" },
+            {CallSign.Kappa, "\u039A" },
+            {CallSign.Lambda, "\u039B" },
+            {CallSign.Mu, "\u039C" },
+            {CallSign.Nu, "\u039D" },
+            {CallSign.Xi, "\u039E" },
+            {CallSign.Omicron, "\u039F" },
+            {CallSign.Pi, "\u03A0" },
+            {CallSign.Rho, "\u03A1" },
+            {CallSign.Sigma, "\u03A3" },
+            {CallSign.Tau, "\u03A4" },
+            {CallSign.Upsilon, "\u03A5" },
+            {CallSign.Phi, "\u03A6" },
+            {CallSign.Chi, "\u03A7" },
+            {CallSign.Psi, "\u03A8" },
+            {CallSign.Omega, "\u03A9" },
         };
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Emblems
         /// </param>
         /// <returns>
         /// </returns>
-        public static string GetCharacter(CallSignEnum callSign)
+        public static string GetCharacter(CallSign callSign)
         {
             string character = "-";
             if (CallSignCharacterDictionary.ContainsKey(callSign))

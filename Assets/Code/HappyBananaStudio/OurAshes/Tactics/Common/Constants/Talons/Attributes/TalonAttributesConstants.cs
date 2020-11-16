@@ -15,15 +15,15 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Attributes
     public class TalonAttributesConstants
     {
         // Todo
-        private static readonly IDictionary<TalonModelIdEnum, ITalonAttributes> talonModelIdAttributesDictionary =
-                new Dictionary<TalonModelIdEnum, ITalonAttributes>();
+        private static readonly IDictionary<TalonModelId, ITalonAttributes> talonModelIdAttributesDictionary =
+                new Dictionary<TalonModelId, ITalonAttributes>();
 
         // Todo
-        private static readonly ISet<TalonModelIdEnum> talonModelIdSet = new HashSet<TalonModelIdEnum>()
+        private static readonly ISet<TalonModelId> talonModelIdSet = new HashSet<TalonModelId>()
         {
-            TalonModelIdEnum.Talon0,
-            TalonModelIdEnum.Talon1,
-            TalonModelIdEnum.Talon2,
+            TalonModelId.Talon0,
+            TalonModelId.Talon1,
+            TalonModelId.Talon2,
         };
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Attributes
         /// </param>
         /// <returns>
         /// </returns>
-        public static ITalonAttributes GetAttributes(TalonModelIdEnum talonModelId)
+        public static ITalonAttributes GetAttributes(TalonModelId talonModelId)
         {
             if (talonModelIdSet.Contains(talonModelId))
             {
@@ -55,9 +55,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Attributes
         /// </summary>
         /// <returns>
         /// </returns>
-        public static ISet<TalonModelIdEnum> GetSupportedTalonIds()
+        public static ISet<TalonModelId> GetSupportedTalonIds()
         {
-            return new HashSet<TalonModelIdEnum>(talonModelIdSet);
+            return new HashSet<TalonModelId>(talonModelIdSet);
         }
 
         /// <summary>
@@ -67,11 +67,11 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Attributes
         /// </param>
         /// <returns>
         /// </returns>
-        private static ITalonAttributes BuildAttributes(TalonModelIdEnum talonModelId)
+        private static ITalonAttributes BuildAttributes(TalonModelId talonModelId)
         {
             switch (talonModelId)
             {
-                case TalonModelIdEnum.Talon0:
+                case TalonModelId.Talon0:
                     return new TalonAttributesImpl.Builder()
                         .SetDestructibleAttributes(new DestructibleAttributesImpl.Builder()
                                 .SetArmourPoints(2)
@@ -87,7 +87,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Attributes
                                 .Build())
                         .Build();
 
-                case TalonModelIdEnum.Talon1:
+                case TalonModelId.Talon1:
                     return new TalonAttributesImpl.Builder()
                         .SetDestructibleAttributes(new DestructibleAttributesImpl.Builder()
                                 .SetArmourPoints(1)
@@ -103,7 +103,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Attributes
                                 .Build())
                         .Build();
 
-                case TalonModelIdEnum.Talon2:
+                case TalonModelId.Talon2:
                     return new TalonAttributesImpl.Builder()
                         .SetDestructibleAttributes(new DestructibleAttributesImpl.Builder()
                                 .SetArmourPoints(3)

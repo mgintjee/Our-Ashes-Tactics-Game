@@ -22,7 +22,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders
         /// </summary>
         /// <returns>
         /// </returns>
-        ActionTypeEnum GetActionType();
+        ActionType GetActionType();
 
         /// <summary>
         /// Todo

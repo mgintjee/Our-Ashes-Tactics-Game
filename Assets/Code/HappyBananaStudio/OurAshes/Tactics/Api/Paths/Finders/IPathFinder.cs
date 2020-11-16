@@ -25,17 +25,17 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.Paths.Finders
         /// <summary>
         /// Todo
         /// </summary>
+        /// <returns>
+        /// </returns>
+        IDictionary<ICubeCoordinates, IPathObject> GetPathObjectDictionary();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
         /// <param name="cubeCoordinatesEnd">
         /// </param>
         /// <returns>
         /// </returns>
         IPathObject GetPathObjectForCubeCoordinatesEnd(ICubeCoordinates cubeCoordinatesEnd);
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        IDictionary<ICubeCoordinates, IPathObject> GetPathObjectDictionary();
     }
 }

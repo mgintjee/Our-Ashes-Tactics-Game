@@ -49,7 +49,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
                             .GetDestructibleAttributes(),
                         // Add the Utility Bonus DestructibleAttributes
                         UtilityAttributesConstants.GetAttributes(
-                            new HashSet<UtilityModelIdEnum>(talonConstructionReport.GetUtilityModelIdList()))
+                            new HashSet<UtilityModelId>(talonConstructionReport.GetUtilityModelIdList()))
                             .GetDestructibleAttributes()
                     }
                 )

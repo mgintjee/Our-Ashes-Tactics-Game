@@ -15,7 +15,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Hoplites.Reports
         : IHopliteConstructionReport
     {
         // Todo
-        private readonly ControllerIdEnum controllerId;
+        private readonly ControllerType controllerId;
 
         // Todo
         private readonly ISet<HopliteTraitEnum> hopliteTraitSet;
@@ -27,7 +27,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Hoplites.Reports
         /// </param>
         /// <param name="hopliteTraitSet">
         /// </param>
-        private HopliteConstructionReportImpl(ControllerIdEnum controllerId, ISet<HopliteTraitEnum> hopliteTraitSet)
+        private HopliteConstructionReportImpl(ControllerType controllerId, ISet<HopliteTraitEnum> hopliteTraitSet)
         {
             this.controllerId = controllerId;
             this.hopliteTraitSet = hopliteTraitSet;
@@ -38,7 +38,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Hoplites.Reports
         /// </summary>
         /// <returns>
         /// </returns>
-        ControllerIdEnum IHopliteConstructionReport.GetControllerId() { return this.controllerId; }
+        ControllerType IHopliteConstructionReport.GetControllerId() { return this.controllerId; }
 
         /// <summary>
         /// Todo
@@ -53,7 +53,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Hoplites.Reports
         public class Builder
         {
             // Todo
-            private ControllerIdEnum controllerId = ControllerIdEnum.None;
+            private ControllerType controllerId = ControllerType.None;
 
             // Todo
             private ISet<HopliteTraitEnum> hopliteTraitSet = null;
@@ -89,7 +89,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Hoplites.Reports
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetControllerId(ControllerIdEnum controllerId)
+            public Builder SetControllerId(ControllerType controllerId)
             {
                 this.controllerId = controllerId;
                 return this;
@@ -120,9 +120,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Hoplites.Reports
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
                 // Check that controllerId has been set
-                if (this.controllerId == ControllerIdEnum.None)
+                if (this.controllerId == ControllerType.None)
                 {
-                    argumentExceptionSet.Add(typeof(ControllerIdEnum).Name + " has not been set");
+                    argumentExceptionSet.Add(typeof(ControllerType).Name + " has not been set");
                 }
                 // Check that hopliteTraitSet has been set
                 if (this.hopliteTraitSet == null)

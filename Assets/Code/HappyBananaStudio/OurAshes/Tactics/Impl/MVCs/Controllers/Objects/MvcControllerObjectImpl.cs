@@ -76,18 +76,18 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Controllers.Objects
                 switch (hopliteInformationReport.GetControllerId())
                 {
                     //Todo: Have a map of TalonControllerId to ArtificalIntelligenceImpl if AI controlled, Null if human? Maybe leave the best action to a pilot that is local to the Talon?
-                    case ControllerIdEnum.Human:
-                    case ControllerIdEnum.Poacher:
-                    case ControllerIdEnum.Sniper:
-                    case ControllerIdEnum.Random:
-                    case ControllerIdEnum.Tank:
-                    case ControllerIdEnum.Survivor:
+                    case ControllerType.Human:
+                    case ControllerType.Poacher:
+                    case ControllerType.Sniper:
+                    case ControllerType.Random:
+                    case ControllerType.Tank:
+                    case ControllerType.Survivor:
                         this.actionReportToOutput = ArtificialIntelligenceRandomImpl.DetermineBestAction(talonTurnInformationReport.GetPossibleTalonActionOrderReportSet());
                         this.determiningActionReport = false;
                         break;
 
                     default:
-                        logger.Error("Unable to DetermineActionReport. ? is not supported", typeof(ControllerIdEnum), hopliteInformationReport.GetControllerId());
+                        logger.Error("Unable to DetermineActionReport. ? is not supported", typeof(ControllerType), hopliteInformationReport.GetControllerId());
                         break;
                 }
             }

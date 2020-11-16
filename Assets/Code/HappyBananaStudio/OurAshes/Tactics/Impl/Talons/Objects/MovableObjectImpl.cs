@@ -27,10 +27,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
         : IMovableObject
     {
         // Todo
-        private readonly ITalonIdentificationReport talonIdentificationReport = null;
+        private readonly IMovableAttributes movableAttributes = null;
 
         // Todo
-        private readonly IMovableAttributes movableAttributes = null;
+        private readonly ITalonIdentificationReport talonIdentificationReport = null;
 
         // Todo
         private int actionPoints = int.MinValue;
@@ -59,20 +59,11 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
                             .GetMovableAttributes(),
                         // Add the Utility Bonus MovableAttributes
                         UtilityAttributesConstants.GetAttributes(
-                            new HashSet<UtilityModelIdEnum>(talonConstructionReport.GetUtilityModelIdList()))
+                            new HashSet<UtilityModelId>(talonConstructionReport.GetUtilityModelIdList()))
                             .GetMovableAttributes()
                     }
                 )
                 .Build();
-            this.movePoints = this.movableAttributes.GetMovePoints();
-            this.actionPoints = this.movableAttributes.GetActionPoints();
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        void IMovableObject.ResetForNewTurn()
-        {
             this.movePoints = this.movableAttributes.GetMovePoints();
             this.actionPoints = this.movableAttributes.GetActionPoints();
         }
@@ -125,6 +116,15 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
         {
             this.actionPoints -= actionCost;
             this.movePoints -= moveCost;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        void IMovableObject.ResetForNewTurn()
+        {
+            this.movePoints = this.movableAttributes.GetMovePoints();
+            this.actionPoints = this.movableAttributes.GetActionPoints();
         }
     }
 }

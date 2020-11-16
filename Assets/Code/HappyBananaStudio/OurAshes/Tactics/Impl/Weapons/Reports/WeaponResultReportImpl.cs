@@ -12,10 +12,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Reports
         : IWeaponResultReport
     {
         // Todo
-        private readonly int healthDamageCaused;
+        private readonly int armorDamageCaused;
 
         // Todo
-        private readonly int armorDamageCaused;
+        private readonly int healthDamageCaused;
 
         // Todo
         private readonly IWeaponOrderReport weaponOrderReport;
@@ -54,9 +54,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Reports
         /// </summary>
         /// <returns>
         /// </returns>
-        int IWeaponResultReport.GetHealthDamageCaused()
+        int IWeaponResultReport.GetArmorDamageCaused()
         {
-            return this.healthDamageCaused;
+            return this.armorDamageCaused;
         }
 
         /// <summary>
@@ -64,9 +64,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Reports
         /// </summary>
         /// <returns>
         /// </returns>
-        int IWeaponResultReport.GetArmorDamageCaused()
+        int IWeaponResultReport.GetHealthDamageCaused()
         {
-            return this.armorDamageCaused;
+            return this.healthDamageCaused;
         }
 
         /// <summary>
@@ -85,16 +85,16 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Reports
         public class Builder
         {
             // Todo
-            private int healthDamageCaused;
-
-            // Todo
             private int armorDamageCaused;
 
             // Todo
-            private bool setHealthDamageCaused = false;
+            private int healthDamageCaused;
 
             // Todo
             private bool setArmorDamageCaused = false;
+
+            // Todo
+            private bool setHealthDamageCaused = false;
 
             // Todo
             private IWeaponOrderReport weaponOrderReport;
@@ -122,22 +122,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Reports
             }
 
             /// <summary>
-            /// Set the value of the int damageCaused
-            /// </summary>
-            /// <param name="healthDamageCaused">
-            /// The int damageCaused to set
-            /// </param>
-            /// <returns>
-            /// The Builder to continue building with
-            /// </returns>
-            public Builder SetHealthDamageCaused(int healthDamageCaused)
-            {
-                this.healthDamageCaused = healthDamageCaused;
-                this.setHealthDamageCaused = true;
-                return this;
-            }
-
-            /// <summary>
             /// Set the value of the int damageMitigated
             /// </summary>
             /// <param name="armorDamageCaused">
@@ -150,6 +134,22 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Reports
             {
                 this.armorDamageCaused = armorDamageCaused;
                 this.setArmorDamageCaused = true;
+                return this;
+            }
+
+            /// <summary>
+            /// Set the value of the int damageCaused
+            /// </summary>
+            /// <param name="healthDamageCaused">
+            /// The int damageCaused to set
+            /// </param>
+            /// <returns>
+            /// The Builder to continue building with
+            /// </returns>
+            public Builder SetHealthDamageCaused(int healthDamageCaused)
+            {
+                this.healthDamageCaused = healthDamageCaused;
+                this.setHealthDamageCaused = true;
                 return this;
             }
 

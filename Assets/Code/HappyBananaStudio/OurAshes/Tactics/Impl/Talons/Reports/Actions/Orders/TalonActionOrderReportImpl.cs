@@ -19,10 +19,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Orders
         private readonly ITalonIdentificationReport actingTalonIdentificationReport;
 
         // Todo
-        private readonly IPathObject pathObject;
+        private readonly ActionType actionType;
 
         // Todo
-        private readonly ActionTypeEnum actionType;
+        private readonly IPathObject pathObject;
 
         /// <summary>
         /// Todo
@@ -33,7 +33,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Orders
         /// </param>
         private TalonActionOrderReportImpl(ITalonIdentificationReport actingTalonIdentificationReport, IPathObject pathObject)
         {
-            this.actionType = ActionTypeEnum.Move;
+            this.actionType = ActionType.Move;
             this.pathObject = pathObject;
             this.actingTalonIdentificationReport = actingTalonIdentificationReport;
         }
@@ -66,7 +66,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Orders
         /// </summary>
         /// <returns>
         /// </returns>
-        ActionTypeEnum ITalonActionOrderReport.GetActionType()
+        ActionType ITalonActionOrderReport.GetActionType()
         {
             return this.actionType;
         }

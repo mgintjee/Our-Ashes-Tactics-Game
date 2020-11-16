@@ -16,13 +16,13 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Attribut
     public class UtilityAttributesConstants
     {
         // Todo
-        private static readonly IDictionary<UtilityModelIdEnum, IBonusAttributes> utilityModelIdBonusAttributesDictionary =
-            new Dictionary<UtilityModelIdEnum, IBonusAttributes>();
+        private static readonly IDictionary<UtilityModelId, IBonusAttributes> utilityModelIdBonusAttributesDictionary =
+            new Dictionary<UtilityModelId, IBonusAttributes>();
 
         // Todo
-        private static readonly ISet<UtilityModelIdEnum> utilityModelIdSet = new HashSet<UtilityModelIdEnum>()
+        private static readonly ISet<UtilityModelId> utilityModelIdSet = new HashSet<UtilityModelId>()
         {
-            UtilityModelIdEnum.Default,
+            UtilityModelId.Default,
         };
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Attribut
         /// </param>
         /// <returns>
         /// </returns>
-        public static IBonusAttributes GetAttributes(UtilityModelIdEnum utilityModelId)
+        public static IBonusAttributes GetAttributes(UtilityModelId utilityModelId)
         {
             if (utilityModelIdSet.Contains(utilityModelId))
             {
@@ -56,11 +56,11 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Attribut
         /// </param>
         /// <returns>
         /// </returns>
-        public static IBonusAttributes GetAttributes(ISet<UtilityModelIdEnum> utilityModelIdSet)
+        public static IBonusAttributes GetAttributes(ISet<UtilityModelId> utilityModelIdSet)
         {
             ISet<IBonusAttributes> bonusAttributesSet = new HashSet<IBonusAttributes>()
-            { BuildAttributes(UtilityModelIdEnum.None) };
-            foreach (UtilityModelIdEnum utilityModelId in utilityModelIdSet)
+            { BuildAttributes(UtilityModelId.None) };
+            foreach (UtilityModelId utilityModelId in utilityModelIdSet)
             {
                 bonusAttributesSet.Add(GetAttributes(utilityModelId));
             }
@@ -74,9 +74,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Attribut
         /// </summary>
         /// <returns>
         /// </returns>
-        public static ISet<UtilityModelIdEnum> GetSupportedUtilityModelIds()
+        public static ISet<UtilityModelId> GetSupportedUtilityModelIds()
         {
-            return new HashSet<UtilityModelIdEnum>(utilityModelIdSet);
+            return new HashSet<UtilityModelId>(utilityModelIdSet);
         }
 
         /// <summary>
@@ -86,11 +86,11 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Attribut
         /// </param>
         /// <returns>
         /// </returns>
-        private static IBonusAttributes BuildAttributes(UtilityModelIdEnum utilityModelId)
+        private static IBonusAttributes BuildAttributes(UtilityModelId utilityModelId)
         {
             switch (utilityModelId)
             {
-                case UtilityModelIdEnum.None:
+                case UtilityModelId.None:
                     return new BonusAttributesImpl.Builder()
                         .SetDestructibleAttributes(new DestructibleAttributesImpl.Builder()
                                 .SetArmourPoints(0)

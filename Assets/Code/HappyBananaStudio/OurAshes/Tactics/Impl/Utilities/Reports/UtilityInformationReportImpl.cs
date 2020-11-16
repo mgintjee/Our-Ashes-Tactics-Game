@@ -18,7 +18,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Utilities.Reports
         private readonly IBonusAttributes bonusAttributes;
 
         // Todo
-        private readonly UtilityModelIdEnum utilityModelId;
+        private readonly UtilityModelId utilityModelId;
 
         /// <summary>
         /// Todo
@@ -27,7 +27,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Utilities.Reports
         /// </param>
         /// <param name="bonusAttributes">
         /// </param>
-        private UtilityInformationReportImpl(UtilityModelIdEnum utilityModelId, IBonusAttributes bonusAttributes)
+        private UtilityInformationReportImpl(UtilityModelId utilityModelId, IBonusAttributes bonusAttributes)
         {
             this.utilityModelId = utilityModelId;
             this.bonusAttributes = bonusAttributes;
@@ -41,7 +41,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Utilities.Reports
         public override string ToString()
         {
             return this.GetType().Name + ":" +
-                "\n\t>" + typeof(UtilityModelIdEnum).Name + "=" + this.utilityModelId +
+                "\n\t>" + typeof(UtilityModelId).Name + "=" + this.utilityModelId +
                 "\n\t>" + this.bonusAttributes;
         }
 
@@ -60,7 +60,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Utilities.Reports
         /// </summary>
         /// <returns>
         /// </returns>
-        UtilityModelIdEnum IUtilityInformationReport.GetUtilityModelId()
+        UtilityModelId IUtilityInformationReport.GetUtilityModelId()
         {
             return this.utilityModelId;
         }
@@ -71,10 +71,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Utilities.Reports
         public class Builder
         {
             // Todo
-            private UtilityModelIdEnum utilityModelId = UtilityModelIdEnum.None;
+            private IBonusAttributes bonusAttributes = null;
 
             // Todo
-            private IBonusAttributes bonusAttributes = null;
+            private UtilityModelId utilityModelId = UtilityModelId.None;
 
             /// <summary>
             /// Build the report with the set parameters
@@ -122,7 +122,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Utilities.Reports
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetUtilityModelId(UtilityModelIdEnum utilityModelId)
+            public Builder SetUtilityModelId(UtilityModelId utilityModelId)
             {
                 this.utilityModelId = utilityModelId;
                 return this;
@@ -138,9 +138,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Utilities.Reports
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
                 // Check that utilityModelId has been set
-                if (this.utilityModelId == UtilityModelIdEnum.None)
+                if (this.utilityModelId == UtilityModelId.None)
                 {
-                    argumentExceptionSet.Add(typeof(UtilityModelIdEnum).Name + " has not been set");
+                    argumentExceptionSet.Add(typeof(UtilityModelId).Name + " has not been set");
                 }
                 // Check that bonusAttributes has been set
                 if (this.bonusAttributes == null)

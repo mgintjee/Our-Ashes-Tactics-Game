@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Hoplites.Attributes
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Hoplites.Attributes
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Hoplites;
@@ -58,7 +57,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Hoplites.Attribute
         public static IBonusAttributes GetAttributes(ISet<HopliteTraitEnum> hopliteTraitSet)
         {
             ISet<IBonusAttributes> bonusAttributesSet = new HashSet<IBonusAttributes>()
-            {BuildAttributes(HopliteTraitEnum.None) };
+            { BuildAttributes(HopliteTraitEnum.None) };
             foreach (HopliteTraitEnum hopliteTrait in hopliteTraitSet)
             {
                 if (!hopliteTrait.Equals(HopliteTraitEnum.None))

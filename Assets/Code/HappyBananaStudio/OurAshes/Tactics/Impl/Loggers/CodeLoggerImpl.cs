@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Loggers
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Loggers
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
     using System;
@@ -24,7 +22,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Loggers
         // Define the Set: Type that will display logging Empty means there will be no filter
         private static readonly ISet<Type> allowedLoggingTypes = new HashSet<Type>()
         {
-            //typeof(MvcFrameworkObjectImpl),
+            //typeof(AbstractComplexWidgetImpl),
             //typeof(PathFinderMoveUtil),
             //typeof(PathFinderMoveImpl),
             //typeof(MvcFrameworkScript),
@@ -213,20 +211,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Loggers
         }
 
         /// <summary>
-        /// </summary>
-        /// <param name="potentialBase">
-        /// </param>
-        /// <param name="potentialDescendant">
-        /// </param>
-        /// <returns>
-        /// </returns>
-        private bool IsSameOrSubclass(Type potentialBase, Type potentialDescendant)
-        {
-            return potentialDescendant.IsSubclassOf(potentialBase)
-                   || potentialDescendant == potentialBase;
-        }
-
-        /// <summary>
         /// Logger Method, to convert a message into the proper format
         /// </summary>
         /// <param name="prefix">
@@ -297,6 +281,21 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Loggers
         private string ConvertMessage(string prefix, string message)
         {
             return prefix + this.loggingType.Name + ": " + message;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="potentialBase">
+        /// </param>
+        /// <param name="potentialDescendant">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        private bool IsSameOrSubclass(Type potentialBase, Type potentialDescendant)
+        {
+            return potentialDescendant.IsSubclassOf(potentialBase) ||
+                    potentialDescendant == potentialBase ||
+                   potentialBase.IsAssignableFrom(potentialDescendant);
         }
 
         /// <summary>

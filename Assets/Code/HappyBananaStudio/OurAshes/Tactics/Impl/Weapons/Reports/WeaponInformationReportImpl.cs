@@ -18,14 +18,14 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Reports
         private readonly IWeaponAttributes weaponAttributes;
 
         // Todo
-        private readonly WeaponModelIdEnum weaponId;
+        private readonly WeaponModelId weaponId;
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="weaponAttributes">
         /// </param>
-        private WeaponInformationReportImpl(WeaponModelIdEnum weaponId, IWeaponAttributes weaponAttributes)
+        private WeaponInformationReportImpl(WeaponModelId weaponId, IWeaponAttributes weaponAttributes)
         {
             this.weaponId = weaponId;
             this.weaponAttributes = weaponAttributes;
@@ -39,7 +39,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Reports
         public override string ToString()
         {
             return this.GetType().Name + ":" +
-                "\n\t>" + typeof(WeaponModelIdEnum).Name + "=" + this.weaponId +
+                "\n\t>" + typeof(WeaponModelId).Name + "=" + this.weaponId +
                 "\n\t>" + this.weaponAttributes;
         }
 
@@ -58,7 +58,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Reports
         /// </summary>
         /// <returns>
         /// </returns>
-        WeaponModelIdEnum IWeaponInformationReport.GetWeaponModelId()
+        WeaponModelId IWeaponInformationReport.GetWeaponModelId()
         {
             return this.weaponId;
         }
@@ -72,7 +72,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Reports
             private IWeaponAttributes weaponAttributes = null;
 
             // Todo
-            private WeaponModelIdEnum weaponId = WeaponModelIdEnum.None;
+            private WeaponModelId weaponId = WeaponModelId.None;
 
             /// <summary>
             /// Build the report with the set parameters
@@ -120,7 +120,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Reports
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetWeaponModelId(WeaponModelIdEnum weaponId)
+            public Builder SetWeaponModelId(WeaponModelId weaponId)
             {
                 this.weaponId = weaponId;
                 return this;
@@ -136,9 +136,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Reports
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
                 // Check that weaponId has been set
-                if (this.weaponId == WeaponModelIdEnum.None)
+                if (this.weaponId == WeaponModelId.None)
                 {
-                    argumentExceptionSet.Add(typeof(WeaponModelIdEnum).Name + " has not been set");
+                    argumentExceptionSet.Add(typeof(WeaponModelId).Name + " has not been set");
                 }
                 // Check that weaponAttributes has been set
                 if (this.weaponAttributes == null)

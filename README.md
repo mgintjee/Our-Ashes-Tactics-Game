@@ -21,23 +21,37 @@
 - **DONE** Since I do not plan on animating weapons, I should remove the weapon scripts. And jsut add the game objects to the talon game object and keep track of the weapons as objects (Not game objects)
 - **DONE** Arguably remove the scripts for most Talon functionality if I have a manager involved to move the game object
 - **DONE** Update the spawning system
-- **OBE**/**DONE** Add Weapon/Talon Animations
+- **OBE**/**DONE** Add Weapon/Talon Animations (BASIC AF but something)
 - **DONE** Update Talons to have a utility slot (Need to add Utility Models)
 - **DONE** Break out talon emblem generation into some util/manager. "public static GameObject GetTalonEmblem(...)"
 - **OBE** Update weapons to track their index
+- **DONE** Create Widget Dimension and WidgetPosition structs that are vectors with int values
+
+# UI Crap
 - Implement World Map generation that is made up of giant hex tiles
 - Have a world map that the battles zoom in on and exist on top of a world tile maybe have a new scene that generates the landscape by using some parameters from the world map to minimize unused world tiles off screen
 - Have the pilots look like Among Us style (Arms are overrated)
 - Have the talons look less...terrible
 - Update what the factions are
-- Add different battle types (Ambush, King of the hill, deathmatch)
 - Have day and night cycle working at some point
-- Have armor be dynamic as the battle goes on, you lose armor or something based off of penetration (If the penetration makes the armor remaining negative, lose 1 armor point?)
 - Update the logging system for reporting how the turns are going
 - Update how to create the game log using the reports
 - Need to finally implement the UI instead of relying on logs (Added the scoreboard so there is that)
-- Change the base of the Talon to be the Faction color. It seems pretty obv to determine wihch tile a talon is on
-- Have the callsigns be unique per faction (NOT PER PHALANX) Update: Callsigns unique per talon might be best
 - Have a pop-up with detailed talon combat results (Per weapon, each roll, ...)
 - Update the sprites to no longer have a black outline. I think I can use Unity's Outline component to get the effect I desire
 - Have doodads on the hexTile tops 
+
+# Game Mechanics Crap
+- Add different battle types (Ambush, King of the hill, deathmatch)
+- Have armor be dynamic as the battle goes on, you lose armor or something based off of penetration (If the penetration makes the armor remaining negative, lose 1 armor point? Have weapons deal armor damage?)
+- Change the base of the Talon to be the Faction color. It seems pretty obv to determine which tile a talon is on (Which would imply that the ident report is unnecessary?) (Also i think then I just need to worry about the Phalanx Emblem now!!!!)- Have the callsigns be unique per faction (NOT PER PHALANX) Update: Callsigns unique per talon might be best (This would mean I no longer would need to id talon's by the id report and could Id by callsign?)
+- Update Talon Construction
+- Add Heavy and Light weapons as well as Weapon Types (Shotgun, Assault, Etc)
+- Make loadouts for talons similar to how Destiny does?
+- Have the frame be the talon model that has its own attributes (Mainly (H/L)weapon/utility slots and base attributes (HP/AP/PP/MP)) and then you can add the armor(1)/engine(1)?
+- Make weapons have rolls that vary what traits they can have that can affect their attributes
+- Update the Game to handle Faction (with sets of Phalanxes on the same Faction) and Phalanx (Independent Phalanxes) game types
+
+# File Structure
+- Update the folder structure to be based off of file type
+- Maybe move the gameObjectManager with the MvcViewScript or something

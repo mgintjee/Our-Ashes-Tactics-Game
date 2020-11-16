@@ -34,13 +34,46 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
         /// </param>
         /// <returns>
         /// </returns>
+        public static ITalonActionResultFireReport GetExpectedTalonActionResultFireReport(ITalonActionOrderFireReport talonActionOrderFireReport)
+        {
+            if (talonActionOrderFireReport != null)
+            {
+                ITalonObject actingTalonObject = RosterObjectManager.GetTalonObject(talonActionOrderFireReport.GetActingTalonIdentificationReport());
+                ITalonObject targetTalonObject = RosterObjectManager.GetTalonObject(talonActionOrderFireReport.GetTargetTalonIdentificationReport());
+
+                ITalonAttributesReport actingTalonAttributesReport = actingTalonObject.GetTalonInformationReport()
+                    .GetTalonAttributesReport();
+                ITalonAttributesReport targetTalonAttributesReport = targetTalonObject.GetTalonInformationReport()
+                    .GetTalonAttributesReport();
+                IList<IWeaponResultReport> weaponResultReportList = GetExpectedWeaponResultReportList(talonActionOrderFireReport.GetPathObject(),
+                    actingTalonAttributesReport, targetTalonAttributesReport);
+                return new TalonActionResultFireReportImpl.Builder()
+                    .SetTalonActionOrderReport(talonActionOrderFireReport)
+                    .SetActingTalonAttributesReport(actingTalonAttributesReport)
+                    .SetTargetTalonAttributesReport(targetTalonObject.GetTalonInformationReport().GetTalonAttributesReport())
+                    .SetWeaponResultReportList(weaponResultReportList)
+                    .Build();
+            }
+            else
+            {
+                throw ArgumentExceptionUtil.Build("Unable to ?. Invalid parameters.", new StackFrame().GetMethod().Name);
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="talonActionOrderFireReport">
+        /// </param>
+        /// <returns>
+        /// </returns>
         public static ITalonActionResultFireReport GetTalonActionResultFireReport(
             ITalonActionOrderFireReport talonActionOrderFireReport)
         {
             if (talonActionOrderFireReport != null)
             {
-                ITalonObject actingTalonObject = RosterObjectManager.GetTalonObjectFrom(talonActionOrderFireReport.GetActingTalonIdentificationReport());
-                ITalonObject targetTalonObject = RosterObjectManager.GetTalonObjectFrom(talonActionOrderFireReport.GetTargetTalonIdentificationReport());
+                ITalonObject actingTalonObject = RosterObjectManager.GetTalonObject(talonActionOrderFireReport.GetActingTalonIdentificationReport());
+                ITalonObject targetTalonObject = RosterObjectManager.GetTalonObject(talonActionOrderFireReport.GetTargetTalonIdentificationReport());
 
                 ITalonAttributesReport actingTalonAttributesReport = actingTalonObject.GetTalonInformationReport()
                     .GetTalonAttributesReport();
@@ -69,63 +102,31 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="talonActionOrderFireReport">
+        /// <param name="pathObjectCost">
+        /// </param>
+        /// <param name="pathObjectLength">
+        /// </param>
+        /// <param name="weaponInformationReport">
         /// </param>
         /// <returns>
         /// </returns>
-        public static ITalonActionResultFireReport GetExpectedTalonActionResultFireReport(ITalonActionOrderFireReport talonActionOrderFireReport)
+        private static int GetExpectedShotsThatHit(IPathObject pathObject, IWeaponInformationReport weaponInformationReport)
         {
-            if (talonActionOrderFireReport != null)
+            int shotsThatHit = 0;
+            IWeaponAttributes weaponAttributes = weaponInformationReport.GetWeaponAttributes();
+            if (weaponAttributes.GetMaxRangePoints() >= pathObject.GetPathObjectLength())
             {
-                ITalonObject actingTalonObject = RosterObjectManager.GetTalonObjectFrom(talonActionOrderFireReport.GetActingTalonIdentificationReport());
-                ITalonObject targetTalonObject = RosterObjectManager.GetTalonObjectFrom(talonActionOrderFireReport.GetTargetTalonIdentificationReport());
-
-                ITalonAttributesReport actingTalonAttributesReport = actingTalonObject.GetTalonInformationReport()
-                    .GetTalonAttributesReport();
-                ITalonAttributesReport targetTalonAttributesReport = targetTalonObject.GetTalonInformationReport()
-                    .GetTalonAttributesReport();
-                IList<IWeaponResultReport> weaponResultReportList = GetExpectedWeaponResultReportList(talonActionOrderFireReport.GetPathObject(),
-                    actingTalonAttributesReport, targetTalonAttributesReport);
-                return new TalonActionResultFireReportImpl.Builder()
-                    .SetTalonActionOrderReport(talonActionOrderFireReport)
-                    .SetActingTalonAttributesReport(actingTalonAttributesReport)
-                    .SetTargetTalonAttributesReport(targetTalonObject.GetTalonInformationReport().GetTalonAttributesReport())
-                    .SetWeaponResultReportList(weaponResultReportList)
-                    .Build();
+                int accuracyRemaining = weaponAttributes.GetAccuracyPoints() - pathObject.GetPathObjectCost();
+                if (accuracyRemaining >= 100)
+                {
+                    shotsThatHit = weaponAttributes.GetNumberOfShots();
+                }
+                else if (accuracyRemaining > 0)
+                {
+                    shotsThatHit = Mathf.RoundToInt(weaponAttributes.GetNumberOfShots() * accuracyRemaining / 100f);
+                }
             }
-            else
-            {
-                throw ArgumentExceptionUtil.Build("Unable to ?. Invalid parameters.", new StackFrame().GetMethod().Name);
-            }
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="pathObject">
-        /// </param>
-        /// <param name="actingTalonAttributesReport">
-        /// </param>
-        /// <param name="targetTalonAttributesReport">
-        /// </param>
-        /// <returns>
-        /// </returns>
-        private static IList<IWeaponResultReport> GetWeaponResultReportList(IPathObject pathObject,
-            ITalonAttributesReport actingTalonAttributesReport, ITalonAttributesReport targetTalonAttributesReport)
-        {
-            IList<IWeaponResultReport> weaponResultReportList = new List<IWeaponResultReport>();
-            IDestructibleAttributesReport targetDestructibleAttributesReport = targetTalonAttributesReport.GetDestructibleAttributesReport();
-            foreach (IWeaponInformationReport weaponInformationReport in actingTalonAttributesReport.GetMountableAttributesReport().GetWeaponInformationReportList())
-            {
-                IWeaponOrderReport weaponOrderReport = new WeaponOrderReportImpl.Builder()
-                        .SetShotsThatHit(GetShotsThatHit(pathObject, weaponInformationReport))
-                        .SetWeaponInformationReport(weaponInformationReport)
-                        .Build();
-
-                weaponResultReportList.Add(GetWeaponResultReport(weaponOrderReport, targetDestructibleAttributesReport));
-            }
-
-            return weaponResultReportList;
+            return shotsThatHit;
         }
 
         /// <summary>
@@ -196,36 +197,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="pathObjectCost">
-        /// </param>
-        /// <param name="pathObjectLength">
-        /// </param>
-        /// <param name="weaponInformationReport">
-        /// </param>
-        /// <returns>
-        /// </returns>
-        private static int GetExpectedShotsThatHit(IPathObject pathObject, IWeaponInformationReport weaponInformationReport)
-        {
-            int shotsThatHit = 0;
-            IWeaponAttributes weaponAttributes = weaponInformationReport.GetWeaponAttributes();
-            if (weaponAttributes.GetMaxRangePoints() >= pathObject.GetPathObjectLength())
-            {
-                int accuracyRemaining = weaponAttributes.GetAccuracyPoints() - pathObject.GetPathObjectCost();
-                if (accuracyRemaining >= 100)
-                {
-                    shotsThatHit = weaponAttributes.GetNumberOfShots();
-                }
-                else if (accuracyRemaining > 0)
-                {
-                    shotsThatHit = Mathf.RoundToInt(weaponAttributes.GetNumberOfShots() * accuracyRemaining / 100f);
-                }
-            }
-            return shotsThatHit;
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
         /// <param name="weaponOrderReport">
         /// </param>
         /// <param name="destructibleAttributesReport">
@@ -251,6 +222,35 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
                     .SetArmorDamageCaused(0)
                     .SetWeaponOrderReport(weaponOrderReport)
                     .Build();
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="pathObject">
+        /// </param>
+        /// <param name="actingTalonAttributesReport">
+        /// </param>
+        /// <param name="targetTalonAttributesReport">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        private static IList<IWeaponResultReport> GetWeaponResultReportList(IPathObject pathObject,
+            ITalonAttributesReport actingTalonAttributesReport, ITalonAttributesReport targetTalonAttributesReport)
+        {
+            IList<IWeaponResultReport> weaponResultReportList = new List<IWeaponResultReport>();
+            IDestructibleAttributesReport targetDestructibleAttributesReport = targetTalonAttributesReport.GetDestructibleAttributesReport();
+            foreach (IWeaponInformationReport weaponInformationReport in actingTalonAttributesReport.GetMountableAttributesReport().GetWeaponInformationReportList())
+            {
+                IWeaponOrderReport weaponOrderReport = new WeaponOrderReportImpl.Builder()
+                        .SetShotsThatHit(GetShotsThatHit(pathObject, weaponInformationReport))
+                        .SetWeaponInformationReport(weaponInformationReport)
+                        .Build();
+
+                weaponResultReportList.Add(GetWeaponResultReport(weaponOrderReport, targetDestructibleAttributesReport));
+            }
+
+            return weaponResultReportList;
         }
     }
 }

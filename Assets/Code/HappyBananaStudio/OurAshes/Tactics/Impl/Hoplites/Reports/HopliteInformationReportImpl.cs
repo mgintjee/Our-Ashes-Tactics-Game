@@ -19,12 +19,12 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Hoplites.Reports
         private readonly IBonusAttributes bonusAttributes;
 
         // Todo
-        private readonly ControllerIdEnum controllerId;
+        private readonly ControllerType controllerId;
 
         // Todo
         private readonly ISet<HopliteTraitEnum> hopliteTraitSet;
 
-        private HopliteInformationReportImpl(ControllerIdEnum controllerId,
+        private HopliteInformationReportImpl(ControllerType controllerId,
             ISet<HopliteTraitEnum> hopliteTraitSet, IBonusAttributes bonusAttributes)
         {
             this.controllerId = controllerId;
@@ -44,7 +44,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Hoplites.Reports
         /// </summary>
         /// <returns>
         /// </returns>
-        public ControllerIdEnum GetControllerId()
+        public ControllerType GetControllerId()
         {
             return this.controllerId;
         }
@@ -65,7 +65,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Hoplites.Reports
             private IBonusAttributes bonusAttributes = null;
 
             // Todo
-            private ControllerIdEnum controllerId = ControllerIdEnum.None;
+            private ControllerType controllerId = ControllerType.None;
 
             // Todo
             private ISet<HopliteTraitEnum> hopliteTraitSet = null;
@@ -117,7 +117,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Hoplites.Reports
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetControllerId(ControllerIdEnum controllerId)
+            public Builder SetControllerId(ControllerType controllerId)
             {
                 this.controllerId = controllerId;
                 return this;
@@ -148,9 +148,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Hoplites.Reports
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
                 // Check that controllerId has been set
-                if (this.controllerId == ControllerIdEnum.None)
+                if (this.controllerId == ControllerType.None)
                 {
-                    argumentExceptionSet.Add(typeof(ControllerIdEnum).Name + " has not been set");
+                    argumentExceptionSet.Add(typeof(ControllerType).Name + " has not been set");
                 }
                 // Check that hopliteTraitSet has been set
                 if (this.hopliteTraitSet == null)

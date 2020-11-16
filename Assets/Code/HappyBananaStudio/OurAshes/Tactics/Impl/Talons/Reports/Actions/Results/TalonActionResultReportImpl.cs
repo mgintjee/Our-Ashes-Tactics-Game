@@ -14,10 +14,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
         : ITalonActionResultReport
     {
         // Todo
-        private readonly ITalonActionOrderReport talonActionOrderReport;
+        private readonly ITalonAttributesReport actingTalonAttributesReport;
 
         // Todo
-        private readonly ITalonAttributesReport actingTalonAttributesReport;
+        private readonly ITalonActionOrderReport talonActionOrderReport;
 
         /// <summary>
         /// Todo
@@ -50,9 +50,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
         /// </summary>
         /// <returns>
         /// </returns>
-        ITalonActionOrderReport ITalonActionResultReport.GetTalonActionOrder()
+        ITalonAttributesReport ITalonActionResultReport.GetActingTalonAttributesReport()
         {
-            return this.talonActionOrderReport;
+            return this.actingTalonAttributesReport;
         }
 
         /// <summary>
@@ -60,9 +60,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
         /// </summary>
         /// <returns>
         /// </returns>
-        ITalonAttributesReport ITalonActionResultReport.GetActingTalonAttributesReport()
+        ITalonActionOrderReport ITalonActionResultReport.GetTalonActionOrder()
         {
-            return this.actingTalonAttributesReport;
+            return this.talonActionOrderReport;
         }
 
         /// <summary>

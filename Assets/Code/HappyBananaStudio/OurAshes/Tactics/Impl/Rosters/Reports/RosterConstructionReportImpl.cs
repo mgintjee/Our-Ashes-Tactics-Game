@@ -14,10 +14,10 @@
         : IRosterConstructionReport
     {
         // Todo
-        private readonly IDictionary<FactionIdEnum, ISet<PhalanxIdEnum>> factionIdPhalanxIdSetIDictionary;
+        private readonly IDictionary<FactionId, ISet<PhalanxId>> factionIdPhalanxIdSetIDictionary;
 
         // Todo
-        private readonly IDictionary<PhalanxIdEnum, ISet<ITalonConstructionReport>> phalanxIdTalonConstructionReportIDictionary;
+        private readonly IDictionary<PhalanxId, ISet<ITalonConstructionReport>> phalanxIdTalonConstructionReportIDictionary;
 
         /// <summary>
         /// Todo
@@ -27,8 +27,8 @@
         /// <param name="factionIdPhalanxIdSetIDictionary">
         /// </param>
         public RosterConstructionReportImpl(
-            IDictionary<PhalanxIdEnum, ISet<ITalonConstructionReport>> phalanxIdTalonConstructionReportIDictionary,
-            IDictionary<FactionIdEnum, ISet<PhalanxIdEnum>> factionIdPhalanxIdSetIDictionary)
+            IDictionary<PhalanxId, ISet<ITalonConstructionReport>> phalanxIdTalonConstructionReportIDictionary,
+            IDictionary<FactionId, ISet<PhalanxId>> factionIdPhalanxIdSetIDictionary)
         {
             this.phalanxIdTalonConstructionReportIDictionary = phalanxIdTalonConstructionReportIDictionary;
             this.factionIdPhalanxIdSetIDictionary = factionIdPhalanxIdSetIDictionary;
@@ -41,20 +41,20 @@
         /// </returns>
         public override string ToString()
         {
-            string factionIdPhalanxIdSetIDictionaryString = "IDictionary(" + typeof(FactionIdEnum).Name + ", Set: " + typeof(PhalanxIdEnum).Name + "):";
+            string factionIdPhalanxIdSetIDictionaryString = "IDictionary(" + typeof(FactionId).Name + ", Set: " + typeof(PhalanxId).Name + "):";
 
-            string phalanxIdTalonConstructionReportIDictionaryString = "IDictionary(" + typeof(PhalanxIdEnum).Name + ", Set: " + typeof(ITalonConstructionReport).Name + "): [";
+            string phalanxIdTalonConstructionReportIDictionaryString = "IDictionary(" + typeof(PhalanxId).Name + ", Set: " + typeof(ITalonConstructionReport).Name + "): [";
 
-            foreach (FactionIdEnum factionId in this.factionIdPhalanxIdSetIDictionary.Keys)
+            foreach (FactionId factionId in this.factionIdPhalanxIdSetIDictionary.Keys)
             {
-                factionIdPhalanxIdSetIDictionaryString += "\n\t\t>" + typeof(FactionIdEnum).Name + "=" + factionId +
-                    ", Set: " + typeof(PhalanxIdEnum).Name + "=[" +
+                factionIdPhalanxIdSetIDictionaryString += "\n\t\t>" + typeof(FactionId).Name + "=" + factionId +
+                    ", Set: " + typeof(PhalanxId).Name + "=[" +
                     "\n\t\t>" + string.Join("\n\t\t\t>", this.factionIdPhalanxIdSetIDictionary[factionId]) + "" +
                     "\n\t]";
             }
-            foreach (PhalanxIdEnum phalanxId in this.phalanxIdTalonConstructionReportIDictionary.Keys)
+            foreach (PhalanxId phalanxId in this.phalanxIdTalonConstructionReportIDictionary.Keys)
             {
-                phalanxIdTalonConstructionReportIDictionaryString += "\n\t\t>" + typeof(PhalanxIdEnum).Name + "=" + phalanxId +
+                phalanxIdTalonConstructionReportIDictionaryString += "\n\t\t>" + typeof(PhalanxId).Name + "=" + phalanxId +
                     ", Set: " + typeof(ITalonConstructionReport).Name + "=[" +
                     "\n\t\t>" + string.Join("\n\t\t\t>", this.phalanxIdTalonConstructionReportIDictionary[phalanxId]) + "" +
                     "\n\t]";
@@ -72,9 +72,9 @@
         /// </summary>
         /// <returns>
         /// </returns>
-        IDictionary<FactionIdEnum, ISet<PhalanxIdEnum>> IRosterConstructionReport.GetFactionIdPhalanxIdSetIDictionary()
+        IDictionary<FactionId, ISet<PhalanxId>> IRosterConstructionReport.GetFactionIdPhalanxIdSetIDictionary()
         {
-            return new Dictionary<FactionIdEnum, ISet<PhalanxIdEnum>>(this.factionIdPhalanxIdSetIDictionary);
+            return new Dictionary<FactionId, ISet<PhalanxId>>(this.factionIdPhalanxIdSetIDictionary);
         }
 
         /// <summary>
@@ -82,9 +82,9 @@
         /// </summary>
         /// <returns>
         /// </returns>
-        IDictionary<PhalanxIdEnum, ISet<ITalonConstructionReport>> IRosterConstructionReport.GetPhalanxIdTalonConstructionReportIDictionary()
+        IDictionary<PhalanxId, ISet<ITalonConstructionReport>> IRosterConstructionReport.GetPhalanxIdTalonConstructionReportIDictionary()
         {
-            return new Dictionary<PhalanxIdEnum, ISet<ITalonConstructionReport>>(this.phalanxIdTalonConstructionReportIDictionary);
+            return new Dictionary<PhalanxId, ISet<ITalonConstructionReport>>(this.phalanxIdTalonConstructionReportIDictionary);
         }
 
         /// <summary>
@@ -93,10 +93,10 @@
         public class Builder
         {
             // Todo
-            private IDictionary<FactionIdEnum, ISet<PhalanxIdEnum>> factionIdPhalanxIdSetIDictionary = null;
+            private IDictionary<FactionId, ISet<PhalanxId>> factionIdPhalanxIdSetIDictionary = null;
 
             // Todo
-            private IDictionary<PhalanxIdEnum, ISet<ITalonConstructionReport>> phalanxIdTalonConstructionReportIDictionary = null;
+            private IDictionary<PhalanxId, ISet<ITalonConstructionReport>> phalanxIdTalonConstructionReportIDictionary = null;
 
             /// <summary>
             /// Build the RosterConstructionReport with the set parameters
@@ -130,11 +130,11 @@
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetFactionIdPhalanxIdSetIDictionary(
-                IDictionary<FactionIdEnum, ISet<PhalanxIdEnum>> factionIdPhalanxIdSetIDictionary)
+            public Builder SetFactionIdPhalanxIdSetDictionary(
+                IDictionary<FactionId, ISet<PhalanxId>> factionIdPhalanxIdSetIDictionary)
             {
                 this.factionIdPhalanxIdSetIDictionary =
-                    new Dictionary<FactionIdEnum, ISet<PhalanxIdEnum>>(factionIdPhalanxIdSetIDictionary);
+                    new Dictionary<FactionId, ISet<PhalanxId>>(factionIdPhalanxIdSetIDictionary);
                 return this;
             }
 
@@ -147,11 +147,11 @@
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetPhalanxIdTalonConstructionReportIDictionary(
-                IDictionary<PhalanxIdEnum, ISet<ITalonConstructionReport>> phalanxIdTalonConstructionReportIDictionary)
+            public Builder SetPhalanxIdTalonConstructionReportDictionary(
+                IDictionary<PhalanxId, ISet<ITalonConstructionReport>> phalanxIdTalonConstructionReportIDictionary)
             {
                 this.phalanxIdTalonConstructionReportIDictionary =
-                    new Dictionary<PhalanxIdEnum, ISet<ITalonConstructionReport>>(phalanxIdTalonConstructionReportIDictionary);
+                    new Dictionary<PhalanxId, ISet<ITalonConstructionReport>>(phalanxIdTalonConstructionReportIDictionary);
                 return this;
             }
 
@@ -167,14 +167,14 @@
                 // Check that phalanxIdTalonConstructionReportIDictionary has been set
                 if (this.phalanxIdTalonConstructionReportIDictionary == null)
                 {
-                    argumentExceptionSet.Add("IDictionary(" + typeof(PhalanxIdEnum).Name +
+                    argumentExceptionSet.Add("IDictionary(" + typeof(PhalanxId).Name +
                         ", Set: " + typeof(ITalonConstructionReport) + ") has not been set");
                 }
                 // Check that factionIdPhalanxIdSetIDictionary has been set
                 if (this.factionIdPhalanxIdSetIDictionary == null)
                 {
-                    argumentExceptionSet.Add("IDictionary(" + typeof(FactionIdEnum).Name +
-                        ", Set: " + typeof(PhalanxIdEnum) + ") has not been set");
+                    argumentExceptionSet.Add("IDictionary(" + typeof(FactionId).Name +
+                        ", Set: " + typeof(PhalanxId) + ") has not been set");
                 }
                 return argumentExceptionSet;
             }

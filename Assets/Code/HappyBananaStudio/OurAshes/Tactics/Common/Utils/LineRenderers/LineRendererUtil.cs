@@ -180,15 +180,15 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.LineRenderers
             {
                 if (pathObject is PathObjectMoveImpl)
                 {
-                    lineRenderer.material = MaterialResourceLoader.Path.LoadPathMaterialResource(ActionTypeEnum.Move);
+                    lineRenderer.material = MaterialResourceLoader.Path.LoadPathMaterialResource(ActionType.Move);
                 }
                 else if (pathObject is PathObjectFireImpl)
                 {
-                    lineRenderer.material = MaterialResourceLoader.Path.LoadPathMaterialResource(ActionTypeEnum.Fire);
+                    lineRenderer.material = MaterialResourceLoader.Path.LoadPathMaterialResource(ActionType.Fire);
                 }
                 else if (pathObject is PathObjectWaitImpl)
                 {
-                    lineRenderer.material = MaterialResourceLoader.Path.LoadPathMaterialResource(ActionTypeEnum.Wait);
+                    lineRenderer.material = MaterialResourceLoader.Path.LoadPathMaterialResource(ActionType.Wait);
                 }
                 else
                 {

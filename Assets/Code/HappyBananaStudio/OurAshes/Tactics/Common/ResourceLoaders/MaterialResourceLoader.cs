@@ -144,20 +144,20 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders
             /// </param>
             /// <returns>
             /// </returns>
-            public static Material LoadPathMaterialResource(ActionTypeEnum mechActionType)
+            public static Material LoadPathMaterialResource(ActionType mechActionType)
             {
                 string mechActionTypeString = "";
                 switch (mechActionType)
                 {
-                    case ActionTypeEnum.Fire:
+                    case ActionType.Fire:
                         mechActionTypeString = "Fire";
                         break;
 
-                    case ActionTypeEnum.Move:
+                    case ActionType.Move:
                         mechActionTypeString = "Move";
                         break;
 
-                    case ActionTypeEnum.Wait:
+                    case ActionType.Wait:
                         mechActionTypeString = "Wait";
                         break;
                 }

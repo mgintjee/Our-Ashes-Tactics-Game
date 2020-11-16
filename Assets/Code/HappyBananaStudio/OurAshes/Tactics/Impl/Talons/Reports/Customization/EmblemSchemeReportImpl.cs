@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Customization;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Schemes.Emblem;
@@ -14,22 +12,28 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization
         : IEmblemSchemeReport
     {
         // Todo
-        private readonly EmblemForegroundIdEnum emblemBackgroundId;
+        private readonly EmblemSpriteIdEnum backgroundId;
 
         // Todo
-        private readonly EmblemIconIdEnum emblemIconId;
+        private readonly EmblemSpriteIdEnum foregroundId;
+
+        // Todo
+        private readonly EmblemSpriteIdEnum iconId;
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="emblemBackgroundId">
+        /// <param name="backgroundId">
         /// </param>
-        /// <param name="emblemIconId">
+        /// <param name="foregroundId">
         /// </param>
-        private EmblemSchemeReportImpl(EmblemForegroundIdEnum emblemBackgroundId, EmblemIconIdEnum emblemIconId)
+        /// <param name="iconId">
+        /// </param>
+        private EmblemSchemeReportImpl(EmblemSpriteIdEnum backgroundId, EmblemSpriteIdEnum foregroundId, EmblemSpriteIdEnum iconId)
         {
-            this.emblemBackgroundId = emblemBackgroundId;
-            this.emblemIconId = emblemIconId;
+            this.backgroundId = backgroundId;
+            this.foregroundId = foregroundId;
+            this.iconId = iconId;
         }
 
         /// <summary>
@@ -39,8 +43,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization
         /// </returns>
         public override string ToString()
         {
-            return this.GetType().Name + ": " + typeof(EmblemForegroundIdEnum).Name + "=" + this.emblemBackgroundId +
-                ", " + typeof(EmblemIconIdEnum).Name + "=" + this.emblemIconId;
+            return this.GetType().Name + ": Background=" + this.backgroundId + ", Foreground=" + this.foregroundId + ", Icon=" + this.iconId;
         }
 
         /// <summary>
@@ -48,9 +51,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization
         /// </summary>
         /// <returns>
         /// </returns>
-        EmblemForegroundIdEnum IEmblemSchemeReport.GetEmblemBackgroundId()
+        EmblemSpriteIdEnum IEmblemSchemeReport.GetBackgroundId()
         {
-            return this.emblemBackgroundId;
+            return this.backgroundId;
         }
 
         /// <summary>
@@ -58,9 +61,19 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization
         /// </summary>
         /// <returns>
         /// </returns>
-        EmblemIconIdEnum IEmblemSchemeReport.GetEmblemIconId()
+        EmblemSpriteIdEnum IEmblemSchemeReport.GetForegroundId()
         {
-            return this.emblemIconId;
+            return this.foregroundId;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        EmblemSpriteIdEnum IEmblemSchemeReport.GetIconId()
+        {
+            return this.iconId;
         }
 
         /// <summary>
@@ -69,16 +82,19 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization
         public class Builder
         {
             // Todo
-            private EmblemForegroundIdEnum emblemBackgroundId = EmblemForegroundIdEnum.None;
+            private EmblemSpriteIdEnum backgroundId = EmblemSpriteIdEnum.None;
 
             // Todo
-            private EmblemIconIdEnum emblemIconId = EmblemIconIdEnum.None;
+            private EmblemSpriteIdEnum foregroundId = EmblemSpriteIdEnum.None;
+
+            // Todo
+            private EmblemSpriteIdEnum iconId = EmblemSpriteIdEnum.None;
 
             /// <summary>
-            /// Build the EmblemSchemeReportImpl with the set parameters
+            /// Build the report implementation with the set parameters
             /// </summary>
             /// <returns>
-            /// The IEmblemSchemeReport
+            /// The report interface
             /// </returns>
             public IEmblemSchemeReport Build()
             {
@@ -87,7 +103,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new Report
-                    return new EmblemSchemeReportImpl(this.emblemBackgroundId, this.emblemIconId);
+                    return new EmblemSchemeReportImpl(this.backgroundId, this.foregroundId, this.iconId);
                 }
                 else
                 {
@@ -97,32 +113,47 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization
             }
 
             /// <summary>
-            /// Set the value of the emblemBackgroundId
+            /// Set the value of the EmblemSpriteIdEnum
             /// </summary>
-            /// <param name="emblemBackgroundId">
-            /// The EmblemBackgroundIdEnum to set
+            /// <param name="backgroundId">
+            /// The EmblemSpriteIdEnum to set
             /// </param>
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetEmblemBackgroundId(EmblemForegroundIdEnum emblemBackgroundId)
+            public Builder SetBackgroundId(EmblemSpriteIdEnum backgroundId)
             {
-                this.emblemBackgroundId = emblemBackgroundId;
+                this.backgroundId = backgroundId;
                 return this;
             }
 
             /// <summary>
-            /// Set the value of the emblemIconId
+            /// Set the value of the EmblemSpriteIdEnum
             /// </summary>
-            /// <param name="emblemIconId">
-            /// The EmblemIconIdEnum to set
+            /// <param name="foregroundId">
+            /// The EmblemSpriteIdEnum to set
             /// </param>
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetEmblemIconId(EmblemIconIdEnum emblemIconId)
+            public Builder SetForeground(EmblemSpriteIdEnum foregroundId)
             {
-                this.emblemIconId = emblemIconId;
+                this.foregroundId = foregroundId;
+                return this;
+            }
+
+            /// <summary>
+            /// Set the value of the EmblemSpriteIdEnum
+            /// </summary>
+            /// <param name="iconId">
+            /// The EmblemSpriteIdEnum to set
+            /// </param>
+            /// <returns>
+            /// The Builder to continue building with
+            /// </returns>
+            public Builder SetIconId(EmblemSpriteIdEnum iconId)
+            {
+                this.iconId = iconId;
                 return this;
             }
 
@@ -135,15 +166,20 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization
             {
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
-                // Check that emblemIconId has been set
-                if (this.emblemIconId == EmblemIconIdEnum.None)
+                // Check that backgroundId has been set
+                if (this.backgroundId == EmblemSpriteIdEnum.None)
                 {
-                    argumentExceptionSet.Add(typeof(EmblemIconIdEnum).Name + " has not been set");
+                    argumentExceptionSet.Add("Background " + typeof(EmblemSpriteIdEnum).Name + " has not been set");
                 }
-                // Check that emblemBackgroundId has been set
-                if (this.emblemBackgroundId == EmblemForegroundIdEnum.None)
+                // Check that foregroundId has been set
+                if (this.foregroundId == EmblemSpriteIdEnum.None)
                 {
-                    argumentExceptionSet.Add(typeof(EmblemForegroundIdEnum).Name + " has not been set");
+                    argumentExceptionSet.Add("Foreground " + typeof(EmblemSpriteIdEnum).Name + " has not been set");
+                }
+                // Check that iconId has been set
+                if (this.iconId == EmblemSpriteIdEnum.None)
+                {
+                    argumentExceptionSet.Add("Icon " + typeof(EmblemSpriteIdEnum).Name + " has not been set");
                 }
                 return argumentExceptionSet;
             }

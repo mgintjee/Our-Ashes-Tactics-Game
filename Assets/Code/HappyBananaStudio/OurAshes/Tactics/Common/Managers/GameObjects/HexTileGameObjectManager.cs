@@ -17,39 +17,20 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
     public class HexTileGameObjectManager
     {
         // Todo
-        private static readonly IDictionary<int, GameObject> layerLevelGameObjectDictionary = new Dictionary<int, GameObject>();
+        private static readonly string layerGameObjectCollectionName = "layerGameObjectCollection";
 
         // Todo
-        private static readonly string layerGameObjectCollectionName = "layerGameObjectCollection";
+        private static readonly IDictionary<int, GameObject> layerLevelGameObjectDictionary = new Dictionary<int, GameObject>();
 
         // Todo
         private static readonly string layerLevelGameObjectPrefix = "layerLevel: ";
 
         // Todo
-        private static GameObject layerGameObjectCollection = null;
-
-        // Todo
         private static IDictionary<ICubeCoordinates, GameObject> cubeCoordinatesGameObjectDictionary =
             new Dictionary<ICubeCoordinates, GameObject>();
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="cubeCoordinates">
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static Vector3 GetHexTileWorldPosition(ICubeCoordinates cubeCoordinates)
-        {
-            if (cubeCoordinatesGameObjectDictionary.ContainsKey(cubeCoordinates))
-            {
-                return cubeCoordinatesGameObjectDictionary[cubeCoordinates].transform.position;
-            }
-            else
-            {
-                return CubeCoordinatesPositionUtil.CubeCoordinatesToWorldVector(cubeCoordinates);
-            }
-        }
+        // Todo
+        private static GameObject layerGameObjectCollection = null;
 
         /// <summary>
         /// Todo
@@ -83,17 +64,20 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="hexTileGameObject">
+        /// <param name="cubeCoordinates">
         /// </param>
-        /// <param name="hexTileType">
-        /// </param>
-        private static void UpdateHexTileGameObjectVisuals(GameObject hexTileGameObject, HexTileTypeEnum hexTileType)
+        /// <returns>
+        /// </returns>
+        public static Vector3 GetHexTileWorldPosition(ICubeCoordinates cubeCoordinates)
         {
-            MeshRenderer meshRenderer = hexTileGameObject.GetComponent<MeshRenderer>();
-            Material[] materials = meshRenderer.materials;
-            materials[1] = MaterialResourceLoader.HexTile.Top.LoadHexTileTopMaterialResource(hexTileType);
-            meshRenderer.materials = materials;
-            // Todo: Add doodads to the tops here?
+            if (cubeCoordinatesGameObjectDictionary.ContainsKey(cubeCoordinates))
+            {
+                return cubeCoordinatesGameObjectDictionary[cubeCoordinates].transform.position;
+            }
+            else
+            {
+                return CubeCoordinatesPositionUtil.CubeCoordinatesToWorldVector(cubeCoordinates);
+            }
         }
 
         /// <summary>
@@ -120,6 +104,22 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
             {
                 layerGameObjectCollection = new GameObject(layerGameObjectCollectionName);
             }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="hexTileGameObject">
+        /// </param>
+        /// <param name="hexTileType">
+        /// </param>
+        private static void UpdateHexTileGameObjectVisuals(GameObject hexTileGameObject, HexTileTypeEnum hexTileType)
+        {
+            MeshRenderer meshRenderer = hexTileGameObject.GetComponent<MeshRenderer>();
+            Material[] materials = meshRenderer.materials;
+            materials[1] = MaterialResourceLoader.HexTile.Top.LoadHexTileTopMaterialResource(hexTileType);
+            meshRenderer.materials = materials;
+            // Todo: Add doodads to the tops here?
         }
     }
 }

@@ -87,22 +87,6 @@
             }
 
             /// <summary>
-            /// Set the value of the weaponMountPoints
-            /// </summary>
-            /// <param name="weaponMountPoints">
-            /// The weaponMountPoints to set
-            /// </param>
-            /// <returns>
-            /// The Builder to continue building with
-            /// </returns>
-            public Builder SetWeaponPoints(int weaponMountPoints)
-            {
-                this.weaponMountPoints = weaponMountPoints;
-                this.setWeaponMountPoints = true;
-                return this;
-            }
-
-            /// <summary>
             /// Set the value of the utilityMountPoints
             /// </summary>
             /// <param name="utilityMountPoints">
@@ -115,6 +99,22 @@
             {
                 this.utilityMountPoints = utilityMountPoints;
                 this.setUtilityMountPoints = true;
+                return this;
+            }
+
+            /// <summary>
+            /// Set the value of the weaponMountPoints
+            /// </summary>
+            /// <param name="weaponMountPoints">
+            /// The weaponMountPoints to set
+            /// </param>
+            /// <returns>
+            /// The Builder to continue building with
+            /// </returns>
+            public Builder SetWeaponPoints(int weaponMountPoints)
+            {
+                this.weaponMountPoints = weaponMountPoints;
+                this.setWeaponMountPoints = true;
                 return this;
             }
 

@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Coordinates.Objects.Cube
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Coordinates.Objects.Cube
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
@@ -94,7 +92,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Coordinates.Objects.Cube
         public override string ToString()
         {
             return string.Format(
-                "({0},{1},{2})", this.xValue, this.yValue, this.zValue);
+                "Cube({0},{1},{2})", this.xValue, this.yValue, this.zValue);
         }
 
         /// <summary>

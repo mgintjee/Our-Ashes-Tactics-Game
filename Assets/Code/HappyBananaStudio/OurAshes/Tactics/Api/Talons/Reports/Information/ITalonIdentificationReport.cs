@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information
 {
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Factions;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Phalanxes;
@@ -16,27 +14,27 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information
         /// </summary>
         /// <returns>
         /// </returns>
-        CallSignEnum GetCallSign();
+        CallSign GetCallSign();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns>
         /// </returns>
-        FactionIdEnum GetFactionId();
+        FactionId GetFactionId();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns>
         /// </returns>
-        PhalanxIdEnum GetPhalanxId();
+        PhalanxId GetPhalanxId();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns>
         /// </returns>
-        TalonModelIdEnum GetTalonModelId();
+        TalonModelId GetTalonModelId();
     }
 }

@@ -27,10 +27,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Constuction
         private readonly ITalonIdentificationReport talonIdentificationReport;
 
         // Todo
-        private readonly IList<UtilityModelIdEnum> utilityIdList;
+        private readonly IList<UtilityModelId> utilityIdList;
 
         // Todo
-        private readonly IList<WeaponModelIdEnum> weaponIdList;
+        private readonly IList<WeaponModelId> weaponIdList;
 
         /// <summary>
         /// Todo
@@ -43,7 +43,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Constuction
         /// </param>
         private TalonConstructionReportImpl(IHopliteConstructionReport hopliteConstructionReport,
             ITalonCustomizationReport talonCustomizationReport, ITalonIdentificationReport talonIdentificationReport,
-            IList<UtilityModelIdEnum> utilityIdList, IList<WeaponModelIdEnum> weaponIdList)
+            IList<UtilityModelId> utilityIdList, IList<WeaponModelId> weaponIdList)
         {
             this.hopliteConstructionReport = hopliteConstructionReport;
             this.talonCustomizationReport = talonCustomizationReport;
@@ -63,9 +63,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Constuction
                 "\n\t>" + this.talonIdentificationReport +
                 "\n\t>" + this.hopliteConstructionReport +
                 "\n\t>" + this.talonCustomizationReport +
-                "\n\t>List: " + typeof(WeaponModelIdEnum).Name + "=[" + string.Join("\n\t\t>", this.weaponIdList) +
+                "\n\t>List: " + typeof(WeaponModelId).Name + "=[" + string.Join("\n\t\t>", this.weaponIdList) +
                 "\n]" +
-                "\n\t>List: " + typeof(UtilityModelIdEnum).Name + "=[" + string.Join("\n\t\t>", this.utilityIdList) +
+                "\n\t>List: " + typeof(UtilityModelId).Name + "=[" + string.Join("\n\t\t>", this.utilityIdList) +
                 "\n]";
         }
 
@@ -104,9 +104,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Constuction
         /// </summary>
         /// <returns>
         /// </returns>
-        IList<UtilityModelIdEnum> ITalonConstructionReport.GetUtilityModelIdList()
+        IList<UtilityModelId> ITalonConstructionReport.GetUtilityModelIdList()
         {
-            return new List<UtilityModelIdEnum>(this.utilityIdList);
+            return new List<UtilityModelId>(this.utilityIdList);
         }
 
         /// <summary>
@@ -114,9 +114,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Constuction
         /// </summary>
         /// <returns>
         /// </returns>
-        IList<WeaponModelIdEnum> ITalonConstructionReport.GetWeaponModelIdList()
+        IList<WeaponModelId> ITalonConstructionReport.GetWeaponModelIdList()
         {
-            return new List<WeaponModelIdEnum>(this.weaponIdList);
+            return new List<WeaponModelId>(this.weaponIdList);
         }
 
         /// <summary>
@@ -134,10 +134,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Constuction
             private ITalonIdentificationReport talonIdentificationReport = null;
 
             // Todo
-            private IList<UtilityModelIdEnum> utilityIdList = null;
+            private IList<UtilityModelId> utilityIdList = null;
 
             // Todo
-            private IList<WeaponModelIdEnum> weaponIdList = null;
+            private IList<WeaponModelId> weaponIdList = null;
 
             /// <summary>
             /// Build the report with the set parameters
@@ -216,7 +216,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Constuction
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetUtilityList(IList<UtilityModelIdEnum> utilityIdList)
+            public Builder SetUtilityList(IList<UtilityModelId> utilityIdList)
             {
                 this.utilityIdList = utilityIdList;
                 return this;
@@ -231,7 +231,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Constuction
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetWeaponIdList(IList<WeaponModelIdEnum> weaponIdList)
+            public Builder SetWeaponIdList(IList<WeaponModelId> weaponIdList)
             {
                 this.weaponIdList = weaponIdList;
                 return this;
@@ -264,12 +264,12 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Constuction
                 // Check that utilityIdList has been set
                 if (this.utilityIdList == null)
                 {
-                    argumentExceptionSet.Add("Set: " + typeof(UtilityModelIdEnum).Name + " has not been set");
+                    argumentExceptionSet.Add("Set: " + typeof(UtilityModelId).Name + " has not been set");
                 }
                 // Check that weaponIdList has been set
                 if (this.weaponIdList == null)
                 {
-                    argumentExceptionSet.Add("Set: " + typeof(WeaponModelIdEnum).Name + " has not been set");
+                    argumentExceptionSet.Add("Set: " + typeof(WeaponModelId).Name + " has not been set");
                 }
                 return argumentExceptionSet;
             }

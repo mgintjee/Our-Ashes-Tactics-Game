@@ -29,10 +29,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Finders.Fire
         private static readonly ICodeLogger logger = new CodeLoggerImpl(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
-        private readonly int maxRange = int.MinValue;
+        private readonly int maxAccuracy = int.MinValue;
 
         // Todo
-        private readonly int maxAccuracy = int.MinValue;
+        private readonly int maxRange = int.MinValue;
 
         /// <summary>
         /// Todo

@@ -14,13 +14,13 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Results
         /// </summary>
         /// <returns>
         /// </returns>
-        ITalonActionOrderReport GetTalonActionOrder();
+        ITalonAttributesReport GetActingTalonAttributesReport();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns>
         /// </returns>
-        ITalonAttributesReport GetActingTalonAttributesReport();
+        ITalonActionOrderReport GetTalonActionOrder();
     }
 }

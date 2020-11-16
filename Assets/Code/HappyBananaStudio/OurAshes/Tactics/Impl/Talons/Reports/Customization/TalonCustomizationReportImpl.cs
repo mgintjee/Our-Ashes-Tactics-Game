@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Customization;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
@@ -13,37 +11,16 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization
         : ITalonCustomizationReport
     {
         // Todo
-        private readonly IColorSchemeReport factionColorSchemeReport;
-
-        // Todo
-        private readonly IEmblemSchemeReport factionEmblemSchemeReport;
-
-        // Todo
-        private readonly IColorSchemeReport phalanxColorSchemeReport;
-
-        // Todo
-        private readonly IEmblemSchemeReport phalanxEmblemSchemeReport;
+        private readonly ICustomizationReport primaryCustomizationReport;
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="factionEmblemSchemeReport">
+        /// <param name="customizationReport">
         /// </param>
-        /// <param name="phalanxEmblemSchemeReport">
-        /// </param>
-        /// <param name="factionColorSchemeReport">
-        /// </param>
-        /// <param name="phalanxColorSchemeReport">
-        /// </param>
-        private TalonCustomizationReportImpl(IEmblemSchemeReport factionEmblemSchemeReport,
-            IEmblemSchemeReport phalanxEmblemSchemeReport,
-            IColorSchemeReport factionColorSchemeReport,
-            IColorSchemeReport phalanxColorSchemeReport)
+        private TalonCustomizationReportImpl(ICustomizationReport customizationReport)
         {
-            this.factionEmblemSchemeReport = factionEmblemSchemeReport;
-            this.factionColorSchemeReport = factionColorSchemeReport;
-            this.phalanxEmblemSchemeReport = phalanxEmblemSchemeReport;
-            this.phalanxColorSchemeReport = phalanxColorSchemeReport;
+            this.primaryCustomizationReport = customizationReport;
         }
 
         /// <summary>
@@ -51,53 +28,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization
         /// </summary>
         /// <returns>
         /// </returns>
-        public override string ToString()
+        ICustomizationReport ITalonCustomizationReport.GetPrimaryCustomizationReport()
         {
-            return this.GetType().Name + ":" +
-                "\nFaction: " + typeof(IColorSchemeReport).Name + "=" + this.factionColorSchemeReport +
-                ", " + typeof(IEmblemSchemeReport).Name + "=" + this.factionEmblemSchemeReport +
-                "\nPhalanx: " + typeof(IColorSchemeReport).Name + "=" + this.phalanxColorSchemeReport +
-                ", " + typeof(IEmblemSchemeReport).Name + "=" + this.phalanxEmblemSchemeReport;
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        IColorSchemeReport ITalonCustomizationReport.GetFactionColorSchemeReport()
-        {
-            return this.factionColorSchemeReport;
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        IEmblemSchemeReport ITalonCustomizationReport.GetFactionEmblemSchemeReport()
-        {
-            return this.factionEmblemSchemeReport;
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        IColorSchemeReport ITalonCustomizationReport.GetPhalanxColorSchemeReport()
-        {
-            return this.phalanxColorSchemeReport;
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        IEmblemSchemeReport ITalonCustomizationReport.GetPhalanxEmblemSchemeReport()
-        {
-            return this.phalanxEmblemSchemeReport;
+            return this.primaryCustomizationReport;
         }
 
         /// <summary>
@@ -106,22 +39,13 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization
         public class Builder
         {
             // Todo
-            private IColorSchemeReport factionColorSchemeReport = null;
-
-            // Todo
-            private IEmblemSchemeReport factionEmblemSchemeReport = null;
-
-            // Todo
-            private IColorSchemeReport phalanxColorSchemeReport = null;
-
-            // Todo
-            private IEmblemSchemeReport phalanxEmblemSchemeReport = null;
+            private ICustomizationReport primaryCustomizationReport = null;
 
             /// <summary>
-            /// Build the TalonCustomizationReportImpl with the set parameters
+            /// Build the report implementation with the set parameters
             /// </summary>
             /// <returns>
-            /// The report inteface
+            /// The report interface
             /// </returns>
             public ITalonCustomizationReport Build()
             {
@@ -130,8 +54,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new Report
-                    return new TalonCustomizationReportImpl(this.factionEmblemSchemeReport, this.phalanxEmblemSchemeReport,
-                        this.factionColorSchemeReport, this.phalanxColorSchemeReport);
+                    return new TalonCustomizationReportImpl(this.primaryCustomizationReport);
                 }
                 else
                 {
@@ -141,62 +64,17 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization
             }
 
             /// <summary>
-            /// Set the value of the factionColorSchemeReport
+            /// Set the value of the primaryCustomizationReport
             /// </summary>
-            /// <param name="factionColorSchemeReport">
-            /// The IColorSchemeReport to set
+            /// <param name="primaryCustomizationReport">
+            /// The ICustomizationReport to set
             /// </param>
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetFactionColorSchemeReport(IColorSchemeReport factionColorSchemeReport)
+            public Builder SetPrimaryCustomizationReport(ICustomizationReport primaryCustomizationReport)
             {
-                this.factionColorSchemeReport = factionColorSchemeReport;
-                return this;
-            }
-
-            /// <summary>
-            /// Set the value of the factionEmblemSchemeReport
-            /// </summary>
-            /// <param name="factionEmblemSchemeReport">
-            /// The IEmblemSchemeReport to set
-            /// </param>
-            /// <returns>
-            /// The Builder to continue building with
-            /// </returns>
-            public Builder SetFactionEmblemSchemeReport(IEmblemSchemeReport factionEmblemSchemeReport)
-            {
-                this.factionEmblemSchemeReport = factionEmblemSchemeReport;
-                return this;
-            }
-
-            /// <summary>
-            /// Set the value of the phalanxColorSchemeReport
-            /// </summary>
-            /// <param name="phalanxColorSchemeReport">
-            /// The IColorSchemeReport to set
-            /// </param>
-            /// <returns>
-            /// The Builder to continue building with
-            /// </returns>
-            public Builder SetPhalanxColorSchemeReport(IColorSchemeReport phalanxColorSchemeReport)
-            {
-                this.phalanxColorSchemeReport = phalanxColorSchemeReport;
-                return this;
-            }
-
-            /// <summary>
-            /// Set the value of the phalanxEmblemSchemeReport
-            /// </summary>
-            /// <param name="phalanxEmblemSchemeReport">
-            /// The IEmblemSchemeReport to set
-            /// </param>
-            /// <returns>
-            /// The Builder to continue building with
-            /// </returns>
-            public Builder SetPhalanxEmblemSchemeReoprt(IEmblemSchemeReport phalanxEmblemSchemeReport)
-            {
-                this.phalanxEmblemSchemeReport = phalanxEmblemSchemeReport;
+                this.primaryCustomizationReport = primaryCustomizationReport;
                 return this;
             }
 
@@ -209,25 +87,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization
             {
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
-                // Check that factionColorSchemeReport has been set
-                if (this.factionColorSchemeReport == null)
+                // Check that primaryCustomizationReport has been set
+                if (this.primaryCustomizationReport == null)
                 {
-                    argumentExceptionSet.Add("Faction " + typeof(IColorSchemeReport).Name + " has not been set");
-                }
-                // Check that phalanxColorSchemeReport has been set
-                if (this.phalanxColorSchemeReport == null)
-                {
-                    argumentExceptionSet.Add("Phalanx " + typeof(IColorSchemeReport).Name + " has not been set");
-                }
-                // Check that factionEmblemSchemeReport has been set
-                if (this.factionEmblemSchemeReport == null)
-                {
-                    argumentExceptionSet.Add("Faction " + typeof(IEmblemSchemeReport).Name + " has not been set");
-                }
-                // Check that phalanxEmblemSchemeReport has been set
-                if (this.phalanxEmblemSchemeReport == null)
-                {
-                    argumentExceptionSet.Add("Phalanx " + typeof(IColorSchemeReport).Name + " has not been set");
+                    argumentExceptionSet.Add("Primary " + typeof(ICustomizationReport).Name + " has not been set");
                 }
                 return argumentExceptionSet;
             }

@@ -2,7 +2,6 @@
 
 namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
 {
-    using HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
@@ -18,7 +17,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
     public class RosterObjectManager
     {
         // Todo
-        private static IRosterObject rosterObject;
+        private static IFactionRosterObject rosterObject;
 
         /// <summary>
         /// Todo
@@ -33,24 +32,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
             }
             else
             {
-                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IRosterObject));
-            }
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        public static ISet<FactionIdEnum> GetFactionIdSet()
-        {
-            if (rosterObject != null)
-            {
-                return rosterObject.GetFactionIdSet();
-            }
-            else
-            {
-                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IRosterObject));
+                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IFactionRosterObject));
             }
         }
 
@@ -67,7 +49,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
             }
             else
             {
-                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IRosterObject));
+                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IFactionRosterObject));
             }
         }
 
@@ -78,7 +60,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
         /// </param>
         /// <returns>
         /// </returns>
-        public static ISet<ITalonIdentificationReport> GetAllTalonIdentificationReportSet(PhalanxIdEnum talonPhalanxId)
+        public static ISet<ITalonIdentificationReport> GetAllTalonIdentificationReportSet(PhalanxId talonPhalanxId)
         {
             if (rosterObject != null)
             {
@@ -86,7 +68,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
             }
             else
             {
-                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IRosterObject));
+                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IFactionRosterObject));
             }
         }
 
@@ -97,7 +79,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
         /// </param>
         /// <returns>
         /// </returns>
-        public static ISet<ITalonIdentificationReport> GetAllTalonIdentificationReportSet(FactionIdEnum talonFactionId)
+        public static ISet<ITalonIdentificationReport> GetAllTalonIdentificationReportSet(FactionId talonFactionId)
         {
             if (rosterObject != null)
             {
@@ -105,7 +87,41 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
             }
             else
             {
-                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IRosterObject));
+                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IFactionRosterObject));
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        public static ISet<FactionId> GetFactionIdSet()
+        {
+            if (rosterObject != null)
+            {
+                return rosterObject.GetFactionIdSet();
+            }
+            else
+            {
+                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IFactionRosterObject));
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        public static IComparer<ITalonIdentificationReport> GetOrderPointComparer()
+        {
+            if (rosterObject != null)
+            {
+                return rosterObject.GetOrderPointComparer();
+            }
+            else
+            {
+                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IFactionRosterObject));
             }
         }
 
@@ -122,7 +138,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
             }
             else
             {
-                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IRosterObject));
+                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IFactionRosterObject));
             }
         }
 
@@ -133,7 +149,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
         /// </param>
         /// <returns>
         /// </returns>
-        public static ITalonObject GetTalonObjectFrom(ITalonIdentificationReport talonIdentificationReport)
+        public static ITalonObject GetTalonObject(ITalonIdentificationReport talonIdentificationReport)
         {
             if (rosterObject != null)
             {
@@ -141,7 +157,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
             }
             else
             {
-                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IRosterObject));
+                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IFactionRosterObject));
             }
         }
 
@@ -150,7 +166,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
         /// </summary>
         /// <param name="newRosterObject">
         /// </param>
-        public static void SetRosterObject(IRosterObject newRosterObject)
+        public static void SetRosterObject(IFactionRosterObject newRosterObject)
         {
             if (rosterObject == null)
             {
@@ -173,7 +189,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
             }
             else
             {
-                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IRosterObject));
+                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IFactionRosterObject));
             }
         }
 
@@ -192,7 +208,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
             }
             else
             {
-                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IRosterObject));
+                throw ArgumentExceptionUtil.Build("Unable to ?. ? is null.", new StackFrame().GetMethod().Name, typeof(IFactionRosterObject));
             }
         }
     }

@@ -56,18 +56,18 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Objects
         /// </summary>
         /// <returns>
         /// </returns>
-        bool IsInitialized();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        void StartNewGame();
+        bool IsAnimating();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns>
         /// </returns>
-        bool IsAnimating();
+        bool IsInitialized();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        void StartNewGame();
     }
 }

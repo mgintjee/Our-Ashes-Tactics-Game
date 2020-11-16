@@ -35,10 +35,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
         private static readonly ICodeLogger logger = new CodeLoggerImpl(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
-        private readonly IHopliteObject hopliteObject;
+        private readonly IDestructibleObject destructibleObject;
 
         // Todo
-        private readonly IDestructibleObject destructibleObject;
+        private readonly IHopliteObject hopliteObject;
 
         // Todo
         private readonly IMountableObject mountableObject;
@@ -47,7 +47,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
         private readonly IMovableObject movableObject;
 
         // Todo
-        private readonly ITalonConstructionReport talonConstructionReport;
+        private readonly ITalonObjectConstructionReport talonObjectConstructionReport;
 
         // Todo
         private ICubeCoordinates cubeCoordinates;
@@ -55,14 +55,14 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="talonConstructionReport">
+        /// <param name="talonObjectConstructionReport">
         /// </param>
-        public TalonObjectImpl(ITalonConstructionReport talonConstructionReport)
+        public TalonObjectImpl(ITalonObjectConstructionReport talonObjectConstructionReport)
         {
-            if (talonConstructionReport != null)
+            if (talonObjectConstructionReport != null)
             {
                 logger.Info("Constructing: ?.", this.GetType());
-                this.talonConstructionReport = talonConstructionReport;
+                this.talonObjectConstructionReport = talonObjectConstructionReport;
                 this.hopliteObject = new HopliteObjectImpl(this.talonConstructionReport);
                 this.destructibleObject = new DestructibleObjectImpl(this.talonConstructionReport);
                 this.mountableObject = new MountableObjectImpl(this.talonConstructionReport);
@@ -72,31 +72,8 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
             {
                 throw ArgumentExceptionUtil.Build("Unable to construct ?. Invalid Parameters. " +
                     "\n\t> ? is null: ?", this.GetType().Name,
-                    typeof(ITalonConstructionReport), (talonConstructionReport == null));
+                    typeof(ITalonObjectConstructionReport), (talonObjectConstructionReport == null));
             }
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        void ITalonObject.ResetForNewTurn()
-        {
-            this.movableObject.ResetForNewTurn();
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="cubeCoordinates">
-        /// </param>
-        void ITalonObject.SetCubeCoordinates(ICubeCoordinates cubeCoordinates)
-        {
-            if (this.cubeCoordinates != null ||
-                cubeCoordinates == null)
-            {
-                GameMapObjectManager.GetHexTileObjectFrom(this.cubeCoordinates).ClearOccupyingTalonIdentificationReport();
-            }
-            this.cubeCoordinates = cubeCoordinates;
         }
 
         /// <summary>
@@ -141,6 +118,40 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
         /// <summary>
         /// Todo
         /// </summary>
+        /// <param name="talonActionOrderReport">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        ITalonActionResultReport ITalonObject.InputAction(ITalonActionOrderReport talonActionOrderReport)
+        {
+            int actionCost = 0;
+            int moveCost = 0;
+            switch (talonActionOrderReport.GetActionType())
+            {
+                case ActionType.Wait:
+                    actionCost = this.movableObject.GetMovableAttributesReport().GetMaximumActionPoints();
+                    break;
+
+                case ActionType.Move:
+                    actionCost = 1;
+                    moveCost = talonActionOrderReport.GetPathObject().GetPathObjectCost();
+                    break;
+
+                case ActionType.Fire:
+                    actionCost = 2;
+                    moveCost = this.movableObject.GetMovableAttributesReport().GetMaximumMovePoints() * 2;
+                    break;
+            }
+            this.movableObject.InputActionCosts(actionCost, moveCost);
+            return new TalonActionResultReportImpl.Builder()
+                .SetTalonActionOrderReport(talonActionOrderReport)
+                .SetTalonAttributesReport(this.BuildTalonAttributesReport())
+                .Build();
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
         /// <param name="armorCost">
         /// </param>
         /// <param name="healthCost">
@@ -153,35 +164,24 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="talonActionOrderReport">
-        /// </param>
-        /// <returns>
-        /// </returns>
-        ITalonActionResultReport ITalonObject.InputAction(ITalonActionOrderReport talonActionOrderReport)
+        void ITalonObject.ResetForNewTurn()
         {
-            int actionCost = 0;
-            int moveCost = 0;
-            switch (talonActionOrderReport.GetActionType())
+            this.movableObject.ResetForNewTurn();
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="cubeCoordinates">
+        /// </param>
+        void ITalonObject.SetCubeCoordinates(ICubeCoordinates cubeCoordinates)
+        {
+            if (this.cubeCoordinates != null ||
+                cubeCoordinates == null)
             {
-                case ActionTypeEnum.Wait:
-                    actionCost = this.movableObject.GetMovableAttributesReport().GetMaximumActionPoints();
-                    break;
-
-                case ActionTypeEnum.Move:
-                    actionCost = 1;
-                    moveCost = talonActionOrderReport.GetPathObject().GetPathObjectCost();
-                    break;
-
-                case ActionTypeEnum.Fire:
-                    actionCost = 2;
-                    moveCost = this.movableObject.GetMovableAttributesReport().GetMaximumMovePoints() * 2;
-                    break;
+                GameMapObjectManager.GetHexTileObjectFrom(this.cubeCoordinates).ClearOccupyingTalonIdentificationReport();
             }
-            this.movableObject.InputActionCosts(actionCost, moveCost);
-            return new TalonActionResultReportImpl.Builder()
-                .SetTalonActionOrderReport(talonActionOrderReport)
-                .SetTalonAttributesReport(this.BuildTalonAttributesReport())
-                .Build();
+            this.cubeCoordinates = cubeCoordinates;
         }
 
         /// <summary>
@@ -208,12 +208,12 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
         /// </summary>
         /// <returns>
         /// </returns>
-        private ITalonInformationReport BuildTalonInformationReport()
+        private ITalonAttributesReport BuildTalonAttributesReport()
         {
-            return new TalonInformationReportImpl.Builder()
-                .SetHopliteInformationReport(this.hopliteObject.GetHopliteInformationReport())
-                .SetTalonAttributesReport(this.BuildTalonAttributesReport())
-                .SetTalonConstructionReport(this.talonConstructionReport)
+            return new TalonAttributesReportImpl.Builder()
+                .SetDestructableReport(this.destructibleObject.GetDestructibleAttributesReport())
+                .SetMountableReport(this.mountableObject.GetMountableAttributesReport())
+                .SetMovableReport(this.movableObject.GetMovableAttributesReport())
                 .Build();
         }
 
@@ -222,12 +222,12 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
         /// </summary>
         /// <returns>
         /// </returns>
-        private ITalonAttributesReport BuildTalonAttributesReport()
+        private ITalonInformationReport BuildTalonInformationReport()
         {
-            return new TalonAttributesReportImpl.Builder()
-                .SetDestructableReport(this.destructibleObject.GetDestructibleAttributesReport())
-                .SetMountableReport(this.mountableObject.GetMountableAttributesReport())
-                .SetMovableReport(this.movableObject.GetMovableAttributesReport())
+            return new TalonInformationReportImpl.Builder()
+                .SetHopliteInformationReport(this.hopliteObject.GetHopliteInformationReport())
+                .SetTalonAttributesReport(this.BuildTalonAttributesReport())
+                .SetTalonConstructionReport(this.talonConstructionReport)
                 .Build();
         }
     }

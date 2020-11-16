@@ -11,7 +11,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Models.Objects
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Initializers.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Models.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Models.Reports;
-    using HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Results;
@@ -45,27 +44,23 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Models.Objects
         private readonly IGameMapObject gameMapObject = null;
 
         // Todo
-        private readonly IRosterObject rosterObject = null;
-
-        // Todo
-        private readonly IDictionary<ITalonIdentificationReport, ITalonTurnReport> talonIdentificationActionInformationDictionary =
-            new Dictionary<ITalonIdentificationReport, ITalonTurnReport>();
-
-        // Todo
         private readonly IMvcFrameworkObject mvcFrameworkObject;
 
         // Todo
         private readonly IMvcInitializationReport mvcInitializationReport;
 
         // Todo
+        private readonly IFactionRosterObject rosterObject = null;
+
+        // Todo
+        private readonly IDictionary<ITalonIdentificationReport, ITalonTurnReport> talonIdentificationActionInformationDictionary =
+            new Dictionary<ITalonIdentificationReport, ITalonTurnReport>();
+
+        // Todo
         private int counterAction = 0;
 
         // Todo
         private int counterPhase = 0;
-
-        // Todo
-        private IList<ITalonIdentificationReport> orderedTalonIdentificationReportList =
-            new List<ITalonIdentificationReport>();
 
         /// <summary>
         /// Todo
@@ -88,7 +83,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Models.Objects
                 foreach (ITalonIdentificationReport talonIdentificationReport in this.rosterObject.GetAllTalonIdentificationReportSet())
                 {
                     ICubeCoordinates spawnCubeCoordinates = TalonSpawnCubeCoordinatesUtil
-                        .GetSpawningCubeCoordinatesFor(GameTypeEnum.Skirmish);
+                        .GetSpawningCubeCoordinatesFor(GameTypeEnum.FactionSkirmish);
                     IHexTileObject hexTileObject = GameMapObjectManager.GetHexTileObjectFrom(spawnCubeCoordinates);
                     if (hexTileObject != null)
                     {
@@ -120,7 +115,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Models.Objects
         /// </returns>
         bool IMvcModelObject.CheckWinConditions()
         {
-            ISet<FactionIdEnum> remainingTalonFactionIdSet = new HashSet<FactionIdEnum>();
+            ISet<FactionId> remainingTalonFactionIdSet = new HashSet<FactionId>();
             foreach (ITalonIdentificationReport talonIdentificationReport in this.rosterObject.GetActiveTalonIdentificationReportSet())
             {
                 remainingTalonFactionIdSet.Add(talonIdentificationReport.GetFactionId());
@@ -136,21 +131,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Models.Objects
         /// </returns>
         ITalonIdentificationReport IMvcModelObject.GetActingTalonIdentificationReport()
         {
-            if (this.orderedTalonIdentificationReportList.Count == 0)
-            {
-                this.orderedTalonIdentificationReportList = new List<ITalonIdentificationReport>(
-                    this.rosterObject.GetActiveTalonIdentificationReportSet());
-                ((List<ITalonIdentificationReport>)this.orderedTalonIdentificationReportList).Sort(
-                    this.rosterObject.GetOrderPointComparer());
-                foreach (ITalonIdentificationReport talonIdentificationReport in this.orderedTalonIdentificationReportList)
-                {
-                    ITalonObject talonObject = this.rosterObject.GetTalonObject(talonIdentificationReport);
-                    talonObject.ResetForNewTurn();
-                }
-                this.counterPhase++;
-                this.counterAction = 0;
-            }
-            return this.orderedTalonIdentificationReportList[0];
+            return TalonTurnOrderManager.GetOrderedTalonIdentificationReportList()[0];
         }
 
         /// <summary>
@@ -232,9 +213,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Models.Objects
                         ITalonIdentificationReport targetTalonIdentificationReport = talonActionOrderFireReport.GetTargetTalonIdentificationReport();
                         this.rosterObject.GetTalonObject(targetTalonIdentificationReport).SetCubeCoordinates(null);
                         this.talonIdentificationActionInformationDictionary.Remove(targetTalonIdentificationReport);
-                        this.orderedTalonIdentificationReportList.Remove(targetTalonIdentificationReport);
                         this.rosterObject.DeactivateTalonIdentificationReport(targetTalonIdentificationReport);
                         TalonGameObjectManager.DeactivateTalonIdentificationReport(targetTalonIdentificationReport);
+                        TalonTurnOrderManager.RemoveTalonTurn(targetTalonIdentificationReport);
                     }
                     talonActionResultReport = talonActionResultFireReport;
                 }
@@ -243,14 +224,14 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Models.Objects
                 if (talonAttributesReport.GetMovableAttributesReport().GetCurrentActionPoints() < 1)
                 {
                     logger.Debug("? completed their turn.", talonActionOrderReport.GetActingTalonIdentificationReport());
-                    this.orderedTalonIdentificationReportList.Remove(talonActionOrderReport.GetActingTalonIdentificationReport());
+                    TalonTurnOrderManager.RemoveTalonTurn(talonActionOrderReport.GetActingTalonIdentificationReport());
                 }
 
                 this.counterAction++;
                 this.talonIdentificationActionInformationDictionary.Clear();
                 return new GameActionReportImpl.Builder()
                     .SetActionCounter(this.counterAction)
-                    .SetPhaseCounter(this.counterPhase)
+                    .SetPhaseCounter(TalonTurnOrderManager.GetPhaseCounter())
                     .SetGameMapInformationReport(this.gameMapObject.GetGameMapInformationReport())
                     .SetTalonActionResultReport(talonActionResultReport)
                     .Build();

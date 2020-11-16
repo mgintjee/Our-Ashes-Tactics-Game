@@ -11,10 +11,10 @@
         : IMovableAttributes
     {
         // Todo
-        private readonly int movePoints;
+        private readonly int actionPoints;
 
         // Todo
-        private readonly int actionPoints;
+        private readonly int movePoints;
 
         /// <summary>
         /// Todo
@@ -66,9 +66,9 @@
         /// </summary>
         /// <returns>
         /// </returns>
-        int IMovableAttributes.GetMovePoints()
+        int IMovableAttributes.GetActionPoints()
         {
-            return this.movePoints;
+            return this.actionPoints;
         }
 
         /// <summary>
@@ -76,9 +76,9 @@
         /// </summary>
         /// <returns>
         /// </returns>
-        int IMovableAttributes.GetActionPoints()
+        int IMovableAttributes.GetMovePoints()
         {
-            return this.actionPoints;
+            return this.movePoints;
         }
 
         /// <summary>

@@ -118,9 +118,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders
             /// </param>
             /// <returns>
             /// </returns>
-            public static GameObject LoadTalonGameObjectResource(TalonModelIdEnum talonId)
+            public static GameObject LoadTalonGameObjectResource(TalonModelId talonId)
             {
-                if (!talonId.Equals(TalonModelIdEnum.None))
+                if (!talonId.Equals(TalonModelId.None))
                 {
                     GameObject gameObject = LoadGameObjectResource(TalonGameObjectsFolderHome + talonId.ToString() + GameObjectsSuffix);
                     gameObject.name = talonId.ToString();
@@ -130,36 +130,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders
                 {
                     throw ArgumentExceptionUtil.Build("Unable to ?. Invalid Parameters.",
                         new StackFrame().GetMethod().Name);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        public class Weapons
-        {
-            // Todo
-            private static readonly string WeaponGameObjectsFolderHome = GameObjectsFolderHome + "Weapons/";
-
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="weaponId">
-            /// </param>
-            /// <returns>
-            /// </returns>
-            public static GameObject LoadWeaponGameObjectResource(WeaponModelIdEnum weaponId)
-            {
-                if (!weaponId.Equals(WeaponModelIdEnum.None))
-                {
-                    GameObject gameObject = LoadGameObjectResource(WeaponGameObjectsFolderHome + weaponId.ToString() + GameObjectsSuffix);
-                    gameObject.name = weaponId.ToString();
-                    return gameObject;
-                }
-                else
-                {
-                    throw ArgumentExceptionUtil.Build("Unable to ?. Invalid Parameters.", new StackFrame().GetMethod().Name);
                 }
             }
         }
@@ -179,12 +149,42 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders
             /// </param>
             /// <returns>
             /// </returns>
-            public static GameObject LoadUtilityGameObjectResource(UtilityModelIdEnum utilityModelId)
+            public static GameObject LoadUtilityGameObjectResource(UtilityModelId utilityModelId)
             {
-                if (!utilityModelId.Equals(UtilityModelIdEnum.None))
+                if (!utilityModelId.Equals(UtilityModelId.None))
                 {
                     GameObject gameObject = LoadGameObjectResource(UtiltiesGameObjectsFolderHome + utilityModelId.ToString() + GameObjectsSuffix);
                     gameObject.name = utilityModelId.ToString();
+                    return gameObject;
+                }
+                else
+                {
+                    throw ArgumentExceptionUtil.Build("Unable to ?. Invalid Parameters.", new StackFrame().GetMethod().Name);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        public class Weapons
+        {
+            // Todo
+            private static readonly string WeaponGameObjectsFolderHome = GameObjectsFolderHome + "Weapons/";
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <param name="weaponId">
+            /// </param>
+            /// <returns>
+            /// </returns>
+            public static GameObject LoadWeaponGameObjectResource(WeaponModelId weaponId)
+            {
+                if (!weaponId.Equals(WeaponModelId.None))
+                {
+                    GameObject gameObject = LoadGameObjectResource(WeaponGameObjectsFolderHome + weaponId.ToString() + GameObjectsSuffix);
+                    gameObject.name = weaponId.ToString();
                     return gameObject;
                 }
                 else

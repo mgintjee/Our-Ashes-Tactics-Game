@@ -32,6 +32,12 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
         : IMountableObject
     {
         // Todo
+        private readonly int maxAccuracy = int.MinValue;
+
+        // Todo
+        private readonly int maxRange = int.MinValue;
+
+        // Todo
         private readonly ITalonIdentificationReport talonIdentificationReport = null;
 
         // Todo
@@ -39,12 +45,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
 
         // Todo
         private readonly IList<IWeaponInformationReport> weaponInformationReportList;
-
-        // Todo
-        private readonly int maxRange = int.MinValue;
-
-        // Todo
-        private readonly int maxAccuracy = int.MinValue;
 
         /// <summary>
         /// Todo
@@ -63,7 +63,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
                             .GetWeaponAttributes(),
                         // Add the Utility Bonus IWeaponAttributes
                         UtilityAttributesConstants.GetAttributes(
-                            new HashSet<UtilityModelIdEnum>(talonConstructionReport.GetUtilityModelIdList()))
+                            new HashSet<UtilityModelId>(talonConstructionReport.GetUtilityModelIdList()))
                             .GetWeaponAttributes()
                     }
                 )
@@ -72,9 +72,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
             this.weaponInformationReportList = new List<IWeaponInformationReport>();
             this.utilityInformationReportList = new List<IUtilityInformationReport>();
 
-            foreach (UtilityModelIdEnum utilityModelId in talonConstructionReport.GetUtilityModelIdList())
+            foreach (UtilityModelId utilityModelId in talonConstructionReport.GetUtilityModelIdList())
             {
-                if (!utilityModelId.Equals(UtilityModelIdEnum.None))
+                if (!utilityModelId.Equals(UtilityModelId.None))
                 {
                     this.utilityInformationReportList.Add(
                         new UtilityInformationReportImpl.Builder()
@@ -88,9 +88,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
                     this.utilityInformationReportList.Add(null);
                 }
             }
-            foreach (WeaponModelIdEnum weaponModelId in talonConstructionReport.GetWeaponModelIdList())
+            foreach (WeaponModelId weaponModelId in talonConstructionReport.GetWeaponModelIdList())
             {
-                if (!weaponModelId.Equals(WeaponModelIdEnum.None))
+                if (!weaponModelId.Equals(WeaponModelId.None))
                 {
                     IWeaponAttributes newWeaponAttributes = new WeaponAttributesImpl.Builder()
                                 .SetWeaponAttributesCollection(new HashSet<IWeaponAttributes>()

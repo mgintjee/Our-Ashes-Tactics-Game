@@ -14,17 +14,17 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Weapons.Attributes
     public class WeaponAttributesConstants
     {
         // Todo
-        private static readonly IDictionary<WeaponModelIdEnum, IWeaponAttributes> weaponModelIdAttributesDictionary =
-                new Dictionary<WeaponModelIdEnum, IWeaponAttributes>();
+        private static readonly IDictionary<WeaponModelId, IWeaponAttributes> weaponModelIdAttributesDictionary =
+                new Dictionary<WeaponModelId, IWeaponAttributes>();
 
         // Todo
-        private static readonly ISet<WeaponModelIdEnum> weaponModelIdSet = new HashSet<WeaponModelIdEnum>()
+        private static readonly ISet<WeaponModelId> weaponModelIdSet = new HashSet<WeaponModelId>()
         {
-            WeaponModelIdEnum.Weapon0,
-            WeaponModelIdEnum.Weapon1,
-            WeaponModelIdEnum.Weapon2,
-            WeaponModelIdEnum.Weapon3,
-            WeaponModelIdEnum.Weapon4,
+            WeaponModelId.Weapon0,
+            WeaponModelId.Weapon1,
+            WeaponModelId.Weapon2,
+            WeaponModelId.Weapon3,
+            WeaponModelId.Weapon4,
         };
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Weapons.Attributes
         /// </param>
         /// <returns>
         /// </returns>
-        public static IWeaponAttributes GetAttributes(WeaponModelIdEnum weaponModelId)
+        public static IWeaponAttributes GetAttributes(WeaponModelId weaponModelId)
         {
             if (weaponModelIdSet.Contains(weaponModelId))
             {
@@ -56,9 +56,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Weapons.Attributes
         /// </summary>
         /// <returns>
         /// </returns>
-        public static ISet<WeaponModelIdEnum> GetSupportedWeaponIds()
+        public static ISet<WeaponModelId> GetSupportedWeaponIds()
         {
-            return new HashSet<WeaponModelIdEnum>(weaponModelIdSet);
+            return new HashSet<WeaponModelId>(weaponModelIdSet);
         }
 
         /// <summary>
@@ -68,11 +68,11 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Weapons.Attributes
         /// </param>
         /// <returns>
         /// </returns>
-        private static IWeaponAttributes BuildAttributes(WeaponModelIdEnum weaponModelId)
+        private static IWeaponAttributes BuildAttributes(WeaponModelId weaponModelId)
         {
             switch (weaponModelId)
             {
-                case WeaponModelIdEnum.Weapon0:
+                case WeaponModelId.Weapon0:
                     return new WeaponAttributesImpl.Builder()
                         .SetAccuracyPoints(65)
                         .SetDamagePoints(1)
@@ -81,7 +81,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Weapons.Attributes
                         .SetRangePoints(3)
                         .Build();
 
-                case WeaponModelIdEnum.Weapon1:
+                case WeaponModelId.Weapon1:
                     return new WeaponAttributesImpl.Builder()
                         .SetAccuracyPoints(85)
                         .SetDamagePoints(2)
@@ -90,7 +90,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Weapons.Attributes
                         .SetRangePoints(4)
                         .Build();
 
-                case WeaponModelIdEnum.Weapon2:
+                case WeaponModelId.Weapon2:
                     return new WeaponAttributesImpl.Builder()
                         .SetAccuracyPoints(75)
                         .SetDamagePoints(4)
@@ -99,7 +99,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Weapons.Attributes
                         .SetRangePoints(2)
                         .Build();
 
-                case WeaponModelIdEnum.Weapon3:
+                case WeaponModelId.Weapon3:
                     return new WeaponAttributesImpl.Builder()
                         .SetAccuracyPoints(95)
                         .SetDamagePoints(6)
@@ -108,7 +108,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Weapons.Attributes
                         .SetRangePoints(3)
                         .Build();
 
-                case WeaponModelIdEnum.Weapon4:
+                case WeaponModelId.Weapon4:
                     return new WeaponAttributesImpl.Builder()
                          .SetAccuracyPoints(105)
                          .SetDamagePoints(3)

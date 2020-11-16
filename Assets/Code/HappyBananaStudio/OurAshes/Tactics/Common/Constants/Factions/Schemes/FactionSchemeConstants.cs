@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Schemes
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Schemes
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Customization;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Factions;
@@ -17,18 +15,21 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Schemes
     public static class FactionSchemeConstants
     {
         // Todo
-        private static readonly IDictionary<FactionIdEnum, IColorSchemeReport> factionIdColorSchemeReportDictionary =
-                new Dictionary<FactionIdEnum, IColorSchemeReport>();
+        private static readonly IDictionary<FactionId, IColorSchemeReport> factionIdColorSchemeReportDictionary =
+                new Dictionary<FactionId, IColorSchemeReport>();
 
         // Todo
-        private static readonly IDictionary<FactionIdEnum, IEmblemSchemeReport> factionIdEmblemSchemeReportDictionary =
-                new Dictionary<FactionIdEnum, IEmblemSchemeReport>();
+        private static readonly IDictionary<FactionId, ICustomizationReport> factionIdCustomizationReportDictionary =
+                new Dictionary<FactionId, ICustomizationReport>();
 
         // Todo
-        private static readonly ISet<FactionIdEnum> supportedFactionIdSet = new HashSet<FactionIdEnum>()
+        private static readonly IDictionary<FactionId, IEmblemSchemeReport> factionIdEmblemSchemeReportDictionary =
+                new Dictionary<FactionId, IEmblemSchemeReport>();
+
+        // Todo
+        private static readonly ISet<FactionId> supportedFactionIdSet = new HashSet<FactionId>()
         {
-            FactionIdEnum.CreativeFaction1, FactionIdEnum.CreativeFaction2,
-            FactionIdEnum.CreativeFaction3, FactionIdEnum.CreativeFaction4
+            FactionId.CreativeFaction1, FactionId.CreativeFaction2, FactionId.CreativeFaction3, FactionId.CreativeFaction4
         };
 
         /// <summary>
@@ -38,7 +39,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Schemes
         /// </param>
         /// <returns>
         /// </returns>
-        public static IColorSchemeReport GetFactionColorSchemeReport(FactionIdEnum factionId)
+        public static IColorSchemeReport GetFactionColorSchemeReport(FactionId factionId)
         {
             if (supportedFactionIdSet.Contains(factionId))
             {
@@ -62,7 +63,36 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Schemes
         /// </param>
         /// <returns>
         /// </returns>
-        public static IEmblemSchemeReport GetFactionEmblemSchemeReport(FactionIdEnum factionId)
+        public static ICustomizationReport GetFactionCustomizationReport(FactionId factionId)
+        {
+            if (supportedFactionIdSet.Contains(factionId))
+            {
+                if (!factionIdCustomizationReportDictionary.ContainsKey(factionId))
+                {
+                    factionIdCustomizationReportDictionary.Add(factionId,
+                        new CustomizationReportImpl.Builder()
+                        .SetColorSchemeReport(GetFactionColorSchemeReport(factionId))
+                        .SetEmblemSchemeReport(GetFactionEmblemSchemeReport(factionId))
+                        .Build()
+                        );
+                }
+                return factionIdCustomizationReportDictionary[factionId];
+            }
+            else
+            {
+                throw ArgumentExceptionUtil.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+                    new StackFrame().GetMethod().Name, factionId);
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="factionId">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static IEmblemSchemeReport GetFactionEmblemSchemeReport(FactionId factionId)
         {
             if (supportedFactionIdSet.Contains(factionId))
             {
@@ -86,32 +116,32 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Schemes
         /// </param>
         /// <returns>
         /// </returns>
-        private static IColorSchemeReport BuildColorSchemeReport(FactionIdEnum factionId)
+        private static IColorSchemeReport BuildColorSchemeReport(FactionId factionId)
         {
             switch (factionId)
             {
-                case FactionIdEnum.CreativeFaction1:
+                case FactionId.CreativeFaction1:
                     return new ColorSchemeReportImpl.Builder()
                             .SetPrimaryColorId(ColorIdEnum.Yellow)
                             .SetSecondaryColorId(ColorIdEnum.Purple)
                             .SetTertiaryColorId(ColorIdEnum.Red)
                             .Build();
 
-                case FactionIdEnum.CreativeFaction2:
+                case FactionId.CreativeFaction2:
                     return new ColorSchemeReportImpl.Builder()
                             .SetPrimaryColorId(ColorIdEnum.Teal)
                             .SetSecondaryColorId(ColorIdEnum.Lime)
                             .SetTertiaryColorId(ColorIdEnum.Purple)
                             .Build();
 
-                case FactionIdEnum.CreativeFaction3:
+                case FactionId.CreativeFaction3:
                     return new ColorSchemeReportImpl.Builder()
                             .SetPrimaryColorId(ColorIdEnum.Red)
                             .SetSecondaryColorId(ColorIdEnum.DimGray)
                             .SetTertiaryColorId(ColorIdEnum.Green)
                             .Build();
 
-                case FactionIdEnum.CreativeFaction4:
+                case FactionId.CreativeFaction4:
                     return new ColorSchemeReportImpl.Builder()
                             .SetPrimaryColorId(ColorIdEnum.LightSkyBlue)
                             .SetSecondaryColorId(ColorIdEnum.Silver)
@@ -131,33 +161,37 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Schemes
         /// </param>
         /// <returns>
         /// </returns>
-        private static IEmblemSchemeReport BuildEmblemSchemeReport(FactionIdEnum factionId)
+        private static IEmblemSchemeReport BuildEmblemSchemeReport(FactionId factionId)
         {
             switch (factionId)
             {
-                case FactionIdEnum.CreativeFaction1:
+                case FactionId.CreativeFaction1:
                     return new EmblemSchemeReportImpl.Builder()
-                                .SetEmblemBackgroundId(EmblemForegroundIdEnum.Circle)
-                                .SetEmblemIconId(EmblemIconIdEnum.Heart)
-                            .Build();
+                        .SetBackgroundId(EmblemSpriteIdEnum.Circle)
+                        .SetForeground(EmblemSpriteIdEnum.Circle)
+                        .SetIconId(EmblemSpriteIdEnum.Circle)
+                        .Build();
 
-                case FactionIdEnum.CreativeFaction2:
+                case FactionId.CreativeFaction2:
                     return new EmblemSchemeReportImpl.Builder()
-                                .SetEmblemBackgroundId(EmblemForegroundIdEnum.Circle)
-                                .SetEmblemIconId(EmblemIconIdEnum.Heart)
-                            .Build();
+                        .SetBackgroundId(EmblemSpriteIdEnum.Circle)
+                        .SetForeground(EmblemSpriteIdEnum.Circle)
+                        .SetIconId(EmblemSpriteIdEnum.Circle)
+                        .Build();
 
-                case FactionIdEnum.CreativeFaction3:
+                case FactionId.CreativeFaction3:
                     return new EmblemSchemeReportImpl.Builder()
-                                .SetEmblemBackgroundId(EmblemForegroundIdEnum.Circle)
-                                .SetEmblemIconId(EmblemIconIdEnum.Heart)
-                            .Build();
+                        .SetBackgroundId(EmblemSpriteIdEnum.Circle)
+                        .SetForeground(EmblemSpriteIdEnum.Circle)
+                        .SetIconId(EmblemSpriteIdEnum.Circle)
+                        .Build();
 
-                case FactionIdEnum.CreativeFaction4:
+                case FactionId.CreativeFaction4:
                     return new EmblemSchemeReportImpl.Builder()
-                                .SetEmblemBackgroundId(EmblemForegroundIdEnum.Circle)
-                                .SetEmblemIconId(EmblemIconIdEnum.Heart)
-                            .Build();
+                        .SetBackgroundId(EmblemSpriteIdEnum.Circle)
+                        .SetForeground(EmblemSpriteIdEnum.Circle)
+                        .SetIconId(EmblemSpriteIdEnum.Circle)
+                        .Build();
 
                 default:
                     throw ArgumentExceptionUtil.Build("Unable to ?. Invalid Parameters. ? is not supported.",

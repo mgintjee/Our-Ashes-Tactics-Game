@@ -1,6 +1,6 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
 {
+    using HappyBananaStudio.OurAshes.Tactics.Abs.Unity.Scripts;
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.Hoplites.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
@@ -22,7 +22,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Utilities;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Weapons;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Hoplites.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Maps.Games.Reports;
@@ -32,7 +31,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
     using HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Constuction;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Customization;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Information;
-    using HappyBananaStudio.OurAshes.Tactics.Impl.Unity.Scripts;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -42,28 +40,28 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
     /// MvcInitializer Script Random Impl
     /// </summary>
     public class MvcInitializerScriptRandomImpl
-    : UnityScriptImpl, IMvcInitializerScript
+    : AbstractUnityScriptImpl, IMvcInitializerScript
     {
         // Provide logging capability
         private static readonly ICodeLogger logger = new CodeLoggerImpl(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
-        private readonly IDictionary<FactionIdEnum, ISet<PhalanxIdEnum>> factionIdPhalanxIdSet = new Dictionary<FactionIdEnum, ISet<PhalanxIdEnum>>()
+        private readonly IDictionary<FactionId, ISet<PhalanxId>> factionIdPhalanxIdSet = new Dictionary<FactionId, ISet<PhalanxId>>()
         {
             {
-                FactionIdEnum.CreativeFaction1,
-                new HashSet<PhalanxIdEnum>()
+                FactionId.CreativeFaction1,
+                new HashSet<PhalanxId>()
                 {
-                    PhalanxIdEnum.Charlie,
-                    PhalanxIdEnum.Echo,
+                    PhalanxId.Charlie,
+                    PhalanxId.Echo,
                 }
             },
             {
-                FactionIdEnum.CreativeFaction2,
-                new HashSet<PhalanxIdEnum>()
+                FactionId.CreativeFaction2,
+                new HashSet<PhalanxId>()
                 {
-                    PhalanxIdEnum.Delta,
-                    PhalanxIdEnum.Foxtrot,
+                    PhalanxId.Delta,
+                    PhalanxId.Foxtrot,
                 }
             }
         };
@@ -72,8 +70,8 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
         private readonly System.Random random = new System.Random();
 
         // Todo
-        private readonly IDictionary<PhalanxIdEnum, IColorSchemeReport> talonPhalanxIdPaintSchemeReportIDictionary =
-            new Dictionary<PhalanxIdEnum, IColorSchemeReport>();
+        private readonly IDictionary<PhalanxId, IColorSchemeReport> talonPhalanxIdPaintSchemeReportIDictionary =
+            new Dictionary<PhalanxId, IColorSchemeReport>();
 
         private bool foo = false;
         private IMvcFrameworkScript mvcFrameworkScript;
@@ -117,15 +115,15 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
             this.mvcFrameworkScript = mvcFrameworkScript;
         }
 
-        private ISet<CallSignEnum> BuildCallSignSet(int count)
+        private ISet<CallSign> BuildCallSignSet(int count)
         {
-            ISet<CallSignEnum> callSignSet = new HashSet<CallSignEnum>();
+            ISet<CallSign> callSignSet = new HashSet<CallSign>();
 
-            Array enumValues = Enum.GetValues(typeof(CallSignEnum));
+            Array enumValues = Enum.GetValues(typeof(CallSign));
             while (callSignSet.Count != count &&
                 callSignSet.Count != enumValues.Length - 1)
             {
-                callSignSet.Add((CallSignEnum)enumValues.GetValue(random.Next(1, enumValues.Length)));
+                callSignSet.Add((CallSign)enumValues.GetValue(random.Next(1, enumValues.Length)));
             }
 
             return callSignSet;
@@ -133,30 +131,30 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
 
         private ISet<ICubeCoordinates> BuildCubeCoordinatesSet()
         {
-            return CubeCoordinatesGeneratorUtil.GenerateHexagonCubeCoordinatesSet(this.random.Next(2, 4));
+            return;
         }
 
-        private IDictionary<FactionIdEnum, ISet<PhalanxIdEnum>> BuildFactionIdPhalanxIdSetIDictionary()
+        private IDictionary<FactionId, ISet<PhalanxId>> BuildFactionIdPhalanxIdSetIDictionary()
         {
-            IDictionary<FactionIdEnum, ISet<PhalanxIdEnum>> factionIdPhalanxIdSetIDictionary = new Dictionary<FactionIdEnum, ISet<PhalanxIdEnum>>();
+            IDictionary<FactionId, ISet<PhalanxId>> factionIdPhalanxIdSetIDictionary = new Dictionary<FactionId, ISet<PhalanxId>>();
 
             int factionCount = this.random.Next(2, 4);
 
-            ISet<FactionIdEnum> factionIdSet = this.BuildFactionIdSet(factionCount);
-            ISet<PhalanxIdEnum> phalanxIdSet = this.BuildPhalanxIdSet(factionCount);
+            ISet<FactionId> factionIdSet = this.BuildFactionIdSet(factionCount);
+            ISet<PhalanxId> phalanxIdSet = this.BuildPhalanxIdSet(factionCount);
 
-            foreach (FactionIdEnum factionId in factionIdSet)
+            foreach (FactionId factionId in factionIdSet)
             {
                 logger.Debug("Adding: ?", factionId);
-                factionIdPhalanxIdSetIDictionary.Add(factionId, new HashSet<PhalanxIdEnum>());
+                factionIdPhalanxIdSetIDictionary.Add(factionId, new HashSet<PhalanxId>());
             }
 
             int counter = 0;
-            foreach (PhalanxIdEnum phalanxId in phalanxIdSet)
+            foreach (PhalanxId phalanxId in phalanxIdSet)
             {
                 counter++;
                 int factionIndex = counter % factionCount;
-                FactionIdEnum factionId = new List<FactionIdEnum>(factionIdSet)[factionIndex];
+                FactionId factionId = new List<FactionId>(factionIdSet)[factionIndex];
                 factionIdPhalanxIdSetIDictionary[factionId].Add(phalanxId);
                 logger.Debug("Adding: ? to ?", phalanxId, factionId);
             }
@@ -164,15 +162,15 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
             return factionIdPhalanxIdSetIDictionary;
         }
 
-        private ISet<FactionIdEnum> BuildFactionIdSet(int factionCount)
+        private ISet<FactionId> BuildFactionIdSet(int factionCount)
         {
-            ISet<FactionIdEnum> factionIdSet = new HashSet<FactionIdEnum>();
+            ISet<FactionId> factionIdSet = new HashSet<FactionId>();
 
-            Array enumValues = Enum.GetValues(typeof(FactionIdEnum));
+            Array enumValues = Enum.GetValues(typeof(FactionId));
             while (factionIdSet.Count < factionCount &&
                 factionIdSet.Count != enumValues.Length - 1)
             {
-                factionIdSet.Add((FactionIdEnum)enumValues.GetValue(random.Next(1, enumValues.Length)));
+                factionIdSet.Add((FactionId)enumValues.GetValue(random.Next(1, enumValues.Length)));
             }
 
             return factionIdSet;
@@ -186,43 +184,44 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
                 .Build();
         }
 
-        private ISet<PhalanxIdEnum> BuildPhalanxIdSet(int factionCount)
+        private ISet<PhalanxId> BuildPhalanxIdSet(int factionCount)
         {
-            ISet<PhalanxIdEnum> phalanxIdSet = new HashSet<PhalanxIdEnum>();
+            ISet<PhalanxId> phalanxIdSet = new HashSet<PhalanxId>();
 
-            Array enumValues = Enum.GetValues(typeof(PhalanxIdEnum));
+            Array enumValues = Enum.GetValues(typeof(PhalanxId));
             while (phalanxIdSet.Count < factionCount * 2 &&
                 phalanxIdSet.Count != enumValues.Length - 1)
             {
-                phalanxIdSet.Add((PhalanxIdEnum)enumValues.GetValue(random.Next(1, enumValues.Length)));
+                phalanxIdSet.Add((PhalanxId)enumValues.GetValue(random.Next(1, enumValues.Length)));
             }
 
             return phalanxIdSet;
         }
 
-        private IDictionary<PhalanxIdEnum, ISet<ITalonConstructionReport>> BuildPhalanxIdTalonConstructionReportDictionaey(
-            IDictionary<FactionIdEnum, ISet<PhalanxIdEnum>> factionIdPhalanxIdSetIDictionary)
+        private IDictionary<PhalanxId, ISet<ITalonConstructionReport>> BuildPhalanxIdTalonConstructionReportDictionaey(
+            IDictionary<FactionId, ISet<PhalanxId>> factionIdPhalanxIdSetIDictionary)
         {
-            IDictionary<PhalanxIdEnum, ISet<ITalonConstructionReport>> phalanxIdTalonConstructionReportSetIDictionary =
-                new Dictionary<PhalanxIdEnum, ISet<ITalonConstructionReport>>();
+            IDictionary<PhalanxId, ISet<ITalonConstructionReport>> phalanxIdTalonConstructionReportSetIDictionary =
+                new Dictionary<PhalanxId, ISet<ITalonConstructionReport>>();
 
             int phalanxCount = 0;
-            foreach (FactionIdEnum factionId in factionIdPhalanxIdSetIDictionary.Keys)
+            foreach (FactionId factionId in factionIdPhalanxIdSetIDictionary.Keys)
             {
                 phalanxCount += factionIdPhalanxIdSetIDictionary[factionId].Count;
             }
 
             int maxTalonCount = phalanxCount * 2;
-            foreach (FactionIdEnum factionId in factionIdPhalanxIdSetIDictionary.Keys)
+            foreach (FactionId factionId in factionIdPhalanxIdSetIDictionary.Keys)
             {
                 IColorSchemeReport factionColorSchemeReport = FactionSchemeConstants.GetFactionColorSchemeReport(factionId);
                 IEmblemSchemeReport factionEmblemSchemeReport = FactionSchemeConstants.GetFactionEmblemSchemeReport(factionId);
 
-                foreach (PhalanxIdEnum phalanxId in factionIdPhalanxIdSetIDictionary[factionId])
+                foreach (PhalanxId phalanxId in factionIdPhalanxIdSetIDictionary[factionId])
                 {
                     IEmblemSchemeReport phalanxEmblemSchemeReport = new EmblemSchemeReportImpl.Builder()
-                                .SetEmblemIconId(this.GetRandomEmblemIconId())
-                                .SetEmblemBackgroundId(this.GetRandomEmblemBackgroundId())
+                                .SetBackgroundId(this.GetRandomEmblemSpriteId())
+                                .SetForeground(this.GetRandomEmblemSpriteId())
+                                .SetIconId(this.GetRandomEmblemSpriteId())
                                 .Build();
                     IColorSchemeReport phalanxColorSchemeReport = new ColorSchemeReportImpl.Builder()
                                 .SetPrimaryColorId(this.GetRandomPaintColorId())
@@ -230,8 +229,8 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
                                 .SetTertiaryColorId(this.GetRandomPaintColorId())
                                 .Build();
                     phalanxIdTalonConstructionReportSetIDictionary.Add(phalanxId, new HashSet<ITalonConstructionReport>());
-                    ISet<CallSignEnum> callSignSet = this.BuildCallSignSet((int)(maxTalonCount / phalanxCount));
-                    foreach (CallSignEnum callSign in callSignSet)
+                    ISet<CallSign> callSignSet = this.BuildCallSignSet((int)(maxTalonCount / phalanxCount));
+                    foreach (CallSign callSign in callSignSet)
                     {
                         phalanxIdTalonConstructionReportSetIDictionary[phalanxId].Add(
                             this.BuildRandomTalonConstructionReport(
@@ -252,15 +251,15 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
         private IHopliteConstructionReport BuildRandomHopliteConstructionReport()
         {
             return new HopliteConstructionReportImpl.Builder()
-                .SetControllerId(ControllerIdEnum.Random)
+                .SetControllerId(ControllerType.Random)
                 .SetHopliteTraitSet(new HashSet<HopliteTraitEnum>() { HopliteTraitEnum.Default })
                 .Build();
         }
 
-        private ITalonConstructionReport BuildRandomTalonConstructionReport(FactionIdEnum factionId, PhalanxIdEnum phalanxId,
-            CallSignEnum callSign, ITalonCustomizationReport talonCustomizationReport)
+        private ITalonConstructionReport BuildRandomTalonConstructionReport(FactionId factionId, PhalanxId phalanxId,
+            CallSign callSign, ITalonCustomizationReport talonCustomizationReport)
         {
-            TalonModelIdEnum talonModelId = this.GetRandomTalonModelId();
+            TalonModelId talonModelId = this.GetRandomTalonModelId();
             return new TalonConstructionReportImpl.Builder()
                 .SetHopliteConstructionReport(this.BuildRandomHopliteConstructionReport())
                 .SetTalonCustomizationReport(talonCustomizationReport)
@@ -275,10 +274,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
                 .Build();
         }
 
-        private IList<UtilityModelIdEnum> BuildRandomUtilityModelIdList(TalonModelIdEnum talonModelId)
+        private IList<UtilityModelId> BuildRandomUtilityModelIdList(TalonModelId talonModelId)
         {
             int utilityPoints = TalonAttributesConstants.GetAttributes(talonModelId).GetMountableAttributes().GetUtilityMountPoints();
-            IList<UtilityModelIdEnum> utilityModelIdList = new List<UtilityModelIdEnum>();
+            IList<UtilityModelId> utilityModelIdList = new List<UtilityModelId>();
 
             for (int i = 0; i < utilityPoints; ++i)
             {
@@ -287,11 +286,11 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
             return utilityModelIdList;
         }
 
-        private IList<WeaponModelIdEnum> BuildRandomWeaponModelIdList(TalonModelIdEnum talonModelId)
+        private IList<WeaponModelId> BuildRandomWeaponModelIdList(TalonModelId talonModelId)
         {
             int weaponPoints = TalonAttributesConstants.GetAttributes(talonModelId).GetMountableAttributes().GetWeaponMountPoints();
 
-            IList<WeaponModelIdEnum> utilityModelIdList = new List<WeaponModelIdEnum>();
+            IList<WeaponModelId> utilityModelIdList = new List<WeaponModelId>();
             for (int i = 0; i < weaponPoints; ++i)
             {
                 utilityModelIdList.Add(this.GetRandomWeaponModelId());
@@ -301,48 +300,24 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Initializers.Scripts
 
         private IRosterConstructionReport BuildRosterConstructionReport()
         {
-            IDictionary<FactionIdEnum, ISet<PhalanxIdEnum>> factionIdPhalanxIdSet = this.BuildFactionIdPhalanxIdSetIDictionary();
+            IDictionary<FactionId, ISet<PhalanxId>> factionIdPhalanxIdSet = this.BuildFactionIdPhalanxIdSetIDictionary();
 
             return new RosterConstructionReportImpl.Builder()
-                .SetFactionIdPhalanxIdSetIDictionary(factionIdPhalanxIdSet)
-                .SetPhalanxIdTalonConstructionReportIDictionary(this.BuildPhalanxIdTalonConstructionReportDictionaey(factionIdPhalanxIdSet))
+                .SetFactionIdPhalanxIdSetDictionary(factionIdPhalanxIdSet)
+                .SetPhalanxIdTalonConstructionReportDictionary(this.BuildPhalanxIdTalonConstructionReportDictionaey(factionIdPhalanxIdSet))
                 .Build();
         }
 
-        private EmblemForegroundIdEnum GetRandomEmblemBackgroundId()
+        private EmblemSpriteIdEnum GetRandomEmblemSpriteId()
         {
-            Array enumValues = Enum.GetValues(typeof(EmblemForegroundIdEnum));
-            return (EmblemForegroundIdEnum)enumValues.GetValue(random.Next(1, enumValues.Length));
-        }
-
-        private EmblemIconIdEnum GetRandomEmblemIconId()
-        {
-            Array enumValues = Enum.GetValues(typeof(EmblemIconIdEnum));
-            return (EmblemIconIdEnum)enumValues.GetValue(random.Next(1, enumValues.Length));
+            Array enumValues = Enum.GetValues(typeof(EmblemSpriteIdEnum));
+            return (EmblemSpriteIdEnum)enumValues.GetValue(random.Next(1, enumValues.Length));
         }
 
         private ColorIdEnum GetRandomPaintColorId()
         {
             Array enumValues = Enum.GetValues(typeof(ColorIdEnum));
             return (ColorIdEnum)enumValues.GetValue(random.Next(1, enumValues.Length));
-        }
-
-        private TalonModelIdEnum GetRandomTalonModelId()
-        {
-            Array enumValues = Enum.GetValues(typeof(TalonModelIdEnum));
-            return (TalonModelIdEnum)enumValues.GetValue(random.Next(1, enumValues.Length));
-        }
-
-        private UtilityModelIdEnum GetRandomUtilityModelId()
-        {
-            Array enumValues = Enum.GetValues(typeof(UtilityModelIdEnum));
-            return (UtilityModelIdEnum)enumValues.GetValue(random.Next(1, enumValues.Length));
-        }
-
-        private WeaponModelIdEnum GetRandomWeaponModelId()
-        {
-            Array enumValues = Enum.GetValues(typeof(WeaponModelIdEnum));
-            return (WeaponModelIdEnum)enumValues.GetValue(random.Next(1, enumValues.Length));
         }
 
         private bool IsMapMirrored()

@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Frameworks.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Frameworks.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Controllers.Objects;
@@ -19,7 +18,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Frameworks.Objects
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Controllers.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Models.Objects;
-    using HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Views;
+    using HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Views.Objects;
     using System.Collections.Generic;
     using System.Diagnostics;
 
@@ -39,6 +38,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Frameworks.Objects
         private readonly IMvcInitializationReport mvcInitializationReport;
 
         // Todo
+        private IList<IGameActionReport> gameActionReportList;
+
+        // Todo
         private bool isGameActive = false;
 
         // Todo
@@ -49,9 +51,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Frameworks.Objects
 
         // Todo
         private IMvcViewObject mvcViewObject;
-
-        // Todo
-        private IList<IGameActionReport> gameActionReportList;
 
         /// <summary>
         /// Todo
@@ -90,6 +89,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Frameworks.Objects
             // Check if the Game is currently active
             if (this.isGameActive)
             {
+                this.mvcViewObject.UpdateCanvas();
                 // Check the win conditions from the model
                 bool isGameComplete = this.mvcModelObject.CheckWinConditions();
                 // Check if the Game is complete
@@ -115,7 +115,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Frameworks.Objects
                             {
                                 this.mvcViewObject.DisplayCombatReportPopUp(gameActionReport);
                             }
-                            this.mvcViewObject.UpdateCanvas();
                             // Cycle the next random value
                             RandomNumberGeneratorUtil.GetNextInt();
                             Logger.Info("?", gameActionReport);

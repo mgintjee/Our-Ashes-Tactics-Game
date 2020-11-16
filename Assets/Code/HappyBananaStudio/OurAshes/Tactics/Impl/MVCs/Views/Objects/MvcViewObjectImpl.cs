@@ -1,4 +1,4 @@
-﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Views
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Views.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Objects;
@@ -6,10 +6,8 @@
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Initializers.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Views.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Views.Scripts;
-    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Results;
-    using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
     using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
     using HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Animators;
@@ -17,7 +15,6 @@
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.LineRenderers;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Objects.Move;
-    using System.Collections.Generic;
     using System.Diagnostics;
     using UnityEngine;
 
@@ -57,9 +54,11 @@
                 logger.Info("Constructing: ?", this.GetType());
                 this.mvcFrameworkObject = mvcFrameworkObject;
                 this.mvcInitializationReport = mvcInitializationReport;
+                // Update this to be a AddComponent call
                 this.mvcViewScript = GameObjectResourceLoader.Canvas.LoadMvcCanvasGameObject().GetComponent<IMvcViewScript>();
                 this.mvcViewScript.LoadWidgets();
                 this.mvcViewScript.UpdateWidgets();
+                GameObject.FindObjectOfType<AnimatorMoveUtilScript>().SetMvcViewObject(this);
             }
             else
             {
@@ -84,16 +83,6 @@
             {
                 GameObject.FindObjectOfType<AnimatorMoveUtilScript>().AnimateTalonActionOrderReport(talonActionOrderReport);
             }
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="talonIdentificationReport">
-        /// </param>
-        void IMvcViewObject.DestroyTalonCanvas(ITalonIdentificationReport talonIdentificationReport)
-        {
-            throw new System.NotImplementedException();
         }
 
         /// <summary>
@@ -130,6 +119,7 @@
         {
             return this.mvcFrameworkObject != null;
         }
+
         /// <summary>
         /// Todo
         /// </summary>

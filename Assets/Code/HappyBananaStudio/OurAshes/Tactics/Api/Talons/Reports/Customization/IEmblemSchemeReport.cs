@@ -14,13 +14,20 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Customization
         /// </summary>
         /// <returns>
         /// </returns>
-        EmblemForegroundIdEnum GetEmblemBackgroundId();
+        EmblemSpriteIdEnum GetBackgroundId();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns>
         /// </returns>
-        EmblemIconIdEnum GetEmblemIconId();
+        EmblemSpriteIdEnum GetForegroundId();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        EmblemSpriteIdEnum GetIconId();
     }
 }

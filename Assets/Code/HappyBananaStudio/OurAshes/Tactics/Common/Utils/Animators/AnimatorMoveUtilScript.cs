@@ -4,6 +4,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Animators
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
+    using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Views.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
     using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
     using HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects;
@@ -28,6 +29,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Animators
         private ICubeCoordinates currentCubeCoordinates = null;
 
         // Todo
+        private IMvcViewObject mvcViewObject;
+
+        // Todo
         private ITalonActionOrderReport talonActionOrderReport = null;
 
         // Todo
@@ -40,10 +44,14 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Animators
         /// </param>
         public void AnimateTalonActionOrderReport(ITalonActionOrderReport talonActionOrderReport)
         {
-            if (talonActionOrderReport is ITalonActionOrderReport)
+            if (talonActionOrderReport is ITalonActionOrderFireReport talonActionOrderFireReport)
+            {
+                this.mvcViewObject.UpdateCanvas();
+            }
+            else
             {
                 logger.Debug("Setting ?", talonActionOrderReport);
-                this.talonActionOrderReport = (ITalonActionOrderReport)talonActionOrderReport;
+                this.talonActionOrderReport = talonActionOrderReport;
             }
         }
 
@@ -55,6 +63,16 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Animators
         public bool IsAnimating()
         {
             return this.talonActionOrderReport != null;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="mvcViewObject">
+        /// </param>
+        public void SetMvcViewObject(IMvcViewObject mvcViewObject)
+        {
+            this.mvcViewObject = mvcViewObject;
         }
 
         // Update is called once per frame
@@ -89,7 +107,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Animators
                     {
                         GameMapObjectManager.GetHexTileObjectFrom(currentCubeCoordinates)
                             .SetOccupyingTalonIdentificationReport(this.talonActionOrderReport.GetActingTalonIdentificationReport());
-                        RosterObjectManager.GetTalonObjectFrom(this.talonActionOrderReport.GetActingTalonIdentificationReport())
+                        RosterObjectManager.GetTalonObject(this.talonActionOrderReport.GetActingTalonIdentificationReport())
                             .SetCubeCoordinates(this.currentCubeCoordinates);
                         this.talonActionOrderReport = null;
                         this.cubeCoordinatesList = null;

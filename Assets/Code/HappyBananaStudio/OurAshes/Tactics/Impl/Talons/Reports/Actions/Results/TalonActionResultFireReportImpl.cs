@@ -15,10 +15,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
         : ITalonActionResultFireReport
     {
         // Todo
-        private readonly ITalonActionOrderReport talonActionOrderReport;
+        private readonly ITalonAttributesReport actingTalonAttributesReport;
 
         // Todo
-        private readonly ITalonAttributesReport actingTalonAttributesReport;
+        private readonly ITalonActionOrderReport talonActionOrderReport;
 
         // Todo
         private readonly ITalonAttributesReport targetTalonAttributesReport;
@@ -67,9 +67,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
         /// </summary>
         /// <returns>
         /// </returns>
-        ITalonActionOrderReport ITalonActionResultReport.GetTalonActionOrder()
+        ITalonAttributesReport ITalonActionResultReport.GetActingTalonAttributesReport()
         {
-            return this.talonActionOrderReport;
+            return this.actingTalonAttributesReport;
         }
 
         /// <summary>
@@ -77,9 +77,9 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
         /// </summary>
         /// <returns>
         /// </returns>
-        ITalonAttributesReport ITalonActionResultReport.GetActingTalonAttributesReport()
+        ITalonActionOrderReport ITalonActionResultReport.GetTalonActionOrder()
         {
-            return this.actingTalonAttributesReport;
+            return this.talonActionOrderReport;
         }
 
         /// <summary>
@@ -108,10 +108,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
         public class Builder
         {
             // Todo
-            private ITalonActionOrderReport talonActionOrderReport = null;
+            private ITalonAttributesReport actingTalonAttributesReport = null;
 
             // Todo
-            private ITalonAttributesReport actingTalonAttributesReport = null;
+            private ITalonActionOrderReport talonActionOrderReport = null;
 
             // Todo
             private ITalonAttributesReport targetTalonAttributesReport = null;
@@ -143,21 +143,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
             }
 
             /// <summary>
-            /// Set the value of the ITalonActionOrderReport
-            /// </summary>
-            /// <param name="talonActionOrderReport">
-            /// The ITalonActionOrderReport to set
-            /// </param>
-            /// <returns>
-            /// The Builder to continue building with
-            /// </returns>
-            public Builder SetTalonActionOrderReport(ITalonActionOrderReport talonActionOrderReport)
-            {
-                this.talonActionOrderReport = talonActionOrderReport;
-                return this;
-            }
-
-            /// <summary>
             /// Set the value of the Acting ITalonAttributesReport
             /// </summary>
             /// <param name="actingTalonAttributesReport">
@@ -169,6 +154,21 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Results
             public Builder SetActingTalonAttributesReport(ITalonAttributesReport actingTalonAttributesReport)
             {
                 this.actingTalonAttributesReport = actingTalonAttributesReport;
+                return this;
+            }
+
+            /// <summary>
+            /// Set the value of the ITalonActionOrderReport
+            /// </summary>
+            /// <param name="talonActionOrderReport">
+            /// The ITalonActionOrderReport to set
+            /// </param>
+            /// <returns>
+            /// The Builder to continue building with
+            /// </returns>
+            public Builder SetTalonActionOrderReport(ITalonActionOrderReport talonActionOrderReport)
+            {
+                this.talonActionOrderReport = talonActionOrderReport;
                 return this;
             }
 

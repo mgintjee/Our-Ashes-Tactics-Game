@@ -22,7 +22,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Hoplites.Objects
         private readonly IBonusAttributes bonusAttributes;
 
         // Todo
-        private readonly ControllerIdEnum controllerId;
+        private readonly ControllerType controllerId;
 
         // Todo
         private readonly ISet<HopliteTraitEnum> hopliteTraitSet;

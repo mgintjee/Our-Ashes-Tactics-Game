@@ -48,7 +48,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Attributes
             for (int i = 0; i < this.weaponInformationReportList.Count; ++i)
             {
                 if (!this.weaponInformationReportList[i].GetWeaponModelId()
-                    .Equals(WeaponModelIdEnum.None))
+                    .Equals(WeaponModelId.None))
                 {
                     weaponCounter++;
                 }
@@ -61,7 +61,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Attributes
             for (int i = 0; i < this.utilityInformationReportList.Count; ++i)
             {
                 if (!this.utilityInformationReportList[i].GetUtilityModelId()
-                    .Equals(UtilityModelIdEnum.None))
+                    .Equals(UtilityModelId.None))
                 {
                     utilityCounter++;
                 }

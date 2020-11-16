@@ -1,7 +1,6 @@
 ﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
-    using HappyBananaStudio.OurAshes.Tactics.Api.Emblems.Widgets.Emblems;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Construction;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
@@ -22,30 +21,85 @@
     /// </summary>
     public class TalonGameObjectManager
     {
+        // Todo
+        private static readonly IDictionary<FactionId, GameObject> factionIdGameObjectDictionary = new Dictionary<FactionId, GameObject>();
+
+        // Todo
+        private static readonly string factionIdGameObjectPrefix = "FactionId: ";
+
         // Provide logging capability
         private static readonly ICodeLogger logger = new CodeLoggerImpl(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
-        private static readonly IDictionary<FactionIdEnum, GameObject> factionIdGameObjectDictionary = new Dictionary<FactionIdEnum, GameObject>();
+        private static readonly IDictionary<PhalanxId, GameObject> phalanxIdGameObjectDictionary = new Dictionary<PhalanxId, GameObject>();
 
         // Todo
-        private static readonly IDictionary<PhalanxIdEnum, GameObject> phalanxIdGameObjectDictionary = new Dictionary<PhalanxIdEnum, GameObject>();
+        private static readonly string phalanxIdGameObjectPrefix = "PhalanxId: ";
+
+        // Todo
+        private static readonly string talonGameObjectCollectionName = "talonGameObjectCollection";
 
         // Todo
         private static readonly IDictionary<ITalonIdentificationReport, GameObject> talonIdentificationReportGameObjectDictionary =
             new Dictionary<ITalonIdentificationReport, GameObject>();
 
         // Todo
-        private static readonly string talonGameObjectCollectionName = "talonGameObjectCollection";
-
-        // Todo
-        private static readonly string factionIdGameObjectPrefix = "FactionId: ";
-
-        // Todo
-        private static readonly string phalanxIdGameObjectPrefix = "PhalanxId: ";
-
-        // Todo
         private static GameObject talonGameObjectCollection = null;
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="talonConstructionReport">
+        /// </param>
+        public static void BuildTalonGameObject(ITalonConstructionReport talonConstructionReport)
+        {
+            if (talonConstructionReport != null)
+            {
+                ITalonIdentificationReport talonIdentificationReport = talonConstructionReport.GetTalonIdentificationReport();
+                BuildPhalanxIdGameObject(talonIdentificationReport.GetFactionId(), talonIdentificationReport.GetPhalanxId());
+                GameObject talonGameObject = GameObjectResourceLoader.Talons.LoadTalonGameObjectResource(talonIdentificationReport.GetTalonModelId());
+                ITalonMountsScript talonMountsScript = talonGameObject.GetComponent<ITalonMountsScript>();
+                AttachMounts(talonMountsScript, talonConstructionReport);
+                UpdateTalonGameObjectVisuals(talonGameObject, talonConstructionReport);
+                talonIdentificationReportGameObjectDictionary.Add(talonIdentificationReport, talonGameObject);
+                talonGameObject.transform.SetParent(phalanxIdGameObjectDictionary[talonIdentificationReport.GetPhalanxId()].transform);
+            }
+            else
+            {
+                throw ArgumentExceptionUtil.Build("Unable to ?. Invalid parameters.", new StackFrame().GetMethod().Name);
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="talonIdentificationReport">
+        /// </param>
+        public static void DeactivateTalonIdentificationReport(ITalonIdentificationReport talonIdentificationReport)
+        {
+            GameObject.Destroy(talonIdentificationReportGameObjectDictionary[talonIdentificationReport]);
+            talonIdentificationReportGameObjectDictionary.Remove(talonIdentificationReport);
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="talonIdentificationReport">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static GameObject GetTalonGameObject(ITalonIdentificationReport talonIdentificationReport)
+        {
+            if (talonIdentificationReportGameObjectDictionary.ContainsKey(talonIdentificationReport))
+            {
+                return talonIdentificationReportGameObjectDictionary[talonIdentificationReport];
+            }
+            else
+            {
+                throw ArgumentExceptionUtil.Build("Unable to ?. Invalid Parameters. ?=? is not tracked",
+                    new StackFrame().GetMethod().Name, typeof(ITalonIdentificationReport), talonIdentificationReport);
+            }
+        }
 
         /// <summary>
         /// Todo
@@ -113,41 +167,6 @@
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="talonConstructionReport">
-        /// </param>
-        public static void BuildTalonGameObject(ITalonConstructionReport talonConstructionReport)
-        {
-            if (talonConstructionReport != null)
-            {
-                ITalonIdentificationReport talonIdentificationReport = talonConstructionReport.GetTalonIdentificationReport();
-                BuildPhalanxIdGameObject(talonIdentificationReport.GetFactionId(), talonIdentificationReport.GetPhalanxId());
-                GameObject talonGameObject = GameObjectResourceLoader.Talons.LoadTalonGameObjectResource(talonIdentificationReport.GetTalonModelId());
-                ITalonMountsScript talonMountsScript = talonGameObject.GetComponent<ITalonMountsScript>();
-                AttachMounts(talonMountsScript, talonConstructionReport);
-                UpdateTalonGameObjectVisuals(talonGameObject, talonConstructionReport);
-                talonIdentificationReportGameObjectDictionary.Add(talonIdentificationReport, talonGameObject);
-                talonGameObject.transform.SetParent(phalanxIdGameObjectDictionary[talonIdentificationReport.GetPhalanxId()].transform);
-            }
-            else
-            {
-                throw ArgumentExceptionUtil.Build("Unable to ?. Invalid parameters.", new StackFrame().GetMethod().Name);
-            }
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="talonIdentificationReport">
-        /// </param>
-        public static void DeactivateTalonIdentificationReport(ITalonIdentificationReport talonIdentificationReport)
-        {
-            GameObject.Destroy(talonIdentificationReportGameObjectDictionary[talonIdentificationReport]);
-            talonIdentificationReportGameObjectDictionary.Remove(talonIdentificationReport);
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
         /// <param name="talonMountsScript">
         /// </param>
         /// <param name="talonConstructionReport">
@@ -155,7 +174,7 @@
         private static void AttachMounts(ITalonMountsScript talonMountsScript, ITalonConstructionReport talonConstructionReport)
         {
             int index = 0;
-            foreach (WeaponModelIdEnum weaponModelId in talonConstructionReport.GetWeaponModelIdList())
+            foreach (WeaponModelId weaponModelId in talonConstructionReport.GetWeaponModelIdList())
             {
                 if (index < talonMountsScript.GetWeaponMountCount())
                 {
@@ -173,7 +192,7 @@
                 }
             }
             index = 0;
-            foreach (UtilityModelIdEnum utilityModelId in talonConstructionReport.GetUtilityModelIdList())
+            foreach (UtilityModelId utilityModelId in talonConstructionReport.GetUtilityModelIdList())
             {
                 if (index < talonMountsScript.GetUtilityMountCount())
                 {
@@ -193,61 +212,24 @@
         }
 
         /// <summary>
-        /// </summary>
-        /// <param name="talonGameObject">
-        /// </param>
-        /// <param name="talonCustomizationReport">
-        /// </param>
-        private static void UpdateTalonGameObjectVisuals(GameObject talonGameObject, ITalonConstructionReport talonConstructionReport)
-        {
-            ITalonEmblemWidget talonEmblemWidget = WidgetResourceLoader.Emblems.LoadTalonEmblemWidgetResource(
-                talonConstructionReport.GetTalonIdentificationReport().GetCallSign(),
-                talonConstructionReport.GetTalonCustomizationReport());
-            talonEmblemWidget.GetTransform().SetParent(talonGameObject.transform);
-            // Todo: Store these somewhere
-            talonEmblemWidget.GetTransform().localPosition = new Vector3(0, 17.5f, 0);
-            talonEmblemWidget.GetTransform().localEulerAngles = new Vector3(-45, 0, 0);
-
-            // Todo: Load the Phalanx Emblem here Then attach it to the talonGameObject Paint the
-            // talonGameObject with the materials loaded from the customizationReportHave some
-            // constants file that will generate the Material[] based off the
-            // talonCustomizationReport and TalonModelId? Or just work to have it all be constantly
-            // the same indices in the material
-            // Todo: color the GameObject with Materials
-            /*
-            MeshRenderer meshRenderer = talonGameObject.GetComponent<MeshRenderer>();
-            Material[] materials = meshRenderer.materials;
-            materials[1] = MaterialResourceLoader.HexTile.Top.LoadHexTileTopMaterialResource(hexTileType);
-            meshRenderer.materials = materials;
-            */
-        }
-
-        /// <summary>
         /// Todo
         /// </summary>
         /// <param name="factionId">
         /// </param>
-        /// <returns>
-        /// </returns>
-        private static Vector3 GetLocalEulerAnglesFor(FactionIdEnum factionId)
+        private static void BuildFactionIdGameObject(FactionId factionIdEnum)
         {
-            switch (factionId)
+            if (!factionIdEnum.Equals(FactionId.None))
             {
-                case FactionIdEnum.CreativeFaction1:
-                    return new Vector3(0, 60, 0);
-
-                case FactionIdEnum.CreativeFaction2:
-                    return new Vector3(0, 120, 0);
-
-                case FactionIdEnum.CreativeFaction3:
-                    return new Vector3(0, 240, 0);
-
-                case FactionIdEnum.CreativeFaction4:
-                    return new Vector3(0, 300, 0);
-
-                default:
-                    throw ArgumentExceptionUtil.Build("Unable to ?. ? is not supported.",
-                        new StackFrame().GetMethod().Name, factionId);
+                if (!factionIdGameObjectDictionary.ContainsKey(factionIdEnum))
+                {
+                    GameObject factionIdGameObject = new GameObject(factionIdGameObjectPrefix + factionIdEnum);
+                    factionIdGameObject.transform.SetParent(talonGameObjectCollection.transform);
+                    factionIdGameObjectDictionary.Add(factionIdEnum, factionIdGameObject);
+                }
+            }
+            else
+            {
+                throw ArgumentExceptionUtil.Build("Unable to ?. Invalid parameters.", new StackFrame().GetMethod().Name);
             }
         }
 
@@ -258,13 +240,13 @@
         /// </param>
         /// <param name="phalanxId">
         /// </param>
-        private static void BuildPhalanxIdGameObject(FactionIdEnum factionId, PhalanxIdEnum phalanxId)
+        private static void BuildPhalanxIdGameObject(FactionId factionId, PhalanxId phalanxId)
         {
             BuildTalonGameObjectCollection();
-            if (!factionId.Equals(FactionIdEnum.None))
+            if (!factionId.Equals(FactionId.None))
             {
                 BuildFactionIdGameObject(factionId);
-                if (!phalanxId.Equals(PhalanxIdEnum.None))
+                if (!phalanxId.Equals(PhalanxId.None))
                 {
                     if (!phalanxIdGameObjectDictionary.ContainsKey(phalanxId))
                     {
@@ -289,34 +271,73 @@
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="factionId">
-        /// </param>
-        private static void BuildFactionIdGameObject(FactionIdEnum factionIdEnum)
-        {
-            if (!factionIdEnum.Equals(FactionIdEnum.None))
-            {
-                if (!factionIdGameObjectDictionary.ContainsKey(factionIdEnum))
-                {
-                    GameObject factionIdGameObject = new GameObject(factionIdGameObjectPrefix + factionIdEnum);
-                    factionIdGameObject.transform.SetParent(talonGameObjectCollection.transform);
-                    factionIdGameObjectDictionary.Add(factionIdEnum, factionIdGameObject);
-                }
-            }
-            else
-            {
-                throw ArgumentExceptionUtil.Build("Unable to ?. Invalid parameters.", new StackFrame().GetMethod().Name);
-            }
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
         private static void BuildTalonGameObjectCollection()
         {
             if (talonGameObjectCollection == null)
             {
                 talonGameObjectCollection = new GameObject(talonGameObjectCollectionName);
             }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="factionId">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        private static Vector3 GetLocalEulerAnglesFor(FactionId factionId)
+        {
+            switch (factionId)
+            {
+                case FactionId.CreativeFaction1:
+                    return new Vector3(0, 60, 0);
+
+                case FactionId.CreativeFaction2:
+                    return new Vector3(0, 120, 0);
+
+                case FactionId.CreativeFaction3:
+                    return new Vector3(0, 240, 0);
+
+                case FactionId.CreativeFaction4:
+                    return new Vector3(0, 300, 0);
+
+                default:
+                    throw ArgumentExceptionUtil.Build("Unable to ?. ? is not supported.",
+                        new StackFrame().GetMethod().Name, factionId);
+            }
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="talonGameObject">
+        /// </param>
+        /// <param name="talonCustomizationReport">
+        /// </param>
+        private static void UpdateTalonGameObjectVisuals(GameObject talonGameObject, ITalonConstructionReport talonConstructionReport)
+        {
+            /*
+            ITalonEmblemWidget talonEmblemWidget = WidgetResourceLoader.Emblems.LoadTalonEmblemWidgetResource(
+                talonConstructionReport.GetTalonIdentificationReport().GetCallSign(),
+                talonConstructionReport.GetTalonCustomizationReport());
+            talonEmblemWidget.GetTransform().SetParent(talonGameObject.transform);
+            // Todo: Store these somewhere
+            talonEmblemWidget.UpdateEmblemScale(new Vector3(0.06f, 0.06f, 0.06f));
+            talonEmblemWidget.GetTransform().localPosition = new Vector3(0, 17.5f, 0);
+            talonEmblemWidget.GetTransform().localEulerAngles = new Vector3(-45, 0, 0);
+            */
+            // Todo: Load the Phalanx Emblem here Then attach it to the talonGameObject Paint the
+            // talonGameObject with the materials loaded from the customizationReportHave some
+            // constants file that will generate the Material[] based off the
+            // talonCustomizationReport and TalonModelId? Or just work to have it all be constantly
+            // the same indices in the material
+            // Todo: color the GameObject with Materials
+            /*
+            MeshRenderer meshRenderer = talonGameObject.GetComponent<MeshRenderer>();
+            Material[] materials = meshRenderer.materials;
+            materials[1] = MaterialResourceLoader.HexTile.Top.LoadHexTileTopMaterialResource(hexTileType);
+            meshRenderer.materials = materials;
+            */
         }
 
         /*

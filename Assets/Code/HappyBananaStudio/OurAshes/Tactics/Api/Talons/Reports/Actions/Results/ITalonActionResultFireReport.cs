@@ -16,13 +16,13 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Results
         /// </summary>
         /// <returns>
         /// </returns>
-        IList<IWeaponResultReport> GetWeaponResultReportList();
+        ITalonAttributesReport GetTargetTalonAttributesReport();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns>
         /// </returns>
-        ITalonAttributesReport GetTargetTalonAttributesReport();
+        IList<IWeaponResultReport> GetWeaponResultReportList();
     }
 }

@@ -1,14 +1,13 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.LineRenderers
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.LineRenderers
 {
-    using HappyBananaStudio.OurAshes.Tactics.Impl.Unity.Scripts;
+    using HappyBananaStudio.OurAshes.Tactics.Abs.Unity.Scripts;
     using UnityEngine;
 
     /// <summary>
     /// Todo
     /// </summary>
     public class LineRendererUtilScript
-    : UnityScriptImpl
+    : AbstractUnityScriptImpl
     {
         /// <summary>
         /// Todo

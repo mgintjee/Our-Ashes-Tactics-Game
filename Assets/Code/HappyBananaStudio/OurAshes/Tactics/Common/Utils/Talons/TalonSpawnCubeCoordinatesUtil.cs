@@ -29,7 +29,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Talons
         {
             switch (gameType)
             {
-                case GameTypeEnum.Skirmish:
+                case GameTypeEnum.FactionSkirmish:
                     return GetSpawningCubeCoordinatesForDeathmatch(gameType);
 
                 default:
@@ -51,7 +51,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Talons
         /// </param>
         /// <returns>
         /// </returns>
-        public static ICubeCoordinates GetSpawningCubeCoordinatesFor(PhalanxIdEnum teamId, int teamIdMechCount, int mechTeamIndex, int mapRadius)
+        public static ICubeCoordinates GetSpawningCubeCoordinatesFor(PhalanxId teamId, int teamIdMechCount, int mechTeamIndex, int mapRadius)
         {
             if (teamIdMechCount > 0 &&
                 mechTeamIndex >= 0 &&
@@ -70,7 +70,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Talons
                 // Determine the coordinate values based off of the teamId
                 switch (teamId)
                 {
-                    case PhalanxIdEnum.Charlie:
+                    case PhalanxId.Charlie:
                         xCoordinate = mapRadius;
                         yCoordinate = 0;
                         zCoordinate = -mapRadius;
@@ -94,7 +94,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Talons
                         // Otherwise it is the center Index
                         break;
 
-                    case PhalanxIdEnum.Alfa:
+                    case PhalanxId.Alfa:
                         xCoordinate = 0;
                         yCoordinate = mapRadius;
                         zCoordinate = -mapRadius;
@@ -118,7 +118,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Talons
                         // Otherwise it is the center Index
                         break;
 
-                    case PhalanxIdEnum.Echo:
+                    case PhalanxId.Echo:
                         xCoordinate = -mapRadius;
                         yCoordinate = mapRadius;
                         zCoordinate = 0;
@@ -142,7 +142,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Talons
                         // Otherwise it is the center Index
                         break;
 
-                    case PhalanxIdEnum.Foxtrot:
+                    case PhalanxId.Foxtrot:
                         xCoordinate = -mapRadius;
                         yCoordinate = 0;
                         zCoordinate = mapRadius;
@@ -166,7 +166,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Talons
                         // Otherwise it is the center Index
                         break;
 
-                    case PhalanxIdEnum.Bravo:
+                    case PhalanxId.Bravo:
                         xCoordinate = 0;
                         yCoordinate = -mapRadius;
                         zCoordinate = mapRadius;
@@ -190,7 +190,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Talons
                         // Otherwise it is the center Index
                         break;
 
-                    case PhalanxIdEnum.Delta:
+                    case PhalanxId.Delta:
                         xCoordinate = mapRadius;
                         yCoordinate = -mapRadius;
                         zCoordinate = 0;

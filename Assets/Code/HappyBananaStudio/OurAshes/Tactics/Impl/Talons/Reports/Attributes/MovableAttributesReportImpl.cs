@@ -60,17 +60,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Attributes
         }
 
         /// <summary>
-        /// Get the current MovePoints
-        /// </summary>
-        /// <returns>
-        /// The int current MovePoints
-        /// </returns>
-        int IMovableAttributesReport.GetCurrentMovePoints()
-        {
-            return this.currentMovePoints;
-        }
-
-        /// <summary>
         /// Get the current TurnPoints
         /// </summary>
         /// <returns>
@@ -82,14 +71,14 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Attributes
         }
 
         /// <summary>
-        /// Get the maximum MovePoints
+        /// Get the current MovePoints
         /// </summary>
         /// <returns>
-        /// The int maximum MovePoints
+        /// The int current MovePoints
         /// </returns>
-        int IMovableAttributesReport.GetMaximumMovePoints()
+        int IMovableAttributesReport.GetCurrentMovePoints()
         {
-            return this.maximumMovePoints;
+            return this.currentMovePoints;
         }
 
         /// <summary>
@@ -101,6 +90,17 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Attributes
         int IMovableAttributesReport.GetMaximumActionPoints()
         {
             return this.maximumActionPoints;
+        }
+
+        /// <summary>
+        /// Get the maximum MovePoints
+        /// </summary>
+        /// <returns>
+        /// The int maximum MovePoints
+        /// </returns>
+        int IMovableAttributesReport.GetMaximumMovePoints()
+        {
+            return this.maximumMovePoints;
         }
 
         /// <summary>

@@ -19,10 +19,10 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Orders
         private readonly ITalonIdentificationReport actingTalonIdentificationReport;
 
         // Todo
-        private readonly IPathObject pathObject;
+        private readonly ActionType actionType;
 
         // Todo
-        private readonly ActionTypeEnum actionType;
+        private readonly IPathObject pathObject;
 
         // Todo
         private readonly ITalonIdentificationReport targetTalonIdentificationReport;
@@ -37,7 +37,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Orders
         private TalonActionOrderFireReportImpl(ITalonIdentificationReport actingTalonIdentificationReport,
             IPathObject pathObject, ITalonIdentificationReport targetTalonIdentificationReport)
         {
-            this.actionType = ActionTypeEnum.Fire;
+            this.actionType = ActionType.Fire;
             this.pathObject = pathObject;
             this.actingTalonIdentificationReport = actingTalonIdentificationReport;
             this.targetTalonIdentificationReport = targetTalonIdentificationReport;
@@ -72,17 +72,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Orders
         /// </summary>
         /// <returns>
         /// </returns>
-        ITalonIdentificationReport ITalonActionOrderFireReport.GetTargetTalonIdentificationReport()
-        {
-            return this.targetTalonIdentificationReport;
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        ActionTypeEnum ITalonActionOrderReport.GetActionType()
+        ActionType ITalonActionOrderReport.GetActionType()
         {
             return this.actionType;
         }
@@ -95,6 +85,16 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Orders
         IPathObject ITalonActionOrderReport.GetPathObject()
         {
             return this.pathObject;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        ITalonIdentificationReport ITalonActionOrderFireReport.GetTargetTalonIdentificationReport()
+        {
+            return this.targetTalonIdentificationReport;
         }
 
         /// <summary>

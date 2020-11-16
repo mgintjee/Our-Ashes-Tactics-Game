@@ -39,13 +39,13 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Construction
         /// </summary>
         /// <returns>
         /// </returns>
-        IList<UtilityModelIdEnum> GetUtilityModelIdList();
+        IList<UtilityModelId> GetUtilityModelIdList();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns>
         /// </returns>
-        IList<WeaponModelIdEnum> GetWeaponModelIdList();
+        IList<WeaponModelId> GetWeaponModelIdList();
     }
 }

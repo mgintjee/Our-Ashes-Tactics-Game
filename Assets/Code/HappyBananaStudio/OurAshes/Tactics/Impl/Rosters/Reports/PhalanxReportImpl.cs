@@ -14,10 +14,10 @@
         : IRosterPhalanxReport
     {
         // Todo
-        private readonly FactionIdEnum factionId;
+        private readonly FactionId factionId;
 
         // Todo
-        private readonly PhalanxIdEnum phalanxId;
+        private readonly PhalanxId phalanxId;
 
         // Todo
         private readonly ISet<ITalonIdentificationReport> talonIdentificationReportSet;
@@ -31,7 +31,7 @@
         /// </param>
         /// <param name="talonIdentificationReportSet">
         /// </param>
-        private PhalanxReportImpl(FactionIdEnum factionId, PhalanxIdEnum phalanxId,
+        private PhalanxReportImpl(FactionId factionId, PhalanxId phalanxId,
             ISet<ITalonIdentificationReport> talonIdentificationReportSet)
         {
             this.factionId = factionId;
@@ -47,8 +47,8 @@
         public override string ToString()
         {
             return this.GetType().Name + ":" +
-                "\n\t>" + typeof(FactionIdEnum).Name + "=" + this.factionId +
-                "\n\t>" + typeof(PhalanxIdEnum).Name + "=" + this.phalanxId +
+                "\n\t>" + typeof(FactionId).Name + "=" + this.factionId +
+                "\n\t>" + typeof(PhalanxId).Name + "=" + this.phalanxId +
                 "\n\t>Set: " + typeof(ITalonIdentificationReport).Name + "=[" +
                 string.Join("\n\t\t>", this.talonIdentificationReportSet) +
                 "\n]";
@@ -59,7 +59,7 @@
         /// </summary>
         /// <returns>
         /// </returns>
-        FactionIdEnum IRosterPhalanxReport.GetFactionId()
+        FactionId IRosterPhalanxReport.GetFactionId()
         {
             return this.factionId;
         }
@@ -69,7 +69,7 @@
         /// </summary>
         /// <returns>
         /// </returns>
-        PhalanxIdEnum IRosterPhalanxReport.GetPhalanxId()
+        PhalanxId IRosterPhalanxReport.GetPhalanxId()
         {
             return this.phalanxId;
         }
@@ -90,10 +90,10 @@
         public class Builder
         {
             // Todo
-            private FactionIdEnum factionId = FactionIdEnum.None;
+            private FactionId factionId = FactionId.None;
 
             // Todo
-            private PhalanxIdEnum phalanxId = PhalanxIdEnum.None;
+            private PhalanxId phalanxId = PhalanxId.None;
 
             // Todo
             private ISet<ITalonIdentificationReport> talonIdentificationReportSet = null;
@@ -129,7 +129,7 @@
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetFactionId(FactionIdEnum factionId)
+            public Builder SetFactionId(FactionId factionId)
             {
                 this.factionId = factionId;
                 return this;
@@ -144,7 +144,7 @@
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetPhalanxId(PhalanxIdEnum phalanxId)
+            public Builder SetPhalanxId(PhalanxId phalanxId)
             {
                 this.phalanxId = phalanxId;
                 return this;
@@ -175,14 +175,14 @@
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
                 // Check that factionId has been set
-                if (this.factionId == FactionIdEnum.None)
+                if (this.factionId == FactionId.None)
                 {
-                    argumentExceptionSet.Add(typeof(FactionIdEnum).Name + " has not been set");
+                    argumentExceptionSet.Add(typeof(FactionId).Name + " has not been set");
                 }
                 // Check that phalanxId has been set
-                if (this.phalanxId == PhalanxIdEnum.None)
+                if (this.phalanxId == PhalanxId.None)
                 {
-                    argumentExceptionSet.Add(typeof(PhalanxIdEnum).Name + " has not been set");
+                    argumentExceptionSet.Add(typeof(PhalanxId).Name + " has not been set");
                 }
                 // Check that talonIdentificationReportSet has been set
                 if (this.talonIdentificationReportSet == null)

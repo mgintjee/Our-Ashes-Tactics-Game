@@ -72,9 +72,9 @@
         /// </summary>
         /// <returns>
         /// </returns>
-        ISet<ITalonIdentificationReport> IRosterInformationReport.GetTotalTalonIdentificationReportSet()
+        ISet<IRosterFactionReport> IRosterInformationReport.GetRosterFactionReportSet()
         {
-            return new HashSet<ITalonIdentificationReport>(this.totalTalonIdentificationReportSet);
+            return new HashSet<IRosterFactionReport>(this.rosterFactionReportSet);
         }
 
         /// <summary>
@@ -82,9 +82,9 @@
         /// </summary>
         /// <returns>
         /// </returns>
-        ISet<IRosterFactionReport> IRosterInformationReport.GetRosterFactionReportSet()
+        ISet<ITalonIdentificationReport> IRosterInformationReport.GetTotalTalonIdentificationReportSet()
         {
-            return new HashSet<IRosterFactionReport>(this.rosterFactionReportSet);
+            return new HashSet<ITalonIdentificationReport>(this.totalTalonIdentificationReportSet);
         }
 
         /// <summary>

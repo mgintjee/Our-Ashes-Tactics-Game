@@ -1,10 +1,9 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Scripts
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Scripts
 {
+    using HappyBananaStudio.OurAshes.Tactics.Abs.Unity.Scripts;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Scripts;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
-    using HappyBananaStudio.OurAshes.Tactics.Impl.Unity.Scripts;
     using System.Collections.Generic;
     using System.Diagnostics;
     using UnityEngine;
@@ -13,7 +12,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Scripts
     /// TalonMounts Script Impl
     /// </summary>
     public class TalonMountsScriptImpl
-    : UnityScriptImpl, ITalonMountsScript
+    : AbstractUnityScriptImpl, ITalonMountsScript
     {
         // Provide logging capability
         private static readonly ICodeLogger logger = new CodeLoggerImpl(new StackFrame().GetMethod().DeclaringType);

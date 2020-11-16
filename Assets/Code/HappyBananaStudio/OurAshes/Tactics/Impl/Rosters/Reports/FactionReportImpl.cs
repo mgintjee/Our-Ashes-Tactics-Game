@@ -12,7 +12,7 @@
         : IRosterFactionReport
     {
         // Todo
-        private readonly FactionIdEnum factionId;
+        private readonly FactionId factionId;
 
         // Todo
         private readonly ISet<IRosterPhalanxReport> rosterPhalanxReportSet;
@@ -24,7 +24,7 @@
         /// </param>
         /// <param name="rosterPhalanxReportSet">
         /// </param>
-        private FactionReportImpl(FactionIdEnum factionIdenum, ISet<IRosterPhalanxReport> rosterPhalanxReportSet)
+        private FactionReportImpl(FactionId factionIdenum, ISet<IRosterPhalanxReport> rosterPhalanxReportSet)
         {
             this.factionId = factionIdenum;
             this.rosterPhalanxReportSet = rosterPhalanxReportSet;
@@ -38,7 +38,7 @@
         public override string ToString()
         {
             return this.GetType().Name + ":" +
-                "\n\t>" + typeof(FactionIdEnum).Name + "=" + this.factionId +
+                "\n\t>" + typeof(FactionId).Name + "=" + this.factionId +
                 "\n\t>Set: " + typeof(IRosterPhalanxReport).Name + "=[" + string.Join("\n\t\t>", this.rosterPhalanxReportSet)
                 + "\n]";
         }
@@ -48,7 +48,7 @@
         /// </summary>
         /// <returns>
         /// </returns>
-        FactionIdEnum IRosterFactionReport.GetFactionId()
+        FactionId IRosterFactionReport.GetFactionId()
         {
             return this.factionId;
         }
@@ -69,7 +69,7 @@
         public class Builder
         {
             // Todo
-            private FactionIdEnum factionId = FactionIdEnum.None;
+            private FactionId factionId = FactionId.None;
 
             // Todo
             private ISet<IRosterPhalanxReport> rosterFactionReportSet = null;
@@ -105,7 +105,7 @@
             /// <returns>
             /// The Builder to continue building with
             /// </returns>
-            public Builder SetFactionId(FactionIdEnum factionId)
+            public Builder SetFactionId(FactionId factionId)
             {
                 this.factionId = factionId;
                 return this;
@@ -136,9 +136,9 @@
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
                 // Check that factionId has been set
-                if (this.factionId == FactionIdEnum.None)
+                if (this.factionId == FactionId.None)
                 {
-                    argumentExceptionSet.Add(typeof(FactionIdEnum).Name + " has not been set");
+                    argumentExceptionSet.Add(typeof(FactionId).Name + " has not been set");
                 }
                 // Check that phalanxReportSet has been set
                 if (this.rosterFactionReportSet == null)

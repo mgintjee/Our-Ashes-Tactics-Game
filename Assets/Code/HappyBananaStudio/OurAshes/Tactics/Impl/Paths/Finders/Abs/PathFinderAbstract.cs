@@ -47,6 +47,16 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Finders.Abs
         /// <summary>
         /// Todo
         /// </summary>
+        /// <returns>
+        /// </returns>
+        public IDictionary<ICubeCoordinates, IPathObject> GetPathObjectDictionary()
+        {
+            return new Dictionary<ICubeCoordinates, IPathObject>(this.pathObjectDictionary);
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
         /// <param name="cubeCoordinatesEnd">
         /// </param>
         /// <returns>
@@ -70,16 +80,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Finders.Abs
                 throw ArgumentExceptionUtil.Build("Unable to ?. Invalid Parameters. ? is null.",
                     this.GetType(), typeof(ICubeCoordinates));
             }
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        public IDictionary<ICubeCoordinates, IPathObject> GetPathObjectDictionary()
-        {
-            return new Dictionary<ICubeCoordinates, IPathObject>(this.pathObjectDictionary);
         }
     }
 }

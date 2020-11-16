@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.GameTypes
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.GameTypes
 {
     /// <summary>
     /// Todo
@@ -8,6 +6,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.GameTypes
     public enum GameTypeEnum
     {
         None,
-        Skirmish,
+        FactionSkirmish,
+        PhalanxSkirmish,
     }
 }

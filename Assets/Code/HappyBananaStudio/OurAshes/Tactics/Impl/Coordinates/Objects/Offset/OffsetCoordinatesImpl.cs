@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Coordinates.Objects.Offset
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Coordinates.Objects.Offset
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Offset;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Coordinates;

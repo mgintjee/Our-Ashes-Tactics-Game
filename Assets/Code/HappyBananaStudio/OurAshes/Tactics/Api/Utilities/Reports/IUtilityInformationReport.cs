@@ -21,6 +21,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.Utilities.Reports
         /// </summary>
         /// <returns>
         /// </returns>
-        UtilityModelIdEnum GetUtilityModelId();
+        UtilityModelId GetUtilityModelId();
     }
 }

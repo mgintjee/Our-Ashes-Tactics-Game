@@ -23,7 +23,7 @@ namespace HappyBananaStudio.OurAshes.Tactics.Api.Hoplites.Reports
         /// </summary>
         /// <returns>
         /// </returns>
-        ControllerIdEnum GetControllerId();
+        ControllerType GetControllerId();
 
         /// <summary>
         /// Todo
