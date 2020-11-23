@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.Maps.Games.Reports
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Maps.Games.Reports
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using System.Collections.Generic;

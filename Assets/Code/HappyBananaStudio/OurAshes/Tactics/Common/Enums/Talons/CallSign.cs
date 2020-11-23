@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons
 {
     /// <summary>
     /// Todo

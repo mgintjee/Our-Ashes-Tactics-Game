@@ -1,11 +1,8 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.HexTiles
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.HexTiles
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.Maps.Games.Reports;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.HexTiles;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;

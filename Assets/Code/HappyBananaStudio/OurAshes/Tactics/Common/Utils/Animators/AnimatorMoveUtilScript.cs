@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Animators
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Animators
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;

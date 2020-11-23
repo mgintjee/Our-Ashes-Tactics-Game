@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.Weapons.Reports
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Weapons.Reports
 {
     /// <summary>
     /// Todo

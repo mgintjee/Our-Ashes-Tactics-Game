@@ -1,4 +1,4 @@
-﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.ROEs.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Managers.ROEs.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons;
     using System.Collections.Generic;

@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Paths.Finder
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Paths.Finder
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;

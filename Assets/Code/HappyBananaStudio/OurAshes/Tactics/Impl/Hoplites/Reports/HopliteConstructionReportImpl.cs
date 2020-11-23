@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Hoplites.Reports
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Hoplites.Reports
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Hoplites.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Hoplites;

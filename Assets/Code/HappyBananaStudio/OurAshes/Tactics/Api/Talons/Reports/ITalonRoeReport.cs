@@ -1,4 +1,4 @@
-﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports
 {
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Factions;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Phalanxes;

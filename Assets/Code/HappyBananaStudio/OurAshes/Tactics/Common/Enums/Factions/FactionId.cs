@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.Factions
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.Factions
 {
     /// <summary>
     /// Todo

@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.HexTiles.Attributes
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.HexTiles.Attributes
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;

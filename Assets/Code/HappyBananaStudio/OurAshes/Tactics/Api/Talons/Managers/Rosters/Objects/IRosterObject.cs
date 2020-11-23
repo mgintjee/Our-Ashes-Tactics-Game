@@ -1,4 +1,4 @@
-﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Managers.Rosters.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons;

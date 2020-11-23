@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Orders
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Actions.Orders
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Paths.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;

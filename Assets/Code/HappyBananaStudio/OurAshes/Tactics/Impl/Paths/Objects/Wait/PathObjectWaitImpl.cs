@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Objects.Wait
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Objects.Wait
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;

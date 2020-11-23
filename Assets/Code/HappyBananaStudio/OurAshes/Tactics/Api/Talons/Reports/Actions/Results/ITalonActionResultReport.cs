@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Results
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Results
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Attributes;

@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;

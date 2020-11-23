@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Attributes
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Attributes
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Attributes;
     using System;

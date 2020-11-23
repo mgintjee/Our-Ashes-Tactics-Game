@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Objects;

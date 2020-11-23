@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.Paths.Objects;
@@ -11,9 +10,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
     using HappyBananaStudio.OurAshes.Tactics.Api.Utilities.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.Weapons.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Api.Weapons.Reports;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Hoplites.Attributes;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Attributes;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Weapons.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Utilities;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Weapons;
     using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;

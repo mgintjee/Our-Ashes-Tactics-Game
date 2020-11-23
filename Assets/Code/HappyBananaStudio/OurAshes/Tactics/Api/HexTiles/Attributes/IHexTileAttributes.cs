@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Attributes
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Attributes
 {
     /// <summary>
     /// Todo

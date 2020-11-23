@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;

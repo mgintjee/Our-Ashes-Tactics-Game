@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.HexTiles
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.HexTiles
 {
     /// <summary>
     /// Enum to identify HexTile Types

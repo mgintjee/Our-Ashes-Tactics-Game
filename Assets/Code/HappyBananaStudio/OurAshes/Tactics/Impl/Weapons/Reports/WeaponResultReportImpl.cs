@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Reports
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Reports
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Weapons.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;

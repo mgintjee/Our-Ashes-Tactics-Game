@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Api.Weapons.Reports
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Weapons.Reports
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Weapons.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Weapons;

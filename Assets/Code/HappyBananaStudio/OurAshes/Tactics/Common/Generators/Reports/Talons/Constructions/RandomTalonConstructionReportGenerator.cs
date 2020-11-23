@@ -1,16 +1,14 @@
-﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Generators.Reports.Talons.Construction
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Generators.Reports.Talons.Constructions
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Hoplites.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Construction;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Customization;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Factions;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Phalanxes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Utilities;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Weapons;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Generators.Reports.Hoplites.Construction;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.RandomNumberGenerators;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Constuction;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Information;

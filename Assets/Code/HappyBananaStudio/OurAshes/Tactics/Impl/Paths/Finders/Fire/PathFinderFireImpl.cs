@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Finders.Fire
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Finders.Fire
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Objects;

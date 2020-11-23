@@ -1,6 +1,5 @@
 ﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.ROEs.Objects
 {
-    using HappyBananaStudio.OurAshes.Tactics.Api.ROEs.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Factions;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Phalanxes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons;

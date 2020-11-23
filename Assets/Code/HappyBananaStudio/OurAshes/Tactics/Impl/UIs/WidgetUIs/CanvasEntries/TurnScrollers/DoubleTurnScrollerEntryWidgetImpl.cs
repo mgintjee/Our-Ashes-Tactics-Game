@@ -1,4 +1,4 @@
-﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.UIs.WidgetUIs.CanvasEntires.TurnScrollers
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.UIs.WidgetUIs.CanvasEntries.TurnScrollers
 {
     using HappyBananaStudio.OurAshes.Tactics.Abs.UIs.WidgetUIs.Complex;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;

@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.Weapons.Attributes
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Weapons.Attributes
 {
     /// <summary>
     /// Weapon Attributes Api

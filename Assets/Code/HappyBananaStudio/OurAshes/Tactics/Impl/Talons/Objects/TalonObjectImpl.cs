@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.Hoplites.Objects;

@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Initializers.Scripts
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Initializers.Scripts
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Initializers.Reports;
 

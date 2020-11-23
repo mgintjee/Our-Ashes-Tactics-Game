@@ -1,10 +1,7 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Models.Reports
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Models.Reports
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Maps.Games.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Models.Reports;
-    using HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
     using System.Collections.Generic;
 

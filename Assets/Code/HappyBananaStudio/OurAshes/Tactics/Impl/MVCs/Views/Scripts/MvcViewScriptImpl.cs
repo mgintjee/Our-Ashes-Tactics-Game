@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Views.Scripts
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Views.Scripts
 {
     using HappyBananaStudio.OurAshes.Tactics.Abs.Unity.Scripts;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;

@@ -1,7 +1,5 @@
-﻿namespace HappyBananaStudio.OurAshes.Tactics.Abs.Rosters.Objects
+﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Abs.Rosters.Objects
 {
-    using HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Objects;
-
     /// <summary>
     /// Abstract RosterObject Impl
     /// </summary>

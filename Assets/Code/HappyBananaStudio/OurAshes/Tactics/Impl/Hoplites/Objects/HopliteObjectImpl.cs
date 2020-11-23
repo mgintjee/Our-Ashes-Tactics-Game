@@ -1,12 +1,9 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Hoplites.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Hoplites.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Hoplites.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Hoplites.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Construction;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Hoplites.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Hoplites;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Hoplites.Reports;

@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Emblems
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Emblems
 {
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons;
     using System.Collections.Generic;

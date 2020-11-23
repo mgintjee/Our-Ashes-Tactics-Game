@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Reports
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Reports
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.HexTiles;

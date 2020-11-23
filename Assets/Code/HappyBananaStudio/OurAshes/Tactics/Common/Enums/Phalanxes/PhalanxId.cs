@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.Phalanxes
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.Phalanxes
 {
     /// <summary>
     /// Todo

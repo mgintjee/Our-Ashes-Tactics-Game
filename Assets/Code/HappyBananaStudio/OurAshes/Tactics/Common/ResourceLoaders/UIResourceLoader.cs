@@ -9,7 +9,6 @@
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
     using HappyBananaStudio.OurAshes.Tactics.Impl.UIs.CanvasUIs;
     using HappyBananaStudio.OurAshes.Tactics.Impl.UIs.WidgetUIs.Basics;
-    using HappyBananaStudio.OurAshes.Tactics.Impl.UIs.WidgetUIs.CanvasEntires.TurnScrollers;
     using HappyBananaStudio.OurAshes.Tactics.Impl.UIs.WidgetUIs.CanvasEntries.ScoreBoards;
     using HappyBananaStudio.OurAshes.Tactics.Impl.UIs.WidgetUIs.Complex;
     using System.Diagnostics;

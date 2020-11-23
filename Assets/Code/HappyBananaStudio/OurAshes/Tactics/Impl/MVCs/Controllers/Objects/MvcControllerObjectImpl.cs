@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Controllers.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Controllers.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Hoplites.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
@@ -11,7 +9,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.MVCs.Controllers.Objects
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Turn;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
-    using HappyBananaStudio.OurAshes.Tactics.Impl.AIs.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
     using System.Diagnostics;
 

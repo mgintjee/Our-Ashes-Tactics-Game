@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.Loggers
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Loggers
 {
     /// <summary>
     /// Todo

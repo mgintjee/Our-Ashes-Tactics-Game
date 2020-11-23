@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.Hoplites
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.Hoplites
 {
     /// <summary>
     /// Todo

@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.Schemes.Color
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.Schemes.Color
 {
     /// <summary>
     /// Todo

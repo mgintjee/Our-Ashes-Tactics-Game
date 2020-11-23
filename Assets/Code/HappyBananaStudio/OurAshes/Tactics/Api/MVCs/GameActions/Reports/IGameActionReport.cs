@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.GameActions.Reports
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.GameActions.Reports
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Maps.Games.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Results;

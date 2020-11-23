@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.Schemes.Emblem
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.Schemes.Emblem
 {
     /// <summary>
     /// Todo

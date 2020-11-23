@@ -4,7 +4,6 @@
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Api.UIs.WidgetUIs.CanvasEntries;
     using HappyBananaStudio.OurAshes.Tactics.Api.UIs.WidgetUIs.Complex;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Factions.Schemes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Factions;
     using HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;

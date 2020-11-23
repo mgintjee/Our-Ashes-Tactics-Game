@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.HexTiles.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.HexTiles.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Reports;

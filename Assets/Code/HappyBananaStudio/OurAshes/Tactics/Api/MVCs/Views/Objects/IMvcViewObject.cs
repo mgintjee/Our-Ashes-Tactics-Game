@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Views.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Views.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.GameActions.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;

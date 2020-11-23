@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.Maps.Worlds.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Maps.Worlds.Objects
 {
     /// <summary>
     /// WorldMap Object Api

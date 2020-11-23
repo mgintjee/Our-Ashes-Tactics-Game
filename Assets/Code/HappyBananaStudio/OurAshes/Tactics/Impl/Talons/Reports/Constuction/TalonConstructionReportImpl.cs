@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Constuction
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Constuction
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Hoplites.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Construction;

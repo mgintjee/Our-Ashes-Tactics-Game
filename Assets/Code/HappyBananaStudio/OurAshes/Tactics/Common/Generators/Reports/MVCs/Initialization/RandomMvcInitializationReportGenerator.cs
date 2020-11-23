@@ -2,7 +2,6 @@
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Initializers.Reports;
-    using HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Factions;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Phalanxes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates;

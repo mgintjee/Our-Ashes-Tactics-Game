@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Controllers.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Controllers.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Turn;

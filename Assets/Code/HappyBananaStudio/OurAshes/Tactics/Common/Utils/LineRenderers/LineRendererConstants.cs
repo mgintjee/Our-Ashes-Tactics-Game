@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.LineRenderers
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.LineRenderers
 {
     /// <summary>
     /// Todo

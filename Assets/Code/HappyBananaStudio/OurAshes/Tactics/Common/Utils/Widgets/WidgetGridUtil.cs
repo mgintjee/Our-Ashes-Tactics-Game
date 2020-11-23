@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Widgets
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Widgets
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Canvas;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;

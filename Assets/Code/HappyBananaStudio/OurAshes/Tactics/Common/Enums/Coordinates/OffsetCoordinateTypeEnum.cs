@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.Coordinates
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.Coordinates
 {
     /// <summary>
     /// Todo

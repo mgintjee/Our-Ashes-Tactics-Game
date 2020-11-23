@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Reports
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Managers.Rosters.Reports
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Information;
     using System.Collections.Generic;

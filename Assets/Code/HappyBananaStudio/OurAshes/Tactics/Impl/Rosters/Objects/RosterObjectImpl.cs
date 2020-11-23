@@ -1,12 +1,9 @@
 ﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Rosters.Objects
 {
-    using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
-    using HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Construction;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
-    using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects;
     using System.Collections.Generic;
     using System.Diagnostics;

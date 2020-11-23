@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.AIs.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.AIs.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
     using System.Collections.Generic;

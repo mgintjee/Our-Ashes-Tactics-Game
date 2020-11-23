@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Customization
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Customization
 {
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Schemes.Color;
 

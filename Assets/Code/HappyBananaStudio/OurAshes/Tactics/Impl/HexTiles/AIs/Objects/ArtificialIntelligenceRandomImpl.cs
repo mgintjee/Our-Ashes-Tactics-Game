@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.AIs.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.HexTiles.AIs.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Actions.Orders;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.RandomNumberGenerators;

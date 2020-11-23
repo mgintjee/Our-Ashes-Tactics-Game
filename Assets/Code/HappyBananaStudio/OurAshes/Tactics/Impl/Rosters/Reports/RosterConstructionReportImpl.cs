@@ -1,6 +1,5 @@
 ﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Rosters.Reports
 {
-    using HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Construction;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Factions;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Phalanxes;

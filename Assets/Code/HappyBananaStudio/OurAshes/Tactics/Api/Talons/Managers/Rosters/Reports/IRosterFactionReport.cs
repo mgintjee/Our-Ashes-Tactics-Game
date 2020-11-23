@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Api.Rosters.Reports
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Managers.Rosters.Reports
 {
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Factions;
     using System.Collections.Generic;

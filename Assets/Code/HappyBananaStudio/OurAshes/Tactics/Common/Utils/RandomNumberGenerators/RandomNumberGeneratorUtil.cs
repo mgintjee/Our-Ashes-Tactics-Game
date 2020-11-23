@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.RandomNumberGenerators
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.RandomNumberGenerators
 {
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;
     using System;

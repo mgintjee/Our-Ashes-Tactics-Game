@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions
 {
     using System;
 

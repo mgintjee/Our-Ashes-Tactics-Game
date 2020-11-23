@@ -1,14 +1,9 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Construction;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Hoplites.Attributes;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Talons.Attributes;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.Utilities.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Utilities;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Reports.Attributes;

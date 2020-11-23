@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.Hoplites.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Hoplites.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Hoplites.Reports;
 

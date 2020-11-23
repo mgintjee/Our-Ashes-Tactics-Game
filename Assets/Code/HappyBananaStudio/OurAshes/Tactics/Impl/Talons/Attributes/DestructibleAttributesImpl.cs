@@ -1,4 +1,4 @@
-﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Attributes
+﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Impl.Talons.Attributes
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;

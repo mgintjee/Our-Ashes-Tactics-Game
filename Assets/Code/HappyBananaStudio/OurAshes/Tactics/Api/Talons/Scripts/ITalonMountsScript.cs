@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Scripts
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Scripts
 {
     using UnityEngine;
 

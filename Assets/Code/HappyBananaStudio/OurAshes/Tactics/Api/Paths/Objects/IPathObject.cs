@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.Paths.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Paths.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using System.Collections.Generic;

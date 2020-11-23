@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.Weapons
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Enums.Weapons
 {
     /// <summary>
     /// Enum to identify supported weapons

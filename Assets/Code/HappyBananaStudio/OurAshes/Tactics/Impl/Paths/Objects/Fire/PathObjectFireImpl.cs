@@ -1,12 +1,9 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Objects.Fire
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Objects.Fire
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Impl.Paths.Objects.Abs;

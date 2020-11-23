@@ -1,10 +1,7 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Offset;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Coordinates;
     using UnityEngine;
 

@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Maps.Games.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Maps.Games.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.HexTiles.Attributes;
@@ -8,7 +7,6 @@ namespace HappyBananaStudio.OurAshes.Tactics.Impl.Maps.Games.Objects
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Api.Maps.Games.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.Maps.Games.Reports;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Managers.CodeObjects;
     using HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Coordinates;

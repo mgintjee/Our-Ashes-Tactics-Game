@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Weapons
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.Weapons
 {
     /// <summary>
     /// Todo

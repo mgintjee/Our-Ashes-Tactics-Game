@@ -3,12 +3,12 @@
 - Strategy/Simulation Turn-based Hex Mech Game
 - Comparable to Battletech but probs worse
 
-## Goals:
+# Goals:
 - Similar to Battle Brothers in a lot of ways except with giant bro-bots
 - Simulation capable (Allow idle play for those who want it)
 - World map that is affected by player actions by expanding territory of factions (Need to make said world map)
 
-## Todo List:
+# Todo List:
 - **DONE** Update what information reports contain
 - **DONE** Have a ExceptionUtil similar to Logger to allow for easier string generation
 - **DONE (Via the HopliteReport)** Have the talon's determine whether to allow the "Human" to control or the "Pilot"
@@ -27,7 +27,7 @@
 - **OBE** Update weapons to track their index
 - **DONE** Create Widget Dimension and WidgetPosition structs that are vectors with int values
 
-# UI Crap
+## UI Crap:
 - Implement World Map generation that is made up of giant hex tiles
 - Have a world map that the battles zoom in on and exist on top of a world tile maybe have a new scene that generates the landscape by using some parameters from the world map to minimize unused world tiles off screen
 - Have the pilots look like Among Us style (Arms are overrated)
@@ -41,17 +41,22 @@
 - Update the sprites to no longer have a black outline. I think I can use Unity's Outline component to get the effect I desire
 - Have doodads on the hexTile tops 
 
-# Game Mechanics Crap
+## Game Mechanics Crap:
 - Add different battle types (Ambush, King of the hill, deathmatch)
 - Have armor be dynamic as the battle goes on, you lose armor or something based off of penetration (If the penetration makes the armor remaining negative, lose 1 armor point? Have weapons deal armor damage?)
-- Change the base of the Talon to be the Faction color. It seems pretty obv to determine which tile a talon is on (Which would imply that the ident report is unnecessary?) (Also i think then I just need to worry about the Phalanx Emblem now!!!!)- Have the callsigns be unique per faction (NOT PER PHALANX) Update: Callsigns unique per talon might be best (This would mean I no longer would need to id talon's by the id report and could Id by callsign?)
+- Change the base of the Talon to be the Faction color. It seems pretty obv to determine which tile a talon is on (Which would imply that the ident report is unnecessary?) (Also i think then I just need to worry about the Phalanx Emblem now!!!!)
+- Have the callsigns be unique per faction (NOT PER PHALANX) Update: Callsigns unique per talon might be best (This would mean I no longer would need to id talon's by the id report and could Id by callsign?)
 - Update Talon Construction
 - Add Heavy and Light weapons as well as Weapon Types (Shotgun, Assault, Etc)
 - Make loadouts for talons similar to how Destiny does?
 - Have the frame be the talon model that has its own attributes (Mainly (H/L)weapon/utility slots and base attributes (HP/AP/PP/MP)) and then you can add the armor(1)/engine(1)?
 - Make weapons have rolls that vary what traits they can have that can affect their attributes
+- Similar to Destiny where they have rarity where the rarity determines how many of the "perks" are modular
 - Update the Game to handle Faction (with sets of Phalanxes on the same Faction) and Phalanx (Independent Phalanxes) game types
+- Have a Talon have MountPoints that can store either Weapons/Utilities (So, yes a Talon can enter a battle with 0 weapons) (Should talons have a base attack like ram? Deals damage to both but more for the other? Deals more damage based off of the total armor and health points of the rammer?)
+- Have health and combat use floats instead of ints for health and damage
 
-# File Structure
+## File Structure:
 - Update the folder structure to be based off of file type
 - Maybe move the gameObjectManager with the MvcViewScript or something
+- Start using InheritDoc to minimize common documentation

@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.HexTiles;

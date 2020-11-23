@@ -1,10 +1,8 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.LineRenderers
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Common.Utils.LineRenderers
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Cube;
     using HappyBananaStudio.OurAshes.Tactics.Api.Loggers;
     using HappyBananaStudio.OurAshes.Tactics.Api.Paths.Objects;
-    using HappyBananaStudio.OurAshes.Tactics.Common.Constants.HexTiles;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Talons;
     using HappyBananaStudio.OurAshes.Tactics.Common.Managers.GameObjects;
     using HappyBananaStudio.OurAshes.Tactics.Common.ResourceLoaders;

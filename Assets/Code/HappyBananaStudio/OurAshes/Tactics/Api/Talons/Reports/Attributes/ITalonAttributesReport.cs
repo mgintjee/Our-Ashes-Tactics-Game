@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Attributes
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Talons.Reports.Attributes
 {
     /// <summary>
     /// Todo

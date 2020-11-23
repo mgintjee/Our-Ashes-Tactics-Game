@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.Utilities.Reports
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Utilities.Reports
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Talons.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Enums.Utilities;

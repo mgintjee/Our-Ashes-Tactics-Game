@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Attributes
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Impl.Weapons.Attributes
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.Weapons.Attributes;
     using HappyBananaStudio.OurAshes.Tactics.Common.Utils.Exceptions;

@@ -1,6 +1,4 @@
-﻿
-
-namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Models.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Models.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.GameActions.Reports;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Models.Reports;

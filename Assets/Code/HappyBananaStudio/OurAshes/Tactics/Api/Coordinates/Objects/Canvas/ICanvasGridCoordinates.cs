@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Canvas
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.Coordinates.Objects.Canvas
 {
     /// <summary>
     /// Todo

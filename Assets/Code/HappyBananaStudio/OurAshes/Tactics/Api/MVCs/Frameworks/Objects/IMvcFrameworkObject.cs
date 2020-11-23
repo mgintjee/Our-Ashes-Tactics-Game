@@ -1,5 +1,4 @@
-﻿
-namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Objects
+﻿namespace HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Objects
 {
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Controllers.Objects;
     using HappyBananaStudio.OurAshes.Tactics.Api.MVCs.Frameworks.Scripts;
