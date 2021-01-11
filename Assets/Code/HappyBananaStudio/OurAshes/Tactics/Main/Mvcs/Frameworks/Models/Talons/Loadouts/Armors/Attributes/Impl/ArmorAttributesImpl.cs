@@ -1,0 +1,105 @@
+﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Armors.Attributes.Impl
+{
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Armors.Attributes.Api;
+    using System.Collections.Generic;
+
+    /// <summary>
+    /// Todo
+    /// </summary>
+    public struct ArmorAttributesImpl
+        : IArmorAttributes
+    {
+        // Todo
+        private readonly float armorPoints;
+
+        // Todo
+        private readonly float healthPoints;
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="armorPoints"></param>
+        /// <param name="healthPoints"></param>
+        private ArmorAttributesImpl(float armorPoints, float healthPoints)
+        {
+            this.armorPoints = armorPoints;
+            this.healthPoints = healthPoints;
+        }
+
+        /// <inheritdoc/>
+        float IArmorAttributes.GetArmorPoints()
+        {
+            return this.armorPoints;
+        }
+
+        /// <inheritdoc/>
+        float IArmorAttributes.GetHealthPoints()
+        {
+            return this.healthPoints;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        public class Builder
+        {
+            // Todo
+            private float armorPoints = 0;
+
+            // Todo
+            private float healthPoints = 0;
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <returns></returns>
+            public IArmorAttributes Build()
+            {
+                // Instantiate a new Report
+                return new ArmorAttributesImpl(this.armorPoints, this.healthPoints);
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <param name="armorAttributesSet"></param>
+            /// <returns></returns>
+            public IArmorAttributes Build(ISet<IArmorAttributes> armorAttributesSet)
+            {
+                // Reset the value to 0
+                this.armorPoints = 0;
+                // Reset the value to 0
+                this.healthPoints = 0;
+                // Iterate over the other attributes
+                foreach (IArmorAttributes armorAttributes in armorAttributesSet)
+                {
+                    this.armorPoints += armorAttributes.GetArmorPoints();
+                    this.healthPoints += armorAttributes.GetHealthPoints();
+                }
+
+                // Instantiate a new Report
+                return new ArmorAttributesImpl(this.armorPoints, this.healthPoints);
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <param name="armorPoints"></param>
+            public Builder SetArmorPoints(float armorPoints)
+            {
+                this.armorPoints = armorPoints;
+                return this;
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <param name="healthPoints"></param>
+            public Builder SetHealthPoints(float healthPoints)
+            {
+                this.healthPoints = healthPoints;
+                return this;
+            }
+        }
+    }
+}

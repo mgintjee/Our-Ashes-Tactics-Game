@@ -16,7 +16,6 @@
 - **DONE** Update Behaviors to generate their own reports and have a aggregated report that contains all of the sub-reports
 - **DONE** Use emblem generator for the phalanx/faction images (Can be expanded)
 - **DONE** Use nato alphabet for phalanx ids 
-- **DONE** Implement Pilots (Similar to how Battle Brothers are generated)
 - **DONE** Simplify Talon/Weapon objects by just tracking the the attribute structures and going from there (Ideally, I want to simplify the complexity)
 - **DONE** Since I do not plan on animating weapons, I should remove the weapon scripts. And jsut add the game objects to the talon game object and keep track of the weapons as objects (Not game objects)
 - **DONE** Arguably remove the scripts for most Talon functionality if I have a manager involved to move the game object
@@ -42,6 +41,7 @@
 - Have doodads on the hexTile tops 
 
 ## Game Mechanics Crap:
+- Implement Pilots (Similar to how Battle Brothers are generated)
 - Add different battle types (Ambush, King of the hill, deathmatch)
 - Have armor be dynamic as the battle goes on, you lose armor or something based off of penetration (If the penetration makes the armor remaining negative, lose 1 armor point? Have weapons deal armor damage?)
 - Change the base of the Talon to be the Faction color. It seems pretty obv to determine which tile a talon is on (Which would imply that the ident report is unnecessary?) (Also i think then I just need to worry about the Phalanx Emblem now!!!!)
@@ -55,8 +55,11 @@
 - Update the Game to handle Faction (with sets of Phalanxes on the same Faction) and Phalanx (Independent Phalanxes) game types
 - Have a Talon have MountPoints that can store either Weapons/Utilities (So, yes a Talon can enter a battle with 0 weapons) (Should talons have a base attack like ram? Deals damage to both but more for the other? Deals more damage based off of the total armor and health points of the rammer?)
 - Have health and combat use floats instead of ints for health and damage
+- Have traits be unique for the loadoutTypes
+- Add status/effects of weapons and utilities
 
 ## File Structure:
 - Update the folder structure to be based off of file type
 - Maybe move the gameObjectManager with the MvcViewScript or something
 - Start using InheritDoc to minimize common documentation
+- Actually have weapon implementations and not just the numbers

@@ -1,0 +1,85 @@
+﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Armors.Constants
+{
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Armors.Enums;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Common.Attributes.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Common.Attributes.Impl;
+    using HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+
+    /// <summary>
+    /// Todo
+    /// </summary>
+    public static class ArmorTraitConstants
+    {
+        /// <summary>
+        /// Todo
+        /// </summary>
+        public static class Materials
+        {
+            // Todo
+            private static readonly IDictionary<ArmorTraitMaterial, ILoadoutAttributes> armorTraitMaterialLoadoutAttributesDictionary =
+                new Dictionary<ArmorTraitMaterial, ILoadoutAttributes>()
+                {
+                {
+                    ArmorTraitMaterial.None,
+                    new LoadoutAttributesImpl.Builder().Build()
+                },
+                };
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <param name="armorTraitMaterial"></param>
+            /// <returns></returns>
+            public static ILoadoutAttributes GetLoadoutAttributes(ArmorTraitMaterial armorTraitMaterial)
+            {
+                // Check if the armorTraitMaterial is supported
+                if (armorTraitMaterialLoadoutAttributesDictionary.ContainsKey(armorTraitMaterial))
+                {
+                    return armorTraitMaterialLoadoutAttributesDictionary[armorTraitMaterial];
+                }
+                else
+                {
+                    throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+                        new StackFrame().GetMethod().Name, armorTraitMaterial);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        public static class Structures
+        {
+            // Todo
+            private static readonly IDictionary<ArmorTraitStructure, ILoadoutAttributes> armorTraitStructureLoadoutAttributesDictionary =
+                new Dictionary<ArmorTraitStructure, ILoadoutAttributes>()
+                {
+                {
+                    ArmorTraitStructure.None,
+                    new LoadoutAttributesImpl.Builder().Build()
+                },
+                };
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <param name="armorTraitStructure"></param>
+            /// <returns></returns>
+            public static ILoadoutAttributes GetLoadoutAttributes(ArmorTraitStructure armorTraitStructure)
+            {
+                // Check if the armorTraitStructure is supported
+                if (armorTraitStructureLoadoutAttributesDictionary.ContainsKey(armorTraitStructure))
+                {
+                    return armorTraitStructureLoadoutAttributesDictionary[armorTraitStructure];
+                }
+                else
+                {
+                    throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+                        new StackFrame().GetMethod().Name, armorTraitStructure);
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,70 @@
+﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Engines.Constants
+{
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Armors.Attributes.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Common.Attributes.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Common.Attributes.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Engines.Attributes.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Engines.Enums;
+    using HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+
+    /// <summary>
+    /// Todo
+    /// </summary>
+    public static class EngineIdConstants
+    {
+        // Todo
+        private static readonly IDictionary<EngineId, ILoadoutAttributes> engineIdArmorAttributesDictionary =
+            new Dictionary<EngineId, ILoadoutAttributes>()
+            {
+                {
+                    EngineId.None,
+                    new LoadoutAttributesImpl.Builder().Build()
+                },
+                {
+                    EngineId.Sturdy1,
+                    new LoadoutAttributesImpl.Builder()
+                    .SetArmorAttributes(new ArmorAttributesImpl.Builder()
+                        .SetArmorPoints(1)
+                        .SetHealthPoints(1)
+                        .Build())
+                    .SetEngineAttributes(new EngineAttributesImpl.Builder()
+                        .SetMovementPoints(-2)
+                        .Build())
+                    .Build()
+                },
+                {
+                    EngineId.Quick1,
+                    new LoadoutAttributesImpl.Builder()
+                    .SetArmorAttributes(new ArmorAttributesImpl.Builder()
+                        .SetArmorPoints(-1)
+                        .SetHealthPoints(-1)
+                        .Build())
+                    .SetEngineAttributes(new EngineAttributesImpl.Builder()
+                        .SetMovementPoints(+2)
+                        .Build())
+                    .Build()
+                }
+            };
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="engineId"></param>
+        /// <returns></returns>
+        public static ILoadoutAttributes GetLoadoutAttributes(EngineId engineId)
+        {
+            // Check if the engineId is supported
+            if (engineIdArmorAttributesDictionary.ContainsKey(engineId))
+            {
+                return engineIdArmorAttributesDictionary[engineId];
+            }
+            else
+            {
+                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+                    new StackFrame().GetMethod().Name, engineId);
+            }
+        }
+    }
+}

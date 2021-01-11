@@ -1,0 +1,100 @@
+﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Attributes.Constants
+{
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Armors.Attributes.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Attributes.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Attributes.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Engines.Attributes.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Common.Enums;
+    using HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+
+    /// <summary>
+    /// Todo
+    /// </summary>
+    public class TalonLoadoutAttributesConstants
+    {
+        // Todo
+        private static readonly IDictionary<TalonId, ITalonLoadoutAttributes> talonIdLoadoutAttributesDictionary =
+                new Dictionary<TalonId, ITalonLoadoutAttributes>()
+                {
+                    {
+                        TalonId.Talon0,
+                        new TalonLoadoutAttributesImpl.Builder()
+                            .SetArmorAttributes(new ArmorAttributesImpl.Builder()
+                                .SetArmorPoints(3)
+                                .SetHealthPoints(14)
+                                .Build())
+                            .SetEngineAttributes(new EngineAttributesImpl.Builder()
+                                .SetActionPoints(3)
+                                .SetMovementPoints(16)
+                                .Build())
+                            .SetMountSizeList(new List<MountSize>()
+                            {
+                                MountSize.Small,
+                                MountSize.Small,
+                            })
+                        .Build()
+                    },
+                    {
+                        TalonId.Talon1,
+                        new TalonLoadoutAttributesImpl.Builder()
+                            .SetArmorAttributes(new ArmorAttributesImpl.Builder()
+                                .SetArmorPoints(5)
+                                .SetHealthPoints(20)
+                                .Build())
+                            .SetEngineAttributes(new EngineAttributesImpl.Builder()
+                                .SetActionPoints(2)
+                                .SetMovementPoints(14)
+                                .Build())
+                            .SetMountSizeList(new List<MountSize>()
+                            {
+                                MountSize.Small,
+                                MountSize.Large,
+                                MountSize.Small
+                            })
+                        .Build()
+                    },
+                    {
+                        TalonId.Talon2,
+                        new TalonLoadoutAttributesImpl.Builder()
+                            .SetArmorAttributes(new ArmorAttributesImpl.Builder()
+                                .SetArmorPoints(6)
+                                .SetHealthPoints(24)
+                                .Build())
+                            .SetEngineAttributes(new EngineAttributesImpl.Builder()
+                                .SetActionPoints(2)
+                                .SetMovementPoints(12)
+                                .Build())
+                            .SetMountSizeList(new List<MountSize>()
+                            {
+                                MountSize.Small,
+                                MountSize.Large,
+                                MountSize.Large,
+                                MountSize.Small
+                            })
+                        .Build()
+                    }
+                };
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="talonId"></param>
+        /// <returns></returns>
+        public static ITalonLoadoutAttributes GetTalonLoadoutAttributes(TalonId talonId)
+        {
+            // Check if the talonId is supported
+            if (talonIdLoadoutAttributesDictionary.ContainsKey(talonId))
+            {
+                return talonIdLoadoutAttributesDictionary[talonId];
+            }
+            else
+            {
+                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+                    new StackFrame().GetMethod().Name, talonId);
+            }
+        }
+    }
+}
