@@ -1,8 +1,8 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Utils
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Impl;
-    using HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using System.Collections.Generic;
     using System.Diagnostics;
     using UnityEngine;
@@ -62,7 +62,7 @@
         public static int GetCubeCoordinatesDistanceFromCenter(ICubeCoordinates cubeCoordinates)
         {
             return GetCubeCoordinatesDistanceFrom(cubeCoordinates,
-                new CubeCoordinatesImpl.Builder()
+                new CubeCoordinates.Builder()
                     .SetX(0)
                     .SetY(0)
                     .SetZ(0)
@@ -80,7 +80,7 @@
         {
             if (cubeCoordinates != null)
             {
-                return new CubeCoordinatesImpl.Builder()
+                return new CubeCoordinates.Builder()
                     .SetX(-1 * cubeCoordinates.GetX())
                     .SetY(-1 * cubeCoordinates.GetY())
                     .SetZ(-1 * cubeCoordinates.GetZ())
@@ -106,32 +106,32 @@
         {
             return new HashSet<ICubeCoordinates>
             {
-                new CubeCoordinatesImpl.Builder()
+                new CubeCoordinates.Builder()
                     .SetX(cubeCoordinates.GetX() + 1)
                     .SetY(cubeCoordinates.GetY())
                     .SetZ(cubeCoordinates.GetZ() - 1)
                     .Build(),
-                new CubeCoordinatesImpl.Builder()
+                new CubeCoordinates.Builder()
                     .SetX(cubeCoordinates.GetX() + 1)
                     .SetY(cubeCoordinates.GetY() - 1)
                     .SetZ(cubeCoordinates.GetZ())
                     .Build(),
-                new CubeCoordinatesImpl.Builder()
+                new CubeCoordinates.Builder()
                     .SetX(cubeCoordinates.GetX())
                     .SetY(cubeCoordinates.GetY() + 1)
                     .SetZ(cubeCoordinates.GetZ() - 1)
                     .Build(),
-                new CubeCoordinatesImpl.Builder()
+                new CubeCoordinates.Builder()
                     .SetX(cubeCoordinates.GetX())
                     .SetY(cubeCoordinates.GetY() - 1)
                     .SetZ(cubeCoordinates.GetZ() + 1)
                     .Build(),
-                new CubeCoordinatesImpl.Builder()
+                new CubeCoordinates.Builder()
                     .SetX(cubeCoordinates.GetX() - 1)
                     .SetY(cubeCoordinates.GetY())
                     .SetZ(cubeCoordinates.GetZ() + 1)
                     .Build(),
-                new CubeCoordinatesImpl.Builder()
+                new CubeCoordinates.Builder()
                     .SetX(cubeCoordinates.GetX() - 1)
                     .SetY(cubeCoordinates.GetY() + 1)
                     .SetZ(cubeCoordinates.GetZ())

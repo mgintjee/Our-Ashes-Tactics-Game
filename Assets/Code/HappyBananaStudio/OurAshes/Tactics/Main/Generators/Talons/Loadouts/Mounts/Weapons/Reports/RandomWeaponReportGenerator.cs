@@ -1,6 +1,8 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Generators.Talons.Loadouts.Mounts.Weapons.Reports
 {
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Common.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Common.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Weapons.Constants;
@@ -17,6 +19,7 @@
     /// </summary>
     public static class RandomWeaponReportGenerator
     {
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -55,13 +58,13 @@
         public static IWeaponReport GenerateRandomWeaponReport(LoadoutRarity loadoutRarity, MountSize mountSize)
         {
             WeaponId weaponId = GetRandomWeaponId(loadoutRarity, mountSize);
-            // Todo: Only randomize traits for non-unique loadouts
+            // Todo: Only randomize traits for non-unique loadouts which is determined by the loadoutRarity
             WeaponTraitAmmo weaponTraitAmmo = WeaponTraitAmmo.None;
             WeaponTraitBarrel weaponTraitBarrel = WeaponTraitBarrel.None;
             WeaponTraitMagazine weaponTraitMagazine = WeaponTraitMagazine.None;
             WeaponTraitTargeting weaponTraitTargeting = WeaponTraitTargeting.None;
             int traitsRequired = WeaponRarityConstants.GetLoadoutTraitCount(loadoutRarity);
-            int traitsRemaining = 4;
+            float traitsRemaining = 4f;
 
             if (RandomNumberGeneratorUtil.GetNextDouble() <= traitsRequired / traitsRemaining)
             {
@@ -86,12 +89,14 @@
                 weaponTraitTargeting = EnumUtils.GetRandomEnum<WeaponTraitTargeting>();
             }
 
-            return new WeaponReportImpl.Builder()
+            return new WeaponReport.Builder()
                 .SetWeaponId(weaponId)
-                .SetWeaponTraitAmmo(weaponTraitAmmo)
-                .SetWeaponTraitBarrel(weaponTraitBarrel)
-                .SetWeaponTraitMagazine(weaponTraitMagazine)
-                .SetWeaponTraitTargeting(weaponTraitTargeting)
+                .SetWeaponTraitReport(new WeaponTraitReport.Builder()
+                    .SetWeaponTraitAmmo(weaponTraitAmmo)
+                    .SetWeaponTraitBarrel(weaponTraitBarrel)
+                    .SetWeaponTraitMagazine(weaponTraitMagazine)
+                    .SetWeaponTraitTargeting(weaponTraitTargeting)
+                    .Build())
                 .Build();
         }
 
@@ -109,12 +114,12 @@
             weaponIdSet.IntersectWith((loadoutRarity.Equals(LoadoutRarity.None))
                 ? weaponIdSet
                 : WeaponMountSizeConstants.GetWeaponIdSet(mountSize));
-            if (weaponIdSet.Count == 0)
+            if (weaponIdSet.Count != 0)
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? and ? have no corresponding ?s.",
-                        new StackFrame().GetMethod().Name, loadoutRarity, mountSize, typeof(WeaponId));
+                return new List<WeaponId>(weaponIdSet)[RandomNumberGeneratorUtil.GetNextInt(weaponIdSet.Count)];
             }
-            return new List<WeaponId>(weaponIdSet)[RandomNumberGeneratorUtil.GetNextInt(weaponIdSet.Count)];
+            throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? and ? have no corresponding ?s.",
+                    new StackFrame().GetMethod().Name, loadoutRarity, mountSize, typeof(WeaponId));
         }
     }
 }

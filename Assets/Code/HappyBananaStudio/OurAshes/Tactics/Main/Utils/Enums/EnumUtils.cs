@@ -1,7 +1,7 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Utils.Enums
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Randoms.Generators.Numbers;
-    using HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;

@@ -1,9 +1,9 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Engines.Constants
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Common.Attributes.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Common.Attributes.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Engines.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using System.Collections.Generic;
     using System.Diagnostics;
 
@@ -23,7 +23,7 @@
                 {
                 {
                     EngineTraitEfficiency.None,
-                    new LoadoutAttributesImpl.Builder().Build()
+                    new LoadoutAttributes.Builder().Build()
                 },
                 };
 
@@ -58,7 +58,7 @@
                 {
                 {
                     EngineTraitStructure.None,
-                    new LoadoutAttributesImpl.Builder().Build()
+                    new LoadoutAttributes.Builder().Build()
                 },
                 };
 

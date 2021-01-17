@@ -6,6 +6,7 @@
     public enum UtilityId
     {
         None,
-        Utility1,
+        Small1,
+        Large1,
     }
 }

@@ -15,18 +15,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Mo
         /// Todo
         /// </summary>
         /// <returns></returns>
-        int GetActionCount();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        int GetTurnCount();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
         TalonCallSign GetActingTalonCallSign();
 
         /// <summary>

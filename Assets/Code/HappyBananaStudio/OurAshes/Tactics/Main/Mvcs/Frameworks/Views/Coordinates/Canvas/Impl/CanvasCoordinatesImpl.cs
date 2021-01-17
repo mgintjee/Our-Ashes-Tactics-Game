@@ -1,13 +1,13 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Coordinates.Canvas.Impl
 {
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Coordinates.Canvas.Api;
     using System.Collections.Generic;
 
     /// <summary>
     /// Todo
     /// </summary>
-    public struct CanvasGridCoordinatesImpl
+    public struct CanvasGridCoordinates
         : ICanvasGridCoordinates
     {
         // Todo
@@ -23,7 +23,7 @@
         /// </param>
         /// <param name="y">
         /// </param>
-        private CanvasGridCoordinatesImpl(int x, int y)
+        private CanvasGridCoordinates(int x, int y)
         {
             xValue = x;
             yValue = y;
@@ -119,7 +119,7 @@
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new Object
-                    return new CanvasGridCoordinatesImpl(this.xValue, this.yValue);
+                    return new CanvasGridCoordinates(this.xValue, this.yValue);
                 }
                 else
                 {

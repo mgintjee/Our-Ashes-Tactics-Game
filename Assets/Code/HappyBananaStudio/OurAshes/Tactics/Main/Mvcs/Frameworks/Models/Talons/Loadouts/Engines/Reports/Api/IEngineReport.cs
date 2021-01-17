@@ -19,12 +19,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Mo
         /// Todo
         /// </summary>
         /// <returns></returns>
-        EngineTraitEfficiency GetEngineTraitEfficiency();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        EngineTraitStructure GetEngineTraitStructure();
+        IEngineTraitReport GetEngineTraitReport();
     }
 }

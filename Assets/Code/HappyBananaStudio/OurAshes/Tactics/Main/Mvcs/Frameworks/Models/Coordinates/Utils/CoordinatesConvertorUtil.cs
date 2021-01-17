@@ -95,7 +95,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Mo
         {
             int col = cubeCoordinates.GetX();
             int row = cubeCoordinates.GetZ() + (cubeCoordinates.GetX() + (cubeCoordinates.GetX() & 1)) / 2;
-            return new OffsetCoordinatesImpl.Builder()
+            return new OffsetCoordinates.Builder()
                 .SetCol(col)
                 .SetOffsetCoordinateType(OffsetCoordinateType.EVEN_Q)
                 .SetRow(row)
@@ -113,7 +113,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Mo
         {
             int col = cubeCoordinates.GetX() + (cubeCoordinates.GetZ() + (cubeCoordinates.GetZ() & 1)) / 2;
             int row = cubeCoordinates.GetZ();
-            return new OffsetCoordinatesImpl.Builder()
+            return new OffsetCoordinates.Builder()
                 .SetCol(col)
                 .SetOffsetCoordinateType(OffsetCoordinateType.EVEN_R)
                 .SetRow(row)
@@ -131,7 +131,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Mo
         {
             int col = cubeCoordinates.GetX();
             int row = cubeCoordinates.GetZ() + (cubeCoordinates.GetX() - (cubeCoordinates.GetX() & 1)) / 2;
-            return new OffsetCoordinatesImpl.Builder()
+            return new OffsetCoordinates.Builder()
                 .SetCol(col)
                 .SetOffsetCoordinateType(OffsetCoordinateType.ODD_Q)
                 .SetRow(row)
@@ -149,7 +149,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Mo
         {
             int col = cubeCoordinates.GetX() + (cubeCoordinates.GetZ() - (cubeCoordinates.GetZ() & 1)) / 2;
             int row = cubeCoordinates.GetZ();
-            return new OffsetCoordinatesImpl.Builder()
+            return new OffsetCoordinates.Builder()
                 .SetCol(col)
                 .SetOffsetCoordinateType(OffsetCoordinateType.ODD_R)
                 .SetRow(row)
@@ -170,7 +170,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Mo
             int x = row;
             int z = col - (row + (row & 1)) / 2;
             int y = -x - z;
-            return new CubeCoordinatesImpl.Builder()
+            return new CubeCoordinates.Builder()
                 .SetX(x)
                 .SetY(y)
                 .SetZ(z)
@@ -191,7 +191,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Mo
             int x = col - (row + (row & 1)) / 2;
             int z = row;
             int y = -x - z;
-            return new CubeCoordinatesImpl.Builder()
+            return new CubeCoordinates.Builder()
                 .SetX(x)
                 .SetY(y)
                 .SetZ(z)
@@ -212,7 +212,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Mo
             int x = row;
             int z = col - (row - (row & 1)) / 2;
             int y = -x - z;
-            return new CubeCoordinatesImpl.Builder()
+            return new CubeCoordinates.Builder()
                 .SetX(x)
                 .SetY(y)
                 .SetZ(z)
@@ -233,7 +233,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Mo
             int x = col - (row - (row & 1)) / 2;
             int z = row;
             int y = -x - z;
-            return new CubeCoordinatesImpl.Builder()
+            return new CubeCoordinates.Builder()
                 .SetX(x)
                 .SetY(y)
                 .SetZ(z)

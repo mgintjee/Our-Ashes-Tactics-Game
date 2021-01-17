@@ -14,7 +14,7 @@
         /// Todo
         /// </summary>
         /// <param name="turnOrderObject"></param>
-        public static void SetRoeObject(ITurnOrderObject turnOrderObject)
+        public static void SetTurnOrderObject(ITurnOrderObject turnOrderObject)
         {
             TurnOrderManager.turnOrderObject = turnOrderObject;
         }

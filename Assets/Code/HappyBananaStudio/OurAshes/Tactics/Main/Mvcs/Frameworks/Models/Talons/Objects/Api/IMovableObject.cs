@@ -1,6 +1,7 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Objects.Api
 {
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Effects.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Engines.Attributes.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Orders.Reports.Api;
     using System.Collections.Generic;
@@ -38,9 +39,8 @@
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="actionPoints"></param>
-        /// <param name="movementPoints"></param>
-        void InputMovableCosts(float actionPoints, float movementPoints);
+        /// <param name="talonEffectObject"></param>
+        void InputTalonEffect(ITalonEffectObject talonEffectObject);
 
         /// <summary>
         /// Todo

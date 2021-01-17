@@ -1,7 +1,7 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Weapons.Constants
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Weapons.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using System.Collections.Generic;
     using System.Diagnostics;
 
@@ -14,10 +14,6 @@
         private static readonly IDictionary<WeaponType, ISet<WeaponId>> weaponIdWeaponTypeDictionary =
             new Dictionary<WeaponType, ISet<WeaponId>>()
             {
-                {
-                    WeaponType.None,
-                    new HashSet<WeaponId>()
-                },
                 {
                     WeaponType.Assault,
                     new HashSet<WeaponId>()

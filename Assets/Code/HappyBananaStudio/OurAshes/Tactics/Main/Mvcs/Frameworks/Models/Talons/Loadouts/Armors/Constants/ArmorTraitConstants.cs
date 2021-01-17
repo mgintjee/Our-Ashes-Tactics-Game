@@ -1,9 +1,9 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Armors.Constants
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Armors.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Common.Attributes.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Common.Attributes.Impl;
-    using HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using System.Collections.Generic;
     using System.Diagnostics;
 
@@ -23,7 +23,7 @@
                 {
                 {
                     ArmorTraitMaterial.None,
-                    new LoadoutAttributesImpl.Builder().Build()
+                    new LoadoutAttributes.Builder().Build()
                 },
                 };
 
@@ -58,7 +58,7 @@
                 {
                 {
                     ArmorTraitStructure.None,
-                    new LoadoutAttributesImpl.Builder().Build()
+                    new LoadoutAttributes.Builder().Build()
                 },
                 };
 

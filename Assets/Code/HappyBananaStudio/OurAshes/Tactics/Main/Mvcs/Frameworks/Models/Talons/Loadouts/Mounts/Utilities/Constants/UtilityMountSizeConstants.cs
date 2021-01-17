@@ -1,8 +1,8 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Utilities.Constants
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Common.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Utilities.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using System.Collections.Generic;
     using System.Diagnostics;
 
@@ -23,7 +23,14 @@
                     MountSize.Small,
                     new HashSet<UtilityId>()
                     {
-                        UtilityId.Utility1,
+                        UtilityId.Small1,
+                    }
+                },
+                {
+                    MountSize.Large,
+                    new HashSet<UtilityId>()
+                    {
+                        UtilityId.Large1,
                     }
                 }
             };

@@ -7,10 +7,6 @@
     {
         None,
         Human,
-        Poacher,
-        Sniper,
-        Random,
-        Tank,
-        Survivor,
+        AI
     }
 }

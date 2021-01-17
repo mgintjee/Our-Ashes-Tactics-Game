@@ -45,5 +45,12 @@
         /// </summary>
         /// <returns></returns>
         IRosterReport GetRosterReport();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="talonCallSign"></param>
+        /// <returns></returns>
+        bool IsTalonCallSignAlive(TalonCallSign talonCallSign);
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.ResourceLoaders.Sprites
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Customizations.Emblem.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using System.Diagnostics;
     using UnityEngine;
 

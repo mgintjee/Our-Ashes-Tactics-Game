@@ -15,7 +15,7 @@
     public class PathObjectValidatorUtil
     {
         // Provide logging capability
-        private static readonly ICodeLogger logger = new CodeLoggerImpl(new StackFrame().GetMethod().DeclaringType);
+        private static readonly ICodeLogger logger = new CodeLogger(new StackFrame().GetMethod().DeclaringType);
 
         /// <summary>
         /// Todo
@@ -90,7 +90,7 @@
                 for (int i = 1; i < cubeCoordinatesList.Count; ++i)
                 {
                     ICubeCoordinates currentCubeCoordinates = cubeCoordinatesList[i];
-                    if (!GameBoardObjectManager.GetNeighborCubeCoordinates(previousCubeCoordinates)
+                    if (!GameBoardManager.GetNeighborCubeCoordinates(previousCubeCoordinates)
                         .Contains(currentCubeCoordinates))
                     {
                         return false;

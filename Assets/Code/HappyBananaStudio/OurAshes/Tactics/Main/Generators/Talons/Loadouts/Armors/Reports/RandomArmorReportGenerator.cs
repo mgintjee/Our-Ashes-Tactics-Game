@@ -1,6 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Generators.Talons.Loadouts.Armors.Reports
 {
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Armors.Constants;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Armors.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Armors.Reports.Api;
@@ -41,10 +41,12 @@
                 armorTraitStructure = EnumUtils.GetRandomEnum<ArmorTraitStructure>();
             }
 
-            return new ArmorReportImpl.Builder()
+            return new ArmorReport.Builder()
                 .SetArmorId(armorId)
-                .SetArmorTraitMaterial(armorTraitMaterial)
-                .SetArmorTraitStructure(armorTraitStructure)
+                .SetArmorTraitReport(new ArmorTraitReport.Builder()
+                    .SetArmorTraitMaterial(armorTraitMaterial)
+                    .SetArmorTraitStructure(armorTraitStructure)
+                    .Build())
                 .Build();
         }
 

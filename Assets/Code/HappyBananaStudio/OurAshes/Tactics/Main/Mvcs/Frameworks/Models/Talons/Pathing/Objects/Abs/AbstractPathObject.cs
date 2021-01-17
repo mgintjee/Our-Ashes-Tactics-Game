@@ -1,14 +1,11 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Pathing.Objects.Abs
 {
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Utils;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Pathing.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Pathing.Objects.Utils;
-    using HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using System.Collections.Generic;
-    using System.Diagnostics;
 
     /// <summary>
     /// Todo
@@ -20,45 +17,43 @@
         protected float pathObjectCost = float.MaxValue;
 
         // Todo
-        protected ICubeCoordinates tileCoordinatesEnd;
+        protected ICubeCoordinates cubeCoordinatesEnd;
 
         // Todo
-        protected ICubeCoordinates tileCoordinatesStart;
+        protected ICubeCoordinates cubeCoordinatesStart;
 
         // Todo
-        protected IList<ICubeCoordinates> tileCoordinatesStepList = new List<ICubeCoordinates>();
-
-        // Provide logging capability
-        private static readonly ICodeLogger logger = new CodeLoggerImpl(new StackFrame().GetMethod().DeclaringType);
+        protected IList<ICubeCoordinates> cubeCoordinatesStepList = new List<ICubeCoordinates>();
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="tileCoordinatesStart">
+        /// <param name="cubeCoordinatesStart">
         /// </param>
-        /// <param name="tileCoordinatesEnd">
+        /// <param name="cubeCoordinatesEnd">
         /// </param>
         /// <param name="pathLength">
         /// </param>
-        public AbstractPathObject(ICubeCoordinates tileCoordinatesStart, ICubeCoordinates tileCoordinatesEnd, int pathLength)
+        public AbstractPathObject(ICubeCoordinates cubeCoordinatesStart,
+            ICubeCoordinates cubeCoordinatesEnd, int pathLength)
         {
-            if (tileCoordinatesStart != null)
+            if (cubeCoordinatesStart != null)
             {
-                if (tileCoordinatesEnd != null)
+                if (cubeCoordinatesEnd != null)
                 {
                     if (pathLength > 0)
                     {
-                        IList<ICubeCoordinates> tileCoordinatesStepList = new List<ICubeCoordinates>
+                        IList<ICubeCoordinates> cubeCoordinatesStepList = new List<ICubeCoordinates>
                         {
-                            tileCoordinatesStart
+                            cubeCoordinatesStart
                         };
                         for (int i = 1; i < pathLength - 1; ++i)
                         {
-                            tileCoordinatesStepList.Add(null);
+                            cubeCoordinatesStepList.Add(null);
                         }
-                        tileCoordinatesStepList.Add(tileCoordinatesEnd);
+                        cubeCoordinatesStepList.Add(cubeCoordinatesEnd);
 
-                        this.SetAttributes(tileCoordinatesStepList, tileCoordinatesStart, tileCoordinatesEnd);
+                        this.SetAttributes(cubeCoordinatesStepList, cubeCoordinatesStart, cubeCoordinatesEnd);
                     }
                     else
                     {
@@ -83,22 +78,22 @@
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="tileCoordinatesStepList">
+        /// <param name="cubeCoordinatesStepList">
         /// </param>
-        public AbstractPathObject(IList<ICubeCoordinates> tileCoordinatesStepList)
+        public AbstractPathObject(IList<ICubeCoordinates> cubeCoordinatesStepList)
         {
-            if (tileCoordinatesStepList != null)
+            if (cubeCoordinatesStepList != null)
             {
-                if (tileCoordinatesStepList.Count > 0)
+                if (cubeCoordinatesStepList.Count > 0)
                 {
-                    int listLength = tileCoordinatesStepList.Count;
-                    ICubeCoordinates cubeCoordinatesStart = tileCoordinatesStepList[0];
-                    ICubeCoordinates cubeCoordinatesEnd = tileCoordinatesStepList[listLength - 1];
+                    int listLength = cubeCoordinatesStepList.Count;
+                    ICubeCoordinates cubeCoordinatesStart = cubeCoordinatesStepList[0];
+                    ICubeCoordinates cubeCoordinatesEnd = cubeCoordinatesStepList[listLength - 1];
                     int minimumPathDistance = CubeCoordinatesCommonUtil.GetCubeCoordinatesDistanceFrom(
                         cubeCoordinatesStart, cubeCoordinatesEnd);
                     if (listLength >= minimumPathDistance)
                     {
-                        this.SetAttributes(tileCoordinatesStepList, cubeCoordinatesStart, cubeCoordinatesEnd);
+                        this.SetAttributes(cubeCoordinatesStepList, cubeCoordinatesStart, cubeCoordinatesEnd);
                     }
                 }
                 else
@@ -142,7 +137,7 @@
         /// </returns>
         public ICubeCoordinates GetCubeCoordinatesEnd()
         {
-            return this.tileCoordinatesEnd;
+            return this.cubeCoordinatesEnd;
         }
 
         /// <summary>
@@ -152,7 +147,7 @@
         /// </returns>
         public ICubeCoordinates GetCubeCoordinatesStart()
         {
-            return this.tileCoordinatesStart;
+            return this.cubeCoordinatesStart;
         }
 
         /// <summary>
@@ -162,7 +157,7 @@
         /// </returns>
         public IList<ICubeCoordinates> GetCubeCoordinatesStepList()
         {
-            return new List<ICubeCoordinates>(this.tileCoordinatesStepList);
+            return new List<ICubeCoordinates>(this.cubeCoordinatesStepList);
         }
 
         /// <summary>
@@ -185,6 +180,14 @@
             return this.GetCubeCoordinatesStepList().Count;
         }
 
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return string.Format("{0}: List: {1}=[{2}]",
+                this.GetType().Name, typeof(ICubeCoordinates).Name,
+                string.Join(", ", this.cubeCoordinatesStepList));
+        }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -193,16 +196,6 @@
         public bool IsValid()
         {
             return PathObjectValidatorUtil.ValidPathObject(this);
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        public override string ToString()
-        {
-            return string.Join(", ", this.tileCoordinatesStepList);
         }
 
         /// <summary>
@@ -217,7 +210,7 @@
             {
                 if (this.GetCubeCoordinatesStepList()[i] != null)
                 {
-                    this.pathObjectCost += this.GetTileObjectPathCost(this.GetCubeCoordinatesStepList()[i]);
+                    this.pathObjectCost += this.GetCubeCoordinatesPathCost(this.GetCubeCoordinatesStepList()[i]);
                 }
                 else
                 {
@@ -229,22 +222,22 @@
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="tileCoordinates"></param>
+        /// <param name="cubeCoordinates"></param>
         /// <returns></returns>
-        protected abstract float GetTileObjectPathCost(ICubeCoordinates tileCoordinates);
+        protected abstract float GetCubeCoordinatesPathCost(ICubeCoordinates cubeCoordinates);
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="tileCoordinatesStepList"></param>
-        /// <param name="tileCoordinatesStart"></param>
-        /// <param name="tileCoordinatesEnd"></param>
-        private void SetAttributes(IList<ICubeCoordinates> tileCoordinatesStepList,
-            ICubeCoordinates tileCoordinatesStart, ICubeCoordinates tileCoordinatesEnd)
+        /// <param name="cubeCoordinatesStepList"></param>
+        /// <param name="cubeCoordinatesStart"></param>
+        /// <param name="cubeCoordinatesEnd"></param>
+        private void SetAttributes(IList<ICubeCoordinates> cubeCoordinatesStepList,
+            ICubeCoordinates cubeCoordinatesStart, ICubeCoordinates cubeCoordinatesEnd)
         {
-            this.tileCoordinatesStepList = new List<ICubeCoordinates>(tileCoordinatesStepList);
-            this.tileCoordinatesStart = tileCoordinatesStart;
-            this.tileCoordinatesEnd = tileCoordinatesEnd;
+            this.cubeCoordinatesStepList = new List<ICubeCoordinates>(cubeCoordinatesStepList);
+            this.cubeCoordinatesStart = cubeCoordinatesStart;
+            this.cubeCoordinatesEnd = cubeCoordinatesEnd;
             this.CalculatePathCost();
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Generators.Talons.Loadouts.Mounts.Utilities.Reports
 {
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Common.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Common.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Utilities.Constants;
@@ -56,7 +56,7 @@
                 ? GetRandomUtilityId(loadoutRarity)
                 : GetRandomUtilityId(loadoutRarity, mountSize);
             // Todo: Only randomize traits for non-unique loadouts
-            return new UtilityReportImpl.Builder()
+            return new UtilityReport.Builder()
                 .SetUtilityId(utilityId)
                 .Build();
         }
@@ -69,12 +69,12 @@
         private static UtilityId GetRandomUtilityId(LoadoutRarity loadoutRarity)
         {
             ISet<UtilityId> armorIdSet = UtilityRarityConstants.GetUtilityIdSet(loadoutRarity);
-            if (armorIdSet.Count == 0)
+            if (armorIdSet.Count != 0)
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? has no corresponding ?s.",
-                        new StackFrame().GetMethod().Name, loadoutRarity, typeof(UtilityId));
+                return new List<UtilityId>(armorIdSet)[RandomNumberGeneratorUtil.GetNextInt(armorIdSet.Count - 1)];
             }
-            return new List<UtilityId>(armorIdSet)[RandomNumberGeneratorUtil.GetNextInt(armorIdSet.Count - 1)];
+            throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? has no corresponding ?s.",
+                    new StackFrame().GetMethod().Name, loadoutRarity, typeof(UtilityId));
         }
 
         /// <summary>
@@ -91,12 +91,12 @@
             utilityIdSet.IntersectWith(loadoutRarity.Equals(LoadoutRarity.None)
                 ? utilityIdSet
                 : UtilityMountSizeConstants.GetUtilityIdSet(mountSize));
-            if (utilityIdSet.Count == 0)
+            if (utilityIdSet.Count != 0)
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? and ? have no corresponding ?s.",
-                        new StackFrame().GetMethod().Name, loadoutRarity, mountSize, typeof(UtilityId));
+                return new List<UtilityId>(utilityIdSet)[RandomNumberGeneratorUtil.GetNextInt(utilityIdSet.Count)];
             }
-            return new List<UtilityId>(utilityIdSet)[RandomNumberGeneratorUtil.GetNextInt(utilityIdSet.Count)];
+            throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? and ? have no corresponding ?s.",
+                    new StackFrame().GetMethod().Name, loadoutRarity, mountSize, typeof(UtilityId));
         }
     }
 }

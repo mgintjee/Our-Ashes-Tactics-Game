@@ -1,10 +1,11 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Managers
 {
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Objects.Api;
     using System.Collections.Generic;
+    using System.Diagnostics;
 
     /// <summary>
     /// Roster Manager
@@ -20,7 +21,15 @@
         /// <param name="rosterObject"></param>
         public static void SetRosterObject(IRosterObject rosterObject)
         {
-            RosterManager.rosterObject = rosterObject;
+            if (RosterManager.rosterObject == null)
+            {
+                RosterManager.rosterObject = rosterObject;
+            }
+            else
+            {
+                throw ExceptionUtil.Argument.Build("Unable to ?. ? is already set.",
+                    new StackFrame().GetMethod().Name, typeof(IRosterObject));
+            }
         }
 
         /// <summary>

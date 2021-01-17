@@ -1,11 +1,11 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.ResourceLoaders.GameObjects
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Utilities.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Weapons.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using System.Diagnostics;
     using UnityEngine;
 
@@ -21,7 +21,7 @@
         private static readonly string GameObjectsSuffix = "Model";
 
         // Provide logging capability
-        private static readonly ICodeLogger logger = new CodeLoggerImpl(new StackFrame().GetMethod().DeclaringType);
+        private static readonly ICodeLogger logger = new CodeLogger(new StackFrame().GetMethod().DeclaringType);
 
         /// <summary>
         /// Todo

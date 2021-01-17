@@ -53,7 +53,7 @@
         /// </param>
         /// <returns>
         /// </returns>
-        IHexTileObject GetHexTileObjectFrom(ICubeCoordinates cubeCoordinates);
+        IHexTileObject GetHexTileObject(ICubeCoordinates cubeCoordinates);
 
         /// <summary>
         /// Todo

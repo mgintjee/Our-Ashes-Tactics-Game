@@ -1,11 +1,11 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Weapons.Constants
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Common.Attributes.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Common.Attributes.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Engines.Attributes.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Weapons.Attributes.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Weapons.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using System.Collections.Generic;
     using System.Diagnostics;
 
@@ -25,20 +25,20 @@
                 {
                 {
                     WeaponTraitAmmo.None,
-                    new LoadoutAttributesImpl.Builder().Build()
+                    new LoadoutAttributes.Builder().Build()
                 },
                 {
                     WeaponTraitAmmo.Ammo1,
-                    new LoadoutAttributesImpl.Builder()
-                    .SetWeaponAttributes(new WeaponAttributesImpl.Builder()
+                    new LoadoutAttributes.Builder()
+                    .SetWeaponAttributes(new WeaponAttributes.Builder()
                         .SetMaxRangePoints(1)
                         .Build())
                     .Build()
                 },
                 {
                     WeaponTraitAmmo.Ammo2,
-                    new LoadoutAttributesImpl.Builder()
-                    .SetWeaponAttributes(new WeaponAttributesImpl.Builder()
+                    new LoadoutAttributes.Builder()
+                    .SetWeaponAttributes(new WeaponAttributes.Builder()
                         .SetArmorDamagePoints(-1)
                         .SetArmorPenetrationPoints(1)
                         .SetHealthDamagePoints(-1)
@@ -47,8 +47,8 @@
                 },
                 {
                     WeaponTraitAmmo.Ammo3,
-                    new LoadoutAttributesImpl.Builder()
-                    .SetWeaponAttributes(new WeaponAttributesImpl.Builder()
+                    new LoadoutAttributes.Builder()
+                    .SetWeaponAttributes(new WeaponAttributes.Builder()
                         .SetArmorDamagePoints(1)
                         .SetArmorPenetrationPoints(-1)
                         .SetHealthDamagePoints(1)
@@ -57,8 +57,8 @@
                 },
                 {
                     WeaponTraitAmmo.Ammo4,
-                    new LoadoutAttributesImpl.Builder()
-                    .SetWeaponAttributes(new WeaponAttributesImpl.Builder()
+                    new LoadoutAttributes.Builder()
+                    .SetWeaponAttributes(new WeaponAttributes.Builder()
                         .SetMaxRangePoints(-1)
                         .SetAccuracyPoints(1)
                         .Build())
@@ -97,45 +97,45 @@
                 {
                 {
                     WeaponTraitBarrel.None,
-                    new LoadoutAttributesImpl.Builder().Build()
+                    new LoadoutAttributes.Builder().Build()
                 },
                 {
                     WeaponTraitBarrel.Barrel1,
-                    new LoadoutAttributesImpl.Builder()
-                    .SetWeaponAttributes(new WeaponAttributesImpl.Builder()
+                    new LoadoutAttributes.Builder()
+                    .SetWeaponAttributes(new WeaponAttributes.Builder()
                         .SetAccuracyPoints(1)
                         .Build())
                     .Build()
                 },
                 {
                     WeaponTraitBarrel.Barrel3,
-                    new LoadoutAttributesImpl.Builder()
-                    .SetEngineAttributes(new EngineAttributesImpl.Builder()
+                    new LoadoutAttributes.Builder()
+                    .SetEngineAttributes(new EngineAttributes.Builder()
                         .SetMovementPoints(2)
                         .Build())
-                    .SetWeaponAttributes(new WeaponAttributesImpl.Builder()
+                    .SetWeaponAttributes(new WeaponAttributes.Builder()
                         .SetMaxRangePoints(-1)
                         .Build())
                     .Build()
                 },
                 {
                     WeaponTraitBarrel.Barrel2,
-                    new LoadoutAttributesImpl.Builder()
-                    .SetEngineAttributes(new EngineAttributesImpl.Builder()
+                    new LoadoutAttributes.Builder()
+                    .SetEngineAttributes(new EngineAttributes.Builder()
                         .SetMovementPoints(-1)
                         .Build())
-                    .SetWeaponAttributes(new WeaponAttributesImpl.Builder()
+                    .SetWeaponAttributes(new WeaponAttributes.Builder()
                         .SetMaxRangePoints(2)
                         .Build())
                     .Build()
                 },
                 {
                     WeaponTraitBarrel.Barrel4,
-                    new LoadoutAttributesImpl.Builder()
-                    .SetEngineAttributes(new EngineAttributesImpl.Builder()
+                    new LoadoutAttributes.Builder()
+                    .SetEngineAttributes(new EngineAttributes.Builder()
                         .SetMovementPoints(-1)
                         .Build())
-                    .SetWeaponAttributes(new WeaponAttributesImpl.Builder()
+                    .SetWeaponAttributes(new WeaponAttributes.Builder()
                         .SetMaxRangePoints(2)
                         .Build())
                     .Build()
@@ -173,34 +173,34 @@
                 {
                 {
                     WeaponTraitMagazine.None,
-                    new LoadoutAttributesImpl.Builder().Build()
+                    new LoadoutAttributes.Builder().Build()
                 },
                 {
                     WeaponTraitMagazine.Magazine1,
-                    new LoadoutAttributesImpl.Builder()
-                    .SetWeaponAttributes(new WeaponAttributesImpl.Builder()
+                    new LoadoutAttributes.Builder()
+                    .SetWeaponAttributes(new WeaponAttributes.Builder()
                         .SetVolleySize(1)
                         .Build())
                     .Build()
                 },
                 {
                     WeaponTraitMagazine.Magazine2,
-                    new LoadoutAttributesImpl.Builder()
-                    .SetWeaponAttributes(new WeaponAttributesImpl.Builder()
+                    new LoadoutAttributes.Builder()
+                    .SetWeaponAttributes(new WeaponAttributes.Builder()
                         .SetVolleySize(1)
                         .Build())
-                    .SetEngineAttributes(new EngineAttributesImpl.Builder()
+                    .SetEngineAttributes(new EngineAttributes.Builder()
                         .SetMovementPoints(2)
                         .Build())
                     .Build()
                 },
                 {
                     WeaponTraitMagazine.Magazine3,
-                    new LoadoutAttributesImpl.Builder()
-                    .SetWeaponAttributes(new WeaponAttributesImpl.Builder()
+                    new LoadoutAttributes.Builder()
+                    .SetWeaponAttributes(new WeaponAttributes.Builder()
                         .SetVolleySize(2)
                         .Build())
-                    .SetEngineAttributes(new EngineAttributesImpl.Builder()
+                    .SetEngineAttributes(new EngineAttributes.Builder()
                         .SetMovementPoints(-1)
                         .Build())
                     .Build()
@@ -238,12 +238,12 @@
                 {
                 {
                     WeaponTraitTargeting.None,
-                    new LoadoutAttributesImpl.Builder().Build()
+                    new LoadoutAttributes.Builder().Build()
                 },
                 {
                     WeaponTraitTargeting.Targeting1,
-                    new LoadoutAttributesImpl.Builder()
-                    .SetWeaponAttributes(new WeaponAttributesImpl.Builder()
+                    new LoadoutAttributes.Builder()
+                    .SetWeaponAttributes(new WeaponAttributes.Builder()
                         .SetMaxRangePoints(-1)
                         .SetAccuracyPoints(2)
                         .Build())
@@ -251,11 +251,11 @@
                 },
                 {
                     WeaponTraitTargeting.Targeting2,
-                    new LoadoutAttributesImpl.Builder()
-                    .SetWeaponAttributes(new WeaponAttributesImpl.Builder()
+                    new LoadoutAttributes.Builder()
+                    .SetWeaponAttributes(new WeaponAttributes.Builder()
                         .SetMaxRangePoints(2)
                         .Build())
-                    .SetEngineAttributes(new EngineAttributesImpl.Builder()
+                    .SetEngineAttributes(new EngineAttributes.Builder()
                         .SetMovementPoints(-1)
                         .Build())
                     .Build()

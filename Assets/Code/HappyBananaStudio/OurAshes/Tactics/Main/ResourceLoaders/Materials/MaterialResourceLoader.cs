@@ -15,7 +15,7 @@
     public class MaterialResourceLoader
     {
         // Provide logging capability
-        private static readonly ICodeLogger logger = new CodeLoggerImpl(new StackFrame().GetMethod().DeclaringType);
+        private static readonly ICodeLogger logger = new CodeLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private static readonly string MATERIALS_FOLDER_HOME = "Materials/";

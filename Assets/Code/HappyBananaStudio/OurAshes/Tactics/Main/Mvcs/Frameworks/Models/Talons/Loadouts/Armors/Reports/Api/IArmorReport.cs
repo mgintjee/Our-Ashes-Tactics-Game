@@ -19,12 +19,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Mo
         /// Todo
         /// </summary>
         /// <returns></returns>
-        ArmorTraitStructure GetArmorTraitStructure();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        ArmorTraitMaterial GetArmorTraitMaterial();
+        IArmorTraitReport GetArmorTraitReport();
     }
 }

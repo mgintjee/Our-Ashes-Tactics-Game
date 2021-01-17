@@ -12,22 +12,22 @@
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="callSignA">
+        /// <param name="talonCallSignA">
         /// </param>
-        /// <param name="callSignB">
+        /// <param name="talonCallSignB">
         /// </param>
         /// <returns>
         /// </returns>
-        bool AreCallSignsFriendly(TalonCallSign callSignA, TalonCallSign callSignB);
+        bool AreCallSignsFriendly(TalonCallSign talonCallSignA, TalonCallSign talonCallSignB);
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="callSign">
+        /// <param name="talonCallSign">
         /// </param>
         /// <returns>
         /// </returns>
-        ISet<TalonCallSign> GetFriendlyCallSignSet(TalonCallSign callSign);
+        ISet<TalonCallSign> GetFriendlyCallSignSet(TalonCallSign talonCallSign);
 
         /// <summary>
         /// Todo

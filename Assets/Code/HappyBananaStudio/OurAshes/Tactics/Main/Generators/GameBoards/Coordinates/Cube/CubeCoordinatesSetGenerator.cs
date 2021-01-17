@@ -41,7 +41,7 @@
             ISet<ICubeCoordinates> cubeCoordinatesSet = new HashSet<ICubeCoordinates>();
             ISet<ICubeCoordinates> visitedCubeCoordinatesSet = new HashSet<ICubeCoordinates>();
             ISet<ICubeCoordinates> unvisitedCubeCoordinatesSet = new HashSet<ICubeCoordinates>
-                { new CubeCoordinatesImpl.Builder().Build() };
+                { new CubeCoordinates.Builder().Build() };
             while (unvisitedCubeCoordinatesSet.Count > 0)
             {
                 ICubeCoordinates currentCubeCoordinates = new List<ICubeCoordinates>(unvisitedCubeCoordinatesSet)[0];

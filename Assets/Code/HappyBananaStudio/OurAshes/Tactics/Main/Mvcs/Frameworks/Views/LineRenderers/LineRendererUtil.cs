@@ -17,7 +17,7 @@
     public class LineRendererUtil
     {
         // Provide logging capability
-        private static readonly ICodeLogger logger = new CodeLoggerImpl(new StackFrame().GetMethod().DeclaringType);
+        private static readonly ICodeLogger logger = new CodeLogger(new StackFrame().GetMethod().DeclaringType);
 
         private static LineRendererUtilScript lineRendererUtilScript;
 
@@ -175,15 +175,15 @@
             }
             else
             {
-                if (pathObject is PathObjectMoveImpl)
+                if (pathObject is PathObjectMove)
                 {
                     lineRenderer.material = MaterialResourceLoader.Path.LoadPathMaterialResource(OrderType.Move);
                 }
-                else if (pathObject is PathObjectFireImpl)
+                else if (pathObject is PathObjectFire)
                 {
                     lineRenderer.material = MaterialResourceLoader.Path.LoadPathMaterialResource(OrderType.Fire);
                 }
-                else if (pathObject is PathObjectWaitImpl)
+                else if (pathObject is PathObjectWait)
                 {
                     lineRenderer.material = MaterialResourceLoader.Path.LoadPathMaterialResource(OrderType.Wait);
                 }
@@ -212,12 +212,12 @@
                 int index = 0;
                 IList<Vector3> lineRendererPositionList = new List<Vector3>();
                 // Check if the PathObject is a waiting one
-                if (pathObject is PathObjectWaitImpl)
+                if (pathObject is PathObjectWait)
                 {
                     lineRendererPositionList = CollectTileVertexList(pathObject.GetCubeCoordinatesStart());
                 }
-                else if (pathObject is PathObjectFireImpl ||
-                    pathObject is PathObjectMoveImpl)
+                else if (pathObject is PathObjectFire ||
+                    pathObject is PathObjectMove)
                 {
                     IList<ICubeCoordinates> cubeCoordinatesStepList = pathObject.GetCubeCoordinatesStepList();
                     foreach (ICubeCoordinates cubeCoordinates in cubeCoordinatesStepList)

@@ -13,7 +13,7 @@
     public static class CubeCoordinatesGeneratorUtil
     {
         // Provide logging capability
-        private static readonly ICodeLogger logger = new CodeLoggerImpl(new StackFrame().GetMethod().DeclaringType);
+        private static readonly ICodeLogger logger = new CodeLogger(new StackFrame().GetMethod().DeclaringType);
 
         /// <summary>
         /// Todo
@@ -26,7 +26,7 @@
         {
             logger.Debug("Generating ISet: ? for Map Radius=?", typeof(ICubeCoordinates), mapModelRadius);
             ISet<ICubeCoordinates> tileCoordinatesSet = new HashSet<ICubeCoordinates>();
-            ICubeCoordinates currentCubeCoordinates = new CubeCoordinatesImpl.Builder()
+            ICubeCoordinates currentCubeCoordinates = new CubeCoordinates.Builder()
                 .SetX(0)
                 .SetY(0)
                 .SetZ(0)

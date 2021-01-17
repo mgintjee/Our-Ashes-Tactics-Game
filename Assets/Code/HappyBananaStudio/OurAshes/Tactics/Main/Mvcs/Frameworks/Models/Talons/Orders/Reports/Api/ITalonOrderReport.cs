@@ -21,7 +21,7 @@
         /// </summary>
         /// <returns>
         /// </returns>
-        OrderType GetActionType();
+        OrderType GetOrderType();
 
         /// <summary>
         /// Todo

@@ -12,7 +12,6 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Reports.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Randoms.Generators.Numbers;
-    using System;
     using System.Collections.Generic;
 
     /// <summary>
@@ -29,7 +28,7 @@
         {
             IList<MountSize> mountSizeList = TalonLoadoutAttributesConstants
                 .GetTalonLoadoutAttributes(talonId).GetMountSizeList();
-            return new TalonLoadoutReportImpl.Builder()
+            return new TalonLoadoutReport.Builder()
                 .SetTalonId(talonId)
                 .SetArmorReport(RandomArmorReportGenerator.GenerateRandomArmorReport(LoadoutRarity.Common))
                 .SetEngineReport(RandomEngineReportGenerator.GenerateRandomEngineReport(LoadoutRarity.Common))

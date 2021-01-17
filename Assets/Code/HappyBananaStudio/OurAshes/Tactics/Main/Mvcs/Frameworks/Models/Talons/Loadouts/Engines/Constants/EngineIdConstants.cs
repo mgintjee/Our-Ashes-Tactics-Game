@@ -1,11 +1,11 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Engines.Constants
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Armors.Attributes.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Common.Attributes.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Common.Attributes.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Engines.Attributes.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Engines.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using System.Collections.Generic;
     using System.Diagnostics;
 
@@ -20,28 +20,28 @@
             {
                 {
                     EngineId.None,
-                    new LoadoutAttributesImpl.Builder().Build()
+                    new LoadoutAttributes.Builder().Build()
                 },
                 {
                     EngineId.Sturdy1,
-                    new LoadoutAttributesImpl.Builder()
-                    .SetArmorAttributes(new ArmorAttributesImpl.Builder()
+                    new LoadoutAttributes.Builder()
+                    .SetArmorAttributes(new ArmorAttributes.Builder()
                         .SetArmorPoints(1)
                         .SetHealthPoints(1)
                         .Build())
-                    .SetEngineAttributes(new EngineAttributesImpl.Builder()
+                    .SetEngineAttributes(new EngineAttributes.Builder()
                         .SetMovementPoints(-2)
                         .Build())
                     .Build()
                 },
                 {
                     EngineId.Quick1,
-                    new LoadoutAttributesImpl.Builder()
-                    .SetArmorAttributes(new ArmorAttributesImpl.Builder()
+                    new LoadoutAttributes.Builder()
+                    .SetArmorAttributes(new ArmorAttributes.Builder()
                         .SetArmorPoints(-1)
                         .SetHealthPoints(-1)
                         .Build())
-                    .SetEngineAttributes(new EngineAttributesImpl.Builder()
+                    .SetEngineAttributes(new EngineAttributes.Builder()
                         .SetMovementPoints(+2)
                         .Build())
                     .Build()

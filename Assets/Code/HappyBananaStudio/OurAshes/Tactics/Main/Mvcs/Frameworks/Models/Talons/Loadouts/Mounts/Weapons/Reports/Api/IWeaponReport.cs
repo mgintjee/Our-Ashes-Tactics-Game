@@ -1,8 +1,8 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Common.Reports.Api;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Weapons.Enums;
-
-namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Weapons.Reports.Api
+﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Weapons.Reports.Api
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Common.Reports.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Weapons.Enums;
+
     /// <summary>
     /// Weapon Report Api
     /// </summary>
@@ -25,24 +25,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Mo
         /// Todo
         /// </summary>
         /// <returns></returns>
-        WeaponTraitAmmo GetWeaponTraitAmmo();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        WeaponTraitBarrel GetWeaponTraitBarrel();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        WeaponTraitMagazine GetWeaponTraitMagazine();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        WeaponTraitTargeting GetWeaponTraitTargeting();
+        IWeaponTraitReport GetWeaponTraitReport();
     }
 }

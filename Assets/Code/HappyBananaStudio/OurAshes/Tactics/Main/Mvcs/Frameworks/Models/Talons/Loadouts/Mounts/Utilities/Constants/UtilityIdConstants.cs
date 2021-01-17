@@ -1,9 +1,9 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Utilities.Constants
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Common.Attributes.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Common.Attributes.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Utilities.Enums;
-    using HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using System.Collections.Generic;
     using System.Diagnostics;
 
@@ -18,11 +18,15 @@
             {
                 {
                     UtilityId.None,
-                    new LoadoutAttributesImpl.Builder().Build()
+                    new LoadoutAttributes.Builder().Build()
                 },
                 {
-                    UtilityId.Utility1,
-                    new LoadoutAttributesImpl.Builder().Build()
+                    UtilityId.Small1,
+                    new LoadoutAttributes.Builder().Build()
+                },
+                {
+                    UtilityId.Large1,
+                    new LoadoutAttributes.Builder().Build()
                 }
             };
 

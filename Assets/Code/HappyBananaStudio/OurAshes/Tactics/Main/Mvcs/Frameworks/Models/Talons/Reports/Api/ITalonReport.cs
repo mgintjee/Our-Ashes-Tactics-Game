@@ -1,5 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Reports.Api
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Customizations.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Reports.Api;
@@ -16,28 +17,22 @@
         TalonCallSign GetTalonCallSign();
 
         /// <summary>
-        ///
+        /// Todo
         /// </summary>
         /// <returns></returns>
-        float GetCurrentHealthPoints();
+        ITalonAttributesReport GetCurrentTalonAttributesReport();
 
         /// <summary>
-        ///
+        /// Todo
         /// </summary>
         /// <returns></returns>
-        float GetCurrentArmorPoints();
+        ITalonAttributesReport GetMaximumTalonAttributesReport();
 
         /// <summary>
-        ///
+        /// Todo
         /// </summary>
         /// <returns></returns>
-        float GetCurrentMovementPoints();
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <returns></returns>
-        float GetCurrentActionPoints();
+        ICubeCoordinates GetCubeCoordinates();
 
         /// <summary>
         /// Todo

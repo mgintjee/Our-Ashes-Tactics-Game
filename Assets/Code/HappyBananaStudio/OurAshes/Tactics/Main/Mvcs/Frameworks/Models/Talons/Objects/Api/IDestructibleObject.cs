@@ -1,7 +1,8 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Armors.Attributes.Api;
-
-namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Objects.Api
+﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Objects.Api
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Effects.Objects.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Armors.Attributes.Api;
+
     /// <summary>
     /// Destructible Object Api
     /// </summary>
@@ -28,13 +29,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Mo
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="armorDamage"></param>
-        /// <param name="healthDamage"></param>
-        void InputDestructableCosts(float armorDamage, float healthDamage);
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        void ResetForNewPhase();
+        /// <param name="talonEffectObject"></param>
+        void InputTalonEffect(ITalonEffectObject talonEffectObject);
     }
 }
