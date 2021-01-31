@@ -28,7 +28,7 @@
             ArmorTraitMaterial armorTraitMaterial = ArmorTraitMaterial.None;
             ArmorTraitStructure armorTraitStructure = ArmorTraitStructure.None;
             int traitsRequired = ArmorRarityConstants.GetLoadoutTraitCount(loadoutRarity);
-            int traitsRemaining = 2;
+            float traitsRemaining = 4f;
 
             if (RandomNumberGeneratorUtil.GetNextDouble() <= traitsRequired / traitsRemaining)
             {
@@ -60,7 +60,7 @@
             ISet<ArmorId> armorIdSet = ArmorRarityConstants.GetArmorIdSet(loadoutRarity);
             if (armorIdSet.Count == 0)
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? has no corresponding ?s.",
+                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? has no corresponding ?s.",
                         new StackFrame().GetMethod().Name, loadoutRarity, typeof(ArmorId));
             }
             return new List<ArmorId>(armorIdSet)[RandomNumberGeneratorUtil.GetNextInt(armorIdSet.Count)];

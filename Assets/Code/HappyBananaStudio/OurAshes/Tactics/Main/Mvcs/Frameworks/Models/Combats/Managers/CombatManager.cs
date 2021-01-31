@@ -27,7 +27,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. ? is already set.",
+                throw ExceptionUtil.Arguments.Build("Unable to ?. ? is already set.",
                     new StackFrame().GetMethod().Name, typeof(ICombatObject));
             }
         }
@@ -45,7 +45,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build();
+                throw ExceptionUtil.Arguments.Build();
             }
         }
     }

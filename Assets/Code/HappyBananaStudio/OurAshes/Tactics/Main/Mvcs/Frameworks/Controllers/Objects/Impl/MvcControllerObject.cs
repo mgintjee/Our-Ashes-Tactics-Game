@@ -6,14 +6,13 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.AIs.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.AIs.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.AIs.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Enums;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Managers;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Talons.Managers;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Orders.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Orders.Reports.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Reports.Phalanxes.Api;
     using System.Collections.Generic;
     using System.Diagnostics;
 
@@ -30,10 +29,7 @@
         private readonly SimulationType simulationType;
 
         // Todo
-        private readonly IDictionary<PhalanxCallSign, ISet<TalonCallSign>> phalanxTalonSetDictionary;
-
-        // Todo
-        private readonly IDictionary<PhalanxCallSign, ControllerType> phalanxControllerTypeDictionary;
+        private readonly ISet<IPhalanxReport> phalanxReports;
 
         // Todo
         private readonly IDictionary<AIType, IAIObject> aiObjectDictionary;
@@ -42,14 +38,13 @@
         /// Todo
         /// </summary>
         /// <param name="simulationType"></param>
-        private MvcControllerObject(SimulationType simulationType,
-            IDictionary<PhalanxCallSign, ISet<TalonCallSign>> phalanxTalonSetDictionary)
+        private MvcControllerObject(SimulationType simulationType, ISet<IPhalanxReport> phalanxReports)
         {
             this.simulationType = simulationType;
-            this.phalanxTalonSetDictionary = phalanxTalonSetDictionary;
+            this.phalanxReports = phalanxReports;
             this.aiObjectDictionary = new Dictionary<AIType, IAIObject>()
             {
-                { AIType.Random, new AIObjectRandom()  }
+                { AIType.Random, new AIObjectRandom() }
             };
         }
 
@@ -57,8 +52,7 @@
         ITalonOrderReport IMvcControllerObject.DetermineTalonOrderReport(TalonCallSign talonCallSign)
         {
             ITalonOrderReport talonOrderReport = null;
-            ITalonObject talonObject = RosterManager.GetTalonObject(talonCallSign);
-            ISet<ITalonOrderReport> talonOrderReportSet = talonObject.GetTalonOrderReportSet();
+            ISet<ITalonOrderReport> talonOrderReportSet = TalonRosterManager.GetTalonOrderReportSet(talonCallSign);
             int fireCount = 0;
             int waitCount = 0;
             int moveCount = 0;
@@ -87,7 +81,8 @@
                     // Todo: Have some manager for each talons controller type and ai type
                     // Check the controller type (Human/AI)
                     // Then send it to the respective channel
-                    talonOrderReport = this.aiObjectDictionary[AIType.Random].DetermineBestOrderReport(talonOrderReportSet);
+                    talonOrderReport = this.aiObjectDictionary[AIType.Random]
+                        .DetermineBestOrderReport(talonCallSign, talonOrderReportSet);
                     break;
 
                 case SimulationType.Interactive:
@@ -112,7 +107,7 @@
             private SimulationType simulationType = SimulationType.None;
 
             // Todo
-            private IDictionary<PhalanxCallSign, ISet<TalonCallSign>> phalanxTalonSetDictionary = null;
+            private ISet<IPhalanxReport> phalanxReports = null;
 
             /// <summary>
             /// Todo
@@ -125,11 +120,11 @@
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new Object
-                    return new MvcControllerObject(this.simulationType, this.phalanxTalonSetDictionary);
+                    return new MvcControllerObject(this.simulationType, this.phalanxReports);
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to construct ?. Invalid Parameters. ?",
+                    throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
                         this.GetType(), string.Join("\n", invalidReasons));
                 }
             }
@@ -148,15 +143,13 @@
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="phalanxTalonSetDictionary"></param>
+            /// <param name="phalanxReports"></param>
             /// <returns></returns>
-            public Builder SetPhalanxTalonSetDictionary(
-                IDictionary<PhalanxCallSign, ISet<TalonCallSign>> phalanxTalonSetDictionary)
+            public Builder SetPhalanxReports(ISet<IPhalanxReport> phalanxReports)
             {
-                if (phalanxTalonSetDictionary != null)
+                if (phalanxReports != null)
                 {
-                    this.phalanxTalonSetDictionary =
-                        new Dictionary<PhalanxCallSign, ISet<TalonCallSign>>(phalanxTalonSetDictionary);
+                    this.phalanxReports = new HashSet<IPhalanxReport>(phalanxReports);
                 }
                 return this;
             }
@@ -172,7 +165,11 @@
                 ISet<string> argumentExceptionSet = new HashSet<string>();
                 if (this.simulationType == SimulationType.None)
                 {
-                    argumentExceptionSet.Add(typeof(SimulationType).Name + " is not set");
+                    argumentExceptionSet.Add(typeof(SimulationType).Name + " can not be none.");
+                }
+                if (this.phalanxReports == null)
+                {
+                    argumentExceptionSet.Add("Set: " + typeof(IPhalanxReport).Name + " cannot be null.");
                 }
                 return argumentExceptionSet;
             }

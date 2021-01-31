@@ -57,20 +57,20 @@
                     }
                     else
                     {
-                        throw ExceptionUtil.Argument.Build("Unable to construct ?. Invalid Parameters. " +
+                        throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. " +
                             "PathLength=? must be greater than 0.",
                            this.GetType(), pathLength);
                     }
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to construct ?. Invalid Parameters. Ending ? is null.",
+                    throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. Ending ? is null.",
                        this.GetType(), typeof(ICubeCoordinates));
                 }
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to construct ?. Invalid Parameters. Starting ? is null.",
+                throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. Starting ? is null.",
                    this.GetType(), typeof(ICubeCoordinates));
             }
         }
@@ -98,13 +98,13 @@
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to construct ?. Invalid Parameters. List: ? must be greater than 0.",
+                    throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. List: ? must be greater than 0.",
                        this.GetType(), typeof(ICubeCoordinates));
                 }
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to construct ?. Invalid Parameters. List: ? is null.",
+                throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. List: ? is null.",
                    this.GetType(), typeof(ICubeCoordinates));
             }
         }
@@ -125,7 +125,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to construct ?. Invalid Parameters. ? is invalid.",
+                throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ? is invalid.",
                    this.GetType(), typeof(IPathObject));
             }
         }
@@ -135,7 +135,7 @@
         /// </summary>
         /// <returns>
         /// </returns>
-        public ICubeCoordinates GetCubeCoordinatesEnd()
+        ICubeCoordinates IPathObject.GetCubeCoordinatesEnd()
         {
             return this.cubeCoordinatesEnd;
         }
@@ -145,7 +145,7 @@
         /// </summary>
         /// <returns>
         /// </returns>
-        public ICubeCoordinates GetCubeCoordinatesStart()
+        ICubeCoordinates IPathObject.GetCubeCoordinatesStart()
         {
             return this.cubeCoordinatesStart;
         }
@@ -155,7 +155,7 @@
         /// </summary>
         /// <returns>
         /// </returns>
-        public IList<ICubeCoordinates> GetCubeCoordinatesStepList()
+        IList<ICubeCoordinates> IPathObject.GetCubeCoordinatesStepList()
         {
             return new List<ICubeCoordinates>(this.cubeCoordinatesStepList);
         }
@@ -165,7 +165,7 @@
         /// </summary>
         /// <returns>
         /// </returns>
-        public float GetPathObjectCost()
+        float IPathObject.GetPathObjectCost()
         {
             return this.pathObjectCost;
         }
@@ -175,9 +175,9 @@
         /// </summary>
         /// <returns>
         /// </returns>
-        public int GetPathObjectLength()
+        int IPathObject.GetPathObjectLength()
         {
-            return this.GetCubeCoordinatesStepList().Count;
+            return this.cubeCoordinatesStepList.Count;
         }
 
         /// <inheritdoc/>
@@ -206,11 +206,11 @@
             this.pathObjectCost = 0;
 
             // Start at the second step to avoid adding the cost of the start CubeCoordinates
-            for (int i = 1; i < this.GetPathObjectLength(); ++i)
+            for (int i = 1; i < this.cubeCoordinatesStepList.Count; ++i)
             {
-                if (this.GetCubeCoordinatesStepList()[i] != null)
+                if (this.cubeCoordinatesStepList[i] != null)
                 {
-                    this.pathObjectCost += this.GetCubeCoordinatesPathCost(this.GetCubeCoordinatesStepList()[i]);
+                    this.pathObjectCost += this.GetCubeCoordinatesPathCost(this.cubeCoordinatesStepList[i]);
                 }
                 else
                 {

@@ -10,7 +10,7 @@
     public class RandomNumberGeneratorUtil
     {
         // Todo
-        private static readonly int DEFAULT_SEED = 22;
+        private static readonly int DEFAULT_SEED = 82;
 
         // Todo
         private static Random random = null;
@@ -73,7 +73,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. " +
+                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. " +
                     "\n\t> Upper Bound=?. Cannot be 0.",
                     new StackFrame().GetMethod().Name, upperBound);
             }
@@ -96,7 +96,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. " +
+                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. " +
                     "\n\t> Lower Bound=?, Upper Bound=?",
                     new StackFrame().GetMethod().Name, lowerBound, upperBound);
             }

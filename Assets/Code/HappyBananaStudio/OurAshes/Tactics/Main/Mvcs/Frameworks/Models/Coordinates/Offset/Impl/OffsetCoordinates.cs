@@ -95,7 +95,7 @@
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to construct ?. Invalid Parameters. ?",
+                    throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
                         this.GetType(), string.Join("\n", invalidReasons));
                 }
             }

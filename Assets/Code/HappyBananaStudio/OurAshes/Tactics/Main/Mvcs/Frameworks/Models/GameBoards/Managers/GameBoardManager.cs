@@ -31,7 +31,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. ? is null.",
+                throw ExceptionUtil.Arguments.Build("Unable to ?. ? is null.",
                     new StackFrame().GetMethod().Name, typeof(IGameBoardObject));
             }
         }
@@ -49,7 +49,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. ? is null.",
+                throw ExceptionUtil.Arguments.Build("Unable to ?. ? is null.",
                     new StackFrame().GetMethod().Name, typeof(IGameBoardObject));
             }
         }
@@ -58,7 +58,7 @@
         /// Todo
         /// </summary>
         /// <returns></returns>
-        public static IGameBoardReport GetBoardReport()
+        public static IGameBoardReport GetGameBoardReport()
         {
             if (gameBoardObject != null)
             {
@@ -66,7 +66,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. ? is null.",
+                throw ExceptionUtil.Arguments.Build("Unable to ?. ? is null.",
                     new StackFrame().GetMethod().Name, typeof(IGameBoardObject));
             }
         }
@@ -86,7 +86,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. ? is null.",
+                throw ExceptionUtil.Arguments.Build("Unable to ?. ? is null.",
                     new StackFrame().GetMethod().Name, typeof(IGameBoardObject));
             }
         }
@@ -106,7 +106,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. ? is null.",
+                throw ExceptionUtil.Arguments.Build("Unable to ?. ? is null.",
                     new StackFrame().GetMethod().Name, typeof(IGameBoardObject));
             }
         }
@@ -124,7 +124,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. ? is already set.",
+                throw ExceptionUtil.Arguments.Build("Unable to ?. ? is already set.",
                     new StackFrame().GetMethod().Name, typeof(IGameBoardObject));
             }
         }

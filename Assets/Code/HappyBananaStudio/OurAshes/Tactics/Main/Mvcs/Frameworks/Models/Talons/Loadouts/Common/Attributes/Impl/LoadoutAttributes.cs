@@ -69,9 +69,9 @@
         public override string ToString()
         {
             return string.Format("{0}: " +
-                "\n\t>{1}" +
-                "\n\t>{2}" +
-                "\n\t>{3}",
+                "\n\t\t>{1}" +
+                "\n\t\t>{2}" +
+                "\n\t\t>{3}",
                 this.GetType().Name, this.armorAttributes,
                 this.engineAttributes, this.weaponAttributes);
         }

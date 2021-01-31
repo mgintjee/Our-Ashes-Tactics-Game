@@ -4,6 +4,8 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Generators.Talons.Loadouts;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.AIs.Enums;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Constructions.Reports.Api;
@@ -11,6 +13,10 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Objects.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Reports.Construction.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Reports.Construction.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Reports.Phalanxes.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Reports.Phalanxes.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Scripts.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Randoms.Generators.Numbers;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Scripts.Unity.Abs;
@@ -22,7 +28,7 @@
     /// MvcFramework Script Api
     /// </summary>
     public class MvcFrameworkScript
-    : AbstractUnityScriptImpl, IMvcFrameworkScript
+    : AbstractUnityScript, IMvcFrameworkScript
     {
         // Provide logging capability
         private static readonly ICodeLogger logger = new CodeLogger(new StackFrame().GetMethod().DeclaringType);
@@ -36,14 +42,16 @@
         public void FixedUpdate()
         {
             this.Initialize();
-            logger.Debug("IsGameComplete: ?", this.mvcFrameworkObject.IsGameComplete());
-            if (!this.mvcFrameworkObject.IsGameComplete())
+            if(!this.mvcFrameworkObject.IsAnimating())
             {
-                this.mvcFrameworkObject.ContinueGame();
-            }
-            else
-            {
-                this.Destroy();
+                if (!this.mvcFrameworkObject.IsGameComplete())
+                {
+                    this.mvcFrameworkObject.ContinueGame();
+                }
+                else
+                {
+                    this.Destroy();
+                }
             }
         }
 
@@ -55,76 +63,67 @@
             // Todo: Probably load the util game Objects from the ResourceLoader at this stage
             if (this.mvcFrameworkObject == null)
             {
-                RandomNumberGeneratorUtil.BuildRandom(22);
-                IDictionary<FactionCallSign, ISet<PhalanxCallSign>> factionIdPhalanxIdSetDictionary =
-                    new Dictionary<FactionCallSign, ISet<PhalanxCallSign>>()
+                RandomNumberGeneratorUtil.BuildRandom();
+                ISet<IPhalanxReport> phalanxReports = new HashSet<IPhalanxReport>()
+                {
+                    new PhalanxReport.Builder()
+                        .SetAIType(AIType.Random)
+                        .SetControllerType(ControllerType.AI)
+                        .SetCustomizationReport(RandomCustomizationReportGenerator.GenerateRandomCustomizationReport())
+                        .SetPhalanxCallSign(PhalanxCallSign.Alfa)
+                        .SetPhalanxCallSigns(new HashSet<PhalanxCallSign>(){ PhalanxCallSign.Bravo })
+                        .SetTalonCallSigns(new HashSet<TalonCallSign>(){ TalonCallSign.Alpha})
+                        .Build(),
+                    new PhalanxReport.Builder()
+                        .SetAIType(AIType.Random)
+                        .SetControllerType(ControllerType.AI)
+                        .SetCustomizationReport(RandomCustomizationReportGenerator.GenerateRandomCustomizationReport())
+                        .SetPhalanxCallSign(PhalanxCallSign.Bravo)
+                        .SetPhalanxCallSigns(new HashSet<PhalanxCallSign>(){PhalanxCallSign.Alfa })
+                        .SetTalonCallSigns(new HashSet<TalonCallSign>(){ TalonCallSign.Beta})
+                        .Build(),
+                    new PhalanxReport.Builder()
+                        .SetAIType(AIType.Random)
+                        .SetControllerType(ControllerType.AI)
+                        .SetCustomizationReport(RandomCustomizationReportGenerator.GenerateRandomCustomizationReport())
+                        .SetPhalanxCallSign(PhalanxCallSign.Charlie)
+                        .SetPhalanxCallSigns(new HashSet<PhalanxCallSign>(){ })
+                        .SetTalonCallSigns(new HashSet<TalonCallSign>(){ TalonCallSign.Chi})
+                        .Build(),
+                    new PhalanxReport.Builder()
+                        .SetAIType(AIType.Random)
+                        .SetControllerType(ControllerType.AI)
+                        .SetCustomizationReport(RandomCustomizationReportGenerator.GenerateRandomCustomizationReport())
+                        .SetPhalanxCallSign(PhalanxCallSign.Delta)
+                        .SetPhalanxCallSigns(new HashSet<PhalanxCallSign>(){ })
+                        .SetTalonCallSigns(new HashSet<TalonCallSign>(){ TalonCallSign.Delta, TalonCallSign.Epsilon})
+                        .Build()
+                };
+                ISet<ITalonConstructionReport> talonConstructionReports = new HashSet<ITalonConstructionReport>();
+                foreach (IPhalanxReport phalanxReport in phalanxReports)
+                {
+                    foreach (TalonCallSign talonCallSign in phalanxReport.GetTalonCallSigns())
                     {
-                        { FactionCallSign.Faction1,
-                        new HashSet<PhalanxCallSign>() { PhalanxCallSign.Alfa, PhalanxCallSign.Bravo} },
-                        { FactionCallSign.Faction2,
-                        new HashSet<PhalanxCallSign>() { PhalanxCallSign.Charlie, PhalanxCallSign.Delta} },
-                    };
-                IDictionary<PhalanxCallSign, ISet<TalonCallSign>> phalanxIdTalonCallSignSetDictionary =
-                    new Dictionary<PhalanxCallSign, ISet<TalonCallSign>>()
-                    {
-                        { PhalanxCallSign.Alfa,
-                        new HashSet<TalonCallSign>() { TalonCallSign.Alpha} },
-                        { PhalanxCallSign.Bravo,
-                        new HashSet<TalonCallSign>() { TalonCallSign.Beta} },
-                        { PhalanxCallSign.Charlie,
-                        new HashSet<TalonCallSign>() { TalonCallSign.Chi} },
-                        { PhalanxCallSign.Delta,
-                        new HashSet<TalonCallSign>() { TalonCallSign.Delta}  },
-                    };
-                IDictionary<TalonCallSign, ITalonConstructionReport> talonCallSignConstructionReportDictionary =
-                    new Dictionary<TalonCallSign, ITalonConstructionReport>()
-                    {
-                        {
-                            TalonCallSign.Alpha,
-                            new TalonConstructionReport.Builder()
-                                .SetCustomizationReport(RandomCustomizationReportGenerator
-                                    .GenerateRandomCustomizationReport())
-                                .SetTalonLoadoutReport(RandomTalonLoadoutReportGenerator
-                                    .GenerateRandomTalonLoadoutReport(EnumUtils.GetRandomEnum<TalonId>()))
-                                .Build()
-                        },
-                        {
-                            TalonCallSign.Beta,
-                            new TalonConstructionReport.Builder()
-                                .SetCustomizationReport(RandomCustomizationReportGenerator
-                                    .GenerateRandomCustomizationReport())
-                                .SetTalonLoadoutReport(RandomTalonLoadoutReportGenerator
-                                    .GenerateRandomTalonLoadoutReport(EnumUtils.GetRandomEnum<TalonId>()))
-                                .Build()
-                        },
-                        {
-                            TalonCallSign.Chi,
-                            new TalonConstructionReport.Builder()
-                                .SetCustomizationReport(RandomCustomizationReportGenerator
-                                    .GenerateRandomCustomizationReport())
-                                .SetTalonLoadoutReport(RandomTalonLoadoutReportGenerator
-                                    .GenerateRandomTalonLoadoutReport(EnumUtils.GetRandomEnum<TalonId>()))
-                                .Build()
-                        },
-                        {
-                            TalonCallSign.Delta,
-                            new TalonConstructionReport.Builder()
-                                .SetCustomizationReport(RandomCustomizationReportGenerator
-                                    .GenerateRandomCustomizationReport())
-                                .SetTalonLoadoutReport(RandomTalonLoadoutReportGenerator
-                                    .GenerateRandomTalonLoadoutReport(EnumUtils.GetRandomEnum<TalonId>()))
-                                .Build()
-                        },
-                    };
-                this.mvcFrameworkObject = new MvcFrameworkObject.Builder()
+                        talonConstructionReports.Add(new TalonConstructionReport.Builder()
+                            .SetTalonCallSign(talonCallSign)
+                            .SetCustomizationReport(phalanxReport.GetCustomizationReport())
+                            .SetTalonLoadoutReport(RandomTalonLoadoutReportGenerator
+                                .GenerateRandomTalonLoadoutReport(EnumUtils.GetRandomEnum<TalonId>()))
+                            .Build());
+                    }
+                }
+                IMvcConstructionReport mvcConstructionReport = new MvcConstructionReport.Builder()
                     .SetMatchType(MatchType.FactionDeathmatch)
-                    .SetSimulationType(SimulationType.BlackBox)
+                    .SetSimulationType(SimulationType.WhiteBox)
                     .SetGameBoardShape(GameBoardShape.Hexagon)
-                    .SetGameBoardLimit(3)
+                    .SetGameBoardLimit(2 + RandomNumberGeneratorUtil.GetNextInt() % 3)
                     .SetMirroredBoard(true)
-                    .SetFactionIdPhalanxIdSetDictionary(factionIdPhalanxIdSetDictionary)
-                    .SetPhalanxTalonCallSignSetDictionary(phalanxIdTalonCallSignSetDictionary)
-                    .SetTalonCallSignConstructionReportDictionary(talonCallSignConstructionReportDictionary)
+                    .SetPhalanxReports(phalanxReports)
+                    .SetTalonConstructionReports(talonConstructionReports)
+                    .Build();
+
+                this.mvcFrameworkObject = new MvcFrameworkObject.Builder()
+                    .SetMvcConstructionReport(mvcConstructionReport)
                     .Build();
             }
         }

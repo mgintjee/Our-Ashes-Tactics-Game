@@ -109,13 +109,13 @@
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is not tracked.",
+                    throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not tracked.",
                         new StackFrame().GetMethod().Name, cubeCoordinates);
                 }
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is null.",
+                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is null.",
                     new StackFrame().GetMethod().Name, typeof(ICubeCoordinates));
             }
         }
@@ -131,13 +131,13 @@
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is not tracked.",
+                    throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not tracked.",
                         new StackFrame().GetMethod().Name, cubeCoordinates);
                 }
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is null.",
+                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is null.",
                     new StackFrame().GetMethod().Name, typeof(ICubeCoordinates));
             }
         }
@@ -156,13 +156,13 @@
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is not tracked.",
+                    throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not tracked.",
                         new StackFrame().GetMethod().Name, cubeCoordinates);
                 }
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is null.",
+                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is null.",
                     new StackFrame().GetMethod().Name, typeof(ICubeCoordinates));
             }
         }
@@ -207,7 +207,7 @@
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to construct ?. Invalid Parameters. ?",
+                    throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
                         this.GetType(), string.Join("\n", invalidReasons));
                 }
             }

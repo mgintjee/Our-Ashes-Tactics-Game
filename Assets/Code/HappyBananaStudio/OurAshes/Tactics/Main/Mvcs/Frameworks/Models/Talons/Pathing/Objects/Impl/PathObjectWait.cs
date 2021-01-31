@@ -21,7 +21,7 @@
         {
             if (cubeCoordinatesStepList.Count != 1)
             {
-                throw ExceptionUtil.Argument.Build("Unable to construct ?. Invalid Parameters. " +
+                throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. " +
                     "List: ? should be of length 1. " +
                     "Parameterized List: ? is length=?.",
                    this.GetType(), typeof(ICubeCoordinates), typeof(ICubeCoordinates), cubeCoordinatesStepList.Count);

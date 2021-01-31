@@ -46,7 +46,7 @@
                                 .Build())
                             .SetEngineAttributes(new EngineAttributes.Builder()
                                 .SetActionPoints(2)
-                                .SetMovementPoints(14)
+                                .SetMovementPoints(12)
                                 .Build())
                             .SetMountSizeList(new List<MountSize>()
                             {
@@ -56,26 +56,6 @@
                             })
                         .Build()
                     },
-                    {
-                        TalonId.Talon2,
-                        new TalonLoadoutAttributes.Builder()
-                            .SetArmorAttributes(new ArmorAttributes.Builder()
-                                .SetArmorPoints(6)
-                                .SetHealthPoints(24)
-                                .Build())
-                            .SetEngineAttributes(new EngineAttributes.Builder()
-                                .SetActionPoints(2)
-                                .SetMovementPoints(12)
-                                .Build())
-                            .SetMountSizeList(new List<MountSize>()
-                            {
-                                MountSize.Small,
-                                MountSize.Large,
-                                MountSize.Large,
-                                MountSize.Small
-                            })
-                        .Build()
-                    }
                 };
 
         /// <summary>
@@ -92,7 +72,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not supported.",
                     new StackFrame().GetMethod().Name, talonId);
             }
         }

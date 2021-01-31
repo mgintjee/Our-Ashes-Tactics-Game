@@ -6,17 +6,15 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.Objects.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Objects.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Reports.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Managers;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Constructions.Reports.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Talons.Managers;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Orders.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Objects.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Reports.Construction.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Objects.Impl;
     using System.Collections.Generic;
@@ -41,80 +39,67 @@
         private readonly IMvcViewObject mvcViewObject;
 
         // Todo
-        private readonly SimulationType simulationType;
+        private readonly IMvcConstructionReport mvcConstructionReport;
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="simulationType"></param>
-        /// <param name="matchType"></param>
-        /// <param name="gameBoardShape"></param>
-        /// <param name="gameBoardLimit"></param>
-        /// <param name="mirroredBoard"></param>
-        /// <param name="factionIdPhalanxIdSetDictionary"></param>
-        /// <param name="phalanxTalonSetDictionary"></param>
-        /// <param name="talonCallSignConstructionReportDictionary"></param>
-        private MvcFrameworkObject(SimulationType simulationType, MatchType matchType,
-            GameBoardShape gameBoardShape, int gameBoardLimit, bool mirroredBoard,
-            IDictionary<FactionCallSign, ISet<PhalanxCallSign>> factionIdPhalanxIdSetDictionary,
-            IDictionary<PhalanxCallSign, ISet<TalonCallSign>> phalanxTalonSetDictionary,
-            IDictionary<TalonCallSign, ITalonConstructionReport> talonCallSignConstructionReportDictionary)
+        /// <param name="mvcConstructionReport"></param>
+        private MvcFrameworkObject(IMvcConstructionReport mvcConstructionReport)
         {
-            this.simulationType = simulationType;
-            if (this.simulationType != SimulationType.BlackBox)
-            {
-                // Then the view is required
-            }
-            else
-            {
-            }
-            ISet<ISet<TalonCallSign>> friendlyTalonCallSignSets = new HashSet<ISet<TalonCallSign>>();
-            foreach (ISet<PhalanxCallSign> phalanxIdSet in factionIdPhalanxIdSetDictionary.Values)
-            {
-                ISet<TalonCallSign> friendlyTalonCallSignSet = new HashSet<TalonCallSign>();
-                foreach (PhalanxCallSign phalanxId in phalanxIdSet)
-                {
-                    friendlyTalonCallSignSet.UnionWith(phalanxTalonSetDictionary[phalanxId]);
-                }
-                friendlyTalonCallSignSets.Add(friendlyTalonCallSignSet);
-            }
-            ISet<ICubeCoordinates> cubeCoordinateSet = CubeCoordinatesSetGenerator
-                .GenerateCubeCoordinates(gameBoardShape, gameBoardLimit);
-            IDictionary<TalonCallSign, ICubeCoordinates> talonSpawnCubeCoordinatesDictionary =
-                TalonSpawnCubeCoordinatesGenerator.GenerateSpawnCubeCoordinates(friendlyTalonCallSignSets, cubeCoordinateSet);
-            this.mvcViewObject = new MvcViewObject.Builder()
-                .Build();
-            this.mvcControllerObject = new MvcControllerObject.Builder()
-                .SetPhalanxTalonSetDictionary(phalanxTalonSetDictionary)
-                .SetSimulationType(simulationType)
-                .Build();
+            this.mvcConstructionReport = mvcConstructionReport;
+            logger.Info("Constructing new ? with ?", this.GetType(), this.mvcConstructionReport);
+            ISet<ICubeCoordinates> cubeCoordinateSet = CubeCoordinatesSetGenerator.GenerateCubeCoordinates(
+                this.mvcConstructionReport.GetGameBoardShape(), this.mvcConstructionReport.GetGameBoardLimit());
             this.mvcModelObject = new MvcModelObject.Builder()
                 .SetCubeCoordinatesSet(cubeCoordinateSet)
-                .SetFriendlyTalonCallSignDictionary(friendlyTalonCallSignSets)
-                .SetMatchType(matchType)
-                .SetMirroredBoad(mirroredBoard)
-                .SetTalonSpawnCubeCoordinatesDictionary(talonSpawnCubeCoordinatesDictionary)
-                .SetTalonCallSignConstructionReportDictionary(talonCallSignConstructionReportDictionary)
+                .SetPhalanxReports(this.mvcConstructionReport.GetPhalanxReports())
+                .SetTalonConstructionReports(this.mvcConstructionReport.GetTalonConstructionReports())
+                .SetMatchType(this.mvcConstructionReport.GetMatchType())
+                .SetMirroredBoad(this.mvcConstructionReport.GetMirroredBoard())
+                .SetTalonSpawnCubeCoordinatesDictionary(TalonSpawnCubeCoordinatesGenerator
+                    .GenerateSpawnCubeCoordinates(this.mvcConstructionReport.GetPhalanxReports(), cubeCoordinateSet))
+                .Build();
+            this.mvcViewObject = new MvcViewObject.Builder()
+                .SetSimulationType(this.mvcConstructionReport.GetSimulationType())
+                .SetMatchType(this.mvcConstructionReport.GetMatchType())
+                .Build();
+            this.mvcControllerObject = new MvcControllerObject.Builder()
+                .SetPhalanxReports(this.mvcConstructionReport.GetPhalanxReports())
+                .SetSimulationType(this.mvcConstructionReport.GetSimulationType())
                 .Build();
         }
 
         /// <inheritdoc/>
         void IMvcFrameworkObject.ContinueGame()
         {
-            TalonCallSign actingTalonCallSign = this.mvcModelObject.GetActingTalonCallSign();
-            logger.Debug("Acting ?", RosterManager.GetTalonObject(actingTalonCallSign).GetTalonReport());
-            ITalonOrderReport talonOrderReport = this.mvcControllerObject.DetermineTalonOrderReport(actingTalonCallSign);
-            logger.Debug("?", talonOrderReport);
-            if (talonOrderReport != null)
+            if (!this.mvcViewObject.IsAnimating())
             {
-                // Todo: Animate based off of the simulationType
-                IMvcModelReport mvcModelReport = this.mvcModelObject.InputTalonOrderReport(talonOrderReport);
-                logger.Debug("?", mvcModelReport);
+                TalonCallSign actingTalonCallSign = this.mvcModelObject.GetActingTalonCallSign();
+                logger.Debug("Acting ?", TalonRosterManager.GetTalonReport(actingTalonCallSign));
+                ITalonOrderReport talonOrderReport = this.mvcControllerObject.DetermineTalonOrderReport(actingTalonCallSign);
+                logger.Debug("?", talonOrderReport);
+                if (talonOrderReport != null)
+                {
+                    this.mvcModelObject.InputTalonOrderReport(talonOrderReport);
+                    IMvcModelReport mvcModelReport = this.mvcModelObject.GetMvcModelReport();
+                    this.mvcViewObject.Animate(talonOrderReport);
+                    logger.Debug("?", mvcModelReport);
+                }
+                else
+                {
+                    logger.Debug("Unable to ContinueGame. Null ?", typeof(ITalonOrderReport));
+                }
             }
-            else
             {
-                logger.Debug("Unable to ContinueGame. Null ?", typeof(ITalonOrderReport));
+                logger.Debug("Animating.");
             }
+        }
+
+        /// <inheritdoc/>
+        bool IMvcFrameworkObject.IsAnimating()
+        {
+            return this.mvcViewObject.IsAnimating();
         }
 
         /// <inheritdoc/>
@@ -122,7 +107,7 @@
         {
             // Todo: Add a check for the controller to ensure that the connected people are connected.
             // Maybe just have an AI take over?
-            return this.mvcModelObject.CheckWinConditions();
+            return this.mvcModelObject.GetMvcModelReport().GetWinConditionReport().GetTalonCallSignSet().Count != 0;
         }
 
         /// <summary>
@@ -131,34 +116,7 @@
         public class Builder
         {
             // Todo
-            private SimulationType simulationType = SimulationType.None;
-
-            // Todo
-            private MatchType matchType = MatchType.None;
-
-            // Todo
-            private GameBoardShape gameBoardShape = GameBoardShape.Hexagon;
-
-            // Todo
-            private int gameBoardLimit = 0;
-
-            // Todo
-            private bool setGameBoardLimit = false;
-
-            // Todo
-            private bool mirroredBoard = false;
-
-            // Todo
-            private bool setMirroredBoard = false;
-
-            // Todo
-            private IDictionary<FactionCallSign, ISet<PhalanxCallSign>> factionIdPhalanxIdSetDictionary = null;
-
-            // Todo
-            private IDictionary<PhalanxCallSign, ISet<TalonCallSign>> phalanxTalonCallSignSetDictionary = null;
-
-            // Todo
-            private IDictionary<TalonCallSign, ITalonConstructionReport> talonCallSignConstructionReportDictionary = null;
+            private IMvcConstructionReport mvcConstructionReport = null;
 
             /// <summary>
             /// Todo
@@ -171,14 +129,11 @@
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new Object
-                    return new MvcFrameworkObject(this.simulationType, this.matchType,
-                        this.gameBoardShape, this.gameBoardLimit, this.mirroredBoard,
-                        this.factionIdPhalanxIdSetDictionary, this.phalanxTalonCallSignSetDictionary,
-                        this.talonCallSignConstructionReportDictionary);
+                    return new MvcFrameworkObject(this.mvcConstructionReport);
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to construct ?. Invalid Parameters. ?",
+                    throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
                         this.GetType(), string.Join("\n", invalidReasons));
                 }
             }
@@ -186,100 +141,11 @@
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="simulationType"></param>
+            /// <param name="mvcConstructionReport"></param>
             /// <returns></returns>
-            public Builder SetSimulationType(SimulationType simulationType)
+            public Builder SetMvcConstructionReport(IMvcConstructionReport mvcConstructionReport)
             {
-                this.simulationType = simulationType;
-                return this;
-            }
-
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="matchType"></param>
-            /// <returns></returns>
-            public Builder SetMatchType(MatchType matchType)
-            {
-                this.matchType = matchType;
-                return this;
-            }
-
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="gameBoardShape"></param>
-            /// <returns></returns>
-            public Builder SetGameBoardShape(GameBoardShape gameBoardShape)
-            {
-                this.gameBoardShape = gameBoardShape;
-                return this;
-            }
-
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="gameBoardLimit"></param>
-            /// <returns></returns>
-            public Builder SetGameBoardLimit(int gameBoardLimit)
-            {
-                this.gameBoardLimit = gameBoardLimit;
-                this.setGameBoardLimit = true;
-                return this;
-            }
-
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="mirroredBoard"></param>
-            /// <returns></returns>
-            public Builder SetMirroredBoard(bool mirroredBoard)
-            {
-                this.mirroredBoard = mirroredBoard;
-                this.setMirroredBoard = true;
-                return this;
-            }
-
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="factionIdPhalanxIdSetDictionary"></param>
-            /// <returns></returns>
-            public Builder SetFactionIdPhalanxIdSetDictionary(
-                IDictionary<FactionCallSign, ISet<PhalanxCallSign>> factionIdPhalanxIdSetDictionary)
-            {
-                this.factionIdPhalanxIdSetDictionary = new Dictionary<FactionCallSign, ISet<PhalanxCallSign>>(
-                    factionIdPhalanxIdSetDictionary);
-                return this;
-            }
-
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="phalanxTalonCallSignSetDictionary"></param>
-            /// <returns></returns>
-            public Builder SetPhalanxTalonCallSignSetDictionary(
-                IDictionary<PhalanxCallSign, ISet<TalonCallSign>> phalanxTalonCallSignSetDictionary)
-            {
-                this.phalanxTalonCallSignSetDictionary = new Dictionary<PhalanxCallSign, ISet<TalonCallSign>>(
-                    phalanxTalonCallSignSetDictionary);
-                return this;
-            }
-
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="talonCallSignConstructionReportDictionary"></param>
-            /// <returns></returns>
-            public Builder SetTalonCallSignConstructionReportDictionary(
-                IDictionary<TalonCallSign, ITalonConstructionReport> talonCallSignConstructionReportDictionary)
-            {
-                if (talonCallSignConstructionReportDictionary != null)
-                {
-                    this.talonCallSignConstructionReportDictionary =
-                        new Dictionary<TalonCallSign, ITalonConstructionReport>(
-                        talonCallSignConstructionReportDictionary);
-                }
+                this.mvcConstructionReport = mvcConstructionReport;
                 return this;
             }
 
@@ -292,37 +158,9 @@
             {
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
-                if (this.simulationType == SimulationType.None)
+                if (this.mvcConstructionReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(SimulationType).Name + " is not set");
-                }
-                if (this.matchType == MatchType.None)
-                {
-                    argumentExceptionSet.Add(typeof(MatchType).Name + " is not set");
-                }
-                if (this.gameBoardShape == GameBoardShape.None)
-                {
-                    argumentExceptionSet.Add(typeof(GameBoardShape).Name + " is not set");
-                }
-                if (!this.setGameBoardLimit)
-                {
-                    argumentExceptionSet.Add("gameBoardLimit is not set");
-                }
-                if (!this.setMirroredBoard)
-                {
-                    argumentExceptionSet.Add("mirroredBoard is not set");
-                }
-                if (this.factionIdPhalanxIdSetDictionary == null)
-                {
-                    argumentExceptionSet.Add("factionIdPhalanxIdSetDictionary is not set");
-                }
-                if (this.phalanxTalonCallSignSetDictionary == null)
-                {
-                    argumentExceptionSet.Add("phalanxTalonCallSignSetDictionary is not set");
-                }
-                if (this.talonCallSignConstructionReportDictionary == null)
-                {
-                    argumentExceptionSet.Add("talonCallSignLoadoutReportDictionary is not set");
+                    argumentExceptionSet.Add(typeof(IMvcConstructionReport).Name + " can not be null.");
                 }
                 return argumentExceptionSet;
             }

@@ -1,7 +1,7 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Comparers.Impl
 {
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Comparers.Abs;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Objects.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Reports.Api;
 
     /// <summary>
     /// Todo
@@ -10,9 +10,9 @@
         : AbstractTalonObjectComparer
     {
         /// <inheritdoc/>
-        protected override float GetComparingValue(ITalonObject talonObject)
+        protected override float GetComparingValue(ITalonReport talonReport)
         {
-            return talonObject.GetTalonReport().GetCurrentTalonAttributesReport().GetMovementPoints();
+            return talonReport.GetCurrentTalonAttributesReport().GetMovementPoints();
         }
     }
 }

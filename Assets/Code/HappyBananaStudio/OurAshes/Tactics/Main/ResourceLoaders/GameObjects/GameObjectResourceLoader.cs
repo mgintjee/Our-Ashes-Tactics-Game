@@ -42,13 +42,13 @@
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to ?. Invalid parameters. " +
+                    throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid parameters. " +
                         "Instantiated GameObject is null for Path=?.", new StackFrame().GetMethod().Name, path);
                 }
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid parameters. " +
+                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid parameters. " +
                     "Prefab is null for Path=?.", new StackFrame().GetMethod().Name, path);
             }
         }
@@ -91,13 +91,11 @@
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="talonId">
-            /// </param>
-            /// <returns>
-            /// </returns>
+            /// <returns></returns>
             public static GameObject LoadHexTileGameObjectResource()
             {
-                GameObject gameObject = LoadGameObjectResource(HexTileGameObjectsFolderHome + HexTileGameObjectName + GameObjectsSuffix);
+                GameObject gameObject = LoadGameObjectResource(
+                    HexTileGameObjectsFolderHome + HexTileGameObjectName + GameObjectsSuffix);
                 return gameObject;
             }
         }
@@ -121,13 +119,11 @@
             {
                 if (!talonId.Equals(TalonId.None))
                 {
-                    GameObject gameObject = LoadGameObjectResource(TalonGameObjectsFolderHome + talonId.ToString() + GameObjectsSuffix);
-                    gameObject.name = talonId.ToString();
-                    return gameObject;
+                    return LoadGameObjectResource(TalonGameObjectsFolderHome + talonId.ToString() + GameObjectsSuffix);
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters.",
+                    throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters.",
                         new StackFrame().GetMethod().Name);
                 }
             }
@@ -159,7 +155,7 @@
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters.", new StackFrame().GetMethod().Name);
+                    throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters.", new StackFrame().GetMethod().Name);
                 }
             }
         }
@@ -190,7 +186,7 @@
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters.", new StackFrame().GetMethod().Name);
+                    throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters.", new StackFrame().GetMethod().Name);
                 }
             }
         }

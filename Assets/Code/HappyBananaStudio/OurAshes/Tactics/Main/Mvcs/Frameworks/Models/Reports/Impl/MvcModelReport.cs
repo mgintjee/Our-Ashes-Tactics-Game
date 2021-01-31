@@ -3,13 +3,13 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.GameBoards.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Reports.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Roes.Reports.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Reports.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Phalanxes.Reports.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Talons.Reports.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.WinConditions.Reports.Api;
     using System.Collections.Generic;
 
     /// <summary>
-    /// MvcModel Report Api
+    /// MvcModel Report Impl
     /// </summary>
     public struct MvcModelReport
         : IMvcModelReport
@@ -18,13 +18,13 @@
         private readonly IGameBoardReport gameBoardReport;
 
         // Todo
-        private readonly IRoeReport roeReport;
+        private readonly IPhalanxRosterReport phalanxRosterReport;
 
         // Todo
-        private readonly IRosterReport rosterReport;
+        private readonly ITalonRosterReport talonrosterReport;
 
         // Todo
-        private readonly TalonCallSign talonCallSign;
+        private readonly IWinConditionReport winConditionReport;
 
         /// <summary>
         /// Todo
@@ -32,14 +32,14 @@
         /// <param name="gameBoardReport"></param>
         /// <param name="roeReport"></param>
         /// <param name="rosterReport"></param>
-        /// <param name="talonCallSign"></param>
-        private MvcModelReport(IGameBoardReport gameBoardReport,
-            IRoeReport roeReport, IRosterReport rosterReport, TalonCallSign talonCallSign)
+        /// <param name="winConditionReport"></param>
+        private MvcModelReport(IGameBoardReport gameBoardReport, IPhalanxRosterReport phalanxRosterReport,
+            ITalonRosterReport rosterReport, IWinConditionReport winConditionReport)
         {
             this.gameBoardReport = gameBoardReport;
-            this.roeReport = roeReport;
-            this.rosterReport = rosterReport;
-            this.talonCallSign = talonCallSign;
+            this.phalanxRosterReport = phalanxRosterReport;
+            this.talonrosterReport = rosterReport;
+            this.winConditionReport = winConditionReport;
         }
 
         /// <inheritdoc/>
@@ -49,32 +49,33 @@
         }
 
         /// <inheritdoc/>
-        IRoeReport IMvcModelReport.GetRoeReport()
+        IPhalanxRosterReport IMvcModelReport.GetPhalanxRosterReport()
         {
-            return this.roeReport;
+            return this.phalanxRosterReport;
         }
 
         /// <inheritdoc/>
-        IRosterReport IMvcModelReport.GetRosterReport()
+        ITalonRosterReport IMvcModelReport.GetTalonRosterReport()
         {
-            return this.rosterReport;
+            return this.talonrosterReport;
         }
 
         /// <inheritdoc/>
-        TalonCallSign IMvcModelReport.GetActingTalonCallSign()
+        IWinConditionReport IMvcModelReport.GetWinConditionReport()
         {
-            return this.talonCallSign;
+            return this.winConditionReport;
         }
 
         /// <inheritdoc/>
         public override string ToString()
         {
-            return string.Format("{0}: {1}={2}," +
-                "\n\t>{3}," +
-                "\n\t>{4}," +
-                "\n\t>{5}",
-                this.GetType().Name, typeof(TalonCallSign).Name, this.talonCallSign,
-                this.gameBoardReport, this.roeReport, this.rosterReport);
+            return string.Format("{0}:" +
+                "\n\t>{1}" +
+                "\n\t>{2}" +
+                "\n\t>{3}" +
+                "\n\t>{4}",
+                this.GetType().Name, this.gameBoardReport, this.phalanxRosterReport,
+                this.talonrosterReport, this.winConditionReport);
         }
 
         /// <summary>
@@ -86,13 +87,13 @@
             private IGameBoardReport gameBoardReport = null;
 
             // Todo
-            private IRoeReport roeReport = null;
+            private IPhalanxRosterReport phalanxRosterReport = null;
 
             // Todo
-            private IRosterReport rosterReport = null;
+            private ITalonRosterReport talonRosterReport = null;
 
             // Todo
-            private TalonCallSign talonCallSign = TalonCallSign.None;
+            private IWinConditionReport winConditionReport = null;
 
             /// <summary>
             /// Todo
@@ -105,12 +106,12 @@
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new Object
-                    return new MvcModelReport(this.gameBoardReport,
-                        this.roeReport, this.rosterReport, this.talonCallSign);
+                    return new MvcModelReport(this.gameBoardReport, this.phalanxRosterReport,
+                        this.talonRosterReport, this.winConditionReport);
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to construct ?. Invalid Parameters. ?",
+                    throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
                         this.GetType(), string.Join("\n", invalidReasons));
                 }
             }
@@ -129,33 +130,33 @@
             /// <summary>
             ///
             /// </summary>
-            /// <param name="talonCallSign"></param>
+            /// <param name="phalanxRosterReport"></param>
             /// <returns></returns>
-            public Builder SetTalonCallSign(TalonCallSign talonCallSign)
+            public Builder SetPhalanxRosterReport(IPhalanxRosterReport phalanxRosterReport)
             {
-                this.talonCallSign = talonCallSign;
+                this.phalanxRosterReport = phalanxRosterReport;
                 return this;
             }
 
             /// <summary>
             ///
             /// </summary>
-            /// <param name="roeReport"></param>
+            /// <param name="talonRosterReport"></param>
             /// <returns></returns>
-            public Builder SetRoeReport(IRoeReport roeReport)
+            public Builder SetTalonRosterReport(ITalonRosterReport talonRosterReport)
             {
-                this.roeReport = roeReport;
+                this.talonRosterReport = talonRosterReport;
                 return this;
             }
 
             /// <summary>
             ///
             /// </summary>
-            /// <param name="rosterReport"></param>
+            /// <param name="winConditionReport"></param>
             /// <returns></returns>
-            public Builder SetRosterReport(IRosterReport rosterReport)
+            public Builder SetWinConditionReport(IWinConditionReport winConditionReport)
             {
-                this.rosterReport = rosterReport;
+                this.winConditionReport = winConditionReport;
                 return this;
             }
 
@@ -171,22 +172,22 @@
                 // Check that gameBoardReport has been set
                 if (this.gameBoardReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(IGameBoardReport) + " has not been set");
+                    argumentExceptionSet.Add(typeof(IGameBoardReport).Name + " cannot be null.");
                 }
-                // Check that roeReport has been set
-                if (this.roeReport == null)
+                // Check that phalanxRosterReport has been set
+                if (this.phalanxRosterReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(IRoeReport) + " has not been set");
+                    argumentExceptionSet.Add(typeof(IPhalanxRosterReport).Name + " cannot be null.");
                 }
                 // Check that rosterReport has been set
-                if (this.rosterReport == null)
+                if (this.talonRosterReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(IRosterReport) + " has not been set");
+                    argumentExceptionSet.Add(typeof(ITalonRosterReport).Name + " cannot be null.");
                 }
-                // Check that talonCallSign has been set
-                if (this.talonCallSign == TalonCallSign.None)
+                // Check that winConditionReport has been set
+                if (this.winConditionReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(TalonCallSign) + " has not been set");
+                    argumentExceptionSet.Add(typeof(IWinConditionReport).Name + " cannot be null.");
                 }
                 return argumentExceptionSet;
             }

@@ -1,9 +1,9 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Comparers.Abs
 {
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Managers;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Talons.Managers;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Comparers.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Objects.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Reports.Api;
     using System.Collections.Generic;
 
     /// <summary>
@@ -15,20 +15,20 @@
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="talonCallSignX"></param>
-        /// <param name="talonCallSignY"></param>
+        /// <param name="talonCallSignA"></param>
+        /// <param name="talonCallSignB"></param>
         /// <returns></returns>
-        int IComparer<TalonCallSign>.Compare(TalonCallSign talonCallSignX, TalonCallSign talonCallSignY)
+        int IComparer<TalonCallSign>.Compare(TalonCallSign talonCallSignA, TalonCallSign talonCallSignB)
         {
-            if (!(talonCallSignX.Equals(TalonCallSign.None) ||
-                talonCallSignY.Equals(TalonCallSign.None)))
+            if (!(talonCallSignA.Equals(TalonCallSign.None) ||
+                talonCallSignB.Equals(TalonCallSign.None)))
             {
                 // Collect the TalonObjects
-                ITalonObject talonObjectX = RosterManager.GetTalonObject(talonCallSignX);
-                ITalonObject talonObjectY = RosterManager.GetTalonObject(talonCallSignY);
+                ITalonReport talonReportA = TalonRosterManager.GetTalonReport(talonCallSignA);
+                ITalonReport talonReportB = TalonRosterManager.GetTalonReport(talonCallSignB);
                 // Collect their comparing values
-                float movementPointsX = this.GetComparingValue(talonObjectX);
-                float movementPointsY = this.GetComparingValue(talonObjectY);
+                float movementPointsX = this.GetComparingValue(talonReportA);
+                float movementPointsY = this.GetComparingValue(talonReportB);
                 if (movementPointsX > movementPointsY)
                 {
                     return -1;
@@ -44,13 +44,13 @@
             }
             else
             {
-                // Check if talonCallSignY is None
-                if (!talonCallSignX.Equals(TalonCallSign.None))
+                // Check if talonCallSignB is None
+                if (!talonCallSignA.Equals(TalonCallSign.None))
                 {
                     return 1;
                 }
-                // Check if talonCallSignX is None
-                else if (!talonCallSignY.Equals(TalonCallSign.None))
+                // Check if talonCallSignA is None
+                else if (!talonCallSignB.Equals(TalonCallSign.None))
                 {
                     return 1;
                 }
@@ -65,8 +65,8 @@
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="talonObject"></param>
+        /// <param name="talonReport"></param>
         /// <returns></returns>
-        protected abstract float GetComparingValue(ITalonObject talonObject);
+        protected abstract float GetComparingValue(ITalonReport talonReport);
     }
 }

@@ -72,7 +72,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not supported.",
                     new StackFrame().GetMethod().Name, loadoutRarity);
             }
         }
@@ -91,7 +91,7 @@
                     return loadoutRarity;
                 }
             }
-            throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+            throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not supported.",
                     new StackFrame().GetMethod().Name, armorId);
         }
 
@@ -109,7 +109,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not supported.",
                     new StackFrame().GetMethod().Name, loadoutRarity);
             }
         }

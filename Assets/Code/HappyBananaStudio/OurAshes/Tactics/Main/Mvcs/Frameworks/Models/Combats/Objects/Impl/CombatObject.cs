@@ -1,11 +1,13 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Combats.Objects.Impl
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Combats.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Combats.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Combats.Reports.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Managers;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Talons.Objects.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Attributes.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Effects.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Effects.Objects.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
@@ -13,7 +15,6 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Weapons.Attributes.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Weapons.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Objects.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Randoms.Generators.Numbers;
     using System;
     using System.Collections.Generic;
@@ -28,12 +29,24 @@
         // Provide logging capability
         private static readonly ICodeLogger logger = new CodeLogger(new StackFrame().GetMethod().DeclaringType);
 
+        // Todo
+        private readonly ITalonRosterObject rosterObject;
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="rosterObject"></param>
+        private CombatObject(ITalonRosterObject rosterObject)
+        {
+            this.rosterObject = rosterObject;
+        }
+
         /// <inheritdoc/>
         IList<ICombatReport> ICombatObject.GetActualCombatReport(TalonCallSign actingTalonCallSign,
             TalonCallSign targetTalonCallSign, float accuracyCost)
         {
-            ITalonObject actingTalonObject = RosterManager.GetTalonObject(actingTalonCallSign);
-            ITalonObject targetTalonObject = RosterManager.GetTalonObject(targetTalonCallSign);
+            ITalonObject actingTalonObject = this.rosterObject.GetTalonObject(actingTalonCallSign);
+            ITalonObject targetTalonObject = this.rosterObject.GetTalonObject(targetTalonCallSign);
             IList<ICombatReport> combatReportList = new List<ICombatReport>();
             IList<IMountReport> mountReportList = actingTalonObject.GetTalonReport()
                 .GetTalonLoadoutReport().GetMountReportList();
@@ -62,8 +75,8 @@
         IList<ICombatReport> ICombatObject.GetAverageCombatReport(TalonCallSign actingTalonCallSign,
             TalonCallSign targetTalonCallSign, float accuracyCost)
         {
-            ITalonObject actingTalonObject = RosterManager.GetTalonObject(actingTalonCallSign);
-            ITalonObject targetTalonObject = RosterManager.GetTalonObject(targetTalonCallSign);
+            ITalonObject actingTalonObject = this.rosterObject.GetTalonObject(actingTalonCallSign);
+            ITalonObject targetTalonObject = this.rosterObject.GetTalonObject(targetTalonCallSign);
             IList<ICombatReport> combatReportList = new List<ICombatReport>();
             IList<IMountReport> mountReportList = actingTalonObject.GetTalonReport()
                 .GetTalonLoadoutReport().GetMountReportList();
@@ -126,7 +139,7 @@
         /// <returns></returns>
         private int GetAverageVolleyLanded(IWeaponAttributes weaponAttributes, float accuracyCost)
         {
-            return (int) Math.Round(weaponAttributes.GetVolleySize() *
+            return (int)Math.Round(weaponAttributes.GetVolleySize() *
                 ((weaponAttributes.GetAccuracyPoints() - accuracyCost) / 100f));
         }
 
@@ -163,6 +176,63 @@
             return new CombatReport.Builder()
                 .SetTalonEffectObjectSet(new HashSet<ITalonEffectObject>() { talonEffectObject })
                 .Build();
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        public class Builder
+        {
+            // Todo
+            private ITalonRosterObject talonRosterObject = null;
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <returns></returns>
+            public ICombatObject Build()
+            {
+                ISet<string> invalidReasons = this.IsInvalid();
+                // Check that the set parameters are valid
+                if (invalidReasons.Count == 0)
+                {
+                    // Instantiate a new Object
+                    return new CombatObject(this.talonRosterObject);
+                }
+                else
+                {
+                    throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
+                        this.GetType(), string.Join("\n", invalidReasons));
+                }
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <param name="talonRosterObject"></param>
+            /// <returns></returns>
+            public Builder SetTalonRosterObject(ITalonRosterObject talonRosterObject)
+            {
+                this.talonRosterObject = talonRosterObject;
+                return this;
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <returns>
+            /// </returns>
+            private ISet<string> IsInvalid()
+            {
+                // Default an empty Set: String
+                ISet<string> argumentExceptionSet = new HashSet<string>();
+                // Check that rosterObject has been set
+                if (this.talonRosterObject == null)
+                {
+                    argumentExceptionSet.Add(typeof(ITalonRosterObject).Name + " has not been set");
+                }
+                return argumentExceptionSet;
+            }
         }
     }
 }

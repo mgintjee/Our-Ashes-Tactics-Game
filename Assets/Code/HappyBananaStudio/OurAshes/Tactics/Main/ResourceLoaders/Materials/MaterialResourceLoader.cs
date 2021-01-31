@@ -95,7 +95,7 @@
                 /// </param>
                 /// <returns>
                 /// </returns>
-                public static Material LoadHexTileTopMaterialResource(HexTileType hexTileType)
+                public static Material LoadMaterial(HexTileType hexTileType)
                 {
                     string mechActionTypeString = "";
                     switch (hexTileType)

@@ -71,7 +71,7 @@
             return string.Format("{0}: {1}={2}, " +
                 "\n\t>{3}," +
                 "\n\t>{4}," +
-                "[\n\t>{5}]",
+                "\n\t>{5}",
                 this.GetType().Name, typeof(TalonId).Name, this.talonId,
                 this.armorReport, this.engineReport, string.Join("\n\t>", this.mountReportList));
         }
@@ -110,7 +110,7 @@
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to construct ?. Invalid Parameters. ?",
+                    throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
                         this.GetType(), string.Join("\n", invalidReasons));
                 }
             }

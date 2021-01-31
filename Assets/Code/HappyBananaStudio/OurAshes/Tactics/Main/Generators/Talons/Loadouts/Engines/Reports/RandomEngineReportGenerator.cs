@@ -28,7 +28,7 @@
             EngineTraitEfficiency engineTraitEfficiency = EngineTraitEfficiency.None;
             EngineTraitStructure engineTraitStructure = EngineTraitStructure.None;
             int traitsRequired = EngineRarityConstants.GetLoadoutTraitCount(loadoutRarity);
-            int traitsRemaining = 2;
+            float traitsRemaining = 4f;
 
             if (RandomNumberGeneratorUtil.GetNextDouble() <= traitsRequired / traitsRemaining)
             {
@@ -58,7 +58,7 @@
             ISet<EngineId> engineIdSet = EngineRarityConstants.GetEngineIdSet(loadoutRarity);
             if (engineIdSet.Count == 0)
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? has no corresponding ?s.",
+                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? has no corresponding ?s.",
                         new StackFrame().GetMethod().Name, loadoutRarity, typeof(EngineId));
             }
             return new List<EngineId>(engineIdSet)[RandomNumberGeneratorUtil.GetNextInt(engineIdSet.Count)];

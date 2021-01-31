@@ -1,5 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.AIs.Api
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Orders.Reports.Api;
     using System.Collections.Generic;
 
@@ -11,10 +12,9 @@
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="talonOrderReportSet">
-        /// </param>
-        /// <returns>
-        /// </returns>
-        ITalonOrderReport DetermineBestOrderReport(ISet<ITalonOrderReport> talonOrderReportSet);
+        /// <param name="talonCallSign"></param>
+        /// <param name="talonOrderReportSet"></param>
+        /// <returns></returns>
+        ITalonOrderReport DetermineBestOrderReport(TalonCallSign talonCallSign, ISet<ITalonOrderReport> talonOrderReportSet);
     }
 }

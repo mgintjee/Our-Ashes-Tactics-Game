@@ -72,7 +72,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not supported.",
                     new StackFrame().GetMethod().Name, weaponIdType);
             }
         }
@@ -91,7 +91,7 @@
                     return weaponIdType;
                 }
             }
-            throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+            throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not supported.",
                     new StackFrame().GetMethod().Name, weaponId);
         }
     }

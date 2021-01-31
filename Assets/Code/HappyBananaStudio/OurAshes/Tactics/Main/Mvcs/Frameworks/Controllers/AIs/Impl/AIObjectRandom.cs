@@ -2,6 +2,7 @@
 {
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.AIs.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Orders.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Randoms.Generators.Numbers;
     using System.Collections.Generic;
@@ -13,7 +14,8 @@
         : IAIObject
     {
         /// <inheritdoc/>
-        ITalonOrderReport IAIObject.DetermineBestOrderReport(ISet<ITalonOrderReport> talonOrderReportSet)
+        ITalonOrderReport IAIObject.DetermineBestOrderReport(TalonCallSign talonCallSign,
+            ISet<ITalonOrderReport> talonOrderReportSet)
         {
             if (talonOrderReportSet.Count > 0)
             {
@@ -22,7 +24,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build();
+                throw ExceptionUtil.Arguments.Build();
             }
         }
     }

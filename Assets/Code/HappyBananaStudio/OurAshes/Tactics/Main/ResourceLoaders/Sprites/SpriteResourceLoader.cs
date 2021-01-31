@@ -28,7 +28,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. ? is not supported.", new StackFrame().GetMethod().Name);
+                throw ExceptionUtil.Arguments.Build("Unable to ?. ? is not supported.", new StackFrame().GetMethod().Name);
             }
         }
 

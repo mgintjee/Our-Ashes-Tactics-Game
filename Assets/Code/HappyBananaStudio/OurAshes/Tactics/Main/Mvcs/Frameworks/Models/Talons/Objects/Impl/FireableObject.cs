@@ -3,9 +3,10 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.GameBoards.Managers;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Roes.Managers;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Phalanxes.Mangers;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Weapons.Attributes.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Objects.Api;
@@ -26,6 +27,7 @@
     {
         // Provide logging capability
         private static readonly ICodeLogger logger = new CodeLogger(new StackFrame().GetMethod().DeclaringType);
+
         // Todo
         private readonly TalonCallSign talonCallSign;
 
@@ -86,7 +88,9 @@
             {
                 TalonCallSign targetTalonCallSign = GameBoardManager.GetHexTileObjectFrom(pathCubeCoordinates)
                     .GetHexTileReport().GetTalonCallSign();
-                if (!RoeManager.AreCallSignsFriendly(this.talonCallSign, targetTalonCallSign))
+                PhalanxCallSign phalanxCallSign = PhalanxRosterManager.GetPhalanxCallSign(this.talonCallSign);
+                PhalanxCallSign targetPhalanxCallSign = PhalanxRosterManager.GetPhalanxCallSign(targetTalonCallSign);
+                if (!PhalanxRosterManager.ArePhalanxCallSignsFriendly(phalanxCallSign, targetPhalanxCallSign))
                 {
                     talonActionOrderReportSet.Add(
                         new TalonOrderFireReport.Builder()
@@ -184,7 +188,7 @@
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to construct ?. Invalid Parameters. ?",
+                    throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
                         this.GetType(), string.Join("\n", invalidReasons));
                 }
             }

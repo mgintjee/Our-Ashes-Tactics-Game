@@ -1,10 +1,10 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.GameBoards.Reports.Api;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Roes.Reports.Api;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Reports.Api;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
-
-namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Reports.Api
+﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Reports.Api
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.GameBoards.Reports.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Phalanxes.Reports.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Talons.Reports.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.WinConditions.Reports.Api;
+
     /// <summary>
     /// MvcModel Report Api
     /// Todo: Should be a snapshot of the MvcModelObject
@@ -15,13 +15,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Mo
         /// Todo
         /// </summary>
         /// <returns></returns>
-        TalonCallSign GetActingTalonCallSign();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        IRosterReport GetRosterReport();
+        ITalonRosterReport GetTalonRosterReport();
 
         /// <summary>
         /// Todo
@@ -33,6 +27,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Mo
         /// Todo
         /// </summary>
         /// <returns></returns>
-        IRoeReport GetRoeReport();
+        IPhalanxRosterReport GetPhalanxRosterReport();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        IWinConditionReport GetWinConditionReport();
     }
 }

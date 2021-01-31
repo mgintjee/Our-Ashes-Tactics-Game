@@ -38,7 +38,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build(
+                throw ExceptionUtil.Arguments.Build(
                     "Unable to construct ?. Invalid Parameters. Sum must equal 0.\n\t> x=? + y=? + z=? == ?",
                     typeof(ICubeCoordinates), x, y, z, x + y + z);
             }

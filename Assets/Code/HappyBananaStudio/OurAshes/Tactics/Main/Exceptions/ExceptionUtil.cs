@@ -13,7 +13,7 @@
         /// <summary>
         /// Todo
         /// </summary>
-        public class Argument
+        public class Arguments
         {
             /// <summary>
             /// Todo

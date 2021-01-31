@@ -71,13 +71,13 @@
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? has no corresponding ?.",
+                    throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? has no corresponding ?.",
                         this.GetType(), typeof(ICubeCoordinates), typeof(IPathObject));
                 }
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is null.",
+                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is null.",
                     this.GetType(), typeof(ICubeCoordinates));
             }
         }

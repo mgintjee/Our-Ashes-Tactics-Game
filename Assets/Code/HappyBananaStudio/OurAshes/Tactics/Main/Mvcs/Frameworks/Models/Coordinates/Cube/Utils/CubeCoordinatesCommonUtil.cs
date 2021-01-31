@@ -88,7 +88,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is null.",
+                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is null.",
                     new StackFrame().GetMethod().Name, typeof(ICubeCoordinates));
             }
         }

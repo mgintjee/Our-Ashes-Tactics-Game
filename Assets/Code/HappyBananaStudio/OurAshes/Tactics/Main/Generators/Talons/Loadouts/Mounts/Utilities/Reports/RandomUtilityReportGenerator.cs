@@ -73,7 +73,7 @@
             {
                 return new List<UtilityId>(armorIdSet)[RandomNumberGeneratorUtil.GetNextInt(armorIdSet.Count - 1)];
             }
-            throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? has no corresponding ?s.",
+            throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? has no corresponding ?s.",
                     new StackFrame().GetMethod().Name, loadoutRarity, typeof(UtilityId));
         }
 
@@ -95,7 +95,7 @@
             {
                 return new List<UtilityId>(utilityIdSet)[RandomNumberGeneratorUtil.GetNextInt(utilityIdSet.Count)];
             }
-            throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? and ? have no corresponding ?s.",
+            throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? and ? have no corresponding ?s.",
                     new StackFrame().GetMethod().Name, loadoutRarity, mountSize, typeof(UtilityId));
         }
     }

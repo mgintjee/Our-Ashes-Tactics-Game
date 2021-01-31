@@ -55,7 +55,7 @@
                     return mountSize;
                 }
             }
-            throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+            throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not supported.",
                     new StackFrame().GetMethod().Name, weaponId);
         }
 
@@ -73,7 +73,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not supported.",
                     new StackFrame().GetMethod().Name, mountSize);
             }
         }

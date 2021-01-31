@@ -44,7 +44,7 @@
             IList<TEnum> enumList = GetEnumListWithoutFirst<TEnum>();
             if (enumList.Count == 0)
             {
-                throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. Enum=? has 0 entries.",
+                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. Enum=? has 0 entries.",
                         new StackFrame().GetMethod().Name, typeof(TEnum));
             }
             return enumList[RandomNumberGeneratorUtil.GetNextInt(enumList.Count - 1)];

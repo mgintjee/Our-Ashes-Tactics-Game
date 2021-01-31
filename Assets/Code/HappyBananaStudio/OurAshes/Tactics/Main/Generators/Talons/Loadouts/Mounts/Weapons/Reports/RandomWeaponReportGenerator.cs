@@ -1,8 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Generators.Talons.Loadouts.Mounts.Weapons.Reports
 {
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Common.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Common.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Weapons.Constants;
@@ -19,7 +17,6 @@
     /// </summary>
     public static class RandomWeaponReportGenerator
     {
-
         /// <summary>
         /// Todo
         /// </summary>
@@ -118,7 +115,7 @@
             {
                 return new List<WeaponId>(weaponIdSet)[RandomNumberGeneratorUtil.GetNextInt(weaponIdSet.Count)];
             }
-            throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? and ? have no corresponding ?s.",
+            throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? and ? have no corresponding ?s.",
                     new StackFrame().GetMethod().Name, loadoutRarity, mountSize, typeof(WeaponId));
         }
     }

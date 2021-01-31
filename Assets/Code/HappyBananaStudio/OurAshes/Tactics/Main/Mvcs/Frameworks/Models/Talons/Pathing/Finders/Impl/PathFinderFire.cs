@@ -70,8 +70,6 @@
                     }
                 }
             }
-            logger.Debug("? ? containing ?", validCubeCoordinatesEndSet.Count,
-                typeof(ICubeCoordinates), typeof(TalonCallSign));
 
             foreach (ICubeCoordinates cubeCoordinates in validCubeCoordinatesEndSet)
             {
@@ -178,7 +176,7 @@
             }
             else
             {
-                throw ExceptionUtil.Argument.Build(
+                throw ExceptionUtil.Arguments.Build(
                     "Unable to ?. Invalid Parameters. PathIndex=?, Distance=?, ? produced invalid ?, x=?, y=?, z=?",
                     this.GetType(), pathIndex, distance, cubeCoordinatesEnd, typeof(ICubeCoordinates), roundX, roundY, roundZ);
             }
@@ -251,7 +249,7 @@
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to construct ?. Invalid Parameters. ?",
+                    throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
                         this.GetType(), string.Join("\n", invalidReasons));
                 }
             }

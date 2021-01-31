@@ -15,5 +15,11 @@
         /// Todo
         /// </summary>
         void ContinueGame();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        bool IsAnimating();
     }
 }

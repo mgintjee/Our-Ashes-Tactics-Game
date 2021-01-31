@@ -80,7 +80,7 @@
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+                    throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not supported.",
                         new StackFrame().GetMethod().Name, weaponTraitAmmo);
                 }
             }
@@ -156,7 +156,7 @@
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+                    throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not supported.",
                         new StackFrame().GetMethod().Name, weaponTraitBarrel);
                 }
             }
@@ -221,7 +221,7 @@
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+                    throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not supported.",
                         new StackFrame().GetMethod().Name, weaponTraitMagazine);
                 }
             }
@@ -276,7 +276,7 @@
                 }
                 else
                 {
-                    throw ExceptionUtil.Argument.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+                    throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not supported.",
                         new StackFrame().GetMethod().Name, weaponTraitTargeting);
                 }
             }
