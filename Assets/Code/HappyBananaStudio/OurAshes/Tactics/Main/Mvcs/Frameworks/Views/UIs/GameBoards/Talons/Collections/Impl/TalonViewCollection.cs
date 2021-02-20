@@ -1,7 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.GameBoards.Talons.Collections.Impl
 {
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Talons.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Reports.Api;
@@ -73,7 +72,8 @@
         public class Builder
         {
             // Todo
-            private Transform parentTransform= null;
+            private Transform parentTransform = null;
+
             // Todo
             private ITalonRosterReport talonRosterReport = null;
 
@@ -110,6 +110,7 @@
                 this.parentTransform = parentTransform;
                 return this;
             }
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -142,6 +143,5 @@
                 return argumentExceptionSet;
             }
         }
-
     }
 }

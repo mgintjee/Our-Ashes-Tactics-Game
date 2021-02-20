@@ -7,14 +7,13 @@
     {
         None,
         Circle,
-        Heart,
-        ArrowUp,
-        ArrowDown,
-        ArrowLeft,
-        ArrowRight,
-        Check,
-        Tetragram,
-        Pentagram,
-        Lightning,
+        RoundedSquare,
+        Square,
+        TriangleUp,
+        TriangleDown,
+        DiamondVertical,
+        DiamondHorizontal,
+        CapsuleVertical,
+        CapsuleHorizontal,
     }
 }

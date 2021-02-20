@@ -1,0 +1,46 @@
+﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Reports.Api
+{
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Reports.Api;
+
+    /// <summary>
+    /// Todo
+    /// </summary>
+    public interface IViewConfigurationReport
+    {
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        ICanvasConfigurationReport GetCanvasActionMenuConfigurationReport();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        ICanvasConfigurationReport GetCanvasGameLoggerConfigurationReport();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        ICanvasConfigurationReport GetCanvasInformationalConfigurationReport();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        ICanvasConfigurationReport GetCanvasScoreBoardConfigurationReport();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        ICanvasConfigurationReport GetCanvasSettingMenuConfigurationReport();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        ICanvasConfigurationReport GetCanvasTurnScrollerConfigurationReport();
+    }
+}

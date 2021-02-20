@@ -8,6 +8,5 @@
         None,
         Material1,
         Material2,
-        Material3,
     }
 }

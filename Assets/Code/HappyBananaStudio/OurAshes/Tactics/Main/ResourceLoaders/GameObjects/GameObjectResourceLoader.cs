@@ -94,9 +94,7 @@
             /// <returns></returns>
             public static GameObject LoadHexTileGameObjectResource()
             {
-                GameObject gameObject = LoadGameObjectResource(
-                    HexTileGameObjectsFolderHome + HexTileGameObjectName + GameObjectsSuffix);
-                return gameObject;
+                return LoadGameObjectResource(HexTileGameObjectsFolderHome + HexTileGameObjectName);
             }
         }
 
@@ -107,6 +105,9 @@
         {
             // Todo
             private static readonly string TalonGameObjectsFolderHome = GameObjectsFolderHome + "Talons/";
+
+            // Todo
+            private static readonly string TalonBaseGameObjectName = "TalonBase";
 
             /// <summary>
             /// Todo
@@ -119,7 +120,11 @@
             {
                 if (!talonId.Equals(TalonId.None))
                 {
-                    return LoadGameObjectResource(TalonGameObjectsFolderHome + talonId.ToString() + GameObjectsSuffix);
+                    GameObject talonGameObject = LoadGameObjectResource(TalonGameObjectsFolderHome + talonId.ToString());
+                    GameObject talonBaseGameObject = LoadGameObjectResource(TalonGameObjectsFolderHome + TalonBaseGameObjectName);
+                    talonBaseGameObject.transform.SetParent(talonGameObject.transform);
+                    talonBaseGameObject.transform.localPosition = new Vector3(0, -.4f, 0);
+                    return talonGameObject;
                 }
                 else
                 {

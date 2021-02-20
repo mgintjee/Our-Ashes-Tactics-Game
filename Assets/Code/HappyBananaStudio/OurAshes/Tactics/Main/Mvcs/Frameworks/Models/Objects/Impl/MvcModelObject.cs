@@ -3,6 +3,7 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Combats.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Combats.Objects.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Combats.Reports.Api;
@@ -69,6 +70,9 @@
         private readonly IWinConditionObject winConditionObject;
 
         // Todo
+        private readonly SimulationType simulationType;
+
+        // Todo
         private int actionCount;
 
         // Todo
@@ -86,8 +90,10 @@
         private MvcModelObject(ISet<IPhalanxReport> phalanxReportSet,
             ISet<ITalonConstructionReport> talonConstructionReportSet,
             IDictionary<TalonCallSign, ICubeCoordinates> talonSpawnCubeCoordinatesDictionary,
-            ISet<ICubeCoordinates> cubeCoordinatesSet, bool mirroredBoard, MatchType matchType)
+            ISet<ICubeCoordinates> cubeCoordinatesSet, bool mirroredBoard,
+            MatchType matchType, SimulationType simulationType)
         {
+            this.simulationType = simulationType;
             this.phalanxRosterObject = new PhalanxRosterObject.Builder()
                 .SetPhalanxReportSet(phalanxReportSet)
                 .Build();
@@ -109,20 +115,7 @@
             this.combatObject = new CombatObject.Builder()
                 .SetTalonRosterObject(this.talonRosterObject)
                 .Build();
-            // Iterate over the Spawn CubeCoordinates
-            foreach (TalonCallSign talonCallSign in talonSpawnCubeCoordinatesDictionary.Keys)
-            {
-                // Collect the CubeCoordinates
-                ICubeCoordinates spawnCubeCoordinates = talonSpawnCubeCoordinatesDictionary[talonCallSign];
-                // Collect the TalonObject
-                ITalonObject talonObject = this.talonRosterObject.GetTalonObject(talonCallSign);
-                // Collect the HexTileObject
-                IHexTileObject hexTileObject = this.gameBoardObject.GetHexTileObject(spawnCubeCoordinates);
-                // Set the TalonObject's CubeCoordinates
-                talonObject.SetCubeCoordinates(spawnCubeCoordinates);
-                // Set the HexTileObject's TalonCallSign
-                hexTileObject.SetTalonCallSign(talonCallSign);
-            }
+            this.SetTalonSpawnCubeCoordinates(talonSpawnCubeCoordinatesDictionary);
             this.SetModelManagers();
         }
 
@@ -199,7 +192,6 @@
                 .Build();
         }
 
-
         /// <summary>
         /// Todo
         /// </summary>
@@ -242,6 +234,10 @@
             {
                 this.DeactivateTalonCallSign(targetTalonCallSign);
             }
+            if (this.simulationType != SimulationType.BlackBox)
+            {
+                // Send some information to the MvcView Canvas Manager or something
+            }
             return new TalonEffectObject.Builder()
                 .SetActionEffect(-1)
                 .SetMovementEffect(-pathObject.GetPathObjectCost())
@@ -281,6 +277,29 @@
         /// <summary>
         /// Todo
         /// </summary>
+        /// <param name="talonSpawnCubeCoordinatesDictionary"></param>
+        private void SetTalonSpawnCubeCoordinates(
+            IDictionary<TalonCallSign, ICubeCoordinates> talonSpawnCubeCoordinatesDictionary)
+        {
+            // Iterate over the Spawn CubeCoordinates
+            foreach (TalonCallSign talonCallSign in talonSpawnCubeCoordinatesDictionary.Keys)
+            {
+                // Collect the CubeCoordinates
+                ICubeCoordinates spawnCubeCoordinates = talonSpawnCubeCoordinatesDictionary[talonCallSign];
+                // Collect the TalonObject
+                ITalonObject talonObject = this.talonRosterObject.GetTalonObject(talonCallSign);
+                // Collect the HexTileObject
+                IHexTileObject hexTileObject = this.gameBoardObject.GetHexTileObject(spawnCubeCoordinates);
+                // Set the TalonObject's CubeCoordinates
+                talonObject.SetCubeCoordinates(spawnCubeCoordinates);
+                // Set the HexTileObject's TalonCallSign
+                hexTileObject.SetTalonCallSign(talonCallSign);
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
         private void SetModelManagers()
         {
             GameBoardManager.SetGameBoardObject(this.gameBoardObject);
@@ -315,6 +334,9 @@
             // Todo
             private MatchType matchType = MatchType.None;
 
+            // Todo
+            private SimulationType simulationType = SimulationType.None;
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -326,12 +348,9 @@
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new Object
-                    return new MvcModelObject(this.phalanxReports,
-                        this.talonConstructionReports,
-                        this.talonSpawnCubeCoordinatesDictionary,
-                        this.cubeCoordinatesSet,
-                        this.mirroredBoard,
-                        this.matchType);
+                    return new MvcModelObject(this.phalanxReports, this.talonConstructionReports,
+                        this.talonSpawnCubeCoordinatesDictionary, this.cubeCoordinatesSet,
+                        this.mirroredBoard, this.matchType, this.simulationType);
                 }
                 else
                 {
@@ -348,6 +367,17 @@
             public Builder SetMatchType(MatchType matchType)
             {
                 this.matchType = matchType;
+                return this;
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <param name="simulationType"></param>
+            /// <returns></returns>
+            public Builder SetSimulationType(SimulationType simulationType)
+            {
+                this.simulationType = simulationType;
                 return this;
             }
 
@@ -435,6 +465,11 @@
                 if (this.matchType == MatchType.None)
                 {
                     argumentExceptionSet.Add(typeof(MatchType).Name + " has not been set");
+                }
+                // Check that simulationType has been set
+                if (this.simulationType == SimulationType.None)
+                {
+                    argumentExceptionSet.Add(typeof(SimulationType).Name + " has not been set");
                 }
                 // Check that cubeCoordinatesSet has been set
                 if (this.cubeCoordinatesSet == null)

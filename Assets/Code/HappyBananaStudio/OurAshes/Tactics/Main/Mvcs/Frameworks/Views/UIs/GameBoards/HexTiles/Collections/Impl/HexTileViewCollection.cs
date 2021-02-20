@@ -24,7 +24,7 @@
         /// <inheritdoc/>
         IHexTileView IHexTileViewCollection.GetHexTileView(ICubeCoordinates cubeCoordinates)
         {
-            if(this.cubeCoordinatesHexTileViewDictionary.ContainsKey(cubeCoordinates))
+            if (this.cubeCoordinatesHexTileViewDictionary.ContainsKey(cubeCoordinates))
             {
                 return this.cubeCoordinatesHexTileViewDictionary[cubeCoordinates];
             }
@@ -57,9 +57,9 @@
         /// </summary>
         public class Builder
         {
-
             // Todo
             private Transform parentTransform = null;
+
             // Todo
             private IGameBoardReport gameBoardReport = null;
 
@@ -96,6 +96,7 @@
                 this.parentTransform = parentTransform;
                 return this;
             }
+
             /// <summary>
             /// Todo
             /// </summary>

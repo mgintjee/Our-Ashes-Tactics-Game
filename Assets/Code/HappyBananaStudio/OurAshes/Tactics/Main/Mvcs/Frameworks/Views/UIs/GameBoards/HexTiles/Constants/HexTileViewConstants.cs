@@ -3,13 +3,13 @@
     public static class HexTileViewConstants
     {
         // The X Offset
-        private static readonly float OFFSET_X = 1.0875f;
+        private static readonly float OFFSET_X = 11.0f;
 
         // The Y Offset
-        private static readonly float OFFSET_Y = -0.2f;
+        private static readonly float OFFSET_Y = -2.2f;
 
         // The Z Offset
-        private static readonly float OFFSET_Z = 1.25f;
+        private static readonly float OFFSET_Z = 9.5f;
 
         /// <summary>
         /// Todo

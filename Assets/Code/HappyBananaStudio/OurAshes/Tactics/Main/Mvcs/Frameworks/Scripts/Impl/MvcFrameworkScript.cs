@@ -18,6 +18,10 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Reports.Phalanxes.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Reports.Phalanxes.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Scripts.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Reports.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Reports.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Canvas.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Reports.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Randoms.Generators.Numbers;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Scripts.Unity.Abs;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Utils.Enums;
@@ -42,7 +46,7 @@
         public void FixedUpdate()
         {
             this.Initialize();
-            if(!this.mvcFrameworkObject.IsAnimating())
+            if (!this.mvcFrameworkObject.IsAnimating())
             {
                 if (!this.mvcFrameworkObject.IsGameComplete())
                 {
@@ -61,6 +65,7 @@
         private void Initialize()
         {
             // Todo: Probably load the util game Objects from the ResourceLoader at this stage
+            // If i even need them at this point
             if (this.mvcFrameworkObject == null)
             {
                 RandomNumberGeneratorUtil.BuildRandom();
@@ -112,6 +117,8 @@
                             .Build());
                     }
                 }
+                // Todo: Load from file or something or have a default
+                IViewConfigurationReport viewConfigurationReport = ViewConfigurationReport.DefaultConfigurationReport();
                 IMvcConstructionReport mvcConstructionReport = new MvcConstructionReport.Builder()
                     .SetMatchType(MatchType.FactionDeathmatch)
                     .SetSimulationType(SimulationType.WhiteBox)
@@ -120,6 +127,7 @@
                     .SetMirroredBoard(true)
                     .SetPhalanxReports(phalanxReports)
                     .SetTalonConstructionReports(talonConstructionReports)
+                    .SetViewConfigurationReport(viewConfigurationReport)
                     .Build();
 
                 this.mvcFrameworkObject = new MvcFrameworkObject.Builder()

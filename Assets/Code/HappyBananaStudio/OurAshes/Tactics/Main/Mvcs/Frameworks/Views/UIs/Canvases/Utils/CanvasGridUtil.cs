@@ -1,6 +1,7 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Utils
 {
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Constants;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Canvas.Api;
     using System.Diagnostics;
     using UnityEngine;
@@ -10,11 +11,12 @@
     /// </summary>
     public static class CanvasGridUtil
     {
+        // Todo: Move constants to some constants file
         // Todo
-        private static readonly float maxCols = 9;
+        private static readonly int maxCols = CanvasGridConstants.GetMaxCols();
 
         // Todo
-        private static readonly float maxRows = 7;
+        private static readonly int maxRows = CanvasGridConstants.GetMaxRows();
 
         // Todo
         private static float canvasHeight = int.MinValue;
@@ -71,6 +73,24 @@
         /// <summary>
         /// Todo
         /// </summary>
+        /// <returns></returns>
+        public static int GetMaxRows()
+        {
+            return maxRows;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        public static int GetMaxCols()
+        {
+            return maxCols;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
         /// <param name="canvasGridDimensions">
         /// </param>
         /// <returns>
@@ -112,6 +132,7 @@
                 canvasGridPosition.GetY() >= 0 &&
                 canvasGridPosition.GetX() >= 0)
             {
+                // Todo: Should have the positions always be the top left/right of the widget
                 Vector2 canvasPosition = new Vector2(
                     (canvasGridPosition.GetX() * canvasWidthStep) - canvasWidth / 2,
                     (canvasGridPosition.GetY() * canvasHeightStep) - canvasHeight / 2);

@@ -8,6 +8,5 @@
         None,
         Structure1,
         Structure2,
-        Structure3,
     }
 }

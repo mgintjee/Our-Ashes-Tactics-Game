@@ -68,20 +68,22 @@
             if (this.talonOrderReport != null)
             {
                 OrderType orderType = this.talonOrderReport.GetOrderType();
-                switch(orderType)
+                switch (orderType)
                 {
                     case OrderType.Fire:
                         logger.Debug("Todo: Animate Fire");
                         TalonCallSign targetTalonCallSign = ((ITalonOrderFireReport)this.talonOrderReport).GetTargetTalonCallSign();
-                        if(!TalonRosterManager.GetActiveTalonCallSignSet().Contains(targetTalonCallSign))
+                        if (!TalonRosterManager.GetActiveTalonCallSignSet().Contains(targetTalonCallSign))
                         {
                             TalonViewCollectionManager.DestroyTalonView(targetTalonCallSign);
                         }
                         this.talonOrderReport = null;
                         break;
+
                     case OrderType.Move:
                         this.AnimateMove();
                         break;
+
                     case OrderType.Wait:
                         logger.Debug("Todo: Animate Wait");
                         this.talonOrderReport = null;

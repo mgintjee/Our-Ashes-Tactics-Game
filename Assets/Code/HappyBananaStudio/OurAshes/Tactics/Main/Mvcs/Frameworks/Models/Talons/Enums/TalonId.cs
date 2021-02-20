@@ -6,8 +6,8 @@
     public enum TalonId
     {
         None,
-        Talon0,
-        Talon1,
-        Talon2,
+        TalonLight1,
+        TalonMedium1,
+        TalonHeavy1,
     }
 }

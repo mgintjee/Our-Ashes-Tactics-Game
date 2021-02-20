@@ -21,10 +21,9 @@
             private static readonly IDictionary<ArmorTraitMaterial, ILoadoutAttributes> armorTraitMaterialLoadoutAttributesDictionary =
                 new Dictionary<ArmorTraitMaterial, ILoadoutAttributes>()
                 {
-                {
-                    ArmorTraitMaterial.None,
-                    new LoadoutAttributes.Builder().Build()
-                },
+                    { ArmorTraitMaterial.None, new LoadoutAttributes.Builder().Build() },
+                    { ArmorTraitMaterial.Material1, new LoadoutAttributes.Builder().Build() },
+                    { ArmorTraitMaterial.Material2, new LoadoutAttributes.Builder().Build() },
                 };
 
             /// <summary>
@@ -56,10 +55,9 @@
             private static readonly IDictionary<ArmorTraitStructure, ILoadoutAttributes> armorTraitStructureLoadoutAttributesDictionary =
                 new Dictionary<ArmorTraitStructure, ILoadoutAttributes>()
                 {
-                {
-                    ArmorTraitStructure.None,
-                    new LoadoutAttributes.Builder().Build()
-                },
+                    { ArmorTraitStructure.None, new LoadoutAttributes.Builder().Build() },
+                    { ArmorTraitStructure.Structure1, new LoadoutAttributes.Builder().Build() },
+                    { ArmorTraitStructure.Structure2, new LoadoutAttributes.Builder().Build() },
                 };
 
             /// <summary>

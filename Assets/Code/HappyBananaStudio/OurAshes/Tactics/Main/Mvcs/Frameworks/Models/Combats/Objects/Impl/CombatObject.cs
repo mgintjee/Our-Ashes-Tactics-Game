@@ -229,7 +229,7 @@
                 // Check that rosterObject has been set
                 if (this.talonRosterObject == null)
                 {
-                    argumentExceptionSet.Add(typeof(ITalonRosterObject).Name + " has not been set");
+                    argumentExceptionSet.Add(typeof(ITalonRosterObject).Name + " cannot be null.");
                 }
                 return argumentExceptionSet;
             }

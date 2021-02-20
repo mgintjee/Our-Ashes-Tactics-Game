@@ -4,6 +4,7 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Constructions.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Reports.Phalanxes.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Reports.Api;
     using System.Collections.Generic;
 
     /// <summary>
@@ -52,5 +53,10 @@
         /// </summary>
         /// <returns></returns>
         bool GetMirroredBoard();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        IViewConfigurationReport GetViewConfigurationReport();
     }
 }

@@ -10,12 +10,12 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Orders.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Pathing.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Objects.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Canvas.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Impl.GameLogger.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Impl.GameLogger.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Utils;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Reports.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.GameBoards.Views.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.GameBoards.Views.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Objects.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Objects.Impl;
     using System.Collections.Generic;
     using System.Diagnostics;
     using UnityEngine;
@@ -35,49 +35,40 @@
         // Todo
         private readonly MatchType matchType;
 
-        // Todo: Have a UIView or something
         // Todo
-        private readonly ICanvasGameLogger canvasGameLogger;
+        private readonly IUIObject uiObject;
 
         // Todo
         private readonly IGameBoardView gameBoardView;
 
-        // Todo: I think this can be changed to canvasTransform or something
-        private readonly Canvas canvas;
+        // Todo
+        private readonly ISet<ICanvas> canvasSet;
+
+        // Todo
+        private readonly Transform transform;
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="simulationType"></param>
         /// <param name="matchType"></param>
-        private MvcViewObject(SimulationType simulationType, MatchType matchType)
+        private MvcViewObject(SimulationType simulationType, MatchType matchType,
+            IViewConfigurationReport viewConfigurationReport)
         {
             this.simulationType = simulationType;
-            this.matchType = matchType;
             this.matchType = matchType;
             if (this.simulationType == SimulationType.WhiteBox ||
                 this.simulationType == SimulationType.Interactive)
             {
                 logger.Debug("Building Canvas Objects");
-                this.canvas = new GameObject(this.GetType().Name).AddComponent<Canvas>();
-                this.canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-                CanvasGridUtil.SetCanvasHeight(this.canvas.transform.GetComponent<RectTransform>().sizeDelta.y);
-                CanvasGridUtil.SetCanvasWidth(this.canvas.transform.GetComponent<RectTransform>().sizeDelta.x);
-                // TOdo: Have a way of parameterizing the dimensions and positions for the different Canvas objects
-                // Todo: Have a PhalanxCallSign Manager that has PhalanxInformationReports
-                this.canvasGameLogger = new CanvasGameLogger.Builder()
-                    .SetParentTransform(this.canvas.transform)
-                    .SetCanvasGridDimensions(new CanvasGridCoordinates.Builder()
-                        .SetX(3)
-                        .SetY(3)
-                        .Build())
-                    .SetCanvasGridPosition(new CanvasGridCoordinates.Builder()
-                        .SetX(0)
-                        .SetY(0)
-                        .Build())
+                this.transform = new GameObject(this.GetType().Name).transform;
+                this.uiObject = new UIObject.Builder()
+                    .SetParentTransform(this.transform)
+                    .SetViewConfigurationReport(viewConfigurationReport)
+                    // Todo: Probably add the matchType here too
                     .Build();
                 this.gameBoardView = new GameBoardView.Builder()
-                    .SetParentTransform(this.canvas.transform)
+                    .SetParentTransform(this.transform)
                     .SetGameBoardReport(GameBoardManager.GetGameBoardReport())
                     .SetTalonRosterReport(TalonRosterManager.GetTalonRosterReport())
                     .Build();
@@ -97,7 +88,7 @@
         /// <inheritdoc/>
         void IMvcViewObject.DestroyCanvas()
         {
-            GameObject.Destroy(this.canvas);
+            GameObject.Destroy(this.transform);
         }
 
         /// <inheritdoc/>
@@ -133,6 +124,9 @@
             // Todo
             private MatchType matchType = MatchType.None;
 
+            // Todo
+            private IViewConfigurationReport viewConfigurationReport = null;
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -144,7 +138,7 @@
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new Object
-                    return new MvcViewObject(this.simulationType, this.matchType);
+                    return new MvcViewObject(this.simulationType, this.matchType, this.viewConfigurationReport);
                 }
                 else
                 {
@@ -178,6 +172,17 @@
             /// <summary>
             /// Todo
             /// </summary>
+            /// <param name="viewConfigurationReport"></param>
+            /// <returns></returns>
+            public Builder SetViewConfigurationReport(IViewConfigurationReport viewConfigurationReport)
+            {
+                this.viewConfigurationReport = viewConfigurationReport;
+                return this;
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
             /// <returns>
             /// </returns>
             private ISet<string> IsInvalid()
@@ -191,6 +196,11 @@
                 if (this.matchType == MatchType.None)
                 {
                     argumentExceptionSet.Add(typeof(MatchType).Name + " can not be none.");
+                }
+                if (this.viewConfigurationReport == null && this.simulationType != SimulationType.BlackBox)
+                {
+                    argumentExceptionSet.Add(typeof(IViewConfigurationReport).Name + " can not be null with "
+                        + typeof(SimulationType).Name + "=" + this.simulationType);
                 }
                 return argumentExceptionSet;
             }

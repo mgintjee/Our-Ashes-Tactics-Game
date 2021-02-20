@@ -26,10 +26,7 @@
         private static readonly IDictionary<LoadoutRarity, ISet<WeaponId>> loadoutRarityWeaponIdSetDictionary =
             new Dictionary<LoadoutRarity, ISet<WeaponId>>()
             {
-                {
-                    LoadoutRarity.None,
-                    new HashSet<WeaponId>()
-                },
+                { LoadoutRarity.None,  new HashSet<WeaponId>() },
                 {
                     LoadoutRarity.Common,
                     new HashSet<WeaponId>()

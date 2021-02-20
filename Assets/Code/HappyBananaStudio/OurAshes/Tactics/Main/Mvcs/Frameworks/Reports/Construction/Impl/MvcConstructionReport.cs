@@ -6,6 +6,7 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Constructions.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Reports.Construction.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Reports.Phalanxes.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Reports.Api;
     using System.Collections.Generic;
 
     /// <summary>
@@ -35,6 +36,9 @@
         // Todo
         private readonly ISet<ITalonConstructionReport> talonConstructionReports;
 
+        // Todo
+        private readonly IViewConfigurationReport viewConfigurationReport;
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -47,8 +51,8 @@
         /// <param name="talonConstructionReports"></param>
         private MvcConstructionReport(SimulationType simulationType, MatchType matchType,
             int gameBoardLimit, GameBoardShape gameBoardShape, bool mirroredBoard,
-            ISet<IPhalanxReport> phalanxReports,
-            ISet<ITalonConstructionReport> talonConstructionReports)
+            ISet<IPhalanxReport> phalanxReports, ISet<ITalonConstructionReport> talonConstructionReports,
+            IViewConfigurationReport viewConfigurationReport)
         {
             this.simulationType = simulationType;
             this.matchType = matchType;
@@ -57,6 +61,7 @@
             this.mirroredBoard = mirroredBoard;
             this.phalanxReports = phalanxReports;
             this.talonConstructionReports = talonConstructionReports;
+            this.viewConfigurationReport = viewConfigurationReport;
         }
 
         /// <inheritdoc/>
@@ -102,6 +107,12 @@
         }
 
         /// <inheritdoc/>
+        IViewConfigurationReport IMvcConstructionReport.GetViewConfigurationReport()
+        {
+            return this.viewConfigurationReport;
+        }
+
+        /// <inheritdoc/>
         public override string ToString()
         {
             return string.Format("{0}: " +
@@ -142,6 +153,9 @@
             // Todo
             private ISet<ITalonConstructionReport> talonConstructionReports = null;
 
+            // Todo
+            private IViewConfigurationReport viewConfigurationReport = null;
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -154,7 +168,8 @@
                 {
                     // Instantiate a new Object
                     return new MvcConstructionReport(this.simulationType, this.matchType, this.gameBoardLimit,
-                        this.gameBoardShape, this.mirroredBoard, this.phalanxReports, this.talonConstructionReports);
+                        this.gameBoardShape, this.mirroredBoard, this.phalanxReports, this.talonConstructionReports,
+                        this.viewConfigurationReport);
                 }
                 else
                 {
@@ -250,6 +265,17 @@
             }
 
             /// <summary>
+            ///
+            /// </summary>
+            /// <param name="viewConfigurationReport"></param>
+            /// <returns></returns>
+            public Builder SetViewConfigurationReport(IViewConfigurationReport viewConfigurationReport)
+            {
+                this.viewConfigurationReport = viewConfigurationReport;
+                return this;
+            }
+
+            /// <summary>
             /// Todo
             /// </summary>
             /// <returns>
@@ -287,6 +313,12 @@
                 if (this.talonConstructionReports == null)
                 {
                     argumentExceptionSet.Add("Set: " + typeof(ITalonConstructionReport).Name + " can not be null.");
+                }
+                // Check that viewConfigurationReport has been set
+                if (this.viewConfigurationReport == null && this.simulationType != SimulationType.BlackBox)
+                {
+                    argumentExceptionSet.Add(typeof(IViewConfigurationReport).Name + " can not be null with "
+                        + typeof(SimulationType).Name + "=" + this.simulationType);
                 }
                 return argumentExceptionSet;
             }

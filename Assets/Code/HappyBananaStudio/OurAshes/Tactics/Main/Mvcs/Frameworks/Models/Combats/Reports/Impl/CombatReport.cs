@@ -24,17 +24,17 @@
         }
 
         /// <inheritdoc/>
+        ISet<ITalonEffectObject> ICombatReport.GetTalonEffectObjectSet()
+        {
+            return new HashSet<ITalonEffectObject>(this.talonEffectObjectSet);
+        }
+
+        /// <inheritdoc/>
         public override string ToString()
         {
             return string.Format("{0}: Set: {1}=[\n\t>{2}]",
                 this.GetType().Name, typeof(ITalonEffectObject).Name,
                 string.Join("\n\t>", this.talonEffectObjectSet));
-        }
-
-        /// <inheritdoc/>
-        ISet<ITalonEffectObject> ICombatReport.GetTalonEffectObjectSet()
-        {
-            return new HashSet<ITalonEffectObject>(this.talonEffectObjectSet);
         }
 
         /// <summary>

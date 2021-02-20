@@ -18,13 +18,12 @@
         public static class Efficiency
         {
             // Todo
-            private static readonly IDictionary<EngineTraitEfficiency, ILoadoutAttributes> engineTraitEfficiencyLoadoutAttributesDictionary =
-                new Dictionary<EngineTraitEfficiency, ILoadoutAttributes>()
+            private static readonly IDictionary<EngineTraitEfficiency, ILoadoutAttributes>
+                engineTraitEfficiencyLoadoutAttributesDictionary = new Dictionary<EngineTraitEfficiency, ILoadoutAttributes>()
                 {
-                {
-                    EngineTraitEfficiency.None,
-                    new LoadoutAttributes.Builder().Build()
-                },
+                    { EngineTraitEfficiency.None, new LoadoutAttributes.Builder().Build() },
+                    { EngineTraitEfficiency.Efficiency1, new LoadoutAttributes.Builder().Build() },
+                    { EngineTraitEfficiency.Efficiency2, new LoadoutAttributes.Builder().Build() },
                 };
 
             /// <summary>
@@ -53,13 +52,12 @@
         public static class Structures
         {
             // Todo
-            private static readonly IDictionary<EngineTraitStructure, ILoadoutAttributes> engineTraitStructureLoadoutAttributesDictionary =
-                new Dictionary<EngineTraitStructure, ILoadoutAttributes>()
+            private static readonly IDictionary<EngineTraitStructure, ILoadoutAttributes>
+                engineTraitStructureLoadoutAttributesDictionary = new Dictionary<EngineTraitStructure, ILoadoutAttributes>()
                 {
-                {
-                    EngineTraitStructure.None,
-                    new LoadoutAttributes.Builder().Build()
-                },
+                    { EngineTraitStructure.None, new LoadoutAttributes.Builder().Build() },
+                    { EngineTraitStructure.Structure1, new LoadoutAttributes.Builder().Build() },
+                    { EngineTraitStructure.Structure2, new LoadoutAttributes.Builder().Build() },
                 };
 
             /// <summary>

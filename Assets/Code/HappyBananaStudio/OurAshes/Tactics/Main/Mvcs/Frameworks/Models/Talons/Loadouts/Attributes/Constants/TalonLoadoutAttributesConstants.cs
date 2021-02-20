@@ -20,7 +20,7 @@
                 new Dictionary<TalonId, ITalonLoadoutAttributes>()
                 {
                     {
-                        TalonId.Talon0,
+                        TalonId.TalonLight1,
                         new TalonLoadoutAttributes.Builder()
                             .SetArmorAttributes(new ArmorAttributes.Builder()
                                 .SetArmorPoints(3)
@@ -28,7 +28,7 @@
                                 .Build())
                             .SetEngineAttributes(new EngineAttributes.Builder()
                                 .SetActionPoints(3)
-                                .SetMovementPoints(16)
+                                .SetMovementPoints(20)
                                 .Build())
                             .SetMountSizeList(new List<MountSize>()
                             {
@@ -38,7 +38,7 @@
                         .Build()
                     },
                     {
-                        TalonId.Talon1,
+                        TalonId.TalonMedium1,
                         new TalonLoadoutAttributes.Builder()
                             .SetArmorAttributes(new ArmorAttributes.Builder()
                                 .SetArmorPoints(5)
@@ -51,8 +51,29 @@
                             .SetMountSizeList(new List<MountSize>()
                             {
                                 MountSize.Small,
+                                MountSize.Small,
                                 MountSize.Large,
-                                MountSize.Small
+                            })
+                        .Build()
+                    },
+                    {
+                        TalonId.TalonHeavy1,
+                        new TalonLoadoutAttributes.Builder()
+                            .SetArmorAttributes(new ArmorAttributes.Builder()
+                                .SetArmorPoints(8)
+                                .SetHealthPoints(24)
+                                .Build())
+                            .SetEngineAttributes(new EngineAttributes.Builder()
+                                .SetActionPoints(2)
+                                .SetMovementPoints(8)
+                                .Build())
+                            .SetMountSizeList(new List<MountSize>()
+                            {
+                                MountSize.Small,
+                                MountSize.Small,
+                                MountSize.Small,
+                                MountSize.Large,
+                                MountSize.Large,
                             })
                         .Build()
                     },

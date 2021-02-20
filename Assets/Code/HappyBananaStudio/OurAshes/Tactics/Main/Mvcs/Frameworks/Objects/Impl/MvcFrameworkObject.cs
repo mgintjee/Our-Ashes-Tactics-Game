@@ -52,6 +52,7 @@
             ISet<ICubeCoordinates> cubeCoordinateSet = CubeCoordinatesSetGenerator.GenerateCubeCoordinates(
                 this.mvcConstructionReport.GetGameBoardShape(), this.mvcConstructionReport.GetGameBoardLimit());
             this.mvcModelObject = new MvcModelObject.Builder()
+                .SetSimulationType(this.mvcConstructionReport.GetSimulationType())
                 .SetCubeCoordinatesSet(cubeCoordinateSet)
                 .SetPhalanxReports(this.mvcConstructionReport.GetPhalanxReports())
                 .SetTalonConstructionReports(this.mvcConstructionReport.GetTalonConstructionReports())
@@ -63,6 +64,7 @@
             this.mvcViewObject = new MvcViewObject.Builder()
                 .SetSimulationType(this.mvcConstructionReport.GetSimulationType())
                 .SetMatchType(this.mvcConstructionReport.GetMatchType())
+                .SetViewConfigurationReport(this.mvcConstructionReport.GetViewConfigurationReport())
                 .Build();
             this.mvcControllerObject = new MvcControllerObject.Builder()
                 .SetPhalanxReports(this.mvcConstructionReport.GetPhalanxReports())
@@ -82,8 +84,8 @@
                 if (talonOrderReport != null)
                 {
                     this.mvcModelObject.InputTalonOrderReport(talonOrderReport);
-                    IMvcModelReport mvcModelReport = this.mvcModelObject.GetMvcModelReport();
                     this.mvcViewObject.Animate(talonOrderReport);
+                    IMvcModelReport mvcModelReport = this.mvcModelObject.GetMvcModelReport();
                     logger.Debug("?", mvcModelReport);
                 }
                 else
