@@ -1,7 +1,5 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Reports.Api
 {
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Canvas.Api;
-
     /// <summary>
     /// Todo
     /// </summary>
@@ -11,12 +9,12 @@
         /// Todo
         /// </summary>
         /// <returns></returns>
-        ICanvasGridCoordinates GetDimensionCanvasGridCoordinates();
+        ICanvasGridCoordinates GetCanvasGridDimensions();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        ICanvasGridCoordinates GetPositionCanvasGridCoordinates();
+        ICanvasGridCoordinates GetCanvasGridPosition();
     }
 }

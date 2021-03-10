@@ -2,14 +2,13 @@
 {
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Reports.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Impl.ActionMenus.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Impl.GameLoggers.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Impl.Informationals.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Impl.ScoreBoards.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Impl.SettingMenus.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Impl.TurnScrollers.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Constants.Grids;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.ActionMenus.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.Informationals.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.ScoreBoards.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.SettingMenus.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.TurnScrollers.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Reports.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Reports.Impl;
     using System.Collections.Generic;
 
     /// <summary>
@@ -20,9 +19,6 @@
     {
         // Todo
         private readonly ICanvasConfigurationReport canvasActionMenuConfigurationReport;
-
-        // Todo
-        private readonly ICanvasConfigurationReport canvasGameLoggerConfigurationReport;
 
         // Todo
         private readonly ICanvasConfigurationReport canvasInformationalConfigurationReport;
@@ -40,18 +36,15 @@
         /// Todo
         /// </summary>
         /// <param name="canvasActionMenuConfigurationReport"></param>
-        /// <param name="canvasGameLoggerConfigurationReport"></param>
         /// <param name="canvasInformationalConfigurationReport"></param>
         /// <param name="canvasScoreBoardConfigurationReport"></param>
         /// <param name="canvasSettingMenuConfigurationReport"></param>
         /// <param name="canvasTurnScrollerConfigurationReport"></param>
         private ViewConfigurationReport(ICanvasConfigurationReport canvasActionMenuConfigurationReport,
-            ICanvasConfigurationReport canvasGameLoggerConfigurationReport, ICanvasConfigurationReport canvasInformationalConfigurationReport,
-            ICanvasConfigurationReport canvasScoreBoardConfigurationReport, ICanvasConfigurationReport canvasSettingMenuConfigurationReport,
-            ICanvasConfigurationReport canvasTurnScrollerConfigurationReport)
+            ICanvasConfigurationReport canvasInformationalConfigurationReport, ICanvasConfigurationReport canvasScoreBoardConfigurationReport,
+            ICanvasConfigurationReport canvasSettingMenuConfigurationReport, ICanvasConfigurationReport canvasTurnScrollerConfigurationReport)
         {
             this.canvasActionMenuConfigurationReport = canvasActionMenuConfigurationReport;
-            this.canvasGameLoggerConfigurationReport = canvasGameLoggerConfigurationReport;
             this.canvasInformationalConfigurationReport = canvasInformationalConfigurationReport;
             this.canvasScoreBoardConfigurationReport = canvasScoreBoardConfigurationReport;
             this.canvasSettingMenuConfigurationReport = canvasSettingMenuConfigurationReport;
@@ -62,12 +55,6 @@
         ICanvasConfigurationReport IViewConfigurationReport.GetCanvasActionMenuConfigurationReport()
         {
             return this.canvasActionMenuConfigurationReport;
-        }
-
-        /// <inheritdoc/>
-        ICanvasConfigurationReport IViewConfigurationReport.GetCanvasGameLoggerConfigurationReport()
-        {
-            return this.canvasGameLoggerConfigurationReport;
         }
 
         /// <inheritdoc/>
@@ -105,12 +92,11 @@
                 "\n\t> {9} {10}" +
                 "\n\t> {11} {12}",
                 this.GetType().Name,
-                typeof(ICanvasActionMenu).Name, this.canvasActionMenuConfigurationReport,
-                typeof(ICanvasGameLogger).Name, this.canvasGameLoggerConfigurationReport,
-                typeof(ICanvasInformational).Name, this.canvasGameLoggerConfigurationReport,
-                typeof(ICanvasScoreBoard).Name, this.canvasGameLoggerConfigurationReport,
-                typeof(ICanvasSettingMenu).Name, this.canvasGameLoggerConfigurationReport,
-                typeof(ICanvasTurnScroller).Name, this.canvasGameLoggerConfigurationReport);
+                typeof(IPanelActionMenu).Name, this.canvasActionMenuConfigurationReport,
+                typeof(IPanelInformational).Name, this.canvasInformationalConfigurationReport,
+                typeof(ICanvasScoreBoard).Name, this.canvasScoreBoardConfigurationReport,
+                typeof(ICanvasSettingMenu).Name, this.canvasSettingMenuConfigurationReport,
+                typeof(ICanvasTurnScroller).Name, this.canvasTurnScrollerConfigurationReport);
         }
 
         /// <summary>
@@ -120,9 +106,6 @@
         {
             // Todo
             private ICanvasConfigurationReport canvasActionMenuConfigurationReport = null;
-
-            // Todo
-            private ICanvasConfigurationReport canvasGameLoggerConfigurationReport = null;
 
             // Todo
             private ICanvasConfigurationReport canvasInformationalConfigurationReport = null;
@@ -147,9 +130,8 @@
                 if (invalidReasons.Count == 0)
                 {
                     return new ViewConfigurationReport(this.canvasActionMenuConfigurationReport,
-                        this.canvasGameLoggerConfigurationReport, this.canvasInformationalConfigurationReport,
-                        this.canvasScoreBoardConfigurationReport, this.canvasSettingMenuConfigurationReport,
-                        this.canvasTurnScrollerConfigurationReport);
+                        this.canvasInformationalConfigurationReport, this.canvasScoreBoardConfigurationReport,
+                        this.canvasSettingMenuConfigurationReport, this.canvasTurnScrollerConfigurationReport);
                 }
                 else
                 {
@@ -166,17 +148,6 @@
             public Builder SetCanvasActionMenuConfigurationReport(ICanvasConfigurationReport canvasActionMenuConfigurationReport)
             {
                 this.canvasActionMenuConfigurationReport = canvasActionMenuConfigurationReport;
-                return this;
-            }
-
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="canvasGameLoggerConfigurationReport"></param>
-            /// <returns></returns>
-            public Builder SetCanvasGameLoggerConfigurationReport(ICanvasConfigurationReport canvasGameLoggerConfigurationReport)
-            {
-                this.canvasGameLoggerConfigurationReport = canvasGameLoggerConfigurationReport;
                 return this;
             }
 
@@ -235,15 +206,11 @@
                 ISet<string> argumentExceptionSet = new HashSet<string>();
                 if (this.canvasActionMenuConfigurationReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(ICanvasActionMenu).Name + " " + typeof(ICanvasConfigurationReport).Name + " cannot be null.");
-                }
-                if (this.canvasGameLoggerConfigurationReport == null)
-                {
-                    argumentExceptionSet.Add(typeof(ICanvasGameLogger).Name + " " + typeof(ICanvasConfigurationReport).Name + " cannot be null.");
+                    argumentExceptionSet.Add(typeof(IPanelActionMenu).Name + " " + typeof(ICanvasConfigurationReport).Name + " cannot be null.");
                 }
                 if (this.canvasInformationalConfigurationReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(ICanvasInformational).Name + " " + typeof(ICanvasConfigurationReport).Name + " cannot be null.");
+                    argumentExceptionSet.Add(typeof(IPanelInformational).Name + " " + typeof(ICanvasConfigurationReport).Name + " cannot be null.");
                 }
                 if (this.canvasScoreBoardConfigurationReport == null)
                 {
@@ -267,12 +234,12 @@
         /// <returns></returns>
         public static IViewConfigurationReport DefaultConfigurationReport()
         {
-            return new ViewConfigurationReport(CanvasConfigurationReport.DefaultActionMenuConfigurationReport(),
-                CanvasConfigurationReport.DefaultGameLoggerConfigurationReport(),
-                CanvasConfigurationReport.DefaultInformationalConfigurationReport(),
-                CanvasConfigurationReport.DefaultScoreBoardConfigurationReport(),
-                CanvasConfigurationReport.DefaultSettingMenuConfigurationReport(),
-                CanvasConfigurationReport.DefaultTurnScrollerConfigurationReport());
+            return new ViewConfigurationReport(
+                CanvasConfigurationReportConstants.ActionMenuConfigurationReport(),
+                CanvasConfigurationReportConstants.InformationalConfigurationReport(),
+                CanvasConfigurationReportConstants.ScoreBoardConfigurationReport(),
+                CanvasConfigurationReportConstants.SettingMenuConfigurationReport(),
+                CanvasConfigurationReportConstants.TurnScrollerConfigurationReport());
         }
     }
 }

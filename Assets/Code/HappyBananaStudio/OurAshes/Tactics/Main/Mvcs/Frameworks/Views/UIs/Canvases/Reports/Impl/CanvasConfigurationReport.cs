@@ -1,8 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Reports.Impl
 {
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Canvas.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Canvas.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Reports.Api;
     using System.Collections.Generic;
 
@@ -13,43 +11,42 @@
         : ICanvasConfigurationReport
     {
         // Todo
-        private readonly ICanvasGridCoordinates positionCanvasGridCoordinates;
+        private readonly ICanvasGridCoordinates canvasGridPosition;
 
         // Todo
-        private readonly ICanvasGridCoordinates dimensionCanvasGridCoordinates;
+        private readonly ICanvasGridCoordinates canvasGridDimensions;
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="dimensionCanvasGridCoordinates"></param>
-        /// <param name="positionCanvasGridCoordinates"></param>
-        private CanvasConfigurationReport(ICanvasGridCoordinates dimensionCanvasGridCoordinates,
-            ICanvasGridCoordinates positionCanvasGridCoordinates)
+        /// <param name="canvasGridDimensions"></param>
+        /// <param name="canvasGridPosition"></param>
+        private CanvasConfigurationReport(ICanvasGridCoordinates canvasGridDimensions,
+            ICanvasGridCoordinates canvasGridPosition)
         {
-            this.dimensionCanvasGridCoordinates = dimensionCanvasGridCoordinates;
-            this.positionCanvasGridCoordinates = positionCanvasGridCoordinates;
+            this.canvasGridDimensions = canvasGridDimensions;
+            this.canvasGridPosition = canvasGridPosition;
         }
 
         /// <inheritdoc/>
-        ICanvasGridCoordinates ICanvasConfigurationReport.GetDimensionCanvasGridCoordinates()
+        ICanvasGridCoordinates ICanvasConfigurationReport.GetCanvasGridDimensions()
         {
-            return this.dimensionCanvasGridCoordinates;
+            return this.canvasGridDimensions;
         }
 
         /// <inheritdoc/>
-        ICanvasGridCoordinates ICanvasConfigurationReport.GetPositionCanvasGridCoordinates()
+        ICanvasGridCoordinates ICanvasConfigurationReport.GetCanvasGridPosition()
         {
-            return this.positionCanvasGridCoordinates;
+            return this.canvasGridPosition;
         }
 
         /// <inheritdoc/>
         public override string ToString()
         {
             return string.Format("{0}: " +
-                "\n\t> Dimension {1}={2}" +
-                "\n\t> Position {3}={4}",
-                this.GetType().Name, typeof(ICanvasGridCoordinates).Name, this.dimensionCanvasGridCoordinates,
-                typeof(ICanvasGridCoordinates).Name, this.positionCanvasGridCoordinates);
+                "\n\t> Dimension {2}" +
+                "\n\t> Position {4}",
+                this.GetType().Name, this.canvasGridDimensions, this.canvasGridPosition);
         }
 
         /// <summary>
@@ -58,10 +55,10 @@
         public class Builder
         {
             // Todo
-            private ICanvasGridCoordinates positionCanvasGridCoordinates = null;
+            private ICanvasGridCoordinates canvasGridPosition = null;
 
             // Todo
-            private ICanvasGridCoordinates dimensionCanvasGridCoordinates = null;
+            private ICanvasGridCoordinates canvasGridDimensions = null;
 
             /// <summary>
             /// Todo
@@ -73,8 +70,8 @@
                 // Check that the set parameters are valid
                 if (invalidReasons.Count == 0)
                 {
-                    return new CanvasConfigurationReport(this.dimensionCanvasGridCoordinates,
-                        this.positionCanvasGridCoordinates);
+                    return new CanvasConfigurationReport(this.canvasGridDimensions,
+                        this.canvasGridPosition);
                 }
                 else
                 {
@@ -86,22 +83,22 @@
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="positionCanvasGridCoordinates"></param>
+            /// <param name="canvasGridPosition"></param>
             /// <returns></returns>
-            public Builder SetPositionCanvasGridCoordinates(ICanvasGridCoordinates positionCanvasGridCoordinates)
+            public Builder SetCanvasGridPosition(ICanvasGridCoordinates canvasGridPosition)
             {
-                this.positionCanvasGridCoordinates = positionCanvasGridCoordinates;
+                this.canvasGridPosition = canvasGridPosition;
                 return this;
             }
 
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="dimensionCanvasGridCoordinates"></param>
+            /// <param name="canvasGridDimensions"></param>
             /// <returns></returns>
-            public Builder SetDimensionCanvasGridCoordinates(ICanvasGridCoordinates dimensionCanvasGridCoordinates)
+            public Builder SetCanvasGridDimensions(ICanvasGridCoordinates canvasGridDimensions)
             {
-                this.dimensionCanvasGridCoordinates = dimensionCanvasGridCoordinates;
+                this.canvasGridDimensions = canvasGridDimensions;
                 return this;
             }
 
@@ -114,83 +111,17 @@
             {
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
-                if (this.dimensionCanvasGridCoordinates == null)
+                if (this.canvasGridDimensions == null)
                 {
                     argumentExceptionSet.Add("Dimension " + typeof(ICanvasGridCoordinates).Name + " cannot be null.");
                 }
-                if (this.positionCanvasGridCoordinates == null)
+                if (this.canvasGridPosition == null)
                 {
                     argumentExceptionSet.Add("Position " + typeof(ICanvasGridCoordinates).Name + " cannot be null.");
                 }
 
                 return argumentExceptionSet;
             }
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        public static ICanvasConfigurationReport DefaultActionMenuConfigurationReport()
-        {
-            return new CanvasConfigurationReport(
-                new CanvasGridCoordinates.Builder().SetX(2).SetY(5).Build(),
-                new CanvasGridCoordinates.Builder().SetX(0).SetY(1).Build());
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        public static ICanvasConfigurationReport DefaultGameLoggerConfigurationReport()
-        {
-            return new CanvasConfigurationReport(
-                new CanvasGridCoordinates.Builder().SetX(2).SetY(2).Build(),
-                new CanvasGridCoordinates.Builder().SetX(0).SetY(9).Build());
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        public static ICanvasConfigurationReport DefaultInformationalConfigurationReport()
-        {
-            return new CanvasConfigurationReport(
-                new CanvasGridCoordinates.Builder().SetX(2).SetY(6).Build(),
-                new CanvasGridCoordinates.Builder().SetX(11).SetY(1).Build());
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        public static ICanvasConfigurationReport DefaultScoreBoardConfigurationReport()
-        {
-            return new CanvasConfigurationReport(
-                new CanvasGridCoordinates.Builder().SetX(5).SetY(1).Build(),
-                new CanvasGridCoordinates.Builder().SetX(3).SetY(9).Build());
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        public static ICanvasConfigurationReport DefaultSettingMenuConfigurationReport()
-        {
-            return new CanvasConfigurationReport(
-                new CanvasGridCoordinates.Builder().SetX(2).SetY(1).Build(),
-                new CanvasGridCoordinates.Builder().SetX(11).SetY(9).Build());
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        public static ICanvasConfigurationReport DefaultTurnScrollerConfigurationReport()
-        {
-            return new CanvasConfigurationReport(
-                new CanvasGridCoordinates.Builder().SetX(7).SetY(2).Build(),
-                new CanvasGridCoordinates.Builder().SetX(2).SetY(0).Build());
         }
     }
 }

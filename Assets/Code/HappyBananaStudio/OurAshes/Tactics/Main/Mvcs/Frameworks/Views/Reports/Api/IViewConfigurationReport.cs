@@ -17,12 +17,6 @@
         /// Todo
         /// </summary>
         /// <returns></returns>
-        ICanvasConfigurationReport GetCanvasGameLoggerConfigurationReport();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
         ICanvasConfigurationReport GetCanvasInformationalConfigurationReport();
 
         /// <summary>

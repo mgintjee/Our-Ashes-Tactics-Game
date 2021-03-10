@@ -11,6 +11,6 @@
         /// <summary>
         /// Todo
         /// </summary>
-        void UpdateValues();
+        void UpdateWidgets();
     }
 }

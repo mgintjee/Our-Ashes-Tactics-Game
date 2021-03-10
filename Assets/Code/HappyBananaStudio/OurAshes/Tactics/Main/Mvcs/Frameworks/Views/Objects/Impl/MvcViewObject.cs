@@ -11,7 +11,6 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Pathing.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Reports.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.GameBoards.Views.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.GameBoards.Views.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Objects.Api;
@@ -89,6 +88,15 @@
         void IMvcViewObject.DestroyCanvas()
         {
             GameObject.Destroy(this.transform);
+        }
+
+        /// <inheritdoc/>
+        void IMvcViewObject.DisplayTalonOrderReport(ITalonOrderReport talonOrderReport)
+        {
+            if (this.uiObject != null)
+            {
+                this.uiObject.DisplayTalonOrderReport(talonOrderReport);
+            }
         }
 
         /// <inheritdoc/>

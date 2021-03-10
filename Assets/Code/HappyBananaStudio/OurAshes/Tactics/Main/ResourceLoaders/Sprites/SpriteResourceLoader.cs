@@ -1,7 +1,7 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.ResourceLoaders.Sprites
 {
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Customizations.Emblem.Enums;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Sprites.Enums;
     using System.Diagnostics;
     using UnityEngine;
 
@@ -16,15 +16,15 @@
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="emblemSpriteId">
+        /// <param name="spriteId">
         /// </param>
         /// <returns>
         /// </returns>
-        public static Sprite LoadSpriteResource(EmblemId emblemSpriteId)
+        public static Sprite LoadSpriteResource(SpriteId spriteId)
         {
-            if (emblemSpriteId != EmblemId.None)
+            if (spriteId != SpriteId.None)
             {
-                return LoadSpriteResource(SPRITE_FOLDER_HOME + emblemSpriteId.ToString());
+                return LoadSpriteResource(SPRITE_FOLDER_HOME + spriteId.ToString());
             }
             else
             {

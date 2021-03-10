@@ -10,7 +10,6 @@
     public abstract class AbstractBasicWidget
         : AbstractUnityScript, IWidget
     {
-
         // Todo
         protected Vector2 widgetDimensions;
 

@@ -65,5 +65,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
         /// Todo
         /// </summary>
         void DestroyCanvas();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="talonOrderReport"></param>
+        void DisplayTalonOrderReport(ITalonOrderReport talonOrderReport);
     }
 }

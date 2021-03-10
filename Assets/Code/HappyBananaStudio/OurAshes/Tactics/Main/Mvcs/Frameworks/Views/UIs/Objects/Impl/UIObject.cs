@@ -3,20 +3,8 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Orders.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Reports.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Impl.ActionMenus.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Impl.ActionMenus.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Impl.GameLoggers.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Impl.GameLoggers.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Impl.Informationals.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Impl.Informationals.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Impl.ScoreBoards.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Impl.ScoreBoards.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Impl.SettingMenus.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Impl.SettingMenus.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Impl.TurnScrollers.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Impl.TurnScrollers.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Utils;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Objects.Api;
     using System.Collections.Generic;
@@ -34,9 +22,6 @@
 
         // Todo
         private readonly ICanvasActionMenu canvasActionMenu;
-
-        // Todo
-        private readonly ICanvasGameLogger canvasGameLogger;
 
         // Todo
         private readonly ICanvasInformational canvasInformational;
@@ -64,18 +49,14 @@
         {
             GameObject gameObject = new GameObject(this.GetType().Name);
             gameObject.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
-            CanvasGridUtil.SetCanvasHeight(gameObject.GetComponent<RectTransform>().sizeDelta.y);
-            CanvasGridUtil.SetCanvasWidth(gameObject.GetComponent<RectTransform>().sizeDelta.x);
+            UIGridUtil.SetCanvasHeight(gameObject.GetComponent<RectTransform>().sizeDelta.y);
+            UIGridUtil.SetCanvasWidth(gameObject.GetComponent<RectTransform>().sizeDelta.x);
             this.transform = gameObject.transform;
             this.transform.SetParent(parentTransform);
             // Should verify that the configurationReport is valid, else use the default value
             this.canvasActionMenu = new CanvasActionMenu.Builder()
                 .SetParentTransform(this.transform)
                 .SetCanvasConfigurationReport(viewConfigurationReport.GetCanvasActionMenuConfigurationReport())
-                .Build();
-            this.canvasGameLogger = new CanvasGameLogger.Builder()
-                .SetCanvasConfigurationReport(viewConfigurationReport.GetCanvasGameLoggerConfigurationReport())
-                .SetParentTransform(this.transform)
                 .Build();
             this.canvasInformational = new CanvasInformational.Builder()
                 .SetCanvasConfigurationReport(viewConfigurationReport.GetCanvasInformationalConfigurationReport())
@@ -95,11 +76,15 @@
                 .Build();
             this.canvasSet = new HashSet<ICanvas>()
             {
-                this.canvasActionMenu, this.canvasGameLogger, this.canvasInformational,
-                this.canvasScoreBoard, this.canvasSettingMenu, this.canvasTurnScroller
+                this.canvasActionMenu, this.canvasInformational, this.canvasScoreBoard,
+                this.canvasSettingMenu, this.canvasTurnScroller
             };
+        }
 
-            this.canvasGameLogger.WriteToGameLogger("FUCK THEM FOES");
+        void IUIObject.DisplayTalonOrderReport(ITalonOrderReport talonOrderReport)
+        {
+            logger.Debug("Display ?", talonOrderReport);
+            this.canvasInformational.BuildInformationalWidget(talonOrderReport);
         }
 
         /// <summary>

@@ -84,6 +84,7 @@
                 if (talonOrderReport != null)
                 {
                     this.mvcModelObject.InputTalonOrderReport(talonOrderReport);
+                    this.mvcViewObject.DisplayTalonOrderReport(talonOrderReport);
                     this.mvcViewObject.Animate(talonOrderReport);
                     IMvcModelReport mvcModelReport = this.mvcModelObject.GetMvcModelReport();
                     logger.Debug("?", mvcModelReport);
