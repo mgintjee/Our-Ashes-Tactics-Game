@@ -1,9 +1,5 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Scripts.Impl
 {
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Generators.Talons.Customizations;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Generators.Talons.Loadouts;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.AIs.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Enums;
@@ -20,9 +16,6 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Scripts.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Reports.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Randoms.Generators.Numbers;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Scripts.Unity.Abs;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Utils.Enums;
     using System.Collections.Generic;
     using System.Diagnostics;
 
@@ -116,7 +109,7 @@
                     }
                 }
                 // Todo: Load from file or something or have a default
-                IViewConfigurationReport viewConfigurationReport = ViewConfigurationReport.DefaultConfigurationReport();
+                IViewConfigurationReport viewConfigurationReport = ViewConfigurationReport.DefaultViewConfigurationReport();
                 IMvcConstructionReport mvcConstructionReport = new MvcConstructionReport.Builder()
                     .SetMatchType(MatchType.FactionDeathmatch)
                     .SetSimulationType(SimulationType.WhiteBox)

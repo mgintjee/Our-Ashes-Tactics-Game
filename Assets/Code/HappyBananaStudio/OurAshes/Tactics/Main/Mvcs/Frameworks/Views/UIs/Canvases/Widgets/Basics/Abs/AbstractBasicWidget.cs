@@ -1,5 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Basics.Abs
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Unity.Abs;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Scripts.Unity.Abs;
     using UnityEngine;
@@ -8,7 +9,7 @@
     /// Todo
     /// </summary>
     public abstract class AbstractBasicWidget
-        : AbstractUnityScript, IWidget
+        : AbstractCanvasScript, IWidget
     {
         // Todo
         protected Vector2 widgetDimensions;
@@ -22,12 +23,6 @@
         public void Awake()
         {
             this.GetGameObject().AddComponent<RectTransform>();
-        }
-
-        /// <inheritdoc/>
-        RectTransform IWidget.GetRectTransform()
-        {
-            return this.GetComponent<RectTransform>();
         }
 
         /// <inheritdoc/>

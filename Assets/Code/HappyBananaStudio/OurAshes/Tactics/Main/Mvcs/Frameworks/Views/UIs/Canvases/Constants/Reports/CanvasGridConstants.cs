@@ -1,5 +1,8 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Constants.Reports
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Impl;
+
     /// <summary>
     /// Todo
     /// </summary>
@@ -12,10 +15,11 @@
         private static readonly float colOffset = 0.0f;
 
         // Todo
-        private static readonly ICanvasGridCoordinates canvasGridDimensions = new CanvasGridCoordinates.Builder()
-            .SetColIndex(11)
-            .SetRowIndex(9)
-            .Build();
+        private static readonly ICanvasGridCoordinates canvasGridDimensions =
+            new CanvasGridCoordinates.Builder()
+                .SetCol(11)
+                .SetRow(9)
+                .Build();
 
         /// <summary>
         /// Todo

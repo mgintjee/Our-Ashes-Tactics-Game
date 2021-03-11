@@ -1,12 +1,14 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Impl.Informationals.Orders.Impl
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Colors.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Orders.Reports.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Reports.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Impl.Informationals.Abs;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Impl.Informationals.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Impl.Informationals.Objects.Abs;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Complex.Abs;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Complex.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Colors.Enums;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Complex.Texts.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Complex.Texts.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Sprites.Enums;
     using System.Collections.Generic;
     using UnityEngine;
@@ -17,7 +19,6 @@
     public class PanelEntryInformationalOrder
         : AbstractPanelEntryInformational, IPanelEntryInformational
     {
-
         /// <summary>
         /// Todo
         /// </summary>
@@ -39,24 +40,14 @@
                 // Check that the set parameters are valid
                 if (invalidReasons.Count == 0)
                 {
-                    PanelEntryInformationalOrder complexWidgetInformationalOrder =
+                    PanelEntryInformationalOrder panelEntryInformationalOrder =
                         new GameObject(typeof(PanelEntryInformationalOrder).Name)
                         .AddComponent<PanelEntryInformationalOrder>();
-                    IComplexWidgetText complexWidgetHeader = new ComplexWidgetText.Builder()
-                        .SetParentTransform(complexWidgetInformationalOrder.transform)
-                        .SetImageColorId(ColorId.Gray)
-                        .SetImageSpriteId(SpriteId.RoundedSquare)
-                        .SetImageTransparency(0.0f)
-                        .SetTextColorId(ColorId.Black)
-                        .SetTextFontSize(15)
-                        .SetTextFontStyle(FontStyle.Bold)
-                        .SetTextString(typeof(ComplexWidgetInformationalOrder).Name + ": " + this.talonOrderReport.GetOrderType())
+                    panelEntryInformationalOrder.panelEntryGridDimensions = new CanvasGridCoordinates.Builder()
+                        .SetCol(0).SetRow(0)
                         .Build();
-                    complexWidgetInformationalOrder.childWidgetSet.Add(complexWidgetHeader);
-                    complexWidgetInformationalOrder.GetTransform().SetParent(this.parentTransform);
-                    complexWidgetInformationalOrder.GetTransform().localPosition = Vector3.zero;
-                    complexWidgetInformationalOrder.GetTransform().localScale = Vector3.one;
-                    return complexWidgetInformationalOrder;
+                    panelEntryInformationalOrder.SetParentTransform(this.parentTransform);
+                    return panelEntryInformationalOrder;
                 }
                 else
                 {

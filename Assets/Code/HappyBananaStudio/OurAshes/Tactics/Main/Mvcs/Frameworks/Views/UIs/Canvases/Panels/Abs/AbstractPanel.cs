@@ -1,15 +1,17 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Abs
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Colors.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Constants.Reports;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Reports.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Convertors.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Convertors.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Reports.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Utils;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Unity.Abs;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Basics.Images.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Basics.Images.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Complex.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Colors.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Sprites.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Scripts.Unity.Abs;
     using System.Collections.Generic;
@@ -20,19 +22,22 @@
     /// Todo
     /// </summary>
     public abstract class AbstractPanel
-        : AbstractUnityScript, IPanel
+        : AbstractCanvasScript, IPanel
     {
         // Provide logging capability
         private static readonly ICodeLogger logger = new CodeLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
-        protected ISet<IComplexWidget> complexWidgetSet = new HashSet<IComplexWidget>();
+        protected IList<IPanelEntry> panelEntryList = new List<IPanelEntry>();
 
         // Todo
         protected IBasicImage basicWidgetImage;
 
         // Todo
-        protected ICanvasConfigurationReport canvasConfigurationReport;
+        protected ICanvasGridConvertor panelGridConvertor;
+
+        // Todo
+        protected ICanvasGridCoordinates panelGridDimensions;
 
         /// <summary>
         /// Todo
@@ -51,69 +56,69 @@
         /// <inheritdoc/>
         void IPanel.UpdatePanelEntries()
         {
-            this.UpdateCanvasEntryWidgets();
-        }
-
-        /// <inheritdoc/>
-        ICanvasConfigurationReport IPanel.GetCanvasConfigurationReport()
-        {
-            return this.canvasConfigurationReport;
-        }
-
-        /// <inheritdoc/>
-        protected void AddWidget(IComplexWidget complexWidget, ICanvasConfigurationReport canvasConfigurationReport)
-        {
-            this.complexWidgetSet.Add(complexWidget);
-            complexWidget.SetWidgetDimensions(this.canvasGridConvertor.GetWidgetDimensionsFrom(
-                canvasConfigurationReport.GetCanvasGridDimensions()));
-            complexWidget.SetWidgetPosition(this.canvasGridConvertor.GetWidgetPositionFrom(
-                canvasConfigurationReport.GetCanvasGridPosition(), canvasConfigurationReport.GetCanvasGridDimensions()));
+            // Todo
         }
 
         /// <summary>
         /// Todo
         /// </summary>
-        protected virtual void UpdateCanvasEntryWidgets()
+        /// <param name="panelEntry"></param>
+        /// <param name="panelEntryConfigurationReport"></param>
+        protected void AddPanelEntry(IPanelEntry panelEntry,
+            ICanvasConfigurationReport panelEntryConfigurationReport)
         {
-            foreach (IComplexWidget complexWidget in this.complexWidgetSet)
+            this.panelEntryList.Add(panelEntry);
+            // TODO: Update the panelEntry based off of the config report and convertor
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="panelEntry"></param>
+        protected void RemovePanelEntry(IPanelEntry panelEntry)
+        {
+            this.panelEntryList.Remove(panelEntry);
+            panelEntry.Destroy();
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        protected void RemovePanelEntries()
+        {
+            foreach (IPanelEntry panelEntry in this.panelEntryList)
             {
-                complexWidget.UpdateWidgets();
+                panelEntry.Destroy();
             }
+            this.panelEntryList.Clear();
         }
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="canvasConfigurationReport"></param>
-        protected virtual void SetCanvasConfigurationReport(ICanvasConfigurationReport canvasConfigurationReport)
+        protected void SetCanvasConfigurationReport(ICanvasGridConvertor canvasGridConvertor,
+            ICanvasConfigurationReport canvasConfigurationReport)
         {
-            this.canvasConfigurationReport = canvasConfigurationReport;
-            this.SetCanvasGridDimensions(canvasConfigurationReport.GetCanvasGridDimensions());
-            this.SetCanvasGridPosition(canvasConfigurationReport.GetCanvasGridPosition());
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="canvasGridDimensions"></param>
-        protected virtual void SetCanvasGridDimensions(ICanvasGridCoordinates canvasGridDimensions)
-        {
-            Vector2 worldDimensions = UIGridUtil.GetUIDimensionsFrom(canvasGridDimensions);
-            this.GetComponent<RectTransform>().sizeDelta = worldDimensions;
-            worldDimensions.x -= CanvasGridConstants.GetColOffset();
-            worldDimensions.y -= CanvasGridConstants.GetRowOffset();
+            RectTransform rectTransform = this.GetComponent<RectTransform>();
+            // Find the WorldDimensions for this panel
+            Vector2 worldDimensions = canvasGridConvertor.GetCanvasWorldDimensionsFrom(
+                canvasConfigurationReport.GetGridDimensions());
+            worldDimensions *= 0.9f;
             this.basicWidgetImage.SetWidgetDimensions(worldDimensions);
-            logger.Debug("?", this.basicWidgetImage.GetRectTransform().sizeDelta);
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="canvasGridPosition"></param>
-        protected virtual void SetCanvasGridPosition(ICanvasGridCoordinates canvasGridPosition)
-        {
-            this.GetComponent<RectTransform>().anchoredPosition =
-                UIGridUtil.GetUIPositionFrom(canvasGridPosition, this.canvasConfigurationReport.GetCanvasGridDimensions());
+            rectTransform.sizeDelta = worldDimensions;
+            // Set the WorldPosition of this panel
+            rectTransform.anchoredPosition = canvasGridConvertor.GetCanvasWorldPositionFrom(
+                    canvasConfigurationReport.GetGridPosition(),
+                    canvasConfigurationReport.GetGridDimensions());
+            // Collect the SizeDelta for this Panel
+            Vector2 sizeDelta = rectTransform.sizeDelta;
+            // Build the CanvasGridConvertor for this Panel
+            this.panelGridConvertor = new CanvasGridConvertor.Builder()
+                .SetCanvasGridDimensions(this.panelGridDimensions)
+                .SetCanvasWidth(sizeDelta.x)
+                .SetCanvasHeight(sizeDelta.y)
+                .Build();
         }
     }
 }

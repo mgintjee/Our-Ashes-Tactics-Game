@@ -2,9 +2,13 @@
 {
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Orders.Reports.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Reports.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Reports.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Convertors.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Abs;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.Informationals.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Reports.Api;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -14,40 +18,16 @@
     public class PanelInformational
         : AbstractPanel, IPanelInformational
     {
-        // Todo
-        private readonly IList<IComplexWidgetInformational> complexWidgetInformationalList = new List<IComplexWidgetInformational>();
-
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="talonOrderReport"></param>
         void IPanelInformational.BuildInformationalWidget(ITalonOrderReport talonOrderReport)
         {
-            this.ClearInformational();
-            this.complexWidgetInformationalList.Add(new ComplexWidgetInformationalOrder.Builder()
-                .SetParentTransform(this.GetTransform())
-                .SetTalonOrderReport(talonOrderReport)
+            this.RemovePanelEntries();
+            IPanelEntry panelEntry = null;
+            this.AddPanelEntry(panelEntry, new CanvasConfigurationReport.Builder()
                 .Build());
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        private void LoadCanvasEntryWidgets()
-        {
-            this.UpdateCanvasEntryWidgets();
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        private void ClearInformational()
-        {
-            foreach (IComplexWidgetInformational complexWidgetInformational in this.complexWidgetInformationalList)
-            {
-                complexWidgetInformational.Destroy();
-            }
-            this.complexWidgetInformationalList.Clear();
         }
 
         /// <summary>
@@ -61,6 +41,9 @@
             // Todo
             private Transform parentTransform = null;
 
+            // Todo
+            private ICanvasGridConvertor canvasGridConvertor = null;
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -73,13 +56,14 @@
                 {
                     PanelInformational canvasInformational = new GameObject(typeof(PanelInformational).Name)
                         .AddComponent<PanelInformational>();
-                    canvasInformational.GetTransform().SetParent(this.parentTransform);
-                    canvasInformational.GetTransform().localPosition = Vector3.zero;
-                    canvasInformational.GetTransform().localScale = Vector3.one;
-                    canvasInformational.SetCanvasConfigurationReport(this.canvasConfigurationReport);
-                    canvasInformational.BuildConvertor(new CanvasGridCoordinates.Builder()
-                        .SetColIndex(4).SetRowIndex(6).Build());
-                    canvasInformational.LoadCanvasEntryWidgets();
+                    // Todo: Store in a const file
+                    canvasInformational.panelGridDimensions = new CanvasGridCoordinates.Builder()
+                        .SetCol(4)
+                        .SetRow(6)
+                        .Build();
+                    canvasInformational.SetParentTransform(this.parentTransform);
+                    canvasInformational.SetCanvasConfigurationReport(
+                        this.canvasGridConvertor, this.canvasConfigurationReport);
                     return canvasInformational;
                 }
                 else
@@ -114,6 +98,17 @@
             /// <summary>
             /// Todo
             /// </summary>
+            /// <param name="canvasGridConvertor"></param>
+            /// <returns></returns>
+            public Builder SetCanvasGridConvertor(ICanvasGridConvertor canvasGridConvertor)
+            {
+                this.canvasGridConvertor = canvasGridConvertor;
+                return this;
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
             /// <returns>
             /// </returns>
             private ISet<string> IsInvalid()
@@ -127,6 +122,10 @@
                 if (this.parentTransform == null)
                 {
                     argumentExceptionSet.Add("Parent " + typeof(Transform).Name + " cannot be null.");
+                }
+                if (this.canvasGridConvertor == null)
+                {
+                    argumentExceptionSet.Add(typeof(ICanvasGridConvertor).Name + " cannot be null.");
                 }
                 return argumentExceptionSet;
             }

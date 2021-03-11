@@ -10,13 +10,13 @@
         /// </summary>
         /// <returns>
         /// </returns>
-        int GetColIndex();
+        int GetCol();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns>
         /// </returns>
-        int GetRowIndex();
+        int GetRow();
     }
 }

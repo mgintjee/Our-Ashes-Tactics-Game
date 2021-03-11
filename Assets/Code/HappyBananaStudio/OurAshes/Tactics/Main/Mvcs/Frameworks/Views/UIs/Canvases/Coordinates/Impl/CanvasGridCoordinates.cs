@@ -1,6 +1,7 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Impl
 {
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Api;
     using System.Collections.Generic;
 
     /// <summary>
@@ -10,22 +11,22 @@
         : ICanvasGridCoordinates
     {
         // Todo
-        private readonly int colIndex;
+        private readonly int col;
 
         // Todo
-        private readonly int rowIndex;
+        private readonly int row;
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="colIndex">
+        /// <param name="col">
         /// </param>
-        /// <param name="rowIndex">
+        /// <param name="row">
         /// </param>
-        private CanvasGridCoordinates(int colIndex, int rowIndex)
+        private CanvasGridCoordinates(int col, int row)
         {
-            this.colIndex = colIndex;
-            this.rowIndex = rowIndex;
+            this.col = col;
+            this.row = row;
         }
 
         /// <summary>
@@ -42,8 +43,8 @@
                 obj.GetType() == this.GetType())
             {
                 ICanvasGridCoordinates OtherCoord = (ICanvasGridCoordinates)obj;
-                bool sameX = this.colIndex == OtherCoord.GetColIndex();
-                bool sameY = this.rowIndex == OtherCoord.GetRowIndex();
+                bool sameX = this.col == OtherCoord.GetCol();
+                bool sameY = this.row == OtherCoord.GetRow();
                 return sameX && sameY;
             }
             else
@@ -61,8 +62,8 @@
         {
             // Auto-generated HashCode
             var hashCode = 230791427;
-            hashCode = (hashCode * -1521134295) + colIndex.GetHashCode();
-            hashCode = (hashCode * -1521134295) + rowIndex.GetHashCode();
+            hashCode = (hashCode * -1521134295) + col.GetHashCode();
+            hashCode = (hashCode * -1521134295) + row.GetHashCode();
             return hashCode;
         }
 
@@ -73,7 +74,8 @@
         /// </returns>
         public override string ToString()
         {
-            return string.Format("{0}:({1},{2})", this.GetType().Name, this.colIndex, this.rowIndex);
+            return string.Format("{0}:(Col={1},Row={2})",
+                this.GetType().Name, this.col, this.row);
         }
 
         /// <summary>
@@ -81,9 +83,9 @@
         /// </summary>
         /// <returns>
         /// </returns>
-        int ICanvasGridCoordinates.GetColIndex()
+        int ICanvasGridCoordinates.GetCol()
         {
-            return this.colIndex;
+            return this.col;
         }
 
         /// <summary>
@@ -91,9 +93,9 @@
         /// </summary>
         /// <returns>
         /// </returns>
-        int ICanvasGridCoordinates.GetRowIndex()
+        int ICanvasGridCoordinates.GetRow()
         {
-            return this.rowIndex;
+            return this.row;
         }
 
         /// <summary>
@@ -102,10 +104,10 @@
         public class Builder
         {
             // Todo
-            private int colIndex = int.MinValue;
+            private int col = int.MinValue;
 
             // Todo
-            private int rowIndex = int.MinValue;
+            private int row = int.MinValue;
 
             /// <summary>
             /// Build the implementation of the object and return it
@@ -118,7 +120,7 @@
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new Object
-                    return new CanvasGridCoordinates(this.colIndex, this.rowIndex);
+                    return new CanvasGridCoordinates(this.col, this.row);
                 }
                 else
                 {
@@ -130,22 +132,22 @@
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="colIndex"></param>
+            /// <param name="col"></param>
             /// <returns></returns>
-            public Builder SetColIndex(int colIndex)
+            public Builder SetCol(int col)
             {
-                this.colIndex = colIndex;
+                this.col = col;
                 return this;
             }
 
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="rowIndex"></param>
+            /// <param name="row"></param>
             /// <returns></returns>
-            public Builder SetRowIndex(int rowIndex)
+            public Builder SetRow(int row)
             {
-                this.rowIndex = rowIndex;
+                this.row = row;
                 return this;
             }
 
@@ -158,15 +160,15 @@
             {
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
-                // Check that colIndex has been set
-                if (this.colIndex == int.MinValue)
+                // Check that col has been set
+                if (this.col == int.MinValue)
                 {
-                    argumentExceptionSet.Add("colIndex has not been set");
+                    argumentExceptionSet.Add("col has not been set");
                 }
-                // Check that rowIndex has been set
-                if (this.rowIndex == int.MinValue)
+                // Check that row has been set
+                if (this.row == int.MinValue)
                 {
-                    argumentExceptionSet.Add("rowIndex has not been set");
+                    argumentExceptionSet.Add("row has not been set");
                 }
                 return argumentExceptionSet;
             }

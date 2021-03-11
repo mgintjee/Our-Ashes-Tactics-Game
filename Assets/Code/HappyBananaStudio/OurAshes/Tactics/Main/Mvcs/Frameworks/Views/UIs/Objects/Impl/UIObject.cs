@@ -1,11 +1,17 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Objects.Impl
 {
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Loggers.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Orders.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Reports.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Utils;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Constants.Reports;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Convertors.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Convertors.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.ActionMenus.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.Informationals.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.Informationals.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.ScoreBoards.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.SettingMenus.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.TurnScrollers.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Objects.Api;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -21,10 +27,13 @@
         private static readonly ICodeLogger logger = new CodeLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
-        private readonly ICanvasActionMenu canvasActionMenu;
+        private readonly ICanvasGridConvertor canvasGridConvertor;
 
         // Todo
-        private readonly ICanvasInformational canvasInformational;
+        private readonly IPanelActionMenu canvasActionMenu;
+
+        // Todo
+        private readonly IPanelInformational canvasInformational;
 
         // Todo
         private readonly ICanvasScoreBoard canvasScoreBoard;
@@ -36,7 +45,7 @@
         private readonly ICanvasTurnScroller canvasTurnScroller;
 
         // Todo
-        private readonly ISet<ICanvas> canvasSet;
+        private readonly ISet<IPanel> panelSet;
 
         private readonly Transform transform;
 
@@ -49,18 +58,24 @@
         {
             GameObject gameObject = new GameObject(this.GetType().Name);
             gameObject.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
-            UIGridUtil.SetCanvasHeight(gameObject.GetComponent<RectTransform>().sizeDelta.y);
-            UIGridUtil.SetCanvasWidth(gameObject.GetComponent<RectTransform>().sizeDelta.x);
+            Vector2 sizeDelta = gameObject.GetComponent<RectTransform>().sizeDelta;
+            this.canvasGridConvertor = new CanvasGridConvertor.Builder()
+                .SetCanvasGridDimensions(CanvasGridConstants.GetCanvasGridDimensions())
+                .SetCanvasHeight(sizeDelta.y)
+                .SetCanvasWidth(sizeDelta.x)
+                .Build();
             this.transform = gameObject.transform;
             this.transform.SetParent(parentTransform);
             // Should verify that the configurationReport is valid, else use the default value
+            this.canvasInformational = new PanelInformational.Builder()
+                .SetCanvasConfigurationReport(viewConfigurationReport.GetCanvasInformationalConfigurationReport())
+                .SetParentTransform(this.transform)
+                .SetCanvasGridConvertor(this.canvasGridConvertor)
+                .Build();
+            /*
             this.canvasActionMenu = new CanvasActionMenu.Builder()
                 .SetParentTransform(this.transform)
                 .SetCanvasConfigurationReport(viewConfigurationReport.GetCanvasActionMenuConfigurationReport())
-                .Build();
-            this.canvasInformational = new CanvasInformational.Builder()
-                .SetCanvasConfigurationReport(viewConfigurationReport.GetCanvasInformationalConfigurationReport())
-                .SetParentTransform(this.transform)
                 .Build();
             this.canvasScoreBoard = new CanvasScoreBoard.Builder()
                 .SetCanvasConfigurationReport(viewConfigurationReport.GetCanvasScoreBoardConfigurationReport())
@@ -79,6 +94,7 @@
                 this.canvasActionMenu, this.canvasInformational, this.canvasScoreBoard,
                 this.canvasSettingMenu, this.canvasTurnScroller
             };
+            */
         }
 
         void IUIObject.DisplayTalonOrderReport(ITalonOrderReport talonOrderReport)
@@ -92,9 +108,9 @@
         /// </summary>
         void IUIObject.UpdateCanvas()
         {
-            foreach (ICanvas canvas in this.canvasSet)
+            foreach (IPanel canvas in this.panelSet)
             {
-                canvas.UpdateWidgets();
+                canvas.UpdatePanelEntries();
             }
         }
 

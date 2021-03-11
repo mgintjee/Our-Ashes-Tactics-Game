@@ -5,7 +5,6 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Reports.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.ResourceLoaders.GameObjects;
     using UnityEngine;
 
     /// <summary>
