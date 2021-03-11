@@ -1,7 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Colors.Constants
 {
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Colors.Enums;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Exceptions;
     using System.Collections.Generic;
     using System.Diagnostics;
     using UnityEngine;
