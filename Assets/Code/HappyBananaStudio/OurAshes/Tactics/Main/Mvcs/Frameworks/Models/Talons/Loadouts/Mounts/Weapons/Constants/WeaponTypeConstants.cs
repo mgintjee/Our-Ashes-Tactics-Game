@@ -1,5 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Weapons.Constants
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Weapons.Enums;
     using System.Collections.Generic;
     using System.Diagnostics;

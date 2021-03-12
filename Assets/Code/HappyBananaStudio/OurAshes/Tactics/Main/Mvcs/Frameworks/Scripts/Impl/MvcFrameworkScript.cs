@@ -1,5 +1,12 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Scripts.Impl
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Generators.Talons.Customizations;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Generators.Talons.Loadouts;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Loggers.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Loggers.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Randoms.Generators.Numbers;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Scripts.Unity.Abs;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Utils.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.AIs.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Enums;
@@ -23,7 +30,7 @@
     /// MvcFramework Script Api
     /// </summary>
     public class MvcFrameworkScript
-    : AbstractUnityScript, IMvcFrameworkScript
+        : AbstractUnityScript, IMvcFrameworkScript
     {
         // Provide logging capability
         private static readonly ICodeLogger logger = new CodeLogger(new StackFrame().GetMethod().DeclaringType);

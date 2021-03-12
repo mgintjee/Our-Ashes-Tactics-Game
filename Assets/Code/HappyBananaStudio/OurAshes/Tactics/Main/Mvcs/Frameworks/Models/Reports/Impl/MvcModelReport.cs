@@ -1,5 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Reports.Impl
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.GameBoards.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Phalanxes.Reports.Api;
@@ -108,11 +109,8 @@
                     return new MvcModelReport(this.gameBoardReport, this.phalanxRosterReport,
                         this.talonRosterReport, this.winConditionReport);
                 }
-                else
-                {
-                    throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
-                        this.GetType(), string.Join("\n", invalidReasons));
-                }
+                throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
+                    this.GetType(), string.Join("\n", invalidReasons));
             }
 
             /// <summary>

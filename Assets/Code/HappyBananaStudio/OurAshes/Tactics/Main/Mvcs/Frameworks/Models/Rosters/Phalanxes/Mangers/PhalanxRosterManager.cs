@@ -1,5 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Phalanxes.Mangers
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.GameBoards.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Phalanxes.Objects.Api;
@@ -26,11 +27,8 @@
             {
                 PhalanxRosterManager.phalanxRosterObject = phalanxRosterObject;
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build("Unable to ?. ? is already set.",
-                    new StackFrame().GetMethod().Name, typeof(IGameBoardObject));
-            }
+            throw ExceptionUtil.Arguments.Build("Unable to ?. ? is already set.",
+                new StackFrame().GetMethod().Name, typeof(IGameBoardObject));
         }
 
         /// <summary>

@@ -1,5 +1,9 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Combats.Objects.Impl
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Loggers.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Loggers.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Randoms.Generators.Numbers;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Combats.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Combats.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Combats.Reports.Impl;
@@ -195,11 +199,8 @@
                     // Instantiate a new Object
                     return new CombatObject(this.talonRosterObject);
                 }
-                else
-                {
-                    throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
-                        this.GetType(), string.Join("\n", invalidReasons));
-                }
+                throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
+                    this.GetType(), string.Join("\n", invalidReasons));
             }
 
             /// <summary>

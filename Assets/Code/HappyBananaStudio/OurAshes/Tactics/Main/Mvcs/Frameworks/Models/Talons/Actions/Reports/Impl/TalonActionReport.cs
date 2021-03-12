@@ -1,5 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Actions.Reports.Impl
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Actions.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Orders.Reports.Api;
@@ -64,11 +65,8 @@
                     // Instantiate a new Object
                     return new TalonActionReport(this.talonCallSign, this.talonActionOrderReportSet);
                 }
-                else
-                {
-                    throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
-                        this.GetType(), string.Join("\n", invalidReasons));
-                }
+                throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
+                    this.GetType(), string.Join("\n", invalidReasons));
             }
 
             /// <summary>

@@ -1,5 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.GameBoards.Managers
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.GameBoards.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.GameBoards.Reports.Api;
@@ -46,11 +47,8 @@
             {
                 return gameBoardObject.GetCubeCoordinatesSet();
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build("Unable to ?. ? is null.",
-                    new StackFrame().GetMethod().Name, typeof(IGameBoardObject));
-            }
+            throw ExceptionUtil.Arguments.Build("Unable to ?. ? is null.",
+                new StackFrame().GetMethod().Name, typeof(IGameBoardObject));
         }
 
         /// <summary>

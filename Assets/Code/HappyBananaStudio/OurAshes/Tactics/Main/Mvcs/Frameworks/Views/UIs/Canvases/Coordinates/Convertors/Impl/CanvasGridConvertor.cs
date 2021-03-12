@@ -1,5 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Convertors.Impl
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Convertors.Api;
     using System.Collections.Generic;
@@ -127,11 +128,8 @@
                     return new CanvasGridConvertor(this.canvasGridDimensions,
                         this.canvasWidth, this.canvasHeight);
                 }
-                else
-                {
-                    throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
-                        this.GetType(), string.Join("\n", invalidReasons));
-                }
+                throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
+                    this.GetType(), string.Join("\n", invalidReasons));
             }
 
             /// <summary>

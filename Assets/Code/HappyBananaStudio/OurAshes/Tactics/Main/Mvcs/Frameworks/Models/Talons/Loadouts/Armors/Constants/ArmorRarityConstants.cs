@@ -1,5 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Armors.Constants
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Armors.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Common.Enums;
     using System.Collections.Generic;
@@ -69,11 +70,8 @@
             {
                 return loadoutRarityArmorIdSetDictionary[loadoutRarity];
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not supported.",
-                    new StackFrame().GetMethod().Name, loadoutRarity);
-            }
+            throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+                new StackFrame().GetMethod().Name, loadoutRarity);
         }
 
         /// <summary>
@@ -106,11 +104,8 @@
             {
                 return loadoutRarityArmorTraitCountDictionary[loadoutRarity];
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not supported.",
-                    new StackFrame().GetMethod().Name, loadoutRarity);
-            }
+            throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not supported.",
+                new StackFrame().GetMethod().Name, loadoutRarity);
         }
     }
 }

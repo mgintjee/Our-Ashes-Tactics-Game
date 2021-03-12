@@ -1,5 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Phalanxes.Reports.Impl
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Phalanxes.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Reports.Phalanxes.Api;
     using System.Collections.Generic;
@@ -57,11 +58,8 @@
                     // Instantiate a new Object
                     return new PhalanxRosterReport(this.phalanxReports);
                 }
-                else
-                {
-                    throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
-                        this.GetType(), string.Join("\n", invalidReasons));
-                }
+                throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
+                    this.GetType(), string.Join("\n", invalidReasons));
             }
 
             /// <summary>

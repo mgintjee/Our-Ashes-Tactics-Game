@@ -1,5 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Utils
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Impl;
     using System.Collections.Generic;
@@ -85,11 +86,8 @@
                     .SetZ(-1 * cubeCoordinates.GetZ())
                     .Build();
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is null.",
-                    new StackFrame().GetMethod().Name, typeof(ICubeCoordinates));
-            }
+            throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is null.",
+                new StackFrame().GetMethod().Name, typeof(ICubeCoordinates));
         }
 
         /// <summary>
@@ -135,7 +133,7 @@
                     .SetY(cubeCoordinates.GetY() + 1)
                     .SetZ(cubeCoordinates.GetZ())
                     .Build()
-            }; ;
+            };
         }
     }
 }

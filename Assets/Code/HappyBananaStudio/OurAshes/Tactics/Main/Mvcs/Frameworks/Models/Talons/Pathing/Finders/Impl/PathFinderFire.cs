@@ -1,5 +1,8 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Pathing.Finders.Impl
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Loggers.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Loggers.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Utils;
@@ -171,12 +174,9 @@
                     .SetZ(roundZ)
                     .Build();
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build(
-                    "Unable to ?. Invalid Parameters. PathIndex=?, Distance=?, ? produced invalid ?, x=?, y=?, z=?",
-                    this.GetType(), pathIndex, distance, cubeCoordinatesEnd, typeof(ICubeCoordinates), roundX, roundY, roundZ);
-            }
+            throw ExceptionUtil.Arguments.Build(
+                "Unable to ?. Invalid Parameters. PathIndex=?, Distance=?, ? produced invalid ?, x=?, y=?, z=?",
+                this.GetType(), pathIndex, distance, cubeCoordinatesEnd, typeof(ICubeCoordinates), roundX, roundY, roundZ);
         }
 
         /// <summary>

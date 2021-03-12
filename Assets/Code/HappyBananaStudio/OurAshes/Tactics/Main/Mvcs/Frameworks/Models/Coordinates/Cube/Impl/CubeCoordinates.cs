@@ -1,5 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Impl
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Api;
 
     /// <summary>
@@ -28,19 +29,9 @@
         /// </param>
         private CubeCoordinates(int x, int y, int z)
         {
-            // Todo
-            if (x + y + z == 0)
-            {
-                xValue = x;
-                yValue = y;
-                zValue = z;
-            }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build(
-                    "Unable to construct ?. Invalid Parameters. Sum must equal 0.\n\t> x=? + y=? + z=? == ?",
-                    typeof(ICubeCoordinates), x, y, z, x + y + z);
-            }
+            xValue = x;
+            yValue = y;
+            zValue = z;
         }
 
         /// <summary>
@@ -143,8 +134,15 @@
             /// <returns>The new object's interface</returns>
             public ICubeCoordinates Build()
             {
-                // Instantiate a new Object
-                return new CubeCoordinates(this.xValue, this.yValue, this.zValue);
+                // Todo
+                if (this.xValue + this.yValue + this.zValue == 0)
+                {
+                    // Instantiate a new Object
+                    return new CubeCoordinates(this.xValue, this.yValue, this.zValue);
+                }
+                throw ExceptionUtil.Arguments.Build(
+                    "Unable to construct ?. Invalid Parameters. Sum must equal 0.\n\t> x=? + y=? + z=? == ?",
+                    typeof(ICubeCoordinates), this.xValue, this.yValue, this.zValue, this.xValue + this.yValue + this.zValue);
             }
 
             /// <summary>

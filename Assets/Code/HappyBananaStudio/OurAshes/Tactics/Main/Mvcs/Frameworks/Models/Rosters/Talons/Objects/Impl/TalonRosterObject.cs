@@ -1,5 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Talons.Objects.Impl
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Talons.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Talons.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Talons.Reports.Impl;
@@ -51,10 +52,7 @@
             {
                 this.activeTalonCallSignSet.Remove(callSign);
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build();
-            }
+            throw ExceptionUtil.Arguments.Build();
         }
 
         /// <inheritdoc/>
@@ -90,10 +88,7 @@
             {
                 return this.talonCallSignObjectDictionary[talonCallSign];
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build();
-            }
+            throw ExceptionUtil.Arguments.Build();
         }
 
         /// <summary>
@@ -108,10 +103,7 @@
                 return this.talonCallSignObjectDictionary[talonCallSign].GetTalonReport()
                     .GetCurrentTalonAttributesReport().GetHealthPoints() >= 0;
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build();
-            }
+            throw ExceptionUtil.Arguments.Build();
         }
 
         /// <summary>
@@ -135,11 +127,8 @@
                     // Instantiate a new Object
                     return new TalonRosterObject(this.talonConstructionReportSet);
                 }
-                else
-                {
-                    throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
-                        this.GetType(), string.Join("\n", invalidReasons));
-                }
+                throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
+                    this.GetType(), string.Join("\n", invalidReasons));
             }
 
             /// <summary>

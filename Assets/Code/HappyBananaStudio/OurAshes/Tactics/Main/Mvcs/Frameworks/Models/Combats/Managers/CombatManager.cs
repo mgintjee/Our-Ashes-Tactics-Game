@@ -1,5 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Combats.Managers
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Combats.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Combats.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
@@ -42,10 +43,8 @@
             {
                 return combatObject.GetAverageCombatReport(actingTalonCallSign, targetTalonCallSign, accuracyCost);
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build();
-            }
+
+            throw ExceptionUtil.Arguments.Build();
         }
     }
 }

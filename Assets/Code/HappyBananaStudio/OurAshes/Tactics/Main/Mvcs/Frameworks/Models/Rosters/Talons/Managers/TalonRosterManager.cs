@@ -1,5 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Talons.Managers
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Talons.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Talons.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
@@ -26,11 +27,8 @@
             {
                 TalonRosterManager.talonRosterObject = talonRosterObject;
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build("Unable to ?. ? is already set.",
-                    new StackFrame().GetMethod().Name, typeof(ITalonRosterObject));
-            }
+            throw ExceptionUtil.Arguments.Build("Unable to ?. ? is already set.",
+                new StackFrame().GetMethod().Name, typeof(ITalonRosterObject));
         }
 
         /// <summary>
@@ -43,10 +41,7 @@
             {
                 return talonRosterObject.GetActiveTalonCallSignSet();
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build();
-            }
+            throw ExceptionUtil.Arguments.Build();
         }
 
         /// <summary>
@@ -59,10 +54,7 @@
             {
                 return talonRosterObject.GetTalonRosterReport();
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build();
-            }
+            throw ExceptionUtil.Arguments.Build();
         }
 
         /// <summary>
@@ -76,10 +68,7 @@
             {
                 return talonRosterObject.GetTalonObject(talonCallSign).GetTalonReport();
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build();
-            }
+            throw ExceptionUtil.Arguments.Build();
         }
 
         /// <summary>
@@ -93,10 +82,7 @@
             {
                 return talonRosterObject.GetTalonObject(talonCallSign).GetTalonOrderReportSet();
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build();
-            }
+            throw ExceptionUtil.Arguments.Build();
         }
     }
 }

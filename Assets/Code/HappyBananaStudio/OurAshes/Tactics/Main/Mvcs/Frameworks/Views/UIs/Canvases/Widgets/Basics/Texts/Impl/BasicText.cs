@@ -2,6 +2,7 @@
 {
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Colors.Constants;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Colors.Enums;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Basics.Abs;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Basics.Texts.Api;
     using System.Collections.Generic;
@@ -111,11 +112,8 @@
                     basicWidgetText.GetTransform().localScale = Vector3.one;
                     return basicWidgetText;
                 }
-                else
-                {
-                    throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
-                        this.GetType(), string.Join("\n", invalidReasons));
-                }
+                throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
+                    this.GetType(), string.Join("\n", invalidReasons));
             }
 
             /// <summary>

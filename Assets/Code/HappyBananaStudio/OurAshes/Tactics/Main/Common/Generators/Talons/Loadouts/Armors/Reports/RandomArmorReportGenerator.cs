@@ -1,5 +1,8 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Generators.Talons.Loadouts.Armors.Reports
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Randoms.Generators.Numbers;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Utils.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Armors.Constants;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Armors.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Armors.Reports.Api;
@@ -55,12 +58,12 @@
         private static ArmorId GetRandomArmorId(LoadoutRarity loadoutRarity)
         {
             ISet<ArmorId> armorIdSet = ArmorRarityConstants.GetArmorIdSet(loadoutRarity);
-            if (armorIdSet.Count == 0)
+            if (armorIdSet.Count != 0)
             {
-                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? has no corresponding ?s.",
-                        new StackFrame().GetMethod().Name, loadoutRarity, typeof(ArmorId));
+                return new List<ArmorId>(armorIdSet)[RandomNumberGeneratorUtil.GetNextInt(armorIdSet.Count)];
             }
-            return new List<ArmorId>(armorIdSet)[RandomNumberGeneratorUtil.GetNextInt(armorIdSet.Count)];
+            throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? has no corresponding ?s.",
+                    new StackFrame().GetMethod().Name, loadoutRarity, typeof(ArmorId));
         }
     }
 }

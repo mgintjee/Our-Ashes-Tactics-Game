@@ -1,5 +1,8 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Generators.Talons.Loadouts.Engines.Reports
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Randoms.Generators.Numbers;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Utils.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Common.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Engines.Constants;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Engines.Enums;
@@ -53,12 +56,12 @@
         private static EngineId GetRandomEngineId(LoadoutRarity loadoutRarity)
         {
             ISet<EngineId> engineIdSet = EngineRarityConstants.GetEngineIdSet(loadoutRarity);
-            if (engineIdSet.Count == 0)
+            if (engineIdSet.Count != 0)
             {
-                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? has no corresponding ?s.",
-                        new StackFrame().GetMethod().Name, loadoutRarity, typeof(EngineId));
+                return new List<EngineId>(engineIdSet)[RandomNumberGeneratorUtil.GetNextInt(engineIdSet.Count)];
             }
-            return new List<EngineId>(engineIdSet)[RandomNumberGeneratorUtil.GetNextInt(engineIdSet.Count)];
+            throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? has no corresponding ?s.",
+                    new StackFrame().GetMethod().Name, loadoutRarity, typeof(EngineId));
         }
     }
 }

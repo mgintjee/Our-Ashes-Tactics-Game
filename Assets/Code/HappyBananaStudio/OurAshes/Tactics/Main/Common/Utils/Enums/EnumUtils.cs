@@ -1,5 +1,7 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Utils.Enums
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Randoms.Generators.Numbers;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -40,12 +42,12 @@
         public static TEnum GetRandomEnum<TEnum>() where TEnum : Enum
         {
             IList<TEnum> enumList = GetEnumListWithoutFirst<TEnum>();
-            if (enumList.Count == 0)
+            if (enumList.Count != 0)
             {
-                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. Enum=? has 0 entries.",
-                        new StackFrame().GetMethod().Name, typeof(TEnum));
+                return enumList[RandomNumberGeneratorUtil.GetNextInt(enumList.Count - 1)];
             }
-            return enumList[RandomNumberGeneratorUtil.GetNextInt(enumList.Count - 1)];
+            throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. Enum=? has 0 entries.",
+                    new StackFrame().GetMethod().Name, typeof(TEnum));
         }
     }
 }

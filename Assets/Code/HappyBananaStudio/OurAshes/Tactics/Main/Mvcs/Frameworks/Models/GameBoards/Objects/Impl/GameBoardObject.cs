@@ -1,5 +1,6 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.GameBoards.Objects.Impl
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Utils;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.GameBoards.Objects.Api;
@@ -106,17 +107,11 @@
                         : HexTileAttributesConstants.GetHexTileAttributes(hexTileReport.GetHexTileType()).GetFireCost();
                     return tileFireCost;
                 }
-                else
-                {
-                    throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not tracked.",
-                        new StackFrame().GetMethod().Name, cubeCoordinates);
-                }
+                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not tracked.",
+                    new StackFrame().GetMethod().Name, cubeCoordinates);
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is null.",
-                    new StackFrame().GetMethod().Name, typeof(ICubeCoordinates));
-            }
+            throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is null.",
+                new StackFrame().GetMethod().Name, typeof(ICubeCoordinates));
         }
 
         /// <inheritdoc/>
@@ -128,17 +123,11 @@
                 {
                     return this.cubeCoordinatesHexTileObjectDictionary[cubeCoordinates];
                 }
-                else
-                {
-                    throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not tracked.",
-                        new StackFrame().GetMethod().Name, cubeCoordinates);
-                }
+                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not tracked.",
+                    new StackFrame().GetMethod().Name, cubeCoordinates);
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is null.",
-                    new StackFrame().GetMethod().Name, typeof(ICubeCoordinates));
-            }
+            throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is null.",
+                new StackFrame().GetMethod().Name, typeof(ICubeCoordinates));
         }
 
         /// <inheritdoc/>
@@ -153,17 +142,11 @@
                     neighborCubeCoordinatesSet.IntersectWith(this.cubeCoordinatesHexTileObjectDictionary.Keys);
                     return neighborCubeCoordinatesSet;
                 }
-                else
-                {
-                    throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not tracked.",
-                        new StackFrame().GetMethod().Name, cubeCoordinates);
-                }
+                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is not tracked.",
+                    new StackFrame().GetMethod().Name, cubeCoordinates);
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is null.",
-                    new StackFrame().GetMethod().Name, typeof(ICubeCoordinates));
-            }
+            throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters. ? is null.",
+                new StackFrame().GetMethod().Name, typeof(ICubeCoordinates));
         }
 
         /// <inheritdoc/>
@@ -204,11 +187,8 @@
                     // Instantiate a new Object
                     return new GameBoardObject(this.cubeCoordiantesSet, this.mirroredBoard);
                 }
-                else
-                {
-                    throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
-                        this.GetType(), string.Join("\n", invalidReasons));
-                }
+                throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
+                    this.GetType(), string.Join("\n", invalidReasons));
             }
 
             /// <summary>
