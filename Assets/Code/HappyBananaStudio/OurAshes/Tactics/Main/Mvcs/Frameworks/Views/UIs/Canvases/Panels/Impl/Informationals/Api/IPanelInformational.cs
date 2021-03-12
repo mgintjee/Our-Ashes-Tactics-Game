@@ -13,5 +13,10 @@
         /// Todo
         /// </summary>
         void BuildInformationalWidget(ITalonOrderReport talonOrderReport);
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        void LoadDefaultPanelEntry();
     }
 }

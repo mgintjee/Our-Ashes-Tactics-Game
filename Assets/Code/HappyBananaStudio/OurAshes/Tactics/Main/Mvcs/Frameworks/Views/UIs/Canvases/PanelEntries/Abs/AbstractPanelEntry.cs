@@ -28,7 +28,7 @@
         protected IBasicImage basicWidgetImage;
 
         // Todo
-        protected ICanvasGridConvertor panelEntryGridConvertor;
+        protected IGridConvertor panelEntryGridConvertor;
 
         // Todo
         protected ICanvasGridCoordinates panelEntryGridDimensions;
@@ -54,35 +54,36 @@
                 .Build();
             this.widgetConfigurationReportDictionary.Add(widget,
                 new CanvasConfigurationReport.Builder()
-                .SetGridDimensions(this.panelEntryGridDimensions)
+                    .SetGridDimensions(this.panelEntryGridDimensions)
                 .Build());
         }
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="canvasConfigurationReport"></param>
-        protected void SetCanvasConfigurationReport(ICanvasGridConvertor canvasGridConvertor,
-            ICanvasConfigurationReport canvasConfigurationReport)
+        /// <param name="panelGridConvertor"></param>
+        /// <param name="panelEntryConfigurationReport"></param>
+        protected void SetPanelEntryConfigurationReport(IGridConvertor panelGridConvertor,
+            ICanvasConfigurationReport panelEntryConfigurationReport)
         {
             RectTransform rectTransform = this.GetComponent<RectTransform>();
             // Find the WorldDimensions for this panel
-            Vector2 worldDimensions = canvasGridConvertor.GetCanvasWorldDimensionsFrom(
-                canvasConfigurationReport.GetGridDimensions());
+            Vector2 worldDimensions = panelGridConvertor.GetWorldDimensionsFrom(
+                panelEntryConfigurationReport.GetGridDimensions());
             worldDimensions *= 0.9f;
             rectTransform.sizeDelta = worldDimensions;
             // Set the WorldPosition of this panel
             rectTransform.anchoredPosition =
-                canvasGridConvertor.GetCanvasWorldPositionFrom(
-                    canvasConfigurationReport.GetGridPosition(),
-                    canvasConfigurationReport.GetGridDimensions());
+                panelGridConvertor.GetWorldPositionFrom(
+                    panelEntryConfigurationReport.GetGridPosition(),
+                    panelEntryConfigurationReport.GetGridDimensions());
             // Collect the SizeDelta for this Panel
             Vector2 sizeDelta = rectTransform.sizeDelta;
             // Build the CanvasGridConvertor for this Panel
-            this.panelEntryGridConvertor = new CanvasGridConvertor.Builder()
-                .SetCanvasGridDimensions(this.panelEntryGridDimensions)
-                .SetCanvasWidth(sizeDelta.x)
-                .SetCanvasHeight(sizeDelta.y)
+            this.panelEntryGridConvertor = new GridCoordinatesConvertor.Builder()
+                .SetGridDimensions(this.panelEntryGridDimensions)
+                .SetWorldWidth(sizeDelta.x)
+                .SetWorldHeight(sizeDelta.y)
                 .Build();
         }
     }

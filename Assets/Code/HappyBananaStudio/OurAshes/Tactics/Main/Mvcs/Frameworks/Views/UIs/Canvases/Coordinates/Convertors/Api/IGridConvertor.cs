@@ -6,14 +6,14 @@
     /// <summary>
     /// Todo
     /// </summary>
-    public interface ICanvasGridConvertor
+    public interface IGridConvertor
     {
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="canvasGridDimensions"></param>
         /// <returns></returns>
-        Vector2 GetCanvasWorldDimensionsFrom(ICanvasGridCoordinates canvasGridDimensions);
+        Vector2 GetWorldDimensionsFrom(ICanvasGridCoordinates canvasGridDimensions);
 
         /// <summary>
         /// Todo
@@ -21,7 +21,7 @@
         /// <param name="canvasGridPosition"></param>
         /// <param name="canvasGridDimensions"></param>
         /// <returns></returns>
-        Vector2 GetCanvasWorldPositionFrom(ICanvasGridCoordinates canvasGridPosition,
+        Vector2 GetWorldPositionFrom(ICanvasGridCoordinates canvasGridPosition,
             ICanvasGridCoordinates canvasGridDimensions);
     }
 }

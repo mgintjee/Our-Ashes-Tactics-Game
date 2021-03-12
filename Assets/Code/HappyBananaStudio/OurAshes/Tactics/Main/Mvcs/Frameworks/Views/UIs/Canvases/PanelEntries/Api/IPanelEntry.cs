@@ -8,5 +8,9 @@
     public interface IPanelEntry
         : ICanvasScript
     {
+        /// <summary>
+        /// Todo
+        /// </summary>
+        void UpdateWidgets();
     }
 }

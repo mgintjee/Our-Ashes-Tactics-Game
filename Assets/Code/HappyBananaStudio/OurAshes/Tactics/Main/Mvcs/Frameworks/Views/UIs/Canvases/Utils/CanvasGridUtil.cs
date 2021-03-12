@@ -12,7 +12,7 @@
     public static class CanvasGridUtil
     {
         // Todo
-        private static ICanvasGridConvertor canvasGridConvertor;
+        private static IGridConvertor canvasGridConvertor;
 
         /// <summary>
         /// Todo
@@ -23,7 +23,7 @@
         /// </returns>
         public static Vector2 GetCanvasWorldDimensionsFrom(ICanvasGridCoordinates uiGridDimensions)
         {
-            return canvasGridConvertor.GetCanvasWorldDimensionsFrom(uiGridDimensions);
+            return canvasGridConvertor.GetWorldDimensionsFrom(uiGridDimensions);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@
         public static Vector2 GetCanvasWorldPositionFrom(ICanvasGridCoordinates uiGridPosition,
             ICanvasGridCoordinates uiGridDimensions)
         {
-            return canvasGridConvertor.GetCanvasWorldPositionFrom(uiGridPosition, uiGridDimensions);
+            return canvasGridConvertor.GetWorldPositionFrom(uiGridPosition, uiGridDimensions);
         }
 
         /// <summary>
@@ -48,10 +48,10 @@
         /// <param name="uiHeight"></param>
         public static void SetUIWorldDimensions(float uiWidth, float uiHeight)
         {
-            canvasGridConvertor = new CanvasGridConvertor.Builder()
-                .SetCanvasGridDimensions(CanvasGridConstants.GetCanvasGridDimensions())
-                .SetCanvasHeight(uiHeight)
-                .SetCanvasWidth(uiWidth)
+            canvasGridConvertor = new GridCoordinatesConvertor.Builder()
+                .SetGridDimensions(CanvasGridConstants.GetCanvasGridDimensions())
+                .SetWorldHeight(uiHeight)
+                .SetWorldWidth(uiWidth)
                 .Build();
         }
     }

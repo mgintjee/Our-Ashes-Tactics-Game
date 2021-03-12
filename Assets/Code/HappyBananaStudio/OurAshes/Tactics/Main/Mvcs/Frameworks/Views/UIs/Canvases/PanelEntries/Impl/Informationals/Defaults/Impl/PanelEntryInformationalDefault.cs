@@ -1,7 +1,6 @@
-﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Impl.Informationals.Orders.Impl
+﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Impl.Informationals.Defaults.Impl
 {
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Orders.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Impl.Informationals.Abs;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Impl.Informationals.Api;
@@ -11,8 +10,8 @@
     /// <summary>
     /// Todo
     /// </summary>
-    public class PanelEntryInformationalOrder
-        : AbstractPanelEntryInformational, IPanelEntryInformational
+    public class PanelEntryInformationalDefault
+        : AbstractPanelEntryInformational
     {
         /// <summary>
         /// Todo
@@ -21,9 +20,6 @@
         {
             // Todo
             private Transform parentTransform = null;
-
-            // Todo
-            private ITalonOrderReport talonOrderReport = null;
 
             /// <summary>
             /// Todo
@@ -35,31 +31,21 @@
                 // Check that the set parameters are valid
                 if (invalidReasons.Count == 0)
                 {
-                    PanelEntryInformationalOrder panelEntryInformationalOrder =
-                        new GameObject(typeof(PanelEntryInformationalOrder).Name)
-                        .AddComponent<PanelEntryInformationalOrder>();
-                    panelEntryInformationalOrder.panelEntryGridDimensions = new GridCoordinates.Builder()
-                        .SetCol(0).SetRow(0)
-                        .Build();
-                    panelEntryInformationalOrder.SetParentTransform(this.parentTransform);
-                    return panelEntryInformationalOrder;
+                    PanelEntryInformationalDefault panelEntryInformationalDefault =
+                        new GameObject(typeof(PanelEntryInformationalDefault).Name)
+                        .AddComponent<PanelEntryInformationalDefault>();
+                    panelEntryInformationalDefault.SetParentTransform(this.parentTransform);
+                    // Todo: Store this in a const file
+                    panelEntryInformationalDefault.panelEntryGridDimensions = new GridCoordinates.Builder()
+                        .SetCol(4).SetRow(5).Build();
+                    panelEntryInformationalDefault.BuildHeader(typeof(PanelEntryInformationalDefault).Name);
+                    return panelEntryInformationalDefault;
                 }
                 else
                 {
                     throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
                         this.GetType(), string.Join("\n", invalidReasons));
                 }
-            }
-
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="talonOrderReport"></param>
-            /// <returns></returns>
-            public Builder SetTalonOrderReport(ITalonOrderReport talonOrderReport)
-            {
-                this.talonOrderReport = talonOrderReport;
-                return this;
             }
 
             /// <summary>
@@ -82,10 +68,6 @@
             {
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
-                if (this.talonOrderReport == null)
-                {
-                    argumentExceptionSet.Add(typeof(ITalonOrderReport).Name + " cannot be null.");
-                }
                 if (this.parentTransform == null)
                 {
                     argumentExceptionSet.Add("Parent " + typeof(Transform).Name + " cannot be null.");

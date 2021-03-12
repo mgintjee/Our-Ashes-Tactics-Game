@@ -7,7 +7,7 @@
     /// <summary>
     /// Todo
     /// </summary>
-    public struct CanvasGridCoordinates
+    public struct GridCoordinates
         : ICanvasGridCoordinates
     {
         // Todo
@@ -23,7 +23,7 @@
         /// </param>
         /// <param name="row">
         /// </param>
-        private CanvasGridCoordinates(int col, int row)
+        private GridCoordinates(int col, int row)
         {
             this.col = col;
             this.row = row;
@@ -120,7 +120,7 @@
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new Object
-                    return new CanvasGridCoordinates(this.col, this.row);
+                    return new GridCoordinates(this.col, this.row);
                 }
                 throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
                     this.GetType(), string.Join("\n", invalidReasons));

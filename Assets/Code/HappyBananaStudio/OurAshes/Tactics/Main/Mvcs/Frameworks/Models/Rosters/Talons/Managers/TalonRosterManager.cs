@@ -27,8 +27,11 @@
             {
                 TalonRosterManager.talonRosterObject = talonRosterObject;
             }
-            throw ExceptionUtil.Arguments.Build("Unable to ?. ? is already set.",
-                new StackFrame().GetMethod().Name, typeof(ITalonRosterObject));
+            else
+            {
+                throw ExceptionUtil.Arguments.Build("Unable to ?. ? is already set.",
+                    new StackFrame().GetMethod().Name, typeof(ITalonRosterObject));
+            }
         }
 
         /// <summary>

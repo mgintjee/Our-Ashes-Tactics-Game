@@ -12,11 +12,11 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Convertors.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Objects.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Objects.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.GameBoards.Views.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.GameBoards.Views.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Objects.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Objects.Impl;
     using System.Collections.Generic;
     using System.Diagnostics;
     using UnityEngine;
@@ -37,7 +37,7 @@
         private readonly MatchType matchType;
 
         // Todo
-        private readonly IUIObject uiObject;
+        private readonly ICanvasObject canvasObject;
 
         // Todo
         private readonly IGameBoardView gameBoardView;
@@ -46,7 +46,7 @@
         private readonly ISet<IPanel> canvasSet;
 
         // Todo
-        private readonly ICanvasGridConvertor canvasGridConvertor;
+        private readonly IGridConvertor canvasGridConvertor;
 
         // Todo
         private readonly Transform transform;
@@ -66,7 +66,7 @@
             {
                 logger.Debug("Building Canvas Objects");
                 this.transform = new GameObject(this.GetType().Name).transform;
-                this.uiObject = new UIObject.Builder()
+                this.canvasObject = new CanvasObject.Builder()
                     .SetParentTransform(this.transform)
                     .SetViewConfigurationReport(viewConfigurationReport)
                     // Todo: Probably add the matchType here too
@@ -98,9 +98,9 @@
         /// <inheritdoc/>
         void IMvcViewObject.DisplayTalonOrderReport(ITalonOrderReport talonOrderReport)
         {
-            if (this.uiObject != null)
+            if (this.canvasObject != null)
             {
-                this.uiObject.DisplayTalonOrderReport(talonOrderReport);
+                this.canvasObject.DisplayTalonOrderReport(talonOrderReport);
             }
         }
 

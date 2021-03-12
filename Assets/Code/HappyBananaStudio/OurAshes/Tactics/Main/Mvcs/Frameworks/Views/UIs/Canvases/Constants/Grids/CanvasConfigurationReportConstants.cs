@@ -16,10 +16,10 @@
         public static ICanvasConfigurationReport ActionMenuConfigurationReport()
         {
             return new CanvasConfigurationReport.Builder()
-                .SetGridDimensions(new CanvasGridCoordinates.Builder()
+                .SetGridDimensions(new GridCoordinates.Builder()
                     .SetCol(2).SetRow(5)
                     .Build())
-                .SetGridPosition(new CanvasGridCoordinates.Builder()
+                .SetGridPosition(new GridCoordinates.Builder()
                     .SetCol(0).SetRow(1)
                     .Build())
                 .Build();
@@ -32,10 +32,10 @@
         public static ICanvasConfigurationReport GameLoggerConfigurationReport()
         {
             return new CanvasConfigurationReport.Builder()
-                .SetGridDimensions(new CanvasGridCoordinates.Builder()
+                .SetGridDimensions(new GridCoordinates.Builder()
                     .SetCol(2).SetRow(2)
                     .Build())
-                .SetGridPosition(new CanvasGridCoordinates.Builder()
+                .SetGridPosition(new GridCoordinates.Builder()
                     .SetCol(0).SetRow(9)
                     .Build())
                 .Build();
@@ -48,10 +48,10 @@
         public static ICanvasConfigurationReport InformationalConfigurationReport()
         {
             return new CanvasConfigurationReport.Builder()
-                .SetGridDimensions(new CanvasGridCoordinates.Builder()
+                .SetGridDimensions(new GridCoordinates.Builder()
                     .SetCol(2).SetRow(6)
                     .Build())
-                .SetGridPosition(new CanvasGridCoordinates.Builder()
+                .SetGridPosition(new GridCoordinates.Builder()
                     .SetCol(11).SetRow(1)
                     .Build())
                 .Build();
@@ -64,10 +64,10 @@
         public static ICanvasConfigurationReport ScoreBoardConfigurationReport()
         {
             return new CanvasConfigurationReport.Builder()
-                .SetGridDimensions(new CanvasGridCoordinates.Builder()
+                .SetGridDimensions(new GridCoordinates.Builder()
                     .SetCol(5).SetRow(1)
                     .Build())
-                .SetGridPosition(new CanvasGridCoordinates.Builder()
+                .SetGridPosition(new GridCoordinates.Builder()
                     .SetCol(3).SetRow(9)
                     .Build())
                 .Build();
@@ -80,10 +80,10 @@
         public static ICanvasConfigurationReport SettingMenuConfigurationReport()
         {
             return new CanvasConfigurationReport.Builder()
-                .SetGridDimensions(new CanvasGridCoordinates.Builder()
+                .SetGridDimensions(new GridCoordinates.Builder()
                     .SetCol(2).SetRow(1)
                     .Build())
-                .SetGridPosition(new CanvasGridCoordinates.Builder()
+                .SetGridPosition(new GridCoordinates.Builder()
                     .SetCol(11).SetRow(9)
                     .Build())
                 .Build();
@@ -96,10 +96,10 @@
         public static ICanvasConfigurationReport TurnScrollerConfigurationReport()
         {
             return new CanvasConfigurationReport.Builder()
-                .SetGridDimensions(new CanvasGridCoordinates.Builder()
+                .SetGridDimensions(new GridCoordinates.Builder()
                     .SetCol(7).SetRow(2)
                     .Build())
-                .SetGridPosition(new CanvasGridCoordinates.Builder()
+                .SetGridPosition(new GridCoordinates.Builder()
                     .SetCol(2).SetRow(0)
                     .Build())
                 .Build();

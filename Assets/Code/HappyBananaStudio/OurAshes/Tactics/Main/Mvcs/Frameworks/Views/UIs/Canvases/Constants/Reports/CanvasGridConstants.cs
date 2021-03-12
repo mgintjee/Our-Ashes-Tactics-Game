@@ -16,7 +16,7 @@
 
         // Todo
         private static readonly ICanvasGridCoordinates canvasGridDimensions =
-            new CanvasGridCoordinates.Builder()
+            new GridCoordinates.Builder()
                 .SetCol(11)
                 .SetRow(9)
                 .Build();
