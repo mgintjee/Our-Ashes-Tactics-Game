@@ -2,6 +2,7 @@
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Grids.Dimensions.Api;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Grids.Positions.Api;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Reports.Api;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,31 +39,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates
         /// <inheritdoc/>
         Vector2 IGridConvertor.GetWorldPositionFrom(IGridPosition gridPosition, IGridDimensions gridDimensions)
         {
-            if (gridPosition == null)
-            {
-                return Vector2.zero;
-            }
-            Vector2 worldPosition = new Vector2(
-                    (gridPosition.GetCol() * this.GetWorldWidthStep()) - this.worldWidth / 2,
-                    (gridPosition.GetRow() * this.GetWorldHeightStep()) - this.worldHeight / 2);
-            Vector2 worldDimensions = this.GetWorldDimensionsFrom(gridDimensions);
-            if (worldPosition.x > 0)
-            {
-                worldPosition.x -= worldDimensions.x / 2;
-            }
-            else
-            {
-                worldPosition.x += worldDimensions.x / 2;
-            }
-            if (worldPosition.y > 0)
-            {
-                worldPosition.y -= worldDimensions.y / 2;
-            }
-            else
-            {
-                worldPosition.y += worldDimensions.y / 2;
-            }
-            return worldPosition;
+            return this.GetWorldPositionFrom(gridPosition, gridDimensions);
+        }
+
+        /// <inheritdoc/>
+        Vector2 IGridConvertor.GetWorldPositionFrom(IGridConfigurationReport gridConfigurationReport)
+        {
+            return this.GetWorldPositionFrom(gridConfigurationReport.GetGridPosition(),
+                gridConfigurationReport.GetGridDimensions());
         }
 
         /// <inheritdoc/>
@@ -97,7 +81,42 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates
         private Vector2 GetWorldDimensionsFrom(IGridDimensions gridDimensions)
         {
             return new Vector2(gridDimensions.GetWidth() * this.GetWorldWidthStep(),
-                gridDimensions.GetHeight() * this.GetWorldHeightStep());
+                   gridDimensions.GetHeight() * this.GetWorldHeightStep());
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="gridDimensions"></param>
+        /// <returns></returns>
+        private Vector2 GetWorldPositionFrom(IGridPosition gridPosition,
+            IGridDimensions gridDimensions)
+        {
+            if (gridPosition == null)
+            {
+                return Vector2.zero;
+            }
+            Vector2 worldPosition = new Vector2(
+                    (gridPosition.GetCol() * this.GetWorldWidthStep()) - this.worldWidth / 2,
+                    (gridPosition.GetRow() * this.GetWorldHeightStep()) - this.worldHeight / 2);
+            Vector2 worldDimensions = this.GetWorldDimensionsFrom(gridDimensions);
+            if (worldPosition.x > 0)
+            {
+                worldPosition.x -= worldDimensions.x / 2;
+            }
+            else
+            {
+                worldPosition.x += worldDimensions.x / 2;
+            }
+            if (worldPosition.y > 0)
+            {
+                worldPosition.y -= worldDimensions.y / 2;
+            }
+            else
+            {
+                worldPosition.y += worldDimensions.y / 2;
+            }
+            return worldPosition;
         }
 
         /// <summary>

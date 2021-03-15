@@ -1,10 +1,10 @@
-﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Complex.Abs
-{
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Basics.Abs;
-    using System.Collections.Generic;
-    using UnityEngine;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Api;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Basics.Abs;
+using System.Collections.Generic;
+using UnityEngine;
 
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Complex.Abs
+{
     /// <summary>
     /// Todo
     /// </summary>
@@ -29,10 +29,15 @@
         private void SetChildWidgetDimensions(Vector2 widgetDimensions)
         {
             Vector2 oldWidgetDimensions = this.widgetDimensions;
-            Vector2 widgetProportions = widgetDimensions / oldWidgetDimensions;
+            Vector2 widgetProportions = (oldWidgetDimensions != Vector2.zero)
+                ? widgetDimensions / oldWidgetDimensions
+                : Vector2.one;
             foreach (IWidget childWidget in this.childWidgetSet)
             {
-                Vector2 newChildWidgetDimensions = childWidget.GetRectTransform().sizeDelta * widgetProportions;
+                Vector2 childSizeDelta = childWidget.GetRectTransform().sizeDelta;
+                Vector2 newChildWidgetDimensions = (childSizeDelta != Vector2.zero)
+                    ? childSizeDelta * widgetProportions
+                    : widgetDimensions;
                 childWidget.SetWidgetDimensions(newChildWidgetDimensions);
             }
         }
@@ -40,18 +45,18 @@
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="widgetDimensions"></param>
-        private void SetChildWidgetPosition(Vector2 widgetDimensions)
+        /// <param name="widgetPosition"></param>
+        private void SetChildWidgetPosition(Vector2 widgetPosition)
         {
             Vector2 oldWidgetDimensions = this.widgetDimensions;
             Vector2 widgetProportions = new Vector2(0, 0);
             if (oldWidgetDimensions.x != 0)
             {
-                widgetProportions.x = widgetDimensions.x / oldWidgetDimensions.x;
+                widgetProportions.x = widgetPosition.x / oldWidgetDimensions.x;
             }
             if (oldWidgetDimensions.y != 0)
             {
-                widgetProportions.y = widgetDimensions.y / oldWidgetDimensions.y;
+                widgetProportions.y = widgetPosition.y / oldWidgetDimensions.y;
             }
             foreach (IWidget childWidget in this.childWidgetSet)
             {

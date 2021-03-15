@@ -2,6 +2,8 @@
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Grids.Convertors.Api;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Grids.Convertors.Impl;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Grids.Dimensions.Api;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Loggers.Api;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Loggers.Impl;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Sprites.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Reports.Api;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Reports.Impl;
@@ -12,6 +14,7 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Basics.Images.Impl;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Complex.Api;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Abs
@@ -22,6 +25,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
     public abstract class AbstractPanelEntry
         : AbstractCanvasScript, IPanelEntry
     {
+        // Provide logging capability
+        private static readonly ICodeLogger logger = new CodeLogger(new StackFrame().GetMethod().DeclaringType);
+
         // Todo
         protected IDictionary<IWidget, IGridConfigurationReport> widgetConfigurationReportDictionary =
             new Dictionary<IWidget, IGridConfigurationReport>();
@@ -33,7 +39,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
         protected IGridConvertor panelEntryGridConvertor;
 
         // Todo
-        protected IGridDimensions panelEntryGridDimensions;
+        [SerializeField] protected IGridDimensions panelEntryGridDimensions;
 
         /// <summary>
         /// Todo
@@ -41,17 +47,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
         public void Awake()
         {
             this.GetGameObject().AddComponent<RectTransform>();
-        }
-
-        void IPanelEntry.UpdateWidgets()
-        {
-            foreach (IWidget widget in this.widgetConfigurationReportDictionary.Keys)
-            {
-                if (widget is IComplexWidget complexWidget)
-                {
-                    complexWidget.UpdateWidgets();
-                }
-            }
         }
 
         void IPanelEntry.SetPanelEntryConfigurationReport(IGridConvertor canvasGridConvertor,
@@ -62,7 +57,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
             Vector2 worldDimensions = canvasGridConvertor.GetWorldDimensionsFrom(
                 panelEntryConfigurationReport.GetGridDimensions());
             worldDimensions *= 0.9f;
-            this.basicWidgetImage.SetWidgetDimensions(worldDimensions);
             rectTransform.sizeDelta = worldDimensions;
             // Set the WorldPosition of this panel
             rectTransform.anchoredPosition = canvasGridConvertor.GetWorldPositionFrom(
@@ -78,18 +72,63 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
                 .Build();
         }
 
+        void IPanelEntry.UpdateWidgets()
+        {
+            foreach (IWidget widget in this.widgetConfigurationReportDictionary.Keys)
+            {
+                if (widget is IComplexWidget complexWidget)
+                {
+                    complexWidget.UpdateWidgets();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="widget"></param>
+        /// <param name="widgetConfigurationReport"></param>
+        protected void AddWidget(IWidget widget,
+            IGridConfigurationReport widgetConfigurationReport)
+        {
+            logger.Debug("Adding Widget=?", widget.GetGameObject().name);
+            this.widgetConfigurationReportDictionary.Add(widget, widgetConfigurationReport);
+            widget.SetWidgetDimensions(this.panelEntryGridConvertor.GetWorldDimensionsFrom(
+                widgetConfigurationReport.GetGridDimensions()));
+            logger.Debug("Widget Dimensions=?",
+                this.panelEntryGridConvertor.GetWorldDimensionsFrom(
+                widgetConfigurationReport.GetGridDimensions()));
+            widget.SetWidgetPosition(this.panelEntryGridConvertor.GetWorldPositionFrom(
+                widgetConfigurationReport));
+            logger.Debug("Widget Position=?",
+                this.panelEntryGridConvertor.GetWorldPositionFrom(
+                widgetConfigurationReport));
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="widget"></param>
+        protected void RemoveWidget(IWidget widget)
+        {
+            this.widgetConfigurationReportDictionary.Remove(widget);
+            widget.Destroy();
+        }
+
         /// <summary>
         /// Todo
         /// </summary>
         protected void LoadBackgroundImage()
         {
-            IWidget widget = new BasicImage.Builder()
+            IWidget backgroundImage = new BasicImage.Builder()
                 .SetParentTransform(this.GetTransform())
                 .SetSpriteId(SpriteId.Square)
                 .SetTransparency(0.5f)
                 .SetColorId(ColorId.Gray)
                 .Build();
-            this.widgetConfigurationReportDictionary.Add(widget,
+            // TOdo: Store in a const file
+            backgroundImage.GetTransform().name = "BackgroundImage";
+            this.AddWidget(backgroundImage,
                 new GridConfigurationReport.Builder()
                     .SetGridDimensions(this.panelEntryGridDimensions)
                 .Build());

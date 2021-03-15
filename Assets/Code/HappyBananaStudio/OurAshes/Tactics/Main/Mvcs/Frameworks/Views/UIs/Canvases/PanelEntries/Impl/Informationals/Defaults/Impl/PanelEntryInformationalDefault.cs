@@ -1,5 +1,8 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Grids.Dimensions.Impl;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Grids.Convertors.Api;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Grids.Dimensions.Impl;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Reports.Api;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Api;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Impl.Informationals.Abs;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Impl.Informationals.Api;
 using System.Collections.Generic;
@@ -21,6 +24,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
             // Todo
             private Transform parentTransform = null;
 
+            // Todo
+            private IGridConvertor panelGridConvertor = null;
+
+            // Todo
+            private IGridConfigurationReport panelEntryConfigurationReport = null;
+
             /// <summary>
             /// Todo
             /// </summary>
@@ -34,9 +43,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
                     PanelEntryInformationalDefault panelEntryInformationalDefault =
                         new GameObject(typeof(PanelEntryInformationalDefault).Name)
                         .AddComponent<PanelEntryInformationalDefault>();
-                    panelEntryInformationalDefault.SetParentTransform(this.parentTransform);
-                    // Todo: Store this in a const file
+                    // TODO: Store in a const file or something
                     panelEntryInformationalDefault.panelEntryGridDimensions = new GridDimensions(4, 5);
+                    panelEntryInformationalDefault.SetParentTransform(this.parentTransform);
+                    ((IPanelEntry)panelEntryInformationalDefault).SetPanelEntryConfigurationReport(
+                        this.panelGridConvertor, this.panelEntryConfigurationReport);
+                    panelEntryInformationalDefault.LoadBackgroundImage();
                     panelEntryInformationalDefault.BuildHeader(typeof(PanelEntryInformationalDefault).Name);
                     return panelEntryInformationalDefault;
                 }
@@ -61,6 +73,28 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
             /// <summary>
             /// Todo
             /// </summary>
+            /// <param name="panelGridConvertor"></param>
+            /// <returns></returns>
+            public Builder SetPanelGridConvertor(IGridConvertor panelGridConvertor)
+            {
+                this.panelGridConvertor = panelGridConvertor;
+                return this;
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <param name="panelEntryConfigurationReport"></param>
+            /// <returns></returns>
+            public Builder SetPanelEntryConfigurationReport(IGridConfigurationReport panelEntryConfigurationReport)
+            {
+                this.panelEntryConfigurationReport = panelEntryConfigurationReport;
+                return this;
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
             /// <returns>
             /// </returns>
             private ISet<string> IsInvalid()
@@ -70,6 +104,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
                 if (this.parentTransform == null)
                 {
                     argumentExceptionSet.Add("Parent " + typeof(Transform).Name + " cannot be null.");
+                }
+                if (this.panelGridConvertor == null)
+                {
+                    argumentExceptionSet.Add("Panel " + typeof(IGridConvertor).Name + " cannot be null.");
+                }
+                if (this.panelEntryConfigurationReport == null)
+                {
+                    argumentExceptionSet.Add("Panel Entry " + typeof(IGridConfigurationReport).Name + " cannot be null.");
                 }
                 return argumentExceptionSet;
             }

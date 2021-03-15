@@ -18,9 +18,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
         /// <summary>
         ///
         /// </summary>
-        /// <param name="canvasGridConvertor"></param>
+        /// <param name="panelGridConvertor"></param>
         /// <param name="panelEntryConfigurationReport"></param>
-        void SetPanelEntryConfigurationReport(IGridConvertor canvasGridConvertor,
+        void SetPanelEntryConfigurationReport(IGridConvertor panelGridConvertor,
             IGridConfigurationReport panelEntryConfigurationReport);
     }
 }

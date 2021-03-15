@@ -75,11 +75,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
                     return new GridConfigurationReport(this.gridDimensions,
                         this.gridPosition);
                 }
-                else
-                {
-                    throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
-                        this.GetType(), string.Join("\n", invalidReasons));
-                }
+                throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
+                    this.GetType(), string.Join("\n", invalidReasons));
             }
 
             /// <summary>
@@ -117,7 +114,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
                 {
                     argumentExceptionSet.Add(typeof(IGridDimensions).Name + " cannot be null.");
                 }
-
                 return argumentExceptionSet;
             }
         }

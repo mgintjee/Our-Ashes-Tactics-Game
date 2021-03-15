@@ -34,17 +34,16 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
                 .SetTextFontStyle(FontStyle.Bold)
                 .SetTextString(headerString)
                 .Build();
-            // Todo: Store this in the abstract probably
-            this.widgetConfigurationReportDictionary.Add(
-                complexWidgetHeader, new GridConfigurationReport.Builder()
-                        .SetGridDimensions(new GridDimensions(1, 4))
-                        .SetGridPosition(new GridPosition(0, 0))
-                    .Build());
+            // TOdo: Store in a const file
+            complexWidgetHeader.GetTransform().name = "HeaderText";
+            this.AddWidget(complexWidgetHeader, new GridConfigurationReport.Builder()
+                .SetGridDimensions(new GridDimensions(4, 1))
+                .SetGridPosition(new GridPosition(0, 5))
+                .Build());
         }
 
         void IPanelEntry.UpdateWidgets()
         {
-            throw new System.NotImplementedException();
         }
     }
 }

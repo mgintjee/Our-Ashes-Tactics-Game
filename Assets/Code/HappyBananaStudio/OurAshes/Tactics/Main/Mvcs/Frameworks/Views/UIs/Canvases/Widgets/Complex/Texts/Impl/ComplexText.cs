@@ -1,17 +1,15 @@
-﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Complex.Texts.Impl
-{
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Colors.Enums;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Sprites.Enums;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Basics.Images.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Basics.Texts.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Complex.Abs;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Complex.Texts.Api;
-    using System.Collections.Generic;
-    using UnityEngine;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Colors.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Sprites.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Basics.Images.Impl;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Basics.Texts.Impl;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Complex.Abs;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Complex.Texts.Api;
+using System.Collections.Generic;
+using UnityEngine;
 
-    /// <summary>
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Complex.Texts.Impl
+{   /// <summary>
     /// Todo
     /// </summary>
     public class ComplexText
@@ -56,29 +54,23 @@
                 // Check that the set parameters are valid
                 if (invalidReasons.Count == 0)
                 {
-                    IComplexText complexText =
+                    ComplexText complexText =
                         new GameObject(typeof(ComplexText).Name)
                         .AddComponent<ComplexText>();
-                    ((ComplexText)complexText).childWidgetSet.Add(new BasicImage.Builder()
+                    complexText.childWidgetSet.Add(new BasicImage.Builder()
                         .SetParentTransform(complexText.GetTransform())
                         .SetColorId(this.imageColorId)
                         .SetSpriteId(this.imageSpriteId)
                         .SetTransparency(this.imageTransparency)
                         .Build());
-                    ((ComplexText)complexText).childWidgetSet.Add(new BasicText.Builder()
+                    complexText.childWidgetSet.Add(new BasicText.Builder()
                         .SetParentTransform(complexText.GetTransform())
                         .SetColorId(this.textColorId)
                         .SetFontString(this.textString)
                         .SetFontSize(this.textFontSize)
                         .SetFontStyle(this.textFontStyle)
                         .Build());
-                    foreach (IWidget childWidget in ((ComplexText)complexText).childWidgetSet)
-                    {
-                        childWidget.SetWidgetDimensions(complexText.GetRectTransform().sizeDelta);
-                    }
-                    complexText.GetTransform().SetParent(this.parentTransform);
-                    complexText.GetTransform().localPosition = Vector3.zero;
-                    complexText.GetTransform().localScale = Vector3.one;
+                    complexText.SetParentTransform(this.parentTransform);
                     return complexText;
                 }
                 else

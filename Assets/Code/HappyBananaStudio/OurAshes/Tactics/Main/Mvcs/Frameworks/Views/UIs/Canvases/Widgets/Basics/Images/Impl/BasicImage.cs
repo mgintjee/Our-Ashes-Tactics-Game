@@ -94,9 +94,7 @@
                     Color color = ColorIdConstants.GetUnityColor(this.colorId);
                     color.a = this.transparency;
                     image.color = color;
-                    basicWidgetImage.GetTransform().SetParent(this.parentTransform);
-                    basicWidgetImage.GetTransform().localPosition = Vector3.zero;
-                    basicWidgetImage.GetTransform().localScale = Vector3.one;
+                    basicWidgetImage.SetParentTransform(this.parentTransform);
                     return basicWidgetImage;
                 }
                 else

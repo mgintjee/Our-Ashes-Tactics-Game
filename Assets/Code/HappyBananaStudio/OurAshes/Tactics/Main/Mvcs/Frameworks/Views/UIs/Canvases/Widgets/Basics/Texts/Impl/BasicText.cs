@@ -107,9 +107,10 @@
                     text.color = ColorIdConstants.GetUnityColor(this.colorId);
                     text.text = this.fontString;
                     text.fontStyle = this.fontStyle;
-                    basicWidgetText.GetTransform().SetParent(this.parentTransform);
-                    basicWidgetText.GetTransform().localPosition = Vector3.zero;
-                    basicWidgetText.GetTransform().localScale = Vector3.one;
+                    // Todo: Move this to being configurable
+                    text.horizontalOverflow = HorizontalWrapMode.Wrap;
+                    text.verticalOverflow = VerticalWrapMode.Truncate;
+                    basicWidgetText.SetParentTransform(this.parentTransform);
                     return basicWidgetText;
                 }
                 throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
