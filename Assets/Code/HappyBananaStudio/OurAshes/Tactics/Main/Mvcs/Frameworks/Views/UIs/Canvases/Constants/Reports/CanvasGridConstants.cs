@@ -1,8 +1,8 @@
-﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Constants.Reports
-{
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Impl;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Grids.Dimensions.Api;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Grids.Dimensions.Impl;
 
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Constants.Reports
+{
     /// <summary>
     /// Todo
     /// </summary>
@@ -15,17 +15,13 @@
         private static readonly float colOffset = 0.0f;
 
         // Todo
-        private static readonly ICanvasGridCoordinates canvasGridDimensions =
-            new GridCoordinates.Builder()
-                .SetCol(11)
-                .SetRow(9)
-                .Build();
+        private static readonly IGridDimensions canvasGridDimensions = new GridDimensions(11, 9);
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        public static ICanvasGridCoordinates GetCanvasGridDimensions()
+        public static IGridDimensions GetCanvasGridDimensions()
         {
             return canvasGridDimensions;
         }

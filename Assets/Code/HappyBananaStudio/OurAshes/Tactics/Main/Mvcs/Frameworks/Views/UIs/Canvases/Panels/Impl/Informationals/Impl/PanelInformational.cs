@@ -1,15 +1,16 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.Informationals.Impl
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Grids.Convertors.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Grids.Dimensions.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Orders.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Reports.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Convertors.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Impl.Informationals.Defaults.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Abs;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.Informationals.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Talons.Common.Orders.Reports.Api;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -27,7 +28,7 @@
         {
             this.RemovePanelEntries();
             IPanelEntry panelEntry = null;
-            this.AddPanelEntry(panelEntry, new CanvasConfigurationReport.Builder()
+            this.AddPanelEntry(panelEntry, new GridConfigurationReport.Builder()
                 .Build());
         }
 
@@ -40,7 +41,7 @@
             IPanelEntry panelEntry = new PanelEntryInformationalDefault.Builder()
                 .SetParentTransform(this.GetTransform())
                 .Build();
-            this.AddPanelEntry(panelEntry, new CanvasConfigurationReport.Builder()
+            this.AddPanelEntry(panelEntry, new GridConfigurationReport.Builder()
                 .SetGridDimensions(this.panelGridDimensions)
                 .Build());
         }
@@ -51,13 +52,13 @@
         public class Builder
         {
             // Todo
-            private ICanvasConfigurationReport panelConfigurationReport = null;
+            private IGridConfigurationReport panelConfigurationReport = null;
 
             // Todo
             private Transform parentTransform = null;
 
             // Todo
-            private IGridConvertor canvasGridConvertor = null;
+            private IGridConvertor gridConvertor = null;
 
             /// <summary>
             /// Todo
@@ -72,14 +73,11 @@
                     PanelInformational panelInformational = new GameObject(typeof(PanelInformational).Name)
                         .AddComponent<PanelInformational>();
                     // Todo: Store in a const file
-                    panelInformational.panelGridDimensions = new GridCoordinates.Builder()
-                        .SetCol(4)
-                        .SetRow(6)
-                        .Build();
+                    panelInformational.panelGridDimensions = new GridDimensions(4, 6);
                     panelInformational.LoadBackgroundImage();
                     panelInformational.SetParentTransform(this.parentTransform);
-                    panelInformational.SetPanelConfigurationReport(
-                        this.canvasGridConvertor, this.panelConfigurationReport);
+                    ((IPanel)panelInformational).SetPanelConfigurationReport(
+                        this.gridConvertor, this.panelConfigurationReport);
                     ((IPanelInformational)panelInformational).LoadDefaultPanelEntry();
                     return panelInformational;
                 }
@@ -92,7 +90,7 @@
             /// </summary>
             /// <param name="canvasConfigurationReport"></param>
             /// <returns></returns>
-            public Builder SetCanvasConfigurationReport(ICanvasConfigurationReport canvasConfigurationReport)
+            public Builder SetCanvasConfigurationReport(IGridConfigurationReport canvasConfigurationReport)
             {
                 this.panelConfigurationReport = canvasConfigurationReport;
                 return this;
@@ -116,7 +114,7 @@
             /// <returns></returns>
             public Builder SetCanvasGridConvertor(IGridConvertor canvasGridConvertor)
             {
-                this.canvasGridConvertor = canvasGridConvertor;
+                this.gridConvertor = canvasGridConvertor;
                 return this;
             }
 
@@ -131,13 +129,13 @@
                 ISet<string> argumentExceptionSet = new HashSet<string>();
                 if (this.panelConfigurationReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(ICanvasConfigurationReport).Name + " cannot be null.");
+                    argumentExceptionSet.Add(typeof(IGridConfigurationReport).Name + " cannot be null.");
                 }
                 if (this.parentTransform == null)
                 {
                     argumentExceptionSet.Add("Parent " + typeof(Transform).Name + " cannot be null.");
                 }
-                if (this.canvasGridConvertor == null)
+                if (this.gridConvertor == null)
                 {
                     argumentExceptionSet.Add(typeof(IGridConvertor).Name + " cannot be null.");
                 }

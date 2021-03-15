@@ -3,9 +3,9 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Loggers.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Loggers.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Utilities.Enums;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Loadouts.Mounts.Weapons.Enums;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Talons.Common.Enums;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Talons.Models.Loadouts.Mounts.Utilities.Enums;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Talons.Models.Loadouts.Mounts.Weapons.Enums;
     using System.Diagnostics;
     using UnityEngine;
 
@@ -126,11 +126,8 @@
                     talonBaseGameObject.transform.localPosition = new Vector3(0, -.4f, 0);
                     return talonGameObject;
                 }
-                else
-                {
-                    throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters.",
-                        new StackFrame().GetMethod().Name);
-                }
+                throw ExceptionUtil.Arguments.Build("Unable to ?. Invalid Parameters.",
+                    new StackFrame().GetMethod().Name);
             }
         }
 

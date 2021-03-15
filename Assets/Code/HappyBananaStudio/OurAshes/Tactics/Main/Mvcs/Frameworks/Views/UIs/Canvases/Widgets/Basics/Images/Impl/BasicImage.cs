@@ -35,7 +35,7 @@
         /// </param>
         void IBasicImage.UpdateColorId(ColorId colorId)
         {
-            this.imageComponent.color = ColorIdConstants.GetColor(colorId);
+            this.imageComponent.color = ColorIdConstants.GetUnityColor(colorId);
         }
 
         /// <summary>
@@ -91,7 +91,7 @@
                         .AddComponent<BasicImage>();
                     Image image = basicWidgetImage.GetGameObject().AddComponent<Image>();
                     image.sprite = SpriteResourceLoader.LoadSpriteResource(this.spriteId);
-                    Color color = ColorIdConstants.GetColor(this.colorId);
+                    Color color = ColorIdConstants.GetUnityColor(this.colorId);
                     color.a = this.transparency;
                     image.color = color;
                     basicWidgetImage.GetTransform().SetParent(this.parentTransform);

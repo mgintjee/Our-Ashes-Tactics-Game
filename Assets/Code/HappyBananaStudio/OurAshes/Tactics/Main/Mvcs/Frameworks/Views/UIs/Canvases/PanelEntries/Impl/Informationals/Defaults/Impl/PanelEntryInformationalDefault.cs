@@ -1,12 +1,12 @@
-﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Impl.Informationals.Defaults.Impl
-{
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Impl.Informationals.Abs;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Impl.Informationals.Api;
-    using System.Collections.Generic;
-    using UnityEngine;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Grids.Dimensions.Impl;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Impl.Informationals.Abs;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Impl.Informationals.Api;
+using System.Collections.Generic;
+using UnityEngine;
 
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Impl.Informationals.Defaults.Impl
+{
     /// <summary>
     /// Todo
     /// </summary>
@@ -36,8 +36,7 @@
                         .AddComponent<PanelEntryInformationalDefault>();
                     panelEntryInformationalDefault.SetParentTransform(this.parentTransform);
                     // Todo: Store this in a const file
-                    panelEntryInformationalDefault.panelEntryGridDimensions = new GridCoordinates.Builder()
-                        .SetCol(4).SetRow(5).Build();
+                    panelEntryInformationalDefault.panelEntryGridDimensions = new GridDimensions(4, 5);
                     panelEntryInformationalDefault.BuildHeader(typeof(PanelEntryInformationalDefault).Name);
                     return panelEntryInformationalDefault;
                 }

@@ -1,14 +1,14 @@
-﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Reports.Phalanxes.Impl
-{
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.AIs.Enums;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.Enums;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Enums;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Customizations.Reports.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Reports.Phalanxes.Api;
-    using System.Collections.Generic;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.AIs.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Reports.Phalanxes.Api;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Talons.Common.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Talons.Views.Customizations.Reports.Api;
+using System.Collections.Generic;
 
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Reports.Phalanxes.Impl
+{
     /// <summary>
     /// Todo
     /// </summary>
@@ -22,7 +22,7 @@
         private readonly ControllerType controllerType;
 
         // Todo
-        private readonly ICustomizationReport customizationReport;
+        private readonly ITalonCustomizationReport talonCustomizationReport;
 
         // Todo
         private readonly AIType aiType;
@@ -38,16 +38,16 @@
         /// </summary>
         /// <param name="phalanxCallSign"></param>
         /// <param name="controllerType"></param>
-        /// <param name="customizationReport"></param>
+        /// <param name="talonCustomizationReport"></param>
         /// <param name="aiType"></param>
         /// <param name="talonCallSigns"></param>
         private PhalanxReport(PhalanxCallSign phalanxCallSign, ControllerType controllerType,
-            ICustomizationReport customizationReport, AIType aiType,
+            ITalonCustomizationReport talonCustomizationReport, AIType aiType,
             ISet<TalonCallSign> talonCallSigns, ISet<PhalanxCallSign> phalanxCallSigns)
         {
             this.phalanxCallSign = phalanxCallSign;
             this.controllerType = controllerType;
-            this.customizationReport = customizationReport;
+            this.talonCustomizationReport = talonCustomizationReport;
             this.aiType = aiType;
             this.talonCallSigns = talonCallSigns;
             this.phalanxCallSigns = phalanxCallSigns;
@@ -66,9 +66,9 @@
         }
 
         /// <inheritdoc/>
-        ICustomizationReport IPhalanxReport.GetCustomizationReport()
+        ITalonCustomizationReport IPhalanxReport.GetTalonCustomizationReport()
         {
-            return this.customizationReport;
+            return this.talonCustomizationReport;
         }
 
         /// <inheritdoc/>
@@ -100,7 +100,7 @@
                 typeof(ControllerType).Name, this.controllerType, typeof(AIType).Name, this.aiType,
                 string.Join(", ", this.phalanxCallSigns),
                 string.Join(", ", this.talonCallSigns),
-                this.customizationReport);
+                this.talonCustomizationReport);
         }
 
         /// <summary>
@@ -115,7 +115,7 @@
             private ControllerType controllerType = ControllerType.None;
 
             // Todo
-            private ICustomizationReport customizationReport = null;
+            private ITalonCustomizationReport talonCustomizationReport = null;
 
             // Todo
             private AIType aiType = AIType.None;
@@ -137,7 +137,7 @@
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new Object
-                    return new PhalanxReport(this.phalanxCallSign, this.controllerType, this.customizationReport,
+                    return new PhalanxReport(this.phalanxCallSign, this.controllerType, this.talonCustomizationReport,
                         this.aiType, this.talonCallSigns, this.phalanxCallSigns);
                 }
                 else
@@ -172,11 +172,11 @@
             /// <summary>
             ///
             /// </summary>
-            /// <param name="customizationReport"></param>
+            /// <param name="talonCustomizationReport"></param>
             /// <returns></returns>
-            public Builder SetCustomizationReport(ICustomizationReport customizationReport)
+            public Builder SetTalonCustomizationReport(ITalonCustomizationReport talonCustomizationReport)
             {
-                this.customizationReport = customizationReport;
+                this.talonCustomizationReport = talonCustomizationReport;
                 return this;
             }
 
@@ -261,10 +261,10 @@
                         }
                     }
                 }
-                // Check that customizationReport has been set
-                if (this.customizationReport == null)
+                // Check that talonCustomizationReport has been set
+                if (this.talonCustomizationReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(ICustomizationReport) + " can not be none.");
+                    argumentExceptionSet.Add(typeof(ITalonCustomizationReport) + " can not be none.");
                 }
                 // Check that talonCallSignSet has been set
                 if (this.talonCallSigns == null)

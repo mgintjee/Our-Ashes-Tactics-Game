@@ -1,10 +1,10 @@
-﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Generators.Talons.Customizations
-{
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Generators.Talons.Customizations.Schemes.Colors;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Generators.Talons.Customizations.Schemes.Emblems;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Customizations.Reports.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Customizations.Reports.Impl;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Generators.Talons.Customizations.Schemes.Colors;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Generators.Talons.Customizations.Schemes.Emblems;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Talons.Views.Customizations.Reports.Api;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Talons.Views.Customizations.Reports.Impl;
 
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Generators.Talons.Customizations
+{
     /// <summary>
     /// Todo
     /// </summary>
@@ -15,9 +15,9 @@
         /// </summary>
         /// <returns>
         /// </returns>
-        public static ICustomizationReport GenerateRandomCustomizationReport()
+        public static ITalonCustomizationReport GenerateRandomTalonCustomizationReport()
         {
-            return new CustomizationReport.Builder()
+            return new TalonCustomizationReport.Builder()
                 .SetColorSchemeReport(RandomColorSchemeReportGenerator
                     .GenerateRandomColorSchemeReport())
                 .SetEmblemSchemeReport(RandomEmblemSchemeReportGenerator

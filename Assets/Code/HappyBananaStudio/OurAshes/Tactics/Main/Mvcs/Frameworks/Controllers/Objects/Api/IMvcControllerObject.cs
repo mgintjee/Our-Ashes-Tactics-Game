@@ -1,8 +1,8 @@
-﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.Objects.Api
-{
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Orders.Reports.Api;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Talons.Common.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Talons.Common.Orders.Reports.Api;
 
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.Objects.Api
+{
     /// <summary>
     /// MvcController Object Api
     /// </summary>
@@ -14,42 +14,5 @@
         /// <param name="talonCallSign"></param>
         /// <returns></returns>
         ITalonOrderReport DetermineTalonOrderReport(TalonCallSign talonCallSign);
-
-        /*
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="talonTurnInformationReport">
-        /// </param>
-        void BeginDecisionProcess(ITalonTurnReport talonTurnInformationReport);
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        bool IsDeterminingActionReport();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        bool IsInitialized();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        bool IsReadyToOutputActionReport();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns>
-        /// </returns>
-        ITalonActionOrderReport OutputActionReport();
-        */
     }
 }

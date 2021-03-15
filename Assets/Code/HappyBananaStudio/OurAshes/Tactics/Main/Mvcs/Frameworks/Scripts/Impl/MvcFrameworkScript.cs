@@ -11,9 +11,6 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Controllers.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Enums;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Constructions.Reports.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Constructions.Reports.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Objects.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Reports.Construction.Api;
@@ -23,6 +20,9 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Scripts.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Reports.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Talons.Common.Enums;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Talons.Constructions.Reports.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Talons.Constructions.Reports.Impl;
     using System.Collections.Generic;
     using System.Diagnostics;
 
@@ -72,7 +72,7 @@
                     new PhalanxReport.Builder()
                         .SetAIType(AIType.Random)
                         .SetControllerType(ControllerType.AI)
-                        .SetCustomizationReport(RandomCustomizationReportGenerator.GenerateRandomCustomizationReport())
+                        .SetTalonCustomizationReport(RandomCustomizationReportGenerator.GenerateRandomTalonCustomizationReport())
                         .SetPhalanxCallSign(PhalanxCallSign.Alfa)
                         .SetPhalanxCallSigns(new HashSet<PhalanxCallSign>(){ PhalanxCallSign.Bravo })
                         .SetTalonCallSigns(new HashSet<TalonCallSign>(){ TalonCallSign.Alpha})
@@ -80,7 +80,7 @@
                     new PhalanxReport.Builder()
                         .SetAIType(AIType.Random)
                         .SetControllerType(ControllerType.AI)
-                        .SetCustomizationReport(RandomCustomizationReportGenerator.GenerateRandomCustomizationReport())
+                        .SetTalonCustomizationReport(RandomCustomizationReportGenerator.GenerateRandomTalonCustomizationReport())
                         .SetPhalanxCallSign(PhalanxCallSign.Bravo)
                         .SetPhalanxCallSigns(new HashSet<PhalanxCallSign>(){PhalanxCallSign.Alfa })
                         .SetTalonCallSigns(new HashSet<TalonCallSign>(){ TalonCallSign.Beta})
@@ -88,7 +88,7 @@
                     new PhalanxReport.Builder()
                         .SetAIType(AIType.Random)
                         .SetControllerType(ControllerType.AI)
-                        .SetCustomizationReport(RandomCustomizationReportGenerator.GenerateRandomCustomizationReport())
+                        .SetTalonCustomizationReport(RandomCustomizationReportGenerator.GenerateRandomTalonCustomizationReport())
                         .SetPhalanxCallSign(PhalanxCallSign.Charlie)
                         .SetPhalanxCallSigns(new HashSet<PhalanxCallSign>(){ })
                         .SetTalonCallSigns(new HashSet<TalonCallSign>(){ TalonCallSign.Chi})
@@ -96,7 +96,7 @@
                     new PhalanxReport.Builder()
                         .SetAIType(AIType.Random)
                         .SetControllerType(ControllerType.AI)
-                        .SetCustomizationReport(RandomCustomizationReportGenerator.GenerateRandomCustomizationReport())
+                        .SetTalonCustomizationReport(RandomCustomizationReportGenerator.GenerateRandomTalonCustomizationReport())
                         .SetPhalanxCallSign(PhalanxCallSign.Delta)
                         .SetPhalanxCallSigns(new HashSet<PhalanxCallSign>(){ })
                         .SetTalonCallSigns(new HashSet<TalonCallSign>(){ TalonCallSign.Delta, TalonCallSign.Epsilon})
@@ -109,10 +109,10 @@
                     {
                         talonConstructionReports.Add(new TalonConstructionReport.Builder()
                             .SetTalonCallSign(talonCallSign)
-                            .SetCustomizationReport(phalanxReport.GetCustomizationReport())
+                            .SetTalonCustomizationReport(phalanxReport.GetTalonCustomizationReport())
                             .SetTalonLoadoutReport(RandomTalonLoadoutReportGenerator
                                 .GenerateRandomTalonLoadoutReport(EnumUtils.GetRandomEnum<TalonId>()))
-                            .Build());
+                            .Build()); ;
                     }
                 }
                 // Todo: Load from file or something or have a default

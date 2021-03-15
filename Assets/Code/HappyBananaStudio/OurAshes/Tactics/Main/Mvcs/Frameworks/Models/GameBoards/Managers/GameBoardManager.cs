@@ -1,10 +1,10 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.GameBoards.Managers
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Cube.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Coordinates.Cube.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.GameBoards.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.GameBoards.Reports.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.HexTiles.Objects.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.HexTiles.Models.Objects.Api;
     using System.Collections.Generic;
     using System.Diagnostics;
 
@@ -29,11 +29,8 @@
             {
                 return gameBoardObject.GetHexTileObjectFireCostFrom(cubeCoordinates);
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build("Unable to ?. ? is null.",
-                    new StackFrame().GetMethod().Name, typeof(IGameBoardObject));
-            }
+            throw ExceptionUtil.Arguments.Build("Unable to ?. ? is null.",
+                new StackFrame().GetMethod().Name, typeof(IGameBoardObject));
         }
 
         /// <summary>
@@ -61,11 +58,8 @@
             {
                 return gameBoardObject.GetGameBoardReport();
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build("Unable to ?. ? is null.",
-                    new StackFrame().GetMethod().Name, typeof(IGameBoardObject));
-            }
+            throw ExceptionUtil.Arguments.Build("Unable to ?. ? is null.",
+                new StackFrame().GetMethod().Name, typeof(IGameBoardObject));
         }
 
         /// <summary>
@@ -81,11 +75,8 @@
             {
                 return gameBoardObject.GetHexTileObject(cubeCoordinates);
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build("Unable to ?. ? is null.",
-                    new StackFrame().GetMethod().Name, typeof(IGameBoardObject));
-            }
+            throw ExceptionUtil.Arguments.Build("Unable to ?. ? is null.",
+                new StackFrame().GetMethod().Name, typeof(IGameBoardObject));
         }
 
         /// <summary>
@@ -101,11 +92,8 @@
             {
                 return gameBoardObject.GetNeighborCubeCoordinates(cubeCoordinates);
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build("Unable to ?. ? is null.",
-                    new StackFrame().GetMethod().Name, typeof(IGameBoardObject));
-            }
+            throw ExceptionUtil.Arguments.Build("Unable to ?. ? is null.",
+                new StackFrame().GetMethod().Name, typeof(IGameBoardObject));
         }
 
         /// <summary>

@@ -4,7 +4,7 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Phalanxes.Objects.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Phalanxes.Reports.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Enums;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Talons.Common.Enums;
     using System.Diagnostics;
 
     /// <summary>
@@ -43,10 +43,7 @@
             {
                 return phalanxRosterObject.GetPhalanxRosterReport();
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build();
-            }
+            throw ExceptionUtil.Arguments.Build();
         }
 
         /// <summary>
@@ -59,10 +56,7 @@
             {
                 return phalanxRosterObject.GetPhalanxCallSign(talonCallSign);
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build();
-            }
+            throw ExceptionUtil.Arguments.Build();
         }
 
         /// <summary>
@@ -76,10 +70,7 @@
             {
                 return phalanxRosterObject.ArePhalanxCallSignsFriendly(phalanxCallSignA, phalanxCallSignB);
             }
-            else
-            {
-                throw ExceptionUtil.Arguments.Build();
-            }
+            throw ExceptionUtil.Arguments.Build();
         }
     }
 }

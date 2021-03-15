@@ -3,9 +3,8 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Colors.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Loggers.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Loggers.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.HexTiles.Enums;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Talons.Orders.Enums;
-    using System;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.HexTiles.Common.Types.Enums;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Talons.Common.Orders.Enums;
     using System.Diagnostics;
     using UnityEngine;
 
@@ -97,30 +96,7 @@
                 /// </returns>
                 public static Material LoadMaterial(HexTileType hexTileType)
                 {
-                    string mechActionTypeString = "";
-                    switch (hexTileType)
-                    {
-                        case HexTileType.Forest:
-                            mechActionTypeString = "Forest";
-                            break;
-
-                        case HexTileType.Mountain:
-                            mechActionTypeString = "Mountains";
-                            break;
-
-                        case HexTileType.Plains:
-                            mechActionTypeString = "Plains";
-                            break;
-
-                        case HexTileType.Road:
-                            mechActionTypeString = "Road";
-                            break;
-
-                        case HexTileType.Water:
-                            mechActionTypeString = "Water";
-                            break;
-                    }
-                    return LoadMaterialResource(TILE_MATERIALS_TOP_FOLDER_HOME + MATERIAL_PREFIX + mechActionTypeString);
+                    return LoadMaterialResource(TILE_MATERIALS_TOP_FOLDER_HOME + MATERIAL_PREFIX + hexTileType.ToString());
                 }
             }
         }
@@ -145,27 +121,7 @@
             /// </returns>
             public static Material LoadPathMaterialResource(OrderType orderType)
             {
-                string mechActionTypeString = "";
-                switch (orderType)
-                {
-                    case OrderType.Fire:
-                        mechActionTypeString = "Fire";
-                        break;
-
-                    case OrderType.Move:
-                        mechActionTypeString = "Move";
-                        break;
-
-                    case OrderType.Wait:
-                        mechActionTypeString = "Wait";
-                        break;
-                }
-                return LoadMaterialResource(PATH_MATERIALS_FOLDER_HOME + MATERIAL_PREFIX + mechActionTypeString);
-            }
-
-            internal static Material LoadPathMaterialResource(object move)
-            {
-                throw new NotImplementedException();
+                return LoadMaterialResource(PATH_MATERIALS_FOLDER_HOME + MATERIAL_PREFIX + orderType.ToString());
             }
         }
     }

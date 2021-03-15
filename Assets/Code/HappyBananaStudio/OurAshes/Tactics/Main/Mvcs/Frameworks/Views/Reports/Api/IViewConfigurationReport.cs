@@ -11,30 +11,30 @@
         /// Todo
         /// </summary>
         /// <returns></returns>
-        ICanvasConfigurationReport GetCanvasActionMenuConfigurationReport();
+        IGridConfigurationReport GetCanvasActionMenuConfigurationReport();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        ICanvasConfigurationReport GetCanvasInformationalConfigurationReport();
+        IGridConfigurationReport GetCanvasInformationalConfigurationReport();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        ICanvasConfigurationReport GetCanvasScoreBoardConfigurationReport();
+        IGridConfigurationReport GetCanvasScoreBoardConfigurationReport();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        ICanvasConfigurationReport GetCanvasSettingMenuConfigurationReport();
+        IGridConfigurationReport GetCanvasSettingMenuConfigurationReport();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        ICanvasConfigurationReport GetCanvasTurnScrollerConfigurationReport();
+        IGridConfigurationReport GetCanvasTurnScrollerConfigurationReport();
     }
 }

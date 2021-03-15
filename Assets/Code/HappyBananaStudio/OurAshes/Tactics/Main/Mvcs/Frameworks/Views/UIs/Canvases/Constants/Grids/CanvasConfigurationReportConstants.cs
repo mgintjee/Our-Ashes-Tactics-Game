@@ -1,8 +1,9 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Constants.Grids
 {
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Grids.Dimensions.Impl;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Grids.Positions.Impl;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Reports.Impl;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Coordinates.Impl;
 
     /// <summary>
     /// Todo
@@ -13,15 +14,11 @@
         /// Todo
         /// </summary>
         /// <returns></returns>
-        public static ICanvasConfigurationReport ActionMenuConfigurationReport()
+        public static IGridConfigurationReport ActionMenuConfigurationReport()
         {
-            return new CanvasConfigurationReport.Builder()
-                .SetGridDimensions(new GridCoordinates.Builder()
-                    .SetCol(2).SetRow(5)
-                    .Build())
-                .SetGridPosition(new GridCoordinates.Builder()
-                    .SetCol(0).SetRow(1)
-                    .Build())
+            return new GridConfigurationReport.Builder()
+                .SetGridDimensions(new GridDimensions(2, 5))
+                .SetGridPosition(new GridPosition(0, 1))
                 .Build();
         }
 
@@ -29,15 +26,11 @@
         /// Todo
         /// </summary>
         /// <returns></returns>
-        public static ICanvasConfigurationReport GameLoggerConfigurationReport()
+        public static IGridConfigurationReport GameLoggerConfigurationReport()
         {
-            return new CanvasConfigurationReport.Builder()
-                .SetGridDimensions(new GridCoordinates.Builder()
-                    .SetCol(2).SetRow(2)
-                    .Build())
-                .SetGridPosition(new GridCoordinates.Builder()
-                    .SetCol(0).SetRow(9)
-                    .Build())
+            return new GridConfigurationReport.Builder()
+                .SetGridDimensions(new GridDimensions(2, 2))
+                .SetGridPosition(new GridPosition(0, 9))
                 .Build();
         }
 
@@ -45,15 +38,11 @@
         /// Todo
         /// </summary>
         /// <returns></returns>
-        public static ICanvasConfigurationReport InformationalConfigurationReport()
+        public static IGridConfigurationReport InformationalConfigurationReport()
         {
-            return new CanvasConfigurationReport.Builder()
-                .SetGridDimensions(new GridCoordinates.Builder()
-                    .SetCol(2).SetRow(6)
-                    .Build())
-                .SetGridPosition(new GridCoordinates.Builder()
-                    .SetCol(11).SetRow(1)
-                    .Build())
+            return new GridConfigurationReport.Builder()
+                .SetGridDimensions(new GridDimensions(2, 6))
+                .SetGridPosition(new GridPosition(11, 1))
                 .Build();
         }
 
@@ -61,15 +50,11 @@
         /// Todo
         /// </summary>
         /// <returns></returns>
-        public static ICanvasConfigurationReport ScoreBoardConfigurationReport()
+        public static IGridConfigurationReport ScoreBoardConfigurationReport()
         {
-            return new CanvasConfigurationReport.Builder()
-                .SetGridDimensions(new GridCoordinates.Builder()
-                    .SetCol(5).SetRow(1)
-                    .Build())
-                .SetGridPosition(new GridCoordinates.Builder()
-                    .SetCol(3).SetRow(9)
-                    .Build())
+            return new GridConfigurationReport.Builder()
+                .SetGridDimensions(new GridDimensions(5, 1))
+                .SetGridPosition(new GridPosition(3, 9))
                 .Build();
         }
 
@@ -77,15 +62,11 @@
         /// Todo
         /// </summary>
         /// <returns></returns>
-        public static ICanvasConfigurationReport SettingMenuConfigurationReport()
+        public static IGridConfigurationReport SettingMenuConfigurationReport()
         {
-            return new CanvasConfigurationReport.Builder()
-                .SetGridDimensions(new GridCoordinates.Builder()
-                    .SetCol(2).SetRow(1)
-                    .Build())
-                .SetGridPosition(new GridCoordinates.Builder()
-                    .SetCol(11).SetRow(9)
-                    .Build())
+            return new GridConfigurationReport.Builder()
+                .SetGridDimensions(new GridDimensions(2, 1))
+                .SetGridPosition(new GridPosition(11, 9))
                 .Build();
         }
 
@@ -93,15 +74,11 @@
         /// Todo
         /// </summary>
         /// <returns></returns>
-        public static ICanvasConfigurationReport TurnScrollerConfigurationReport()
+        public static IGridConfigurationReport TurnScrollerConfigurationReport()
         {
-            return new CanvasConfigurationReport.Builder()
-                .SetGridDimensions(new GridCoordinates.Builder()
-                    .SetCol(7).SetRow(2)
-                    .Build())
-                .SetGridPosition(new GridCoordinates.Builder()
-                    .SetCol(2).SetRow(0)
-                    .Build())
+            return new GridConfigurationReport.Builder()
+                .SetGridDimensions(new GridDimensions(7, 2))
+                .SetGridPosition(new GridPosition(2, 0))
                 .Build();
         }
     }

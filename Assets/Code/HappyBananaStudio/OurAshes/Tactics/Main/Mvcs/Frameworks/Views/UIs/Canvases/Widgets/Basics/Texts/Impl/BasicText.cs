@@ -33,7 +33,7 @@
         /// </param>
         void IBasicText.UpdateColorId(ColorId colorId)
         {
-            this.textComponent.color = ColorIdConstants.GetColor(colorId);
+            this.textComponent.color = ColorIdConstants.GetUnityColor(colorId);
         }
 
         /// <summary>
@@ -104,7 +104,7 @@
                     text.horizontalOverflow = HorizontalWrapMode.Overflow;
                     text.verticalOverflow = VerticalWrapMode.Overflow;
                     text.resizeTextForBestFit = true;
-                    text.color = ColorIdConstants.GetColor(this.colorId);
+                    text.color = ColorIdConstants.GetUnityColor(this.colorId);
                     text.text = this.fontString;
                     text.fontStyle = this.fontStyle;
                     basicWidgetText.GetTransform().SetParent(this.parentTransform);
