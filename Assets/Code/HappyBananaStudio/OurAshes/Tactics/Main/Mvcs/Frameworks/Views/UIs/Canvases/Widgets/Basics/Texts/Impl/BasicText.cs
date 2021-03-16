@@ -3,6 +3,7 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Colors.Constants;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Colors.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Basics.Abs;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Basics.Texts.Api;
     using System.Collections.Generic;
@@ -111,6 +112,7 @@
                     text.horizontalOverflow = HorizontalWrapMode.Wrap;
                     text.verticalOverflow = VerticalWrapMode.Truncate;
                     basicWidgetText.SetParentTransform(this.parentTransform);
+                    ((IWidget)basicWidgetText).GetRectTransform().sizeDelta = Vector2.zero;
                     return basicWidgetText;
                 }
                 throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",

@@ -3,12 +3,20 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Gri
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Loggers.Api;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Loggers.Impl;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Reports.Api;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Constants.Reports;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Canvases.Constants;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Canvases.Reports.Api;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Objects.Api;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Api;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.ActionMenus.Api;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.ActionMenus.Impl;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.Informationals.Api;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.Informationals.Impl;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.ScoreBoards.Api;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.ScoreBoards.Impl;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.SettingMenus.Api;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.SettingMenus.Impl;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.TurnScrollers.Api;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.TurnScrollers.Impl;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Talons.Common.Orders.Reports.Api;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -29,7 +37,19 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
         private readonly IGridConvertor canvasGridConvertor;
 
         // Todo
-        private readonly IPanelInformational canvasInformational;
+        private readonly IPanelInformational panelInformational;
+
+        // Todo
+        private readonly IPanelActionMenu panelActionMenu;
+
+        // Todo
+        private readonly IPanelScoreBoard panelScoreBoard;
+
+        // Todo
+        private readonly IPanelSettingMenu panelSettingMenu;
+
+        // Todo
+        private readonly IPanelTurnScroller panelTurnScroller;
 
         // Todo
         private readonly ISet<IPanel> panelSet;
@@ -38,8 +58,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
         /// Todo
         /// </summary>
         /// <param name="parentTransform"></param>
-        /// <param name="viewConfigurationReport"></param>
-        private CanvasObject(Transform parentTransform, IViewConfigurationReport viewConfigurationReport)
+        /// <param name="canvasConfigurationReport"></param>
+        private CanvasObject(Transform parentTransform, ICanvasConfigurationReport canvasConfigurationReport)
         {
             GameObject gameObject = new GameObject(this.GetType().Name);
             gameObject.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
@@ -49,21 +69,46 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
                 .SetWorldHeight(sizeDelta.y)
                 .SetWorldWidth(sizeDelta.x)
                 .Build();
-            logger.Debug("?", parentTransform.name);
+            logger.Debug("Building ? with ?", this.GetType().Name, canvasConfigurationReport);
             gameObject.transform.SetParent(parentTransform);
             // Should verify that the configurationReport is valid, else use the default value
-            this.canvasInformational = new PanelInformational.Builder()
-                .SetCanvasConfigurationReport(viewConfigurationReport.GetCanvasInformationalConfigurationReport())
+            this.panelInformational = new PanelInformational.Builder()
+                .SetCanvasConfigurationReport(canvasConfigurationReport.GetInformationalGridConfigurationReport())
                 .SetParentTransform(gameObject.transform)
                 .SetCanvasGridConvertor(this.canvasGridConvertor)
                 .Build();
+            this.panelActionMenu = new PanelActionMenu.Builder()
+                .SetCanvasConfigurationReport(canvasConfigurationReport.GetActionMenuGridConfigurationReport())
+                .SetParentTransform(gameObject.transform)
+                .SetCanvasGridConvertor(this.canvasGridConvertor)
+                .Build();
+            this.panelScoreBoard = new PanelScoreBoard.Builder()
+                .SetCanvasConfigurationReport(canvasConfigurationReport.GetScoreBoardGridConfigurationReport())
+                .SetParentTransform(gameObject.transform)
+                .SetCanvasGridConvertor(this.canvasGridConvertor)
+                .Build();
+            this.panelSettingMenu = new PanelSettingMenu.Builder()
+                .SetCanvasConfigurationReport(canvasConfigurationReport.GetSettingMenuGridConfigurationReport())
+                .SetParentTransform(gameObject.transform)
+                .SetCanvasGridConvertor(this.canvasGridConvertor)
+                .Build();
+            this.panelTurnScroller = new PanelTurnScroller.Builder()
+                .SetCanvasConfigurationReport(canvasConfigurationReport.GetTurnScrollerGridConfigurationReport())
+                .SetParentTransform(gameObject.transform)
+                .SetCanvasGridConvertor(this.canvasGridConvertor)
+                .Build();
+            this.panelSet = new HashSet<IPanel>()
+            {
+                this.panelInformational, this.panelActionMenu, this.panelScoreBoard,
+                this.panelSettingMenu, this.panelTurnScroller
+            };
         }
 
         /// <inheritdoc/>
         void ICanvasObject.DisplayTalonOrderReport(ITalonOrderReport talonOrderReport)
         {
             logger.Debug("Display ?", talonOrderReport);
-            this.canvasInformational.BuildInformationalWidget(talonOrderReport);
+            this.panelInformational.BuildInformationalWidget(talonOrderReport);
         }
 
         /// <inheritdoc/>
@@ -81,7 +126,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
         public class Builder
         {
             // Todo
-            private IViewConfigurationReport viewConfigurationReport = null;
+            private ICanvasConfigurationReport canvasConfigurationReport = null;
 
             // Todo
             private Transform parentTransform = null;
@@ -97,7 +142,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new Object
-                    return new CanvasObject(this.parentTransform, this.viewConfigurationReport);
+                    return new CanvasObject(this.parentTransform, this.canvasConfigurationReport);
                 }
                 throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",
                     this.GetType(), string.Join("\n", invalidReasons));
@@ -106,11 +151,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="viewConfigurationReport"></param>
+            /// <param name="canvasConfigurationReport"></param>
             /// <returns></returns>
-            public Builder SetViewConfigurationReport(IViewConfigurationReport viewConfigurationReport)
+            public Builder SetCanvasConfigurationReport(ICanvasConfigurationReport canvasConfigurationReport)
             {
-                this.viewConfigurationReport = viewConfigurationReport;
+                this.canvasConfigurationReport = canvasConfigurationReport;
                 return this;
             }
 
@@ -134,9 +179,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
             {
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
-                if (this.viewConfigurationReport == null)
+                if (this.canvasConfigurationReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(IViewConfigurationReport).Name + " can not be null.");
+                    argumentExceptionSet.Add(typeof(ICanvasConfigurationReport).Name + " can not be null.");
                 }
                 if (this.parentTransform == null)
                 {

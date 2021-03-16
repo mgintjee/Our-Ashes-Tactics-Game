@@ -5,6 +5,7 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.ResourceLoaders.Sprites;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Sprites.Enums;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Basics.Abs;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Widgets.Basics.Images.Api;
     using System.Collections.Generic;
@@ -95,6 +96,7 @@
                     color.a = this.transparency;
                     image.color = color;
                     basicWidgetImage.SetParentTransform(this.parentTransform);
+                    ((IWidget)basicWidgetImage).GetRectTransform().sizeDelta = Vector2.zero;
                     return basicWidgetImage;
                 }
                 else

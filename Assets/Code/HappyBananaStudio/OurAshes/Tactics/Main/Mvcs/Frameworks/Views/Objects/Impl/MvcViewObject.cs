@@ -7,7 +7,7 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.GameBoards.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Rosters.Talons.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Objects.Api;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Reports.Api;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Canvases.Reports.Api;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Objects.Api;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Objects.Impl;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Api;
@@ -57,7 +57,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
         /// <param name="simulationType"></param>
         /// <param name="matchType"></param>
         private MvcViewObject(SimulationType simulationType, MatchType matchType,
-            IViewConfigurationReport viewConfigurationReport)
+            ICanvasConfigurationReport viewConfigurationReport)
         {
             this.simulationType = simulationType;
             this.matchType = matchType;
@@ -68,7 +68,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
                 this.transform = new GameObject(this.GetType().Name).transform;
                 this.canvasObject = new CanvasObject.Builder()
                     .SetParentTransform(this.transform)
-                    .SetViewConfigurationReport(viewConfigurationReport)
+                    .SetCanvasConfigurationReport(viewConfigurationReport)
                     // Todo: Probably add the matchType here too
                     .Build();
                 this.gameBoardView = new GameBoardView.Builder()
@@ -138,7 +138,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
             private MatchType matchType = MatchType.None;
 
             // Todo
-            private IViewConfigurationReport viewConfigurationReport = null;
+            private ICanvasConfigurationReport viewConfigurationReport = null;
 
             /// <summary>
             /// Todo
@@ -184,7 +184,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
             /// </summary>
             /// <param name="viewConfigurationReport"></param>
             /// <returns></returns>
-            public Builder SetViewConfigurationReport(IViewConfigurationReport viewConfigurationReport)
+            public Builder SetViewConfigurationReport(ICanvasConfigurationReport viewConfigurationReport)
             {
                 this.viewConfigurationReport = viewConfigurationReport;
                 return this;
@@ -209,7 +209,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
                 }
                 if (this.viewConfigurationReport == null && this.simulationType != SimulationType.BlackBox)
                 {
-                    argumentExceptionSet.Add(typeof(IViewConfigurationReport).Name + " can not be null with "
+                    argumentExceptionSet.Add(typeof(ICanvasConfigurationReport).Name + " can not be null with "
                         + typeof(SimulationType).Name + "=" + this.simulationType);
                 }
                 return argumentExceptionSet;

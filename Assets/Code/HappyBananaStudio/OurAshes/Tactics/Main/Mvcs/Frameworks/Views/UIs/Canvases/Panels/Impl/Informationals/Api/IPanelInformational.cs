@@ -13,10 +13,5 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
         /// Todo
         /// </summary>
         void BuildInformationalWidget(ITalonOrderReport talonOrderReport);
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        void LoadDefaultPanelEntry();
     }
 }

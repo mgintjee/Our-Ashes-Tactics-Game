@@ -5,7 +5,7 @@
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Models.Enums;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Reports.Construction.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Reports.Phalanxes.Api;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.Reports.Api;
+    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Canvases.Reports.Api;
     using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Talons.Constructions.Reports.Api;
     using System.Collections.Generic;
 
@@ -37,7 +37,7 @@
         private readonly ISet<ITalonConstructionReport> talonConstructionReports;
 
         // Todo
-        private readonly IViewConfigurationReport viewConfigurationReport;
+        private readonly ICanvasConfigurationReport viewConfigurationReport;
 
         /// <summary>
         /// Todo
@@ -52,7 +52,7 @@
         private MvcConstructionReport(SimulationType simulationType, MatchType matchType,
             int gameBoardLimit, GameBoardShape gameBoardShape, bool mirroredBoard,
             ISet<IPhalanxReport> phalanxReports, ISet<ITalonConstructionReport> talonConstructionReports,
-            IViewConfigurationReport viewConfigurationReport)
+            ICanvasConfigurationReport viewConfigurationReport)
         {
             this.simulationType = simulationType;
             this.matchType = matchType;
@@ -107,7 +107,7 @@
         }
 
         /// <inheritdoc/>
-        IViewConfigurationReport IMvcConstructionReport.GetViewConfigurationReport()
+        ICanvasConfigurationReport IMvcConstructionReport.GetViewConfigurationReport()
         {
             return this.viewConfigurationReport;
         }
@@ -154,7 +154,7 @@
             private ISet<ITalonConstructionReport> talonConstructionReports = null;
 
             // Todo
-            private IViewConfigurationReport viewConfigurationReport = null;
+            private ICanvasConfigurationReport viewConfigurationReport = null;
 
             /// <summary>
             /// Todo
@@ -269,7 +269,7 @@
             /// </summary>
             /// <param name="viewConfigurationReport"></param>
             /// <returns></returns>
-            public Builder SetViewConfigurationReport(IViewConfigurationReport viewConfigurationReport)
+            public Builder SetViewConfigurationReport(ICanvasConfigurationReport viewConfigurationReport)
             {
                 this.viewConfigurationReport = viewConfigurationReport;
                 return this;
@@ -317,7 +317,7 @@
                 // Check that viewConfigurationReport has been set
                 if (this.viewConfigurationReport == null && this.simulationType != SimulationType.BlackBox)
                 {
-                    argumentExceptionSet.Add(typeof(IViewConfigurationReport).Name + " can not be null with "
+                    argumentExceptionSet.Add(typeof(ICanvasConfigurationReport).Name + " can not be null with "
                         + typeof(SimulationType).Name + "=" + this.simulationType);
                 }
                 return argumentExceptionSet;

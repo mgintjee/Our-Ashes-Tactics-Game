@@ -1,10 +1,10 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Grids.Convertors.Api;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Grids.Dimensions.Impl;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Exceptions;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Reports.Api;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Reports.Impl;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Grids.Reports.Api;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Grids.Reports.Impl;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Api;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Impl.Informationals.Defaults.Impl;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.PanelEntries.Impl.Informationals.Impl.Defaults;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Abs;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Api;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Impl.Informationals.Api;
@@ -20,22 +20,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
     public class PanelInformational
         : AbstractPanel, IPanelInformational
     {
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="talonOrderReport"></param>
-        void IPanelInformational.BuildInformationalWidget(ITalonOrderReport talonOrderReport)
-        {
-            this.RemovePanelEntries();
-            IPanelEntry panelEntry = null;
-            this.AddPanelEntry(panelEntry, new GridConfigurationReport.Builder()
-                .Build());
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        void IPanelInformational.LoadDefaultPanelEntry()
+        /// <inheritdoc/>
+        protected override void LoadDefaultPanelEntry()
         {
             this.RemovePanelEntries();
             IGridConfigurationReport defaultGridConfigurationReport = new GridConfigurationReport.Builder()
@@ -46,7 +32,15 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
                 .SetPanelGridConvertor(this.panelGridConvertor)
                 .SetPanelEntryConfigurationReport(defaultGridConfigurationReport)
                 .Build();
-            this.AddPanelEntry(panelEntry, defaultGridConfigurationReport);
+            this.panelEntryList.Add(panelEntry);
+        }
+
+        /// <inheritdoc/>
+        void IPanelInformational.BuildInformationalWidget(ITalonOrderReport talonOrderReport)
+        {
+            this.RemovePanelEntries();
+            IPanelEntry panelEntry = null;
+            this.panelEntryList.Add(panelEntry);
         }
 
         /// <summary>
@@ -73,15 +67,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
                 // Check that the set parameters are valid
                 if (invalidReasons.Count == 0)
                 {
-                    PanelInformational panelInformational = new GameObject(typeof(PanelInformational).Name)
+                    PanelInformational panelInformational =
+                        new GameObject(typeof(PanelInformational).Name)
                         .AddComponent<PanelInformational>();
-                    // Todo: Store in a const file
-                    panelInformational.panelGridDimensions = new GridDimensions(4, 6);
-                    panelInformational.LoadBackgroundImage();
-                    panelInformational.SetParentTransform(this.parentTransform);
-                    ((IPanel)panelInformational).SetPanelConfigurationReport(
-                        this.canvasGridConvertor, this.panelConfigurationReport);
-                    ((IPanelInformational)panelInformational).LoadDefaultPanelEntry();
+                    // TODO: Store the GridDimensions in a const file
+                    ((IPanel)panelInformational).Initialize(this.canvasGridConvertor,
+                        this.panelConfigurationReport,
+                        new GridDimensions(4, 6),
+                        this.parentTransform);
                     return panelInformational;
                 }
                 throw ExceptionUtil.Arguments.Build("Unable to construct ?. Invalid Parameters. ?",

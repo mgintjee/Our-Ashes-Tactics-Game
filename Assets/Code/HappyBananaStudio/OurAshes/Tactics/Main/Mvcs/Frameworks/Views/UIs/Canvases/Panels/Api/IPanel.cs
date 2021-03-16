@@ -1,6 +1,8 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Grids.Convertors.Api;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Reports.Api;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Common.Coordinates.Grids.Dimensions.Api;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Configurations.Grids.Reports.Api;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Unity.Api;
+using UnityEngine;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Views.UIs.Canvases.Panels.Api
 {
@@ -16,11 +18,15 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Frameworks.Vi
         void UpdatePanelEntries();
 
         /// <summary>
-        ///
+        /// Todo
         /// </summary>
         /// <param name="canvasGridConvertor"></param>
         /// <param name="panelConfigurationReport"></param>
-        void SetPanelConfigurationReport(IGridConvertor canvasGridConvertor,
-            IGridConfigurationReport panelConfigurationReport);
+        /// <param name="panelGridDimensions"></param>
+        /// <param name="parentTransform"></param>
+        void Initialize(IGridConvertor canvasGridConvertor,
+            IGridConfigurationReport panelConfigurationReport,
+            IGridDimensions panelGridDimensions,
+            Transform parentTransform);
     }
 }
