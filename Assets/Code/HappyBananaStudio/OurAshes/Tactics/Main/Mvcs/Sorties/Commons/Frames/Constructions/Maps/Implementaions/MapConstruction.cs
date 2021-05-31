@@ -2,6 +2,7 @@
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Constructions.Maps.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Spawns.Positions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Types.Enums;
 using System.Collections.Generic;
 
@@ -14,16 +15,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         : IMapConstruction
     {
         // Todo
-        private readonly MapType _mapType;
-
-        // Todo
         private readonly bool _mirroredMap;
 
         // Todo
         private readonly int _radius;
 
         // Todo
-        private readonly IDictionary<CombatantCallSign, ICubeCoordinates> combatantCallSignCubeCoordinates;
+        private readonly IDictionary<CombatantCallSign, ISpawnPosition> _combatantCallSignSpawnPositions;
 
         /// <summary>
         /// Todo
@@ -31,25 +29,18 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <param name="mapType">    </param>
         /// <param name="radius">     </param>
         /// <param name="mirroredMap"></param>
-        private MapConstruction(MapType mapType, int radius, bool mirroredMap,
-            IDictionary<CombatantCallSign, ICubeCoordinates> combatantCallSignCubeCoordinates)
+        private MapConstruction(int radius, bool mirroredMap,
+            IDictionary<CombatantCallSign, ISpawnPosition> combatantCallSignSpawnPositions)
         {
             _mirroredMap = mirroredMap;
             _radius = radius;
-            _mapType = mapType;
-            this.combatantCallSignCubeCoordinates = combatantCallSignCubeCoordinates;
+            this._combatantCallSignSpawnPositions = combatantCallSignSpawnPositions;
         }
 
         /// <inheritdoc/>
-        IDictionary<CombatantCallSign, ICubeCoordinates> IMapConstruction.GetCombatantCallSignCubeCoordinates()
+        IDictionary<CombatantCallSign, ISpawnPosition> IMapConstruction.GetCombatantCallSignSpawnPosition()
         {
-            return new Dictionary<CombatantCallSign, ICubeCoordinates>(combatantCallSignCubeCoordinates);
-        }
-
-        /// <inheritdoc/>
-        MapType IMapConstruction.GetMapType()
-        {
-            return _mapType;
+            return new Dictionary<CombatantCallSign, ISpawnPosition>(this._combatantCallSignSpawnPositions);
         }
 
         /// <inheritdoc/>
@@ -70,16 +61,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         public class Builder
         {
             // Todo
-            private MapType _mapType = MapType.None;
-
-            // Todo
             private bool _mirroredMap = false;
 
             // Todo
             private int _radius = 0;
 
             // Todo
-            private IDictionary<CombatantCallSign, ICubeCoordinates> combatantCallSignCubeCoordinates = null;
+            private IDictionary<CombatantCallSign, ISpawnPosition> _combatantCallSignSpawnPositions = null;
 
             /// <summary>
             /// Todo
@@ -92,21 +80,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new construction
-                    return new MapConstruction(_mapType, _radius, _mirroredMap, combatantCallSignCubeCoordinates);
+                    return new MapConstruction(_radius, _mirroredMap, _combatantCallSignSpawnPositions);
                 }
                 throw ExceptionUtil.Arguments.Build("Unable to construct {}. {}",
                     this.GetType(), string.Join("\n", invalidReasons));
-            }
-
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="mapType"></param>
-            /// <returns></returns>
-            public Builder SetMapType(MapType mapType)
-            {
-                _mapType = mapType;
-                return this;
             }
 
             /// <summary>
@@ -134,15 +111,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="radius"></param>
+            /// <param name="combatantCallSignSpawnPositions"></param>
             /// <returns></returns>
-            public Builder SetCombatantCallSignCubeCoordinates(IDictionary<CombatantCallSign, ICubeCoordinates> combatantCallSignCubeCoordinates)
+            public Builder SetCombatantCallSignCubeCoordinates(IDictionary<CombatantCallSign, ISpawnPosition> combatantCallSignSpawnPositions)
             {
-                if (combatantCallSignCubeCoordinates != null &&
-                    combatantCallSignCubeCoordinates.Count != 0)
+                if (combatantCallSignSpawnPositions != null)
                 {
-                    this.combatantCallSignCubeCoordinates = new Dictionary<CombatantCallSign, ICubeCoordinates>
-                        (combatantCallSignCubeCoordinates);
+                    this._combatantCallSignSpawnPositions =
+                        new Dictionary<CombatantCallSign, ISpawnPosition>(combatantCallSignSpawnPositions);
                 }
                 return this;
             }
@@ -155,11 +131,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             {
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
-                // Check that _mapType has been set
-                if (_mapType == MapType.None)
-                {
-                    argumentExceptionSet.Add(typeof(MapType).Name + " cannot be none.");
-                }
                 // Check that _radius has been set
                 if (_radius < 3)
                 {

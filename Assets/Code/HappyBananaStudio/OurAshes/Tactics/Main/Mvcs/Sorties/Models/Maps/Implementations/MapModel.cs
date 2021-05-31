@@ -1,4 +1,6 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Spawns.Sides.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Fireables.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Implementations;
@@ -11,9 +13,9 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.M
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Reports.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Reports.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Spawns.Positions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Tiles.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Tiles.Types.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Types.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Rosters.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Interfaces;
@@ -35,9 +37,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         : IMapModel
     {
         // Todo
-        private readonly MapType _mapType;
-
-        // Todo
         private readonly bool _mirroredMap;
 
         // Todo
@@ -55,12 +54,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <param name="mapConstruction"></param>
         public MapModel(IMapConstruction mapConstruction)
         {
-            _mapType = mapConstruction.GetMapType();
             _radius = mapConstruction.GetRadius();
             _mirroredMap = mapConstruction.GetMirroredMap();
             _models = new HashSet<ITileModel>();
             foreach (KeyValuePair<ICubeCoordinates, TileType> cubeCoordinatesTileType in
-                TileTypeUtil.GetCubeCoordinatesTileTypes(this.GetCubeCoordinates(_mapType, _radius), _mirroredMap))
+                TileTypeUtil.GetCubeCoordinatesTileTypes(this.GetCubeCoordinates(_radius), _mirroredMap))
             {
                 _models.Add(new TileModel.Builder()
                     .SetCubeCoordinates(cubeCoordinatesTileType.Key)
@@ -68,8 +66,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                     .Build());
             }
 
-            foreach (KeyValuePair<CombatantCallSign, ICubeCoordinates> combatantCallSignCubeCoordinates in
-                mapConstruction.GetCombatantCallSignCubeCoordinates())
+            foreach (KeyValuePair<CombatantCallSign, ISpawnPosition> combatantCallSignCubeCoordinates in
+                mapConstruction.GetCombatantCallSignSpawnPosition())
             {
                 this.GetTileModel(combatantCallSignCubeCoordinates.Value)
                     .IfPresent(tileModel => tileModel.SetCombatantCallSign(combatantCallSignCubeCoordinates.Key));
@@ -179,7 +177,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             }
             _report = new MapReport.Builder()
                 .SetIsMirrored(_mirroredMap)
-                .SetMapType(_mapType)
                 .SetRadius(_radius)
                 .SetTileReports(tileReports)
                 .Build();
@@ -188,39 +185,33 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="mapType"></param>
         /// <param name="radius"> </param>
         /// <returns></returns>
-        private ISet<ICubeCoordinates> GetCubeCoordinates(MapType mapType, int radius)
+        private ISet<ICubeCoordinates> GetCubeCoordinates(int radius)
         {
             ISet<ICubeCoordinates> cubeCoordinates = new HashSet<ICubeCoordinates>();
 
-            switch (mapType)
-            {
-                case MapType.Hex:
-                    ISet<ICubeCoordinates> visitedCubeCoordinatesSet = new HashSet<ICubeCoordinates>();
-                    ISet<ICubeCoordinates> unvisitedCubeCoordinatesSet = new HashSet<ICubeCoordinates>
+            ISet<ICubeCoordinates> visitedCubeCoordinatesSet = new HashSet<ICubeCoordinates>();
+            ISet<ICubeCoordinates> unvisitedCubeCoordinatesSet = new HashSet<ICubeCoordinates>
                         { new CubeCoordinates(0, 0, 0) };
-                    // Iterate over all of the unvisisted CubeCoordinates
-                    while (unvisitedCubeCoordinatesSet.Count > 0)
+            // Iterate over all of the unvisisted CubeCoordinates
+            while (unvisitedCubeCoordinatesSet.Count > 0)
+            {
+                ICubeCoordinates currentCubeCoordinates = new List<ICubeCoordinates>(unvisitedCubeCoordinatesSet)[0];
+                unvisitedCubeCoordinatesSet.Remove(currentCubeCoordinates);
+                cubeCoordinates.Add(currentCubeCoordinates);
+                if (!visitedCubeCoordinatesSet.Contains(currentCubeCoordinates))
+                {
+                    visitedCubeCoordinatesSet.Add(currentCubeCoordinates);
+                }
+                foreach (ICubeCoordinates coordinates in currentCubeCoordinates.GetNeighbors())
+                {
+                    if (!visitedCubeCoordinatesSet.Contains(coordinates) &&
+                        coordinates.GetDistanceFrom(new CubeCoordinates(0, 0, 0)) <= radius)
                     {
-                        ICubeCoordinates currentCubeCoordinates = new List<ICubeCoordinates>(unvisitedCubeCoordinatesSet)[0];
-                        unvisitedCubeCoordinatesSet.Remove(currentCubeCoordinates);
-                        cubeCoordinates.Add(currentCubeCoordinates);
-                        if (!visitedCubeCoordinatesSet.Contains(currentCubeCoordinates))
-                        {
-                            visitedCubeCoordinatesSet.Add(currentCubeCoordinates);
-                        }
-                        foreach (ICubeCoordinates coordinates in currentCubeCoordinates.GetNeighbors())
-                        {
-                            if (!visitedCubeCoordinatesSet.Contains(coordinates) &&
-                                coordinates.GetDistanceFrom(new CubeCoordinates(0, 0, 0)) <= radius)
-                            {
-                                unvisitedCubeCoordinatesSet.Add(coordinates);
-                            }
-                        }
+                        unvisitedCubeCoordinatesSet.Add(coordinates);
                     }
-                    break;
+                }
             }
 
             return cubeCoordinates;
@@ -260,6 +251,239 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 }
             }
             return Optional<ITileModel>.Empty();
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="spawnPosition"></param>
+        /// <returns></returns>
+        private Optional<ITileModel> GetTileModel(ISpawnPosition spawnPosition)
+        {
+            return GetTileModel(DetermineCubeCoordinates(spawnPosition));
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="spawnPosition"></param>
+        /// <returns></returns>
+        private ICubeCoordinates DetermineCubeCoordinates(ISpawnPosition spawnPosition)
+        {
+            int initialX = 0;
+            int initialY = 0;
+            int initialZ = 0;
+            switch (spawnPosition.GetSpawnArea())
+            {
+                case SpawnArea.CenterNorth:
+                    initialX = +1;
+                    initialY = -1;
+                    initialZ = 0;
+                    break;
+
+                case SpawnArea.CenterNorthEast:
+                    initialX = 0;
+                    initialY = -1;
+                    initialZ = +1;
+                    break;
+
+                case SpawnArea.CenterSouthEast:
+                    initialX = -1;
+                    initialY = 0;
+                    initialZ = +1;
+                    break;
+
+                case SpawnArea.CenterSouth:
+                    initialX = -1;
+                    initialY = +1;
+                    initialZ = 0;
+                    break;
+
+                case SpawnArea.CenterSouthWest:
+                    initialX = 0;
+                    initialY = +1;
+                    initialZ = -1;
+                    break;
+
+                case SpawnArea.CenterNorthWest:
+                    initialX = +1;
+                    initialY = 0;
+                    initialZ = -1;
+                    break;
+
+                case SpawnArea.CornerNorth:
+                    initialX = (_radius - 1) + 1;
+                    initialY = (_radius - 1) - 1;
+                    initialZ = 0;
+                    break;
+
+                case SpawnArea.CornerNorthEast:
+                    initialX = 0;
+                    initialY = (_radius - 1) - 1;
+                    initialZ = (_radius - 1) + 1;
+                    break;
+
+                case SpawnArea.CornerSouthEast:
+                    initialX = (_radius - 1) - 1;
+                    initialY = 0;
+                    initialZ = (_radius - 1) + 1;
+                    break;
+
+                case SpawnArea.CornerSouth:
+                    initialX = (_radius - 1) - 1;
+                    initialY = (_radius - 1) + 1;
+                    initialZ = 0;
+                    break;
+
+                case SpawnArea.CornerSouthWest:
+                    initialX = 0;
+                    initialY = (_radius - 1) + 1;
+                    initialZ = (_radius - 1) - 1;
+                    break;
+
+                case SpawnArea.CornerNorthWest:
+                    initialX = (_radius - 1) + 1;
+                    initialY = 0;
+                    initialZ = (_radius - 1) - 1;
+                    break;
+
+                default:
+                    // Throw an error that the SpawnArea is not supported
+                    break;
+            }
+            return DetermineCubeCoordinates(initialX, initialY, initialZ, spawnPosition);
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="initialX"></param>
+        /// <param name="initialY"></param>
+        /// <param name="initialZ"></param>
+        /// <param name="spawnPosition"></param>
+        /// <returns></returns>
+        private ICubeCoordinates DetermineCubeCoordinates(int initialX, int initialY,
+            int initialZ, ISpawnPosition spawnPosition)
+        {
+            int x = initialX;
+            int y = initialY;
+            int z = initialZ;
+            switch (spawnPosition.GetSpawnSide())
+            {
+                case SpawnSide.Lead:
+                    // Do nothing since the initial spot is perfect as is
+                    break;
+
+                case SpawnSide.Right:
+                    switch (spawnPosition.GetSpawnArea())
+                    {
+                        case SpawnArea.CenterNorth:
+                        case SpawnArea.CornerNorth:
+                            x++; z--;
+                            break;
+
+                        case SpawnArea.CenterNorthEast:
+                        case SpawnArea.CornerNorthEast:
+                            x++; y--;
+                            break;
+
+                        case SpawnArea.CenterSouthEast:
+                        case SpawnArea.CornerSouthEast:
+                            z++; y--;
+                            break;
+
+                        case SpawnArea.CenterSouth:
+                        case SpawnArea.CornerSouth:
+                            z++; y--;
+                            break;
+
+                        case SpawnArea.CenterSouthWest:
+                        case SpawnArea.CornerSouthWest:
+                            z++; x--;
+                            break;
+
+                        case SpawnArea.CenterNorthWest:
+                        case SpawnArea.CornerNorthWest:
+                            y++; x--;
+                            break;
+                    }
+                    break;
+
+                case SpawnSide.Rear:
+                    switch (spawnPosition.GetSpawnArea())
+                    {
+                        case SpawnArea.CenterNorth:
+                        case SpawnArea.CornerNorth:
+                            x++; y--;
+                            break;
+
+                        case SpawnArea.CenterNorthEast:
+                        case SpawnArea.CornerNorthEast:
+                            z++; y--;
+                            break;
+
+                        case SpawnArea.CenterSouthEast:
+                        case SpawnArea.CornerSouthEast:
+                            z++; x--;
+                            break;
+
+                        case SpawnArea.CenterSouth:
+                        case SpawnArea.CornerSouth:
+                            y++; x--;
+                            break;
+
+                        case SpawnArea.CenterSouthWest:
+                        case SpawnArea.CornerSouthWest:
+                            y++; z--;
+                            break;
+
+                        case SpawnArea.CenterNorthWest:
+                        case SpawnArea.CornerNorthWest:
+                            x++; z--;
+                            break;
+                    }
+                    break;
+
+                case SpawnSide.Left:
+                    switch (spawnPosition.GetSpawnArea())
+                    {
+                        case SpawnArea.CenterNorth:
+                        case SpawnArea.CornerNorth:
+                            z++; y--;
+                            break;
+
+                        case SpawnArea.CenterNorthEast:
+                        case SpawnArea.CornerNorthEast:
+                            z++; x--;
+                            break;
+
+                        case SpawnArea.CenterSouthEast:
+                        case SpawnArea.CornerSouthEast:
+                            y++; x--;
+                            break;
+
+                        case SpawnArea.CenterSouth:
+                        case SpawnArea.CornerSouth:
+                            y++; z--;
+                            break;
+
+                        case SpawnArea.CenterSouthWest:
+                        case SpawnArea.CornerSouthWest:
+                            x++; z--;
+                            break;
+
+                        case SpawnArea.CenterNorthWest:
+                        case SpawnArea.CornerNorthWest:
+                            x++; y--;
+                            break;
+                    }
+                    break;
+
+                default:
+                    // Throw an error that the SpawnSide is not supported
+                    break;
+            }
+            return new CubeCoordinates(x, y, z);
         }
     }
 }

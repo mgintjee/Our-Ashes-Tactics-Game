@@ -18,6 +18,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Fram
         // Todo
         private static readonly ILogger _centralLogger = new CentralLogger(new StackFrame().GetMethod().DeclaringType);
 
+        // Todo
         private readonly IDictionary<MvcType, IMvcFrame> mvcTypeFrames = new Dictionary<MvcType, IMvcFrame>()
         {
             { MvcType.Sortie, null },
