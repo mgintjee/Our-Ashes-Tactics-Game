@@ -6,11 +6,6 @@
     public interface ILogger
     {
         /// <summary>
-        /// Create the log file to write to. Should be called at each Mvc's construction
-        /// </summary>
-        void CreateLogFile();
-
-        /// <summary>
         /// Logger Method, to log a message with no parameters
         /// </summary>
         /// <param name="message">The String message to Log</param>

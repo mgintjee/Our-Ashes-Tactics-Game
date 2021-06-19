@@ -1,22 +1,24 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Types.Enums;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Types.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Randoms.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Destructibles.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Fireables.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Fireables.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combatants.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combats.Damages.Reports.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combats.Damages.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combats.Reports.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combats.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Loadouts.Reports.Gears.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Loggers.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Types.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Rosters.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Randoms;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Combats.Interfaces;
 using System.Collections.Generic;
@@ -30,11 +32,20 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
     public class CombatModel
         : ICombatModel
     {
-        // Todo
-        private static readonly ILogger _logger = new SortieLogger(new StackFrame().GetMethod().DeclaringType);
+        // Provides logging capability to the SORTIE logs
+        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private ICombatReport _report;
+
+        // Todo
+        private ISet<IDamageReport> damageReports = new HashSet<IDamageReport>();
+
+        // Todo
+        private CombatantCallSign actingCombatant = CombatantCallSign.None;
+
+        // Todo
+        private CombatantCallSign targetCombatant = CombatantCallSign.None;
 
         /// <summary>
         /// Todo
@@ -48,6 +59,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <inheritdoc/>
         ICombatReport ICombatModel.GetReport()
         {
+            if (_report == null)
+            {
+                this.BuildReport();
+            }
             return _report;
         }
 
@@ -56,7 +71,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             IRosterReport rosterReport, IMapReport mapReport)
         {
             IPath path = controllerRequest.GetPath();
-            ISet<IDamageReport> damageReports = new HashSet<IDamageReport>();
+            this.damageReports.Clear();
             if (path.GetPathType() == PathType.Fire)
             {
                 ICubeCoordinates targetCubeCoordinates = path.GetEnd();
@@ -68,6 +83,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                         .GetCombatantReport(tileReport.GetCombatantCallSign());
                     if (actingCombatantReport.IsPresent() && targetCombatantReport.IsPresent())
                     {
+                        actingCombatant = actingCombatantReport.GetValue().GetCombatantCallSign();
+                        targetCombatant = targetCombatantReport.GetValue().GetCombatantCallSign();
                         IDestructibleAttributes destructibleAttributes = targetCombatantReport.GetValue()
                             .GetCurrentAttributes().GetDestructibleAttributes();
                         IFireableAttributes combatantFireableAttributes = actingCombatantReport.GetValue()
@@ -75,22 +92,20 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                         foreach (IGearReport weaponGearReport in
                             actingCombatantReport.GetValue().GetLoadoutReport().GetGearReports(GearType.Weapon))
                         {
-                            damageReports.Add(this.GetDamageReport(
+                            this.damageReports.Add(this.GetDamageReport(
                                 combatantFireableAttributes, weaponGearReport, destructibleAttributes, path));
                         }
                     }
                 });
             }
-            _report = new CombatReport.Builder()
-                .SetDamageReports(damageReports)
-                .Build();
+            this.BuildReport();
         }
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="combatantFireableAttributes"></param>
-        /// <param name="gearReport">           </param>
+        /// <param name="gearReport">                 </param>
         /// <param name="destructibleAttributes">     </param>
         /// <param name="path">                       </param>
         /// <returns></returns>
@@ -132,7 +147,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                     expectedSalvoHits = fireableAttributes.GetSalvo() * accuracyRemaining;
                     for (int i = 0; i < fireableAttributes.GetSalvo(); ++i)
                     {
-                        double randomRoll = SortieRandom.GetInstance().NextDouble();
+                        double randomRoll = RandomManager.GetSortieRandom().NextDouble();
                         if (randomRoll < accuracyRemaining)
                         {
                             actualSalvoHits++;
@@ -150,6 +165,18 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 .SetArmorDamageInflictedPerHit(armorDamageInflictedPerHit)
                 .SetHealthDamageInflictedPerHit(healthDamageInflictedPerHit)
                 .SetHealthDamageMitigatedPerHit(healthDamageMitigatedPerHit)
+                .Build();
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        private void BuildReport()
+        {
+            _report = new CombatReport.Builder()
+                .SetDamageReports(damageReports)
+                .SetActingCallSign(actingCombatant)
+                .SetTargetCallSign(targetCombatant)
                 .Build();
         }
     }

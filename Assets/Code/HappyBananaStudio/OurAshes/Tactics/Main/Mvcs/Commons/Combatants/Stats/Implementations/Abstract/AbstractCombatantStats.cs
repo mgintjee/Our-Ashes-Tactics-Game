@@ -1,7 +1,11 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.IDs.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Skins.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Types.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Rarities.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Stats.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Stats.Models.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Stats.Views.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Materials.Indices.Interfaces;
+using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Stats.Implementations.Abstract
 {
@@ -12,35 +16,59 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
         : ICombatantStats
     {
         // Todo
-        protected string name;
+        protected string _name;
 
         // Todo
-        protected CombatantID combatantID;
+        protected CombatantID _combatantID;
 
         // Todo
-        protected ICombatantModelStats modelStats;
+        protected CombatantType _combatantType;
 
         // Todo
-        protected ICombatantViewStats viewStats;
+        protected Rarity _rarity;
+
+        // Todo
+        protected IMaterialIndices _materialIndices;
+
+        // Todo
+        protected ICombatantAttributes _combatantAttributes;
+
+        // Todo
+        protected ISet<CombatantSkin> _combatantSkins;
 
         CombatantID ICombatantStats.GetCombatantID()
         {
-            return combatantID;
-        }
-
-        ICombatantModelStats ICombatantStats.GetCombatantModelStats()
-        {
-            return modelStats;
-        }
-
-        ICombatantViewStats ICombatantStats.GetCombatantViewStats()
-        {
-            return viewStats;
+            return _combatantID;
         }
 
         string ICombatantStats.GetName()
         {
-            return name;
+            return _name;
+        }
+
+        CombatantType ICombatantStats.GetCombatantType()
+        {
+            return _combatantType;
+        }
+
+        Rarity ICombatantStats.GetRarity()
+        {
+            return _rarity;
+        }
+
+        IMaterialIndices ICombatantStats.GetMaterialIndices()
+        {
+            return _materialIndices;
+        }
+
+        ISet<CombatantSkin> ICombatantStats.GetCombatantSkins()
+        {
+            return new HashSet<CombatantSkin>(_combatantSkins);
+        }
+
+        ICombatantAttributes ICombatantStats.GetCombatantAttributes()
+        {
+            return _combatantAttributes;
         }
     }
 }

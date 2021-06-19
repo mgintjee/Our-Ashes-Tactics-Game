@@ -43,7 +43,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 range += fireableAttributes.GetRange();
                 salvo += fireableAttributes.GetSalvo();
             }
-            this._attributes = new FireableAttributes.Builder()
+            _attributes = new FireableAttributes.Builder()
                 .SetArmorDamage(armorDamage)
                 .SetArmorPenetration(armorPenetration)
                 .SetAccuracy(accuracy)

@@ -1,11 +1,11 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Simulations.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Constructions.Formations.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Engagements.Constructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Constructions.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Constructions.Maps.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Constructions.Rosters.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Constructions.Scores.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Constructions.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Constructions.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Scores.Constructions.Interfaces;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Constructions.Implementations
@@ -26,7 +26,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         private readonly IScoreConstruction _scoreConstruction;
 
         // Todo
-        private readonly IFormationConstruction _formationConstruction;
+        private readonly IEngagementConstruction _formationConstruction;
 
         // Todo
         private readonly IUnityScript _unityScript;
@@ -43,7 +43,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <param name="scoreConstruction">    </param>
         /// <param name="unityScript">          </param>
         /// <param name="simulationType">       </param>
-        private MvcSortieFrameConstruction(IFormationConstruction formationConstruction,
+        private MvcSortieFrameConstruction(IEngagementConstruction formationConstruction,
             IMapConstruction mapConstruction, IRosterConstruction rosterConstruction,
             IScoreConstruction scoreConstruction, IUnityScript unityScript, SimulationType simulationType)
         {
@@ -51,12 +51,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             _rosterConstruction = rosterConstruction;
             _scoreConstruction = scoreConstruction;
             _formationConstruction = formationConstruction;
-            this._unityScript = unityScript;
-            this._simulationType = simulationType;
+            _unityScript = unityScript;
+            _simulationType = simulationType;
         }
 
         /// <inheritdoc/>
-        IFormationConstruction IMvcSortieFrameConstruction.GetFormationConstruction()
+        IEngagementConstruction IMvcSortieFrameConstruction.GetFormationConstruction()
         {
             return _formationConstruction;
         }
@@ -70,7 +70,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <inheritdoc/>
         IUnityScript IMvcSortieFrameConstruction.GetUnityScript()
         {
-            return this._unityScript;
+            return _unityScript;
         }
 
         /// <inheritdoc/>
@@ -88,7 +88,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <inheritdoc/>
         SimulationType IMvcSortieFrameConstruction.GetSimulationType()
         {
-            return this._simulationType;
+            return _simulationType;
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         public class Builder
         {
             // Todo
-            private IFormationConstruction _formationConstruction = null;
+            private IEngagementConstruction _formationConstruction = null;
 
             // Todo
             private IRosterConstruction _rosterConstruction = null;
@@ -149,7 +149,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             /// </summary>
             /// <param name="formationConstruction"></param>
             /// <returns></returns>
-            public Builder SetFormationConstruction(IFormationConstruction formationConstruction)
+            public Builder SetEngagementConstruction(IEngagementConstruction formationConstruction)
             {
                 _formationConstruction = formationConstruction;
                 return this;
@@ -210,7 +210,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
                 // Check that _formationConstruction has been set
                 if (_formationConstruction == null)
                 {
-                    argumentExceptionSet.Add(typeof(IFormationConstruction).Name + " cannot be null.");
+                    argumentExceptionSet.Add(typeof(IEngagementConstruction).Name + " cannot be null.");
                 }
                 // Check that _mapConstruction has been set
                 if (_mapConstruction == null)

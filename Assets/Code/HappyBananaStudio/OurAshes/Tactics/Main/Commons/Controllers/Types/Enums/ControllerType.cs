@@ -6,7 +6,7 @@
     public enum ControllerType
     {
         None,
-        ComputerRandom,
+        AI,
         Human
     }
 }

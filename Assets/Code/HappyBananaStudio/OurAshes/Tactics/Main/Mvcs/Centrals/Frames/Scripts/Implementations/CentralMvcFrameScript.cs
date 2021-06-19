@@ -1,11 +1,7 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Commons.Loggers.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Commons.Randoms;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Frames.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Frames.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Frames.Scripts.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Scripts.Implementations.Abstracts;
-using System.Diagnostics;
+using UnityEngine;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Frames.Scripts.Implementations
 {
@@ -15,8 +11,41 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Fram
     public class CentralMvcFrameScript
         : AbstractMvcFrameScript, ICentralMvcFrameScript
     {
-        // Todo
-        private static readonly ILogger _centralLogger = new CentralLogger(new StackFrame().GetMethod().DeclaringType);
+        /// <summary>
+        /// Todo
+        /// </summary>
+        public class Builder
+        {
+            // Todo
+            private IUnityScript parentUnityScript;
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <returns></returns>
+            public ICentralMvcFrameScript Build()
+            {
+                GameObject gameObject = new GameObject(typeof(ICentralMvcFrameScript).Name);
+                ICentralMvcFrameScript viewScript = gameObject.AddComponent<CentralMvcFrameScript>();
+                viewScript.SetParent(parentUnityScript);
+                return gameObject.GetComponent<ICentralMvcFrameScript>();
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <param name="unityScript"></param>
+            /// <returns></returns>
+            public Builder SetUnityScript(IUnityScript unityScript)
+            {
+                this.parentUnityScript = unityScript;
+                return this;
+            }
+        }
+
+        /*
+        // Provides logging capability to the CENTRAL logs
+        private static readonly ILogger _centralLogger = LoggerManager.GetCentralLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private bool _centralComplete;
@@ -41,17 +70,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Fram
             }
             else
             {
-                _centralMvcFrame = new CentralMvcFrame();
+                _centralMvcFrame = new CentralMvcFrame(this);
             }
         }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        protected override void OnAwake()
-        {
-            _centralLogger.CreateLogFile();
-            CentralRandom.GetInstance();
-        }
+        */
     }
 }

@@ -5,10 +5,10 @@
     /// </summary>
     public enum SpawnSide
     {
-        None,
-        Lead,
-        Right,
-        Rear,
-        Left
+        None = 0,
+        Lead = 1,
+        Right = 2,
+        Rear = 3,
+        Left = 4
     }
 }

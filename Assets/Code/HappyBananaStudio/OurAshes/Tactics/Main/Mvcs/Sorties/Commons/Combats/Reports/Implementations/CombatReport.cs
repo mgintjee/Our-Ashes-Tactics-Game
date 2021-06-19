@@ -122,16 +122,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             {
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
-                // Check that _actingCallSign has been set
-                if (_actingCallSign == CombatantCallSign.None)
-                {
-                    argumentExceptionSet.Add("Acting " + typeof(CombatantCallSign).Name + " cannot be null.");
-                }
-                // Check that _targetCallSign has been set
-                if (_targetCallSign == CombatantCallSign.None)
-                {
-                    argumentExceptionSet.Add("Target " + typeof(CombatantCallSign).Name + " cannot be null.");
-                }
                 // Check that _damageReports has been set
                 if (_damageReports == null)
                 {

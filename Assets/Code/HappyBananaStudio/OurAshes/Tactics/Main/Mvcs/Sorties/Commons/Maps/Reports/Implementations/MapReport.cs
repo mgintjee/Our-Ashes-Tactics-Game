@@ -154,7 +154,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             {
                 if (tileReports != null)
                 {
-                    this._tileReports = new HashSet<ITileReport>(tileReports);
+                    _tileReports = new HashSet<ITileReport>(tileReports);
                 }
                 return this;
             }

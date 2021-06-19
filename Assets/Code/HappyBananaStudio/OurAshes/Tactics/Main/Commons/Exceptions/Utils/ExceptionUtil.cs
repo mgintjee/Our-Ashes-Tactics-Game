@@ -56,6 +56,54 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions
             return convertedMessage;
         }
 
+        public class Builders
+        {
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <returns></returns>
+            public static BuilderException Build()
+            {
+                return Build("Todo-Build Error Message");
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <param name="message"></param>
+            /// <returns></returns>
+            public static BuilderException Build(string message)
+            {
+                return new BuilderException(message);
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <param name="message">       </param>
+            /// <param name="parameterArray"></param>
+            /// <returns></returns>
+            public static BuilderException Build(string message, params object[] parameterArray)
+            {
+                return new BuilderException(ConvertMessage(message, parameterArray));
+            }
+
+            /// <summary>
+            /// Todo: MOve to other file
+            /// </summary>
+            public class BuilderException
+                : Exception
+            {
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <param name="message"></param>
+                public BuilderException(string message) : base(message)
+                {
+                }
+            }
+        }
+
         /// <summary>
         /// Todo
         /// </summary>

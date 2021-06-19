@@ -11,8 +11,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.
     public struct CubeCoordinates
         : ICubeCoordinates
     {
-        private readonly ISet<ICubeCoordinates> _neighbors;
-
         // Todo
         private readonly int _xValue;
 
@@ -41,15 +39,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.
             _xValue = xValue;
             _yValue = yValue;
             _zValue = zValue;
-            _neighbors = new HashSet<ICubeCoordinates>
-            {
-                new CubeCoordinates( _xValue + 1, _yValue, _zValue - 1),
-                new CubeCoordinates( _xValue + 1, _yValue - 1, _zValue),
-                new CubeCoordinates( _xValue, _yValue + 1, _zValue - 1),
-                new CubeCoordinates( _xValue, _yValue - 1, _zValue + 1),
-                new CubeCoordinates( _xValue - 1, _yValue, _zValue + 1),
-                new CubeCoordinates( _xValue - 1, _yValue + 1, _zValue)
-            };
         }
 
         /// <inheritdoc/>
@@ -68,7 +57,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.
         public override int GetHashCode()
         {
             int hashCode = -172019209;
-            hashCode = hashCode * -1521134295 + EqualityComparer<ISet<ICubeCoordinates>>.Default.GetHashCode(_neighbors);
             hashCode = hashCode * -1521134295 + _xValue.GetHashCode();
             hashCode = hashCode * -1521134295 + _yValue.GetHashCode();
             hashCode = hashCode * -1521134295 + _zValue.GetHashCode();
@@ -99,7 +87,15 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.
         /// <inheritdoc/>
         ISet<ICubeCoordinates> ICubeCoordinates.GetNeighbors()
         {
-            return new HashSet<ICubeCoordinates>(_neighbors);
+            return new HashSet<ICubeCoordinates>
+            {
+                new CubeCoordinates( _xValue + 1, _yValue, _zValue - 1),
+                new CubeCoordinates( _xValue + 1, _yValue - 1, _zValue),
+                new CubeCoordinates( _xValue, _yValue + 1, _zValue - 1),
+                new CubeCoordinates( _xValue, _yValue - 1, _zValue + 1),
+                new CubeCoordinates( _xValue - 1, _yValue, _zValue + 1),
+                new CubeCoordinates( _xValue - 1, _yValue + 1, _zValue)
+            };
         }
 
         /// <inheritdoc/>

@@ -39,30 +39,30 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
         private CombatantAttributes(IDestructibleAttributes destructibleAttributes, IFireableAttributes fireableAttributes,
             ILoadoutAttributes loadoutAttributes, IMovableAttributes movableAttributes)
         {
-            this._destructibleAttributes = destructibleAttributes;
-            this._fireableAttributes = fireableAttributes;
-            this._loadoutAttributes = loadoutAttributes;
-            this._movableAttributes = movableAttributes;
+            _destructibleAttributes = destructibleAttributes;
+            _fireableAttributes = fireableAttributes;
+            _loadoutAttributes = loadoutAttributes;
+            _movableAttributes = movableAttributes;
         }
 
         IDestructibleAttributes ICombatantAttributes.GetDestructibleAttributes()
         {
-            return this._destructibleAttributes;
+            return _destructibleAttributes;
         }
 
         IFireableAttributes ICombatantAttributes.GetFireableAttributes()
         {
-            return this._fireableAttributes;
+            return _fireableAttributes;
         }
 
         ILoadoutAttributes ICombatantAttributes.GetLoadoutAttributes()
         {
-            return this._loadoutAttributes;
+            return _loadoutAttributes;
         }
 
         IMovableAttributes ICombatantAttributes.GetMovableAttributes()
         {
-            return this._movableAttributes;
+            return _movableAttributes;
         }
 
         /// <summary>
@@ -89,8 +89,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             public ICombatantAttributes Build()
             {
                 // Instantiate a new Attributes
-                return new CombatantAttributes(this._destructibleAttributes,
-                    this._fireableAttributes, this._loadoutAttributes, this._movableAttributes);
+                return new CombatantAttributes(_destructibleAttributes,
+                    _fireableAttributes, _loadoutAttributes, _movableAttributes);
             }
 
             /// <summary>
@@ -114,7 +114,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
                 return new CombatantAttributes(
                     new DestructibleAttributes.Builder().Build(destructibleAttributes),
                     new FireableAttributes.Builder().Build(fireableAttributes),
-                    this._loadoutAttributes,
+                    _loadoutAttributes,
                     new MovableAttributes.Builder().Build(movableAttributes));
             }
 
@@ -124,7 +124,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             /// <param name="destructibleAttributes"></param>
             public Builder SetDestructibleAttributes(IDestructibleAttributes destructibleAttributes)
             {
-                this._destructibleAttributes = destructibleAttributes;
+                _destructibleAttributes = destructibleAttributes;
                 return this;
             }
 
@@ -134,7 +134,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             /// <param name="fireableAttributes"></param>
             public Builder SetFireableAttributes(IFireableAttributes fireableAttributes)
             {
-                this._fireableAttributes = fireableAttributes;
+                _fireableAttributes = fireableAttributes;
                 return this;
             }
 
@@ -144,7 +144,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             /// <param name="loadoutAttributes"></param>
             public Builder SetLoadoutAttributes(ILoadoutAttributes loadoutAttributes)
             {
-                this._loadoutAttributes = loadoutAttributes;
+                _loadoutAttributes = loadoutAttributes;
                 return this;
             }
 
@@ -154,7 +154,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             /// <param name="movableAttributes"></param>
             public Builder SetMovableAttributes(IMovableAttributes movableAttributes)
             {
-                this._movableAttributes = movableAttributes;
+                _movableAttributes = movableAttributes;
                 return this;
             }
         }

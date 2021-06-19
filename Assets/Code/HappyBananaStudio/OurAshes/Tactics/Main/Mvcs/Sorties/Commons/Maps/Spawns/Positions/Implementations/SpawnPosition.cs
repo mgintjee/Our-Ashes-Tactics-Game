@@ -1,11 +1,7 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Enums;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Spawns.Areas.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Spawns.Sides.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Spawns.Positions.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Tiles.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Types.Enums;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Spawns.Positions.Implementations
@@ -17,19 +13,104 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         : ISpawnPosition
     {
         // Todo
-        private readonly SpawnSide spawnSide;
+        private readonly SpawnSide _spawnSide;
 
         // Todo
-        private readonly SpawnArea spawnArea;
+        private readonly SpawnArea _spawnArea;
 
-        SpawnArea ISpawnPosition.GetSpawnArea()
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="spawnArea"></param>
+        /// <param name="spawnSide"></param>
+        private SpawnPosition(SpawnArea spawnArea, SpawnSide spawnSide)
         {
-            return spawnArea;
+            _spawnArea = spawnArea;
+            _spawnSide = spawnSide;
         }
 
+        /// <inheritdoc/>
+        SpawnArea ISpawnPosition.GetSpawnArea()
+        {
+            return _spawnArea;
+        }
+
+        /// <inheritdoc/>
         SpawnSide ISpawnPosition.GetSpawnSide()
         {
-            return spawnSide;
+            return _spawnSide;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        public class Builder
+        {
+            // Todo
+            private SpawnSide _spawnSide = SpawnSide.None;
+
+            // Todo
+            private SpawnArea _spawnArea = SpawnArea.None;
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <returns></returns>
+            public ISpawnPosition Build()
+            {
+                ISet<string> invalidReasons = this.IsInvalid();
+                // Check that the set parameters are valid
+                if (invalidReasons.Count == 0)
+                {
+                    // Instantiate a new position
+                    return new SpawnPosition(_spawnArea, _spawnSide);
+                }
+                throw ExceptionUtil.Arguments.Build("Unable to construct {}. Invalid Parameters. {}",
+                    this.GetType(), string.Join("\n", invalidReasons));
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <param name="spawnArea"></param>
+            /// <returns></returns>
+            public Builder SetSpawnArea(SpawnArea spawnArea)
+            {
+                _spawnArea = spawnArea;
+                return this;
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <param name="spawnSide"></param>
+            /// <returns></returns>
+            public Builder SetSpawnSide(SpawnSide spawnSide)
+            {
+                _spawnSide = spawnSide;
+                return this;
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <returns></returns>
+            private ISet<string> IsInvalid()
+            {
+                // Default an empty Set: String
+                ISet<string> argumentExceptionSet = new HashSet<string>();
+                // Check that _spawnArea has been set
+                if (_spawnArea == SpawnArea.None)
+                {
+                    argumentExceptionSet.Add(typeof(SpawnArea).Name + " cannot be none.");
+                }
+                // Check that _spawnSide has been set
+                if (_spawnSide == SpawnSide.None)
+                {
+                    argumentExceptionSet.Add(typeof(SpawnSide).Name + " cannot be none.");
+                }
+                return argumentExceptionSet;
+            }
         }
     }
 }

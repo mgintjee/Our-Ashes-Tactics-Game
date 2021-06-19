@@ -1,4 +1,4 @@
-﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Enums
+﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Spawns.Areas.Enums
 {
     /// <summary>
     /// Todo

@@ -112,14 +112,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
                     ComplexEmblem complexEmblemSingle =
                         new GameObject(typeof(ComplexEmblem).Name)
                         .AddComponent<ComplexEmblem>();
-                    complexEmblemSingle.SetParent(this._parentTransform);
-                    complexEmblemSingle.BuildBackground(this._patternScheme.GetTertiaryColorID(),
-                        this._emblemScheme.GetBackgroundID());
-                    complexEmblemSingle.BuildForeground(this._patternScheme.GetSecondaryColorID(),
-                        this._emblemScheme.GetForegroundID());
-                    complexEmblemSingle.BuildIcon(this._patternScheme.GetPrimaryColorID(),
-                        this._emblemScheme.GetIconID());
-                    complexEmblemSingle.BuildCombatantCallSign(this._callSign);
+                    complexEmblemSingle.SetParent(_parentTransform);
+                    complexEmblemSingle.BuildBackground(_patternScheme.GetTertiaryColorID(),
+                        _emblemScheme.GetBackgroundID());
+                    complexEmblemSingle.BuildForeground(_patternScheme.GetSecondaryColorID(),
+                        _emblemScheme.GetForegroundID());
+                    complexEmblemSingle.BuildIcon(_patternScheme.GetPrimaryColorID(),
+                        _emblemScheme.GetIconID());
+                    complexEmblemSingle.BuildCombatantCallSign(_callSign);
                     return complexEmblemSingle;
                 }
                 else
@@ -136,7 +136,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// <returns></returns>
             public Builder SetColorSchemeReport(IPatternScheme colorSchemeReport)
             {
-                this._patternScheme = colorSchemeReport;
+                _patternScheme = colorSchemeReport;
                 return this;
             }
 
@@ -147,7 +147,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// <returns></returns>
             public Builder SetEmblemSchemeReport(IEmblemScheme emblemSchemeReport)
             {
-                this._emblemScheme = emblemSchemeReport;
+                _emblemScheme = emblemSchemeReport;
                 return this;
             }
 
@@ -158,7 +158,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// <returns></returns>
             public Builder SetParentTransform(Transform parentTransform)
             {
-                this._parentTransform = parentTransform;
+                _parentTransform = parentTransform;
                 return this;
             }
 
@@ -169,7 +169,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// <returns></returns>
             public Builder SetCombatantCallSign(CombatantCallSign combatantCallSign)
             {
-                this._callSign = combatantCallSign;
+                _callSign = combatantCallSign;
                 return this;
             }
 
@@ -181,19 +181,19 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             {
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
-                if (this._parentTransform == null)
+                if (_parentTransform == null)
                 {
                     argumentExceptionSet.Add("Parent " + typeof(Transform).Name + " cannot be null.");
                 }
-                if (this._callSign == CombatantCallSign.None)
+                if (_callSign == CombatantCallSign.None)
                 {
                     argumentExceptionSet.Add(typeof(CombatantCallSign).Name + " cannot be none.");
                 }
-                if (this._patternScheme == null)
+                if (_patternScheme == null)
                 {
                     argumentExceptionSet.Add(typeof(IPatternScheme).Name + " cannot be null.");
                 }
-                if (this._emblemScheme == null)
+                if (_emblemScheme == null)
                 {
                     argumentExceptionSet.Add(typeof(IEmblemScheme).Name + " cannot be null.");
                 }

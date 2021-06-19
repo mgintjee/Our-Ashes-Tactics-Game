@@ -11,14 +11,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals
         private T _value;
 
         /// <summary>
-        /// Todo
+        /// Private Constructor for an empty Optional
         /// </summary>
         private Optional()
         {
         }
 
         /// <summary>
-        /// Todo
+        /// Private Constructor for a potentially populated Optional
         /// </summary>
         private Optional(T value)
         {
@@ -26,37 +26,39 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals
         }
 
         /// <summary>
-        /// Todo
+        /// Static constructor of a potentially null value
         /// </summary>
         /// <param name="value"></param>
-        /// <returns></returns>
+        /// <returns>The Optional wrapper of the value</returns>
         public static Optional<T> Of(T value)
         {
-            return new Optional<T>(value);
+            return (value != null)
+                ? new Optional<T>(value)
+                : Empty();
         }
 
         /// <summary>
-        /// Todo
+        /// Static constructor of a null value
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The Empty Optional wrapper</returns>
         public static Optional<T> Empty()
         {
             return new Optional<T>();
         }
 
         /// <summary>
-        /// Todo
+        /// Return if the Optional wrapper is empty or not
         /// </summary>
-        /// <returns></returns>
+        /// <returns>bool dependent on if the value is null</returns>
         public bool IsPresent()
         {
             return _value != null;
         }
 
         /// <summary>
-        /// Todo
+        /// Sets the value for this Optional wrapper
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The value to set for this Optional wrapper</param>
 
         public void SetValue(T value)
         {
@@ -64,9 +66,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals
         }
 
         /// <summary>
-        /// Todo
+        /// Sets the value from this Optional wrapper
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The value that this Optional wrapper contains</returns>
 
         public T GetValue()
         {
@@ -74,9 +76,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals
         }
 
         /// <summary>
-        /// Todo
+        /// Apply an action on the value that this Optional wrapper contains
         /// </summary>
-        /// <param name="action"></param>
+        /// <param name="action">The action to invoke on the value</param>
 
         public void IfPresent(Action<T> action)
         {
@@ -84,6 +86,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals
             {
                 action.Invoke(_value);
             }
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return string.Format("{0}: {1}",
+                typeof(Optional<T>).Name, (_value != null) ? _value.ToString() : "Empty");
         }
     }
 }

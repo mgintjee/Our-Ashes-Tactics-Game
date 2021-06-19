@@ -1,5 +1,6 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Orders.Reports.Interfaces;
 using System.Collections.Generic;
 
@@ -26,6 +27,21 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         {
             _currentCallSigns = currentCallSigns;
             _upcomingCallSigns = upcomingCallSigns;
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            string currentValue = (_currentCallSigns.Count != 0)
+                ? string.Join(", ", _currentCallSigns) : "empty";
+            string upcomingValue = (_upcomingCallSigns.Count != 0)
+                ? string.Join(", ", _upcomingCallSigns) : "empty";
+            return string.Format("{0}: " +
+                "\nCurrent {1}" +
+                "\nUpcoming {2}",
+                this.GetType().Name,
+                StringUtils.Format(typeof(CombatantCallSign), currentValue),
+                StringUtils.Format(typeof(CombatantCallSign), upcomingValue));
         }
 
         /// <inheritdoc/>

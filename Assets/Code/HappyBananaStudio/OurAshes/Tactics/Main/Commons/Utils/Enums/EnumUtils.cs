@@ -24,11 +24,28 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Enum
         /// </summary>
         /// <typeparam name="TEnum"></typeparam>
         /// <returns></returns>
-        public static IList<TEnum> GetEnumListWithoutFirst<TEnum>() where TEnum : Enum
+        public static IList<TEnum> GetEnumListWithoutFirst<TEnum>()
+            where TEnum : Enum
         {
             IList<TEnum> enumList = GetEnumList<TEnum>();
             enumList.RemoveAt(0);
             return enumList;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="end"></param>
+        /// <typeparam name="TEnum"></typeparam>
+        /// <returns></returns>
+        public static IList<TEnum> GetEnumList<TEnum>(int end) where TEnum : Enum
+        {
+            IList<TEnum> tEnums = GetEnumListWithoutFirst<TEnum>();
+            if (tEnums.Count < end)
+            {
+                end = tEnums.Count;
+            }
+            return ((List<TEnum>)tEnums).GetRange(0, end);
         }
     }
 }

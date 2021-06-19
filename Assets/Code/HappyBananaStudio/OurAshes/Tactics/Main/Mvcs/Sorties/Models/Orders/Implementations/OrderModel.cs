@@ -1,9 +1,9 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Movables.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combatants.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Loggers.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Rosters.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Orders.Reports.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Orders.Reports.Interfaces;
@@ -19,8 +19,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
     public class OrderModel
         : IOrderModel
     {
-        // Todo
-        private static readonly ILogger _logger = new SortieLogger(new StackFrame().GetMethod().DeclaringType);
+        // Provides logging capability to the SORTIE logs
+        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private readonly IList<CombatantCallSign> _currentCallSigns;
@@ -46,6 +46,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <inheritdoc/>
         IOrderReport IOrderModel.GetReport()
         {
+            if (_report == null)
+            {
+                this.BuildReport();
+            }
             return _report;
         }
 
@@ -82,12 +86,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="combatantRosterReport"></param>
-        /// <param name="callSigns">            </param>
-        private void RemoveInactiveCallSigns(IRosterReport combatantRosterReport,
+        /// <param name="rosterReport"></param>
+        /// <param name="callSigns">   </param>
+        private void RemoveInactiveCallSigns(IRosterReport rosterReport,
             IList<CombatantCallSign> callSigns)
         {
-            ISet<CombatantCallSign> activeCallSigns = combatantRosterReport.GetActiveCombatantCallSigns();
+            ISet<CombatantCallSign> activeCallSigns = rosterReport.GetActiveCombatantCallSigns();
             ISet<CombatantCallSign> inactiveCallSigns = new HashSet<CombatantCallSign>();
             foreach (CombatantCallSign callSign in callSigns)
             {
@@ -105,21 +109,23 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="combatantRosterReport"></param>
-        private void UpdateCurrentCallSigns(IRosterReport combatantRosterReport)
+        /// <param name="rosterReport"></param>
+        private void UpdateCurrentCallSigns(IRosterReport rosterReport)
         {
             // Default an empty set
             ISet<CombatantCallSign> completeCallSigns = new HashSet<CombatantCallSign>();
             // Iterate over all of the currentCallSigns
             foreach (CombatantCallSign callSign in _currentCallSigns)
             {
+                _logger.Info("Current {}", callSign);
                 // Collect the combatantReport for this callSign
-                Optional<ICombatantReport> combatantReport = combatantRosterReport.GetCombatantReport(callSign);
+                Optional<ICombatantReport> combatantReport = rosterReport.GetCombatantReport(callSign);
                 combatantReport.IfPresent((combatantReport) =>
                 {
-                    // Check if the combatant has any remaining callSigns
-                    if (combatantReport.GetCurrentAttributes().GetMovableAttributes().GetActions() <= 0)
+                    // Check if the combatant has any remaining actions
+                    if (combatantReport.GetCurrentAttributes().GetMovableAttributes().GetActions() > 0)
                     {
+                        _logger.Info("Still has actions {}", callSign);
                         // Add this callSign to the completed callSigns
                         completeCallSigns.Add(callSign);
                     }
@@ -134,7 +140,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 _upcomingCallSigns.Add(callSign);
             }
             // Order the upcomingCallSigns
-            this.OrderCallSigns(combatantRosterReport, _upcomingCallSigns);
+            this.OrderCallSigns(rosterReport, _upcomingCallSigns);
             // Check if the currentCallSigns is empty
             if (_currentCallSigns.Count == 0)
             {

@@ -1,15 +1,18 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Controllers.Types.Enums;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.AIs.Types.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Requests.Comparers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Constructions.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Constructions.Phalanxes.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Constructions.Phalanxes.Models.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Phalanxes.Constructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Comparers.Implementaions.Randoms;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Interfaces;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Implementations
 {
@@ -20,16 +23,18 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
         : AbstractController, IMvcSortieController
     {
         // Todo
-        private readonly IDictionary<ControllerType, IControllerRequestComparer> controllerTypeRequestComparers
-            = new Dictionary<ControllerType, IControllerRequestComparer>()
+        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
+
+        // Todo
+        private readonly IDictionary<AIType, IControllerRequestComparer> controllerTypeRequestComparers
+            = new Dictionary<AIType, IControllerRequestComparer>()
             {
-                { ControllerType.Human, null },
-                {  ControllerType.ComputerRandom, new RandomMvcControllerRequestComparer() },
+                {  AIType.Random, new RandomMvcControllerRequestComparer() },
             };
 
         // Todo
-        private readonly IDictionary<CombatantCallSign, ControllerType> combatantCallSignControllerTypes =
-            new Dictionary<CombatantCallSign, ControllerType>();
+        private readonly IDictionary<CombatantCallSign, AIType> combatantCallSignControllerTypes =
+            new Dictionary<CombatantCallSign, AIType>();
 
         // Todo
         private ISortieControllerRequest confirmedSortieControllerRequest;
@@ -42,22 +47,21 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
         /// </summary>
         /// <param name="mvcSortieFrameConstruction"></param>
         /// <param name="unityScript">               </param>
-        private MvcSortieController(IMvcSortieFrameConstruction mvcSortieFrameConstruction,
-            IUnityScript unityScript)
+        private MvcSortieController(IMvcSortieFrameConstruction mvcSortieFrameConstruction, IUnityScript unityScript)
         {
             // Iterate over the PhalanxConstructions
             foreach (IPhalanxConstruction phalanxConstruction in
                 mvcSortieFrameConstruction.GetFormationConstruction().GetPhalanxConstructions())
             {
                 // Collect the PhalanxModelConstruction
-                IPhalanxModelConstruction phalanxModelConstruction = phalanxConstruction.GetPhalanxModelConstruction();
+                IPhalanxConstruction phalanxModelConstruction = phalanxConstruction;
                 // Iterate over the CombatantCallSigns for this PhalanxConstruction
                 foreach (CombatantCallSign combatantCallSign in
                     phalanxModelConstruction.GetCombatantCallSigns())
                 {
                     // Map the CombatantCallSign to the Phalanx's ControllerType
                     this.combatantCallSignControllerTypes.Add(combatantCallSign,
-                        phalanxModelConstruction.GetControllerType());
+                        phalanxModelConstruction.GetAIType());
                 }
             }
         }
@@ -86,12 +90,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
         {
             if (sortieControllerRequests.Count == 0)
             {
-                // Throw an error
+                throw ExceptionUtil.Arguments.Build();
             }
+            _logger.Info(":{}", string.Join(", ", sortieControllerRequests));
             CombatantCallSign combatantCallSign = new List<ISortieControllerRequest>
                 (sortieControllerRequests)[0].GetCallSign();
-            ControllerType controllerType = this.combatantCallSignControllerTypes[combatantCallSign];
-            if (controllerType != ControllerType.Human)
+            AIType controllerType = this.combatantCallSignControllerTypes[combatantCallSign];
+            if (controllerType != AIType.None)
             {
                 IControllerRequestComparer controllerRequestComparer = this.controllerTypeRequestComparers[controllerType];
                 IList<ISortieControllerRequest> sortieControllerRequestList = new List<ISortieControllerRequest>();

@@ -9,8 +9,6 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatant
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Loadouts.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Movables.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Stats.Implementations.Abstract;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Stats.Models.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Stats.Views.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Materials.Indices.Implementations;
 using System.Collections.Generic;
 
@@ -28,13 +26,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
         public CharlieAlphaCombatantStats()
             : base()
         {
-            // Assign the ICombatantStats attributes
-            this.combatantID = CombatantID.CharlieAlpha;
-            this.name = this.combatantID.ToString();
-            this.modelStats = new CombatantModelStats.Builder()
-                .SetCombatantType(CombatantType.Charlie)
-                .SetRarity(Rarity.Common)
-                .SetCombatantAttributes(new CombatantAttributes.Builder()
+            // Common Stats
+            this._combatantID = CombatantID.CharlieAlpha;
+            this._name = this._combatantID.ToString();
+            this._combatantType = CombatantType.Charlie;
+            this._rarity = Rarity.Common;
+            // Model Stats
+            this._combatantAttributes = new CombatantAttributes.Builder()
                     .SetDestructibleAttributes(
                         new DestructibleAttributes.Builder()
                         .Build())
@@ -51,17 +49,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
                             .SetEngineGearSize(GearSize.Small)
                             .SetWeaponGearSizes(new List<GearSize>() { GearSize.Small })
                             .Build())
-                    .Build())
-                .Build();
-            this.viewStats = new CombatantViewStats.Builder()
-                .SetCombatantSkins(new HashSet<CombatantSkin>()
-                    { CombatantSkin.CharlieAlphaAlpha })
-                .SetCombatantMaterialIndices(new MaterialIndices.Builder()
+                    .Build();
+            // View Stats
+            this._combatantSkins = new HashSet<CombatantSkin>() { CombatantSkin.CharlieAlphaAlpha };
+            this._materialIndices = new MaterialIndices.Builder()
                     .SetPrimaryIndex(0)
                     .SetSecondaryIndex(0)
                     .SetTertiaryIndex(0)
-                    .Build())
-                .Build();
+                    .Build();
         }
     }
 }
