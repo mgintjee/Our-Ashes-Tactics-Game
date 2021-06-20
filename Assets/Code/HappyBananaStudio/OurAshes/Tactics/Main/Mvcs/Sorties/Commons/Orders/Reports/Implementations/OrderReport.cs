@@ -3,6 +3,7 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Uti
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Orders.Reports.Interfaces;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Orders.Reports.Implementations
 {
@@ -62,10 +63,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         public class Builder
         {
             // Todo
-            private IList<CombatantCallSign> _currentCallSigns;
+            private IList<CombatantCallSign> _currentCallSigns = null;
 
             // Todo
-            private IList<CombatantCallSign> _upcomingCallSigns;
+            private IList<CombatantCallSign> _upcomingCallSigns = null;
 
             /// <summary>
             /// Todo
@@ -78,7 +79,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new report
-                    return new OrderReport(_upcomingCallSigns, _upcomingCallSigns);
+                    return new OrderReport(_currentCallSigns, _upcomingCallSigns);
                 }
                 throw ExceptionUtil.Arguments.Build("Unable to construct {}. Invalid Parameters. {}",
                     this.GetType(), string.Join("\n", invalidReasons));

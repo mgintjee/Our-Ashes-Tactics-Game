@@ -1,10 +1,13 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Implementaions.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Types.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Reports.Interfaces;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Implementaions.Moves
 {
@@ -14,6 +17,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
     public class MovePath
         : AbstractPath
     {
+        // Provides logging capability to the SORTIE logs
+        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -22,7 +28,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         public MovePath(IList<ICubeCoordinates> cubeCoordinatesList, IMapReport mapReport)
             : base(cubeCoordinatesList, mapReport)
         {
-            this.PathType = PathType.Move;
+            this._pathType = PathType.Move;
         }
 
         /// <summary>
@@ -33,7 +39,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         public MovePath(IPath pathObject, IMapReport mapReport)
             : base(pathObject, mapReport)
         {
-            this.PathType = PathType.Move;
+            this._pathType = PathType.Move;
         }
 
         /// <summary>
@@ -46,14 +52,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         public MovePath(ICubeCoordinates cubeCoordinatesStart, ICubeCoordinates cubeCoordinatesEnd, int pathLength, IMapReport mapReport)
             : base(cubeCoordinatesStart, cubeCoordinatesEnd, pathLength, mapReport)
         {
-            this.PathType = PathType.Move;
+            this._pathType = PathType.Move;
         }
 
         /// <inheritdoc/>
         protected override float GetCubeCoordinatesCost(ICubeCoordinates cubeCoordinates)
         {
             float moveCost = float.MaxValue;
-            this.MapReport.GetTileReport(cubeCoordinates).IfPresent((tileReport) =>
+            this._mapReport.GetTileReport(cubeCoordinates).IfPresent(tileReport =>
             {
                 if (tileReport.GetCombatantCallSign() == CombatantCallSign.None)
                 {

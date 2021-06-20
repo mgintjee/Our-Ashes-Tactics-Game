@@ -23,18 +23,21 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="tileCoordinatesStart"></param>
+        /// <param name="cubeCoordinates"></param>
         /// <param name="mapReport">           </param>
-        private WaitPathFinder(ICubeCoordinates tileCoordinatesStart, IMapReport mapReport)
-            : base(tileCoordinatesStart, mapReport)
+        private WaitPathFinder(ICubeCoordinates cubeCoordinates, IMapReport mapReport)
         {
+            this._cubeCoordinates = cubeCoordinates;
+            this._mapReport = mapReport;
+            this.PathFind();
         }
 
         /// <inheritdoc/>
         protected override void PathFind()
         {
-            this.cubeCoordinatesPaths.Add(this.cubeCoordinates,
-                new WaitPath(new List<ICubeCoordinates>() { this.cubeCoordinates }, this.mapReport));
+            _logger.Debug("PathFind @ {}", this._cubeCoordinates);
+            this.cubeCoordinatesPaths.Add(this._cubeCoordinates,
+                new WaitPath(new List<ICubeCoordinates>() { this._cubeCoordinates }, this._mapReport));
         }
 
         /// <summary>

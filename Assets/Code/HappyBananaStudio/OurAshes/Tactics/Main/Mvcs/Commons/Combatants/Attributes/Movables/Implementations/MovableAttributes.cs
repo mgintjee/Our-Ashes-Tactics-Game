@@ -10,39 +10,39 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
         : IMovableAttributes
     {
         // Todo
-        private readonly float APs;
+        private readonly float _actions;
 
         // Todo
-        private readonly float MPs;
+        private readonly float _movements;
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="MPs"></param>
-        /// <param name="APs"></param>
-        private MovableAttributes(float MPs, float APs)
+        /// <param name="movements"></param>
+        /// <param name="actions"></param>
+        private MovableAttributes(float movements, float actions)
         {
-            this.MPs = MPs;
-            this.APs = APs;
+            this._movements = movements;
+            this._actions = actions;
         }
 
         /// <inheritdoc/>
         public override string ToString()
         {
-            return string.Format("{0}: APs={1}, MPs={2}",
-                this.GetType().Name, this.APs, this.MPs);
+            return string.Format("{0}: _actions={1}, _movements={2}",
+                this.GetType().Name, this._actions, this._movements);
         }
 
         /// <inheritdoc/>
         float IMovableAttributes.GetActions()
         {
-            return this.APs;
+            return this._actions;
         }
 
         /// <inheritdoc/>
         float IMovableAttributes.GetMovement()
         {
-            return this.MPs;
+            return this._movements;
         }
 
         /// <summary>
@@ -51,10 +51,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
         public class Builder
         {
             // Todo
-            private float APs = 0;
+            private float _actions = 0;
 
             // Todo
-            private float MPs = 0;
+            private float _movements = 0;
 
             /// <summary>
             /// Todo
@@ -63,7 +63,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             public IMovableAttributes Build()
             {
                 // Instantiate a new attributes
-                return new MovableAttributes(this.MPs, this.APs);
+                return new MovableAttributes(this._movements, this._actions);
             }
 
             /// <summary>
@@ -72,36 +72,36 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             /// <returns></returns>
             public IMovableAttributes Build(ICollection<IMovableAttributes> movableAttributes)
             {
-                this.APs = 0;
-                this.MPs = 0;
+                this._actions = 0;
+                this._movements = 0;
 
                 foreach (IMovableAttributes attributes in movableAttributes)
                 {
-                    this.APs += attributes.GetActions();
-                    this.MPs += attributes.GetMovement();
+                    this._actions += attributes.GetActions();
+                    this._movements += attributes.GetMovement();
                 }
 
                 // Instantiate a new Attributes
-                return new MovableAttributes(this.APs, this.MPs);
+                return new MovableAttributes(this._movements, this._actions);
             }
 
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="APs"></param>
-            public Builder SetAPs(float APs)
+            /// <param name="actions"></param>
+            public Builder SetActions(float actions)
             {
-                this.APs = APs;
+                this._actions = actions;
                 return this;
             }
 
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="MPs"></param>
-            public Builder SetMPs(float MPs)
+            /// <param name="movements"></param>
+            public Builder SetMovements(float movements)
             {
-                this.MPs = MPs;
+                this._movements = movements;
                 return this;
             }
         }

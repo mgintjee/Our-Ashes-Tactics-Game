@@ -5,6 +5,7 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Responses.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combatants.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Constructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Implementaions.Fires;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
@@ -15,10 +16,8 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.M
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Responses.IDs.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Responses.IDs.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Responses.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Rosters.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Orders.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Scores.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Combats.Implementations;
@@ -75,6 +74,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         // Todo
         private IMvcModelResponse _mvcModelResponse;
 
+        // Todo
+        private IMvcSortieModelReport _report;
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -92,6 +94,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             _logger.Info(" {} ", _rosterModel.GetReport());
             _orderModel.Process(_rosterModel.GetReport());
             _logger.Info(" {} ", _orderModel.GetReport());
+            this.RefreshModels(null);
             this.BuildMvcModelResponse(null);
         }
 
@@ -104,8 +107,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             if (orderReport.GetCurrentCallSigns().Count > 0)
             {
                 CombatantCallSign callSign = orderReport.GetCurrentCallSigns()[0];
-                IRosterReport combatantRosterReport = _rosterModel.GetReport();
-                ISet<IPath> paths = _mapModel.GetPaths(combatantRosterReport.GetCombatantReport(callSign).GetValue());
+                _logger.Info("Acting {} ", callSign);
+                IRosterReport rosterReport = _rosterModel.GetReport();
+                _logger.Info(" {} ", rosterReport);
+                ICombatantReport combatantReport = rosterReport.GetCombatantReport(callSign).GetValue();
+                _logger.Info(" {} ", combatantReport);
+                ISet<IPath> paths = _mapModel.GetPaths(combatantReport);
                 IMapReport mapReport = _mapModel.GetReport();
                 foreach (IPath path in paths)
                 {
@@ -138,24 +145,15 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <inheritdoc/>
         bool IMvcSortieModel.IsProcessing()
         {
-            IScoreReport scoreReport = _scoreModel.GetReport();
-            _logger.Info(":{}", scoreReport);
             return !_scoreModel.GetReport().IsScoreReached();
         }
 
         /// <inheritdoc/>
         void IMvcModel.Process(IMvcControllerRequest mvcControllerRequest)
         {
-            if (mvcControllerRequest is ISortieControllerRequest sortieControllerRequest)
-            {
-                _combatModel.Process(sortieControllerRequest, _rosterModel.GetReport(), _mapModel.GetReport());
-                _rosterModel.Process(sortieControllerRequest, _combatModel.GetReport());
-                _orderModel.Process(_rosterModel.GetReport());
-                _engagementModel.Process(_rosterModel.GetReport());
-                _mapModel.Process(sortieControllerRequest, _rosterModel.GetReport());
-                _scoreModel.Process(sortieControllerRequest);
-                this.IncrementSortieResponseID(sortieControllerRequest);
-            }
+            _logger.Info("Processing {}", mvcControllerRequest);
+            this.RefreshModels((ISortieControllerRequest)mvcControllerRequest);
+            this.IncrementSortieResponseID((ISortieControllerRequest)mvcControllerRequest);
             this.BuildMvcModelResponse(mvcControllerRequest);
         }
 
@@ -171,18 +169,27 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <param name="sortieControllerRequest"></param>
         private void IncrementSortieResponseID(ISortieControllerRequest sortieControllerRequest)
         {
-            if (_orderModel.GetReport().GetUpcomingCallSigns().Count == 0)
+            CombatantCallSign currentCallSign = sortieControllerRequest.GetCallSign();
+            _logger.Info("IncrementSortieResponseId: Prev={}, Curr={}", _previousCallSign, currentCallSign);
+            _logger.Info(" {}", _rosterModel.GetReport());
+            _logger.Info(" {}", _orderModel.GetReport());
+            if (_orderModel.GetReport().GetUpcomingCallSigns().Count == 0 &&
+                _rosterModel.GetReport().GetCombatantReport(currentCallSign).GetValue().GetCurrentAttributes().GetMovableAttributes().GetActions() <= 0)
             {
                 _rosterModel.ResetForNewPhase();
+                _orderModel.Process(_rosterModel.GetReport());
+                _logger.Info("Increment Phase");
                 _sortieResponseID = _sortieResponseID.IncrementPhase();
             }
-            else if (_previousCallSign != sortieControllerRequest.GetCallSign())
+            else if (_previousCallSign != currentCallSign)
             {
-                _previousCallSign = sortieControllerRequest.GetCallSign();
+                _logger.Info("Increment Turn since {} != {}", _previousCallSign, currentCallSign);
+                _previousCallSign = currentCallSign;
                 _sortieResponseID = _sortieResponseID.IncrementTurn();
             }
             else
             {
+                _logger.Info("Increment Action");
                 _sortieResponseID = _sortieResponseID.IncrementAction();
             }
         }
@@ -196,17 +203,24 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 .SetSortieResponseID(_sortieResponseID)
                 .SetMvcControllerRequest(mvcControllerRequest)
                 .SetMvcControllerRequests(((IMvcSortieModel)this).GetControllerRequests())
-                .SetMvcSortieModelReport(this.BuildReport())
+                .SetMvcSortieModelReport(_report)
                 .Build();
         }
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
-        private IMvcSortieModelReport BuildReport()
+        /// <param name="sortieControllerRequest"></param>
+        private void RefreshModels(ISortieControllerRequest sortieControllerRequest)
         {
-            return new MvcSortieModelReport.Builder()
+            _combatModel.Process(sortieControllerRequest, _rosterModel.GetReport(), _mapModel.GetReport());
+            _rosterModel.Process(sortieControllerRequest, _combatModel.GetReport());
+            _orderModel.Process(_rosterModel.GetReport());
+            _engagementModel.Process(_rosterModel.GetReport());
+            _mapModel.Process(sortieControllerRequest, _rosterModel.GetReport());
+            _scoreModel.Process(sortieControllerRequest);
+
+            _report = new MvcSortieModelReport.Builder()
                 .SetCombatReport(_combatModel.GetReport())
                 .SetEngagementReport(_engagementModel.GetReport())
                 .SetMapReport(_mapModel.GetReport())

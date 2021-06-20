@@ -37,7 +37,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
                 "\n{1}" +
                 "\n{2}",
                 this.GetType().Name,
-                StringUtils.Format(typeof(CombatantCallSign), this._callSign));
+                StringUtils.Format(typeof(CombatantCallSign), this._callSign),
+                StringUtils.Format(typeof(IPath), this._path));
         }
 
         /// <inheritdoc/>

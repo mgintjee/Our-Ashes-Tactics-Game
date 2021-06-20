@@ -49,7 +49,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             controllerType = phalanxConstruction.GetControllerType();
             phalanxCallSigns = phalanxConstruction.GetPhalanxCallSigns();
             combatantCallSigns = phalanxConstruction.GetCombatantCallSigns();
-            _logger.Info("Instantiated");
         }
 
         /// <inheritdoc/>

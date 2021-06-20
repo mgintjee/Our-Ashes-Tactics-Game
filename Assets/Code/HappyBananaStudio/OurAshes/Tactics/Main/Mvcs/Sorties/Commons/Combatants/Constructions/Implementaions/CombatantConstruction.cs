@@ -69,7 +69,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
                 "\n{3}" +
                 "\n{4}" +
                 "\n{5}" +
-                "\n List {6}",
+                "\n {6}",
                 this.GetType().Name,
                 StringUtils.Format(typeof(CombatantCallSign), this._combatantCallSign),
                 StringUtils.Format(typeof(CombatantID), this._combatantID),

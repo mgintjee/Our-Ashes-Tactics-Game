@@ -42,14 +42,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loado
         /// <inheritdoc/>
         public override string ToString()
         {
-            return string.Format("{0}: " +
-                "\n{1}" +
-                "\n{2}" +
-                "\n{3}",
+            return string.Format("{0}: {1}, Set {2}",
                 this.GetType().Name,
                 StringUtils.Format(typeof(GearID), this._gearID),
-                _traitReport,
-                _combatantAttributes);
+                _traitReport);
         }
 
         /// <inheritdoc/>

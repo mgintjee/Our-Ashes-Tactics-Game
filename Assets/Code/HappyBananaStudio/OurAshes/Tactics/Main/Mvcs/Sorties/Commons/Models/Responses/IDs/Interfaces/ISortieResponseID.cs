@@ -1,7 +1,7 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Responses.IDs.Interfaces
 {
     /// <summary>
-    /// Todo
+    /// Sortie Response ID Interface
     /// </summary>
     public interface ISortieResponseID
     {
@@ -24,19 +24,19 @@
         int GetTurn();
 
         /// <summary>
-        /// Todo
+        /// Create a new ISortieResponseID with an incremented Action value
         /// </summary>
         /// <returns></returns>
         ISortieResponseID IncrementAction();
 
         /// <summary>
-        /// Todo
+        /// Create a new ISortieResponseID with an incremented Phase value
         /// </summary>
         /// <returns></returns>
         ISortieResponseID IncrementPhase();
 
         /// <summary>
-        /// Todo
+        /// Create a new ISortieResponseID with an incremented Turn value
         /// </summary>
         /// <returns></returns>
         ISortieResponseID IncrementTurn();

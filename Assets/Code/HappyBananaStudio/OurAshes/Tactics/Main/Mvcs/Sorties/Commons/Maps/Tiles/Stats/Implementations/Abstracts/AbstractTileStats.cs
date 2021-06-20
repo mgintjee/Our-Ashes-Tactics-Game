@@ -11,21 +11,28 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         : ITileStats
     {
         // Todo
-        protected ITileAttributes tileAttributes;
+        protected ITileAttributes _tileAttributes;
 
         // Todo
-        protected TileType tileType;
+        protected TileType _tileType;
 
         /// <inheritdoc/>
         ITileAttributes ITileStats.GetTileAttributes()
         {
-            return this.tileAttributes;
+            return this._tileAttributes;
         }
 
         /// <inheritdoc/>
         TileType ITileStats.GetTileType()
         {
-            return this.tileType;
+            return this._tileType;
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return string.Format("{0}: {1}",
+                this.GetType().Name, _tileAttributes);
         }
     }
 }

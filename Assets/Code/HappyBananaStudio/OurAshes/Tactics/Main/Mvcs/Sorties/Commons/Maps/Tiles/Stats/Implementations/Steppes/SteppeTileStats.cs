@@ -15,8 +15,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// </summary>
         public SteppeTileStats()
         {
-            this.tileType = TileType.Steppe;
-            this.tileAttributes = new TileAttributes.Builder()
+            this._tileType = TileType.Steppe;
+            this._tileAttributes = new TileAttributes.Builder()
                 .SetFireCost(5)
                 .SetMoveCost(2)
                 .Build();

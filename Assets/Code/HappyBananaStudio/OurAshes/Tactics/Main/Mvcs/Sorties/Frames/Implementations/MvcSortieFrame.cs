@@ -29,7 +29,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frame
         : IMvcSortieFrame
     {
         // Todo
-        private static readonly ILogger _sortieLogger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
+        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private readonly ISet<ISortieControllerRequest> _controllerRequests = new HashSet<ISortieControllerRequest>();
@@ -55,7 +55,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frame
         /// <param name="sortieFrameConstruction"></param>
         public MvcSortieFrame(IMvcSortieFrameConstruction sortieFrameConstruction)
         {
-            _sortieLogger.Info("Constructing {} with {}", this.GetType(), sortieFrameConstruction);
+            _logger.Info("Constructing {} with {}", this.GetType(), sortieFrameConstruction);
             RandomManager.GetSortieRandom();
             this.sortieFrameScript = new MvcSortieFrameScript.Builder()
                 .SetUnityScript(sortieFrameConstruction.GetUnityScript())
@@ -77,63 +77,82 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frame
         /// <inheritdoc/>
         void IMvcFrame.Continue()
         {
-            _sortieLogger.Info("Continue");
-            _sortieLogger.Info(":{}", !_mvcSortieModel.IsProcessing());
-            if (!_mvcSortieModel.IsProcessing())
+            if(!_mvcSortieModel.IsProcessing())
             {
-                ISet<IMvcControllerRequest> mvcControllerRequests = _mvcSortieModel.GetControllerRequests();
-                _sortieLogger.Info(":{}", string.Join(", ", mvcControllerRequests));
-                if (mvcControllerRequests.Count != 0)
-                {
-                    ISet<ISortieControllerRequest> sortieControllerRequests = new HashSet<ISortieControllerRequest>();
-                    foreach (IMvcControllerRequest mvcControllerRequest in mvcControllerRequests)
-                    {
-                        sortieControllerRequests.Add((ISortieControllerRequest)mvcControllerRequest);
-                    }
-                    _mvcSortieController.Process(sortieControllerRequests);
-                }
-            }
-            else
-            {
+                _logger.Info("Model is still processing");
                 if (this._mvcSortieView == null || !_mvcSortieView.IsProcessing())
                 {
+                    _logger.Info("View is not processing");
                     if (!_mvcSortieController.IsProcessing())
                     {
-                        ISortieControllerRequest selectedRequest = _mvcSortieController.GetSelectedControllerRequest();
-                        if (selectedRequest != null)
+                        _logger.Info("Controller is not processing");
+                        if(_mvcSortieController.GetControllerRequests().Count == 0)
                         {
-                            _mvcSortieView.Process(selectedRequest);
-                            ISortieControllerRequest confirmedRequest = _mvcSortieController.GetConfirmedControllerRequest();
-                            if (confirmedRequest != null)
+                            ISet<IMvcControllerRequest> mvcControllerRequests = _mvcSortieModel.GetControllerRequests();
+                            _logger.Info(" {} controllerRequests", mvcControllerRequests.Count);
+                            if (mvcControllerRequests.Count != 0)
                             {
-                                _mvcSortieModel.Process(confirmedRequest);
-                                IMvcModelResponse modelResponse = _mvcSortieModel.GetMvcModelResponse();
-                                mvcModelResponses.Add(modelResponse);
-                                _mvcSortieView.Process((ISortieModelResponse)modelResponse);
-                                _controllerRequests.Clear();
-                                _controllerRequests.UnionWith((ISet<ISortieControllerRequest>)_mvcSortieModel.GetControllerRequests());
-                                _mvcSortieController.Process(_controllerRequests);
-                            }
-                            else
-                            {
-                                _sortieLogger.Debug("Waiting for confirmed request");
+                                ISet<ISortieControllerRequest> sortieControllerRequests = new HashSet<ISortieControllerRequest>();
+                                foreach (IMvcControllerRequest mvcControllerRequest in mvcControllerRequests)
+                                {
+                                    sortieControllerRequests.Add((ISortieControllerRequest)mvcControllerRequest);
+                                }
+                                _mvcSortieController.Process(sortieControllerRequests);
                             }
                         }
                         else
                         {
-                            _sortieLogger.Debug("Waiting for selected request");
-                            _mvcSortieView.Process(_controllerRequests);
+                            ISortieControllerRequest selectedRequest = _mvcSortieController.GetSelectedControllerRequest();
+                            if (selectedRequest != null)
+                            {
+                                _logger.Info("Selected {}", selectedRequest);
+                                if(_mvcSortieView != null)
+                                {
+                                    _mvcSortieView.Process(selectedRequest);
+                                }
+                                ISortieControllerRequest confirmedRequest = _mvcSortieController.GetConfirmedControllerRequest();
+                                if (confirmedRequest != null)
+                                {
+                                    _logger.Info("Confirmed {}", confirmedRequest);
+                                    _mvcSortieModel.Process(confirmedRequest);
+                                    IMvcModelResponse modelResponse = _mvcSortieModel.GetMvcModelResponse();
+                                    mvcModelResponses.Add(modelResponse);
+                                    if (_mvcSortieView != null)
+                                    {
+                                        _mvcSortieView.Process((ISortieModelResponse)modelResponse);
+                                    }
+                                    _mvcSortieController.Clear();
+                                    //_controllerRequests.Clear();
+                                    //_controllerRequests.UnionWith((ISet<ISortieControllerRequest>)_mvcSortieModel.GetControllerRequests());
+                                    // _mvcSortieController.Process(_controllerRequests);
+                                    _logger.Info(":{}", ((ISortieModelResponse)_mvcSortieModel.GetMvcModelResponse()).GetSortieResponseID());
+                                    _logger.Info(":{}", ((ISortieModelResponse)_mvcSortieModel.GetMvcModelResponse()).GetMvcSortieModelReport());
+                                }
+                                else
+                                {
+                                    _logger.Debug("Waiting for confirmed request");
+                                }
+                            }
+                            else
+                            {
+                                _logger.Debug("Waiting for selected request");
+                                _mvcSortieView.Process(_controllerRequests);
+                            }
                         }
                     }
                     else
                     {
-                        _sortieLogger.Debug("Waiting for {} to finish processing.", typeof(IMvcSortieController));
+                        _logger.Info("Controller is still processing");
                     }
-                }
+                    }
                 else
                 {
-                    _sortieLogger.Debug("Waiting for {} to finish processing.", typeof(IMvcSortieView));
+                    _logger.Info("View is still processing");
                 }
+            }
+            else
+            {
+                _logger.Info("Model is not processing");
             }
         }
 

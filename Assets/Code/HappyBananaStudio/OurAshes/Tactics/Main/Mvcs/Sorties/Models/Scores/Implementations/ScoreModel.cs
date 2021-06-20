@@ -45,6 +45,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <inheritdoc/>
         void IScoreModel.Process(ISortieControllerRequest controllerRequest)
         {
+            if (controllerRequest != null)
+            {
+            }
             this.BuildReport();
         }
 

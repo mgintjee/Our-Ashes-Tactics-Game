@@ -26,21 +26,24 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
         private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
-        private readonly IDictionary<AIType, IControllerRequestComparer> controllerTypeRequestComparers
+        private readonly IDictionary<AIType, IControllerRequestComparer> _controllerTypeRequestComparers
             = new Dictionary<AIType, IControllerRequestComparer>()
             {
                 {  AIType.Random, new RandomMvcControllerRequestComparer() },
             };
 
         // Todo
-        private readonly IDictionary<CombatantCallSign, AIType> combatantCallSignControllerTypes =
+        private readonly IDictionary<CombatantCallSign, AIType> _combatantCallSignControllerTypes =
             new Dictionary<CombatantCallSign, AIType>();
 
         // Todo
-        private ISortieControllerRequest confirmedSortieControllerRequest;
+        private ISortieControllerRequest _confirmedSortieControllerRequest;
 
         // Todo
-        private ISortieControllerRequest selectedSortieControllerRequest;
+        private ISortieControllerRequest _selectedSortieControllerRequest;
+
+        // Todo
+        private readonly ISet<ISortieControllerRequest> _sortieControllerRequests = new HashSet<ISortieControllerRequest>();
 
         /// <summary>
         /// Todo
@@ -60,7 +63,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
                     phalanxModelConstruction.GetCombatantCallSigns())
                 {
                     // Map the CombatantCallSign to the Phalanx's ControllerType
-                    this.combatantCallSignControllerTypes.Add(combatantCallSign,
+                    this._combatantCallSignControllerTypes.Add(combatantCallSign,
                         phalanxModelConstruction.GetAIType());
                 }
             }
@@ -69,20 +72,29 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
         /// <inheritdoc/>
         ISortieControllerRequest IMvcSortieController.GetConfirmedControllerRequest()
         {
-            return confirmedSortieControllerRequest;
+            return _confirmedSortieControllerRequest;
+        }
+
+        /// <inheritdoc/>
+        ISet<ISortieControllerRequest> IMvcSortieController.GetControllerRequests()
+        {
+            return new HashSet<ISortieControllerRequest>(this._sortieControllerRequests);
         }
 
         /// <inheritdoc/>
         ISortieControllerRequest IMvcSortieController.GetSelectedControllerRequest()
         {
-            return selectedSortieControllerRequest;
+            return _selectedSortieControllerRequest;
         }
 
         /// <inheritdoc/>
         bool IMvcSortieController.IsProcessing()
         {
-            return this.selectedSortieControllerRequest == null ||
-                this.confirmedSortieControllerRequest == null;
+            _logger.Info(" {}, {}, {}", this._sortieControllerRequests.Count != 0, this._selectedSortieControllerRequest == null,
+                this._confirmedSortieControllerRequest == null);
+            return this._sortieControllerRequests.Count != 0 &&
+                (this._selectedSortieControllerRequest == null ||
+                this._confirmedSortieControllerRequest == null);
         }
 
         /// <inheritdoc/>
@@ -92,22 +104,33 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
             {
                 throw ExceptionUtil.Arguments.Build();
             }
-            _logger.Info(":{}", string.Join(", ", sortieControllerRequests));
+            this._sortieControllerRequests.Clear();
+            this._sortieControllerRequests.UnionWith(sortieControllerRequests);
+            this._selectedSortieControllerRequest = null;
+            this._confirmedSortieControllerRequest = null;
             CombatantCallSign combatantCallSign = new List<ISortieControllerRequest>
                 (sortieControllerRequests)[0].GetCallSign();
-            AIType controllerType = this.combatantCallSignControllerTypes[combatantCallSign];
+            AIType controllerType = this._combatantCallSignControllerTypes[combatantCallSign];
             if (controllerType != AIType.None)
             {
-                IControllerRequestComparer controllerRequestComparer = this.controllerTypeRequestComparers[controllerType];
-                IList<ISortieControllerRequest> sortieControllerRequestList = new List<ISortieControllerRequest>();
+                IControllerRequestComparer controllerRequestComparer = this._controllerTypeRequestComparers[controllerType];
+                IList<ISortieControllerRequest> sortieControllerRequestList = new List<ISortieControllerRequest>(sortieControllerRequests);
                 ((List<ISortieControllerRequest>)sortieControllerRequestList).Sort(controllerRequestComparer);
-                this.selectedSortieControllerRequest = sortieControllerRequestList[0];
-                this.confirmedSortieControllerRequest = sortieControllerRequestList[0];
+                this._selectedSortieControllerRequest = sortieControllerRequestList[0];
+                this._confirmedSortieControllerRequest = sortieControllerRequestList[0];
             }
             else
             {
                 // Waiting for human to do something
             }
+        }
+
+        /// <inheritdoc/>
+        void IMvcSortieController.Clear()
+        {
+            this._sortieControllerRequests.Clear();
+            this._selectedSortieControllerRequest = null;
+            this._confirmedSortieControllerRequest = null;
         }
 
         /// <summary>

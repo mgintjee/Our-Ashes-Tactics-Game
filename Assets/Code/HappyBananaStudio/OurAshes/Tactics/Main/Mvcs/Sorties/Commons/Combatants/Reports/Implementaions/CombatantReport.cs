@@ -1,6 +1,7 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.IDs.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combatants.Reports.Interfaces;
@@ -46,6 +47,21 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             _combatantCallSign = callSign;
             _loadoutReport = loadoutReport;
             _combatantID = combatantID;
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return string.Format("{0}: " +
+                "\n{1}" +
+                "\n{2}" +
+                "\nCurrent {3}" +
+                "\nMaximum {4}" +
+                "\n{5}",
+                this.GetType().Name,
+                StringUtils.Format(typeof(CombatantCallSign), _combatantCallSign),
+                StringUtils.Format(typeof(CombatantID), _combatantID),
+                _currentAttributes, _maximumAttributes, _loadoutReport);
         }
 
         /// <inheritdoc/>

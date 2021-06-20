@@ -30,9 +30,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loado
             _name = _gearID.ToString();
             _gearType = GearType.Cabin;
             _rarity = Rarity.Common;
-            _combatantTypes = new HashSet<CombatantType>() { CombatantType.Alpha };
+            _combatantTypes = new HashSet<CombatantType>() { CombatantType.Alpha, CombatantType.Bravo, CombatantType.Charlie };
             // Model Stats
-            _gearSize = GearSize.None;
+            _gearSize = GearSize.Small;
             _traitCount = 1;
             _traitTypes = new HashSet<TraitType>()
                 { TraitType.CabinAlpha };
@@ -45,6 +45,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loado
                         .Build())
                     .SetFireableAttributes(
                         new FireableAttributes.Builder()
+                        .SetAccuracy(5)
                         .Build())
                 .Build();
             // View Stats

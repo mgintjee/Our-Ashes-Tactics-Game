@@ -109,6 +109,33 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Im
             string convertedMessage = "";
             // Split the message based off of the subString to split on
             string[] messageParts = message.Split(Delimiters, StringSplitOptions.RemoveEmptyEntries);
+
+            if (messageParts.Length == 0)
+            {
+                foreach (object parameterObject in parameterArray)
+                {
+                    // Check if the parameterObject is non-null
+                    if (parameterObject != null)
+                    {
+                        if (parameterObject is Type)
+                        {
+                            // Append the String of the parameterObject
+                            convertedMessage += ((Type)parameterObject).Name;
+                        }
+                        else
+                        {
+                            // Append the String of the parameterObject
+                            convertedMessage += parameterObject.ToString();
+                        }
+                    }
+                    else
+                    {
+                        // Append null
+                        convertedMessage += "null";
+                    }
+                }
+            }
+
             // Iterate over the MessageParts
             for (int i = 0; i < messageParts.Length; ++i)
             {

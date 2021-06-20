@@ -50,10 +50,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
         /// <inheritdoc/>
         public override string ToString()
         {
-            return string.Format("{0}:" +
-                "\n\t>_accuracy={1}, _armorDamage={2}, " +
-                "\n\t>_armorPenetration={3}, _healthDamage={4}, " +
-                "\n\t>_range={5}, _salvo={6}",
+            return string.Format("{0}: _accuracy={1}, _armorDamage={2}, _armorPenetration={3}, _healthDamage={4}, _range={5}, _salvo={6}",
                 this.GetType().Name, _accuracy, _armorDamage,
                 _armorPenetration, _healthDamage, _range, _salvo);
         }

@@ -2,6 +2,8 @@
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.IDs.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Sizes.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Types.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Rarities.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Reports.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Reports.Interfaces;
@@ -10,6 +12,7 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Randoms.Sorties.Combatants.Loadouts.Traits;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Randoms.Sorties.Combatants.Loadouts.Gears
 {
@@ -18,6 +21,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Randoms.Sorti
     /// </summary>
     public static class RandomGearReports
     {
+        // Todo
+        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
+
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -230,13 +237,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Randoms.Sorti
             gearStats.UnionWith((gearType != GearType.None)
                 ? GearStatsManager.GetStats(gearType)
                 : GearStatsManager.GetStats());
-            gearStats.UnionWith((gearSize != GearSize.None)
+            gearStats.IntersectWith((gearSize != GearSize.None)
                 ? GearStatsManager.GetStats(gearSize)
                 : GearStatsManager.GetStats());
-            gearStats.UnionWith((combatantType != CombatantType.None)
+            gearStats.IntersectWith((combatantType != CombatantType.None)
                 ? GearStatsManager.GetStats(combatantType)
                 : GearStatsManager.GetStats());
-            gearStats.UnionWith((rarity != Rarity.None)
+            gearStats.IntersectWith((rarity != Rarity.None)
                 ? GearStatsManager.GetStats(rarity)
                 : GearStatsManager.GetStats());
             ISet<GearID> gearIDs = new HashSet<GearID>();

@@ -19,11 +19,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// </summary>
         /// <returns></returns>
         IEngagementReport GetEngagementReport();
+
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
         ICombatReport GetCombatReport();
+
         /// <summary>
         /// Todo
         /// </summary>

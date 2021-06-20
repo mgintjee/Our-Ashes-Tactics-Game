@@ -10,8 +10,6 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.C
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combats.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Types.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Rosters.Reports.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Rosters.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Constructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Reports.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Reports.Interfaces;
@@ -70,50 +68,52 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <inheritdoc/>
         void IRosterModel.Process(ISortieControllerRequest controllerRequest, ICombatReport combatReport)
         {
-            CombatantCallSign callSign = controllerRequest.GetCallSign();
-            IPath path = controllerRequest.GetPath();
-            _report.GetCombatantReport(callSign).IfPresent((combatantReport) =>
-           {
-               float actionCost = 0.0f;
-               float movementCost = 0.0f;
-               switch (path.GetPathType())
-               {
-                   case PathType.Move:
-                       actionCost += 1;
-                       movementCost += path.GetPathCost();
-                       break;
+            if (controllerRequest != null)
+            {
+                CombatantCallSign callSign = controllerRequest.GetCallSign();
+                IPath path = controllerRequest.GetPath();
+                _report.GetCombatantReport(callSign).IfPresent((combatantReport) =>
+                {
+                    float actionCost = 0.0f;
+                   float movementCost = 0.0f;
+                   switch (path.GetPathType())
+                   {
+                       case PathType.Move:
+                           actionCost -= 1;
+                           movementCost -= path.GetPathCost();
+                           break;
 
-                   case PathType.Fire:
-                       actionCost += 2;
-                       movementCost += 2 * combatantReport.GetMaximumAttributes().GetMovableAttributes().GetMovement();
-                       break;
+                       case PathType.Fire:
+                           actionCost -= 2;
+                           movementCost -= 2 * combatantReport.GetMaximumAttributes().GetMovableAttributes().GetMovement();
+                           break;
 
-                   case PathType.Wait:
-                       actionCost += combatantReport.GetCurrentAttributes().GetMovableAttributes().GetActions();
-                       break;
-               }
-               this.ApplyCombatantAttributes(callSign,
-                   new CombatantAttributes.Builder()
-                   .SetMovableAttributes(
-                       new MovableAttributes.Builder()
-                       .SetAPs(actionCost)
-                       .SetMPs(movementCost)
-                       .Build())
-                    .Build());
-           });
+                       case PathType.Wait:
+                           actionCost -= combatantReport.GetCurrentAttributes().GetMovableAttributes().GetActions();
+                           break;
+                   }
+                   this.ApplyCombatantAttributes(callSign,
+                       new CombatantAttributes.Builder()
+                       .SetMovableAttributes(
+                           new MovableAttributes.Builder()
+                           .SetActions(actionCost)
+                           .SetMovements(movementCost)
+                           .Build())
+                        .Build());
+               });
+            }
             this.BuildReport();
         }
 
         /// <inheritdoc/>
         void IRosterModel.ResetForNewPhase()
         {
-            foreach (ICombatantModel model in _models)
+            foreach(CombatantCallSign combatantCallSign in _activeCallSigns)
             {
-                if (_activeCallSigns.Contains(model.GetReport()
-                    .GetCombatantCallSign()))
+                GetModel(combatantCallSign).IfPresent(model =>
                 {
                     model.ResetForPhase();
-                }
+                });
             }
         }
 
@@ -153,23 +153,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 .SetAllCallSigns(allCallSigns)
                 .SetCombatantReports(combatantReports)
                 .Build();
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="controllerRequest"></param>
-        private void ApplyRequestToActingCallSign(ISortieControllerRequest controllerRequest)
-        {
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="targetCallSign"></param>
-        /// <param name="combatReport">  </param>
-        private void ApplyRequestToTargetCallSign(CombatantCallSign targetCallSign, ICombatReport combatReport)
-        {
         }
 
         /// <summary>

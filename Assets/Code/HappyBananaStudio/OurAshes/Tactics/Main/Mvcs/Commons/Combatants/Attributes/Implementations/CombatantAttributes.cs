@@ -45,21 +45,37 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             _movableAttributes = movableAttributes;
         }
 
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return string.Format("{0}: " +
+                "\n{1}" +
+                "\n{2}" +
+                "\n{3}" +
+                "\n{4}",
+                this.GetType().Name,
+                _destructibleAttributes, _movableAttributes, _fireableAttributes, _loadoutAttributes);
+        }
+
+        /// <inheritdoc/>
         IDestructibleAttributes ICombatantAttributes.GetDestructibleAttributes()
         {
             return _destructibleAttributes;
         }
 
+        /// <inheritdoc/>
         IFireableAttributes ICombatantAttributes.GetFireableAttributes()
         {
             return _fireableAttributes;
         }
 
+        /// <inheritdoc/>
         ILoadoutAttributes ICombatantAttributes.GetLoadoutAttributes()
         {
             return _loadoutAttributes;
         }
 
+        /// <inheritdoc/>
         IMovableAttributes ICombatantAttributes.GetMovableAttributes()
         {
             return _movableAttributes;

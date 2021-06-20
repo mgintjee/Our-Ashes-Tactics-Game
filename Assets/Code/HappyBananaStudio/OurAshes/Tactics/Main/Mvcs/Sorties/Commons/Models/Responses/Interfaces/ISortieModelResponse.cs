@@ -20,6 +20,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// Todo
         /// </summary>
         /// <returns></returns>
-        ISortieResponseID SortieResponseID();
+        ISortieResponseID GetSortieResponseID();
     }
 }

@@ -4,6 +4,8 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interf
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Loadouts.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Stats.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combatants.Constructions.Interfaces;
@@ -48,6 +50,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         // Todo
         private readonly IMovableModel _movableModel;
 
+        // Todo
+        private readonly ILoadoutAttributes _loadoutAttributes;
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -58,19 +63,30 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             _combatantCallSign = combatantConstruction.GetCombatantCallSign();
             _combatantID = combatantConstruction.GetCombatantID();
             _loadoutReport = combatantConstruction.GetLoadoutReport();
-            ISet<ICombatantAttributes> combatantAttributes = new HashSet<ICombatantAttributes>();
+            ICombatantAttributes baseCombatantAttributes = CombatantStatsManager.GetStats(_combatantID).GetValue().GetCombatantAttributes();
+            _loadoutAttributes = baseCombatantAttributes.GetLoadoutAttributes();
+            ISet<ICombatantAttributes> combatantAttributes = new HashSet<ICombatantAttributes>() { baseCombatantAttributes };
             foreach (IGearReport gearReport in _loadoutReport.GetGearReports())
             {
                 ICombatantAttributes attributes = gearReport.GetCombatantAttributes();
-                combatantAttributes.Add(new CombatantAttributes.Builder()
-                        .SetDestructibleAttributes(attributes.GetDestructibleAttributes())
-                        .SetMovableAttributes(attributes.GetMovableAttributes())
-                    .Build());
+                if (gearReport.GetGearID().ToString().Contains("Weapon"))
+                {
+                    combatantAttributes.Add(new CombatantAttributes.Builder()
+                            .SetDestructibleAttributes(attributes.GetDestructibleAttributes())
+                            .SetMovableAttributes(attributes.GetMovableAttributes())
+                        .Build());
+                }
+                else
+                {
+                    combatantAttributes.Add(attributes);
+                }
             }
             _destructibleModel = new DestructibleModel(combatantAttributes);
             _fireableModel = new FireableModel(combatantAttributes);
             _movableModel = new MovableModel(combatantAttributes);
-            _logger.Info("Instantiated");
+            _logger.Info("Current {}", _destructibleModel.GetCurrentAttributes());
+            _logger.Info("Current {}", _fireableModel.GetCurrentAttributes());
+            _logger.Info("Current {}", _movableModel.GetCurrentAttributes());
         }
 
         /// <inheritdoc/>
@@ -96,7 +112,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <inheritdoc/>
         void ICombatantModel.ResetForPhase()
         {
+            _logger.Info("Resetting {}", _combatantCallSign);
+            _logger.Info("Pre {}", _movableModel.GetCurrentAttributes());
             _movableModel.ResetForPhase();
+            _logger.Info("Post {}", _movableModel.GetCurrentAttributes());
         }
 
         /// <summary>
@@ -109,6 +128,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 .SetDestructibleAttributes(_destructibleModel.GetCurrentAttributes())
                 .SetFireableAttributes(_fireableModel.GetCurrentAttributes())
                 .SetMovableAttributes(_movableModel.GetCurrentAttributes())
+                .SetLoadoutAttributes(_loadoutAttributes)
                 .Build();
         }
 
@@ -119,9 +139,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         private ICombatantAttributes GetMaximumCombatantAttributes()
         {
             return new CombatantAttributes.Builder()
-                .SetDestructibleAttributes(_destructibleModel.GetCurrentAttributes())
+                .SetDestructibleAttributes(_destructibleModel.GetMaximumAttributes())
                 .SetFireableAttributes(_fireableModel.GetMaximumAttributes())
-                .SetMovableAttributes(_movableModel.GetCurrentAttributes())
+                .SetMovableAttributes(_movableModel.GetMaximumAttributes())
+                .SetLoadoutAttributes(_loadoutAttributes)
                 .Build();
         }
     }

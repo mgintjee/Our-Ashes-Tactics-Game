@@ -1,4 +1,5 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Sizes.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Loadouts.Interfaces;
 using System.Collections.Generic;
 
@@ -11,16 +12,16 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
         : ILoadoutAttributes
     {
         // Todo
-        private readonly GearSize armorGearSize;
+        private readonly GearSize _armorGearSize;
 
         // Todo
-        private readonly GearSize cabinGearSize;
+        private readonly GearSize _cabinGearSize;
 
         // Todo
-        private readonly GearSize engineGearSize;
+        private readonly GearSize _engineGearSize;
 
         // Todo
-        private readonly IList<GearSize> weaponGearSizes;
+        private readonly IList<GearSize> _weaponGearSizes;
 
         /// <summary>
         /// Tododw
@@ -32,34 +33,47 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
         private LoadoutAttributes(GearSize armorGearSize, GearSize cabinGearSize,
             GearSize engineGearSize, IList<GearSize> weaponGearSizes)
         {
-            this.armorGearSize = armorGearSize;
-            this.cabinGearSize = cabinGearSize;
-            this.engineGearSize = engineGearSize;
-            this.weaponGearSizes = weaponGearSizes;
+            this._armorGearSize = armorGearSize;
+            this._cabinGearSize = cabinGearSize;
+            this._engineGearSize = engineGearSize;
+            this._weaponGearSizes = weaponGearSizes;
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            string weaponStrings = (_weaponGearSizes.Count != 0)
+                ? string.Join(", ", _weaponGearSizes) : "empty";
+            return string.Format("{0}: Armor: {1}, Cabin: {2}, Engine: {3}, Weapons: {4}",
+                this.GetType().Name,
+                StringUtils.Format(typeof(GearSize), _armorGearSize),
+                StringUtils.Format(typeof(GearSize), _cabinGearSize),
+                StringUtils.Format(typeof(GearSize), _engineGearSize),
+                StringUtils.Format(typeof(GearSize), weaponStrings));
         }
 
         /// <inheritdoc/>
         GearSize ILoadoutAttributes.GetArmorGearSize()
         {
-            return this.armorGearSize;
+            return this._armorGearSize;
         }
 
         /// <inheritdoc/>
         GearSize ILoadoutAttributes.GetCabinGearSize()
         {
-            return this.cabinGearSize;
+            return this._cabinGearSize;
         }
 
         /// <inheritdoc/>
         GearSize ILoadoutAttributes.GetEngineGearSize()
         {
-            return this.engineGearSize;
+            return this._engineGearSize;
         }
 
         /// <inheritdoc/>
         IList<GearSize> ILoadoutAttributes.GetWeaponGearSizes()
         {
-            return new List<GearSize>(this.weaponGearSizes);
+            return new List<GearSize>(this._weaponGearSizes);
         }
 
         /// <summary>

@@ -62,7 +62,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         }
 
         /// <inheritdoc/>
-        ISortieResponseID ISortieModelResponse.SortieResponseID()
+        ISortieResponseID ISortieModelResponse.GetSortieResponseID()
         {
             return _sortieResponseID;
         }

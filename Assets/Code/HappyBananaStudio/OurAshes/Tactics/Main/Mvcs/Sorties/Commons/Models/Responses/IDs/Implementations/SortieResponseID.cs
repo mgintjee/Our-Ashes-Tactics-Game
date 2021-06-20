@@ -3,7 +3,7 @@
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Responses.IDs.Implementations
 {
     /// <summary>
-    /// Todo
+    /// Sortie Response ID Implementation
     /// </summary>
     public class SortieResponseID
         : ISortieResponseID

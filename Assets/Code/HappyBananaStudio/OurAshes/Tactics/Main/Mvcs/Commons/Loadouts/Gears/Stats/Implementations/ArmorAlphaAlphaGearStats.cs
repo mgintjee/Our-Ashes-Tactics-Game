@@ -29,22 +29,21 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loado
             _gearID = GearID.ArmorAlphaAlpha;
             _name = _gearID.ToString();
             _rarity = Rarity.Common;
-            _combatantTypes = new HashSet<CombatantType>() { CombatantType.Alpha };
+            _combatantTypes = new HashSet<CombatantType>() { CombatantType.Alpha, CombatantType.Bravo, CombatantType.Charlie };
             _gearType = GearType.Armor;
             // Model Stats
-            _gearSize = GearSize.None;
+            _gearSize = GearSize.Small;
             _traitCount = 1;
             _traitTypes = new HashSet<TraitType>()
                 { TraitType.ArmorAlpha };
             _combatantAttributes = new CombatantAttributes.Builder()
-                    .SetDestructibleAttributes(
-                        new DestructibleAttributes.Builder()
+                    .SetDestructibleAttributes( new DestructibleAttributes.Builder()
+                        .SetArmor(1)
+                        .SetHealth(5)
                         .Build())
-                    .SetMovableAttributes(
-                        new MovableAttributes.Builder()
+                    .SetMovableAttributes( new MovableAttributes.Builder()
                         .Build())
-                    .SetFireableAttributes(
-                        new FireableAttributes.Builder()
+                    .SetFireableAttributes( new FireableAttributes.Builder()
                         .Build())
                 .Build();
             // View Stats

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Implementations
 {
     /// <summary>
-    /// Todo
+    /// Cube Coordinates Implementation
     /// </summary>
     public struct CubeCoordinates
         : ICubeCoordinates
@@ -44,13 +44,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (obj is ICubeCoordinates cubeCoordinates)
-            {
-                return cubeCoordinates.GetX() == _xValue &&
-                    cubeCoordinates.GetY() == _yValue &&
-                    cubeCoordinates.GetZ() == _zValue;
-            }
-            return false;
+            return this.GetHashCode() == obj.GetHashCode();
         }
 
         /// <inheritdoc/>

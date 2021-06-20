@@ -1,11 +1,17 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Tiles.Reports.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Tiles.Reports.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Tiles.Stats.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Tiles.Stats.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Tiles.Types.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Tiles.Interfaces;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Tiles.Implementations
 {
@@ -15,6 +21,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
     public class TileModel
         : ITileModel
     {
+        // Provides logging capability to the SORTIE logs
+        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
+
         // Todo
         private readonly ICubeCoordinates _cubeCoordinates;
 
@@ -27,6 +36,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         // Todo
         private ITileReport _report;
 
+        // Todo
+        private readonly ITileStats _tileStats;
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -34,14 +46,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <param name="tileType">       </param>
         private TileModel(ICubeCoordinates cubeCoordinates, TileType tileType)
         {
+            _logger.Info("Constructing with {} and {}", cubeCoordinates, StringUtils.Format(typeof(TileType), tileType));
             _cubeCoordinates = cubeCoordinates;
             _tileType = tileType;
             _combatantCallSign = CombatantCallSign.None;
-            _report = new TileReport.Builder()
-                    .SetCombatantCallSign(_combatantCallSign)
-                    .SetCubeCoordinates(_cubeCoordinates)
-                    .SetTileType(_tileType)
-                    .Build();
+            _tileStats = TileStatsManager.GetStats(_tileType);
+            this.BuildReport();
         }
 
         /// <inheritdoc/>
@@ -53,11 +63,18 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <inheritdoc/>
         void ITileModel.SetCombatantCallSign(CombatantCallSign combatantCallSign)
         {
+            _logger.Info("Setting {} @ {}", combatantCallSign, _cubeCoordinates);
             _combatantCallSign = combatantCallSign;
+            this.BuildReport();
+        }
+
+        private void BuildReport()
+        {
             _report = new TileReport.Builder()
                     .SetCombatantCallSign(_combatantCallSign)
                     .SetCubeCoordinates(_cubeCoordinates)
                     .SetTileType(_tileType)
+                    .SetTileStats(_tileStats)
                     .Build();
         }
 

@@ -30,20 +30,20 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="sortieTileType"></param>
+        /// <param name="tileType"></param>
         /// <returns></returns>
-        public static ITileStats GetTileStats(TileType sortieTileType)
+        public static ITileStats GetStats(TileType tileType)
         {
             foreach (ITileStats stats in TileStats)
             {
-                if (sortieTileType == stats.GetTileType())
+                if (tileType == stats.GetTileType())
                 {
                     return stats;
                 }
             }
 
             throw ExceptionUtil.Arguments.Build("Unable to {}. Invalid Parameters. {} is not supported.",
-                new StackFrame().GetMethod().Name, sortieTileType);
+                new StackFrame().GetMethod().Name, tileType);
         }
     }
 }

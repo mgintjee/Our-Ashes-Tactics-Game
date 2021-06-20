@@ -35,12 +35,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 MPs += movableAttributes.GetMovement();
             }
             this.currentAttributes = new MovableAttributes.Builder()
-                .SetAPs(APs)
-                .SetMPs(MPs)
+                .SetActions(APs)
+                .SetMovements(MPs)
                 .Build();
             _maximumAttributes = new MovableAttributes.Builder()
-                .SetAPs(APs)
-                .SetMPs(MPs)
+                .SetActions(APs)
+                .SetMovements(MPs)
                 .Build();
         }
 
@@ -53,8 +53,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             APs += movableAttributes.GetActions();
             MPs += movableAttributes.GetMovement();
             this.currentAttributes = new MovableAttributes.Builder()
-                .SetAPs(APs)
-                .SetMPs(MPs)
+                .SetActions(APs)
+                .SetMovements(MPs)
                 .Build();
         }
 
@@ -74,8 +74,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         void ICharacteristicModel.ResetForPhase()
         {
             this.currentAttributes = new MovableAttributes.Builder()
-                .SetAPs(_maximumAttributes.GetActions())
-                .SetMPs(_maximumAttributes.GetMovement())
+                .SetActions(_maximumAttributes.GetActions())
+                .SetMovements(_maximumAttributes.GetMovement())
                 .Build();
         }
     }

@@ -13,26 +13,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         : IPathFinder
     {
         // Todo
-        protected readonly IDictionary<ICubeCoordinates, IPath> cubeCoordinatesPaths =
-            new Dictionary<ICubeCoordinates, IPath>();
+        protected IDictionary<ICubeCoordinates, IPath> cubeCoordinatesPaths = new Dictionary<ICubeCoordinates, IPath>();
 
         // Todo
-        protected ICubeCoordinates cubeCoordinates;
+        protected ICubeCoordinates _cubeCoordinates;
 
         // Todo
-        protected IMapReport mapReport;
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="cubeCoordinatesStart"></param>
-        public AbstractPathFinder(ICubeCoordinates cubeCoordinatesStart, IMapReport mapReport)
-        {
-            this.cubeCoordinates = cubeCoordinatesStart;
-            this.mapReport = mapReport;
-            this.cubeCoordinatesPaths = new Dictionary<ICubeCoordinates, IPath>();
-            this.PathFind();
-        }
+        protected IMapReport _mapReport;
 
         /// <inheritdoc/>
         IDictionary<ICubeCoordinates, IPath> IPathFinder.GetCubeCoordinatesPaths()

@@ -39,12 +39,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="combatReport"></param>
+        /// <param name="combatReport">    </param>
         /// <param name="engagementReport"></param>
-        /// <param name="mapReport"></param>
-        /// <param name="orderReport"></param>
-        /// <param name="rosterReport"></param>
-        /// <param name="scoreReport"></param>
+        /// <param name="mapReport">       </param>
+        /// <param name="orderReport">     </param>
+        /// <param name="rosterReport">    </param>
+        /// <param name="scoreReport">     </param>
         public MvcSortieModelReport(ICombatReport combatReport, IEngagementReport engagementReport,
             IMapReport mapReport, IOrderReport orderReport, IRosterReport rosterReport, IScoreReport scoreReport)
         {
@@ -54,6 +54,25 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             _orderReport = orderReport;
             _rosterReport = rosterReport;
             _scoreReport = scoreReport;
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return string.Format("{0}:{1}: " +
+                "\n{2}" +
+                "\n{3}" +
+                "\n{4}" +
+                "\n{5}" +
+                "\n{6}" +
+                "\n{7}",
+                this._dateTime, this.GetType().Name,
+                StringUtils.Format(typeof(ICombatReport), this._combatReport),
+                StringUtils.Format(typeof(IEngagementReport), this._engagementReport),
+                StringUtils.Format(typeof(IMapReport), this._mapReport),
+                StringUtils.Format(typeof(IOrderReport), this._orderReport),
+                StringUtils.Format(typeof(IRosterReport), this._rosterReport),
+                StringUtils.Format(typeof(IScoreReport), this._scoreReport));
         }
 
         /// <inheritdoc/>
@@ -92,25 +111,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             return _scoreReport;
         }
 
-        /// <inheritdoc/>
-        public override string ToString()
-        {
-            return string.Format("{0}:{1}: " +
-                "\n{2}" +
-                "\n{3}" +
-                "\n{4}" +
-                "\n{5}" +
-                "\n{6}" +
-                "\n{7}",
-                this._dateTime, this.GetType().Name,
-                StringUtils.Format(typeof(ICombatReport), this._combatReport),
-                StringUtils.Format(typeof(IEngagementReport), this._engagementReport),
-                StringUtils.Format(typeof(IMapReport), this._mapReport),
-                StringUtils.Format(typeof(IOrderReport), this._orderReport),
-                StringUtils.Format(typeof(IRosterReport), this._rosterReport),
-                StringUtils.Format(typeof(IScoreReport), this._scoreReport));
-        }
-
         /// <summary>
         /// Todo
         /// </summary>
@@ -120,19 +120,19 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             private ICombatReport _combatReport = null;
 
             // Todo
-            private  IEngagementReport _engagementReport = null;
+            private IEngagementReport _engagementReport = null;
 
             // Todo
-            private  IMapReport _mapReport = null;
+            private IMapReport _mapReport = null;
 
             // Todo
-            private  IOrderReport _orderReport = null;
+            private IOrderReport _orderReport = null;
 
             // Todo
-            private  IRosterReport _rosterReport = null;
+            private IRosterReport _rosterReport = null;
 
             // Todo
-            private  IScoreReport _scoreReport = null;
+            private IScoreReport _scoreReport = null;
 
             /// <summary>
             /// Todo

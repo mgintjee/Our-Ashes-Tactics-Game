@@ -20,14 +20,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         public FirePath(IList<ICubeCoordinates> cubeCoordinatesStepList, IMapReport mapReport)
             : base(cubeCoordinatesStepList, mapReport)
         {
-            this.PathType = PathType.Fire;
+            this._pathType = PathType.Fire;
         }
 
         /// <inheritdoc/>
         protected override float GetCubeCoordinatesCost(ICubeCoordinates cubeCoordinates)
         {
             float fireCost = float.MaxValue;
-            this.MapReport.GetTileReport(cubeCoordinates).IfPresent((tileReport) =>
+            this._mapReport.GetTileReport(cubeCoordinates).IfPresent((tileReport) =>
             {
                 fireCost = tileReport.GetTileStats().GetTileAttributes().GetFireCost();
                 if (tileReport.GetCombatantCallSign() != CombatantCallSign.None)

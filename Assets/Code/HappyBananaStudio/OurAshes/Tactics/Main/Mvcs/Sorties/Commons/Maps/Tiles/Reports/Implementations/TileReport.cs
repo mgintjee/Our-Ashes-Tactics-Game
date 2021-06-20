@@ -44,9 +44,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <inheritdoc/>
         public override string ToString()
         {
-            return string.Format("{0}: {1}, {2}={3}, {4}={5}, {6}",
-                this.GetType().Name, _cubeCoordinates, typeof(TileType).Name,
-                _tileType, typeof(CombatantCallSign).Name, _combatantCallSign, _tileStats);
+            return string.Format("{0}: {1}, {2}={3}, {4}",
+                this.GetType().Name, _cubeCoordinates,
+                typeof(CombatantCallSign).Name, _combatantCallSign, _tileStats);
         }
 
         /// <inheritdoc/>

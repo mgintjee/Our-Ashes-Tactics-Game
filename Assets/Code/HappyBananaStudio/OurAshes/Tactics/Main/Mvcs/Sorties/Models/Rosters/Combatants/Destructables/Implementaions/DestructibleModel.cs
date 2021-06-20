@@ -35,12 +35,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 HPs += destructibleAttributes.GetHealth();
             }
             this.currentAttributes = new DestructibleAttributes.Builder()
-                .SetAPs(APs)
-                .SetHPs(HPs)
+                .SetArmor(APs)
+                .SetHealth(HPs)
                 .Build();
             _attributes = new DestructibleAttributes.Builder()
-                .SetAPs(APs)
-                .SetHPs(HPs)
+                .SetArmor(APs)
+                .SetHealth(HPs)
                 .Build();
         }
 
@@ -53,8 +53,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             currentAPs += destructibleAttributes.GetArmor();
             currentHPs += destructibleAttributes.GetHealth();
             this.currentAttributes = new DestructibleAttributes.Builder()
-                .SetAPs(currentAPs)
-                .SetHPs(currentHPs)
+                .SetArmor(currentAPs)
+                .SetHealth(currentHPs)
                 .Build();
         }
 
@@ -74,8 +74,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         void ICharacteristicModel.ResetForPhase()
         {
             this.currentAttributes = new DestructibleAttributes.Builder()
-                .SetAPs(_attributes.GetArmor())
-                .SetHPs(_attributes.GetHealth())
+                .SetArmor(_attributes.GetArmor())
+                .SetHealth(_attributes.GetHealth())
                 .Build();
         }
     }

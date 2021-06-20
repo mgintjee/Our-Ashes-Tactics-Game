@@ -1,9 +1,12 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Types.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Reports.Interfaces;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Implementaions.Abstracts
 {
@@ -13,23 +16,25 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
     public abstract class AbstractPath
         : IPath
     {
+        // Provides logging capability to the SORTIE logs
+        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
         // Todo
-        protected IList<ICubeCoordinates> CubeCoordinatesList = new List<ICubeCoordinates>();
+        protected IList<ICubeCoordinates> _cubeCoordinatesList = new List<ICubeCoordinates>();
 
         // Todo
-        protected ICubeCoordinates End;
+        protected ICubeCoordinates _end;
 
         // Todo
-        protected IMapReport MapReport;
+        protected IMapReport _mapReport;
 
         // Todo
-        protected float PathCost = float.MaxValue;
+        protected float _pathCost = float.MaxValue;
 
         // Todo
-        protected PathType PathType;
+        protected PathType _pathType;
 
         // Todo
-        protected ICubeCoordinates Start;
+        protected ICubeCoordinates _start;
 
         /// <summary>
         /// Todo
@@ -120,11 +125,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         {
             if (pathObject.IsValid())
             {
-                this.SetAttributes(
-                    pathObject.GetCubeCoordinatesList(),
-                    pathObject.GetStart(),
-                    pathObject.GetEnd(),
-                    mapReport);
+                this.SetAttributes( pathObject.GetCubeCoordinatesList(),
+                    pathObject.GetStart(), pathObject.GetEnd(),  mapReport);
             }
             else
             {
@@ -136,53 +138,51 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <inheritdoc/>
         public override string ToString()
         {
-            return string.Format("{0}: List: {1}=[{2}]",
-                this.GetType().Name, typeof(ICubeCoordinates).Name,
-                string.Join(", ", this.CubeCoordinatesList));
+            return string.Format("{0}: Cost={1}, List: {2}=[{3}]",
+                this.GetType().Name, _pathCost, typeof(ICubeCoordinates).Name,
+                string.Join(", ", this._cubeCoordinatesList));
         }
 
         /// <inheritdoc/>
         ICubeCoordinates IPath.GetEnd()
         {
-            return this.End;
+            return this._end;
         }
 
         /// <inheritdoc/>
         ICubeCoordinates IPath.GetStart()
         {
-            return this.Start;
+            return this._start;
         }
 
         /// <inheritdoc/>
         IList<ICubeCoordinates> IPath.GetCubeCoordinatesList()
         {
-            return new List<ICubeCoordinates>(this.CubeCoordinatesList);
+            return new List<ICubeCoordinates>(this._cubeCoordinatesList);
         }
 
         /// <inheritdoc/>
         float IPath.GetPathCost()
         {
-            return this.PathCost;
+            return this._pathCost;
         }
 
         /// <inheritdoc/>
         int IPath.GetLength()
         {
-            return this.CubeCoordinatesList.Count;
+            return this._cubeCoordinatesList.Count;
         }
 
         /// <inheritdoc/>
         PathType IPath.GetPathType()
         {
-            return this.PathType;
+            return this._pathType;
         }
 
         /// <inheritdoc/>
         bool IPath.IsValid()
         {
-            return this.ValidPathCount() &&
-                this.ValidPathCompleteness() &&
-                this.ValidPathConnectivity();
+            return this.ValidPathCount() && this.ValidPathCompleteness() && this.ValidPathConnectivity();
         }
 
         /// <summary>
@@ -190,19 +190,15 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// </summary>
         protected void CalculatePathCost()
         {
-            this.PathCost = 0;
+            this._pathCost = 0;
 
             // Start at the second step to avoid adding the cost of the start CubeCoordinates
-            for (int i = 1; i < this.CubeCoordinatesList.Count; ++i)
+            for (int i = 1; i < this._cubeCoordinatesList.Count; ++i)
             {
-                if (this.CubeCoordinatesList[i] != null)
-                {
-                    this.PathCost += this.GetCubeCoordinatesCost(this.CubeCoordinatesList[i]);
-                }
-                else
-                {
-                    this.PathCost += int.MaxValue;
-                }
+                ICubeCoordinates cubeCoordinates = this._cubeCoordinatesList[i];
+                this._pathCost += (cubeCoordinates != null)
+                    ? this.GetCubeCoordinatesCost(cubeCoordinates)
+                    : int.MaxValue;
             }
         }
 
@@ -222,10 +218,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         private void SetAttributes(IList<ICubeCoordinates> cubeCoordinatesStepList,
             ICubeCoordinates cubeCoordinatesStart, ICubeCoordinates cubeCoordinatesEnd, IMapReport mapReport)
         {
-            this.CubeCoordinatesList = new List<ICubeCoordinates>(cubeCoordinatesStepList);
-            this.Start = cubeCoordinatesStart;
-            this.End = cubeCoordinatesEnd;
-            this.MapReport = mapReport;
+            this._cubeCoordinatesList = new List<ICubeCoordinates>(cubeCoordinatesStepList);
+            this._start = cubeCoordinatesStart;
+            this._end = cubeCoordinatesEnd;
+            this._mapReport = mapReport;
             this.CalculatePathCost();
         }
 
@@ -235,7 +231,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <returns></returns>
         private bool ValidPathCompleteness()
         {
-            return this.End != this.CubeCoordinatesList[this.CubeCoordinatesList.Count - 1];
+            return this._end.Equals(this._cubeCoordinatesList[this._cubeCoordinatesList.Count - 1]);
         }
 
         /// <summary>
@@ -244,10 +240,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <returns></returns>
         private bool ValidPathConnectivity()
         {
-            ICubeCoordinates previous = this.CubeCoordinatesList[0];
-            for (int i = 1; i < this.CubeCoordinatesList.Count; ++i)
+            ICubeCoordinates previous = this._cubeCoordinatesList[0];
+            for (int i = 1; i < this._cubeCoordinatesList.Count; ++i)
             {
-                ICubeCoordinates current = CubeCoordinatesList[i];
+                ICubeCoordinates current = _cubeCoordinatesList[i];
                 if (!previous.GetNeighbors().Contains(current))
                 {
                     return false;
@@ -263,8 +259,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <returns></returns>
         private bool ValidPathCount()
         {
-            return this.CubeCoordinatesList.Count <=
-                this.Start.GetDistanceFrom(this.End);
+            return this._cubeCoordinatesList.Count >= this._start.GetDistanceFrom(this._end);
         }
     }
 }

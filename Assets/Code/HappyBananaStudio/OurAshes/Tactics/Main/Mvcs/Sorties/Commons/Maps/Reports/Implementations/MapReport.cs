@@ -1,11 +1,14 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Tiles.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Types.Enums;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Reports.Implementations
 {
@@ -15,8 +18,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
     public class MapReport
         : IMapReport
     {
-        // Todo
-        private readonly MapType _mapType;
+        // Provides logging capability to the SORTIE logs
+        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private readonly bool _isMirrored;
@@ -33,13 +36,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="mapType">    </param>
         /// <param name="isMirrored"> </param>
         /// <param name="radius">     </param>
         /// <param name="tileReports"></param>
-        private MapReport(MapType mapType, bool isMirrored, int radius, ISet<ITileReport> tileReports)
+        private MapReport(bool isMirrored, int radius, ISet<ITileReport> tileReports)
         {
-            _mapType = mapType;
             _isMirrored = isMirrored;
             _radius = radius;
             _tileReports = tileReports;
@@ -54,12 +55,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         ISet<ICubeCoordinates> IMapReport.GetCubeCoordinates()
         {
             return new HashSet<ICubeCoordinates>(_cubeCoordinates);
-        }
-
-        /// <inheritdoc/>
-        MapType IMapReport.GetMapType()
-        {
-            return _mapType;
         }
 
         /// <inheritdoc/>
@@ -79,7 +74,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         {
             foreach (ITileReport tileReport in _tileReports)
             {
-                if (tileReport.GetCubeCoordinates() == cubeCoordinates)
+                if (tileReport.GetCubeCoordinates().Equals(cubeCoordinates))
                 {
                     return Optional<ITileReport>.Of(tileReport);
                 }
@@ -100,14 +95,23 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             return Optional<ITileReport>.Empty();
         }
 
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            string tileReportsString = (_tileReports.Count != 0)
+                ? string.Join("\n", _tileReports)
+                : "empty";
+            return string.Format("{0}: _radius={1}, _isMirrored={2}" +
+                "\n{3}",
+                this.GetType().Name, _radius, _isMirrored,
+                StringUtils.Format(typeof(ITileReport), tileReportsString));
+        }
+
         /// <summary>
         /// Todo
         /// </summary>
         public class Builder
         {
-            // Todo
-            private MapType _mapType = MapType.None;
-
             // Todo
             private bool _isMirrored = false;
 
@@ -128,21 +132,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new construction
-                    return new MapReport(_mapType, _isMirrored, _radius, _tileReports);
+                    return new MapReport(_isMirrored, _radius, _tileReports);
                 }
                 throw ExceptionUtil.Arguments.Build("Unable to construct {}. Invalid Parameters. {}",
                     this.GetType(), string.Join("\n", invalidReasons));
-            }
-
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="mapType"></param>
-            /// <returns></returns>
-            public Builder SetMapType(MapType mapType)
-            {
-                _mapType = mapType;
-                return this;
             }
 
             /// <summary>
@@ -189,11 +182,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             {
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
-                // Check that _mapType has been set
-                if (_mapType == MapType.None)
-                {
-                    argumentExceptionSet.Add(typeof(MapType).Name + " cannot be none.");
-                }
                 // Check that _radius has been set
                 if (_radius < 0)
                 {

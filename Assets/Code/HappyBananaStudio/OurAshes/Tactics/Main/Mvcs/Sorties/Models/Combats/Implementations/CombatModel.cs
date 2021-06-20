@@ -17,7 +17,6 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.C
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Types.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Rosters.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Combats.Interfaces;
@@ -53,7 +52,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         public CombatModel()
         {
             _logger.Info("Instantiating");
-            _logger.Info("Instantiated");
         }
 
         /// <inheritdoc/>
@@ -70,33 +68,36 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         void ICombatModel.Process(ISortieControllerRequest controllerRequest,
             IRosterReport rosterReport, IMapReport mapReport)
         {
-            IPath path = controllerRequest.GetPath();
-            this.damageReports.Clear();
-            if (path.GetPathType() == PathType.Fire)
+            if (controllerRequest != null)
             {
-                ICubeCoordinates targetCubeCoordinates = path.GetEnd();
-                mapReport.GetTileReport(targetCubeCoordinates).IfPresent((tileReport) =>
+                IPath path = controllerRequest.GetPath();
+                this.damageReports.Clear();
+                if (path.GetPathType() == PathType.Fire)
                 {
-                    Optional<ICombatantReport> actingCombatantReport = rosterReport
-                        .GetCombatantReport(controllerRequest.GetCallSign());
-                    Optional<ICombatantReport> targetCombatantReport = rosterReport
-                        .GetCombatantReport(tileReport.GetCombatantCallSign());
-                    if (actingCombatantReport.IsPresent() && targetCombatantReport.IsPresent())
+                    ICubeCoordinates targetCubeCoordinates = path.GetEnd();
+                    mapReport.GetTileReport(targetCubeCoordinates).IfPresent((tileReport) =>
                     {
-                        actingCombatant = actingCombatantReport.GetValue().GetCombatantCallSign();
-                        targetCombatant = targetCombatantReport.GetValue().GetCombatantCallSign();
-                        IDestructibleAttributes destructibleAttributes = targetCombatantReport.GetValue()
-                            .GetCurrentAttributes().GetDestructibleAttributes();
-                        IFireableAttributes combatantFireableAttributes = actingCombatantReport.GetValue()
-                            .GetCurrentAttributes().GetFireableAttributes();
-                        foreach (IGearReport weaponGearReport in
-                            actingCombatantReport.GetValue().GetLoadoutReport().GetGearReports(GearType.Weapon))
+                        Optional<ICombatantReport> actingCombatantReport = rosterReport
+                            .GetCombatantReport(controllerRequest.GetCallSign());
+                        Optional<ICombatantReport> targetCombatantReport = rosterReport
+                            .GetCombatantReport(tileReport.GetCombatantCallSign());
+                        if (actingCombatantReport.IsPresent() && targetCombatantReport.IsPresent())
                         {
-                            this.damageReports.Add(this.GetDamageReport(
-                                combatantFireableAttributes, weaponGearReport, destructibleAttributes, path));
+                            actingCombatant = actingCombatantReport.GetValue().GetCombatantCallSign();
+                            targetCombatant = targetCombatantReport.GetValue().GetCombatantCallSign();
+                            IDestructibleAttributes destructibleAttributes = targetCombatantReport.GetValue()
+                                .GetCurrentAttributes().GetDestructibleAttributes();
+                            IFireableAttributes combatantFireableAttributes = actingCombatantReport.GetValue()
+                                .GetCurrentAttributes().GetFireableAttributes();
+                            foreach (IGearReport weaponGearReport in
+                                actingCombatantReport.GetValue().GetLoadoutReport().GetGearReports(GearType.Weapon))
+                            {
+                                this.damageReports.Add(this.GetDamageReport(
+                                    combatantFireableAttributes, weaponGearReport, destructibleAttributes, path));
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
             this.BuildReport();
         }

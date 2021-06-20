@@ -30,8 +30,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loado
             string value = (_traitIDs.Count != 0)
                 ? string.Join(", ", _traitIDs)
                 : "empty";
-            return string.Format("{0}: " +
-                "\n{1}",
+            return string.Format("{0}: {1}",
                 this.GetType().Name,
                 StringUtils.Format(typeof(TraitID), value));
         }

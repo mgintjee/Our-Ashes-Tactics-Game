@@ -26,6 +26,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
         /// Todo
         /// </summary>
         /// <returns></returns>
+        ISet<ISortieControllerRequest> GetControllerRequests();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
         bool IsProcessing();
 
         /// <summary>
@@ -33,5 +39,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
         /// </summary>
         /// <param name="controllerRequests"></param>
         void Process(ISet<ISortieControllerRequest> controllerRequests);
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        void Clear();
     }
 }

@@ -25,10 +25,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
-        private readonly float _APs = int.MinValue;
+        private readonly float _accuracy= int.MinValue;
 
         // Todo
-        private readonly float _RPs = int.MinValue;
+        private readonly float _range = int.MinValue;
 
         /// <summary>
         /// Todo
@@ -39,25 +39,27 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <param name="accuracy">       </param>
         private FirePathFinder(ICubeCoordinates cubeCoordinates,
             IMapReport mapReport, float range, float accuracy)
-            : base(cubeCoordinates, mapReport)
         {
-            _RPs = range;
-            _APs = accuracy;
+            this._cubeCoordinates = cubeCoordinates;
+            this._mapReport = mapReport;
+            _range = range;
+            _accuracy = accuracy;
+            this.PathFind();
         }
 
         /// <inheritdoc/>
         protected override void PathFind()
         {
-            _logger.Debug("PathFind for accuracy={}", _APs);
-            ISet<ICubeCoordinates> allCubeCoordinates = this.mapReport.GetCubeCoordinates();
+            _logger.Debug("PathFind @ {} for accuracy={} and range={}", this._cubeCoordinates, _accuracy, _range);
+            ISet<ICubeCoordinates> allCubeCoordinates = this._mapReport.GetCubeCoordinates();
             ISet<ICubeCoordinates> validCubeCoordinates = new HashSet<ICubeCoordinates>();
             // Iterate over all of the CubeCoordinates
             foreach (ICubeCoordinates cubeCoordinates in allCubeCoordinates)
             {
                 // Check that the cubeCoordinates is not the starting one
-                if (cubeCoordinates != this.cubeCoordinates)
+                if (cubeCoordinates != this._cubeCoordinates)
                 {
-                    this.mapReport.GetTileReport(cubeCoordinates).IfPresent((tileReport) =>
+                    this._mapReport.GetTileReport(cubeCoordinates).IfPresent((tileReport) =>
                     {
                         if (tileReport.GetCombatantCallSign() != CombatantCallSign.None)
                         {
@@ -70,11 +72,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             // Iterate over all of the valid CubeCoordinates
             foreach (ICubeCoordinates cubeCoordinates in validCubeCoordinates)
             {
-                IList<ICubeCoordinates> straightLinePath = this.PathFindFor(this.cubeCoordinates, cubeCoordinates);
-                if (straightLinePath.Count <= _RPs)
+                IList<ICubeCoordinates> straightLinePath = this.PathFindFor(this._cubeCoordinates, cubeCoordinates);
+                if (straightLinePath.Count <= _range)
                 {
-                    IPath path = new FirePath(straightLinePath, mapReport);
-                    if (path.GetPathCost() <= _APs)
+                    IPath path = new FirePath(straightLinePath, _mapReport);
+                    if (path.GetPathCost() <= _accuracy)
                     {
                         this.cubeCoordinatesPaths.Add(cubeCoordinates, path);
                     }
@@ -93,9 +95,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         {
             float t = 1f / distance * pathIndex;
             int roundX, roundY, roundZ;
-            float lerpX = this.Lerp(this.cubeCoordinates.GetX(), cubeCoordinatesEnd.GetX(), t);
-            float lerpY = this.Lerp(this.cubeCoordinates.GetY(), cubeCoordinatesEnd.GetY(), t);
-            float lerpZ = this.Lerp(this.cubeCoordinates.GetZ(), cubeCoordinatesEnd.GetZ(), t);
+            float lerpX = this.Lerp(this._cubeCoordinates.GetX(), cubeCoordinatesEnd.GetX(), t);
+            float lerpY = this.Lerp(this._cubeCoordinates.GetY(), cubeCoordinatesEnd.GetY(), t);
+            float lerpZ = this.Lerp(this._cubeCoordinates.GetZ(), cubeCoordinatesEnd.GetZ(), t);
 
             roundX = (int)Math.Round(lerpX);
             roundY = (int)Math.Round(lerpY);
@@ -112,15 +114,15 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 int newZ = roundZ + Math.Sign(lerpZ);
 
                 float newXFireCost = (updateX && newX + roundY + roundZ == 0)
-                    ? this.mapReport.GetTileReport(new CubeCoordinates(newX, roundY, roundZ)).GetValue()
+                    ? this._mapReport.GetTileReport(new CubeCoordinates(newX, roundY, roundZ)).GetValue()
                     .GetTileStats().GetTileAttributes().GetFireCost()
                     : -1;
                 float newYFireCost = (updateX && roundX + newY + roundZ == 0)
-                    ? this.mapReport.GetTileReport(new CubeCoordinates(roundX, newY, roundZ)).GetValue()
+                    ? this._mapReport.GetTileReport(new CubeCoordinates(roundX, newY, roundZ)).GetValue()
                     .GetTileStats().GetTileAttributes().GetFireCost()
                     : -1;
                 float newZFireCost = (updateX && roundX + roundY + newZ == 0)
-                    ? this.mapReport.GetTileReport(new CubeCoordinates(roundX, roundY, newZ)).GetValue()
+                    ? this._mapReport.GetTileReport(new CubeCoordinates(roundX, roundY, newZ)).GetValue()
                     .GetTileStats().GetTileAttributes().GetFireCost()
                     : -1;
                 SortedSet<float> newFireCostSortedSet = new SortedSet<float> { newXFireCost, newYFireCost, newZFireCost };
@@ -174,6 +176,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             {
                 try
                 {
+                    // Todo: Ensure that this is valid
                     cubeCoordinatesList.Add(this.GetNextCubeCoordinates(i, distance, cubeCoordinatesEnd));
                 }
                 catch (ArgumentException e)

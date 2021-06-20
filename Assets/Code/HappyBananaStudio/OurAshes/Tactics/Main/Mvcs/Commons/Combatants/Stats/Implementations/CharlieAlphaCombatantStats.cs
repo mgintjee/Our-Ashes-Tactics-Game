@@ -35,12 +35,22 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             this._combatantAttributes = new CombatantAttributes.Builder()
                     .SetDestructibleAttributes(
                         new DestructibleAttributes.Builder()
+                        .SetArmor(5)
+                        .SetHealth(15)
                         .Build())
                     .SetMovableAttributes(
                         new MovableAttributes.Builder()
+                        .SetActions(3)
+                        .SetMovements(10)
                         .Build())
                     .SetFireableAttributes(
                         new FireableAttributes.Builder()
+                        .SetAccuracy(0)
+                        .SetArmorDamage(0)
+                        .SetArmorPenetration(0)
+                        .SetHealthDamage(0)
+                        .SetRange(0)
+                        .SetSalvo(0)
                         .Build())
                     .SetLoadoutAttributes(
                         new LoadoutAttributes.Builder()
