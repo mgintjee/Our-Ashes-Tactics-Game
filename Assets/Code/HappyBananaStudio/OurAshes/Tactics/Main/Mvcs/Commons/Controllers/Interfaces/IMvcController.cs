@@ -1,4 +1,4 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Requests.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Requests.Interfaces;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Interfaces
 {
@@ -11,6 +11,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Contr
         /// Todo
         /// </summary>
         /// <returns></returns>
-        IMvcControllerRequest OutputControllerRequest();
+        IRequest OutputControllerRequest();
     }
 }

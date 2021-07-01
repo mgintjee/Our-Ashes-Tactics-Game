@@ -3,7 +3,6 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Uti
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Orders.Reports.Interfaces;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Orders.Reports.Implementations
 {

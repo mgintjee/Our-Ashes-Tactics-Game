@@ -2,6 +2,7 @@
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.IDs.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Loadouts.Interfaces;
@@ -30,7 +31,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         : ICombatantModel
     {
         // Provides logging capability to the SORTIE logs
-        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
+        private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private readonly CombatantCallSign _combatantCallSign;
@@ -112,10 +113,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <inheritdoc/>
         void ICombatantModel.ResetForPhase()
         {
-            _logger.Info("Resetting {}", _combatantCallSign);
-            _logger.Info("Pre {}", _movableModel.GetCurrentAttributes());
+            _logger.Info("Resetting {} for phase", _combatantCallSign);
             _movableModel.ResetForPhase();
-            _logger.Info("Post {}", _movableModel.GetCurrentAttributes());
         }
 
         /// <summary>

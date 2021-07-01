@@ -3,7 +3,7 @@
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Scores.Tallies.Interfaces
 {
     /// <summary>
-    /// Todo
+    /// Score Tally Interface
     /// </summary>
     public interface IScoreTally
     {
@@ -17,6 +17,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// Todo
         /// </summary>
         /// <returns></returns>
-        float GetScoreTally();
+        float GetScore();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Types.Enums;
@@ -16,10 +17,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
     public abstract class AbstractPath
         : IPath
     {
-        // Provides logging capability to the SORTIE logs
-        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
         // Todo
-        protected IList<ICubeCoordinates> _cubeCoordinatesList = new List<ICubeCoordinates>();
+        protected IList<ICubeCoordinates> _stepList = new List<ICubeCoordinates>();
 
         // Todo
         protected ICubeCoordinates _end;
@@ -35,6 +34,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
 
         // Todo
         protected ICubeCoordinates _start;
+
+        // Provides logging capability to the SORTIE logs
+        private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
 
         /// <summary>
         /// Todo
@@ -87,21 +89,21 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="cubeCoordinatesStepList"></param>
-        /// <param name="mapReport">              </param>
-        public AbstractPath(IList<ICubeCoordinates> cubeCoordinatesStepList, IMapReport mapReport)
+        /// <param name="stepList"> </param>
+        /// <param name="mapReport"></param>
+        public AbstractPath(IList<ICubeCoordinates> stepList, IMapReport mapReport)
         {
-            if (cubeCoordinatesStepList != null)
+            if (stepList != null)
             {
-                if (cubeCoordinatesStepList.Count > 0)
+                if (stepList.Count > 0)
                 {
-                    int listLength = cubeCoordinatesStepList.Count;
-                    ICubeCoordinates cubeCoordinatesStart = cubeCoordinatesStepList[0];
-                    ICubeCoordinates cubeCoordinatesEnd = cubeCoordinatesStepList[listLength - 1];
-                    int minimumPathDistance = cubeCoordinatesStart.GetDistanceFrom(cubeCoordinatesEnd);
+                    int listLength = stepList.Count;
+                    ICubeCoordinates start = stepList[0];
+                    ICubeCoordinates end = stepList[listLength - 1];
+                    int minimumPathDistance = start.GetDistanceFrom(end);
                     if (listLength >= minimumPathDistance)
                     {
-                        this.SetAttributes(cubeCoordinatesStepList, cubeCoordinatesStart, cubeCoordinatesEnd, mapReport);
+                        this.SetAttributes(stepList, start, end, mapReport);
                     }
                 }
                 else
@@ -125,8 +127,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         {
             if (pathObject.IsValid())
             {
-                this.SetAttributes( pathObject.GetCubeCoordinatesList(),
-                    pathObject.GetStart(), pathObject.GetEnd(),  mapReport);
+                this.SetAttributes(pathObject.GetCubeCoordinatesList(),
+                    pathObject.GetStart(), pathObject.GetEnd(), mapReport);
             }
             else
             {
@@ -140,7 +142,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         {
             return string.Format("{0}: Cost={1}, List: {2}=[{3}]",
                 this.GetType().Name, _pathCost, typeof(ICubeCoordinates).Name,
-                string.Join(", ", this._cubeCoordinatesList));
+                string.Join(", ", this._stepList));
         }
 
         /// <inheritdoc/>
@@ -158,7 +160,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <inheritdoc/>
         IList<ICubeCoordinates> IPath.GetCubeCoordinatesList()
         {
-            return new List<ICubeCoordinates>(this._cubeCoordinatesList);
+            return new List<ICubeCoordinates>(this._stepList);
         }
 
         /// <inheritdoc/>
@@ -170,7 +172,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <inheritdoc/>
         int IPath.GetLength()
         {
-            return this._cubeCoordinatesList.Count;
+            return this._stepList.Count;
         }
 
         /// <inheritdoc/>
@@ -182,7 +184,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <inheritdoc/>
         bool IPath.IsValid()
         {
-            return this.ValidPathCount() && this.ValidPathCompleteness() && this.ValidPathConnectivity();
+            return this.ValidPathDistance() && this.ValidPathCompleteness() && this.ValidPathConnectivity();
         }
 
         /// <summary>
@@ -193,9 +195,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             this._pathCost = 0;
 
             // Start at the second step to avoid adding the cost of the start CubeCoordinates
-            for (int i = 1; i < this._cubeCoordinatesList.Count; ++i)
+            for (int i = 1; i < this._stepList.Count; ++i)
             {
-                ICubeCoordinates cubeCoordinates = this._cubeCoordinatesList[i];
+                ICubeCoordinates cubeCoordinates = this._stepList[i];
                 this._pathCost += (cubeCoordinates != null)
                     ? this.GetCubeCoordinatesCost(cubeCoordinates)
                     : int.MaxValue;
@@ -218,7 +220,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         private void SetAttributes(IList<ICubeCoordinates> cubeCoordinatesStepList,
             ICubeCoordinates cubeCoordinatesStart, ICubeCoordinates cubeCoordinatesEnd, IMapReport mapReport)
         {
-            this._cubeCoordinatesList = new List<ICubeCoordinates>(cubeCoordinatesStepList);
+            this._stepList = new List<ICubeCoordinates>(cubeCoordinatesStepList);
             this._start = cubeCoordinatesStart;
             this._end = cubeCoordinatesEnd;
             this._mapReport = mapReport;
@@ -231,7 +233,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <returns></returns>
         private bool ValidPathCompleteness()
         {
-            return this._end.Equals(this._cubeCoordinatesList[this._cubeCoordinatesList.Count - 1]);
+            return this._end.Equals(this._stepList[this._stepList.Count - 1]);
         }
 
         /// <summary>
@@ -240,10 +242,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <returns></returns>
         private bool ValidPathConnectivity()
         {
-            ICubeCoordinates previous = this._cubeCoordinatesList[0];
-            for (int i = 1; i < this._cubeCoordinatesList.Count; ++i)
+            ICubeCoordinates previous = this._stepList[0];
+            for (int i = 1; i < this._stepList.Count; ++i)
             {
-                ICubeCoordinates current = _cubeCoordinatesList[i];
+                ICubeCoordinates current = _stepList[i];
                 if (!previous.GetNeighbors().Contains(current))
                 {
                     return false;
@@ -257,9 +259,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// Todo
         /// </summary>
         /// <returns></returns>
-        private bool ValidPathCount()
+        private bool ValidPathDistance()
         {
-            return this._cubeCoordinatesList.Count >= this._start.GetDistanceFrom(this._end);
+            return this._stepList.Count >= this._start.GetDistanceFrom(this._end);
         }
     }
 }

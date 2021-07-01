@@ -69,7 +69,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views
 
 /*
 // Provide logging capability
-private static readonly ILogger _logger = new SortieLogger(new StackFrame().GetMethod().DeclaringType);
+private readonly ILogger _logger = new SortieLogger(new StackFrame().GetMethod().DeclaringType);
 
 // Todo
 private readonly IGridConvertor canvasGridConvertor;

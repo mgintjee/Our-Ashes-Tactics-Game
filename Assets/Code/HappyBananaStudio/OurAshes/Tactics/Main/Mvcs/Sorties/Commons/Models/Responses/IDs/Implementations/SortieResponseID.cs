@@ -1,4 +1,8 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Responses.IDs.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Responses.IDs.Interfaces;
+using System.Diagnostics;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Responses.IDs.Implementations
 {
@@ -8,6 +12,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
     public class SortieResponseID
         : ISortieResponseID
     {
+        // Provides logging capability to the SORTIE logs
+        private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
+
         // Todo
         private readonly int _action;
 
@@ -80,18 +87,21 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <inheritdoc/>
         ISortieResponseID ISortieResponseID.IncrementAction()
         {
+            _logger.Info("Incrementing {}'s action.", this);
             return new SortieResponseID(_phase, _turn, _action + 1);
         }
 
         /// <inheritdoc/>
         ISortieResponseID ISortieResponseID.IncrementPhase()
         {
+            _logger.Info("Incrementing {}'s phase.", this);
             return new SortieResponseID(_phase + 1, 0, 0);
         }
 
         /// <inheritdoc/>
         ISortieResponseID ISortieResponseID.IncrementTurn()
         {
+            _logger.Info("Incrementing {}'s turn.", this);
             return new SortieResponseID(_phase, _turn + 1, 0);
         }
     }

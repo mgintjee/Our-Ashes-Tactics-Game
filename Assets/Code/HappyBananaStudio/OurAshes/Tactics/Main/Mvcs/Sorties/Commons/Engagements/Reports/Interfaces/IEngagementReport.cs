@@ -15,7 +15,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// Todo
         /// </summary>
         /// <returns></returns>
-        EngagementType GetFormation();
+        EngagementType GetEngagementType();
 
         /// <summary>
         /// Todo

@@ -52,8 +52,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <inheritdoc/>
         public override string ToString()
         {
-            return string.Format("{0}: " +
-                "\n{1}" +
+            return string.Format("{0}: {1}" +
                 "\n{2}" +
                 "\nCurrent {3}" +
                 "\nMaximum {4}" +

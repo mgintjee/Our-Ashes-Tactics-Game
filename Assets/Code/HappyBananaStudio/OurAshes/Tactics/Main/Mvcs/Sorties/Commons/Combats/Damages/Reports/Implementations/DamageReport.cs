@@ -63,6 +63,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         }
 
         /// <inheritdoc/>
+        public override string ToString()
+        {
+            return string.Format("{0}: {1}" +
+                "\n_actualSalvoHits={2}, _expectedSalvoHits={3}" +
+                "\n_armorDamageInflictedPerHit={4}, _healthDamageInflictedPerHit={5}" +
+                "\n_healthDamageMitigatedPerHit={6}",
+                this.GetType().Name, _weaponGearReport, _actualSalvoHits, _expectedSalvoHits,
+                _armorDamageInflictedPerHit, _healthDamageInflictedPerHit, _healthDamageMitigatedPerHit);
+        }
+
+        /// <inheritdoc/>
         float IDamageReport.GetActualSalvoHits()
         {
             return _actualSalvoHits;

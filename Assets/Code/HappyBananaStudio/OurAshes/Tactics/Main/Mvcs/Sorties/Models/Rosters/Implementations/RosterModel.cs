@@ -1,12 +1,16 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Destructibles.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Destructibles.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Movables.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combatants.Constructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combatants.Reports.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combats.Damages.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combats.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Types.Enums;
@@ -29,7 +33,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         : IRosterModel
     {
         // Provides logging capability to the SORTIE logs
-        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
+        private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private readonly ISet<CombatantCallSign> _activeCallSigns;
@@ -75,32 +79,34 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 _report.GetCombatantReport(callSign).IfPresent((combatantReport) =>
                 {
                     float actionCost = 0.0f;
-                   float movementCost = 0.0f;
-                   switch (path.GetPathType())
-                   {
-                       case PathType.Move:
-                           actionCost -= 1;
-                           movementCost -= path.GetPathCost();
-                           break;
+                    float movementCost = 0.0f;
+                    _logger.Info(" {}: Applying {}", callSign, path);
+                    switch (path.GetPathType())
+                    {
+                        case PathType.Move:
+                            actionCost -= 1;
+                            movementCost -= path.GetPathCost();
+                            break;
 
-                       case PathType.Fire:
-                           actionCost -= 2;
-                           movementCost -= 2 * combatantReport.GetMaximumAttributes().GetMovableAttributes().GetMovement();
-                           break;
+                        case PathType.Fire:
+                            actionCost -= 2;
+                            movementCost -= 2 * combatantReport.GetMaximumAttributes().GetMovableAttributes().GetMovement();
+                            this.ApplyCombatReport(combatReport);
+                            break;
 
-                       case PathType.Wait:
-                           actionCost -= combatantReport.GetCurrentAttributes().GetMovableAttributes().GetActions();
-                           break;
-                   }
-                   this.ApplyCombatantAttributes(callSign,
-                       new CombatantAttributes.Builder()
-                       .SetMovableAttributes(
-                           new MovableAttributes.Builder()
-                           .SetActions(actionCost)
-                           .SetMovements(movementCost)
-                           .Build())
-                        .Build());
-               });
+                        case PathType.Wait:
+                            actionCost -= combatantReport.GetCurrentAttributes().GetMovableAttributes().GetActions();
+                            break;
+                    }
+                    this.ApplyCombatantAttributes(callSign,
+                        new CombatantAttributes.Builder()
+                        .SetMovableAttributes(
+                            new MovableAttributes.Builder()
+                            .SetActions(actionCost)
+                            .SetMovements(movementCost)
+                            .Build())
+                         .Build());
+                });
             }
             this.BuildReport();
         }
@@ -108,7 +114,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <inheritdoc/>
         void IRosterModel.ResetForNewPhase()
         {
-            foreach(CombatantCallSign combatantCallSign in _activeCallSigns)
+            foreach (CombatantCallSign combatantCallSign in _activeCallSigns)
             {
                 GetModel(combatantCallSign).IfPresent(model =>
                 {
@@ -133,6 +139,28 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 }
             }
             return Optional<ICombatantModel>.Empty();
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="combatReport"></param>
+        private void ApplyCombatReport(ICombatReport combatReport)
+        {
+            _logger.Info("Applying {}", combatReport);
+            ISet<IDestructibleAttributes> destructibleAttributesSet = new HashSet<IDestructibleAttributes>();
+            foreach (IDamageReport damageReport in combatReport.GetDamageReports())
+            {
+                destructibleAttributesSet.Add(new DestructibleAttributes.Builder()
+                    .SetArmor(-damageReport.GetArmorDamageInflictedPerHit() * damageReport.GetActualSalvoHits())
+                    .SetHealth(-damageReport.GetHealthDamageInflictedPerHit() * damageReport.GetActualSalvoHits())
+                    .Build());
+            }
+            IDestructibleAttributes destructibleAttributes = new DestructibleAttributes.Builder().Build(destructibleAttributesSet);
+            ICombatantAttributes combatantAttributes = new CombatantAttributes.Builder()
+                .SetDestructibleAttributes(destructibleAttributes)
+                .Build();
+            this.ApplyCombatantAttributes(combatReport.GetTargetCallSign(), combatantAttributes);
         }
 
         /// <summary>
@@ -165,12 +193,15 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         {
             this.GetModel(callSign).IfPresent((model) =>
             {
+                _logger.Info("Applying {} to {}", combatantAttributes, callSign);
+                _logger.Info("Pre Current {}", model.GetReport().GetCurrentAttributes());
                 model.ApplyCombatantAttributes(combatantAttributes);
                 if (model.GetReport().GetCurrentAttributes()
                     .GetDestructibleAttributes().GetHealth() <= 0.0f)
                 {
                     _activeCallSigns.Remove(callSign);
                 }
+                _logger.Info("Post Current {}", model.GetReport().GetCurrentAttributes());
             });
         }
     }

@@ -2,6 +2,7 @@
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Types.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Randoms.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Destructibles.Interfaces;
@@ -32,7 +33,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         : ICombatModel
     {
         // Provides logging capability to the SORTIE logs
-        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
+        private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private ICombatReport _report;
@@ -128,6 +129,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 remainingArmorPoints = 0;
             }
             float healthDamageInflictedPerHit = fireableAttributes.GetHealthDamage() - remainingArmorPoints;
+            if (healthDamageInflictedPerHit < 0)
+            {
+                healthDamageInflictedPerHit = 0;
+            }
             float healthDamageMitigatedPerHit = fireableAttributes.GetHealthDamage() - healthDamageInflictedPerHit;
 
             // Get the range for this fireable

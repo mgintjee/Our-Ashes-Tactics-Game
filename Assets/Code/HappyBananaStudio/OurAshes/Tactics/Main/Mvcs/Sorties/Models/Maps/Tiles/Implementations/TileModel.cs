@@ -2,6 +2,7 @@
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Tiles.Reports.Implementations;
@@ -22,7 +23,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         : ITileModel
     {
         // Provides logging capability to the SORTIE logs
-        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
+        private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private readonly ICubeCoordinates _cubeCoordinates;
@@ -31,13 +32,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         private readonly TileType _tileType;
 
         // Todo
+        private readonly ITileStats _tileStats;
+
+        // Todo
         private CombatantCallSign _combatantCallSign;
 
         // Todo
         private ITileReport _report;
-
-        // Todo
-        private readonly ITileStats _tileStats;
 
         /// <summary>
         /// Todo
@@ -63,11 +64,21 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <inheritdoc/>
         void ITileModel.SetCombatantCallSign(CombatantCallSign combatantCallSign)
         {
-            _logger.Info("Setting {} @ {}", combatantCallSign, _cubeCoordinates);
+            if (combatantCallSign != CombatantCallSign.None)
+            {
+                _logger.Info("Setting {} @ {}", combatantCallSign, _cubeCoordinates);
+            }
+            else
+            {
+                _logger.Info("Clearing {} @ {}", typeof(CombatantCallSign), _cubeCoordinates);
+            }
             _combatantCallSign = combatantCallSign;
             this.BuildReport();
         }
 
+        /// <summary>
+        /// Todo
+        /// </summary>
         private void BuildReport()
         {
             _report = new TileReport.Builder()

@@ -1,5 +1,6 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Simulations.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Randoms.Sorties.Engagements;
@@ -22,9 +23,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Randoms.Sorti
     /// </summary>
     public static class RandomSortieConstructions
     {
-        // Provides logging capability to the CENTRAL logs
-        private static readonly ILogger _logger = LoggerManager.GetCentralLogger(new StackFrame().GetMethod().DeclaringType);
-
         /// <summary>
         /// Todo
         /// </summary>
@@ -35,11 +33,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Randoms.Sorti
         public static IMvcSortieFrameConstruction Generate(Random random,
             SimulationType simulationType, IUnityScript unityScript)
         {
-            // Todo: Generate the common information here and pass it along
             int mapSize = random.Next(3, 5);
             int phalanxCount = random.Next(2, GetMaxPhalanxCount(mapSize));
-            int maxPhalanxCombatantCount = phalanxCount * random.Next(1, GetMaxCombatantCount(mapSize, phalanxCount));
-            _logger.Info("MapSize: {}, PhalanxCount: {}, MaxPhalanxCombatantCount: {}", mapSize, phalanxCount, maxPhalanxCombatantCount);
+            int maxPhalanxCombatantCount = random.Next(1, GetMaxCombatantCount(mapSize, phalanxCount));
             IEngagementConstruction engagementConstruction = RandomEngagementConstructions.Generate(random, simulationType, phalanxCount, maxPhalanxCombatantCount);
             IMapConstruction mapConstruction = RandomMapConstructions.Generate(random, mapSize, engagementConstruction);
             IRosterConstruction rosterConstruction = RandomRosterConstructions.Generate(random, simulationType, engagementConstruction);

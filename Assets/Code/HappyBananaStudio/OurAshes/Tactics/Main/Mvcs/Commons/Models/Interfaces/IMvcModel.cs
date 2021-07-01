@@ -1,4 +1,4 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Requests.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Responses.Interfaces;
 using System.Collections.Generic;
 
@@ -13,14 +13,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Model
         /// Todo
         /// </summary>
         /// <returns></returns>
-        ISet<IMvcControllerRequest> GetControllerRequests();
+        ISet<IRequest> GetControllerRequests();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="mvcControllerRequest"></param>
         /// <returns></returns>
-        void Process(IMvcControllerRequest mvcControllerRequest);
+        void Process(IRequest mvcControllerRequest);
 
         /// <summary>
         /// Todo

@@ -19,7 +19,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
         /// Todo
         /// </summary>
         /// <param name="movements"></param>
-        /// <param name="actions"></param>
+        /// <param name="actions">  </param>
         private MovableAttributes(float movements, float actions)
         {
             this._movements = movements;

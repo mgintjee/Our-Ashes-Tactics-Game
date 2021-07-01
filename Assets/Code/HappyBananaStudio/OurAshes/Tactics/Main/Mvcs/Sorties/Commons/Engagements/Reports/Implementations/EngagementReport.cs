@@ -55,7 +55,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         }
 
         /// <inheritdoc/>
-        EngagementType IEngagementReport.GetFormation()
+        EngagementType IEngagementReport.GetEngagementType()
         {
             return _formationType;
         }

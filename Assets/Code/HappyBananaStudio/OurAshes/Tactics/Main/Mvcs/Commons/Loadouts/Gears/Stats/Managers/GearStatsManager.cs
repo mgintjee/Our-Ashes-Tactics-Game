@@ -4,7 +4,10 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Types.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Rarities.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Stats.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Stats.Implementations.Armors;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Stats.Implementations.Cabins;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Stats.Implementations.Engines;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Stats.Implementations.Weapons;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Stats.Interfaces;
 using System.Collections.Generic;
 
@@ -19,9 +22,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loado
         private static readonly ISet<IGearStats> GearStatsSet = new HashSet<IGearStats>()
         {
             new ArmorAlphaAlphaGearStats(),
+            new ArmorBravoAlphaGearStats(),
             new CabinAlphaAlphaGearStats(),
+            new CabinBravoAlphaGearStats(),
             new EngineAlphaAlphaGearStats(),
             new WeaponAlphaAlphaGearStats(),
+            new WeaponBravoAlphaGearStats(),
         };
 
         /// <summary>

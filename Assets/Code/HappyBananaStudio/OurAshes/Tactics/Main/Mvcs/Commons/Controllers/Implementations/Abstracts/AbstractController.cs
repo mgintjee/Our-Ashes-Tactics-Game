@@ -1,5 +1,5 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Requests.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Interfaces;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Implementations.Abstracts
 {
@@ -10,12 +10,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Contr
         : IMvcController
     {
         // Todo
-        protected IMvcControllerRequest MvcControllerRequest;
+        protected IRequest MvcControllerRequest;
 
         /// <inheritdoc/>
-        IMvcControllerRequest IMvcController.OutputControllerRequest()
+        IRequest IMvcController.OutputControllerRequest()
         {
-            IMvcControllerRequest mvcControllerRequest = null;
+            IRequest mvcControllerRequest = null;
             if (this.MvcControllerRequest != null)
             {
                 mvcControllerRequest = this.MvcControllerRequest;

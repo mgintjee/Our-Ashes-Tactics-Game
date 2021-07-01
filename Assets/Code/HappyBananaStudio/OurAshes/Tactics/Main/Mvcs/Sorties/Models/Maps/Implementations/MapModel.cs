@@ -3,6 +3,7 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interf
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Spawns.Areas.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Spawns.Sides.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Fireables.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Reports.Interfaces;
@@ -40,7 +41,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         : IMapModel
     {
         // Provides logging capability to the SORTIE logs
-        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
+        private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private readonly bool _mirroredMap;
@@ -99,38 +100,39 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             ISet<IPathFinder> pathFinders = new HashSet<IPathFinder>();
             this.GetTileModel(combatantReport.GetCombatantCallSign()).IfPresent((tileModel) =>
             {
-                float maxAPs = float.MinValue;
-                float maxRPs = float.MinValue;
+                float maxAccuracy = float.MinValue;
+                float maxRange = float.MinValue;
                 IFireableAttributes combatantFireableAttributes = combatantReport
                     .GetCurrentAttributes().GetFireableAttributes();
                 foreach (IGearReport weaponGearReport in combatantReport.GetLoadoutReport().GetGearReports())
                 {
                     IFireableAttributes weaponFireableAttributes = weaponGearReport
                         .GetCombatantAttributes().GetFireableAttributes();
-                    float currentAPs = combatantFireableAttributes.GetAccuracy() +
+                    float currentAccuracy = combatantFireableAttributes.GetAccuracy() +
                         weaponFireableAttributes.GetAccuracy();
-                    if (currentAPs > maxAPs)
+                    if (currentAccuracy > maxAccuracy)
                     {
-                        maxAPs = currentAPs;
+                        maxAccuracy = currentAccuracy;
                     }
-                    float currentRPs = combatantFireableAttributes.GetRange() +
+                    float currentRange = combatantFireableAttributes.GetRange() +
                         weaponFireableAttributes.GetRange();
-                    if (currentRPs > maxRPs)
+                    if (currentRange > maxRange)
                     {
-                        maxRPs = currentRPs;
+                        maxRange = currentRange;
                     }
                 }
+                float maxMovement = combatantReport.GetMaximumAttributes().GetMovableAttributes().GetMovement();
                 ICubeCoordinates cubeCoordinates = tileModel.GetReport().GetCubeCoordinates();
                 pathFinders.Add(new MovePathFinder.Builder()
                     .SetMapReport(_report)
                     .SetCubeCoordinates(cubeCoordinates)
-                    .SetMovements(combatantReport.GetCurrentAttributes().GetMovableAttributes().GetMovement())
+                    .SetMovements(maxMovement)
                     .Build());
                 pathFinders.Add(new FirePathFinder.Builder()
                     .SetMapReport(_report)
                     .SetCubeCoordinates(cubeCoordinates)
-                    .SetAPs(maxAPs)
-                    .SetRPs(maxRPs)
+                    .SetAPs(maxAccuracy)
+                    .SetRPs(maxRange)
                     .Build());
                 pathFinders.Add(new WaitPathFinder.Builder()
                     .SetMapReport(_report)
@@ -176,7 +178,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                         Optional<ITileModel> tileModel = this.GetTileModel(callSign);
                         tileModel.IfPresent((tileModel) =>
                         {
-                            if (rosterReport.GetActiveCombatantCallSigns().Contains(
+                            if (!rosterReport.GetActiveCombatantCallSigns().Contains(
                                 tileModel.GetReport().GetCombatantCallSign()))
                             {
                                 tileModel.SetCombatantCallSign(CombatantCallSign.None);

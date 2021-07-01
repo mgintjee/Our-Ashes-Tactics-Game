@@ -1,5 +1,6 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Requests.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Interfaces;
@@ -11,7 +12,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
     /// Sortie Controller Request Interface
     /// </summary>
     public class SortieControllerRequest
-        : ISortieControllerRequest
+        : AbstractRequest, ISortieControllerRequest
     {
         // Todo
         private readonly CombatantCallSign _callSign;
@@ -33,9 +34,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
         /// <inheritdoc/>
         public override string ToString()
         {
-            return string.Format("{0}: " +
-                "\n{1}" +
-                "\n{2}",
+            return string.Format("{0}: {1}, {2}",
                 this.GetType().Name,
                 StringUtils.Format(typeof(CombatantCallSign), this._callSign),
                 StringUtils.Format(typeof(IPath), this._path));

@@ -1,6 +1,7 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Movables.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combatants.Reports.Interfaces;
@@ -20,7 +21,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         : IOrderModel
     {
         // Provides logging capability to the SORTIE logs
-        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
+        private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private readonly IList<CombatantCallSign> _currentCallSigns;
@@ -51,10 +52,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <inheritdoc/>
         void IOrderModel.Process(IRosterReport rosterReport)
         {
-            _logger.Info("Current [{}]", string.Join(", ", _currentCallSigns));
             if (_currentCallSigns.Count == 0 && _upcomingCallSigns.Count == 0)
             {
-                _logger.Info("Copy all of the Active CallSigns to Upcoming CallSigns");
                 foreach (CombatantCallSign combatantCallSign in rosterReport.GetActiveCombatantCallSigns())
                 {
                     _upcomingCallSigns.Add(combatantCallSign);
@@ -71,13 +70,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// </summary>
         private void BuildReport()
         {
-            _logger.Info("Current [{}]", string.Join(", ", _currentCallSigns));
             _report = new OrderReport.Builder()
                 .SetCurrentCallSigns(_currentCallSigns)
                 .SetUpcomingCallSigns(_upcomingCallSigns)
                 .Build();
-            _logger.Info(":{}", _report);
-            _logger.Info("Current [{}]", string.Join(", ", _currentCallSigns));
         }
 
         /// <summary>
@@ -121,6 +117,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         {
             // Default an empty set
             ISet<CombatantCallSign> completeCallSigns = new HashSet<CombatantCallSign>();
+            _logger.Info("Current [{}]", string.Join(", ", _currentCallSigns));
             // Iterate over all of the currentCallSigns
             foreach (CombatantCallSign callSign in _currentCallSigns)
             {
@@ -128,7 +125,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 Optional<ICombatantReport> combatantReport = rosterReport.GetCombatantReport(callSign);
                 combatantReport.IfPresent((combatantReport) =>
                 {
-                    _logger.Info("Current {}", combatantReport);
                     // Check if the combatant has any remaining actions
                     if (combatantReport.GetCurrentAttributes().GetMovableAttributes().GetActions() <= 0)
                     {
@@ -143,7 +139,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             {
                 // Remove the callSign from the currentCallSigns
                 _currentCallSigns.Remove(callSign);
-                if(!_upcomingCallSigns.Contains(callSign))
+                if (!_upcomingCallSigns.Contains(callSign))
                 {
                     // Add the callSign to the upcomingCallSigns
                     _upcomingCallSigns.Add(callSign);
@@ -151,17 +147,16 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             }
             // Order the upcomingCallSigns
             this.OrderCallSigns(rosterReport, _upcomingCallSigns);
-            _logger.Info("Current [{}]", string.Join(", ", _currentCallSigns));
             // Check if the currentCallSigns is empty
             if (_currentCallSigns.Count == 0)
             {
+                _logger.Info("Current {} is empty. Populating with Upcoming {} {}s.", typeof(CombatantCallSign), _upcomingCallSigns.Count, typeof(CombatantCallSign));
                 // Iterate over the upcomingCallSigns
                 foreach (CombatantCallSign callSign in _upcomingCallSigns)
                 {
                     // Add the upcoming callSign to the currentCallSigns
                     _currentCallSigns.Add(callSign);
                 }
-                _logger.Info("Current [{}]", string.Join(", ", _currentCallSigns));
                 // Clear the upcomingCallSigns
                 _upcomingCallSigns.Clear();
             }

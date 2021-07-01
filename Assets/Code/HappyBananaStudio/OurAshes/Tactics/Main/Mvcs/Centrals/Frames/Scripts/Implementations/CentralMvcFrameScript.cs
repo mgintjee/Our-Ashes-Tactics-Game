@@ -45,7 +45,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Fram
 
         /*
         // Provides logging capability to the CENTRAL logs
-        private static readonly ILogger _centralLogger = LoggerManager.GetCentralLogger(new StackFrame().GetMethod().DeclaringType);
+        private readonly ILogger _centralLogger = LoggerManager.GetLogger(MvcType.Central,new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private bool _centralComplete;

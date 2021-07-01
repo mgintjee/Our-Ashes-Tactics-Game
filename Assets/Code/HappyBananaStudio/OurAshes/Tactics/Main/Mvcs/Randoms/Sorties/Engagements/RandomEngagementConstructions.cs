@@ -4,6 +4,7 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Engagements.Ty
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Spawns.Areas.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Phalanxes.CallSigns.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Simulations.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Schemes.Insignias.Interfaces;
@@ -24,9 +25,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Randoms.Sorti
     /// </summary>
     public static class RandomEngagementConstructions
     {
-        // Provides logging capability to the CENTRAL logs
-        private static readonly ILogger _logger = LoggerManager.GetCentralLogger(new StackFrame().GetMethod().DeclaringType);
-
         /// <summary>
         /// Todo
         /// </summary>
@@ -41,7 +39,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Randoms.Sorti
             int phalanxCount, int maxPhalanxCombatantCount)
         {
             EngagementType engagementType = RandomEnums.GenerateRandomEnum<EngagementType>(random);
-            _logger.Debug("engagementType: {}", engagementType);
             ISet<IPhalanxConstruction> phalanxConstructions = new HashSet<IPhalanxConstruction>();
             int combatantIndex = 1;
             ControllerType controllerType = (simulationType == SimulationType.Interactive)

@@ -1,6 +1,7 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Simulations.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Engagements.Constructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Constructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Constructions.Interfaces;
@@ -53,6 +54,19 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             _formationConstruction = formationConstruction;
             _unityScript = unityScript;
             _simulationType = simulationType;
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return string.Format("{0}: {1}" +
+                "\n{2}" +
+                "\n{3}" +
+                "\n{4}" +
+                "\n{5}",
+                this.GetType().Name,
+                StringUtils.Format(typeof(SimulationType), _simulationType),
+                _mapConstruction, _rosterConstruction, _scoreConstruction, _formationConstruction);
         }
 
         /// <inheritdoc/>

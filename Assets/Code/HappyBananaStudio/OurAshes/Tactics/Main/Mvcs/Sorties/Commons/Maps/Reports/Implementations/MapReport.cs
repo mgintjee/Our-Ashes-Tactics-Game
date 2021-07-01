@@ -2,8 +2,9 @@
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Reports.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Tiles.Reports.Interfaces;
@@ -16,10 +17,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
     /// Todo
     /// </summary>
     public class MapReport
-        : IMapReport
+        : AbstractReport, IMapReport
     {
         // Provides logging capability to the SORTIE logs
-        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
+        private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private readonly bool _isMirrored;
@@ -49,6 +50,36 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             {
                 _cubeCoordinates.Add(tileReport.GetCubeCoordinates());
             }
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            ISet<ITileReport> occupiedTileReports = new HashSet<ITileReport>();
+            ISet<ITileReport> unoccupiedTileReports = new HashSet<ITileReport>();
+            foreach (ITileReport tileReport in _tileReports)
+            {
+                if (tileReport.GetCombatantCallSign() != CombatantCallSign.None)
+                {
+                    occupiedTileReports.Add(tileReport);
+                }
+                else
+                {
+                    unoccupiedTileReports.Add(tileReport);
+                }
+            }
+            string occupiedTileReportsString = (occupiedTileReports.Count != 0)
+                ? string.Join("\n", occupiedTileReports)
+                : "empty";
+            string unoccupiedTileReportsString = (unoccupiedTileReports.Count != 0)
+                ? string.Join("\n", unoccupiedTileReports)
+                : "empty";
+            return string.Format("{0}: _radius={1}, _isMirrored={2}" +
+                "\nOccupied [\n{3}\n]" +
+                "\nUnoccupied [\n{4}\n]",
+                this.GetType().Name, _radius, _isMirrored,
+                occupiedTileReportsString,
+                unoccupiedTileReportsString);
         }
 
         /// <inheritdoc/>
@@ -93,18 +124,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
                 }
             }
             return Optional<ITileReport>.Empty();
-        }
-
-        /// <inheritdoc/>
-        public override string ToString()
-        {
-            string tileReportsString = (_tileReports.Count != 0)
-                ? string.Join("\n", _tileReports)
-                : "empty";
-            return string.Format("{0}: _radius={1}, _isMirrored={2}" +
-                "\n{3}",
-                this.GetType().Name, _radius, _isMirrored,
-                StringUtils.Format(typeof(ITileReport), tileReportsString));
         }
 
         /// <summary>

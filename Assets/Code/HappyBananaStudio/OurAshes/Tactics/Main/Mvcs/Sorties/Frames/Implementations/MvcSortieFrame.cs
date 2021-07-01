@@ -1,8 +1,9 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Randoms.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Simulations.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Responses.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Constructions.Interfaces;
@@ -29,7 +30,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frame
         : IMvcSortieFrame
     {
         // Todo
-        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
+        private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private readonly ISet<ISortieControllerRequest> _controllerRequests = new HashSet<ISortieControllerRequest>();
@@ -77,7 +78,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frame
         /// <inheritdoc/>
         void IMvcFrame.Continue()
         {
-            if(!_mvcSortieModel.IsProcessing())
+            if (_mvcSortieModel == null ||
+                _mvcSortieController == null)
+            {
+                return;
+            }
+            if (_mvcSortieModel.IsProcessing())
             {
                 _logger.Info("Model is still processing");
                 if (this._mvcSortieView == null || !_mvcSortieView.IsProcessing())
@@ -86,18 +92,21 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frame
                     if (!_mvcSortieController.IsProcessing())
                     {
                         _logger.Info("Controller is not processing");
-                        if(_mvcSortieController.GetControllerRequests().Count == 0)
+                        if (_mvcSortieController.GetControllerRequests().Count == 0)
                         {
-                            ISet<IMvcControllerRequest> mvcControllerRequests = _mvcSortieModel.GetControllerRequests();
-                            _logger.Info(" {} controllerRequests", mvcControllerRequests.Count);
+                            ISet<IRequest> mvcControllerRequests = _mvcSortieModel.GetControllerRequests();
                             if (mvcControllerRequests.Count != 0)
                             {
                                 ISet<ISortieControllerRequest> sortieControllerRequests = new HashSet<ISortieControllerRequest>();
-                                foreach (IMvcControllerRequest mvcControllerRequest in mvcControllerRequests)
+                                foreach (IRequest mvcControllerRequest in mvcControllerRequests)
                                 {
                                     sortieControllerRequests.Add((ISortieControllerRequest)mvcControllerRequest);
                                 }
                                 _mvcSortieController.Process(sortieControllerRequests);
+                            }
+                            else
+                            {
+                                _logger.Error("No available {}s. END THE GAME.", typeof(ISortieControllerRequest));
                             }
                         }
                         else
@@ -106,7 +115,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frame
                             if (selectedRequest != null)
                             {
                                 _logger.Info("Selected {}", selectedRequest);
-                                if(_mvcSortieView != null)
+                                if (_mvcSortieView != null)
                                 {
                                     _mvcSortieView.Process(selectedRequest);
                                 }
@@ -125,8 +134,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frame
                                     //_controllerRequests.Clear();
                                     //_controllerRequests.UnionWith((ISet<ISortieControllerRequest>)_mvcSortieModel.GetControllerRequests());
                                     // _mvcSortieController.Process(_controllerRequests);
-                                    _logger.Info(":{}", ((ISortieModelResponse)_mvcSortieModel.GetMvcModelResponse()).GetSortieResponseID());
-                                    _logger.Info(":{}", ((ISortieModelResponse)_mvcSortieModel.GetMvcModelResponse()).GetMvcSortieModelReport());
+                                    //_logger.Info(":{}", ((ISortieModelResponse)_mvcSortieModel.GetMvcModelResponse()).GetSortieResponseID());
+                                    _logger.Info(":{}", _mvcSortieModel.GetMvcModelResponse());
                                 }
                                 else
                                 {
@@ -144,7 +153,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frame
                     {
                         _logger.Info("Controller is still processing");
                     }
-                    }
+                }
                 else
                 {
                     _logger.Info("View is still processing");
@@ -159,9 +168,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frame
         /// <inheritdoc/>
         bool IMvcFrame.IsComplete()
         {
-            return !_mvcSortieView.IsProcessing() &&
+            return (_mvcSortieView == null || !_mvcSortieView.IsProcessing()) &&
                 !_mvcSortieController.IsProcessing() &&
                 !_mvcSortieModel.IsProcessing();
+        }
+
+        /// <inheritdoc/>
+        void IMvcFrame.Destroy()
+        {
+            _logger.Info("Destroying this Mvc");
+            this.sortieFrameScript.Destroy();
+            LoggerManager.EndLoggingFile(MvcType.Sortie);
         }
     }
 }

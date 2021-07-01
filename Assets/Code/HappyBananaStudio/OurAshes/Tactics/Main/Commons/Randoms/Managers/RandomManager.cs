@@ -13,7 +13,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Randoms.Ma
         private static readonly IDictionary<MvcType, Random> MvcTypeRandoms = new Dictionary<MvcType, Random>();
 
         // Todo
-        private static readonly int DefaultSeed = 22;
+        private static readonly int DefaultSeed = 20150123;
 
         /// <summary>
         /// Todo

@@ -1,5 +1,6 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scores.Types.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Scores.Constructions.Interfaces;
 using System.Collections.Generic;
 
@@ -21,6 +22,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         private ScoreConstruction(ScoreType scoreType)
         {
             _scoreType = scoreType;
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return string.Format("{0}: {1}",
+                this.GetType().Name,
+                StringUtils.Format(typeof(ScoreType), _scoreType));
         }
 
         /// <inheritdoc/>

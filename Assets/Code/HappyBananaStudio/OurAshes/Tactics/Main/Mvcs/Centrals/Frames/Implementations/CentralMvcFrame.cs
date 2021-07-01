@@ -22,7 +22,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Fram
         : ICentralMvcFrame
     {
         // Provides logging capability to the CENTRAL logs
-        private static readonly ILogger _centralLogger = LoggerManager.GetCentralLogger(new StackFrame().GetMethod().DeclaringType);
+        private readonly ILogger _centralLogger = LoggerManager.GetLogger(MvcType.Central, new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private readonly IDictionary<MvcType, IMvcFrame> mvcTypeFrames = new Dictionary<MvcType, IMvcFrame>()
@@ -61,7 +61,18 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Fram
             else
             {
                 this.mvcTypeFrames[MvcType.Sortie].Continue();
+                if (this.mvcTypeFrames[MvcType.Sortie].IsComplete())
+                {
+                    this.mvcTypeFrames[MvcType.Sortie].Destroy();
+                    this.mvcTypeFrames[MvcType.Sortie] = null;
+                }
             }
+        }
+
+        /// <inheritdoc/>
+        void IMvcFrame.Destroy()
+        {
+            LoggerManager.EndLoggingFile(MvcType.Central);
         }
 
         /// <inheritdoc/>

@@ -1,4 +1,4 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Requests.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Requests.Interfaces;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Controllers.Requests.Interfaces
 {
@@ -6,7 +6,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Cont
     /// Central Mvc Controller Interface
     /// </summary>
     public interface ICentralMvcControllerRequest
-        : IMvcControllerRequest
+        : IRequest
     {
     }
 }

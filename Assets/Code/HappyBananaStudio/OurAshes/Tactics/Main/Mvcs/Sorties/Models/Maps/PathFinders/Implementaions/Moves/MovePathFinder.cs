@@ -1,7 +1,7 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Implementaions.Moves;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
@@ -20,7 +20,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         : AbstractPathFinder
     {
         // Provides logging capability to the SORTIE logs
-        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
+        private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private readonly float _movements;
@@ -29,7 +29,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// Todo
         /// </summary>
         /// <param name="cubeCoordinates"></param>
-        /// <param name="movements">       </param>
+        /// <param name="movements">      </param>
         /// <param name="mapReport">      </param>
         private MovePathFinder(ICubeCoordinates cubeCoordinates, float movements, IMapReport mapReport)
         {
@@ -58,9 +58,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             foreach (ICubeCoordinates cubeCoordinates in this.cubeCoordinatesPaths.Keys)
             {
                 IPath path = this.cubeCoordinatesPaths[cubeCoordinates];
-                if (path == null || !path.IsValid())
+                if (path == null || !path.IsValid() || path.GetPathCost() > _movements)
                 {
-                    _logger.Info(" {} has invalid {}", cubeCoordinates, path);
                     invalidCubeCoordinates.Add(cubeCoordinates);
                 }
             }
@@ -76,27 +75,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <summary>
         /// Todo
         /// </summary>
-        private void CollectCubeCoordinatesPaths()
-        {
-            foreach (ICubeCoordinates cubeCoordinates in this._mapReport.GetCubeCoordinates())
-            {
-                this._mapReport.GetTileReport(cubeCoordinates).IfPresent((tileReport) =>
-                {
-                    if (tileReport.GetCombatantCallSign() == CombatantCallSign.None ||
-                        cubeCoordinates != this._cubeCoordinates)
-                    {
-                        this.cubeCoordinatesPaths.Add(cubeCoordinates, null);
-                    }
-                });
-            }
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
         private void DijkstraAlgorithm()
         {
-            _logger.Info("Dijsktra on {}", _mapReport);
             // Default an empty set
             ISet<ICubeCoordinates> visitedCubeCoordinatesSet = new HashSet<ICubeCoordinates>();
             // Default the unvisited set with the starting cubeCoordinates
@@ -157,9 +137,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 }
                 else
                 {
-                    // End the iteration
-                    _logger.Debug("Unable to get the closest CubeCoordinates in {}",
-                        string.Join(", ", unvisitedCubeCoordinatesSet));
                     break;
                 }
             }
@@ -185,7 +162,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                     // Collect the Path
                     IPath path = this.cubeCoordinatesPaths[coordinates];
                     // Check if the path is non-null and closest
-                    if (path != null && path.GetPathCost() < minimumDistance)
+                    if (path != null && path.GetPathCost() < minimumDistance && path.GetPathCost() <= _movements)
                     {
                         minimumDistance = path.GetPathCost();
                         closestCubeCoordinate = coordinates;
@@ -273,10 +250,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 {
                     argumentExceptionSet.Add("Starting " + typeof(ICubeCoordinates).Name + " cannot be null.");
                 }
-                // Check that _MPs has been set
+                // Check that _movements has been set
                 if (_movements == float.MinValue)
                 {
-                    argumentExceptionSet.Add("pathCostThreshold cannot be null.");
+                    argumentExceptionSet.Add("_movements cannot be float.MinValue.");
                 }
                 // Check that _mapReport has been set
                 if (_mapReport == null)

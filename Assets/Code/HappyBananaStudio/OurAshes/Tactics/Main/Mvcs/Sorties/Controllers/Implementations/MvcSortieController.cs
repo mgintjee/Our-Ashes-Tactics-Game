@@ -3,13 +3,14 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Cal
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Implementations.Abstracts;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Requests.Comparers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Constructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Phalanxes.Constructions.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.AIs.Implementaions;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.AIs.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Comparers.Implementaions.Randoms;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Interfaces;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,13 +24,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
         : AbstractController, IMvcSortieController
     {
         // Todo
-        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
+        private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
 
         // Todo
-        private readonly IDictionary<AIType, IControllerRequestComparer> _controllerTypeRequestComparers
-            = new Dictionary<AIType, IControllerRequestComparer>()
+        private readonly IDictionary<AIType, IAISortieController> _aiTypeAIControllers = new Dictionary<AIType, IAISortieController>()
             {
-                {  AIType.Random, new RandomMvcControllerRequestComparer() },
+                {  AIType.Random, new PoacherAISortieController() },
+                {  AIType.Poacher, new PoacherAISortieController() },
             };
 
         // Todo
@@ -37,13 +38,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
             new Dictionary<CombatantCallSign, AIType>();
 
         // Todo
+        private readonly ISet<ISortieControllerRequest> _sortieControllerRequests = new HashSet<ISortieControllerRequest>();
+
+        // Todo
         private ISortieControllerRequest _confirmedSortieControllerRequest;
 
         // Todo
         private ISortieControllerRequest _selectedSortieControllerRequest;
-
-        // Todo
-        private readonly ISet<ISortieControllerRequest> _sortieControllerRequests = new HashSet<ISortieControllerRequest>();
 
         /// <summary>
         /// Todo
@@ -90,8 +91,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
         /// <inheritdoc/>
         bool IMvcSortieController.IsProcessing()
         {
-            _logger.Info(" {}, {}, {}", this._sortieControllerRequests.Count != 0, this._selectedSortieControllerRequest == null,
-                this._confirmedSortieControllerRequest == null);
             return this._sortieControllerRequests.Count != 0 &&
                 (this._selectedSortieControllerRequest == null ||
                 this._confirmedSortieControllerRequest == null);
@@ -104,20 +103,24 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
             {
                 throw ExceptionUtil.Arguments.Build();
             }
+            _logger.Info("Available {}s ({}): [" +
+                "\n{}" +
+                "\n]",
+                typeof(ISortieControllerRequest), sortieControllerRequests.Count,
+                string.Join("\n", sortieControllerRequests));
             this._sortieControllerRequests.Clear();
             this._sortieControllerRequests.UnionWith(sortieControllerRequests);
             this._selectedSortieControllerRequest = null;
             this._confirmedSortieControllerRequest = null;
             CombatantCallSign combatantCallSign = new List<ISortieControllerRequest>
                 (sortieControllerRequests)[0].GetCallSign();
-            AIType controllerType = this._combatantCallSignControllerTypes[combatantCallSign];
-            if (controllerType != AIType.None)
+            AIType aiType = this._combatantCallSignControllerTypes[combatantCallSign];
+            if (aiType != AIType.None)
             {
-                IControllerRequestComparer controllerRequestComparer = this._controllerTypeRequestComparers[controllerType];
-                IList<ISortieControllerRequest> sortieControllerRequestList = new List<ISortieControllerRequest>(sortieControllerRequests);
-                ((List<ISortieControllerRequest>)sortieControllerRequestList).Sort(controllerRequestComparer);
-                this._selectedSortieControllerRequest = sortieControllerRequestList[0];
-                this._confirmedSortieControllerRequest = sortieControllerRequestList[0];
+                ISortieControllerRequest sortieControllerRequest = this._aiTypeAIControllers[aiType]
+                    .DetermineControllerRequest(null, sortieControllerRequests);
+                this._selectedSortieControllerRequest = sortieControllerRequest;
+                this._confirmedSortieControllerRequest = sortieControllerRequest;
             }
             else
             {

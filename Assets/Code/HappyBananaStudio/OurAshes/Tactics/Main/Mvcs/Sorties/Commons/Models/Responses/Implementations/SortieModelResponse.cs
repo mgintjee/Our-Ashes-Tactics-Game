@@ -1,6 +1,7 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Responses.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Responses.IDs.Interfaces;
@@ -19,10 +20,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         private readonly IMvcSortieModelReport _mvcSortieModelReport;
 
         // Todo
-        private readonly IMvcControllerRequest _mvcControllerRequest;
+        private readonly IRequest _mvcControllerRequest;
 
         // Todo
-        private readonly ISet<IMvcControllerRequest> _mvcControllerRequests;
+        private readonly ISet<IRequest> _mvcControllerRequests;
 
         // Todo
         private readonly ISortieResponseID _sortieResponseID;
@@ -34,7 +35,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <param name="mvcControllerRequests"></param>
         /// <param name="sortieResponseID">     </param>
         /// <param name="mvcSortieModelReport"> </param>
-        private SortieModelResponse(IMvcControllerRequest mvcControllerRequest, ISet<IMvcControllerRequest> mvcControllerRequests,
+        private SortieModelResponse(IRequest mvcControllerRequest, ISet<IRequest> mvcControllerRequests,
             ISortieResponseID sortieResponseID, IMvcSortieModelReport mvcSortieModelReport)
         {
             _mvcControllerRequest = mvcControllerRequest;
@@ -44,9 +45,26 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         }
 
         /// <inheritdoc/>
-        ISet<IMvcControllerRequest> IMvcModelResponse.GetControllerRequests()
+        public override string ToString()
         {
-            return new HashSet<IMvcControllerRequest>(_mvcControllerRequests);
+            string mvcControllerRequestsStrings = (_mvcControllerRequests.Count != 0)
+                ? string.Join("\n", _mvcControllerRequests)
+                : "empty";
+            return string.Format("{0}: " +
+                "\n{1}" +
+                "\n{2}" +
+                "\nSelected {3}" +
+                "\nAvailable {4}",
+                this.GetType().Name, _sortieResponseID,
+                _mvcSortieModelReport,
+                _mvcControllerRequest,
+                StringUtils.Format(typeof(IRequest), mvcControllerRequestsStrings));
+        }
+
+        /// <inheritdoc/>
+        ISet<IRequest> IMvcModelResponse.GetControllerRequests()
+        {
+            return new HashSet<IRequest>(_mvcControllerRequests);
         }
 
         /// <inheritdoc/>
@@ -56,9 +74,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         }
 
         /// <inheritdoc/>
-        Optional<IMvcControllerRequest> IMvcModelResponse.GetMvcControllerRequest()
+        Optional<IRequest> IMvcModelResponse.GetMvcControllerRequest()
         {
-            return Optional<IMvcControllerRequest>.Of(_mvcControllerRequest);
+            return Optional<IRequest>.Of(_mvcControllerRequest);
         }
 
         /// <inheritdoc/>
@@ -76,10 +94,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             private IMvcSortieModelReport _mvcSortieModelReport = null;
 
             // Todo
-            private IMvcControllerRequest _mvcControllerRequest = null;
+            private IRequest _mvcControllerRequest = null;
 
             // Todo
-            private ISet<IMvcControllerRequest> _mvcControllerRequests = null;
+            private ISet<IRequest> _mvcControllerRequests = null;
 
             // Todo
             private ISortieResponseID _sortieResponseID = null;
@@ -118,7 +136,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             /// </summary>
             /// <param name="mvcControllerRequest"></param>
             /// <returns></returns>
-            public Builder SetMvcControllerRequest(IMvcControllerRequest mvcControllerRequest)
+            public Builder SetMvcControllerRequest(IRequest mvcControllerRequest)
             {
                 _mvcControllerRequest = mvcControllerRequest;
                 return this;
@@ -129,11 +147,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             /// </summary>
             /// <param name="mvcControllerRequests"></param>
             /// <returns></returns>
-            public Builder SetMvcControllerRequests(ISet<IMvcControllerRequest> mvcControllerRequests)
+            public Builder SetMvcControllerRequests(ISet<IRequest> mvcControllerRequests)
             {
                 if (mvcControllerRequests != null)
                 {
-                    _mvcControllerRequests = new HashSet<IMvcControllerRequest>(mvcControllerRequests);
+                    _mvcControllerRequests = new HashSet<IRequest>(mvcControllerRequests);
                 }
                 return this;
             }

@@ -2,6 +2,8 @@
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Implementaions.Fires;
@@ -22,10 +24,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         : AbstractPathFinder
     {
         // Provide logging capability
-        private static readonly ILogger _logger = LoggerManager.GetSortieLogger(new StackFrame().GetMethod().DeclaringType);
+        private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
 
         // Todo
-        private readonly float _accuracy= int.MinValue;
+        private readonly float _accuracy = int.MinValue;
 
         // Todo
         private readonly float _range = int.MinValue;
@@ -57,11 +59,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             foreach (ICubeCoordinates cubeCoordinates in allCubeCoordinates)
             {
                 // Check that the cubeCoordinates is not the starting one
-                if (cubeCoordinates != this._cubeCoordinates)
+                if (!cubeCoordinates.Equals(this._cubeCoordinates))
                 {
                     this._mapReport.GetTileReport(cubeCoordinates).IfPresent((tileReport) =>
                     {
-                        if (tileReport.GetCombatantCallSign() != CombatantCallSign.None)
+                        if (tileReport.GetCombatantCallSign() != CombatantCallSign.None)// &&
+                        //this._cubeCoordinates.GetDistanceFrom(tileReport.GetCubeCoordinates()) <= _range)
                         {
                             validCubeCoordinates.Add(cubeCoordinates);
                         }
@@ -73,10 +76,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             foreach (ICubeCoordinates cubeCoordinates in validCubeCoordinates)
             {
                 IList<ICubeCoordinates> straightLinePath = this.PathFindFor(this._cubeCoordinates, cubeCoordinates);
-                if (straightLinePath.Count <= _range)
+                if (straightLinePath.Count <= _range &&
+                    !straightLinePath.Contains(null))
                 {
                     IPath path = new FirePath(straightLinePath, _mapReport);
-                    if (path.GetPathCost() <= _accuracy)
+                    if (path.GetPathCost() <= _accuracy &&
+                        path.GetLength() < _range &&
+                        path.IsValid())
                     {
                         this.cubeCoordinatesPaths.Add(cubeCoordinates, path);
                     }
@@ -85,70 +91,131 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         }
 
         /// <summary>
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end">  </param>
+        /// <returns></returns>
+        private IList<ICubeCoordinates> PathFindFor(ICubeCoordinates start, ICubeCoordinates end)
+        {
+            int distance = start.GetDistanceFrom(end);
+            IList<ICubeCoordinates> cubeCoordinatesList = new List<ICubeCoordinates>();
+            for (int i = 0; i < distance + 1; ++i)
+            {
+                this.GetNextCubeCoordinates(i, distance, end).IfPresent(cubeCoordinates =>
+                {
+                    cubeCoordinatesList.Add(cubeCoordinates);
+                });
+            }
+
+            return cubeCoordinatesList;
+        }
+
+        /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="pathIndex">         </param>
-        /// <param name="distance">          </param>
-        /// <param name="cubeCoordinatesEnd"></param>
+        /// <param name="pathIndex"></param>
+        /// <param name="distance"> </param>
+        /// <param name="end">      </param>
         /// <returns></returns>
-        private ICubeCoordinates GetNextCubeCoordinates(int pathIndex, int distance, ICubeCoordinates cubeCoordinatesEnd)
+        private Optional<ICubeCoordinates> GetNextCubeCoordinates(int pathIndex, int distance, ICubeCoordinates end)
         {
             float t = 1f / distance * pathIndex;
             int roundX, roundY, roundZ;
-            float lerpX = this.Lerp(this._cubeCoordinates.GetX(), cubeCoordinatesEnd.GetX(), t);
-            float lerpY = this.Lerp(this._cubeCoordinates.GetY(), cubeCoordinatesEnd.GetY(), t);
-            float lerpZ = this.Lerp(this._cubeCoordinates.GetZ(), cubeCoordinatesEnd.GetZ(), t);
-
-            roundX = (int)Math.Round(lerpX);
-            roundY = (int)Math.Round(lerpY);
-            roundZ = (int)Math.Round(lerpZ);
-
+            float lerpX = this.Lerp(this._cubeCoordinates.GetX(), end.GetX(), t);
+            float lerpY = this.Lerp(this._cubeCoordinates.GetY(), end.GetY(), t);
+            float lerpZ = this.Lerp(this._cubeCoordinates.GetZ(), end.GetZ(), t);
+            roundX = (int)Math.Round(lerpX, MidpointRounding.AwayFromZero);
+            roundY = (int)Math.Round(lerpY, MidpointRounding.AwayFromZero);
+            roundZ = (int)Math.Round(lerpZ, MidpointRounding.AwayFromZero);
             bool updateX = Math.Abs(lerpX) % 1 == 0.5f;
             bool updateY = Math.Abs(lerpY) % 1 == 0.5f;
             bool updateZ = Math.Abs(lerpZ) % 1 == 0.5f;
-
+            int newX = roundX + Math.Sign(lerpX);
+            int newY = roundY + Math.Sign(lerpY);
+            int newZ = roundZ + Math.Sign(lerpZ);
             if (updateX || updateY || updateZ)
             {
-                int newX = roundX + Math.Sign(lerpX);
-                int newY = roundY + Math.Sign(lerpY);
-                int newZ = roundZ + Math.Sign(lerpZ);
-
-                float newXFireCost = (updateX && newX + roundY + roundZ == 0)
-                    ? this._mapReport.GetTileReport(new CubeCoordinates(newX, roundY, roundZ)).GetValue()
-                    .GetTileStats().GetTileAttributes().GetFireCost()
-                    : -1;
-                float newYFireCost = (updateX && roundX + newY + roundZ == 0)
-                    ? this._mapReport.GetTileReport(new CubeCoordinates(roundX, newY, roundZ)).GetValue()
-                    .GetTileStats().GetTileAttributes().GetFireCost()
-                    : -1;
-                float newZFireCost = (updateX && roundX + roundY + newZ == 0)
-                    ? this._mapReport.GetTileReport(new CubeCoordinates(roundX, roundY, newZ)).GetValue()
-                    .GetTileStats().GetTileAttributes().GetFireCost()
-                    : -1;
-                SortedSet<float> newFireCostSortedSet = new SortedSet<float> { newXFireCost, newYFireCost, newZFireCost };
-                if (newFireCostSortedSet.Max != -1)
-                {
-                    if (newXFireCost == newFireCostSortedSet.Max)
-                    {
-                        roundX = newX;
-                    }
-                    else if (newYFireCost == newFireCostSortedSet.Max)
-                    {
-                        roundY = newY;
-                    }
-                    else if (newZFireCost == newFireCostSortedSet.Max)
-                    {
-                        roundZ = newZ;
-                    }
-                }
+                return GetUpdateCubeCoordinates(updateX, updateY, updateZ, roundX, roundY, roundZ, newX, newY, newZ);
             }
+            else
+            {
+                return GetNoUpdateCubeCoordinates(roundX, roundY, roundZ);
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="updateX"></param>
+        /// <param name="updateY"></param>
+        /// <param name="updateZ"></param>
+        /// <param name="roundX"> </param>
+        /// <param name="roundY"> </param>
+        /// <param name="roundZ"> </param>
+        /// <param name="newX">   </param>
+        /// <param name="newY">   </param>
+        /// <param name="newZ">   </param>
+        /// <returns></returns>
+        private Optional<ICubeCoordinates> GetUpdateCubeCoordinates(bool updateX, bool updateY, bool updateZ, int roundX, int roundY, int roundZ, int newX, int newY, int newZ)
+        {
+            ICubeCoordinates cubeCoordinates = null;
+            if (updateX && updateY &&
+                (newX + newY + roundZ == 0))
+            {
+                cubeCoordinates = new CubeCoordinates(newX, newY, roundZ);
+            }
+            else if (updateX && updateZ &&
+                (newX + roundY + newZ == 0))
+            {
+                cubeCoordinates = new CubeCoordinates(newX, roundY, newZ);
+            }
+            else if (updateY && updateZ &&
+                (roundX + newY + newZ == 0))
+            {
+                cubeCoordinates = new CubeCoordinates(roundX, newY, newZ);
+            }
+            else if (updateX &&
+                (newX + roundY + roundZ == 0))
+            {
+                cubeCoordinates = new CubeCoordinates(newX, roundY, roundZ);
+            }
+            else if (updateY &&
+                (roundX + newY + roundZ == 0))
+            {
+                cubeCoordinates = new CubeCoordinates(roundX, newY, roundZ);
+            }
+            else if (updateZ &&
+                (roundX + roundY + newZ == 0))
+            {
+                cubeCoordinates = new CubeCoordinates(roundX, roundY, newZ);
+            }
+            if (_mapReport.GetCubeCoordinates().Contains(cubeCoordinates))
+            {
+                return Optional<ICubeCoordinates>.Of(cubeCoordinates);
+            }
+            else
+            {
+                return Optional<ICubeCoordinates>.Empty();
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="roundX"></param>
+        /// <param name="roundY"></param>
+        /// <param name="roundZ"></param>
+        /// <returns></returns>
+        private Optional<ICubeCoordinates> GetNoUpdateCubeCoordinates(int roundX, int roundY, int roundZ)
+        {
             if (roundX + roundY + roundZ == 0)
             {
-                return new CubeCoordinates(roundX, roundY, roundZ);
+                return Optional<ICubeCoordinates>.Of(new CubeCoordinates(roundX, roundY, roundZ));
             }
-            throw ExceptionUtil.Arguments.Build(
-                "Unable to {}. Invalid Parameters. PathIndex={}, Distance={}, {} produced invalid {}, x={}, y={}, z={}",
-                this.GetType(), pathIndex, distance, cubeCoordinatesEnd, typeof(ICubeCoordinates), roundX, roundY, roundZ);
+            else
+            {
+                return Optional<ICubeCoordinates>.Empty();
+            }
         }
 
         /// <summary>
@@ -161,31 +228,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         private float Lerp(int a, int b, float t)
         {
             return a + ((b - a) * t);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="cubeCoordinatesStart"></param>
-        /// <param name="cubeCoordinatesEnd">  </param>
-        /// <returns></returns>
-        private IList<ICubeCoordinates> PathFindFor(ICubeCoordinates cubeCoordinatesStart, ICubeCoordinates cubeCoordinatesEnd)
-        {
-            int distance = cubeCoordinatesStart.GetDistanceFrom(cubeCoordinatesEnd);
-            IList<ICubeCoordinates> cubeCoordinatesList = new List<ICubeCoordinates>();
-            for (int i = 0; i < distance + 1; ++i)
-            {
-                try
-                {
-                    // Todo: Ensure that this is valid
-                    cubeCoordinatesList.Add(this.GetNextCubeCoordinates(i, distance, cubeCoordinatesEnd));
-                }
-                catch (ArgumentException e)
-                {
-                    _logger.Debug("Unable to {}. E={}", new StackFrame().GetMethod().Name, e);
-                }
-            }
-
-            return cubeCoordinatesList;
         }
 
         /// <summary>

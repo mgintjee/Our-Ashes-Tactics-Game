@@ -1,7 +1,7 @@
 ﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.IDs.Enums
 {
     /// <summary>
-    /// Todo
+    /// Gear ID Enum
     /// </summary>
     public enum GearID
     {
@@ -10,5 +10,9 @@
         CabinAlphaAlpha,
         EngineAlphaAlpha,
         WeaponAlphaAlpha,
+        WeaponBravoAlpha,
+        ArmorBravoAlpha,
+        CabinBravoAlpha,
+        EngineBravoAlpha,
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Requests.Interfaces;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Responses.Interfaces
@@ -13,12 +13,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Model
         /// Todo
         /// </summary>
         /// <returns></returns>
-        ISet<IMvcControllerRequest> GetControllerRequests();
+        ISet<IRequest> GetControllerRequests();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        Optional<IMvcControllerRequest> GetMvcControllerRequest();
+        Optional<IRequest> GetMvcControllerRequest();
     }
 }

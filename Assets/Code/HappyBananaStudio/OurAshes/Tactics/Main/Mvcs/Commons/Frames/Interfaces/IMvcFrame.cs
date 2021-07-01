@@ -13,6 +13,12 @@
         /// <summary>
         /// Todo
         /// </summary>
+        /// <returns></returns>
         bool IsComplete();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        void Destroy();
     }
 }

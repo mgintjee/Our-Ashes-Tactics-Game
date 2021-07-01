@@ -13,7 +13,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         : IEngagementConstruction
     {
         // Todo
-        private readonly EngagementType _formationType;
+        private readonly EngagementType _engagementType;
 
         // Todo
         private readonly ISet<IPhalanxConstruction> _phalanxConstructions;
@@ -26,14 +26,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         private EngagementConstruction(EngagementType formationType,
             ISet<IPhalanxConstruction> phalanxConstructions)
         {
-            _formationType = formationType;
+            _engagementType = formationType;
             _phalanxConstructions = phalanxConstructions;
         }
 
         /// <inheritdoc/>
         EngagementType IEngagementConstruction.GetEngagementType()
         {
-            return _formationType;
+            return _engagementType;
         }
 
         /// <inheritdoc/>

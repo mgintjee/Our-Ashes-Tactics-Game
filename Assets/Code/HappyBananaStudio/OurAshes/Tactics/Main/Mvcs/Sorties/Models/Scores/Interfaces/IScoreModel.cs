@@ -1,4 +1,7 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Scores.Reports.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Engagements.Reports.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Reports.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Reports.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Scores.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Interfaces;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Scores.Interfaces
@@ -18,7 +21,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// Todo
         /// </summary>
         /// <param name="controllerRequest"></param>
-        /// <returns></returns>
-        void Process(ISortieControllerRequest controllerRequest);
+        /// <param name="mapReport">        </param>
+        /// <param name="rosterReport">     </param>
+        /// <param name="engagementReport"> </param>
+        void Process(ISortieControllerRequest controllerRequest, IMapReport mapReport, IRosterReport rosterReport, IEngagementReport engagementReport);
     }
 }

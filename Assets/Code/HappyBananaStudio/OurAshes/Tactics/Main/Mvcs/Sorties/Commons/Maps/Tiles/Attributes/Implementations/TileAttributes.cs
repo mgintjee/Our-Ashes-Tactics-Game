@@ -26,6 +26,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         }
 
         /// <inheritdoc/>
+        public override string ToString()
+        {
+            return string.Format("{0}: _moveCost={1}, _fireCost={2}",
+                this.GetType().Name, _moveCost, _fireCost);
+        }
+
+        /// <inheritdoc/>
         float ITileAttributes.GetFireCost()
         {
             return _fireCost;
@@ -35,13 +42,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         float ITileAttributes.GetMoveCost()
         {
             return _moveCost;
-        }
-
-        /// <inheritdoc/>
-        public override string ToString()
-        {
-            return string.Format("{0}: _moveCost={1}, _fireCost={2}",
-                this.GetType().Name, _moveCost, _fireCost);
         }
 
         /// <summary>

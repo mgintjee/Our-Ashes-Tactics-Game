@@ -21,11 +21,22 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Ma
         /// <summary>
         /// Todo
         /// </summary>
+        /// <param name="mvcType">     </param>
         /// <param name="classLogging"></param>
         /// <returns></returns>
-        public static ILogger GetCentralLogger(Type classLogging)
+        public static ILogger GetLogger(MvcType mvcType, Type classLogging)
         {
-            return GetLogger(MvcType.Central, classLogging);
+            return BuildLogger(mvcType, classLogging);
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="mvcType"></param>
+        /// <returns></returns>
+        public static void EndLoggingFile(MvcType mvcType)
+        {
+            MvcTypeLogFilePaths.Remove(mvcType);
         }
 
         /// <summary>
@@ -33,36 +44,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Ma
         /// </summary>
         /// <param name="classLogging"></param>
         /// <returns></returns>
-        public static ILogger GetSortieLogger(Type classLogging)
-        {
-            return GetLogger(MvcType.Sortie, classLogging);
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="classLogging"></param>
-        /// <returns></returns>
-        public static ILogger GetWorldLogger(Type classLogging)
-        {
-            return GetLogger(MvcType.World, classLogging);
-        }
-
-        internal static ILogger GetLogger(Type declaringType)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="classLogging"></param>
-        /// <returns></returns>
-        private static ILogger GetLogger(MvcType mvcType, Type classLogging)
+        private static ILogger BuildLogger(MvcType mvcType, Type classLogging)
         {
             if (!MvcTypeLogFilePaths.ContainsKey(mvcType))
             {
                 MvcTypeLogFilePaths.Add(mvcType, CreateLogFile(mvcType));
+                UnityEngine.Debug.Log("Log File: " + MvcTypeLogFilePaths[mvcType]);
             }
             return new Logger(mvcType, classLogging, MvcTypeLogFilePaths[mvcType]);
         }
@@ -73,6 +60,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Ma
         /// <returns></returns>
         private static string CreateLogFile(MvcType mvcType)
         {
+            UnityEngine.Debug.Log("CreateLogFile: " + mvcType);
             string logFileDate = DateTime.Now.ToLongDateString().Replace(':', '_')
             + "-" + DateTime.Now.ToLongTimeString().Replace(':', '_');
             string logFilePath = _loggerRootFolder + mvcType + "/" + logFileDate + ".log";

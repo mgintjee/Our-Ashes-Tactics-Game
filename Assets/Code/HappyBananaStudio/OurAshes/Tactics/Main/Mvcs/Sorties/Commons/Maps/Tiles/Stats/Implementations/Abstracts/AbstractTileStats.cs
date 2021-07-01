@@ -17,6 +17,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         protected TileType _tileType;
 
         /// <inheritdoc/>
+        public override string ToString()
+        {
+            return string.Format("{0}: {1}",
+                this.GetType().Name, _tileAttributes);
+        }
+
+        /// <inheritdoc/>
         ITileAttributes ITileStats.GetTileAttributes()
         {
             return this._tileAttributes;
@@ -26,13 +33,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         TileType ITileStats.GetTileType()
         {
             return this._tileType;
-        }
-
-        /// <inheritdoc/>
-        public override string ToString()
-        {
-            return string.Format("{0}: {1}",
-                this.GetType().Name, _tileAttributes);
         }
     }
 }
