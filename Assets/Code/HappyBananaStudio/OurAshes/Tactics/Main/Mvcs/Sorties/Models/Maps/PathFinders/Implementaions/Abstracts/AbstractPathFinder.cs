@@ -13,7 +13,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         : IPathFinder
     {
         // Todo
-        protected IDictionary<ICubeCoordinates, IPath> cubeCoordinatesPaths = new Dictionary<ICubeCoordinates, IPath>();
+        protected IDictionary<ICubeCoordinates, IPath> _cubeCoordinatesPaths = new Dictionary<ICubeCoordinates, IPath>();
 
         // Todo
         protected ICubeCoordinates _cubeCoordinates;
@@ -24,13 +24,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <inheritdoc/>
         IDictionary<ICubeCoordinates, IPath> IPathFinder.GetCubeCoordinatesPaths()
         {
-            return new Dictionary<ICubeCoordinates, IPath>(this.cubeCoordinatesPaths);
+            return new Dictionary<ICubeCoordinates, IPath>(_cubeCoordinatesPaths);
         }
 
         /// <inheritdoc/>
         ISet<IPath> IPathFinder.GetPaths()
         {
-            return new HashSet<IPath>(this.cubeCoordinatesPaths.Values);
+            return new HashSet<IPath>(_cubeCoordinatesPaths.Values);
         }
 
         /// <summary>

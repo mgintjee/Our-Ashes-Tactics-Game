@@ -22,15 +22,15 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
         /// <param name="HPs"></param>
         private DestructibleAttributes(float APs, float HPs)
         {
-            this._armor = APs;
-            this._health = HPs;
+            _armor = APs;
+            _health = HPs;
         }
 
         /// <inheritdoc/>
         public override string ToString()
         {
             return string.Format("{0}: _armor={1}, _health={2}",
-                this.GetType().Name, _armor, _health);
+                GetType().Name, _armor, _health);
         }
 
         /// <inheritdoc/>
@@ -72,17 +72,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             /// <returns></returns>
             public IDestructibleAttributes Build(ICollection<IDestructibleAttributes> destructibleAttributes)
             {
-                this._armor = 0;
-                this._health = 0;
+                _armor = 0;
+                _health = 0;
 
                 foreach (IDestructibleAttributes attributes in destructibleAttributes)
                 {
-                    this._armor += attributes.GetArmor();
-                    this._health += attributes.GetHealth();
+                    _armor += attributes.GetArmor();
+                    _health += attributes.GetHealth();
                 }
 
                 // Instantiate a new Attributes
-                return new DestructibleAttributes(this._armor, this._health);
+                return new DestructibleAttributes(_armor, _health);
             }
 
             /// <summary>
@@ -91,7 +91,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             /// <param name="armor"></param>
             public Builder SetArmor(float armor)
             {
-                this._armor = armor;
+                _armor = armor;
                 return this;
             }
 
@@ -101,7 +101,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             /// <param name="health"></param>
             public Builder SetHealth(float health)
             {
-                this._health = health;
+                _health = health;
                 return this;
             }
         }

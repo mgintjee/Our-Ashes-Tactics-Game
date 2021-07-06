@@ -1,8 +1,8 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Phalanxes.CallSigns.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Phalanxes.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Reports.Implementations.Abstracts;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scores.Types.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scores.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Scores.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Scores.Tallies.Interfaces;
@@ -47,22 +47,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         }
 
         /// <inheritdoc/>
-        public override string ToString()
-        {
-            string scoreTalliesValues = (_scoreTallies.Count != 0)
-                ? string.Join(", ", _scoreTallies)
-                : "empty";
-            return string.Format("{0}: " +
-                "\n{1}" +
-                "\n{2}" +
-                "\nIsScoreReached={3}",
-                this.GetType().Name,
-                StringUtils.Format(typeof(ScoreType), this._scoreType),
-                StringUtils.Format(typeof(IScoreTally), scoreTalliesValues),
-                _isScoreReached);
-        }
-
-        /// <inheritdoc/>
         ISet<PhalanxCallSign> IScoreReport.GetPhalanxCallSigns()
         {
             return new HashSet<PhalanxCallSign>(_phalanxCallSigns);
@@ -92,6 +76,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         bool IScoreReport.IsScoreReached()
         {
             return _isScoreReached;
+        }
+
+        /// <inheritdoc/>
+        protected override string GetContent()
+        {
+            return string.Format("{0}, _isScoreReached={1}, {2}",
+                StringUtils.Format(_scoreType), _isScoreReached,
+                StringUtils.FormatCollection(_scoreTallies));
         }
 
         /// <summary>

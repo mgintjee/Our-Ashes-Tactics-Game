@@ -1,7 +1,8 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Randoms.Managers;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Randoms.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Responses.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.AIs.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Interfaces;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.AIs.Implementaions
@@ -13,10 +14,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
         : IAISortieController
     {
         /// <inheritdoc/>
-        ISortieControllerRequest IAISortieController.DetermineControllerRequest(IMvcModelResponse mvcModelResponse, ISet<ISortieControllerRequest> mvcControllerRequests)
+        ISortieRequest IAISortieController.DetermineControllerRequest(IMvcModelResponse mvcModelResponse, ISet<ISortieRequest> mvcControllerRequests)
         {
-            int randomIndex = RandomManager.GetSortieRandom().Next(mvcControllerRequests.Count);
-            return new List<ISortieControllerRequest>(mvcControllerRequests)[randomIndex];
+            int randomIndex = RandomManager.GetRandom(MvcType.Sortie).Next(mvcControllerRequests.Count);
+            return new List<ISortieRequest>(mvcControllerRequests)[randomIndex];
         }
     }
 }

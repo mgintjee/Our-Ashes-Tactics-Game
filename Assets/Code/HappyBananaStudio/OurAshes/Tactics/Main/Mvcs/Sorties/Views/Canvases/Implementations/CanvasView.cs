@@ -1,6 +1,6 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Responses.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Responses.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Canvases.Interfaces;
 using System.Collections.Generic;
 
@@ -21,17 +21,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views
             throw new System.NotImplementedException();
         }
 
-        void ICanvasView.Process(ISortieControllerRequest controllerRequest)
+        void ICanvasView.Process(ISortieRequest controllerRequest)
         {
             throw new System.NotImplementedException();
         }
 
-        void ICanvasView.Process(ISet<ISortieControllerRequest> controllerRequests)
+        void ICanvasView.Process(ISet<ISortieRequest> controllerRequests)
         {
             throw new System.NotImplementedException();
         }
 
-        void ICanvasView.Process(ISortieModelResponse modelResponse)
+        void ICanvasView.Process(ISortieResponse modelResponse)
         {
             throw new System.NotImplementedException();
         }

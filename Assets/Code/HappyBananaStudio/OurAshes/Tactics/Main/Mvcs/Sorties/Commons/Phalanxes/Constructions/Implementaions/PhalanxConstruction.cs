@@ -1,10 +1,10 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.AIs.Types.Enums;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.AIs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Implementations.Abstracts;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Controllers.Types.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Controllers.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Phalanxes.CallSigns.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Phalanxes.Types.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Phalanxes.CallSigns;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Phalanxes.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Schemes.Insignias.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Phalanxes.Constructions.Interfaces;
 using System.Collections.Generic;
@@ -51,7 +51,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             ControllerType controllerType, AIType aiType, IInsigniaScheme insigniaScheme,
             ISet<CombatantCallSign> combatantCallSigns, ISet<PhalanxCallSign> phalanxCallSigns)
         {
-            this._phalanxCallSign = phalanxCallSign;
+            _phalanxCallSign = phalanxCallSign;
             _phalanxType = phalanxType;
             _controllerType = controllerType;
             _aiType = aiType;
@@ -70,11 +70,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
                 "\n{8}" +
                 "\n{9}:[{10}]" +
                 "\n{11}:[{12}]",
-                typeof(PhalanxCallSign).Name, this._phalanxCallSign,
-                typeof(PhalanxType).Name, this._phalanxType,
-                typeof(ControllerType).Name, this._controllerType,
-                typeof(AIType).Name, this._aiType,
-                this._insigniaScheme,
+                typeof(PhalanxCallSign).Name, _phalanxCallSign,
+                typeof(PhalanxType).Name, _phalanxType,
+                typeof(ControllerType).Name, _controllerType,
+                typeof(AIType).Name, _aiType,
+                _insigniaScheme,
                 typeof(CombatantCallSign).Name, string.Join(",", _combatantCallSigns),
                 typeof(PhalanxCallSign).Name, string.Join(",", _phalanxCallSigns));
         }
@@ -239,21 +239,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             }
 
             /// <inheritdoc/>
-            protected override ISet<string> GetInvalidReasons()
+            protected override void Validate(ISet<string> invalidReasons)
             {
-                // Default an empty Set: String
-                ISet<string> invalidReasons = new HashSet<string>();
-
-                // Check that _phalanxCallSign has been set
-                if (_phalanxCallSign == PhalanxCallSign.None)
-                {
-                    invalidReasons.Add(typeof(PhalanxCallSign).Name + " cannot be none.");
-                }
-                // Check that _controllerType has been set
-                if (_controllerType == ControllerType.None)
-                {
-                    invalidReasons.Add(typeof(ControllerType).Name + " cannot be none.");
-                }
+                ValidateEnum(invalidReasons, _phalanxCallSign);
+                ValidateEnum(invalidReasons, _controllerType);
                 // Check that _aiType has been set
                 if (_controllerType == ControllerType.Human && _aiType != AIType.None ||
                     _controllerType != ControllerType.Human && _aiType == AIType.None)
@@ -261,18 +250,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
                     invalidReasons.Add(typeof(AIType).Name + " cannot be " + _aiType + " while " +
                         typeof(ControllerType).Name + " is " + _controllerType + ".");
                 }
-                // Check that _combatantCallSigns has been set
-                if (_combatantCallSigns == null ||
-                    _combatantCallSigns.Count == 0)
-                {
-                    invalidReasons.Add("Set: " + typeof(CombatantCallSign).Name + " cannot be null or empty.");
-                }
-                // Check that _phalanxCallSigns has been set
-                if (_phalanxCallSigns == null)
-                {
-                    invalidReasons.Add("Set: " + typeof(PhalanxCallSign).Name + " cannot be null.");
-                }
-                return invalidReasons;
+                Validate(invalidReasons, _combatantCallSigns);
+                Validate(invalidReasons, _phalanxCallSigns);
             }
         }
     }

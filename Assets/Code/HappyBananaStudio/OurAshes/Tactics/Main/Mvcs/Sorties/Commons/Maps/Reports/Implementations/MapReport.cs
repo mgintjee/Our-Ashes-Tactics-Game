@@ -1,10 +1,11 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Reports.Implementations.Abstracts;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Tiles.Reports.Interfaces;
@@ -53,36 +54,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         }
 
         /// <inheritdoc/>
-        public override string ToString()
-        {
-            ISet<ITileReport> occupiedTileReports = new HashSet<ITileReport>();
-            ISet<ITileReport> unoccupiedTileReports = new HashSet<ITileReport>();
-            foreach (ITileReport tileReport in _tileReports)
-            {
-                if (tileReport.GetCombatantCallSign() != CombatantCallSign.None)
-                {
-                    occupiedTileReports.Add(tileReport);
-                }
-                else
-                {
-                    unoccupiedTileReports.Add(tileReport);
-                }
-            }
-            string occupiedTileReportsString = (occupiedTileReports.Count != 0)
-                ? string.Join("\n", occupiedTileReports)
-                : "empty";
-            string unoccupiedTileReportsString = (unoccupiedTileReports.Count != 0)
-                ? string.Join("\n", unoccupiedTileReports)
-                : "empty";
-            return string.Format("{0}: _radius={1}, _isMirrored={2}" +
-                "\nOccupied [\n{3}\n]" +
-                "\nUnoccupied [\n{4}\n]",
-                this.GetType().Name, _radius, _isMirrored,
-                occupiedTileReportsString,
-                unoccupiedTileReportsString);
-        }
-
-        /// <inheritdoc/>
         ISet<ICubeCoordinates> IMapReport.GetCubeCoordinates()
         {
             return new HashSet<ICubeCoordinates>(_cubeCoordinates);
@@ -124,6 +95,26 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
                 }
             }
             return Optional<ITileReport>.Empty();
+        }
+
+        /// <inheritdoc/>
+        protected override string GetContent()
+        {
+            ISet<ITileReport> occupiedTileReports = new HashSet<ITileReport>();
+            ISet<ITileReport> unoccupiedTileReports = new HashSet<ITileReport>();
+            foreach (ITileReport tileReport in _tileReports)
+            {
+                if (tileReport.GetCombatantCallSign() != CombatantCallSign.None)
+                {
+                    occupiedTileReports.Add(tileReport);
+                }
+                else
+                {
+                    unoccupiedTileReports.Add(tileReport);
+                }
+            }
+            return string.Format("_radius={0}, _isMirrored={1}, Occupied {2}, Unoccupied {3}",
+                _radius, _isMirrored, StringUtils.FormatCollection(occupiedTileReports), StringUtils.FormatCollection(unoccupiedTileReports));
         }
 
         /// <summary>

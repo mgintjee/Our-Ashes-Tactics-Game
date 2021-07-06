@@ -66,13 +66,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
                 "\n{5}" +
                 "\n{6}" +
                 "\n{7}",
-                this._dateTime, this.GetType().Name,
-                StringUtils.Format(typeof(ICombatReport), this._combatReport),
-                StringUtils.Format(typeof(IEngagementReport), this._engagementReport),
-                StringUtils.Format(typeof(IMapReport), this._mapReport),
-                StringUtils.Format(typeof(IOrderReport), this._orderReport),
-                StringUtils.Format(typeof(IRosterReport), this._rosterReport),
-                StringUtils.Format(typeof(IScoreReport), this._scoreReport));
+                _dateTime, GetType().Name,
+                StringUtils.Format(_combatReport),
+                StringUtils.Format(_engagementReport),
+                StringUtils.Format(_mapReport),
+                StringUtils.Format(_orderReport),
+                StringUtils.Format(_rosterReport),
+                StringUtils.Format(_scoreReport));
         }
 
         /// <inheritdoc/>
@@ -111,6 +111,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             return _scoreReport;
         }
 
+        /// <inheritdoc/>
+        protected override string GetContent()
+        {
+            return string.Format("{0}: {1}, {2}, {3}",
+                _combatReport, _engagementReport, _mapReport, _orderReport, _rosterReport, _scoreReport);
+        }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -140,7 +147,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             /// <returns></returns>
             public IMvcSortieModelReport Build()
             {
-                ISet<string> invalidReasons = this.IsInvalid();
+                ISet<string> invalidReasons = IsInvalid();
                 // Check that the set parameters are valid
                 if (invalidReasons.Count == 0)
                 {
@@ -148,7 +155,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
                     return new MvcSortieModelReport(_combatReport, _engagementReport, _mapReport, _orderReport, _rosterReport, _scoreReport);
                 }
                 throw ExceptionUtil.Arguments.Build("Unable to construct {}. Invalid Parameters. {}",
-                    this.GetType(), string.Join("\n", invalidReasons));
+                    GetType(), string.Join("\n", invalidReasons));
             }
 
             /// <summary>

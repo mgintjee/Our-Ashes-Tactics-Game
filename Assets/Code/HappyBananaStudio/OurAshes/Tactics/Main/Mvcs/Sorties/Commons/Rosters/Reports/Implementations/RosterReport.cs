@@ -1,4 +1,4 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
@@ -51,9 +51,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
                 "\nAll {2}" +
                 "\n{3}",
                 this.GetType().Name,
-                StringUtils.Format(typeof(CombatantCallSign), activeString),
-                StringUtils.Format(typeof(CombatantCallSign), allString),
-                StringUtils.Format(typeof(ICombatantReport), reportString));
+                StringUtils.Format(activeString),
+                StringUtils.Format(allString),
+                StringUtils.Format(reportString));
         }
 
         /// <inheritdoc/>

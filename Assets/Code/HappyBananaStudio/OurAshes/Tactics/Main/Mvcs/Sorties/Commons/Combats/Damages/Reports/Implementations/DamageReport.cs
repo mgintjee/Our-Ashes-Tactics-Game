@@ -1,4 +1,5 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Reports.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Destructibles.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Fireables.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Reports.Interfaces;
@@ -11,7 +12,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
     /// Todo
     /// </summary>
     public class DamageReport
-        : IDamageReport
+        : AbstractReport, IDamageReport
     {
         // Todo
         private readonly IFireableAttributes _fireableAttributes;
@@ -63,17 +64,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         }
 
         /// <inheritdoc/>
-        public override string ToString()
-        {
-            return string.Format("{0}: {1}" +
-                "\n_actualSalvoHits={2}, _expectedSalvoHits={3}" +
-                "\n_armorDamageInflictedPerHit={4}, _healthDamageInflictedPerHit={5}" +
-                "\n_healthDamageMitigatedPerHit={6}",
-                this.GetType().Name, _weaponGearReport, _actualSalvoHits, _expectedSalvoHits,
-                _armorDamageInflictedPerHit, _healthDamageInflictedPerHit, _healthDamageMitigatedPerHit);
-        }
-
-        /// <inheritdoc/>
         float IDamageReport.GetActualSalvoHits()
         {
             return _actualSalvoHits;
@@ -119,6 +109,15 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         IGearReport IDamageReport.GetGearReport()
         {
             return _weaponGearReport;
+        }
+
+        /// <inheritdoc/>
+        protected override string GetContent()
+        {
+            return string.Format("{0}, _actualSalvoHits={1}, _expectedSalvoHits={2}, " +
+                "_armorDamageInflictedPerHit={3}, _healthDamageInflictedPerHit={4}, _healthDamageMitigatedPerHit={5}",
+                _weaponGearReport, _actualSalvoHits, _expectedSalvoHits, _armorDamageInflictedPerHit,
+                _healthDamageInflictedPerHit, _healthDamageMitigatedPerHit);
         }
 
         /// <summary>

@@ -1,5 +1,6 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Reports.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combats.Damages.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combats.Reports.Interfaces;
@@ -10,8 +11,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
     /// <summary>
     /// Todo
     /// </summary>
-    public struct CombatReport
-        : ICombatReport
+    public class CombatReport
+        : AbstractReport, ICombatReport
     {
         // Todo
         private readonly CombatantCallSign _actingCallSign;
@@ -34,18 +35,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         }
 
         /// <inheritdoc/>
-        public override string ToString()
-        {
-            string damageReportsString = (_damageReports.Count != 0)
-                ? string.Join("\n", _damageReports)
-                : "empty";
-            return string.Format("{0}: Acting {1}, Target {2}" +
-                "\n{3}",
-                this.GetType().Name, _actingCallSign, _targetCallSign,
-                StringUtils.Format(typeof(IDamageReport), damageReportsString));
-        }
-
-        /// <inheritdoc/>
         CombatantCallSign ICombatReport.GetActingCallSign()
         {
             return _actingCallSign;
@@ -61,6 +50,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         CombatantCallSign ICombatReport.GetTargetCallSign()
         {
             return _targetCallSign;
+        }
+
+        /// <inheritdoc/>
+        protected override string GetContent()
+        {
+            return string.Format("Acting {0}, Target {1}, {2}",
+                this.GetType().Name, _actingCallSign, _targetCallSign,
+                StringUtils.FormatCollection(_damageReports));
         }
 
         /// <summary>

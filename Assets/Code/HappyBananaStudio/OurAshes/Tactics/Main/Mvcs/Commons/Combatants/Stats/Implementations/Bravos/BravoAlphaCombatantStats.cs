@@ -1,8 +1,8 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.IDs.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Skins.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Types.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Sizes.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Rarities.Enums;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.IDs;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Skins;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Types;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Sizes;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Rarities;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Destructibles.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Fireables.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Implementations;
@@ -27,12 +27,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             : base()
         {
             // Common Stats
-            this._combatantID = CombatantID.BravoAlpha;
-            this._name = this._combatantID.ToString();
-            this._combatantType = CombatantType.Bravo;
-            this._rarity = Rarity.Common;
+            _combatantID = CombatantID.BravoAlpha;
+            _name = _combatantID.ToString();
+            _combatantType = CombatantType.Bravo;
+            _rarity = Rarity.Common;
             // Model Stats
-            this._combatantAttributes = new CombatantAttributes.Builder()
+            _combatantAttributes = new CombatantAttributes.Builder()
                     .SetDestructibleAttributes(
                         new DestructibleAttributes.Builder()
                         .SetArmor(5)
@@ -61,8 +61,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
                             .Build())
                     .Build();
             // View Stats
-            this._combatantSkins = new HashSet<CombatantSkin>() { CombatantSkin.BravoAlphaAlpha };
-            this._materialIndices = new MaterialIndices.Builder()
+            _combatantSkins = new HashSet<CombatantSkin>() { CombatantSkin.BravoAlphaAlpha };
+            _materialIndices = new MaterialIndices.Builder()
                     .SetPrimaryIndex(0)
                     .SetSecondaryIndex(0)
                     .SetTertiaryIndex(0)

@@ -1,6 +1,6 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Responses.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Responses.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Maps.Paths.Collections.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Maps.Paths.Interfaces;
 using System.Collections.Generic;
@@ -25,17 +25,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views
             pathViews.Clear();
         }
 
-        void IPathViewCollection.Process(ISortieControllerRequest controllerRequest)
+        void IPathViewCollection.Process(ISortieRequest controllerRequest)
         {
             throw new System.NotImplementedException();
         }
 
-        void IPathViewCollection.Process(ISet<ISortieControllerRequest> controllerRequests)
+        void IPathViewCollection.Process(ISet<ISortieRequest> controllerRequests)
         {
             throw new System.NotImplementedException();
         }
 
-        void IPathViewCollection.Process(ISortieModelResponse modelResponse)
+        void IPathViewCollection.Process(ISortieResponse modelResponse)
         {
             throw new System.NotImplementedException();
         }

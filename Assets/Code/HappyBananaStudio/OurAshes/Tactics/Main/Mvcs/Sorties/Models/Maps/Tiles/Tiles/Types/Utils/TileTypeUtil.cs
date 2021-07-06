@@ -1,4 +1,5 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Randoms.Managers;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Randoms.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Tiles.Constants.Managers;
@@ -84,7 +85,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 }
             }
 
-            double probability = RandomManager.GetSortieRandom().NextDouble();
+            double probability = RandomManager.GetRandom(MvcType.Sortie).NextDouble();
             IDictionary<TileType, float> tileTypeProbabilities = GetTileTypeProbabilities();
             IDictionary<TileType, int> tileTypeCounts = GetTileTypeDefaultCounts();
 

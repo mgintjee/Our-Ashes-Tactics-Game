@@ -1,7 +1,7 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Implementaions.Waits;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Reports.Interfaces;
@@ -28,17 +28,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <param name="mapReport">      </param>
         private WaitPathFinder(ICubeCoordinates cubeCoordinates, IMapReport mapReport)
         {
-            this._cubeCoordinates = cubeCoordinates;
-            this._mapReport = mapReport;
-            this.PathFind();
+            _cubeCoordinates = cubeCoordinates;
+            _mapReport = mapReport;
+            PathFind();
         }
 
         /// <inheritdoc/>
         protected override void PathFind()
         {
-            _logger.Debug("PathFind @ {}", this._cubeCoordinates);
-            this.cubeCoordinatesPaths.Add(this._cubeCoordinates,
-                new WaitPath(new List<ICubeCoordinates>() { this._cubeCoordinates }, this._mapReport));
+            _logger.Debug("PathFind @ {}", _cubeCoordinates);
+            _cubeCoordinatesPaths.Add(_cubeCoordinates,
+                new WaitPath(new List<ICubeCoordinates>() { _cubeCoordinates }, _mapReport));
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             private IMapReport _mapReport = null;
 
             // Todo
-            private ICubeCoordinates cubeCoordinates = null;
+            private ICubeCoordinates _cubeCoordinates = null;
 
             /// <summary>
             /// Todo
@@ -57,15 +57,15 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             /// <returns></returns>
             public IPathFinder Build()
             {
-                ISet<string> invalidReasons = this.IsInvalid();
+                ISet<string> invalidReasons = IsInvalid();
                 // Check that the set parameters are valid
                 if (invalidReasons.Count == 0)
                 {
                     // Instantiate a new Object
-                    return new WaitPathFinder(this.cubeCoordinates, _mapReport);
+                    return new WaitPathFinder(_cubeCoordinates, _mapReport);
                 }
                 throw ExceptionUtil.Arguments.Build("Unable to construct {}. Invalid Parameters. {}",
-                    this.GetType(), string.Join("\n", invalidReasons));
+                    GetType(), string.Join("\n", invalidReasons));
             }
 
             /// <summary>
@@ -75,7 +75,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             /// <returns></returns>
             public Builder SetCubeCoordinates(ICubeCoordinates cubeCoordinates)
             {
-                this.cubeCoordinates = cubeCoordinates;
+                _cubeCoordinates = cubeCoordinates;
                 return this;
             }
 
@@ -99,7 +99,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
                 // Check that startingCubeCoordinates has been set
-                if (this.cubeCoordinates == null)
+                if (_cubeCoordinates == null)
                 {
                     argumentExceptionSet.Add("Starting " + typeof(ICubeCoordinates) + " cannot be null.");
                 }

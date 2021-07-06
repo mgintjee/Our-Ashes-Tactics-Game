@@ -1,4 +1,4 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Implementaions.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Types.Enums;
@@ -20,14 +20,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         public FirePath(IList<ICubeCoordinates> cubeCoordinatesStepList, IMapReport mapReport)
             : base(cubeCoordinatesStepList, mapReport)
         {
-            this._pathType = PathType.Fire;
+            _pathType = PathType.Fire;
         }
 
         /// <inheritdoc/>
         protected override float GetCubeCoordinatesCost(ICubeCoordinates cubeCoordinates)
         {
             float fireCost = float.MaxValue;
-            this._mapReport.GetTileReport(cubeCoordinates).IfPresent((tileReport) =>
+            _mapReport.GetTileReport(cubeCoordinates).IfPresent((tileReport) =>
             {
                 fireCost = tileReport.GetTileStats().GetTileAttributes().GetFireCost();
                 if (tileReport.GetCombatantCallSign() != CombatantCallSign.None)

@@ -1,5 +1,6 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Traits.IDs.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Traits.IDs;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Reports.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Traits.Reports.Interfaces;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loado
     /// Trait Report Implementation
     /// </summary>
     public class TraitReport
-        : ITraitReport
+        : AbstractReport, ITraitReport
     {
         // Todo
         private readonly ISet<TraitID> _traitIDs;
@@ -25,20 +26,16 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loado
         }
 
         /// <inheritdoc/>
-        public override string ToString()
-        {
-            string value = (_traitIDs.Count != 0)
-                ? string.Join(", ", _traitIDs)
-                : "empty";
-            return string.Format("{0}: {1}",
-                this.GetType().Name,
-                StringUtils.Format(typeof(TraitID), value));
-        }
-
-        /// <inheritdoc/>
         ISet<TraitID> ITraitReport.GetTraitIDs()
         {
             return new HashSet<TraitID>(_traitIDs);
+        }
+
+        /// <inheritdoc/>
+        /// s
+        protected override string GetContent()
+        {
+            return string.Format("{0}", StringUtils.FormatCollection(_traitIDs));
         }
 
         /// <summary>

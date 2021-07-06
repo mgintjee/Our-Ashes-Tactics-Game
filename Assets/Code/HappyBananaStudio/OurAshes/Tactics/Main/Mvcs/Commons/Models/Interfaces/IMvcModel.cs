@@ -1,5 +1,5 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Requests.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Responses.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Responses.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Requests.Interfaces;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Interfaces
@@ -13,19 +13,25 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Model
         /// Todo
         /// </summary>
         /// <returns></returns>
-        ISet<IRequest> GetControllerRequests();
+        ISet<IMvcRequest> GetMvcRequests();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="mvcControllerRequest"></param>
         /// <returns></returns>
-        void Process(IRequest mvcControllerRequest);
+        void Process(IMvcRequest mvcControllerRequest);
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        IMvcModelResponse GetMvcModelResponse();
+        bool IsProcessing();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        IMvcResponse GetMvcResponse();
     }
 }

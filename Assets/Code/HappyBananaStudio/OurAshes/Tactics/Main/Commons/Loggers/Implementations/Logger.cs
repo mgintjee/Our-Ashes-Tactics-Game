@@ -1,5 +1,5 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using System;
 using System.IO;
 
@@ -43,7 +43,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Im
         /// <param name="logFilePath"> </param>
         public Logger(MvcType mvcType, Type classLogging, string logFilePath)
         {
-            this._mvcType = mvcType;
+            _mvcType = mvcType;
             _classLogging = classLogging;
             _logFilePath = logFilePath;
         }
@@ -179,7 +179,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Im
         /// <returns>The String of the message with the loggingClass included</returns>
         private string ConvertMessage(string prefix, string message)
         {
-            return this._mvcType + ":" + prefix + _classLogging.Name + ": " + message;
+            return _mvcType + ":" + prefix + _classLogging.Name + ": " + message;
         }
 
         /// <summary>
@@ -240,7 +240,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Im
         /// <param name="message"></param>
         private void WriteToLogFile(string message)
         {
-            StreamWriter logFileStream = File.AppendText(this._logFilePath);
+            StreamWriter logFileStream = File.AppendText(_logFilePath);
             logFileStream.Write(DateTime.Now.ToLongTimeString() + ": " + message + "\n");
             logFileStream.Close();
         }

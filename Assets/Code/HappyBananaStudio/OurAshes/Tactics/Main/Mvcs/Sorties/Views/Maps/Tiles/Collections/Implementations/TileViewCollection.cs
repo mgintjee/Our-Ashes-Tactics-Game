@@ -1,6 +1,6 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Responses.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Responses.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Maps.Tiles.Collections.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Maps.Tiles.Interfaces;
 using System.Collections.Generic;
@@ -29,17 +29,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views
             tileViews.Clear();
         }
 
-        void ITileViewCollection.Process(ISortieControllerRequest controllerRequest)
+        void ITileViewCollection.Process(ISortieRequest controllerRequest)
         {
             throw new System.NotImplementedException();
         }
 
-        void ITileViewCollection.Process(ISet<ISortieControllerRequest> controllerRequests)
+        void ITileViewCollection.Process(ISet<ISortieRequest> controllerRequests)
         {
             throw new System.NotImplementedException();
         }
 
-        void ITileViewCollection.Process(ISortieModelResponse modelResponse)
+        void ITileViewCollection.Process(ISortieResponse modelResponse)
         {
             // Todo: Check if there is a controller request If not generate all of the tiles Else
             // update tiles based off of the reports

@@ -1,6 +1,6 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Responses.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Responses.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Rosters.Combatants.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Rosters.Weapons.Collections.Interfaces;
 using System.Collections.Generic;
@@ -29,17 +29,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views
             tileViews.Clear();
         }
 
-        void IWeaponViewCollection.Process(ISortieControllerRequest controllerRequest)
+        void IWeaponViewCollection.Process(ISortieRequest controllerRequest)
         {
             throw new System.NotImplementedException();
         }
 
-        void IWeaponViewCollection.Process(ISet<ISortieControllerRequest> controllerRequests)
+        void IWeaponViewCollection.Process(ISet<ISortieRequest> controllerRequests)
         {
             throw new System.NotImplementedException();
         }
 
-        void IWeaponViewCollection.Process(ISortieModelResponse modelResponse)
+        void IWeaponViewCollection.Process(ISortieResponse modelResponse)
         {
             throw new System.NotImplementedException();
         }

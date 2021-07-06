@@ -1,6 +1,6 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Responses.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Responses.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Maps.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Maps.Paths.Collections.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Maps.Paths.Collections.Interfaces;
@@ -45,21 +45,21 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views
         }
 
         /// <inheritdoc/>
-        void IMapView.Process(ISortieControllerRequest controllerRequest)
+        void IMapView.Process(ISortieRequest controllerRequest)
         {
             pathViewCollection.Process(controllerRequest);
             tileViewCollection.Process(controllerRequest);
         }
 
         /// <inheritdoc/>
-        void IMapView.Process(ISet<ISortieControllerRequest> controllerRequests)
+        void IMapView.Process(ISet<ISortieRequest> controllerRequests)
         {
             pathViewCollection.Process(controllerRequests);
             tileViewCollection.Process(controllerRequests);
         }
 
         /// <inheritdoc/>
-        void IMapView.Process(ISortieModelResponse modelResponse)
+        void IMapView.Process(ISortieResponse modelResponse)
         {
             pathViewCollection.Process(modelResponse);
             tileViewCollection.Process(modelResponse);

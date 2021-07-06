@@ -1,4 +1,4 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Orders.Reports.Interfaces;
@@ -40,8 +40,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
                 "\nCurrent {1}" +
                 "\nUpcoming {2}",
                 this.GetType().Name,
-                StringUtils.Format(typeof(CombatantCallSign), currentValue),
-                StringUtils.Format(typeof(CombatantCallSign), upcomingValue));
+                StringUtils.Format(currentValue),
+                StringUtils.Format(upcomingValue));
         }
 
         /// <inheritdoc/>

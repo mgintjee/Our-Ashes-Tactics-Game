@@ -1,8 +1,8 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.IDs.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Skins.Enums;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.IDs;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Skins;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Skins.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Skins;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Interfaces;
@@ -71,12 +71,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
                 "\n{5}" +
                 "\n {6}",
                 this.GetType().Name,
-                StringUtils.Format(typeof(CombatantCallSign), this._combatantCallSign),
-                StringUtils.Format(typeof(CombatantID), this._combatantID),
-                this._loadoutReport,
-                StringUtils.Format(typeof(CombatantSkin), _combatantSkin),
+                StringUtils.Format(_combatantCallSign),
+                StringUtils.Format(_combatantID),
+                _loadoutReport,
+                StringUtils.Format(_combatantSkin),
                 (_insigniaScheme != null) ? _insigniaScheme.ToString() : typeof(IInsigniaScheme).Name + ": Null",
-                StringUtils.Format(typeof(GearSkin), value));
+                StringUtils.Format(value));
         }
 
         /// <inheritdoc/>

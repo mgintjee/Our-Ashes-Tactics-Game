@@ -15,8 +15,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// </summary>
         public WaterTileStats()
         {
-            this._tileType = TileType.Water;
-            this._tileAttributes = new TileAttributes.Builder()
+            _tileType = TileType.Water;
+            _tileAttributes = new TileAttributes.Builder()
                 .SetFireCost(5)
                 .SetMoveCost(3)
                 .Build();

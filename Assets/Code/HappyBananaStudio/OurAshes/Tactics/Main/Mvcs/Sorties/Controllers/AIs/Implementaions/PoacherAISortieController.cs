@@ -1,8 +1,9 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Randoms.Managers;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Randoms.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Responses.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Types.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.AIs.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Interfaces;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.AIs.Implementaions
@@ -14,10 +15,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
         : IAISortieController
     {
         /// <inheritdoc/>
-        ISortieControllerRequest IAISortieController.DetermineControllerRequest(IMvcModelResponse mvcModelResponse, ISet<ISortieControllerRequest> sortieControllerRequests)
+        ISortieRequest IAISortieController.DetermineControllerRequest(IMvcModelResponse mvcModelResponse, ISet<ISortieRequest> sortieControllerRequests)
         {
-            ISet<ISortieControllerRequest> fireSortieControllerRequests = new HashSet<ISortieControllerRequest>();
-            foreach (ISortieControllerRequest sortieControllerRequest in sortieControllerRequests)
+            ISet<ISortieRequest> fireSortieControllerRequests = new HashSet<ISortieRequest>();
+            foreach (ISortieRequest sortieControllerRequest in sortieControllerRequests)
             {
                 if (sortieControllerRequest.GetPath().GetPathType() == PathType.Fire)
                 {
@@ -26,11 +27,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
             }
             if (fireSortieControllerRequests.Count != 0)
             {
-                int fireRandomIndex = RandomManager.GetSortieRandom().Next(fireSortieControllerRequests.Count);
-                return new List<ISortieControllerRequest>(fireSortieControllerRequests)[fireRandomIndex];
+                int fireRandomIndex = RandomManager.GetRandom(MvcType.Sortie).Next(fireSortieControllerRequests.Count);
+                return new List<ISortieRequest>(fireSortieControllerRequests)[fireRandomIndex];
             }
-            int randomIndex = RandomManager.GetSortieRandom().Next(sortieControllerRequests.Count);
-            return new List<ISortieControllerRequest>(sortieControllerRequests)[randomIndex];
+            int randomIndex = RandomManager.GetRandom(MvcType.Sortie).Next(sortieControllerRequests.Count);
+            return new List<ISortieRequest>(sortieControllerRequests)[randomIndex];
         }
     }
 }

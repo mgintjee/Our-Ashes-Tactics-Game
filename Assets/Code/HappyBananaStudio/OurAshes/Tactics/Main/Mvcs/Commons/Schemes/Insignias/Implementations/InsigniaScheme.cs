@@ -1,7 +1,7 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Implementations.Abstracts;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Schemes.Emblems.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Schemes.Patterns.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Reports.Implementations.Abstracts;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Schemes.Emblems.IDs;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Schemes.Patterns.IDs;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Schemes.Insignias.Interfaces;
 using System.Collections.Generic;
 
@@ -10,8 +10,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Schem
     /// <summary>
     /// Insignia Scheme Implementation
     /// </summary>
-    public struct InsigniaScheme
-        : IInsigniaScheme
+    public class InsigniaScheme
+        : AbstractReport, IInsigniaScheme
     {
         // Todo
         private readonly PatternSchemeID patternSchemeID;
@@ -31,17 +31,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Schem
         }
 
         /// <inheritdoc/>
-        public override string ToString()
-        {
-            return string.Format("{0}: " +
-                "\n{1}" +
-                "\n{2}",
-                this.GetType().Name,
-                StringUtils.Format(typeof(PatternSchemeID), this.patternSchemeID),
-                StringUtils.Format(typeof(EmblemSchemeID), this.emblemSchemeID));
-        }
-
-        /// <inheritdoc/>
         EmblemSchemeID IInsigniaScheme.GetEmblemSchemeID()
         {
             return emblemSchemeID;
@@ -53,6 +42,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Schem
             return patternSchemeID;
         }
 
+        /// <inheritdoc/>
+        protected override string GetContent()
+        {
+            return string.Format("{0}, {1}", patternSchemeID, emblemSchemeID);
+        }
+
         /// <summary>
         /// Builder class for this object
         /// </summary>
@@ -60,10 +55,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Schem
             : AbstractBuilder<IInsigniaScheme>
         {
             // Todo
-            private PatternSchemeID patternSchemeID = PatternSchemeID.None;
+            private PatternSchemeID _patternSchemeID = PatternSchemeID.None;
 
             // Todo
-            private EmblemSchemeID emblemSchemeID = EmblemSchemeID.None;
+            private EmblemSchemeID _emblemSchemeID = EmblemSchemeID.None;
 
             /// <summary>
             /// Todo
@@ -72,7 +67,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Schem
             /// <returns></returns>
             public Builder SetPatternSchemeID(PatternSchemeID patternSchemeID)
             {
-                this.patternSchemeID = patternSchemeID;
+                _patternSchemeID = patternSchemeID;
                 return this;
             }
 
@@ -83,29 +78,21 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Schem
             /// <returns></returns>
             public Builder SetEmblemSchemeID(EmblemSchemeID emblemSchemeID)
             {
-                this.emblemSchemeID = emblemSchemeID;
+                _emblemSchemeID = emblemSchemeID;
                 return this;
             }
 
             /// <inheritdoc/>
             protected override IInsigniaScheme BuildObj()
             {
-                return new InsigniaScheme(patternSchemeID, emblemSchemeID);
+                return new InsigniaScheme(_patternSchemeID, _emblemSchemeID);
             }
 
             /// <inheritdoc/>
-            protected override ISet<string> GetInvalidReasons()
+            protected override void Validate(ISet<string> invalidReasons)
             {
-                ISet<string> invalidReasons = new HashSet<string>();
-
-                if (patternSchemeID == PatternSchemeID.None)
-                {
-                }
-                if (emblemSchemeID == EmblemSchemeID.None)
-                {
-                }
-
-                return invalidReasons;
+                ValidateEnum(invalidReasons, _patternSchemeID);
+                ValidateEnum(invalidReasons, _emblemSchemeID);
             }
         }
     }

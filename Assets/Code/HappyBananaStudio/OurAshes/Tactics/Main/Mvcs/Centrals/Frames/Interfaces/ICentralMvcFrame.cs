@@ -3,7 +3,7 @@
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Frames.Interfaces
 {
     /// <summary>
-    /// Central Mvc Frame Interface
+    /// Central Frame Interface
     /// </summary>
     public interface ICentralMvcFrame
         : IMvcFrame

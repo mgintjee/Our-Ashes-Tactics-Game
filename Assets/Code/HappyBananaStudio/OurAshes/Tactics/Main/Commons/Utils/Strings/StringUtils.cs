@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings
 {
@@ -11,24 +10,25 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Stri
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="type"></param>
-        /// <param name="obj"> </param>
+        /// <typeparam name="TObject"></typeparam>
+        /// <param name="collection"></param>
         /// <returns></returns>
-        public static string Format(Type type, object obj)
+        public static string FormatCollection<TObject>(ICollection<TObject> collection)
         {
-            return (obj is IEnumerable)
-                ? FormatCollection(type, obj)
-                : string.Format("{0}:{1}", type.Name, obj.ToString());
+            return string.Format("Collection {0}:[{1}]",
+                typeof(TObject).Name, string.Join(", ", collection));
         }
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="type"></param>
+        /// <typeparam name="TObject"></typeparam>
+        /// <param name="tObject"></param>
         /// <returns></returns>
-        private static string FormatCollection(Type type, object collection)
+        public static string Format<TObject>(TObject tObject)
         {
-            return string.Format("Set {0}:[{1}]", type.Name, string.Join(", ", collection));
+            return string.Format("{0}:{1}",
+                typeof(TObject).Name, (tObject != null) ? tObject.ToString() : "Null");
         }
     }
 }

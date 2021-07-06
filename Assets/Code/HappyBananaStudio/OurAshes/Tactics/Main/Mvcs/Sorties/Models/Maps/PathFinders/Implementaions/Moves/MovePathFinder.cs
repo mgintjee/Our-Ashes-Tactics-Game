@@ -1,7 +1,7 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Implementaions.Moves;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
@@ -33,10 +33,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <param name="mapReport">      </param>
         private MovePathFinder(ICubeCoordinates cubeCoordinates, float movements, IMapReport mapReport)
         {
-            this._cubeCoordinates = cubeCoordinates;
-            this._mapReport = mapReport;
+            _cubeCoordinates = cubeCoordinates;
+            _mapReport = mapReport;
             _movements = movements;
-            this.PathFind();
+            PathFind();
         }
 
         /// <summary>
@@ -44,9 +44,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// </summary>
         protected override void PathFind()
         {
-            _logger.Debug("PathFind @ {} for movements={}", this._cubeCoordinates, _movements);
-            this.DijkstraAlgorithm();
-            this.CleanUpCubeCoordinatesPaths();
+            _logger.Debug("PathFind @ {} for movements={}", _cubeCoordinates, _movements);
+            DijkstraAlgorithm();
+            CleanUpCubeCoordinatesPaths();
         }
 
         /// <summary>
@@ -55,9 +55,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         private void CleanUpCubeCoordinatesPaths()
         {
             ISet<ICubeCoordinates> invalidCubeCoordinates = new HashSet<ICubeCoordinates>();
-            foreach (ICubeCoordinates cubeCoordinates in this.cubeCoordinatesPaths.Keys)
+            foreach (ICubeCoordinates cubeCoordinates in _cubeCoordinatesPaths.Keys)
             {
-                IPath path = this.cubeCoordinatesPaths[cubeCoordinates];
+                IPath path = _cubeCoordinatesPaths[cubeCoordinates];
                 if (path == null || !path.IsValid() || path.GetPathCost() > _movements)
                 {
                     invalidCubeCoordinates.Add(cubeCoordinates);
@@ -66,10 +66,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
 
             foreach (ICubeCoordinates cubeCoordinates in invalidCubeCoordinates)
             {
-                this.cubeCoordinatesPaths.Remove(cubeCoordinates);
+                _cubeCoordinatesPaths.Remove(cubeCoordinates);
             }
 
-            this.cubeCoordinatesPaths.Remove(this._cubeCoordinates);
+            _cubeCoordinatesPaths.Remove(_cubeCoordinates);
         }
 
         /// <summary>
@@ -80,21 +80,21 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             // Default an empty set
             ISet<ICubeCoordinates> visitedCubeCoordinatesSet = new HashSet<ICubeCoordinates>();
             // Default the unvisited set with the starting cubeCoordinates
-            ISet<ICubeCoordinates> unvisitedCubeCoordinatesSet = new HashSet<ICubeCoordinates> { this._cubeCoordinates };
-            this.cubeCoordinatesPaths[this._cubeCoordinates] = new MovePath(
-                new List<ICubeCoordinates>() { this._cubeCoordinates }, this._mapReport);
+            ISet<ICubeCoordinates> unvisitedCubeCoordinatesSet = new HashSet<ICubeCoordinates> { _cubeCoordinates };
+            _cubeCoordinatesPaths[_cubeCoordinates] = new MovePath(
+                new List<ICubeCoordinates>() { _cubeCoordinates }, _mapReport);
             // Continue iterating until all CubeCoordinates have been visited
             while (unvisitedCubeCoordinatesSet.Count > 0)
             {
                 // Collect the closest CubeCoordinates from the unvisited set
-                ICubeCoordinates closestCubeCoordinates = this.GetClosestCubeCoordinate(unvisitedCubeCoordinatesSet);
+                ICubeCoordinates closestCubeCoordinates = GetClosestCubeCoordinate(unvisitedCubeCoordinatesSet);
                 // Check if the closest CubeCoordinates is non-null
                 if (closestCubeCoordinates != null)
                 {
                     // Collect the neighbors of the closest CubeCoordinates
                     ISet<ICubeCoordinates> closestCubeCoordinatesNeighborSet = closestCubeCoordinates.GetNeighbors();
                     // Remove all that are not tracked in the mapReport
-                    closestCubeCoordinatesNeighborSet.IntersectWith(this._mapReport.GetCubeCoordinates());
+                    closestCubeCoordinatesNeighborSet.IntersectWith(_mapReport.GetCubeCoordinates());
                     // Add the closest CubeCoordinates to the visited set
                     visitedCubeCoordinatesSet.Add(closestCubeCoordinates);
                     // Remove the closest CubeCoordinates to the unvisited set
@@ -109,29 +109,29 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                             unvisitedCubeCoordinatesSet.Add(neighborCubeCoordinates);
                         }
                         // Collect the Path for the closest CubeCoordinates
-                        IPath closestPath = this.cubeCoordinatesPaths[closestCubeCoordinates];
+                        IPath closestPath = _cubeCoordinatesPaths[closestCubeCoordinates];
                         // Collect the List: CubeCoordinates from the Closest Path
                         IList<ICubeCoordinates> closestPathCubeCoordinatesStepList = closestPath.GetCubeCoordinatesList();
                         // Add the neighbor CubeCoordiantes
                         closestPathCubeCoordinatesStepList.Add(neighborCubeCoordinates);
                         // Build the new Path using the Closest Path and the neighbor CubeCoordinates
-                        IPath newNeighborPath = new MovePath(closestPathCubeCoordinatesStepList, this._mapReport);
-                        if (this.cubeCoordinatesPaths.ContainsKey(neighborCubeCoordinates))
+                        IPath newNeighborPath = new MovePath(closestPathCubeCoordinatesStepList, _mapReport);
+                        if (_cubeCoordinatesPaths.ContainsKey(neighborCubeCoordinates))
                         {
                             // Collect the Path for the neighbor CubeCoordinates
-                            IPath oldNeighborPath = this.cubeCoordinatesPaths[neighborCubeCoordinates];
+                            IPath oldNeighborPath = _cubeCoordinatesPaths[neighborCubeCoordinates];
                             // Check that the oldNeighborPath is non-null and is further than the newNeighborPath
                             if ((oldNeighborPath == null || oldNeighborPath.GetPathCost() > newNeighborPath.GetPathCost()) &&
                                 newNeighborPath.GetPathCost() < _movements)
                             {
                                 // Set the neighbor's new path
-                                this.cubeCoordinatesPaths[neighborCubeCoordinates] = newNeighborPath;
+                                _cubeCoordinatesPaths[neighborCubeCoordinates] = newNeighborPath;
                             }
                         }
                         else
                         {
                             // Set the neighbor's new path
-                            this.cubeCoordinatesPaths[neighborCubeCoordinates] = newNeighborPath;
+                            _cubeCoordinatesPaths[neighborCubeCoordinates] = newNeighborPath;
                         }
                     }
                 }
@@ -157,10 +157,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             foreach (ICubeCoordinates coordinates in cubeCoordinates)
             {
                 // Check if the Path IDictionary contains the CubeCoordinates
-                if (this.cubeCoordinatesPaths.ContainsKey(coordinates))
+                if (_cubeCoordinatesPaths.ContainsKey(coordinates))
                 {
                     // Collect the Path
-                    IPath path = this.cubeCoordinatesPaths[coordinates];
+                    IPath path = _cubeCoordinatesPaths[coordinates];
                     // Check if the path is non-null and closest
                     if (path != null && path.GetPathCost() < minimumDistance && path.GetPathCost() <= _movements)
                     {
@@ -193,7 +193,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             /// <returns></returns>
             public IPathFinder Build()
             {
-                ISet<string> invalidReasons = this.IsInvalid();
+                ISet<string> invalidReasons = IsInvalid();
                 // Check that the set parameters are valid
                 if (invalidReasons.Count == 0)
                 {
@@ -201,7 +201,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                     return new MovePathFinder(_cubeCoordinates, _movements, _mapReport);
                 }
                 throw ExceptionUtil.Arguments.Build("Unable to construct {}. Invalid Parameters. {}",
-                    this.GetType(), string.Join("\n", invalidReasons));
+                    GetType(), string.Join("\n", invalidReasons));
             }
 
             /// <summary>
@@ -233,7 +233,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             /// <returns></returns>
             public Builder SetMovements(float movements)
             {
-                this._movements = movements;
+                _movements = movements;
                 return this;
             }
 

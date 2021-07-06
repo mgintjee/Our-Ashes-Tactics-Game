@@ -15,8 +15,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// </summary>
         public RoadTileStats()
         {
-            this._tileType = TileType.Road;
-            this._tileAttributes = new TileAttributes.Builder()
+            _tileType = TileType.Road;
+            _tileAttributes = new TileAttributes.Builder()
                 .SetFireCost(0)
                 .SetMoveCost(1)
                 .Build();

@@ -1,4 +1,4 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Sizes.Enums;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Sizes;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Loadouts.Interfaces;
 using System.Collections.Generic;
@@ -33,47 +33,45 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
         private LoadoutAttributes(GearSize armorGearSize, GearSize cabinGearSize,
             GearSize engineGearSize, IList<GearSize> weaponGearSizes)
         {
-            this._armorGearSize = armorGearSize;
-            this._cabinGearSize = cabinGearSize;
-            this._engineGearSize = engineGearSize;
-            this._weaponGearSizes = weaponGearSizes;
+            _armorGearSize = armorGearSize;
+            _cabinGearSize = cabinGearSize;
+            _engineGearSize = engineGearSize;
+            _weaponGearSizes = weaponGearSizes;
         }
 
         /// <inheritdoc/>
         public override string ToString()
         {
-            string weaponStrings = (_weaponGearSizes.Count != 0)
-                ? string.Join(", ", _weaponGearSizes) : "empty";
             return string.Format("{0}: Armor: {1}, Cabin: {2}, Engine: {3}, Weapons: {4}",
                 this.GetType().Name,
-                StringUtils.Format(typeof(GearSize), _armorGearSize),
-                StringUtils.Format(typeof(GearSize), _cabinGearSize),
-                StringUtils.Format(typeof(GearSize), _engineGearSize),
-                StringUtils.Format(typeof(GearSize), weaponStrings));
+                StringUtils.Format(_armorGearSize),
+                StringUtils.Format(_cabinGearSize),
+                StringUtils.Format(_engineGearSize),
+                StringUtils.FormatCollection(_weaponGearSizes));
         }
 
         /// <inheritdoc/>
         GearSize ILoadoutAttributes.GetArmorGearSize()
         {
-            return this._armorGearSize;
+            return _armorGearSize;
         }
 
         /// <inheritdoc/>
         GearSize ILoadoutAttributes.GetCabinGearSize()
         {
-            return this._cabinGearSize;
+            return _cabinGearSize;
         }
 
         /// <inheritdoc/>
         GearSize ILoadoutAttributes.GetEngineGearSize()
         {
-            return this._engineGearSize;
+            return _engineGearSize;
         }
 
         /// <inheritdoc/>
         IList<GearSize> ILoadoutAttributes.GetWeaponGearSizes()
         {
-            return new List<GearSize>(this._weaponGearSizes);
+            return new List<GearSize>(_weaponGearSizes);
         }
 
         /// <summary>
@@ -82,16 +80,16 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
         public class Builder
         {
             // Todo
-            private GearSize armorGearSize = GearSize.None;
+            private GearSize _armorGearSize = GearSize.None;
 
             // Todo
-            private GearSize cabinGearSize = GearSize.None;
+            private GearSize _cabinGearSize = GearSize.None;
 
             // Todo
-            private GearSize engineGearSize = GearSize.None;
+            private GearSize _engineGearSize = GearSize.None;
 
             // Todo
-            private IList<GearSize> weaponGearSizes = new List<GearSize>();
+            private IList<GearSize> _weaponGearSizes = new List<GearSize>();
 
             /// <summary>
             /// Todo
@@ -100,7 +98,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             public ILoadoutAttributes Build()
             {
                 // Instantiate a new attributes
-                return new LoadoutAttributes(this.armorGearSize, this.cabinGearSize, this.engineGearSize, this.weaponGearSizes);
+                return new LoadoutAttributes(_armorGearSize, _cabinGearSize, _engineGearSize, _weaponGearSizes);
             }
 
             /// <summary>
@@ -109,7 +107,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             /// <param name="gearSize"></param>
             public Builder SetArmorGearSize(GearSize gearSize)
             {
-                this.armorGearSize = gearSize;
+                _armorGearSize = gearSize;
                 return this;
             }
 
@@ -119,7 +117,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             /// <param name="gearSize"></param>
             public Builder SetCabinGearSize(GearSize gearSize)
             {
-                this.cabinGearSize = gearSize;
+                _cabinGearSize = gearSize;
                 return this;
             }
 
@@ -129,7 +127,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             /// <param name="gearSize"></param>
             public Builder SetEngineGearSize(GearSize gearSize)
             {
-                this.engineGearSize = gearSize;
+                _engineGearSize = gearSize;
                 return this;
             }
 
@@ -139,7 +137,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             /// <param name="gearSizes"></param>
             public Builder SetWeaponGearSizes(IList<GearSize> gearSizes)
             {
-                this.weaponGearSizes = new List<GearSize>(gearSizes);
+                _weaponGearSizes = new List<GearSize>(gearSizes);
                 return this;
             }
         }

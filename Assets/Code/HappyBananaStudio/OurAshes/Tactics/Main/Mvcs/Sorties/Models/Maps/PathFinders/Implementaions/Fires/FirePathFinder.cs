@@ -1,8 +1,8 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
@@ -42,29 +42,29 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         private FirePathFinder(ICubeCoordinates cubeCoordinates,
             IMapReport mapReport, float range, float accuracy)
         {
-            this._cubeCoordinates = cubeCoordinates;
-            this._mapReport = mapReport;
+            _cubeCoordinates = cubeCoordinates;
+            _mapReport = mapReport;
             _range = range;
             _accuracy = accuracy;
-            this.PathFind();
+            PathFind();
         }
 
         /// <inheritdoc/>
         protected override void PathFind()
         {
-            _logger.Debug("PathFind @ {} for accuracy={} and range={}", this._cubeCoordinates, _accuracy, _range);
-            ISet<ICubeCoordinates> allCubeCoordinates = this._mapReport.GetCubeCoordinates();
+            _logger.Debug("PathFind @ {} for accuracy={} and range={}", _cubeCoordinates, _accuracy, _range);
+            ISet<ICubeCoordinates> allCubeCoordinates = _mapReport.GetCubeCoordinates();
             ISet<ICubeCoordinates> validCubeCoordinates = new HashSet<ICubeCoordinates>();
             // Iterate over all of the CubeCoordinates
             foreach (ICubeCoordinates cubeCoordinates in allCubeCoordinates)
             {
                 // Check that the cubeCoordinates is not the starting one
-                if (!cubeCoordinates.Equals(this._cubeCoordinates))
+                if (!cubeCoordinates.Equals(_cubeCoordinates))
                 {
-                    this._mapReport.GetTileReport(cubeCoordinates).IfPresent((tileReport) =>
+                    _mapReport.GetTileReport(cubeCoordinates).IfPresent((tileReport) =>
                     {
                         if (tileReport.GetCombatantCallSign() != CombatantCallSign.None)// &&
-                        //this._cubeCoordinates.GetDistanceFrom(tileReport.GetCubeCoordinates()) <= _range)
+                        //_cubeCoordinates.GetDistanceFrom(tileReport.GetCubeCoordinates()) <= _range)
                         {
                             validCubeCoordinates.Add(cubeCoordinates);
                         }
@@ -75,7 +75,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             // Iterate over all of the valid CubeCoordinates
             foreach (ICubeCoordinates cubeCoordinates in validCubeCoordinates)
             {
-                IList<ICubeCoordinates> straightLinePath = this.PathFindFor(this._cubeCoordinates, cubeCoordinates);
+                IList<ICubeCoordinates> straightLinePath = PathFindFor(_cubeCoordinates, cubeCoordinates);
                 if (straightLinePath.Count <= _range &&
                     !straightLinePath.Contains(null))
                 {
@@ -84,7 +84,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                         path.GetLength() < _range &&
                         path.IsValid())
                     {
-                        this.cubeCoordinatesPaths.Add(cubeCoordinates, path);
+                        _cubeCoordinatesPaths.Add(cubeCoordinates, path);
                     }
                 }
             }
@@ -101,7 +101,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             IList<ICubeCoordinates> cubeCoordinatesList = new List<ICubeCoordinates>();
             for (int i = 0; i < distance + 1; ++i)
             {
-                this.GetNextCubeCoordinates(i, distance, end).IfPresent(cubeCoordinates =>
+                GetNextCubeCoordinates(i, distance, end).IfPresent(cubeCoordinates =>
                 {
                     cubeCoordinatesList.Add(cubeCoordinates);
                 });
@@ -121,9 +121,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         {
             float t = 1f / distance * pathIndex;
             int roundX, roundY, roundZ;
-            float lerpX = this.Lerp(this._cubeCoordinates.GetX(), end.GetX(), t);
-            float lerpY = this.Lerp(this._cubeCoordinates.GetY(), end.GetY(), t);
-            float lerpZ = this.Lerp(this._cubeCoordinates.GetZ(), end.GetZ(), t);
+            float lerpX = Lerp(_cubeCoordinates.GetX(), end.GetX(), t);
+            float lerpY = Lerp(_cubeCoordinates.GetY(), end.GetY(), t);
+            float lerpZ = Lerp(_cubeCoordinates.GetZ(), end.GetZ(), t);
             roundX = (int)Math.Round(lerpX, MidpointRounding.AwayFromZero);
             roundY = (int)Math.Round(lerpY, MidpointRounding.AwayFromZero);
             roundZ = (int)Math.Round(lerpZ, MidpointRounding.AwayFromZero);
@@ -253,7 +253,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             /// <returns></returns>
             public IPathFinder Build()
             {
-                ISet<string> invalidReasons = this.IsInvalid();
+                ISet<string> invalidReasons = IsInvalid();
                 // Check that the set parameters are valid
                 if (invalidReasons.Count == 0)
                 {
@@ -261,7 +261,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                     return new FirePathFinder(_cubeCoordinates, _mapReport, _RPs, _APs);
                 }
                 throw ExceptionUtil.Arguments.Build("Unable to construct {}. Invalid Parameters. {}",
-                        this.GetType(), string.Join("\n", invalidReasons));
+                        GetType(), string.Join("\n", invalidReasons));
             }
 
             /// <summary>

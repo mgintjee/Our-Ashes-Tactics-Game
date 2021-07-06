@@ -1,6 +1,7 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.IDs.Enums;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.IDs;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Reports.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Interfaces;
@@ -12,8 +13,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
     /// <summary>
     /// Todo
     /// </summary>
-    public struct CombatantReport
-        : ICombatantReport
+    public class CombatantReport
+        : AbstractReport, ICombatantReport
     {
         // Todo
         private readonly CombatantCallSign _combatantCallSign;
@@ -50,20 +51,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         }
 
         /// <inheritdoc/>
-        public override string ToString()
-        {
-            return string.Format("{0}: {1}" +
-                "\n{2}" +
-                "\nCurrent {3}" +
-                "\nMaximum {4}" +
-                "\n{5}",
-                this.GetType().Name,
-                StringUtils.Format(typeof(CombatantCallSign), _combatantCallSign),
-                StringUtils.Format(typeof(CombatantID), _combatantID),
-                _currentAttributes, _maximumAttributes, _loadoutReport);
-        }
-
-        /// <inheritdoc/>
         CombatantCallSign ICombatantReport.GetCombatantCallSign()
         {
             return _combatantCallSign;
@@ -91,6 +78,16 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         ICombatantAttributes ICombatantReport.GetMaximumAttributes()
         {
             return _maximumAttributes;
+        }
+
+        /// <inheritdoc/>
+        protected override string GetContent()
+        {
+            return string.Format("{0}, {1}, {2}, Current {3}, Maximum {4}, {5}",
+                this.GetType().Name,
+                StringUtils.Format(_combatantCallSign),
+                StringUtils.Format(_combatantID),
+                _currentAttributes, _maximumAttributes, _loadoutReport);
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Colors.Enums;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Colors.IDs;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sprites.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sprites.IDs;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Implementations.Basics.Images;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Implementations.Basics.Texts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Implementations.Complexes.Abstracts;
@@ -20,28 +20,28 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         public class Builder
         {
             // Todo
-            private ColorID imageColorId = ColorID.None;
+            private ColorID _imageColorId = ColorID.None;
 
             // Todo
-            private SpriteID imageSpriteId = SpriteID.None;
+            private SpriteID _imageSpriteId = SpriteID.None;
 
             // Todo
-            private float imageTransparency = 0.0f;
+            private float _imageTransparency = 0.0f;
 
             // Todo
-            private Transform parentTransform = null;
+            private Transform _parentTransform = null;
 
             // Todo
-            private ColorID textColorId = ColorID.None;
+            private ColorID _textColorId = ColorID.None;
 
             // Todo
-            private int textFontSize = 0;
+            private int _textFontSize = 0;
 
             // Todo
-            private FontStyle textFontStyle = FontStyle.Normal;
+            private FontStyle _textFontStyle = FontStyle.Normal;
 
             // Todo
-            private string textString = null;
+            private string _textString = null;
 
             /// <summary>
             /// Todo
@@ -58,18 +58,18 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
                         .AddComponent<ComplexText>();
                     complexText.childWidgetSet.Add(new BasicImage.Builder()
                         .SetParentTransform(complexText.GetTransform())
-                        .SetColorId(this.imageColorId)
-                        .SetSpriteId(this.imageSpriteId)
-                        .SetTransparency(this.imageTransparency)
+                        .SetColorId(_imageColorId)
+                        .SetSpriteId(_imageSpriteId)
+                        .SetTransparency(_imageTransparency)
                         .Build());
                     complexText.childWidgetSet.Add(new BasicText.Builder()
                         .SetParentTransform(complexText.GetTransform())
-                        .SetColorId(this.textColorId)
-                        .SetFontString(this.textString)
-                        .SetFontSize(this.textFontSize)
-                        .SetFontStyle(this.textFontStyle)
+                        .SetColorId(_textColorId)
+                        .SetFontString(_textString)
+                        .SetFontSize(_textFontSize)
+                        .SetFontStyle(_textFontStyle)
                         .Build());
-                    complexText.SetParent(this.parentTransform);
+                    complexText.SetParent(_parentTransform);
                     return complexText;
                 }
                 throw ExceptionUtil.Arguments.Build("Unable to construct {}. Invalid Parameters. {}",
@@ -83,7 +83,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// <returns></returns>
             public Builder SetImageColorId(ColorID colorId)
             {
-                this.imageColorId = colorId;
+                _imageColorId = colorId;
                 return this;
             }
 
@@ -94,7 +94,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// <returns></returns>
             public Builder SetImageSpriteId(SpriteID spriteId)
             {
-                this.imageSpriteId = spriteId;
+                _imageSpriteId = spriteId;
                 return this;
             }
 
@@ -105,7 +105,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// <returns></returns>
             public Builder SetImageTransparency(float transparency)
             {
-                this.imageTransparency = transparency;
+                _imageTransparency = transparency;
                 return this;
             }
 
@@ -116,7 +116,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// <returns></returns>
             public Builder SetParentTransform(Transform parentTransform)
             {
-                this.parentTransform = parentTransform;
+                _parentTransform = parentTransform;
                 return this;
             }
 
@@ -127,7 +127,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// <returns></returns>
             public Builder SetTextColorId(ColorID colorId)
             {
-                this.textColorId = colorId;
+                _textColorId = colorId;
                 return this;
             }
 
@@ -138,7 +138,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// <returns></returns>
             public Builder SetTextFontSize(int fontSize)
             {
-                this.textFontSize = fontSize;
+                _textFontSize = fontSize;
                 return this;
             }
 
@@ -149,7 +149,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// <returns></returns>
             public Builder SetTextFontStyle(FontStyle fontStyle)
             {
-                this.textFontStyle = fontStyle;
+                _textFontStyle = fontStyle;
                 return this;
             }
 
@@ -160,7 +160,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// <returns></returns>
             public Builder SetTextString(string textString)
             {
-                this.textString = textString;
+                _textString = textString;
                 return this;
             }
 
@@ -172,15 +172,15 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             {
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
-                if (this.parentTransform == null)
+                if (_parentTransform == null)
                 {
                     argumentExceptionSet.Add("Parent " + typeof(Transform).Name + " cannot be null.");
                 }
-                if (this.textColorId == ColorID.None)
+                if (_textColorId == ColorID.None)
                 {
                     argumentExceptionSet.Add("Text " + typeof(ColorID).Name + " cannot be none.");
                 }
-                if (this.imageColorId == ColorID.None)
+                if (_imageColorId == ColorID.None)
                 {
                     argumentExceptionSet.Add("Image " + typeof(ColorID).Name + " cannot be none.");
                 }

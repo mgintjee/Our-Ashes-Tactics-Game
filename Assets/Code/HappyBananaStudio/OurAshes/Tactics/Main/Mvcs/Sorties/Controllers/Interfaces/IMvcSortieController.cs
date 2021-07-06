@@ -1,5 +1,5 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Requests.Interfaces;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Interfaces
@@ -14,19 +14,19 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
         /// Todo
         /// </summary>
         /// <returns></returns>
-        ISortieControllerRequest GetConfirmedControllerRequest();
+        ISortieRequest GetConfirmedControllerRequest();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        ISortieControllerRequest GetSelectedControllerRequest();
+        ISortieRequest GetSelectedControllerRequest();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        ISet<ISortieControllerRequest> GetControllerRequests();
+        ISet<ISortieRequest> GetControllerRequests();
 
         /// <summary>
         /// Todo
@@ -38,7 +38,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
         /// Todo
         /// </summary>
         /// <param name="controllerRequests"></param>
-        void Process(ISet<ISortieControllerRequest> controllerRequests);
+        void Process(ISet<ISortieRequest> controllerRequests);
 
         /// <summary>
         /// Todo

@@ -15,8 +15,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// </summary>
         public ForestTileStats()
         {
-            this._tileType = TileType.Forest;
-            this._tileAttributes = new TileAttributes.Builder()
+            _tileType = TileType.Forest;
+            _tileAttributes = new TileAttributes.Builder()
                 .SetFireCost(20)
                 .SetMoveCost(3)
                 .Build();

@@ -1,7 +1,7 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns.Enums;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Implementaions.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
@@ -29,7 +29,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         public MovePath(IList<ICubeCoordinates> cubeCoordinatesList, IMapReport mapReport)
             : base(cubeCoordinatesList, mapReport)
         {
-            this._pathType = PathType.Move;
+            _pathType = PathType.Move;
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         public MovePath(IPath pathObject, IMapReport mapReport)
             : base(pathObject, mapReport)
         {
-            this._pathType = PathType.Move;
+            _pathType = PathType.Move;
         }
 
         /// <summary>
@@ -53,14 +53,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         public MovePath(ICubeCoordinates cubeCoordinatesStart, ICubeCoordinates cubeCoordinatesEnd, int pathLength, IMapReport mapReport)
             : base(cubeCoordinatesStart, cubeCoordinatesEnd, pathLength, mapReport)
         {
-            this._pathType = PathType.Move;
+            _pathType = PathType.Move;
         }
 
         /// <inheritdoc/>
         protected override float GetCubeCoordinatesCost(ICubeCoordinates cubeCoordinates)
         {
             float moveCost = float.MaxValue;
-            this._mapReport.GetTileReport(cubeCoordinates).IfPresent(tileReport =>
+            _mapReport.GetTileReport(cubeCoordinates).IfPresent(tileReport =>
             {
                 if (tileReport.GetCombatantCallSign() == CombatantCallSign.None)
                 {

@@ -26,13 +26,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <inheritdoc/>
         ITileAttributes ITileStats.GetTileAttributes()
         {
-            return this._tileAttributes;
+            return _tileAttributes;
         }
 
         /// <inheritdoc/>
         TileType ITileStats.GetTileType()
         {
-            return this._tileType;
+            return _tileType;
         }
     }
 }

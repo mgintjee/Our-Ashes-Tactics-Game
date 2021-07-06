@@ -27,7 +27,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
                     "Parameterized List: {} is length={}.",
                    this.GetType(), typeof(ICubeCoordinates), typeof(ICubeCoordinates), cubeCoordinates.Count);
             }
-            this._pathType = PathType.Wait;
+            _pathType = PathType.Wait;
         }
 
         /// <inheritdoc/>

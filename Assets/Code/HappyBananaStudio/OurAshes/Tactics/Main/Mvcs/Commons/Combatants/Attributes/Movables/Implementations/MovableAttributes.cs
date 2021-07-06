@@ -22,27 +22,27 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
         /// <param name="actions">  </param>
         private MovableAttributes(float movements, float actions)
         {
-            this._movements = movements;
-            this._actions = actions;
+            _movements = movements;
+            _actions = actions;
         }
 
         /// <inheritdoc/>
         public override string ToString()
         {
             return string.Format("{0}: _actions={1}, _movements={2}",
-                this.GetType().Name, this._actions, this._movements);
+                this.GetType().Name, _actions, _movements);
         }
 
         /// <inheritdoc/>
         float IMovableAttributes.GetActions()
         {
-            return this._actions;
+            return _actions;
         }
 
         /// <inheritdoc/>
         float IMovableAttributes.GetMovement()
         {
-            return this._movements;
+            return _movements;
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             public IMovableAttributes Build()
             {
                 // Instantiate a new attributes
-                return new MovableAttributes(this._movements, this._actions);
+                return new MovableAttributes(_movements, _actions);
             }
 
             /// <summary>
@@ -72,17 +72,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             /// <returns></returns>
             public IMovableAttributes Build(ICollection<IMovableAttributes> movableAttributes)
             {
-                this._actions = 0;
-                this._movements = 0;
+                _actions = 0;
+                _movements = 0;
 
                 foreach (IMovableAttributes attributes in movableAttributes)
                 {
-                    this._actions += attributes.GetActions();
-                    this._movements += attributes.GetMovement();
+                    _actions += attributes.GetActions();
+                    _movements += attributes.GetMovement();
                 }
 
                 // Instantiate a new Attributes
-                return new MovableAttributes(this._movements, this._actions);
+                return new MovableAttributes(_movements, _actions);
             }
 
             /// <summary>
@@ -91,7 +91,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             /// <param name="actions"></param>
             public Builder SetActions(float actions)
             {
-                this._actions = actions;
+                _actions = actions;
                 return this;
             }
 
@@ -101,7 +101,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Comba
             /// <param name="movements"></param>
             public Builder SetMovements(float movements)
             {
-                this._movements = movements;
+                _movements = movements;
                 return this;
             }
         }

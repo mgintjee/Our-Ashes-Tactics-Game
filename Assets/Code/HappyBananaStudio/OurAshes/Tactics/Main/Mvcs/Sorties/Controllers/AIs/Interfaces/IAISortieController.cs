@@ -1,5 +1,5 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Responses.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Requests.Interfaces;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.AIs.Interfaces
@@ -15,6 +15,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
         /// <param name="mvcModelResponse">        </param>
         /// <param name="sortieControllerRequests"></param>
         /// <returns></returns>
-        ISortieControllerRequest DetermineControllerRequest(IMvcModelResponse mvcModelResponse, ISet<ISortieControllerRequest> sortieControllerRequests);
+        ISortieRequest DetermineControllerRequest(IMvcModelResponse mvcModelResponse, ISet<ISortieRequest> sortieControllerRequests);
     }
 }

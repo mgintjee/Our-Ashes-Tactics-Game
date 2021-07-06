@@ -57,6 +57,8 @@
 - Update the Game to handle Faction (with sets of Phalanxes on the same Faction) and Phalanx (Independent Phalanxes) game types
 - Have traits be unique for the loadoutTypes
 - Add status/effects of weapons and utilities
+- Make tiles have some health that can be destoyed into ruins 
+- Staying still longer increases accuracy? Staying moving increasts aversion? I don;t know if aversion is something I want to add tho
 
 ## File Structure:
 - Update the folder structure to be based off of file type

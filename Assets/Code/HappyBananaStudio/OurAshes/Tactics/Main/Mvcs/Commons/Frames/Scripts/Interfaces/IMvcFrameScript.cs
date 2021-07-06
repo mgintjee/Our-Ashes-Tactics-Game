@@ -8,9 +8,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
     public interface IMvcFrameScript
         : IUnityScript
     {
-        /// <summary>
-        /// Todo
-        /// </summary>
-        bool IsComplete();
+
     }
 }

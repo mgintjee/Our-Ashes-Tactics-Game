@@ -1,4 +1,4 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Enums;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using System;
 using System.Collections.Generic;
 
@@ -18,68 +18,21 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Randoms.Ma
         /// <summary>
         /// Todo
         /// </summary>
+        /// <param name="mvcType"></param>
         /// <returns></returns>
-        public static Random GetCentralRandom()
+        public static Random GetRandom(MvcType mvcType)
         {
-            return GetRandom(MvcType.Central);
+            return GetRandomFrom(mvcType, DefaultSeed);
         }
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="seed"></param>
+        /// <param name="mvcType"></param>
         /// <returns></returns>
-        public static Random GetCentralRandom(int seed)
+        public static void RemoveRandom(MvcType mvcType)
         {
-            return GetRandom(MvcType.Central, seed);
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        public static Random GetSortieRandom()
-        {
-            return GetRandom(MvcType.Sortie);
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="seed"></param>
-        /// <returns></returns>
-        public static Random GetSortieRandom(int seed)
-        {
-            return GetRandom(MvcType.Sortie, seed);
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        public static Random GetWorldRandom()
-        {
-            return GetRandom(MvcType.World);
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="seed"></param>
-        /// <returns></returns>
-        public static Random GetWorldRandom(int seed)
-        {
-            return GetRandom(MvcType.World, seed);
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="classLogging"></param>
-        /// <returns></returns>
-        private static Random GetRandom(MvcType mvcType)
-        {
-            return GetRandom(mvcType, DefaultSeed);
+            MvcTypeRandoms.Remove(mvcType);
         }
 
         /// <summary>
@@ -88,7 +41,18 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Randoms.Ma
         /// <param name="mvcType"></param>
         /// <param name="seed">   </param>
         /// <returns></returns>
-        private static Random GetRandom(MvcType mvcType, int seed)
+        public static Random GetRandom(MvcType mvcType, int seed)
+        {
+            return GetRandomFrom(mvcType, seed);
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="mvcType"></param>
+        /// <param name="seed">   </param>
+        /// <returns></returns>
+        private static Random GetRandomFrom(MvcType mvcType, int seed)
         {
             if (!MvcTypeRandoms.ContainsKey(mvcType))
             {
