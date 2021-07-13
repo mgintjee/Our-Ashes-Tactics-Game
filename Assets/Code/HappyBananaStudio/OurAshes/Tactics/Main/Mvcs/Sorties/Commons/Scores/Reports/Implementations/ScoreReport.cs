@@ -13,8 +13,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
     /// <summary>
     /// Score Report Implementation
     /// </summary>
-    public class ScoreReport
-        : AbstractReport, IScoreReport
+    public class ScoreReport : AbstractReport, IScoreReport
     {
         // Todo
         private readonly ISet<PhalanxCallSign> _phalanxCallSigns;

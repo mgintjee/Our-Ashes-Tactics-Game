@@ -1,6 +1,6 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Fireables.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Fireables.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Fireables.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Fireables.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.Combatants.Characteristics.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.Combatants.Fireables.Interfaces;
 using System.Collections.Generic;
@@ -10,8 +10,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
     /// <summary>
     /// Fireable Model Impl
     /// </summary>
-    public class FireableModel
-        : IFireableModel
+    public class FireableModel : IFireableModel
     {
         // Todo
         private readonly IFireableAttributes _attributes;
@@ -43,7 +42,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 range += fireableAttributes.GetRange();
                 salvo += fireableAttributes.GetSalvo();
             }
-            _attributes = new FireableAttributes.Builder()
+            _attributes = FireableAttributes.Builder.Get()
                 .SetArmorDamage(armorDamage)
                 .SetArmorPenetration(armorPenetration)
                 .SetAccuracy(accuracy)
@@ -51,7 +50,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 .SetRange(range)
                 .SetSalvo(salvo)
                 .Build();
-            this.currentAttributes = new FireableAttributes.Builder()
+            this.currentAttributes = FireableAttributes.Builder.Get()
                 .SetArmorDamage(armorDamage)
                 .SetArmorPenetration(armorPenetration)
                 .SetAccuracy(accuracy)
@@ -81,7 +80,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             range += fireableAttributes.GetRange();
             salvo += fireableAttributes.GetSalvo();
             // Build the new FireableAttributes using the up-to-date current values
-            this.currentAttributes = new FireableAttributes.Builder()
+            this.currentAttributes = FireableAttributes.Builder.Get()
                 .SetArmorDamage(armorDamage)
                 .SetArmorPenetration(armorPenetration)
                 .SetAccuracy(accuracy)
@@ -106,7 +105,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <inheritdoc/>
         void ICharacteristicModel.ResetForPhase()
         {
-            this.currentAttributes = new FireableAttributes.Builder()
+            this.currentAttributes = FireableAttributes.Builder.Get()
                 .SetArmorDamage(_attributes.GetArmorDamage())
                 .SetArmorPenetration(_attributes.GetArmorPenetration())
                 .SetAccuracy(_attributes.GetAccuracy())

@@ -1,4 +1,4 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Abstract;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Implementations.Abstract;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Rosters.Weapons.Collections.Scripts.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Rosters.Weapons.Interfaces;
@@ -10,8 +10,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views
     /// <summary>
     /// Sortie Weapon View Collection Script Implementation
     /// </summary>
-    public class WeaponViewCollectionScript
-        : AbstractUnityScript, IWeaponViewCollectionScript
+    public class WeaponViewCollectionScript : AbstractUnityScript, IWeaponViewCollectionScript
     {
         private readonly IList<IWeaponView> weaponViews = new List<IWeaponView>();
 

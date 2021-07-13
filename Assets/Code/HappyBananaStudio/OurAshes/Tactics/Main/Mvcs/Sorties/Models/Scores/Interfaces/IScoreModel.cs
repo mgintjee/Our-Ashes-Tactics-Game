@@ -24,6 +24,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <param name="mapReport">        </param>
         /// <param name="rosterReport">     </param>
         /// <param name="engagementReport"> </param>
-        void Process(ISortieRequest controllerRequest, IMapReport mapReport, IRosterReport rosterReport, IEngagementReport engagementReport);
+        void Process(ISortieRequest controllerRequest, ISortieMapReport mapReport, IRosterReport rosterReport, IEngagementReport engagementReport);
     }
 }

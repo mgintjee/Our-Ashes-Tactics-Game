@@ -6,8 +6,8 @@
     public enum CombatantSkin
     {
         None,
-        AlphaAlphaAlpha,
-        BravoAlphaAlpha,
-        CharlieAlphaAlpha,
+        LightAlphaDefault,
+        MediumAlphaDefault,
+        HeavyAlphaDefault,
     }
 }

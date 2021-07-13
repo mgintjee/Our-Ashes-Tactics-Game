@@ -1,6 +1,6 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Colors.IDs;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Colors.Rgbs.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Constants.Colors.Rgbs.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Implementations.Basics.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Interfaces.Basics.Texts;
@@ -30,10 +30,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="colorId"></param>
-        void IBasicText.UpdateColorId(ColorID colorId)
+        /// <param name="colorID"></param>
+        void IBasicText.UpdateColorID(ColorID colorID)
         {
-            this.textComponent.color = RgbsManager.GetUnityColor(colorId);
+            this.textComponent.color = RgbsManager.GetUnityColor(colorID);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         public class Builder
         {
             // Todo
-            private ColorID colorId = ColorID.DimGray;
+            private ColorID colorID = ColorID.DimGray;
 
             // Todo
             private int fontSize = 0;
@@ -101,7 +101,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
                     text.horizontalOverflow = HorizontalWrapMode.Overflow;
                     text.verticalOverflow = VerticalWrapMode.Overflow;
                     text.resizeTextForBestFit = true;
-                    text.color = RgbsManager.GetUnityColor(this.colorId);
+                    text.color = RgbsManager.GetUnityColor(this.colorID);
                     text.text = this.fontString;
                     text.fontStyle = this.fontStyle;
                     // Todo: Move this to being configurable
@@ -120,9 +120,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// </summary>
             /// <param name="Color"></param>
             /// <returns></returns>
-            public Builder SetColorId(ColorID colorId)
+            public Builder SetColorID(ColorID colorID)
             {
-                this.colorId = colorId;
+                this.colorID = colorID;
                 return this;
             }
 
@@ -178,7 +178,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             {
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
-                if (this.colorId == ColorID.None)
+                if (this.colorID == ColorID.None)
                 {
                     argumentExceptionSet.Add(typeof(ColorID).Name + " cannot be none.");
                 }

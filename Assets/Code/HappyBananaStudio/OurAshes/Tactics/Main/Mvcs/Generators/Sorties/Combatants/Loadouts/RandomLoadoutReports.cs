@@ -1,11 +1,11 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.IDs;
+﻿/*using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Loadouts.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.IDs;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Sizes;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Rarities;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Loadouts.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Stats.Managers;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Reports.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Constants.Combatants.Models.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Gears.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Combatants.Loadouts.Gears;
@@ -28,7 +28,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
         public static ILoadoutReport Generate(Random random, CombatantID combatantID)
         {
             ISet<IGearReport> gearReports = new HashSet<IGearReport>();
-            CombatantStatsManager.GetStats(combatantID).IfPresent(combatantStats =>
+            CombatantModelConstantsManager.GetConstants(combatantID).IfPresent(combatantStats =>
             {
                 CombatantType combatantType = combatantStats.GetCombatantType();
                 ILoadoutAttributes loadoutAttributes = combatantStats.GetCombatantAttributes().GetLoadoutAttributes();
@@ -44,9 +44,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
                         gearSize, combatantType, Rarity.None));
                 }
             });
-            return new LoadoutReport.Builder()
+            return LoadoutReport.Builder.Get()
                 .SetGearReports(gearReports)
                 .Build();
         }
     }
-}
+}*/

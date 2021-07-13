@@ -23,6 +23,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <param name="combatantRosterReport"></param>
         /// <param name="mapReport">            </param>
         void Process(ISortieRequest controllerRequest,
-            IRosterReport combatantRosterReport, IMapReport mapReport);
+            IRosterReport combatantRosterReport, ISortieMapReport mapReport);
     }
 }

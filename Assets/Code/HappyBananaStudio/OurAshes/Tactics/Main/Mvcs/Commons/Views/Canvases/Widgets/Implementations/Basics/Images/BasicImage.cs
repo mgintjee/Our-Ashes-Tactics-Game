@@ -1,7 +1,7 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Colors.IDs;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Colors.Rgbs.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sprites.IDs;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Constants.Colors.Rgbs.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Implementations.Basics.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Interfaces.Basics.Images;
@@ -32,19 +32,19 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="colorId"></param>
-        void IBasicImage.UpdateColorId(ColorID colorId)
+        /// <param name="colorID"></param>
+        void IBasicImage.UpdateColorID(ColorID colorID)
         {
-            this.imageComponent.color = RgbsManager.GetUnityColor(colorId);
+            this.imageComponent.color = RgbsManager.GetUnityColor(colorID);
         }
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="spriteId"></param>
-        void IBasicImage.UpdateSpriteId(SpriteID spriteId)
+        /// <param name="spriteID"></param>
+        void IBasicImage.UpdateSpriteID(SpriteID spriteID)
         {
-            this.imageComponent.sprite = SpriteResourceLoader.LoadSpriteResource(spriteId);
+            this.imageComponent.sprite = SpriteResourceLoader.LoadSpriteResource(spriteID);
         }
 
         /// <summary>
@@ -64,13 +64,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         public class Builder
         {
             // Todo
-            private ColorID colorId = ColorID.None;
+            private ColorID colorID = ColorID.None;
 
             // Todo
             private Transform parentTransform = null;
 
             // Todo
-            private SpriteID spriteId = SpriteID.None;
+            private SpriteID spriteID = SpriteID.None;
 
             // Todo
             private float transparency = 0f;
@@ -88,8 +88,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
                     BasicImage basicWidgetImage = new GameObject(typeof(BasicImage).Name)
                         .AddComponent<BasicImage>();
                     Image image = basicWidgetImage.GetGameObject().AddComponent<Image>();
-                    image.sprite = SpriteResourceLoader.LoadSpriteResource(this.spriteId);
-                    Color color = RgbsManager.GetUnityColor(this.colorId);
+                    image.sprite = SpriteResourceLoader.LoadSpriteResource(this.spriteID);
+                    Color color = RgbsManager.GetUnityColor(this.colorID);
                     color.a = this.transparency;
                     image.color = color;
                     basicWidgetImage.SetParent(this.parentTransform);
@@ -103,11 +103,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="colorId"></param>
+            /// <param name="colorID"></param>
             /// <returns></returns>
-            public Builder SetColorId(ColorID colorId)
+            public Builder SetColorID(ColorID colorID)
             {
-                this.colorId = colorId;
+                this.colorID = colorID;
                 return this;
             }
 
@@ -125,11 +125,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="spriteId"></param>
+            /// <param name="spriteID"></param>
             /// <returns></returns>
-            public Builder SetSpriteId(SpriteID spriteId)
+            public Builder SetSpriteID(SpriteID spriteID)
             {
-                this.spriteId = spriteId;
+                this.spriteID = spriteID;
                 return this;
             }
 
@@ -152,11 +152,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             {
                 // Default an empty Set: String
                 ISet<string> argumentExceptionSet = new HashSet<string>();
-                if (this.colorId == ColorID.None)
+                if (this.colorID == ColorID.None)
                 {
                     argumentExceptionSet.Add(typeof(ColorID).Name + " cannot be null.");
                 }
-                if (this.spriteId == SpriteID.None)
+                if (this.spriteID == SpriteID.None)
                 {
                     argumentExceptionSet.Add(typeof(SpriteID).Name + " cannot be null.");
                 }

@@ -1,6 +1,6 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Movables.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Movables.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Movables.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Movables.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.Combatants.Characteristics.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.Combatants.Movables.Interfaces;
 using System.Collections.Generic;
@@ -25,22 +25,22 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <param name="combatantAttributes"></param>
         public MovableModel(ICollection<ICombatantAttributes> combatantAttributes)
         {
-            float APs = 0.0f;
-            float MPs = 0.0f;
+            float actions = 0.0f;
+            float movements = 0.0f;
 
             foreach (ICombatantAttributes attributes in combatantAttributes)
             {
                 IMovableAttributes movableAttributes = attributes.GetMovableAttributes();
-                APs += movableAttributes.GetActions();
-                MPs += movableAttributes.GetMovement();
+                actions += movableAttributes.GetActions();
+                movements += movableAttributes.GetMovement();
             }
-            this.currentAttributes = new MovableAttributes.Builder()
-                .SetActions(APs)
-                .SetMovements(MPs)
+            this.currentAttributes = MovableAttributes.Builder.Get()
+                .SetActions(actions)
+                .SetMovements(movements)
                 .Build();
-            _maximumAttributes = new MovableAttributes.Builder()
-                .SetActions(APs)
-                .SetMovements(MPs)
+            _maximumAttributes = MovableAttributes.Builder.Get()
+                .SetActions(actions)
+                .SetMovements(movements)
                 .Build();
         }
 
@@ -52,7 +52,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             IMovableAttributes movableAttributes = combatantAttributes.GetMovableAttributes();
             APs += movableAttributes.GetActions();
             MPs += movableAttributes.GetMovement();
-            this.currentAttributes = new MovableAttributes.Builder()
+            this.currentAttributes = MovableAttributes.Builder.Get()
                 .SetActions(APs)
                 .SetMovements(MPs)
                 .Build();
@@ -73,7 +73,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <inheritdoc/>
         void ICharacteristicModel.ResetForPhase()
         {
-            this.currentAttributes = new MovableAttributes.Builder()
+            this.currentAttributes = MovableAttributes.Builder.Get()
                 .SetActions(_maximumAttributes.GetActions())
                 .SetMovements(_maximumAttributes.GetMovement())
                 .Build();

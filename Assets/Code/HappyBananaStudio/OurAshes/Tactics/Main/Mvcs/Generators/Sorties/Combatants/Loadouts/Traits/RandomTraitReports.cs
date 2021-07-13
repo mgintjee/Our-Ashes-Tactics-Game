@@ -1,11 +1,11 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.IDs;
+﻿/*using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.IDs;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Traits.IDs;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Traits.Types;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Stats.Managers;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Traits.Reports.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Traits.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Traits.Stats.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Traits.Stats.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Constants.Loadouts.Models.Gears.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Constants.Loadouts.Models.Traits.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Constants.Loadouts.Models.Traits.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Traits.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Traits.Interfaces;
 using System;
 using System.Collections.Generic;
 
@@ -24,9 +24,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
         public static ITraitReport Generate(Random random, GearID gearID)
         {
             ISet<TraitID> traitIDs = new HashSet<TraitID>();
-            GearStatsManager.GetStats(gearID).IfPresent(gearStats =>
+            GearModelConstantsManager.GetConstants(gearID).IfPresent(gearStats =>
             {
-                int traitCount = gearStats.GetTraitCount();
+                int traitCount = 0;
                 ISet<TraitType> traitTypes = gearStats.GetTraitTypes();
                 for (int i = 0; i < traitCount; ++i)
                 {
@@ -37,7 +37,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
                     traitIDs.Add(GenerateID(random, traitTypes));
                 }
             });
-            return new TraitReport.Builder()
+            return TraitReport.Builder.Get()
                 .SetTraitIDs(traitIDs)
                 .Build();
         }
@@ -50,13 +50,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
         /// <returns></returns>
         private static TraitID GenerateID(Random random, ISet<TraitType> traitTypes)
         {
-            ISet<ITraitStats> traitStats = new HashSet<ITraitStats>();
+            ISet<ITraitModelConstants> traitStats = new HashSet<ITraitModelConstants>();
             foreach (TraitType traitType in traitTypes)
             {
-                traitStats.UnionWith(TraitStatsManager.GetStats(traitType));
+                traitStats.UnionWith(TraitModelConstantsManager.GetConstants(traitType));
             }
             ISet<TraitID> traitIDs = new HashSet<TraitID>();
-            foreach (ITraitStats stats in traitStats)
+            foreach (ITraitModelConstants stats in traitStats)
             {
                 traitIDs.Add(stats.GetTraitID());
             }
@@ -66,9 +66,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
                 traitID = new List<TraitID>(traitIDs)
                     [random.Next(traitIDs.Count)];
             }
-            TraitStatsManager.GetStats(traitID).IfPresent(traitStats =>
+            TraitModelConstantsManager.GetConstants(traitID).IfPresent(traitStats =>
                 { traitTypes.Remove(traitStats.GetTraitType()); });
             return traitID;
         }
     }
-}
+}*/

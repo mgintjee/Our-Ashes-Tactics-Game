@@ -8,5 +8,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
     public interface IMvcViewReport
         : IReport
     {
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        bool IsProcessing();
     }
 }

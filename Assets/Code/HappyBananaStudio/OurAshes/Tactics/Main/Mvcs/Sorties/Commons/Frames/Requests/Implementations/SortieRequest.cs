@@ -1,4 +1,5 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Implementations.Abstracts;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Reports.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
@@ -11,91 +12,105 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
     /// <summary>
     /// Sortie Request Interface
     /// </summary>
-    public class SortieRequest
-        : AbstractReport, ISortieRequest
+    public class SortieRequest : AbstractReport, ISortieRequest
     {
         // Todo
-        private readonly CombatantCallSign _callSign;
+        private readonly CombatantCallSign _combatantCallSign;
 
         // Todo
-        private readonly IPath _path;
+        private readonly ISortieMapPath _sortieMapPath;
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="callSign"></param>
         /// <param name="path">    </param>
-        private SortieRequest(CombatantCallSign callSign, IPath path)
+        private SortieRequest(CombatantCallSign callSign, ISortieMapPath path)
         {
-            _callSign = callSign;
-            _path = path;
+            _combatantCallSign = callSign;
+            _sortieMapPath = path;
         }
 
         /// <inheritdoc/>
         CombatantCallSign ISortieRequest.GetCallSign()
         {
-            return _callSign;
+            return _combatantCallSign;
         }
 
         /// <inheritdoc/>
-        IPath ISortieRequest.GetPath()
+        ISortieMapPath ISortieRequest.GetPath()
         {
-            return _path;
+            return _sortieMapPath;
         }
 
         /// <inheritdoc/>
         protected override string GetContent()
         {
             return string.Format("{0}, {1}",
-                StringUtils.Format(_callSign),
-                StringUtils.Format(_path));
+                StringUtils.Format(_combatantCallSign), _sortieMapPath);
         }
 
         /// <summary>
         /// Todo
         /// </summary>
         public class Builder
-            : AbstractBuilder<ISortieRequest>
         {
-            // Todo
-            private CombatantCallSign _combatantCallSign = CombatantCallSign.None;
-
-            // Todo
-            private IPath _path = null;
-
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="combatantCallSigns"></param>
-            /// <returns></returns>
-            public Builder SetCombatantCallSign(CombatantCallSign combatantCallSigns)
+            public interface IBuilder : IBuilder<ISortieRequest>
             {
-                _combatantCallSign = combatantCallSigns;
-                return this;
+                IBuilder SetCombatantCallSign(CombatantCallSign combatantCallSign);
+
+                IBuilder SetSortieMapPath(ISortieMapPath sortieMapPath);
             }
 
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="path"></param>
             /// <returns></returns>
-            public Builder SetPath(IPath path)
+            public static IBuilder Get()
             {
-                _path = path;
-                return this;
+                return new InternalBuilder();
             }
 
-            /// <inheritdoc/>
-            protected override ISortieRequest BuildObj()
+            /// <summary>
+            /// Todo
+            /// </summary>
+            private class InternalBuilder : AbstractBuilder<ISortieRequest>, IBuilder
             {
-                return new SortieRequest(_combatantCallSign, _path);
-            }
+                // Todo
+                private CombatantCallSign _combatantCallSign;
 
-            /// <inheritdoc/>
-            protected override void Validate(ISet<string> invalidReasons)
-            {
-                ValidateEnum(invalidReasons, _combatantCallSign);
-                Validate(invalidReasons, _path);
+                // Todo
+                private ISortieMapPath _sortieMapPath;
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetCombatantCallSign(CombatantCallSign combatantCallSign)
+                {
+                    _combatantCallSign = combatantCallSign;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetSortieMapPath(ISortieMapPath sortieMapPath)
+                {
+                    _sortieMapPath = sortieMapPath;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                protected override ISortieRequest BuildObj()
+                {
+                    return new SortieRequest(_combatantCallSign, _sortieMapPath);
+                }
+
+                /// <inheritdoc/>
+                protected override void Validate(ISet<string> invalidReasons)
+                {
+                    this.Validate(invalidReasons, _combatantCallSign);
+                    this.Validate(invalidReasons, _sortieMapPath);
+                }
             }
         }
     }

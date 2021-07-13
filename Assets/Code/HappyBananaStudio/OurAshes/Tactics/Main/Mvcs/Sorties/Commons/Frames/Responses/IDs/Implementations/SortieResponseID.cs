@@ -1,7 +1,10 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Implementations.Abstracts;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Responses.IDs.Interfaces;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Responses.IDs.Implementations
@@ -9,10 +12,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
     /// <summary>
     /// Sortie Response ID Implementation
     /// </summary>
-    public class SortieResponseID
-        : ISortieResponseID
+    public class SortieResponseID : ISortieResponseID
     {
-        // Provides logging capability to the SORTIE logs
+        // Provides logging capability
         private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
 
         // Todo
@@ -103,6 +105,83 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         {
             _logger.Info("Incrementing {}'s turn.", this);
             return new SortieResponseID(_phase, _turn + 1, 0);
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        public class Builder
+        {
+            /// <summary>
+            /// Todo
+            /// </summary>
+            public interface IBuilder : IBuilder<ISortieResponseID>
+            {
+                IBuilder SetAction(int action);
+
+                IBuilder SetPhase(int phase);
+
+                IBuilder SetTurn(int turn);
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            /// <returns></returns>
+            public static IBuilder Get()
+            {
+                return new InternalBuilder();
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            private class InternalBuilder : AbstractBuilder<ISortieResponseID>, IBuilder
+            {
+                // Todo
+                private int _action;
+
+                // Todo
+                private int _phase;
+
+                // Todo
+                private int _turn;
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetAction(int action)
+                {
+                    _action = action;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetPhase(int phase)
+                {
+                    _phase = phase;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetTurn(int turn)
+                {
+                    _turn = turn;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                protected override ISortieResponseID BuildObj()
+                {
+                    return new SortieResponseID(_phase, _turn, _action);
+                }
+
+                /// <inheritdoc/>
+                protected override void Validate(ISet<string> invalidReasons)
+                {
+                    this.Validate(invalidReasons, _action);
+                    this.Validate(invalidReasons, _phase);
+                    this.Validate(invalidReasons, _turn);
+                }
+            }
         }
     }
 }

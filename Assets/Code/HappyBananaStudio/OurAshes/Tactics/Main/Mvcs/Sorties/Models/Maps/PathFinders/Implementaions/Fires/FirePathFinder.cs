@@ -2,10 +2,10 @@
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Coordinates.Cube.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Implementaions.Fires;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Reports.Interfaces;
@@ -20,8 +20,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
     /// <summary>
     /// Todo
     /// </summary>
-    public class FirePathFinder
-        : AbstractPathFinder
+    public class FirePathFinder : AbstractPathFinder
     {
         // Provide logging capability
         private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
@@ -40,7 +39,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <param name="range">          </param>
         /// <param name="accuracy">       </param>
         private FirePathFinder(ICubeCoordinates cubeCoordinates,
-            IMapReport mapReport, float range, float accuracy)
+            ISortieMapReport mapReport, float range, float accuracy)
         {
             _cubeCoordinates = cubeCoordinates;
             _mapReport = mapReport;
@@ -79,7 +78,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 if (straightLinePath.Count <= _range &&
                     !straightLinePath.Contains(null))
                 {
-                    IPath path = new FirePath(straightLinePath, _mapReport);
+                    ISortieMapPath path = new SortieMapFirePath(straightLinePath, _mapReport);
                     if (path.GetPathCost() <= _accuracy &&
                         path.GetLength() < _range &&
                         path.IsValid())
@@ -162,32 +161,38 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             if (updateX && updateY &&
                 (newX + newY + roundZ == 0))
             {
-                cubeCoordinates = new CubeCoordinates(newX, newY, roundZ);
+                cubeCoordinates = CubeCoordinates.Builder.Get()
+                    .SetX(newX).SetY(newY).SetZ(roundZ).Build();
             }
             else if (updateX && updateZ &&
                 (newX + roundY + newZ == 0))
             {
-                cubeCoordinates = new CubeCoordinates(newX, roundY, newZ);
+                cubeCoordinates = CubeCoordinates.Builder.Get()
+                    .SetX(newX).SetY(roundY).SetZ(newZ).Build();
             }
             else if (updateY && updateZ &&
                 (roundX + newY + newZ == 0))
             {
-                cubeCoordinates = new CubeCoordinates(roundX, newY, newZ);
+                cubeCoordinates = CubeCoordinates.Builder.Get()
+                    .SetX(roundX).SetY(newY).SetZ(newZ).Build();
             }
             else if (updateX &&
                 (newX + roundY + roundZ == 0))
             {
-                cubeCoordinates = new CubeCoordinates(newX, roundY, roundZ);
+                cubeCoordinates = CubeCoordinates.Builder.Get()
+                    .SetX(newX).SetY(roundY).SetZ(roundZ).Build();
             }
             else if (updateY &&
                 (roundX + newY + roundZ == 0))
             {
-                cubeCoordinates = new CubeCoordinates(roundX, newY, roundZ);
+                cubeCoordinates = CubeCoordinates.Builder.Get()
+                    .SetX(roundX).SetY(newY).SetZ(roundZ).Build();
             }
             else if (updateZ &&
                 (roundX + roundY + newZ == 0))
             {
-                cubeCoordinates = new CubeCoordinates(roundX, roundY, newZ);
+                cubeCoordinates = CubeCoordinates.Builder.Get()
+                    .SetX(roundX).SetY(roundY).SetZ(newZ).Build();
             }
             if (_mapReport.GetCubeCoordinates().Contains(cubeCoordinates))
             {
@@ -210,7 +215,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         {
             if (roundX + roundY + roundZ == 0)
             {
-                return Optional<ICubeCoordinates>.Of(new CubeCoordinates(roundX, roundY, roundZ));
+                return Optional<ICubeCoordinates>.Of(CubeCoordinates.Builder.Get()
+                    .SetX(roundX).SetY(roundY).SetZ(roundZ).Build());
             }
             else
             {
@@ -242,7 +248,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             private ICubeCoordinates _cubeCoordinates = null;
 
             // Todo
-            private IMapReport _mapReport = null;
+            private ISortieMapReport _mapReport = null;
 
             // Todo
             private float _RPs = float.MinValue;
@@ -291,7 +297,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             /// </summary>
             /// <param name="cubeCoordinates"></param>
             /// <returns></returns>
-            public Builder SetMapReport(IMapReport mapReport)
+            public Builder SetMapReport(ISortieMapReport mapReport)
             {
                 _mapReport = mapReport;
                 return this;
@@ -324,7 +330,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 // Check that mapReport has been set
                 if (_mapReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(IMapReport) + " cannot be null.");
+                    argumentExceptionSet.Add(typeof(ISortieMapReport) + " cannot be null.");
                 }
                 // Check that range has been set
                 if (_RPs == int.MinValue)

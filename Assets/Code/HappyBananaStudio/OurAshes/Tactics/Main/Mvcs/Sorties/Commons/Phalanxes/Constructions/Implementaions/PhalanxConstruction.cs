@@ -1,11 +1,9 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.AIs.Types;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Implementations.Abstracts;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Controllers.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Phalanxes.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Phalanxes.Types;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Schemes.Insignias.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Phalanxes.Constructions.Interfaces;
 using System.Collections.Generic;
 
@@ -14,8 +12,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
     /// <summary>
     /// Todo
     /// </summary>
-    public struct PhalanxConstruction
-        : IPhalanxConstruction
+    public struct PhalanxConstruction : IPhalanxConstruction
     {
         // Todo
         private readonly PhalanxCallSign _phalanxCallSign;
@@ -24,13 +21,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         private readonly PhalanxType _phalanxType;
 
         // Todo
-        private readonly ControllerType _controllerType;
+        private readonly ControllerID _controllerType;
 
         // Todo
         private readonly AIType _aiType;
 
         // Todo
-        private readonly IInsigniaScheme _insigniaScheme;
+        private readonly IInsigniaReport _insigniaScheme;
 
         // Todo
         private readonly ISet<CombatantCallSign> _combatantCallSigns;
@@ -48,7 +45,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <param name="combatantCallSigns"></param>
         /// <param name="phalanxCallSigns">  </param>
         private PhalanxConstruction(PhalanxCallSign phalanxCallSign, PhalanxType phalanxType,
-            ControllerType controllerType, AIType aiType, IInsigniaScheme insigniaScheme,
+            ControllerID controllerType, AIType aiType, IInsigniaReport insigniaScheme,
             ISet<CombatantCallSign> combatantCallSigns, ISet<PhalanxCallSign> phalanxCallSigns)
         {
             _phalanxCallSign = phalanxCallSign;
@@ -72,7 +69,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
                 "\n{11}:[{12}]",
                 typeof(PhalanxCallSign).Name, _phalanxCallSign,
                 typeof(PhalanxType).Name, _phalanxType,
-                typeof(ControllerType).Name, _controllerType,
+                typeof(ControllerID).Name, _controllerType,
                 typeof(AIType).Name, _aiType,
                 _insigniaScheme,
                 typeof(CombatantCallSign).Name, string.Join(",", _combatantCallSigns),
@@ -92,7 +89,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         }
 
         /// <inheritdoc/>
-        ControllerType IPhalanxConstruction.GetControllerType()
+        ControllerID IPhalanxConstruction.GetControllerType()
         {
             return _controllerType;
         }
@@ -110,9 +107,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         }
 
         /// <inheritdoc/>
-        Optional<IInsigniaScheme> IPhalanxConstruction.GetInsigniaScheme()
+        Optional<IInsigniaReport> IPhalanxConstruction.GetInsigniaScheme()
         {
-            return Optional<IInsigniaScheme>.Of(_insigniaScheme);
+            return Optional<IInsigniaReport>.Of(_insigniaScheme);
         }
 
         /// <inheritdoc/>
@@ -134,13 +131,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             private PhalanxType _phalanxType;
 
             // Todo
-            private ControllerType _controllerType;
+            private ControllerID _controllerType;
 
             // Todo
             private AIType _aiType;
 
             // Todo
-            private IInsigniaScheme _insigniaScheme;
+            private IInsigniaReport _insigniaScheme;
 
             // Todo
             private ISet<CombatantCallSign> _combatantCallSigns;
@@ -175,7 +172,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             /// </summary>
             /// <param name="controllerType"></param>
             /// <returns></returns>
-            public Builder SetControllerType(ControllerType controllerType)
+            public Builder SetControllerType(ControllerID controllerType)
             {
                 _controllerType = controllerType;
                 return this;
@@ -197,7 +194,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             /// </summary>
             /// <param name="insigniaScheme"></param>
             /// <returns></returns>
-            public Builder SetInsigniaScheme(IInsigniaScheme insigniaScheme)
+            public Builder SetInsigniaScheme(IInsigniaReport insigniaScheme)
             {
                 _insigniaScheme = insigniaScheme;
                 return this;
@@ -241,14 +238,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             /// <inheritdoc/>
             protected override void Validate(ISet<string> invalidReasons)
             {
-                ValidateEnum(invalidReasons, _phalanxCallSign);
-                ValidateEnum(invalidReasons, _controllerType);
+                Validate(invalidReasons, _phalanxCallSign);
+                Validate(invalidReasons, _controllerType);
                 // Check that _aiType has been set
-                if (_controllerType == ControllerType.Human && _aiType != AIType.None ||
-                    _controllerType != ControllerType.Human && _aiType == AIType.None)
+                if (_controllerType == ControllerID.Human && _aiType != AIType.None ||
+                    _controllerType != ControllerID.Human && _aiType == AIType.None)
                 {
                     invalidReasons.Add(typeof(AIType).Name + " cannot be " + _aiType + " while " +
-                        typeof(ControllerType).Name + " is " + _controllerType + ".");
+                        typeof(ControllerID).Name + " is " + _controllerType + ".");
                 }
                 Validate(invalidReasons, _combatantCallSigns);
                 Validate(invalidReasons, _phalanxCallSigns);

@@ -1,5 +1,6 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Requests.Interfaces;
-using System.Collections.Generic;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Reports.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Responses.Interfaces;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Interfaces
 {
@@ -23,8 +24,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Contr
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="requests"></param>
-        void Process(ISet<IMvcRequest> requests);
+        /// <param name="mvcResponse"></param>
+        void Process(IMvcResponse mvcResponse);
 
         /// <summary>
         /// Todo
@@ -42,5 +43,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Contr
         /// </summary>
         /// <returns></returns>
         bool HasRequests();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        IMvcControllerReport GetMvcControllerReport();
     }
 }

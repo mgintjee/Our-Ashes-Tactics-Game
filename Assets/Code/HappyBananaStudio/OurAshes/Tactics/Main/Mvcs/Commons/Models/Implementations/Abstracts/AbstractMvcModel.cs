@@ -1,21 +1,22 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Responses.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Requests.Interfaces;
-using System.Collections.Generic;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Reports.Interfaces;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Implementations.Abstracts
 {
     /// <summary>
     /// Abstract Mvc Model Implementation
     /// </summary>
-    public abstract class AbstractMvcModel
-        : IMvcModel
+    public abstract class AbstractMvcModel : IMvcModel
     {
         // Todo
         protected readonly ILogger _logger;
+
+        // Todo
+        protected IMvcModelReport _mvcModelReport;
 
         /// <summary>
         /// Todo
@@ -27,27 +28,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Model
         }
 
         /// <inheritdoc/>
-        ISet<IMvcRequest> IMvcModel.GetMvcRequests()
-        {
-            throw new System.NotImplementedException();
-        }
+        public abstract void Process(IMvcRequest mvcRequest);
 
         /// <inheritdoc/>
-        IMvcResponse IMvcModel.GetMvcResponse()
+        IMvcModelReport IMvcModel.GetMvcModelReport()
         {
-            throw new System.NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        bool IMvcModel.IsProcessing()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        void IMvcModel.Process(IMvcRequest mvcControllerRequest)
-        {
-            throw new System.NotImplementedException();
+            return _mvcModelReport;
         }
     }
 }

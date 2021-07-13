@@ -1,14 +1,11 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
+﻿/*using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.IDs;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Skins;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Skins;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Stats.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Schemes.Insignias.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Insignias.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Combatants.Loadouts;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combatants.Constructions.Implementaions;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combatants.Constructions.Interfaces;
 using System;
 using System.Collections.Generic;
 
@@ -37,7 +34,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
         /// <param name="combatantCallSign"></param>
         /// <param name="insigniaScheme">   </param>
         /// <returns></returns>
-        public static ICombatantConstruction Generate(Random random, CombatantCallSign combatantCallSign, IInsigniaScheme insigniaScheme)
+        public static ICombatantConstruction Generate(Random random, CombatantCallSign combatantCallSign, IInsigniaReport insigniaScheme)
         {
             return Generate(random, combatantCallSign, RandomEnums.GenerateRandomEnum<CombatantID>(random), insigniaScheme);
         }
@@ -63,7 +60,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
         /// <param name="insigniaScheme">   </param>
         /// <returns></returns>
         private static ICombatantConstruction Generate(Random random, CombatantCallSign combatantCallSign,
-            CombatantID combatantID, IInsigniaScheme insigniaScheme)
+            CombatantID combatantID, IInsigniaReport insigniaScheme)
         {
             ILoadoutReport loadoutReport = RandomLoadoutReports.Generate(random, combatantID);
             CombatantSkin combatantSkin = CombatantSkin.None;
@@ -93,7 +90,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
         private static CombatantSkin Generate(Random random, CombatantID combatantID)
         {
             CombatantSkin combatantSkin = CombatantSkin.None;
-            CombatantStatsManager.GetStats(combatantID).IfPresent(combatantStats =>
+            CombatantModelConstantsManager.GetStats(combatantID).IfPresent(combatantStats =>
             {
                 IList<CombatantSkin> combatantSkins = new List<CombatantSkin>(combatantStats.GetCombatantSkins());
                 if (combatantSkins.Count > 0)
@@ -119,4 +116,4 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
             return gearSkins;
         }
     }
-}
+}*/

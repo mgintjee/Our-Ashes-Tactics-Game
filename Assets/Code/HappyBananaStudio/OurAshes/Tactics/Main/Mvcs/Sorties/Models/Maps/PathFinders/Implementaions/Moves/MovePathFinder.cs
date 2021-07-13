@@ -1,8 +1,8 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Implementaions.Moves;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Reports.Interfaces;
@@ -31,7 +31,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <param name="cubeCoordinates"></param>
         /// <param name="movements">      </param>
         /// <param name="mapReport">      </param>
-        private MovePathFinder(ICubeCoordinates cubeCoordinates, float movements, IMapReport mapReport)
+        private MovePathFinder(ICubeCoordinates cubeCoordinates, float movements, ISortieMapReport mapReport)
         {
             _cubeCoordinates = cubeCoordinates;
             _mapReport = mapReport;
@@ -57,7 +57,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             ISet<ICubeCoordinates> invalidCubeCoordinates = new HashSet<ICubeCoordinates>();
             foreach (ICubeCoordinates cubeCoordinates in _cubeCoordinatesPaths.Keys)
             {
-                IPath path = _cubeCoordinatesPaths[cubeCoordinates];
+                ISortieMapPath path = _cubeCoordinatesPaths[cubeCoordinates];
                 if (path == null || !path.IsValid() || path.GetPathCost() > _movements)
                 {
                     invalidCubeCoordinates.Add(cubeCoordinates);
@@ -81,7 +81,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             ISet<ICubeCoordinates> visitedCubeCoordinatesSet = new HashSet<ICubeCoordinates>();
             // Default the unvisited set with the starting cubeCoordinates
             ISet<ICubeCoordinates> unvisitedCubeCoordinatesSet = new HashSet<ICubeCoordinates> { _cubeCoordinates };
-            _cubeCoordinatesPaths[_cubeCoordinates] = new MovePath(
+            _cubeCoordinatesPaths[_cubeCoordinates] = new SortieMapMovePath(
                 new List<ICubeCoordinates>() { _cubeCoordinates }, _mapReport);
             // Continue iterating until all CubeCoordinates have been visited
             while (unvisitedCubeCoordinatesSet.Count > 0)
@@ -109,17 +109,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                             unvisitedCubeCoordinatesSet.Add(neighborCubeCoordinates);
                         }
                         // Collect the Path for the closest CubeCoordinates
-                        IPath closestPath = _cubeCoordinatesPaths[closestCubeCoordinates];
+                        ISortieMapPath closestPath = _cubeCoordinatesPaths[closestCubeCoordinates];
                         // Collect the List: CubeCoordinates from the Closest Path
                         IList<ICubeCoordinates> closestPathCubeCoordinatesStepList = closestPath.GetCubeCoordinatesList();
                         // Add the neighbor CubeCoordiantes
                         closestPathCubeCoordinatesStepList.Add(neighborCubeCoordinates);
                         // Build the new Path using the Closest Path and the neighbor CubeCoordinates
-                        IPath newNeighborPath = new MovePath(closestPathCubeCoordinatesStepList, _mapReport);
+                        ISortieMapPath newNeighborPath = new SortieMapMovePath(closestPathCubeCoordinatesStepList, _mapReport);
                         if (_cubeCoordinatesPaths.ContainsKey(neighborCubeCoordinates))
                         {
                             // Collect the Path for the neighbor CubeCoordinates
-                            IPath oldNeighborPath = _cubeCoordinatesPaths[neighborCubeCoordinates];
+                            ISortieMapPath oldNeighborPath = _cubeCoordinatesPaths[neighborCubeCoordinates];
                             // Check that the oldNeighborPath is non-null and is further than the newNeighborPath
                             if ((oldNeighborPath == null || oldNeighborPath.GetPathCost() > newNeighborPath.GetPathCost()) &&
                                 newNeighborPath.GetPathCost() < _movements)
@@ -160,7 +160,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 if (_cubeCoordinatesPaths.ContainsKey(coordinates))
                 {
                     // Collect the Path
-                    IPath path = _cubeCoordinatesPaths[coordinates];
+                    ISortieMapPath path = _cubeCoordinatesPaths[coordinates];
                     // Check if the path is non-null and closest
                     if (path != null && path.GetPathCost() < minimumDistance && path.GetPathCost() <= _movements)
                     {
@@ -182,7 +182,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             private ICubeCoordinates _cubeCoordinates = null;
 
             // Todo
-            private IMapReport _mapReport = null;
+            private ISortieMapReport _mapReport = null;
 
             // Todo
             private float _movements = float.MinValue;
@@ -220,7 +220,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             /// </summary>
             /// <param name="mapReport"></param>
             /// <returns></returns>
-            public Builder SetMapReport(IMapReport mapReport)
+            public Builder SetMapReport(ISortieMapReport mapReport)
             {
                 _mapReport = mapReport;
                 return this;
@@ -258,7 +258,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 // Check that _mapReport has been set
                 if (_mapReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(IMapReport).Name + " cannot be null.");
+                    argumentExceptionSet.Add(typeof(ISortieMapReport).Name + " cannot be null.");
                 }
                 return argumentExceptionSet;
             }

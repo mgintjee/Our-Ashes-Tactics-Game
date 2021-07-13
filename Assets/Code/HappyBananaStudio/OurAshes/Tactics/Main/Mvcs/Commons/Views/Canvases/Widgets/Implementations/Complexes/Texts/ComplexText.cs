@@ -20,10 +20,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         public class Builder
         {
             // Todo
-            private ColorID _imageColorId = ColorID.None;
+            private ColorID _imageColorID = ColorID.None;
 
             // Todo
-            private SpriteID _imageSpriteId = SpriteID.None;
+            private SpriteID _imageSpriteID = SpriteID.None;
 
             // Todo
             private float _imageTransparency = 0.0f;
@@ -32,7 +32,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             private Transform _parentTransform = null;
 
             // Todo
-            private ColorID _textColorId = ColorID.None;
+            private ColorID _textColorID = ColorID.None;
 
             // Todo
             private int _textFontSize = 0;
@@ -58,13 +58,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
                         .AddComponent<ComplexText>();
                     complexText.childWidgetSet.Add(new BasicImage.Builder()
                         .SetParentTransform(complexText.GetTransform())
-                        .SetColorId(_imageColorId)
-                        .SetSpriteId(_imageSpriteId)
+                        .SetColorID(_imageColorID)
+                        .SetSpriteID(_imageSpriteID)
                         .SetTransparency(_imageTransparency)
                         .Build());
                     complexText.childWidgetSet.Add(new BasicText.Builder()
                         .SetParentTransform(complexText.GetTransform())
-                        .SetColorId(_textColorId)
+                        .SetColorID(_textColorID)
                         .SetFontString(_textString)
                         .SetFontSize(_textFontSize)
                         .SetFontStyle(_textFontStyle)
@@ -79,22 +79,22 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="colorId"></param>
+            /// <param name="colorID"></param>
             /// <returns></returns>
-            public Builder SetImageColorId(ColorID colorId)
+            public Builder SetImageColorID(ColorID colorID)
             {
-                _imageColorId = colorId;
+                _imageColorID = colorID;
                 return this;
             }
 
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="spriteId"></param>
+            /// <param name="spriteID"></param>
             /// <returns></returns>
-            public Builder SetImageSpriteId(SpriteID spriteId)
+            public Builder SetImageSpriteID(SpriteID spriteID)
             {
-                _imageSpriteId = spriteId;
+                _imageSpriteID = spriteID;
                 return this;
             }
 
@@ -123,11 +123,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="colorId"></param>
+            /// <param name="colorID"></param>
             /// <returns></returns>
-            public Builder SetTextColorId(ColorID colorId)
+            public Builder SetTextColorID(ColorID colorID)
             {
-                _textColorId = colorId;
+                _textColorID = colorID;
                 return this;
             }
 
@@ -176,11 +176,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
                 {
                     argumentExceptionSet.Add("Parent " + typeof(Transform).Name + " cannot be null.");
                 }
-                if (_textColorId == ColorID.None)
+                if (_textColorID == ColorID.None)
                 {
                     argumentExceptionSet.Add("Text " + typeof(ColorID).Name + " cannot be none.");
                 }
-                if (_imageColorId == ColorID.None)
+                if (_imageColorID == ColorID.None)
                 {
                     argumentExceptionSet.Add("Image " + typeof(ColorID).Name + " cannot be none.");
                 }

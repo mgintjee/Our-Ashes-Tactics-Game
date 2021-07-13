@@ -3,6 +3,7 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Controllers.Ty
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Phalanxes.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Phalanxes.Types;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Reports.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Phalanxes.Reports.Interfaces;
 using System.Collections.Generic;
 
@@ -11,14 +12,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
     /// <summary>
     /// Todo
     /// </summary>
-    public class PhalanxReport
-        : IPhalanxReport
+    public class PhalanxReport : AbstractReport, IPhalanxReport
     {
         // Todo
         private readonly ISet<CombatantCallSign> _combatantCallSigns;
 
         // Todo
-        private readonly ControllerType _controllerType;
+        private readonly ControllerID _controllerType;
 
         // Todo
         private readonly PhalanxCallSign _phalanxCallSign;
@@ -36,7 +36,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// <param name="phalanxType">       </param>
         /// <param name="phalanxCallSigns">  </param>
         /// <param name="combatantCallSigns"></param>
-        private PhalanxReport(PhalanxCallSign phalanxCallSign, PhalanxType phalanxType, ControllerType controllerType,
+        private PhalanxReport(PhalanxCallSign phalanxCallSign, PhalanxType phalanxType, ControllerID controllerType,
             ISet<PhalanxCallSign> phalanxCallSigns, ISet<CombatantCallSign> combatantCallSigns)
         {
             _phalanxCallSign = phalanxCallSign;
@@ -53,7 +53,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         }
 
         /// <inheritdoc/>
-        ControllerType IPhalanxReport.GetControllerType()
+        ControllerID IPhalanxReport.GetControllerType()
         {
             return _controllerType;
         }
@@ -85,7 +85,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             private ISet<CombatantCallSign> _combatantCallSigns = null;
 
             // Todo
-            private ControllerType _controllerType = ControllerType.None;
+            private ControllerID _controllerType = ControllerID.None;
 
             // Todo
             private PhalanxCallSign _phalanxCallSign = PhalanxCallSign.None;
@@ -130,7 +130,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
             /// </summary>
             /// <param name="controllerType"></param>
             /// <returns></returns>
-            public Builder SetControllerType(ControllerType controllerType)
+            public Builder SetControllerType(ControllerID controllerType)
             {
                 _controllerType = controllerType;
                 return this;
@@ -188,9 +188,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
                     argumentExceptionSet.Add(typeof(PhalanxType).Name + " cannot be none.");
                 }
                 // Check that _controllerType has been set
-                if (_controllerType == ControllerType.None)
+                if (_controllerType == ControllerID.None)
                 {
-                    argumentExceptionSet.Add(typeof(ControllerType).Name + " cannot be none.");
+                    argumentExceptionSet.Add(typeof(ControllerID).Name + " cannot be none.");
                 }
                 // Check that _combatantCallSigns has been set
                 if (_combatantCallSigns == null)

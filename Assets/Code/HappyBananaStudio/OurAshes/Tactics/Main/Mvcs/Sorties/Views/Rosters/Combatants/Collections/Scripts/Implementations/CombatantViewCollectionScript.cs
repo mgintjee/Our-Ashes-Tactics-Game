@@ -1,4 +1,4 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Abstract;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Implementations.Abstract;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Rosters.Combatants.Collections.Scripts.Interfaces;
 using UnityEngine;
@@ -8,8 +8,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views
     /// <summary>
     /// Sortie Combatant View Collection Script Implementation
     /// </summary>
-    public class CombatantViewCollectionScript
-        : AbstractUnityScript, ICombatantViewCollectionScript
+    public class CombatantViewCollectionScript : AbstractUnityScript, ICombatantViewCollectionScript
     {
         void ICombatantViewCollectionScript.Clear()
         {

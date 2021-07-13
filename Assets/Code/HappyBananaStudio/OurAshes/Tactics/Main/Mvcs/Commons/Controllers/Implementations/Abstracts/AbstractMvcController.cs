@@ -2,16 +2,15 @@
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Requests.Interfaces;
-using System.Collections.Generic;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Responses.Interfaces;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Implementations.Abstracts
 {
     /// <summary>
     /// Abstract Mvc Controller Implementation
     /// </summary>
-    public abstract class AbstractMvcController
-        : IMvcController
+    public abstract class AbstractMvcController : IMvcController
     {
         // Todo
         protected readonly ILogger _logger;
@@ -38,7 +37,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Contr
         public abstract IMvcRequest OutputSelectedMvcRequest();
 
         /// <inheritdoc/>
-        public abstract void Process(ISet<IMvcRequest> requests);
+        public abstract void Process(IMvcResponse mvcResponse);
 
         /// <inheritdoc/>
         public abstract void Stop();

@@ -1,10 +1,9 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Simulations.Types;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Abstract;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Implementations.Abstract;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Controllers.Constructions.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Frames.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Frames.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Models.Constructions.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Models.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Views.Constructions.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Implementations;
 using System;
@@ -14,9 +13,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Startups.Scri
     /// <summary>
     /// Mvc Startup Script Implementation
     /// </summary>
-    public class MvcStartupScript
-        : AbstractUnityScript
+    public class MvcStartupScript : AbstractUnityScript
     {
+        // Todo
         private readonly int Seed = 20150123;
 
         // Todo
@@ -34,15 +33,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Startups.Scri
             }
             else
             {
-                _centralMvcFrame = new CentralMvcFrame(
-                    new MvcFrameConstruction.Builder()
-                        .SetMvcControllerConstruction(new CentralMvcControllerConstruction())
-                        .SetMvcModelConstruction(new CentralMvcModelConstruction())
-                        .SetMvcViewConstruction(new CentralMvcViewConstruction())
-                        .SetRandom(new Random(Seed))
-                        .SetSimulationType(SimulationType.Interactive)
-                        .SetUnityScript(this)
-                        .Build());
+                _centralMvcFrame = new CentralMvcFrame(new MvcFrameConstruction.Builder()
+                    .SetMvcControllerConstruction(CentralControllerConstruction.Builder.GetBuilder().Build())
+                    .SetMvcModelConstruction(CentralModelConstruction.Builder.GetBuilder().Build())
+                    .SetMvcViewConstruction(CentralViewConstruction.Builder.GetBuilder().Build())
+                    .SetRandom(new Random(Seed))
+                    .SetSimulationType(SimulationType.Interactive)
+                    .SetUnityScript(this)
+                    .Build());
             }
         }
     }

@@ -124,11 +124,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frame
                                 {
                                     _logger.Info("Confirmed {}", confirmedRequest);
                                     _mvcSortieModel.Process(confirmedRequest);
-                                    IMvcModelResponse modelResponse = _mvcSortieModel.GetMvcModelResponse();
-                                    mvcModelResponses.Add(modelResponse);
+                                    IMvcModelResponse mvcResponse = _mvcSortieModel.GetMvcModelResponse();
+                                    mvcModelResponses.Add(mvcResponse);
                                     if (_mvcSortieView != null)
                                     {
-                                        _mvcSortieView.Process((ISortieResponse)modelResponse);
+                                        _mvcSortieView.Process((IMvcResponse)mvcResponse);
                                     }
                                     _mvcSortieController.Clear();
                                     //_controllerRequests.Clear();

@@ -1,11 +1,9 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
+﻿/*using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Engagements.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Simulations.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Phalanxes.CallSigns;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Schemes.Insignias.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Combatants;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Insignias;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combatants.Constructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Engagements.Constructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Phalanxes.Constructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Constructions.Implementaions;
@@ -30,12 +28,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
         public static IRosterConstruction Generate(Random random, SimulationType simulationType, IEngagementConstruction engagementConstruction)
         {
             ISet<ICombatantConstruction> combatantConstructions = new HashSet<ICombatantConstruction>();
-            IDictionary<PhalanxCallSign, IInsigniaScheme> phalanxCallSignInsigniaScheme = new Dictionary<PhalanxCallSign, IInsigniaScheme>();
+            IDictionary<PhalanxCallSign, IInsigniaReport> phalanxCallSignInsigniaScheme = new Dictionary<PhalanxCallSign, IInsigniaReport>();
             EngagementType engagementType = engagementConstruction.GetEngagementType();
             if (engagementType == EngagementType.Faction)
             {
-                IInsigniaScheme insigniaSchemeA = RandomInsigniaSchemes.Generate(random);
-                IInsigniaScheme insigniaSchemeB = RandomInsigniaSchemes.Generate(random);
+                IInsigniaReport insigniaSchemeA = RandomInsigniaSchemes.Generate(random);
+                IInsigniaReport insigniaSchemeB = RandomInsigniaSchemes.Generate(random);
                 ISet<PhalanxCallSign> phalanxCallSignsA = new HashSet<PhalanxCallSign>();
                 ISet<PhalanxCallSign> phalanxCallSignsB = new HashSet<PhalanxCallSign>();
                 foreach (IPhalanxConstruction phalanxConstruction in engagementConstruction.GetPhalanxConstructions())
@@ -84,4 +82,4 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
                 .Build();
         }
     }
-}
+}*/

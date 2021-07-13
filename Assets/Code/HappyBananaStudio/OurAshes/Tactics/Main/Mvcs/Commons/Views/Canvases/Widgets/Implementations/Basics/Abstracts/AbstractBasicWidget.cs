@@ -1,4 +1,4 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Canvases.Abstract;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Canvases.Implementations.Abstract;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Interfaces;
 using UnityEngine;
 
@@ -7,8 +7,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
     /// <summary>
     /// Todo
     /// </summary>
-    public abstract class AbstractBasicWidget
-        : AbstractCanvasScript, IWidget
+    public abstract class AbstractBasicWidget : AbstractCanvasScript, IWidget
     {
         // Todo
         protected Vector2 widgetDimensions;

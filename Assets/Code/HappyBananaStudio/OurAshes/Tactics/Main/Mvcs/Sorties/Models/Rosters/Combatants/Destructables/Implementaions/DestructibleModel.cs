@@ -1,6 +1,6 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Destructibles.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Destructibles.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Destructibles.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Destructibles.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.Combatants.Characteristics.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.Combatants.Destructables.Interfaces;
 using System.Collections.Generic;
@@ -10,8 +10,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
     /// <summary>
     /// Destructible Model Impl
     /// </summary>
-    public class DestructibleModel
-        : IDestructibleModel
+    public class DestructibleModel : IDestructibleModel
     {
         // Todo
         private readonly IDestructibleAttributes _attributes;
@@ -34,11 +33,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 APs += destructibleAttributes.GetArmor();
                 HPs += destructibleAttributes.GetHealth();
             }
-            this.currentAttributes = new DestructibleAttributes.Builder()
+            this.currentAttributes = DestructibleAttributes.Builder.Get()
                 .SetArmor(APs)
                 .SetHealth(HPs)
                 .Build();
-            _attributes = new DestructibleAttributes.Builder()
+            _attributes = DestructibleAttributes.Builder.Get()
                 .SetArmor(APs)
                 .SetHealth(HPs)
                 .Build();
@@ -52,7 +51,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             IDestructibleAttributes destructibleAttributes = combatantAttributes.GetDestructibleAttributes();
             currentAPs += destructibleAttributes.GetArmor();
             currentHPs += destructibleAttributes.GetHealth();
-            this.currentAttributes = new DestructibleAttributes.Builder()
+            this.currentAttributes = DestructibleAttributes.Builder.Get()
                 .SetArmor(currentAPs)
                 .SetHealth(currentHPs)
                 .Build();
@@ -73,7 +72,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <inheritdoc/>
         void ICharacteristicModel.ResetForPhase()
         {
-            this.currentAttributes = new DestructibleAttributes.Builder()
+            this.currentAttributes = DestructibleAttributes.Builder.Get()
                 .SetArmor(_attributes.GetArmor())
                 .SetHealth(_attributes.GetHealth())
                 .Build();

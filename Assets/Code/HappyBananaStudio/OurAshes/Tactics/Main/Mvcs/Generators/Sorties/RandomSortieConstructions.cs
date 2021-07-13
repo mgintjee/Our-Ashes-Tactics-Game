@@ -1,4 +1,4 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Simulations.Types;
+﻿/*using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Simulations.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Constructions.Interfaces;
@@ -38,7 +38,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
         /// <param name="simulationType"></param>
         /// <param name="unityScript">   </param>
         /// <returns></returns>
-        /*
+        *//*
         public static IMvcFrameConstruction Generate(Random random,
             SimulationType simulationType, IUnityScript unityScript)
         {
@@ -57,7 +57,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
                 .SetRosterConstruction(rosterConstruction)
                 .SetScoreConstruction(scoreConstruction)
                 .Build();
-        }*/
+        }*//*
 
         /// <summary>
         /// Todo
@@ -80,4 +80,4 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
             return Math.Max(mapSize + 2 - phalanxCount, 4);
         }
     }
-}
+}*/

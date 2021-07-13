@@ -1,12 +1,11 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Types;
+﻿/*using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.IDs;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Sizes;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Rarities;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Reports.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Stats.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Stats.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Constants.Loadouts.Models.Gears.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Gears.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Gears.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Combatants.Loadouts.Traits;
 using System;
 using System.Collections.Generic;
@@ -228,17 +227,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
         {
             ISet<IGearStats> gearStats = new HashSet<IGearStats>();
             gearStats.UnionWith((gearType != GearType.None)
-                ? GearStatsManager.GetStats(gearType)
-                : GearStatsManager.GetStats());
+                ? GearModelConstantsManager.GetStats(gearType)
+                : GearModelConstantsManager.GetStats());
             gearStats.IntersectWith((gearSize != GearSize.None)
-                ? GearStatsManager.GetStats(gearSize)
-                : GearStatsManager.GetStats());
+                ? GearModelConstantsManager.GetStats(gearSize)
+                : GearModelConstantsManager.GetStats());
             gearStats.IntersectWith((combatantType != CombatantType.None)
-                ? GearStatsManager.GetStats(combatantType)
-                : GearStatsManager.GetStats());
+                ? GearModelConstantsManager.GetStats(combatantType)
+                : GearModelConstantsManager.GetStats());
             gearStats.IntersectWith((rarity != Rarity.None)
-                ? GearStatsManager.GetStats(rarity)
-                : GearStatsManager.GetStats());
+                ? GearModelConstantsManager.GetStats(rarity)
+                : GearModelConstantsManager.GetStats());
             ISet<GearID> gearIDs = new HashSet<GearID>();
             foreach (IGearStats stats in gearStats)
             {
@@ -253,4 +252,4 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
             return gearID;
         }
     }
-}
+}*/

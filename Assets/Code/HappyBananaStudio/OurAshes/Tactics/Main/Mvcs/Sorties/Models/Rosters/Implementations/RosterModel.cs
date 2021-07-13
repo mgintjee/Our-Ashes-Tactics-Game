@@ -1,20 +1,20 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Destructibles.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Destructibles.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Destructibles.Utils;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Movables.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Destructibles.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Destructibles.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Movables.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combatants.Constructions.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sorties.Maps.Paths.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combatants.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combats.Damages.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combats.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Types.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Constructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Reports.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Reports.Interfaces;
@@ -75,7 +75,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             if (controllerRequest != null)
             {
                 CombatantCallSign callSign = controllerRequest.GetCallSign();
-                IPath path = controllerRequest.GetPath();
+                ISortieMapPath path = controllerRequest.GetPath();
                 _report.GetCombatantReport(callSign).IfPresent((combatantReport) =>
                 {
                     float actionCost = 0.0f;
@@ -99,9 +99,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                             break;
                     }
                     this.ApplyCombatantAttributes(callSign,
-                        new CombatantAttributes.Builder()
+                        CombatantAttributes.Builder.Get()
                         .SetMovableAttributes(
-                            new MovableAttributes.Builder()
+                            MovableAttributes.Builder.Get()
                             .SetActions(actionCost)
                             .SetMovements(movementCost)
                             .Build())
@@ -151,13 +151,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             ISet<IDestructibleAttributes> destructibleAttributesSet = new HashSet<IDestructibleAttributes>();
             foreach (IDamageReport damageReport in combatReport.GetDamageReports())
             {
-                destructibleAttributesSet.Add(new DestructibleAttributes.Builder()
+                destructibleAttributesSet.Add(DestructibleAttributes.Builder.Get()
                     .SetArmor(-damageReport.GetArmorDamageInflictedPerHit() * damageReport.GetActualSalvoHits())
                     .SetHealth(-damageReport.GetHealthDamageInflictedPerHit() * damageReport.GetActualSalvoHits())
                     .Build());
             }
-            IDestructibleAttributes destructibleAttributes = new DestructibleAttributes.Builder().Build(destructibleAttributesSet);
-            ICombatantAttributes combatantAttributes = new CombatantAttributes.Builder()
+            IDestructibleAttributes destructibleAttributes = DestructibleAttributesUtil.Build(destructibleAttributesSet);
+            ICombatantAttributes combatantAttributes = CombatantAttributes.Builder.Get()
                 .SetDestructibleAttributes(destructibleAttributes)
                 .Build();
             this.ApplyCombatantAttributes(combatReport.GetTargetCallSign(), combatantAttributes);

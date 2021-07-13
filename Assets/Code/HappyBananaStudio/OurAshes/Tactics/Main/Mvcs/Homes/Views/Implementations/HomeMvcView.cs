@@ -1,23 +1,21 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Responses.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Interfaces;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Views.Implementations
 {
     /// <summary>
-    /// Home Model Implementation
+    /// Home View Implementation
     /// </summary>
-    public class HomeMvcView
-        : AbstractMvcView, IMvcView
+    public class HomeMvcView : AbstractMvcView, IMvcView
     {
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="mvcFrameConstruction"></param>
-        public HomeMvcView(IMvcFrameConstruction mvcFrameConstruction)
-            : base(mvcFrameConstruction)
+        public HomeMvcView(IMvcFrameConstruction mvcFrameConstruction) : base(mvcFrameConstruction)
         {
         }
 
@@ -38,6 +36,5 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Views.I
         {
             throw new System.NotImplementedException();
         }
-
     }
 }

@@ -7,11 +7,11 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controlle
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Responses.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Scripts.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Scripts.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Implementations.BlackBoxes;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Interfaces;
 using System.Collections.Generic;
@@ -53,7 +53,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
         {
             _mvcType = mvcFrameConstruction.GetMvcType();
             _logger = LoggerManager.GetLogger(_mvcType, this.GetType());
-            _mvcFrameScript = new MvcFrameScriptImplementation.Builder()
+            _mvcFrameScript = MvcFrameScript.Builder.Get()
                 .SetMvcFrameConstruction(mvcFrameConstruction)
                 .Build();
             IMvcFrameConstruction newMvcFrameConstruction = new MvcFrameConstruction.Builder()
@@ -89,7 +89,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
                         if (!_mvcController.HasRequests())
                         {
                             // Pass in the Model's available MvcRequests
-                            _mvcController.Process(_mvcModel.GetMvcRequests());
+                            _mvcController.Process(_mvcModel.GetMvcResponse());
                         }
                         else
                         {
@@ -115,9 +115,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
                                 _mvcModel.Process(confirmedMvcRequest);
                                 IMvcResponse mvcResponse = _mvcModel.GetMvcResponse();
                                 _logger.Info("Outputted {}.", mvcResponse);
-                                _mvcView.Process(mvcResponse);
                                 _mvcResponses.Add(mvcResponse);
-                                _mvcController.Stop();
+                                _mvcView.Process(mvcResponse);
+                                _mvcController.Process(mvcResponse);
                             }
                             else
                             {

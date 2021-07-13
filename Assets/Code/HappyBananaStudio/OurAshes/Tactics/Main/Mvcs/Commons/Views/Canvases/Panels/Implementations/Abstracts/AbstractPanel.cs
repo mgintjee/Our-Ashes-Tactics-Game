@@ -1,5 +1,5 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Colors.IDs;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Canvases.Abstract;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Canvases.Implementations.Abstract;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sprites.IDs;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Coordinates.Grids.Convertors.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Coordinates.Grids.Convertors.Interfaces;
@@ -19,8 +19,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
     /// <summary>
     /// Todo
     /// </summary>
-    public abstract class AbstractPanel
-        : AbstractCanvasScript, IPanel
+    public abstract class AbstractPanel : AbstractCanvasScript, IPanel
     {
         // Todo
         protected IBasicImage backgroundImage;
@@ -82,9 +81,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             // Todo: Maybe have a default BasicImage Builder for background
             this.backgroundImage = new BasicImage.Builder()
                 .SetParentTransform(this.GetTransform())
-                .SetSpriteId(SpriteID.Square)
+                .SetSpriteID(SpriteID.Square)
                 .SetTransparency(0.5f)
-                .SetColorId(ColorID.Gray)
+                .SetColorID(ColorID.Gray)
                 .Build();
             // TOdo: Store in a const file
             this.backgroundImage.GetTransform().name = "BackgroundImage";

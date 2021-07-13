@@ -1,11 +1,11 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Spawns.Areas;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Spawns.Sides;
+﻿/*using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Phalanxes.CallSigns;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sorties.Maps.Spawns.Areas;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sorties.Maps.Spawns.Sides;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Engagements.Constructions.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Constructions.Implementaions;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Constructions.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Constructions.Models.Implementaions;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Constructions.Models.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Spawns.Positions.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Spawns.Positions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Phalanxes.Constructions.Interfaces;
@@ -24,7 +24,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
         /// </summary>
         /// <param name="random"></param>
         /// <returns></returns>
-        public static IMapConstruction Generate(Random random, int size,
+        public static ISortieMapModelConstruction Generate(Random random, int size,
             IEngagementConstruction engagementConstruction)
         {
             IDictionary<CombatantCallSign, ISpawnPosition> combatantCallSignSpawnPositions = new Dictionary<CombatantCallSign, ISpawnPosition>();
@@ -40,7 +40,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
                 foreach (CombatantCallSign combatantCallSign in phalanxConstruction.GetCombatantCallSigns())
                 {
                     combatantCallSignSpawnPositions.Add(combatantCallSign,
-                        new SpawnPosition.Builder()
+                        SpawnPosition.Builder.Get()
                         .SetSpawnArea(spawnArea)
                         .SetSpawnSide((SpawnSide)spawnSide)
                         .Build());
@@ -48,11 +48,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
                 }
                 spawnAreaIndex++;
             }
-            return new MapConstruction.Builder()
-                .SetCombatantCallSignSpawnPositions(combatantCallSignSpawnPositions)
-                .SetIsMirroredMap(random.Next() % 2 == 0)
-                .SetSize(size)
+            // Todo: Populate the SortieTileModelConstructions
+            return SortieMapModelConstruction.Builder.Get()
+                .SetSortieTileModelConstruction()
                 .Build();
         }
     }
-}
+}*/

@@ -1,5 +1,5 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Colors.IDs;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Canvases.Abstract;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Canvases.Implementations.Abstract;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sprites.IDs;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Coordinates.Grids.Convertors.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Coordinates.Grids.Convertors.Interfaces;
@@ -22,8 +22,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
     /// <summary>
     /// Todo
     /// </summary>
-    public abstract class AbstractPanelEntry
-        : AbstractCanvasScript, IPanelEntry
+    public abstract class AbstractPanelEntry : AbstractCanvasScript, IPanelEntry
     {
         // Todo
         protected IBasicImage basicWidgetImage;
@@ -94,10 +93,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             // Todo: Maybe have a default BasicImage Builder for background
             IComplexText complexWidgetHeader = new ComplexText.Builder()
                 .SetParentTransform(this.GetTransform())
-                .SetImageColorId(ColorID.Gray)
-                .SetImageSpriteId(SpriteID.RoundedSquare)
+                .SetImageColorID(ColorID.Gray)
+                .SetImageSpriteID(SpriteID.RoundedSquare)
                 .SetImageTransparency(0.0f)
-                .SetTextColorId(ColorID.Black)
+                .SetTextColorID(ColorID.Black)
                 .SetTextFontSize(15)
                 .SetTextFontStyle(FontStyle.Bold)
                 .SetTextString(headerString)
@@ -176,9 +175,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             // Todo: Maybe have a default BasicImage Builder for background
             IWidget backgroundImage = new BasicImage.Builder()
                 .SetParentTransform(this.GetTransform())
-                .SetSpriteId(SpriteID.Square)
+                .SetSpriteID(SpriteID.Square)
                 .SetTransparency(0.5f)
-                .SetColorId(ColorID.Gray)
+                .SetColorID(ColorID.Gray)
                 .Build();
             // TOdo: Store in a const file
             backgroundImage.GetTransform().name = "BackgroundImage";

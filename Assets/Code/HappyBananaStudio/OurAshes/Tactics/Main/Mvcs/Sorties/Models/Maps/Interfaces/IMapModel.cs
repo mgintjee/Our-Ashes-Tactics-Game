@@ -16,14 +16,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// Todo
         /// </summary>
         /// <returns></returns>
-        IMapReport GetReport();
+        ISortieMapReport GetReport();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="combatantReport"></param>
         /// <returns></returns>
-        ISet<IPath> GetPaths(ICombatantReport combatantReport);
+        ISet<ISortieMapPath> GetPaths(ICombatantReport combatantReport);
 
         /// <summary>
         /// Todo

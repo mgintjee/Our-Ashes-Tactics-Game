@@ -2,8 +2,8 @@
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sprites.IDs;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Schemes.Emblems.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Schemes.Patterns.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Constants.Schemes.Views.Emblems.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Constants.Schemes.Views.Patterns.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Implementations.Basics.Images;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Implementations.Basics.Texts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Implementations.Complexes.Abstracts;
@@ -23,9 +23,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// Todo
         /// </summary>
         /// <returns></returns>
-        private void BuildBackground(ColorID colorId, SpriteID spriteId)
+        private void BuildBackground(ColorID colorID, SpriteID spriteID)
         {
-            IBasicImage backgroundImage = this.BuildImage(colorId, spriteId);
+            IBasicImage backgroundImage = this.BuildImage(colorID, spriteID);
             this.childWidgetSet.Add(backgroundImage);
         }
 
@@ -33,9 +33,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// Todo
         /// </summary>
         /// <returns></returns>
-        private void BuildForeground(ColorID colorId, SpriteID spriteId)
+        private void BuildForeground(ColorID colorID, SpriteID spriteID)
         {
-            IBasicImage foregroundImage = this.BuildImage(colorId, spriteId);
+            IBasicImage foregroundImage = this.BuildImage(colorID, spriteID);
             this.childWidgetSet.Add(foregroundImage);
         }
 
@@ -43,23 +43,23 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// Todo
         /// </summary>
         /// <returns></returns>
-        private void BuildIcon(ColorID colorId, SpriteID spriteId)
+        private void BuildIcon(ColorID colorID, SpriteID spriteID)
         {
-            IBasicImage iconImage = this.BuildImage(colorId, spriteId);
+            IBasicImage iconImage = this.BuildImage(colorID, spriteID);
             this.childWidgetSet.Add(iconImage);
         }
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="colorId"> </param>
-        /// <param name="spriteId"></param>
+        /// <param name="colorID"> </param>
+        /// <param name="spriteID"></param>
         /// <returns></returns>
-        private IBasicImage BuildImage(ColorID colorId, SpriteID spriteId)
+        private IBasicImage BuildImage(ColorID colorID, SpriteID spriteID)
         {
             return new BasicImage.Builder()
-                .SetColorId(colorId)
-                .SetSpriteId(spriteId)
+                .SetColorID(colorID)
+                .SetSpriteID(spriteID)
                 .SetParentTransform(this.GetTransform())
                 .SetTransparency(0f)
                 .Build();
@@ -73,7 +73,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         {
             // Todo: Store some of these in a constants file
             IBasicText basicText = new BasicText.Builder()
-                 .SetColorId(ColorID.Black)
+                 .SetColorID(ColorID.Black)
                  .SetFontSize(12)
                  .SetFontStyle(FontStyle.BoldAndItalic)
                  .SetFontString(talonCallSign.ToString())

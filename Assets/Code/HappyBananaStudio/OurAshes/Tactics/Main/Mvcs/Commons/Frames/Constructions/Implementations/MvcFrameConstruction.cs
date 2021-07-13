@@ -1,4 +1,5 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Implementations.Abstracts;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Simulations.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Reports.Implementations.Abstracts;
@@ -98,143 +99,184 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
             return _unityScript;
         }
 
+        /// <inheritdoc/>
         Random IMvcFrameConstruction.GetRandom()
         {
-            throw new NotImplementedException();
+            return _random;
         }
 
         /// <inheritdoc/>
         protected override string GetContent()
         {
-            return string.Format("{0}, {1}, {2}, {3}, {4}",
+            return string.Format("{0}, {1}, {2}, {3}, {4}, {5}",
                 StringUtils.Format(_mvcType),
                 StringUtils.Format(_simulationType),
-                _mvcControllerConstruction, _mvcModelConstruction, _mvcViewConstruction);
+                _mvcControllerConstruction, _mvcModelConstruction,
+                _mvcViewConstruction, _random);
         }
 
         /// <summary>
         /// Todo
         /// </summary>
         public class Builder
-            : AbstractBuilder<IMvcFrameConstruction>
         {
-            // Todo
-            private IMvcControllerConstruction _mvcControllerConstruction;
-
-            // Todo
-            private IMvcModelConstruction _mvcModelConstruction;
-
-            // Todo
-            private IMvcViewConstruction _mvcViewConstruction;
-
-            // Todo
-            private MvcType _mvcType;
-
-            // Todo
-            private IUnityScript _unityScript;
-
-            // Todo
-            private SimulationType _simulationType;
-
-            // Todo
-            private Random _random;
-
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="mvcType"></param>
-            /// <returns></returns>
-            public Builder SetMvcType(MvcType mvcType)
+            public interface IBuilder : IBuilder<IMvcFrameConstruction>
             {
-                _mvcType = mvcType;
-                return this;
-            }
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <param name="mvcControllerConstruction"></param>
+                /// <returns></returns>
+                IBuilder SetMvcControllerConstruction(IMvcControllerConstruction mvcControllerConstruction);
 
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="random"></param>
-            /// <returns></returns>
-            public Builder SetRandom(Random random)
-            {
-                _random = random;
-                return this;
-            }
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <param name="mvcModelConstruction"></param>
+                /// <returns></returns>
+                IBuilder SetMvcModelConstruction(IMvcModelConstruction mvcModelConstruction);
 
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="simulationType"></param>
-            /// <returns></returns>
-            public Builder SetSimulationType(SimulationType simulationType)
-            {
-                _simulationType = simulationType;
-                return this;
-            }
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <param name="mvcViewConstruction"></param>
+                /// <returns></returns>
+                IBuilder SetMvcViewConstruction(IMvcViewConstruction mvcViewConstruction);
 
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="mvcControllerConstruction"></param>
-            /// <returns></returns>
-            public Builder SetMvcControllerConstruction(IMvcControllerConstruction mvcControllerConstruction)
-            {
-                _mvcControllerConstruction = mvcControllerConstruction;
-                return this;
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <param name="mvcType"></param>
+                /// <returns></returns>
+                IBuilder SetMvcType(MvcType mvcType);
+
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <param name="unityScript"></param>
+                /// <returns></returns>
+                IBuilder SetUnityScript(IUnityScript unityScript);
+
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <param name="simulationType"></param>
+                /// <returns></returns>
+                IBuilder SetSimulationType(SimulationType simulationType);
+
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <param name="random"></param>
+                /// <returns></returns>
+                IBuilder SetRandom(Random random);
             }
 
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="mvcModelConstruction"></param>
             /// <returns></returns>
-            public Builder SetMvcModelConstruction(IMvcModelConstruction mvcModelConstruction)
+            public static IBuilder GetBuilder()
             {
-                _mvcModelConstruction = mvcModelConstruction;
-                return this;
+                return new InternalBuilder();
             }
 
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="mvcViewConstruction"></param>
-            /// <returns></returns>
-            public Builder SetMvcViewConstruction(IMvcViewConstruction mvcViewConstruction)
+            private class InternalBuilder : AbstractBuilder<IMvcFrameConstruction>, IBuilder
             {
-                _mvcViewConstruction = mvcViewConstruction;
-                return this;
-            }
+                // Todo
+                private IMvcControllerConstruction _mvcControllerConstruction;
 
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="unityScript"></param>
-            /// <returns></returns>
-            public Builder SetUnityScript(IUnityScript unityScript)
-            {
-                _unityScript = unityScript;
-                return this;
-            }
+                // Todo
+                private IMvcModelConstruction _mvcModelConstruction;
 
-            /// <inheritdoc/>
-            protected override IMvcFrameConstruction BuildObj()
-            {
-                // Instantiate a new construction
-                return new MvcFrameConstruction(_mvcType, _simulationType,
-                    _unityScript, _mvcControllerConstruction,
-                    _mvcModelConstruction, _mvcViewConstruction, _random);
-            }
+                // Todo
+                private IMvcViewConstruction _mvcViewConstruction;
 
-            /// <inheritdoc/>
-            protected override void Validate(ISet<string> invalidReasons)
-            {
-                ValidateEnum(invalidReasons, _mvcType);
-                ValidateEnum(invalidReasons, _simulationType);
-                Validate(invalidReasons, _unityScript);
-                Validate(invalidReasons, _random);
-                Validate(invalidReasons, _mvcControllerConstruction);
-                Validate(invalidReasons, _mvcModelConstruction);
-                Validate(invalidReasons, _mvcViewConstruction);
+                // Todo
+                private MvcType _mvcType;
+
+                // Todo
+                private IUnityScript _unityScript;
+
+                // Todo
+                private SimulationType _simulationType;
+
+                // Todo
+                private Random _random;
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetMvcControllerConstruction(IMvcControllerConstruction mvcControllerConstruction)
+                {
+                    _mvcControllerConstruction = mvcControllerConstruction;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetMvcModelConstruction(IMvcModelConstruction mvcModelConstruction)
+                {
+                    _mvcModelConstruction = mvcModelConstruction;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetMvcType(MvcType mvcType)
+                {
+                    _mvcType = mvcType;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetMvcViewConstruction(IMvcViewConstruction mvcViewConstruction)
+                {
+                    _mvcViewConstruction = mvcViewConstruction;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetRandom(Random random)
+                {
+                    _random = random;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetSimulationType(SimulationType simulationType)
+                {
+                    _simulationType = simulationType;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetUnityScript(IUnityScript unityScript)
+                {
+                    _unityScript = unityScript;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                protected override IMvcFrameConstruction BuildObj()
+                {
+                    return new MvcFrameConstruction(_mvcType, _simulationType, _unityScript,
+                        _mvcControllerConstruction, _mvcModelConstruction, _mvcViewConstruction, _random);
+                }
+
+                /// <inheritdoc/>
+                protected override void Validate(ISet<string> invalidReasons)
+                {
+                    this.Validate(invalidReasons, _mvcType);
+                    this.Validate(invalidReasons, _simulationType);
+                    this.Validate(invalidReasons, _unityScript);
+                    this.Validate(invalidReasons, _mvcControllerConstruction);
+                    this.Validate(invalidReasons, _mvcModelConstruction);
+                    this.Validate(invalidReasons, _mvcViewConstruction);
+                    this.Validate(invalidReasons, _random);
+                }
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
 using System.Collections.Generic;
 
@@ -13,12 +13,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// Todo
         /// </summary>
         /// <returns></returns>
-        IDictionary<ICubeCoordinates, IPath> GetCubeCoordinatesPaths();
+        IDictionary<ICubeCoordinates, ISortieMapPath> GetCubeCoordinatesPaths();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        ISet<IPath> GetPaths();
+        ISet<ISortieMapPath> GetPaths();
     }
 }

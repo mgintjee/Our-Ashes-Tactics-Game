@@ -1,10 +1,11 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combatants.Constructions.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combatants.Constructions.Models.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combatants.Constructions.Views.Interfaces;
 using System.Collections.Generic;
 
-namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Constructions.Interfaces
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Constructions.Views.Interfaces
 {
     /// <summary>
-    /// Todo
+    /// Roster Construction Interface
     /// </summary>
     public interface IRosterConstruction
     {
@@ -12,6 +13,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// Todo
         /// </summary>
         /// <returns></returns>
-        ISet<ICombatantConstruction> GetCombatantConstructions();
+        ISet<ICombatantModelConstruction> GetCombatantModelConstructions();
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        ISet<ICombatantViewConstruction> GetCombatantViewConstructions();
     }
 }

@@ -1,4 +1,4 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.PathFinders.Interfaces;
@@ -13,24 +13,24 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         : IPathFinder
     {
         // Todo
-        protected IDictionary<ICubeCoordinates, IPath> _cubeCoordinatesPaths = new Dictionary<ICubeCoordinates, IPath>();
+        protected IDictionary<ICubeCoordinates, ISortieMapPath> _cubeCoordinatesPaths = new Dictionary<ICubeCoordinates, ISortieMapPath>();
 
         // Todo
         protected ICubeCoordinates _cubeCoordinates;
 
         // Todo
-        protected IMapReport _mapReport;
+        protected ISortieMapReport _mapReport;
 
         /// <inheritdoc/>
-        IDictionary<ICubeCoordinates, IPath> IPathFinder.GetCubeCoordinatesPaths()
+        IDictionary<ICubeCoordinates, ISortieMapPath> IPathFinder.GetCubeCoordinatesPaths()
         {
-            return new Dictionary<ICubeCoordinates, IPath>(_cubeCoordinatesPaths);
+            return new Dictionary<ICubeCoordinates, ISortieMapPath>(_cubeCoordinatesPaths);
         }
 
         /// <inheritdoc/>
-        ISet<IPath> IPathFinder.GetPaths()
+        ISet<ISortieMapPath> IPathFinder.GetPaths()
         {
-            return new HashSet<IPath>(_cubeCoordinatesPaths.Values);
+            return new HashSet<ISortieMapPath>(_cubeCoordinatesPaths.Values);
         }
 
         /// <summary>

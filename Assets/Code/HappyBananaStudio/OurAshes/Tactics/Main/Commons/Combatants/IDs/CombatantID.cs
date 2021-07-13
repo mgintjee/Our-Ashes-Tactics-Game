@@ -6,8 +6,8 @@
     public enum CombatantID
     {
         None,
-        AlphaAlpha,
-        BravoAlpha,
-        CharlieAlpha,
+        LightAlpha,
+        MediumAlpha,
+        HeavyAlpha,
     }
 }

@@ -10,8 +10,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
     /// <summary>
     /// Todo
     /// </summary>
-    public interface IScoreReport
-        : IReport
+    public interface IScoreReport : IReport
     {
         /// <summary>
         /// Todo

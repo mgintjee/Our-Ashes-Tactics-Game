@@ -1,12 +1,15 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.AIs.Types;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Controllers.AIs.Types;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.AIs.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Constructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Responses.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.AIs.Implementaions;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.AIs.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Constructions.Interfaces;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Implementations
@@ -18,10 +21,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
         : AbstractMvcController, IMvcController
     {
         // Todo
-        private readonly IDictionary<AIType, IAISortieController> _aiTypeAIControllers = new Dictionary<AIType, IAISortieController>()
+        private readonly IDictionary<AIType, IControllerAI> _aiTypeAIControllers = new Dictionary<AIType, IControllerAI>()
             {
-                {  AIType.Random, new PoacherAISortieController() },
-                {  AIType.Poacher, new PoacherAISortieController() },
+                {  AIType.Random, new SortieControllerPoacherAI() },
+                {  AIType.Poacher, new SortieControllerPoacherAI() },
             };
 
         // Todo
@@ -44,6 +47,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
         public SortieMvcController(IMvcFrameConstruction mvcFrameConstruction)
             : base(mvcFrameConstruction)
         {
+            IMvcControllerConstruction mvcControllerConstruction = mvcFrameConstruction.GetMvcControllerConstruction();
+            if (mvcControllerConstruction is ISortieControllerConstruction sortieControllerConstruction)
+            {
+                _combatantCallSignControllerTypes = sortieControllerConstruction.GetCombatantCallSignAITypes();
+            }
         }
 
         /// <inheritdoc/>
@@ -73,16 +81,22 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
         }
 
         /// <inheritdoc/>
-        public override void Process(ISet<IMvcRequest> requests)
+        public override void Process(IMvcResponse mvcResponse)
         {
-            if (requests.Count != 0)
+            if (mvcResponse is IMvcResponse sortieResponse)
             {
                 ((IMvcController)this).Stop();
-                _sortieRequests.UnionWith((ISet<ISortieRequest>)requests);
-            }
-            else
-            {
-                // Throw an error
+                _sortieRequests.UnionWith((ISet<ISortieRequest>)sortieResponse.GetMvcRequests());
+                _logger.Info("Available {} actions", _sortieRequests.Count);
+                if (_sortieRequests.Count != 0)
+                {
+                    CombatantCallSign combatantCallSign = new List<ISortieRequest>
+                        (_sortieRequests)[0].GetCallSign();
+                }
+                else
+                {
+                    // throw an error
+                }
             }
         }
 

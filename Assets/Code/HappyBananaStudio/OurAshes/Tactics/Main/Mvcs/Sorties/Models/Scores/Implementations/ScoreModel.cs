@@ -57,7 +57,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         }
 
         /// <inheritdoc/>
-        void IScoreModel.Process(ISortieRequest controllerRequest, IMapReport mapReport, IRosterReport rosterReport, IEngagementReport engagementReport)
+        void IScoreModel.Process(ISortieRequest controllerRequest, ISortieMapReport mapReport, IRosterReport rosterReport, IEngagementReport engagementReport)
         {
             if (controllerRequest != null)
             {
@@ -100,7 +100,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <param name="mapReport">       </param>
         /// <param name="rosterReport">    </param>
         /// <param name="engagementReport"></param>
-        private void BuildScoreTallies(IMapReport mapReport, IRosterReport rosterReport, IEngagementReport engagementReport)
+        private void BuildScoreTallies(ISortieMapReport mapReport, IRosterReport rosterReport, IEngagementReport engagementReport)
         {
             _scoreTallies.Clear();
             foreach (PhalanxCallSign callSign in engagementReport.GetAllPhalanxCallSigns())
@@ -117,7 +117,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <param name="mapReport">       </param>
         /// <param name="rosterReport">    </param>
         /// <returns></returns>
-        private IScoreTally BuildScoreTally(PhalanxCallSign callSign, IEngagementReport engagementReport, IMapReport mapReport, IRosterReport rosterReport)
+        private IScoreTally BuildScoreTally(PhalanxCallSign callSign, IEngagementReport engagementReport, ISortieMapReport mapReport, IRosterReport rosterReport)
         {
             float score = 0.0f;
             switch (_scoreType)
@@ -140,7 +140,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <param name="mapReport">   </param>
         /// <param name="rosterReport"></param>
         /// <returns></returns>
-        private float CalculateSkirmishScoreTally(PhalanxCallSign callSign, IEngagementReport engagementReport, IMapReport mapReport, IRosterReport rosterReport)
+        private float CalculateSkirmishScoreTally(PhalanxCallSign callSign, IEngagementReport engagementReport, ISortieMapReport mapReport, IRosterReport rosterReport)
         {
             int hostileCount = this.GetHostileCombatantCount(callSign, engagementReport, rosterReport);
             int friendlyCount = this.GetFriendlyCombatantCount(callSign, engagementReport, rosterReport);

@@ -17,11 +17,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="colorId"></param>
+        /// <param name="colorID"></param>
         /// <returns></returns>
-        public static Material LoadMaterialResource(ColorID colorId)
+        public static Material LoadMaterialResource(ColorID colorID)
         {
-            return LoadMaterialResource(ColorMaterialsFolderHome + colorId.ToString());
+            return LoadMaterialResource(ColorMaterialsFolderHome + colorID.ToString());
         }
 
         /// <summary>

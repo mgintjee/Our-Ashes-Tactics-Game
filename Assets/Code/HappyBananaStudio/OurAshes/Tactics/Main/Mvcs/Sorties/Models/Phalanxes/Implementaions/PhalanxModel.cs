@@ -33,7 +33,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         private ISet<CombatantCallSign> combatantCallSigns;
 
         // Todo
-        private ControllerType controllerType;
+        private ControllerID controllerType;
 
         // Todo
         private ISet<PhalanxCallSign> phalanxCallSigns;

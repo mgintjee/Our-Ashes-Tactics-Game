@@ -16,10 +16,6 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Controllers
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Frames.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Models.Constructions.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Views.Constructions.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Menus.Homes.Controllers.Constructions.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Menus.Homes.Frames.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Menus.Homes.Models.Constructions.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Menus.Homes.Views.Constructions.Implementations;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -62,14 +58,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Fram
         /// <inheritdoc/>
         void IMvcFrame.Continue()
         {
-            if(this._activeMvcFrame == null)
+            if (this._activeMvcFrame == null)
             {
                 // Todo: Maybe get these values from a file or something?
                 // Todo: Also make this a method or something
-                this._activeMvcFrame = new HomeMvcFrame(new MvcFrameConstruction.Builder()
-                    .SetMvcControllerConstruction(new HomeMvcControllerConstruction())
-                    .SetMvcModelConstruction(new HomeMvcModelConstruction())
-                    .SetMvcViewConstruction(new HomeMvcViewConstruction())
+                this._activeMvcFrame = new HomeFrame(new MvcFrameConstruction.Builder()
+                    .SetMvcControllerConstruction(new HomeControllerConstruction())
+                    .SetMvcModelConstruction(new HomeModelConstruction())
+                    .SetMvcViewConstruction(new HomeViewConstruction())
                     .SetMvcType(MvcType.Home)
                     .SetSimulationType(SimulationType.Interactive)
                     .SetUnityScript(_mvcFrameScript)
@@ -105,7 +101,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Fram
         {
             throw new System.NotImplementedException();
         }
-
 
         protected override IMvcModel BuildMvcModel(IMvcFrameConstruction mvcFrameConstruction)
         {

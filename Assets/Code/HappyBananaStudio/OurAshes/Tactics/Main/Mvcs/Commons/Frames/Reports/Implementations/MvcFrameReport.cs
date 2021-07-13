@@ -1,4 +1,5 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Implementations.Abstracts;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Reports.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Reports.Interfaces;
@@ -63,65 +64,80 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
         }
 
         /// <summary>
-        /// Todo
+        /// Builder class for this object
         /// </summary>
         public class Builder
-            : AbstractBuilder<IMvcFrameReport>
         {
-            // Todo
-            private IMvcControllerReport _mvcControllerReport;
-
-            // Todo
-            private IMvcModelReport _mvcModelReport;
-
-            // Todo
-            private IMvcViewReport _mvcViewReport;
-
             /// <summary>
-            /// Todo
+            /// Builder Interface for this object
             /// </summary>
-            /// <param name="mvcControllerReport"></param>
-            /// <returns></returns>
-            public Builder SetMvcControllerReport(IMvcControllerReport mvcControllerReport)
+            public interface IBuilder : IBuilder<IMvcFrameReport>
             {
-                _mvcControllerReport = mvcControllerReport;
-                return this;
+                IBuilder SetMvcControllerReport(IMvcControllerReport mvcControllerReport);
+
+                IBuilder SetMvcModelReport(IMvcModelReport mvcModelReport);
+
+                IBuilder SetMvcViewReport(IMvcViewReport mvcViewReport);
             }
 
             /// <summary>
-            /// Todo
+            /// Get the Builder for this object
             /// </summary>
-            /// <param name="mvcModelReport"></param>
             /// <returns></returns>
-            public Builder SetMvcModelReport(IMvcModelReport mvcModelReport)
+            public static IBuilder Get()
             {
-                _mvcModelReport = mvcModelReport;
-                return this;
+                return new InternalBuilder();
             }
 
             /// <summary>
-            /// Todo
+            /// Builder Implementation for this object
             /// </summary>
-            /// <param name="mvcViewReport"></param>
-            /// <returns></returns>
-            public Builder SetMvcViewReport(IMvcViewReport mvcViewReport)
+            private class InternalBuilder : AbstractBuilder<IMvcFrameReport>, IBuilder
             {
-                _mvcViewReport = mvcViewReport;
-                return this;
-            }
+                // Todo
+                private IMvcControllerReport _mvcControllerReport;
 
-            /// <inheritdoc/>
-            protected override IMvcFrameReport BuildObj()
-            {
-                return new MvcFrameReport(_mvcControllerReport, _mvcModelReport, _mvcViewReport);
-            }
+                // Todo
+                private IMvcModelReport _mvcModelReport;
 
-            /// <inheritdoc/>
-            protected override void Validate(ISet<string> invalidReasons)
-            {
-                Validate(invalidReasons, _mvcControllerReport);
-                Validate(invalidReasons, _mvcModelReport);
-                Validate(invalidReasons, _mvcViewReport);
+                // Todo
+                private IMvcViewReport _mvcViewReport;
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetMvcControllerReport(IMvcControllerReport mvcControllerReport)
+                {
+                    _mvcControllerReport = mvcControllerReport;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetMvcModelReport(IMvcModelReport mvcModelReport)
+                {
+                    _mvcModelReport = mvcModelReport;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetMvcViewReport(IMvcViewReport mvcViewReport)
+                {
+                    _mvcViewReport = mvcViewReport;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                protected override IMvcFrameReport BuildObj()
+                {
+                    // Instantiate a new attributes
+                    return new MvcFrameReport(_mvcControllerReport, _mvcModelReport, _mvcViewReport);
+                }
+
+                /// <inheritdoc/>
+                protected override void Validate(ISet<string> invalidReasons)
+                {
+                    this.Validate(invalidReasons, _mvcControllerReport);
+                    this.Validate(invalidReasons, _mvcModelReport);
+                    this.Validate(invalidReasons, _mvcViewReport);
+                }
             }
         }
     }

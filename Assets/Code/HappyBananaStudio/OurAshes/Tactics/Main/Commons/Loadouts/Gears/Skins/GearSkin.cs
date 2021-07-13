@@ -6,6 +6,13 @@
     public enum GearSkin
     {
         None,
-        WeaponAlphaAlpha
+        ArmorAlphaAlphaDefault,
+        CabinAlphaAlphaDefault,
+        EngineAlphaAlphaDefault,
+        WeaponAlphaAlphaDefault,
+        WeaponBravoAlphaDefault,
+        ArmorBravoAlphaDefault,
+        CabinBravoAlphaDefault,
+        EngineBravoAlphaDefault,
     }
 }

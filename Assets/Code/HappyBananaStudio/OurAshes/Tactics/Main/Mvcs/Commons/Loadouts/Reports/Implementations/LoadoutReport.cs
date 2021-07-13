@@ -1,7 +1,9 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Implementations.Abstracts;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Types;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Stats.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Reports.Implementations.Abstracts;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Constants.Loadouts.Models.Gears.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Gears.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Interfaces;
 using System.Collections.Generic;
 
@@ -10,8 +12,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loado
     /// <summary>
     /// Loadout Report Implementation
     /// </summary>
-    public class LoadoutReport
-        : ILoadoutReport
+    public class LoadoutReport : AbstractReport, ILoadoutReport
     {
         // Todo
         private readonly ISet<IGearReport> _gearReports = new HashSet<IGearReport>();
@@ -26,24 +27,15 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loado
         }
 
         /// <inheritdoc/>
-        public override string ToString()
-        {
-            return string.Format("{0}: " +
-                "\n{1}=[{2}]",
-                this.GetType().Name,
-                typeof(IGearReport).Name, string.Join("\n", _gearReports));
-        }
-
-        /// <inheritdoc/>
         ISet<IGearReport> ILoadoutReport.GetGearReports(GearType gearType)
         {
             ISet<IGearReport> gearReports = new HashSet<IGearReport>();
 
             foreach (IGearReport gearReport in _gearReports)
             {
-                GearStatsManager.GetStats(gearReport.GetGearID()).IfPresent(gearStats =>
+                GearModelConstantsManager.GetConstants(gearReport.GetGearID()).IfPresent(gearModelConstants =>
                 {
-                    if (gearStats.GetGearType() == gearType)
+                    if (gearModelConstants.GetGearType() == gearType)
                     {
                         gearReports.Add(gearReport);
                     }
@@ -59,60 +51,61 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loado
             return new HashSet<IGearReport>(_gearReports);
         }
 
+        /// <inheritdoc/>
+        protected override string GetContent()
+        {
+            return string.Format("[{0}]", string.Join(", ", _gearReports));
+        }
+
         /// <summary>
-        /// Todo
+        /// Builder class for this object
         /// </summary>
         public class Builder
         {
-            // Todo
-            private ISet<IGearReport> _gearReports = new HashSet<IGearReport>();
-
             /// <summary>
-            /// Todo
+            /// Builder Interface for this object
             /// </summary>
-            /// <returns></returns>
-            public ILoadoutReport Build()
+            public interface IBuilder : IBuilder<ILoadoutReport>
             {
-                ISet<string> invalidReasons = this.IsInvalid();
-                // Check that the set parameters are valid
-                if (invalidReasons.Count == 0)
-                {
-                    // Instantiate a new construction
-                    return new LoadoutReport(_gearReports);
-                }
-                throw ExceptionUtil.Arguments.Build("Unable to construct {}. Invalid Parameters. {}",
-                    this.GetType(), string.Join("\n", invalidReasons));
+                IBuilder SetGearReports(ISet<IGearReport> gearReports);
             }
 
             /// <summary>
-            /// Todo
+            /// Get the Builder for this object
             /// </summary>
-            /// <param name="gearReports"></param>
             /// <returns></returns>
-            public Builder SetGearReports(ISet<IGearReport> gearReports)
+            public static IBuilder Get()
             {
-                if (gearReports != null)
+                return new InternalBuilder();
+            }
+
+            /// <summary>
+            /// Builder Implementation for this object
+            /// </summary>
+            private class InternalBuilder : AbstractBuilder<ILoadoutReport>, IBuilder
+            {
+                // Todo
+                private ISet<IGearReport> _gearReports = new HashSet<IGearReport>();
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetGearReports(ISet<IGearReport> gearReports)
                 {
                     _gearReports = new HashSet<IGearReport>(gearReports);
+                    return this;
                 }
-                return this;
-            }
 
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <returns></returns>
-            private ISet<string> IsInvalid()
-            {
-                // Default an empty Set: String
-                ISet<string> argumentExceptionSet = new HashSet<string>();
-                // Check that _gearReports has been set
-                if (_gearReports == null ||
-                    _gearReports.Count == 0)
+                /// <inheritdoc/>
+                protected override ILoadoutReport BuildObj()
                 {
-                    argumentExceptionSet.Add("Set: " + typeof(IGearReport).Name + " cannot be null or empty.");
+                    // Instantiate a new attributes
+                    return new LoadoutReport(_gearReports);
                 }
-                return argumentExceptionSet;
+
+                /// <inheritdoc/>
+                protected override void Validate(ISet<string> invalidReasons)
+                {
+                    this.Validate(invalidReasons, _gearReports);
+                }
             }
         }
     }

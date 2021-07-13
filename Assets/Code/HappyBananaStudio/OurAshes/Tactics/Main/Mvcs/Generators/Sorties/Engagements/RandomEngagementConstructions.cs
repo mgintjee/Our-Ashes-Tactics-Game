@@ -1,11 +1,10 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
+﻿/*using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Controllers.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Engagements.Types;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Spawns.Areas;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Simulations.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Phalanxes.CallSigns;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sorties.Maps.Spawns.Areas;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Enums;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Schemes.Insignias.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Insignias;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Phalanxes;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Engagements.Constructions.Implementaions;
@@ -35,12 +34,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
             EngagementType engagementType = RandomEnums.GenerateRandomEnum<EngagementType>(random);
             ISet<IPhalanxConstruction> phalanxConstructions = new HashSet<IPhalanxConstruction>();
             int combatantIndex = 1;
-            ControllerType controllerType = (simulationType == SimulationType.Interactive)
-                ? ControllerType.None : ControllerType.AI;
+            ControllerID controllerType = (simulationType == SimulationType.Interactive)
+                ? ControllerID.None : ControllerID.AI;
 
             ISet<PhalanxCallSign> phalanxCallSigns = GeneratePhalanxCallSigns(phalanxCount);
             IDictionary<PhalanxCallSign, ISet<PhalanxCallSign>> phalanxCallSignSets = GeneratePhalanxCallSignSets(random, phalanxCallSigns, engagementType);
-            IDictionary<PhalanxCallSign, IInsigniaScheme> phalanxCallSignInsigniaSchemes = GeneratePhalanxCallSignInsigniaSchemes(
+            IDictionary<PhalanxCallSign, IInsigniaReport> phalanxCallSignInsigniaSchemes = GeneratePhalanxCallSignInsigniaSchemes(
                 random, phalanxCallSigns, phalanxCallSignSets, engagementType);
             IDictionary<PhalanxCallSign, ISet<CombatantCallSign>> phalanxCallSignCombatantCallSigns = new Dictionary<PhalanxCallSign, ISet<CombatantCallSign>>();
             for (int i = 0; i < phalanxCount; ++i)
@@ -60,7 +59,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
             foreach (PhalanxCallSign phalanxCallSign in phalanxCallSigns)
             {
                 phalanxConstructions.Add(RandomPhalanxConstructions.Generate(random, phalanxCallSign,
-                    (controllerType != ControllerType.None) ? controllerType : RandomEnums.GenerateRandomEnum<ControllerType>(random),
+                    (controllerType != ControllerID.None) ? controllerType : RandomEnums.GenerateRandomEnum<ControllerID>(random),
                     phalanxCallSignSets[phalanxCallSign],
                     phalanxCallSignCombatantCallSigns[phalanxCallSign],
                     phalanxCallSignInsigniaSchemes[phalanxCallSign]));
@@ -160,11 +159,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
         /// <param name="phalanxCallSigns"></param>
         /// <param name="engagementType">  </param>
         /// <returns></returns>
-        private static IDictionary<PhalanxCallSign, IInsigniaScheme> GeneratePhalanxCallSignInsigniaSchemes(Random random,
+        private static IDictionary<PhalanxCallSign, IInsigniaReport> GeneratePhalanxCallSignInsigniaSchemes(Random random,
             ISet<PhalanxCallSign> phalanxCallSigns, IDictionary<PhalanxCallSign, ISet<PhalanxCallSign>> phalanxCallSignSets,
             EngagementType engagementType)
         {
-            IDictionary<PhalanxCallSign, IInsigniaScheme> phalanxCallSignInsigniaSchemes = new Dictionary<PhalanxCallSign, IInsigniaScheme>();
+            IDictionary<PhalanxCallSign, IInsigniaReport> phalanxCallSignInsigniaSchemes = new Dictionary<PhalanxCallSign, IInsigniaReport>();
 
             if (engagementType == EngagementType.Phalanx)
             {
@@ -177,8 +176,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
             {
                 ISet<PhalanxCallSign> phalanxCallSignsA = null;
                 ISet<PhalanxCallSign> phalanxCallSignsB = null;
-                IInsigniaScheme insigniaSchemeA = RandomInsigniaSchemes.Generate(random);
-                IInsigniaScheme insigniaSchemeB = RandomInsigniaSchemes.Generate(random);
+                IInsigniaReport insigniaSchemeA = RandomInsigniaSchemes.Generate(random);
+                IInsigniaReport insigniaSchemeB = RandomInsigniaSchemes.Generate(random);
 
                 foreach (PhalanxCallSign phalanxCallSign in phalanxCallSigns)
                 {
@@ -206,4 +205,4 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
             return phalanxCallSignInsigniaSchemes;
         }
     }
-}
+}*/

@@ -1,25 +1,26 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Fireables.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Spawns.Areas;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Spawns.Sides;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Coordinates.Cube.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attributes.Fireables.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sorties.Maps.Spawns.Areas;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sorties.Maps.Spawns.Sides;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sorties.Maps.Tiles.IDs;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Gears.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combatants.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Requests.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Constructions.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Constructions.Models.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Implementaions.Fires;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Implementaions.Moves;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Reports.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Spawns.Positions.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Tiles.Constructions.Models.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Tiles.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Tiles.Types.Enums;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.PathFinders.Implementaions.Fires;
@@ -28,7 +29,6 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Ma
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.PathFinders.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Tiles.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Tiles.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Tiles.Tiles.Types.Utils;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -40,7 +40,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
     public class MapModel
         : IMapModel
     {
-        // Provides logging capability to the SORTIE logs
+        // Provides logging capability
         private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
 
         // Todo
@@ -50,53 +50,42 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         private readonly int _radius;
 
         // Todo
-        private readonly ISet<ITileModel> _models;
+        private readonly ISet<ISortieTileModel> _models;
 
         // Todo
-        private readonly ISet<ITileReport> _tileReports = new HashSet<ITileReport>();
+        private readonly ISet<ISortieTileReport> _sortieTileReports = new HashSet<ISortieTileReport>();
 
         // Todo
-        private IMapReport _report;
+        private ISortieMapReport _mapReport;
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="mapConstruction"></param>
-        public MapModel(IMapConstruction mapConstruction)
+        /// <param name="sortieMapModelConstruction"></param>
+        public MapModel(ISortieMapModelConstruction sortieMapModelConstruction)
         {
-            _radius = mapConstruction.GetRadius();
-            _mirroredMap = mapConstruction.GetMirroredMap();
-            _models = new HashSet<ITileModel>();
-            foreach (KeyValuePair<ICubeCoordinates, TileType> cubeCoordinatesTileType in
-                TileTypeUtil.GetCubeCoordinatesTileTypes(this.GetCubeCoordinates(_radius), _mirroredMap))
+            _models = new HashSet<ISortieTileModel>();
+
+            foreach(ISortieTileModelConstruction sortieTileModelConstruction in
+                sortieMapModelConstruction.GetSortieTileModelConstructions())
             {
-                _models.Add(new TileModel.Builder()
-                    .SetCubeCoordinates(cubeCoordinatesTileType.Key)
-                    .SetTileType(cubeCoordinatesTileType.Value)
-                    .Build());
+                _models.Add(new SortieTileModel(sortieTileModelConstruction));
             }
 
-            foreach (KeyValuePair<CombatantCallSign, ISpawnPosition> callSignSpawnPosition in
-                mapConstruction.GetCombatantCallSignSpawnPosition())
-            {
-                _logger.Info("Setting {} @ {}", callSignSpawnPosition.Key, callSignSpawnPosition.Value);
-                this.GetTileModel(callSignSpawnPosition.Value)
-                    .IfPresent(tileModel => tileModel.SetCombatantCallSign(callSignSpawnPosition.Key));
-            }
             this.BuildReport();
         }
 
         /// <inheritdoc/>
-        IMapReport IMapModel.GetReport()
+        ISortieMapReport IMapModel.GetReport()
         {
-            return _report;
+            return _mapReport;
         }
 
         /// <inheritdoc/>
-        ISet<IPath> IMapModel.GetPaths(ICombatantReport combatantReport)
+        ISet<ISortieMapPath> IMapModel.GetPaths(ICombatantReport combatantReport)
         {
-            _logger.Info("GetPaths for {}. {}", combatantReport, _report);
-            ISet<IPath> paths = new HashSet<IPath>();
+            _logger.Info("GetPaths for {}. {}", combatantReport, _mapReport);
+            ISet<ISortieMapPath> paths = new HashSet<ISortieMapPath>();
             ISet<IPathFinder> pathFinders = new HashSet<IPathFinder>();
             this.GetTileModel(combatantReport.GetCombatantCallSign()).IfPresent((tileModel) =>
             {
@@ -124,18 +113,18 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 float maxMovement = combatantReport.GetMaximumAttributes().GetMovableAttributes().GetMovement();
                 ICubeCoordinates cubeCoordinates = tileModel.GetReport().GetCubeCoordinates();
                 pathFinders.Add(new MovePathFinder.Builder()
-                    .SetMapReport(_report)
+                    .SetMapReport(_mapReport)
                     .SetCubeCoordinates(cubeCoordinates)
                     .SetMovements(maxMovement)
                     .Build());
                 pathFinders.Add(new FirePathFinder.Builder()
-                    .SetMapReport(_report)
+                    .SetMapReport(_mapReport)
                     .SetCubeCoordinates(cubeCoordinates)
                     .SetAPs(maxAccuracy)
                     .SetRPs(maxRange)
                     .Build());
                 pathFinders.Add(new WaitPathFinder.Builder()
-                    .SetMapReport(_report)
+                    .SetMapReport(_mapReport)
                     .SetCubeCoordinates(cubeCoordinates)
                     .Build());
             });
@@ -157,8 +146,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         {
             if (controllerRequest != null)
             {
-                IPath path = controllerRequest.GetPath();
-                if (path is MovePath)
+                ISortieMapPath path = controllerRequest.GetPath();
+                if (path is SortieMapMovePath)
                 {
                     ICubeCoordinates start = path.GetStart();
                     ICubeCoordinates end = path.GetEnd();
@@ -171,11 +160,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                         tileModel.SetCombatantCallSign(controllerRequest.GetCallSign());
                     });
                 }
-                else if (path is FirePath firePath)
+                else if (path is SortieMapFirePath firePath)
                 {
                     foreach (CombatantCallSign callSign in rosterReport.GetAllCombatantCallSigns())
                     {
-                        Optional<ITileModel> tileModel = this.GetTileModel(callSign);
+                        Optional<ISortieTileModel> tileModel = this.GetTileModel(callSign);
                         tileModel.IfPresent((tileModel) =>
                         {
                             if (!rosterReport.GetActiveCombatantCallSigns().Contains(
@@ -195,15 +184,15 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// </summary>
         private void BuildReport()
         {
-            _tileReports.Clear();
-            foreach (ITileModel model in _models)
+            _sortieTileReports.Clear();
+            foreach (ISortieTileModel model in _models)
             {
-                _tileReports.Add(model.GetReport());
+                _sortieTileReports.Add(model.GetReport());
             }
-            _report = new MapReport.Builder()
+            _mapReport = new SortieMapReport.Builder()
                 .SetIsMirrored(_mirroredMap)
                 .SetRadius(_radius)
-                .SetTileReports(_tileReports)
+                .SetTileReports(_sortieTileReports)
                 .Build();
         }
 
@@ -218,7 +207,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
 
             ISet<ICubeCoordinates> visitedCubeCoordinatesSet = new HashSet<ICubeCoordinates>();
             ISet<ICubeCoordinates> unvisitedCubeCoordinatesSet = new HashSet<ICubeCoordinates>
-                        { new CubeCoordinates(0, 0, 0) };
+                        { CubeCoordinates.Builder.Get().Build() };
             // Iterate over all of the unvisisted CubeCoordinates
             while (unvisitedCubeCoordinatesSet.Count > 0)
             {
@@ -232,7 +221,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 foreach (ICubeCoordinates coordinates in currentCubeCoordinates.GetNeighbors())
                 {
                     if (!visitedCubeCoordinatesSet.Contains(coordinates) &&
-                        coordinates.GetDistanceFrom(new CubeCoordinates(0, 0, 0)) <= radius)
+                        coordinates.GetDistanceFrom(CubeCoordinates.Builder.Get().Build()) <= radius)
                     {
                         unvisitedCubeCoordinatesSet.Add(coordinates);
                     }
@@ -247,17 +236,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// </summary>
         /// <param name="cubeCoordinates"></param>
         /// <returns></returns>
-        private Optional<ITileModel> GetTileModel(ICubeCoordinates cubeCoordinates)
+        private Optional<ISortieTileModel> GetTileModel(ICubeCoordinates cubeCoordinates)
         {
-            foreach (ITileModel tileModel in _models)
+            foreach (ISortieTileModel tileModel in _models)
             {
-                ITileReport tileReport = tileModel.GetReport();
+                ISortieTileReport tileReport = tileModel.GetReport();
                 if (tileReport.GetCubeCoordinates().Equals(cubeCoordinates))
                 {
-                    return Optional<ITileModel>.Of(tileModel);
+                    return Optional<ISortieTileModel>.Of(tileModel);
                 }
             }
-            return Optional<ITileModel>.Empty();
+            return Optional<ISortieTileModel>.Empty();
         }
 
         /// <summary>
@@ -265,17 +254,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// </summary>
         /// <param name="callSign"></param>
         /// <returns></returns>
-        private Optional<ITileModel> GetTileModel(CombatantCallSign callSign)
+        private Optional<ISortieTileModel> GetTileModel(CombatantCallSign callSign)
         {
-            foreach (ITileModel tileModel in _models)
+            foreach (ISortieTileModel tileModel in _models)
             {
-                ITileReport tileReport = tileModel.GetReport();
+                ISortieTileReport tileReport = tileModel.GetReport();
                 if (tileReport.GetCombatantCallSign() == callSign)
                 {
-                    return Optional<ITileModel>.Of(tileModel);
+                    return Optional<ISortieTileModel>.Of(tileModel);
                 }
             }
-            return Optional<ITileModel>.Empty();
+            return Optional<ISortieTileModel>.Empty();
         }
 
         /// <summary>
@@ -283,7 +272,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// </summary>
         /// <param name="spawnPosition"></param>
         /// <returns></returns>
-        private Optional<ITileModel> GetTileModel(ISpawnPosition spawnPosition)
+        private Optional<ISortieTileModel> GetTileModel(ISpawnPosition spawnPosition)
         {
             return GetTileModel(DetermineCubeCoordinates(spawnPosition));
         }
@@ -508,7 +497,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                     // Throw an error that the SpawnSide is not supported
                     break;
             }
-            return new CubeCoordinates(x, y, z);
+            return CubeCoordinates.Builder.Get().SetX(x).SetY(y).SetZ(z).Build();
         }
     }
 }

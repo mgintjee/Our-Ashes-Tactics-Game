@@ -16,13 +16,13 @@
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="spriteId"></param>
+        /// <param name="spriteID"></param>
         /// <returns></returns>
-        public static Sprite LoadSpriteResource(SpriteID spriteId)
+        public static Sprite LoadSpriteResource(SpriteID spriteID)
         {
-            if (spriteId != SpriteID.None)
+            if (spriteID != SpriteID.None)
             {
-                return LoadSpriteResource(SPRITE_FOLDER_HOME + spriteId.ToString());
+                return LoadSpriteResource(SPRITE_FOLDER_HOME + spriteID.ToString());
             }
             throw ExceptionUtil.Arguments.Build("Unable to {}. {} is not supported.", new StackFrame().GetMethod().Name);
         }

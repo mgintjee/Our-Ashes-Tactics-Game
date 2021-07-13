@@ -1,6 +1,7 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Spawns.Areas;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Spawns.Sides;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Implementations.Abstracts;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sorties.Maps.Spawns.Areas;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sorties.Maps.Spawns.Sides;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Spawns.Positions.Interfaces;
 using System.Collections.Generic;
@@ -10,8 +11,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
     /// <summary>
     /// Spawn Position Implementation
     /// </summary>
-    public struct SpawnPosition
-        : ISpawnPosition
+    public struct SpawnPosition : ISpawnPosition
     {
         // Todo
         private readonly SpawnSide _spawnSide;
@@ -56,70 +56,62 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         /// </summary>
         public class Builder
         {
-            // Todo
-            private SpawnSide _spawnSide = SpawnSide.None;
+            /// <summary>
+            /// Todo
+            /// </summary>
+            public interface IBuilder : IBuilder<ISpawnPosition>
+            {
+                IBuilder SetSpawnArea(SpawnArea spawnArea);
 
-            // Todo
-            private SpawnArea _spawnArea = SpawnArea.None;
+                IBuilder SetSpawnSide(SpawnSide spawnSide);
+            }
 
             /// <summary>
             /// Todo
             /// </summary>
             /// <returns></returns>
-            public ISpawnPosition Build()
+            public static IBuilder Get()
             {
-                ISet<string> invalidReasons = this.IsInvalid();
-                // Check that the set parameters are valid
-                if (invalidReasons.Count == 0)
+                return new InternalBuilder();
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            private class InternalBuilder : AbstractBuilder<ISpawnPosition>, IBuilder
+            {
+                // Todo
+                private SpawnArea _spawnArea;
+
+                // Todo
+                private SpawnSide _spawnSide;
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetSpawnArea(SpawnArea spawnArea)
                 {
-                    // Instantiate a new position
+                    _spawnArea = spawnArea;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetSpawnSide(SpawnSide spawnSide)
+                {
+                    _spawnSide = spawnSide;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                protected override ISpawnPosition BuildObj()
+                {
                     return new SpawnPosition(_spawnArea, _spawnSide);
                 }
-                throw ExceptionUtil.Arguments.Build("Unable to construct {}. Invalid Parameters. {}",
-                    this.GetType(), string.Join("\n", invalidReasons));
-            }
 
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="spawnArea"></param>
-            /// <returns></returns>
-            public Builder SetSpawnArea(SpawnArea spawnArea)
-            {
-                _spawnArea = spawnArea;
-                return this;
-            }
-
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="spawnSide"></param>
-            /// <returns></returns>
-            public Builder SetSpawnSide(SpawnSide spawnSide)
-            {
-                _spawnSide = spawnSide;
-                return this;
-            }
-
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <returns></returns>
-            private ISet<string> IsInvalid()
-            {
-                // Default an empty Set: String
-                ISet<string> argumentExceptionSet = new HashSet<string>();
-                // Check that _spawnArea has been set
-                if (_spawnArea == SpawnArea.None)
+                /// <inheritdoc/>
+                protected override void Validate(ISet<string> invalidReasons)
                 {
-                    argumentExceptionSet.Add(typeof(SpawnArea).Name + " cannot be none.");
+                    this.Validate(invalidReasons, _spawnArea);
+                    this.Validate(invalidReasons, _spawnSide);
                 }
-                // Check that _spawnSide has been set
-                if (_spawnSide == SpawnSide.None)
-                {
-                    argumentExceptionSet.Add(typeof(SpawnSide).Name + " cannot be none.");
-                }
-                return argumentExceptionSet;
             }
         }
     }

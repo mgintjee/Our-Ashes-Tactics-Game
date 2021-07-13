@@ -12,14 +12,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="colorId"></param>
-        void UpdateColorId(ColorID colorId);
+        /// <param name="colorID"></param>
+        void UpdateColorID(ColorID colorID);
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="spriteId"></param>
-        void UpdateSpriteId(SpriteID spriteId);
+        /// <param name="spriteID"></param>
+        void UpdateSpriteID(SpriteID spriteID);
 
         /// <summary>
         /// Todo

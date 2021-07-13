@@ -70,7 +70,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         private CombatantCallSign _previousCallSign = CombatantCallSign.None;
 
         // Todo
-        private ISortieResponseID _sortieResponseID;
+        private IMvcResponseID _sortieResponseID;
 
         // Todo
         private IMvcModelResponse _mvcModelResponse;

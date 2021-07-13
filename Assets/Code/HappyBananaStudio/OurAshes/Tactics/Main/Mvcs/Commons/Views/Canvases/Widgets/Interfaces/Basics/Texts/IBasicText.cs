@@ -12,8 +12,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="colorId"></param>
-        void UpdateColorId(ColorID colorId);
+        /// <param name="colorID"></param>
+        void UpdateColorID(ColorID colorID);
 
         /// <summary>
         /// Todo

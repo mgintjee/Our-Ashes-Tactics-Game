@@ -1,8 +1,8 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Implementaions.Waits;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Reports.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.PathFinders.Implementaions.Abstracts;
@@ -15,8 +15,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
     /// <summary>
     /// Todo
     /// </summary>
-    public class WaitPathFinder
-        : AbstractPathFinder
+    public class WaitPathFinder : AbstractPathFinder
     {
         // Provides logging capability to the SORTIE logs
         private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
@@ -26,7 +25,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// </summary>
         /// <param name="cubeCoordinates"></param>
         /// <param name="mapReport">      </param>
-        private WaitPathFinder(ICubeCoordinates cubeCoordinates, IMapReport mapReport)
+        private WaitPathFinder(ICubeCoordinates cubeCoordinates, ISortieMapReport mapReport)
         {
             _cubeCoordinates = cubeCoordinates;
             _mapReport = mapReport;
@@ -38,7 +37,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         {
             _logger.Debug("PathFind @ {}", _cubeCoordinates);
             _cubeCoordinatesPaths.Add(_cubeCoordinates,
-                new WaitPath(new List<ICubeCoordinates>() { _cubeCoordinates }, _mapReport));
+                new SortieMapWaitPath(new List<ICubeCoordinates>() { _cubeCoordinates }, _mapReport));
         }
 
         /// <summary>
@@ -46,7 +45,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// </summary>
         public class Builder
         {
-            private IMapReport _mapReport = null;
+            private ISortieMapReport _mapReport = null;
 
             // Todo
             private ICubeCoordinates _cubeCoordinates = null;
@@ -84,7 +83,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             /// </summary>
             /// <param name="mapReport"></param>
             /// <returns></returns>
-            public Builder SetMapReport(IMapReport mapReport)
+            public Builder SetMapReport(ISortieMapReport mapReport)
             {
                 _mapReport = mapReport;
                 return this;
@@ -106,7 +105,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 // Check that mapReport has been set
                 if (_mapReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(IMapReport) + " cannot be null.");
+                    argumentExceptionSet.Add(typeof(ISortieMapReport) + " cannot be null.");
                 }
                 return argumentExceptionSet;
             }

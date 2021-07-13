@@ -34,7 +34,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frame
         /// <inheritdoc/>
         protected override IMvcModel BuildMvcModel(IMvcFrameConstruction mvcFrameConstruction)
         {
-            return new SortieMvcModel(mvcFrameConstruction);
+            return new SortieModel(mvcFrameConstruction);
         }
 
         /// <inheritdoc/>

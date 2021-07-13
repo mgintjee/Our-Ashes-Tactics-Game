@@ -1,4 +1,6 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Reports.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Interfaces;
+using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Reports.Interfaces
 {
@@ -8,5 +10,16 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Model
     public interface IMvcModelReport
         : IReport
     {
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        ISet<IMvcRequest> GetMvcRequests();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        bool IsProcessing();
     }
 }

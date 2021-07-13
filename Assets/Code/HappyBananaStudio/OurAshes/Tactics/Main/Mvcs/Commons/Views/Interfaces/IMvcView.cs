@@ -1,5 +1,6 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Responses.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Requests.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Responses.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Reports.Interfaces;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Interfaces
 {
@@ -18,12 +19,18 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// Todo
         /// </summary>
         /// <param name="mvcRequest"></param>
-        void Process(IMvcRequest mvcRequest);
+        void ProcessSelected(IMvcRequest mvcRequest);
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="mvcRequest"></param>
+        void ProcessConfirmed(IMvcRequest mvcRequest);
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        bool IsProcessing();
+        IMvcViewReport GetMvcViewReport();
     }
 }
