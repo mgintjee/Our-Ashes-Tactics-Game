@@ -58,7 +58,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// </summary>
             public interface IBuilder : IBuilder<IInsigniaReport>
             {
-
                 IBuilder SetPatternSchemeID(PatternSchemeID patternSchemeID);
 
                 IBuilder SetEmblemSchemeID(EmblemSchemeID emblemSchemeID);
@@ -79,10 +78,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             private class InternalBuilder : AbstractBuilder<IInsigniaReport>, IBuilder
             {
                 // Todo
-                private  PatternSchemeID _patternSchemeID;
+                private PatternSchemeID _patternSchemeID;
 
                 // Todo
-                private  EmblemSchemeID _emblemSchemeID;
+                private EmblemSchemeID _emblemSchemeID;
 
                 /// <inheritdoc/>
                 IBuilder IBuilder.SetEmblemSchemeID(EmblemSchemeID emblemSchemeID)
@@ -94,7 +93,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
                 /// <inheritdoc/>
                 IBuilder IBuilder.SetPatternSchemeID(PatternSchemeID patternSchemeID)
                 {
-                    _patternSchemeID  = patternSchemeID;
+                    _patternSchemeID = patternSchemeID;
                     return this;
                 }
 

@@ -4,15 +4,6 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Manage
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Phalanxes.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scores.Types;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Engagements.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Requests.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Scores.Constructions.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Scores.Reports.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Scores.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Scores.Tallies.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Scores.Tallies.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Scores.Interfaces;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,7 +23,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         private readonly ScoreType _scoreType;
 
         // Todo
-        private readonly ISet<IScoreTally> _scoreTallies = new HashSet<IScoreTally>();
+        private readonly ISet<IScoreModelTally> _scoreTallies = new HashSet<IScoreModelTally>();
 
         // Todo
         private IScoreReport _report;
@@ -41,7 +32,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// Todo
         /// </summary>
         /// <param name="scoreConstruction"></param>
-        public ScoreModel(IScoreConstruction scoreConstruction)
+        public ScoreModel(IScoreModelConstruction scoreConstruction)
         {
             _scoreType = scoreConstruction.GetScoreType();
         }
@@ -84,7 +75,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <returns></returns>
         private bool IsScoreReached()
         {
-            foreach (IScoreTally scoreTally in _scoreTallies)
+            foreach (IScoreModelTally scoreTally in _scoreTallies)
             {
                 if (scoreTally.GetScore() == 100)
                 {
@@ -117,7 +108,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <param name="mapReport">       </param>
         /// <param name="rosterReport">    </param>
         /// <returns></returns>
-        private IScoreTally BuildScoreTally(PhalanxCallSign callSign, IEngagementReport engagementReport, ISortieMapReport mapReport, IRosterReport rosterReport)
+        private IScoreModelTally BuildScoreTally(PhalanxCallSign callSign, IEngagementReport engagementReport, ISortieMapReport mapReport, IRosterReport rosterReport)
         {
             float score = 0.0f;
             switch (_scoreType)
@@ -127,7 +118,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                     break;
             }
 
-            return new ScoreTally.Builder()
+            return new ScoreModelTally.Builder()
                 .SetCallSign(callSign)
                 .SetScore(score)
                 .Build();

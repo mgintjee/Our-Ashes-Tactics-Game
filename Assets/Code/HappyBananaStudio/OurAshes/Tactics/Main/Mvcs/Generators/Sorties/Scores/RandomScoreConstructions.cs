@@ -16,9 +16,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Generators.So
         /// </summary>
         /// <param name="random"></param>
         /// <returns></returns>
-        public static IScoreConstruction Generate(Random random)
+        public static IScoreModelConstruction Generate(Random random)
         {
-            return new ScoreConstruction.Builder()
+            return new ScoreModelConstruction.Builder()
                 .SetScoreType(RandomEnums.GenerateRandomEnum<ScoreType>(random))
                 .Build();
         }
