@@ -1,11 +1,13 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Controllers.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Phalanxes.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Phalanxes.Types;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Models.Engagements.Phalanxes.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Phalanxes.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Phalanxes.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Phalanxes.Interfaces;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -14,8 +16,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
     /// <summary>
     /// Phalanx Model Implementation
     /// </summary>
-    public class PhalanxModel
-        : IPhalanxModel
+    public class PhalanxModel : IPhalanxModel
     {
         // Provides logging capability to the SORTIE logs
         private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
@@ -30,21 +31,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         private ISet<CombatantCallSign> combatantCallSigns;
 
         // Todo
-        private ControllerID controllerType;
-
-        // Todo
         private ISet<PhalanxCallSign> phalanxCallSigns;
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="phalanxConstruction"></param>
-        public PhalanxModel(IPhalanxConstruction phalanxConstruction)
+        public PhalanxModel(IPhalanxModelConstruction phalanxConstruction)
         {
             _logger.Info("Instantiating with {}", phalanxConstruction);
             phalanxCallSign = phalanxConstruction.GetPhalanxCallSign();
             phalanxType = phalanxConstruction.GetPhalanxType();
-            controllerType = phalanxConstruction.GetControllerType();
             phalanxCallSigns = phalanxConstruction.GetPhalanxCallSigns();
             combatantCallSigns = phalanxConstruction.GetCombatantCallSigns();
         }
@@ -53,7 +50,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         IPhalanxReport IPhalanxModel.GetReport()
         {
             return new PhalanxReport.Builder()
-                .SetControllerType(controllerType)
                 .SetPhalanxCallSign(phalanxCallSign)
                 .SetPhalanxType(phalanxType)
                 .SetPhalanxCallSigns(phalanxCallSigns)

@@ -1,4 +1,6 @@
-﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Interfaces
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
+
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Interfaces
 {
     /// <summary>
     /// Mvc Frame Interface
@@ -20,5 +22,10 @@
         /// Todo
         /// </summary>
         void Destroy();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        MvcType GetReturnMvcType();
     }
 }

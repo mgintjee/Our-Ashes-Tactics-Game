@@ -1,9 +1,8 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Constructions.Frames.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Responses.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Interfaces;
-using System.Collections.Generic;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Controllers.Interfaces;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Models.Implementations
 {
@@ -22,25 +21,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Models.
         }
 
         /// <inheritdoc/>
-        ISet<IMvcRequest> IMvcModel.GetMvcRequests()
+        protected override void BuildInitialRequests()
         {
             throw new System.NotImplementedException();
         }
 
         /// <inheritdoc/>
-        IMvcResponse IMvcModel.GetMvcResponse()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        bool IMvcModel.IsProcessing()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        void IMvcModel.Process(IMvcRequest mvcControllerRequest)
+        protected override void ProcessConfirmedRequest(IMvcRequest mvcRequest)
         {
             throw new System.NotImplementedException();
         }

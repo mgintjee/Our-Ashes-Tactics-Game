@@ -1,30 +1,18 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.IDs;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Loadouts.Interfaces;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Models.Rosters.Combatants.Interfaces
 {
     /// <summary>
-    /// Todo
+    /// Combatant Model Construction Interface
     /// </summary>
     public interface ICombatantModelConstruction
     {
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
         CombatantCallSign GetCombatantCallSign();
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
         CombatantID GetCombatantID();
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
         ILoadoutReport GetLoadoutReport();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Tiles.Interfaces;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Tiles.Interfaces
 {
@@ -7,16 +8,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
     /// </summary>
     public interface ISortieTileModel
     {
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
         ISortieTileReport GetReport();
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="combatantCallSign"></param>
         void SetCombatantCallSign(CombatantCallSign combatantCallSign);
     }
 }

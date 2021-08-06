@@ -1,6 +1,5 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Responses.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Controllers.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Models.Interfaces;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Interfaces
 {
@@ -12,42 +11,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Contr
         /// <summary>
         /// Todo
         /// </summary>
-        /// <returns></returns>
-        IMvcRequest OutputConfirmedMvcRequest();
+        /// <param name="mvcModelReport"></param>
+        void Process(IMvcModelReport mvcModelReport);
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        IMvcRequest OutputSelectedMvcRequest();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="mvcResponse"></param>
-        void Process(IMvcResponse mvcResponse);
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        bool IsProcessing();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        void Stop();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        bool HasRequests();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        IMvcControllerReport GetMvcControllerReport();
+        IMvcControllerReport GetReport();
     }
 }

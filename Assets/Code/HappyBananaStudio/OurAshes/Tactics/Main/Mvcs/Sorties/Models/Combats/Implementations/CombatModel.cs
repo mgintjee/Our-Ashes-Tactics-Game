@@ -1,9 +1,10 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Destructibles.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Fireables.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Fireables.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Fireables.Utils;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Weapons.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Types;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loadouts.Weapons.Attributes.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Coordinates.Cube.Interfaces;
@@ -11,9 +12,17 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Randoms.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sorties.Maps.Paths.Types;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Gears.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Combats.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Combatants.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Combats.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Combats.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Damages.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Damages.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Gears.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Maps.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Rosters.Interfaces;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -22,8 +31,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
     /// <summary>
     /// Todo
     /// </summary>
-    public class CombatModel
-        : ICombatModel
+    public class CombatModel : ICombatModel
     {
         // Provides logging capability to the SORTIE logs
         private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
@@ -60,7 +68,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
 
         /// <inheritdoc/>
         void ICombatModel.Process(ISortieRequest controllerRequest,
-            IRosterReport rosterReport, ISortieMapReport mapReport)
+            IRosterModelReport rosterReport, ISortieMapReport mapReport)
         {
             if (controllerRequest != null)
             {
@@ -107,27 +115,33 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         private IDamageReport GetDamageReport(IFireableAttributes combatantFireableAttributes,
             IGearReport gearReport, IDestructibleAttributes destructibleAttributes, ISortieMapPath path)
         {
+            IWeaponAttributes weaponAttributes = gearReport.GetWeaponAttributes();
             // Merge the combatant's FireableAttributes with the weapon's FireableAttributes
-            IFireableAttributes fireableAttributes = FireableAttributesUtil.Build(
-                new HashSet<IFireableAttributes>() {
-                    combatantFireableAttributes, gearReport.GetCombatantAttributes().GetFireableAttributes() });
-            IWeaponAttributes weaponAttributes;
+            ISet<IFireableAttributes> fireableAttributesSet = new HashSet<IFireableAttributes>() {
+                combatantFireableAttributes,
+                gearReport.GetCombatantAttributes().GetFireableAttributes(),
+                FireableAttributes.Builder.Get()
+                    .SetAccuracy(weaponAttributes.GetAccuracy())
+                    .SetRange(weaponAttributes.GetRange())
+                    .Build()
+                };
+            IFireableAttributes fireableAttributes = FireableAttributesUtil.Build(fireableAttributesSet);
             // Default 0 for the actualSalvoHits
             float actualSalvoHits = 0.0f;
             // Default 0 for the expectedSalvoHits
             float expectedSalvoHits = 0.0f;
-            float armorDamageInflictedPerHit = fireableAttributes.GetArmorDamage();
-            float remainingArmorPoints = destructibleAttributes.GetArmor() - fireableAttributes.GetArmorPenetration();
+            float armorDamageInflictedPerHit = weaponAttributes.GetArmorDamage();
+            float remainingArmorPoints = destructibleAttributes.GetArmor() - weaponAttributes.GetArmorPenetration();
             if (remainingArmorPoints < 0)
             {
                 remainingArmorPoints = 0;
             }
-            float healthDamageInflictedPerHit = fireableAttributes.GetHealthDamage() - remainingArmorPoints;
+            float healthDamageInflictedPerHit = weaponAttributes.GetHealthDamage() - remainingArmorPoints;
             if (healthDamageInflictedPerHit < 0)
             {
                 healthDamageInflictedPerHit = 0;
             }
-            float healthDamageMitigatedPerHit = fireableAttributes.GetHealthDamage() - healthDamageInflictedPerHit;
+            float healthDamageMitigatedPerHit = weaponAttributes.GetHealthDamage() - healthDamageInflictedPerHit;
 
             // Get the range for this fireable
             float range = fireableAttributes.GetRange();
@@ -139,13 +153,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 float accuracyRemaining = accuracy - path.GetPathCost();
                 if (accuracyRemaining >= 100f)
                 {
-                    actualSalvoHits = fireableAttributes.GetSalvo();
-                    expectedSalvoHits = fireableAttributes.GetSalvo();
+                    actualSalvoHits = weaponAttributes.GetSalvo();
+                    expectedSalvoHits = weaponAttributes.GetSalvo();
                 }
                 else if (accuracyRemaining > 0f)
                 {
-                    expectedSalvoHits = fireableAttributes.GetSalvo() * accuracyRemaining;
-                    for (int i = 0; i < fireableAttributes.GetSalvo(); ++i)
+                    expectedSalvoHits = weaponAttributes.GetSalvo() * accuracyRemaining;
+                    for (int i = 0; i < weaponAttributes.GetSalvo(); ++i)
                     {
                         double randomRoll = RandomManager.GetRandom(MvcType.Sortie).NextDouble();
                         if (randomRoll < accuracyRemaining)

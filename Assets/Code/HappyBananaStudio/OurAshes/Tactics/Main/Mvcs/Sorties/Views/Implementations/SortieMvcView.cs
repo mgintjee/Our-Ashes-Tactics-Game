@@ -1,6 +1,6 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Responses.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Constructions.Frames.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Controllers.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Models.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Canvases.Interfaces;
@@ -13,8 +13,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views
     /// <summary>
     /// Sortie Mvc View Implementation
     /// </summary>
-    public class SortieMvcView
-        : AbstractMvcView, IMvcView
+    public class SortieMvcView : AbstractMvcView, IMvcView
     {
         // Todo
         private readonly ICanvasView canvasView;
@@ -37,17 +36,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views
         {
         }
 
-        public override bool IsProcessing()
+        /// <inheritdoc/>
+        public override void Process(IMvcModelReport mvcModelReport)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void Process(IMvcResponse mvcResponse)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void Process(IMvcRequest mvcRequest)
+        /// <inheritdoc/>
+        public override void Process(IMvcControllerReport mvcControllerReport)
         {
             throw new System.NotImplementedException();
         }

@@ -4,7 +4,16 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Manage
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Phalanxes.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scores.Types;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Commons.Scores.Constructions.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Scores.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Engagements.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Maps.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Rosters.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Scores.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Scores.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Tallies.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Tallies.Interfaces;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -13,8 +22,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
     /// <summary>
     /// Todo
     /// </summary>
-    public class ScoreModel
-        : IScoreModel
+    public class ScoreModel : IScoreModel
     {
         // Todo
         private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
@@ -32,7 +40,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// Todo
         /// </summary>
         /// <param name="scoreConstruction"></param>
-        public ScoreModel(IScoreModelConstruction scoreConstruction)
+        public ScoreModel(IScoreConstruction scoreConstruction)
         {
             _scoreType = scoreConstruction.GetScoreType();
         }
@@ -48,7 +56,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         }
 
         /// <inheritdoc/>
-        void IScoreModel.Process(ISortieRequest controllerRequest, ISortieMapReport mapReport, IRosterReport rosterReport, IEngagementReport engagementReport)
+        void IScoreModel.Process(ISortieRequest controllerRequest, ISortieMapReport mapReport, IRosterModelReport rosterReport, IEngagementReport engagementReport)
         {
             if (controllerRequest != null)
             {
@@ -91,7 +99,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <param name="mapReport">       </param>
         /// <param name="rosterReport">    </param>
         /// <param name="engagementReport"></param>
-        private void BuildScoreTallies(ISortieMapReport mapReport, IRosterReport rosterReport, IEngagementReport engagementReport)
+        private void BuildScoreTallies(ISortieMapReport mapReport, IRosterModelReport rosterReport, IEngagementReport engagementReport)
         {
             _scoreTallies.Clear();
             foreach (PhalanxCallSign callSign in engagementReport.GetAllPhalanxCallSigns())
@@ -108,7 +116,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <param name="mapReport">       </param>
         /// <param name="rosterReport">    </param>
         /// <returns></returns>
-        private IScoreModelTally BuildScoreTally(PhalanxCallSign callSign, IEngagementReport engagementReport, ISortieMapReport mapReport, IRosterReport rosterReport)
+        private IScoreModelTally BuildScoreTally(PhalanxCallSign callSign, IEngagementReport engagementReport, ISortieMapReport mapReport, IRosterModelReport rosterReport)
         {
             float score = 0.0f;
             switch (_scoreType)
@@ -118,8 +126,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                     break;
             }
 
-            return new ScoreModelTally.Builder()
-                .SetCallSign(callSign)
+            return ScoreModelTally.Builder.Get()
+                .SetPhalanxCallSign(callSign)
                 .SetScore(score)
                 .Build();
         }
@@ -131,7 +139,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <param name="mapReport">   </param>
         /// <param name="rosterReport"></param>
         /// <returns></returns>
-        private float CalculateSkirmishScoreTally(PhalanxCallSign callSign, IEngagementReport engagementReport, ISortieMapReport mapReport, IRosterReport rosterReport)
+        private float CalculateSkirmishScoreTally(PhalanxCallSign callSign, IEngagementReport engagementReport, ISortieMapReport mapReport, IRosterModelReport rosterReport)
         {
             int hostileCount = this.GetHostileCombatantCount(callSign, engagementReport, rosterReport);
             int friendlyCount = this.GetFriendlyCombatantCount(callSign, engagementReport, rosterReport);
@@ -146,7 +154,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <param name="callSign">        </param>
         /// <param name="engagementReport"></param>
         /// <returns></returns>
-        private int GetHostileCombatantCount(PhalanxCallSign callSign, IEngagementReport engagementReport, IRosterReport rosterReport)
+        private int GetHostileCombatantCount(PhalanxCallSign callSign, IEngagementReport engagementReport, IRosterModelReport rosterReport)
         {
             return rosterReport.GetActiveCombatantCallSigns().Count - this.GetFriendlyCombatantCount(callSign, engagementReport, rosterReport);
         }
@@ -158,7 +166,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// <param name="engagementReport"></param>
         /// <param name="rosterReport">    </param>
         /// <returns></returns>
-        private int GetFriendlyCombatantCount(PhalanxCallSign callSign, IEngagementReport engagementReport, IRosterReport rosterReport)
+        private int GetFriendlyCombatantCount(PhalanxCallSign callSign, IEngagementReport engagementReport, IRosterModelReport rosterReport)
         {
             int friendlyCount = 0;
             engagementReport.GetPhalanxReport(callSign).IfPresent(phalanxReport =>

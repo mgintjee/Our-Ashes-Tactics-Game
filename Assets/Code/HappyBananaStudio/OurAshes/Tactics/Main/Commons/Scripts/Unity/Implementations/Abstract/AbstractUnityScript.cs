@@ -12,6 +12,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Un
         /// <inheritdoc/>
         void IUnityScript.Destroy()
         {
+            Destroy(this.GetGameObject());
             Destroy(this);
         }
 

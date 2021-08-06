@@ -1,5 +1,6 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Constructions.Frames.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Interfaces;
@@ -13,8 +14,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Frames.
     /// <summary>
     /// Home Frame Implementation
     /// </summary>
-    public class HomeFrame
-        : AbstractMvcFrame, IHomeFrame
+    public class HomeFrame : AbstractMvcFrame, IHomeFrame
     {
         /// <summary>
         /// Todo
@@ -23,6 +23,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Frames.
         public HomeFrame(IMvcFrameConstruction mvcFrameConstruction)
             : base(mvcFrameConstruction)
         {
+        }
+
+        /// <inheritdoc/>
+        public override MvcType GetReturnMvcType()
+        {
+            return MvcType.None;
         }
 
         /// <inheritdoc/>

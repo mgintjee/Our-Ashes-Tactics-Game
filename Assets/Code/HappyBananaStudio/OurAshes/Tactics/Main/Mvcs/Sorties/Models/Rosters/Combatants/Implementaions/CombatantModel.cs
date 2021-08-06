@@ -7,8 +7,7 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interf
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Constants.Combatants.Models.Managers;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Gears.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Models.Rosters.Combatants.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.Combatants.Destructables.Implementaions;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.Combatants.Destructables.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.Combatants.Fireables.Implementaions;
@@ -16,6 +15,10 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Ro
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.Combatants.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.Combatants.Movables.Implementaions;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.Combatants.Movables.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Combatants.Implementaions;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Combatants.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Gears.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Loadouts.Interfaces;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -55,13 +58,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// Todo
         /// </summary>
         /// <param name="combatantConstruction"></param>
-        public CombatantModel(ICombatantConstruction combatantConstruction)
+        public CombatantModel(ICombatantModelConstruction combatantConstruction)
         {
             _logger.Info("Instantiating with {}", combatantConstruction);
             _combatantCallSign = combatantConstruction.GetCombatantCallSign();
             _combatantID = combatantConstruction.GetCombatantID();
             _loadoutReport = combatantConstruction.GetLoadoutReport();
-            ICombatantAttributes baseCombatantAttributes = CombatantModelConstantsManager.GetStats(_combatantID).GetValue().GetCombatantAttributes();
+            ICombatantAttributes baseCombatantAttributes = CombatantModelConstantsManager.GetConstants(_combatantID).GetValue().GetCombatantAttributes();
             _loadoutAttributes = baseCombatantAttributes.GetLoadoutAttributes();
             ISet<ICombatantAttributes> combatantAttributes = new HashSet<ICombatantAttributes>() { baseCombatantAttributes };
             foreach (IGearReport gearReport in _loadoutReport.GetGearReports())

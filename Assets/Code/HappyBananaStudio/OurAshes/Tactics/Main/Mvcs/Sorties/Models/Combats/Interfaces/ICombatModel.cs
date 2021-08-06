@@ -1,4 +1,9 @@
-﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Combats.Interfaces
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Requests.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Combats.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Maps.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Rosters.Interfaces;
+
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Combats.Interfaces
 {
     /// <summary>
     /// Todo
@@ -18,6 +23,6 @@
         /// <param name="combatantRosterReport"></param>
         /// <param name="mapReport">            </param>
         void Process(ISortieRequest controllerRequest,
-            IRosterReport combatantRosterReport, ISortieMapReport mapReport);
+            IRosterModelReport combatantRosterReport, ISortieMapReport mapReport);
     }
 }

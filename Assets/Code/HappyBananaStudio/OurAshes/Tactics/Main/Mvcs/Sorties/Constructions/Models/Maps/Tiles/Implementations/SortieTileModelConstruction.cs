@@ -2,9 +2,8 @@
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Coordinates.Cube.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Reports.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sorties.Maps.Tiles.IDs;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Models.Maps.Tiles.Interfaces;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Models.Maps.Tiles.Implementations
@@ -12,7 +11,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Const
     /// <summary>
     /// Sortie Tile Model Construction Implementation
     /// </summary>
-    public class SortieTileModelConstruction : AbstractReport, ISortieTileModelConstruction
+    public class SortieTileModelConstruction : ISortieTileModelConstruction
     {
         // Todo
         private readonly ICubeCoordinates _cubeCoordinates;
@@ -51,13 +50,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Const
         CombatantCallSign ISortieTileModelConstruction.GetCombatantCallSign()
         {
             return _combatantCallSign;
-        }
-
-        /// <inheritdoc/>
-        protected override string GetContent()
-        {
-            return string.Format("{0}, {1}, {2}",
-                _cubeCoordinates, StringUtils.Format(_sortieTileID), StringUtils.Format(_combatantCallSign));
         }
 
         /// <summary>

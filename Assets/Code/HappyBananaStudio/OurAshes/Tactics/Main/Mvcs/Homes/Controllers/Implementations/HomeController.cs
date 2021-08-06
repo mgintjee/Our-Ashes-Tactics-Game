@@ -1,8 +1,7 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Implementations.Abstracts;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Constructions.Frames.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Responses.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Models.Interfaces;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Controllers.Implementations
 {
@@ -20,37 +19,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Control
         }
 
         /// <inheritdoc/>
-        public override bool HasRequests()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        public override bool IsProcessing()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        public override IMvcRequest OutputConfirmedMvcRequest()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        public override IMvcRequest OutputSelectedMvcRequest()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        public override void Process(IMvcResponse mvcResponse)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        public override void Stop()
+        public override void Process(IMvcModelReport mvcModelReport)
         {
             throw new System.NotImplementedException();
         }

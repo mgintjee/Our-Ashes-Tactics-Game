@@ -3,15 +3,18 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Manage
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Simulations.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Randoms.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Constructions.Frames.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Constructions.Frames.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Responses.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Scripts.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Scripts.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Controllers.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Frames.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Frames.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Models.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Views.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Implementations.BlackBoxes;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Interfaces;
 using System.Collections.Generic;
@@ -21,8 +24,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
     /// <summary>
     /// Abstact Mvc Frame Interface
     /// </summary>
-    public abstract class AbstractMvcFrame
-        : IMvcFrame
+    public abstract class AbstractMvcFrame : IMvcFrame
     {
         // Todo
         protected readonly IMvcFrameScript _mvcFrameScript;
@@ -40,7 +42,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
         protected readonly ILogger _logger;
 
         // Todo
-        private readonly IList<IMvcResponse> _mvcResponses = new List<IMvcResponse>();
+        protected readonly IMvcFrameConstruction _mvcFrameConstruction;
+
+        // Todo
+        private readonly IList<IMvcFrameReport> _mvcReports = new List<IMvcFrameReport>();
 
         // Todo
         private readonly MvcType _mvcType;
@@ -56,7 +61,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
             _mvcFrameScript = MvcFrameScript.Builder.Get()
                 .SetMvcFrameConstruction(mvcFrameConstruction)
                 .Build();
-            IMvcFrameConstruction newMvcFrameConstruction = new MvcFrameConstruction.Builder()
+            _mvcFrameConstruction = MvcFrameConstruction.Builder.Get()
                 // Copy over the orginal values
                 .SetMvcControllerConstruction(mvcFrameConstruction.GetMvcControllerConstruction())
                 .SetMvcModelConstruction(mvcFrameConstruction.GetMvcModelConstruction())
@@ -67,29 +72,33 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
                 .SetRandom(RandomManager.GetRandom(_mvcType, mvcFrameConstruction.GetRandom().Next()))
                 .SetUnityScript(_mvcFrameScript)
                 .Build();
-            _mvcModel = this.BuildMvcModel(newMvcFrameConstruction);
-            _mvcController = this.BuildMvcController(newMvcFrameConstruction);
+            _mvcModel = this.BuildMvcModel(_mvcFrameConstruction);
+            _mvcController = this.BuildMvcController(_mvcFrameConstruction);
             _mvcView = (mvcFrameConstruction.GetSimulationType() != SimulationType.BlackBox)
-                ? this.BuildMvcView(newMvcFrameConstruction) : new BlackBoxMvcView(newMvcFrameConstruction);
+                ? this.BuildMvcView(_mvcFrameConstruction)
+                : new BlackBoxMvcView(_mvcFrameConstruction);
         }
 
         /// <inheritdoc/>
         void IMvcFrame.Continue()
         {
-            // Check if this MvcFrame should still continue
-            if (!((IMvcFrame)this).IsComplete())
-            {
+                IMvcControllerReport mvcControllerReport = _mvcController.GetReport();
+                IMvcViewReport mvcViewReport = _mvcView.GetReport();
+                IMvcModelReport mvcModelReport = _mvcModel.GetReport();
+                _logger.Info("Controller: {}.", mvcControllerReport);
+                _logger.Info("View: {}.", mvcViewReport);
+                _logger.Info("Model: {}.", mvcModelReport);
                 // Check if the MvcView is either null or no longer processing
-                if (!_mvcView.IsProcessing())
+                if (!mvcViewReport.IsProcessing())
                 {
                     // Check if the MvcController is no longer processing
-                    if (!_mvcController.IsProcessing())
+                    if (!mvcControllerReport.IsProcessing())
                     {
                         // Check if the MvcController has any requests
-                        if (!_mvcController.HasRequests())
+                        if (!mvcControllerReport.HasRequests())
                         {
                             // Pass in the Model's available MvcRequests
-                            _mvcController.Process(_mvcModel.GetMvcResponse());
+                            _mvcController.Process(mvcModelReport);
                         }
                         else
                         {
@@ -98,37 +107,20 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
                     }
                     else
                     {
-                        // Collect the selected MvcRequest
-                        IMvcRequest selectedMvcRequest = _mvcController.OutputSelectedMvcRequest();
-                        // Check that the selected MvcRequest is non-null
-                        if (selectedMvcRequest != null)
+                        _mvcView.Process(mvcControllerReport);
+                        _mvcModel.Process(mvcControllerReport);
+                        IMvcModelReport newMvcModelReport = _mvcModel.GetReport();
+                        _logger.Info("Outputted {}.", newMvcModelReport);
+                        if (mvcModelReport != newMvcModelReport)
                         {
-                            _logger.Info("Selected {}.", selectedMvcRequest);
-                            _mvcView.Process(selectedMvcRequest);
-                            // Collect the confirmed MvcRequest
-                            IMvcRequest confirmedMvcRequest = _mvcController.OutputConfirmedMvcRequest();
-                            // Check that the selected MvcRequest is non-null
-                            if (confirmedMvcRequest != null)
-                            {
-                                _logger.Info("Confirmed {}.", confirmedMvcRequest);
-                                _mvcView.Process(confirmedMvcRequest);
-                                _mvcModel.Process(confirmedMvcRequest);
-                                IMvcResponse mvcResponse = _mvcModel.GetMvcResponse();
-                                _logger.Info("Outputted {}.", mvcResponse);
-                                _mvcResponses.Add(mvcResponse);
-                                _mvcView.Process(mvcResponse);
-                                _mvcController.Process(mvcResponse);
-                            }
-                            else
-                            {
-                                _logger.Debug("{} is still processing. No available Confirmed {}.",
-                                    _mvcController.GetType(), typeof(IMvcRequest));
-                            }
-                        }
-                        else
-                        {
-                            _logger.Debug("{} is still processing. No available Selected {}.",
-                                _mvcController.GetType(), typeof(IMvcRequest));
+                            _mvcView.Process(newMvcModelReport);
+                            _mvcController.Process(newMvcModelReport);
+                            // Build the new response
+                            _mvcReports.Add(MvcFrameReport.Builder.Get()
+                                .SetMvcControllerReport(mvcControllerReport)
+                                .SetMvcViewReport(mvcViewReport)
+                                .SetMvcModelReport(mvcModelReport)
+                                .Build());
                         }
                     }
                 }
@@ -136,7 +128,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
                 {
                     _logger.Debug("{} is still processing.", _mvcView.GetType());
                 }
-            }
+
         }
 
         /// <inheritdoc/>
@@ -150,9 +142,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
         /// <inheritdoc/>
         bool IMvcFrame.IsComplete()
         {
-            return !_mvcController.IsProcessing() &&
-                !_mvcModel.IsProcessing() &&
-                !_mvcView.IsProcessing();
+            return !_mvcController.GetReport().IsProcessing() &&
+                !_mvcModel.GetReport().IsProcessing() &&
+                !_mvcView.GetReport().IsProcessing();
         }
 
         /// <summary>
@@ -175,5 +167,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
         /// <param name="mvcFrameConstruction"></param>
         /// <returns></returns>
         protected abstract IMvcView BuildMvcView(IMvcFrameConstruction mvcFrameConstruction);
+
+        /// <inheritdoc/>
+        public abstract MvcType GetReturnMvcType();
     }
 }

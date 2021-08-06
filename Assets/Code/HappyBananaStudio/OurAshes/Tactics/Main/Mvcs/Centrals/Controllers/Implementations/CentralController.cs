@@ -1,16 +1,14 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Implementations.Abstracts;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Constructions.Frames.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Responses.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Models.Interfaces;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Controllers.Implementations
 {
     /// <summary>
     /// Central Controller Implementation
     /// </summary>
-    public class CentralController
-        : AbstractMvcController, IMvcController
+    public class CentralController : AbstractMvcController, IMvcController
     {
         /// <summary>
         /// Todo
@@ -21,34 +19,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Centrals.Cont
         {
         }
 
-        public override bool HasRequests()
+        /// <inheritdoc/>
+        public override void Process(IMvcModelReport mvcModelReport)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public override bool IsProcessing()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override IMvcRequest OutputConfirmedMvcRequest()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override IMvcRequest OutputSelectedMvcRequest()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void Process(IMvcResponse mvcResponse)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void Stop()
-        {
-            throw new System.NotImplementedException();
+            _logger.Info("Received {}", mvcModelReport);
+            _isProcessing = true;
         }
     }
 }

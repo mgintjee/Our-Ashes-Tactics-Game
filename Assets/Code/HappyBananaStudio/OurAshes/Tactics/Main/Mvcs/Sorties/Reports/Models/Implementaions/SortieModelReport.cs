@@ -1,14 +1,12 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Reports.Implementations.Abstracts;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combats.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Engagements.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Rosters.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Orders.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Scores.Reports.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Controllers.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Combats.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Engagements.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Maps.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Orders.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Rosters.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Scores.Interfaces;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Implementaions
@@ -16,8 +14,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Repor
     /// <summary>
     /// Sortie Model Report Implementation
     /// </summary>
-    public class SortieModelReport
-        : AbstractReport, ISortieModelReport
+    public class SortieModelReport : AbstractReport, ISortieModelReport
     {
         // Todo
         private readonly ICombatReport _combatReport;
@@ -32,7 +29,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Repor
         private readonly IOrderReport _orderReport;
 
         // Todo
-        private readonly IRosterReport _rosterReport;
+        private readonly IRosterModelReport _rosterReport;
 
         // Todo
         private readonly IScoreReport _scoreReport;
@@ -47,7 +44,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Repor
         /// <param name="rosterReport">    </param>
         /// <param name="scoreReport">     </param>
         public SortieModelReport(ICombatReport combatReport, IEngagementReport engagementReport,
-            ISortieMapReport mapReport, IOrderReport orderReport, IRosterReport rosterReport, IScoreReport scoreReport)
+            ISortieMapReport mapReport, IOrderReport orderReport, IRosterModelReport rosterReport, IScoreReport scoreReport)
         {
             _combatReport = combatReport;
             _engagementReport = engagementReport;
@@ -55,25 +52,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Repor
             _orderReport = orderReport;
             _rosterReport = rosterReport;
             _scoreReport = scoreReport;
-        }
-
-        /// <inheritdoc/>
-        public override string ToString()
-        {
-            return string.Format("{0}:{1}: " +
-                "\n{2}" +
-                "\n{3}" +
-                "\n{4}" +
-                "\n{5}" +
-                "\n{6}" +
-                "\n{7}",
-                _dateTime, GetType().Name,
-                StringUtils.Format(_combatReport),
-                StringUtils.Format(_engagementReport),
-                StringUtils.Format(_mapReport),
-                StringUtils.Format(_orderReport),
-                StringUtils.Format(_rosterReport),
-                StringUtils.Format(_scoreReport));
         }
 
         /// <inheritdoc/>
@@ -208,7 +186,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Repor
             /// </summary>
             /// <param name="rosterReport"></param>
             /// <returns></returns>
-            public Builder SetRosterReport(IRosterReport rosterReport)
+            public Builder SetRosterReport(IRosterModelReport rosterReport)
             {
                 _rosterReport = rosterReport;
                 return this;
@@ -256,7 +234,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Repor
                 // Check that _rosterReport has been set
                 if (_rosterReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(IRosterReport).Name + " cannot be null.");
+                    argumentExceptionSet.Add(typeof(IRosterModelReport).Name + " cannot be null.");
                 }
                 // Check that _scoreReport has been set
                 if (_scoreReport == null)

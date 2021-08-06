@@ -5,6 +5,10 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Manage
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Orders.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Combatants.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Orders.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Orders.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Rosters.Interfaces;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -13,8 +17,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
     /// <summary>
     /// Todo
     /// </summary>
-    public class OrderModel
-        : IOrderModel
+    public class OrderModel : IOrderModel
     {
         // Provides logging capability to the SORTIE logs
         private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
@@ -46,7 +49,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         }
 
         /// <inheritdoc/>
-        void IOrderModel.Process(IRosterReport rosterReport)
+        void IOrderModel.Process(IRosterModelReport rosterReport)
         {
             if (_currentCallSigns.Count == 0 && _upcomingCallSigns.Count == 0)
             {
@@ -76,7 +79,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// Todo
         /// </summary>
         /// <param name="callSigns"></param>
-        private void OrderCallSigns(IRosterReport combatantRosterReport, IList<CombatantCallSign> callSigns)
+        private void OrderCallSigns(IRosterModelReport combatantRosterReport, IList<CombatantCallSign> callSigns)
         {
             ((List<CombatantCallSign>)callSigns).Sort(
                 new OrderPointsComparer(combatantRosterReport));
@@ -87,7 +90,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// </summary>
         /// <param name="rosterReport"></param>
         /// <param name="callSigns">   </param>
-        private void RemoveInactiveCallSigns(IRosterReport rosterReport,
+        private void RemoveInactiveCallSigns(IRosterModelReport rosterReport,
             IList<CombatantCallSign> callSigns)
         {
             ISet<CombatantCallSign> activeCallSigns = rosterReport.GetActiveCombatantCallSigns();
@@ -109,7 +112,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// Todo
         /// </summary>
         /// <param name="rosterReport"></param>
-        private void UpdateCurrentCallSigns(IRosterReport rosterReport)
+        private void UpdateCurrentCallSigns(IRosterModelReport rosterReport)
         {
             // Default an empty set
             ISet<CombatantCallSign> completeCallSigns = new HashSet<CombatantCallSign>();
@@ -165,13 +168,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             : IComparer<CombatantCallSign>
         {
             // Todo
-            private readonly IRosterReport combatantRosterReport;
+            private readonly IRosterModelReport combatantRosterReport;
 
             /// <summary>
             /// Todo
             /// </summary>
             /// <param name="combatantRosterReport"></param>
-            public OrderPointsComparer(IRosterReport combatantRosterReport)
+            public OrderPointsComparer(IRosterModelReport combatantRosterReport)
             {
                 this.combatantRosterReport = combatantRosterReport;
             }

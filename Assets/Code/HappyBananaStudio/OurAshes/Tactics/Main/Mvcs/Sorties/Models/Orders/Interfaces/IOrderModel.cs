@@ -1,7 +1,10 @@
-﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Orders.Interfaces
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Orders.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Rosters.Interfaces;
+
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Orders.Interfaces
 {
     /// <summary>
-    /// Todo
+    /// Order Model Interface
     /// </summary>
     public interface IOrderModel
     {
@@ -15,6 +18,6 @@
         /// Todo
         /// </summary>
         /// <param name="rosterReport"></param>
-        void Process(IRosterReport rosterReport);
+        void Process(IRosterModelReport rosterReport);
     }
 }

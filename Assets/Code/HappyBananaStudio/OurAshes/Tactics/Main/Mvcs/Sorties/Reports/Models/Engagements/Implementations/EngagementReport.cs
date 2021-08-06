@@ -3,6 +3,8 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Uti
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Phalanxes.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Reports.Implementations.Abstracts;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Engagements.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Phalanxes.Interfaces;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Engagements.Implementations
@@ -10,8 +12,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Repor
     /// <summary>
     /// Todo
     /// </summary>
-    public class EngagementReport
-        : AbstractReport, IEngagementReport
+    public class EngagementReport : AbstractReport, IEngagementReport
     {
         // Todo
         private readonly EngagementType _formationType;

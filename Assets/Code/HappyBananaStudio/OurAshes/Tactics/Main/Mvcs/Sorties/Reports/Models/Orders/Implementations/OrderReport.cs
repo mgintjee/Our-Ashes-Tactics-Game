@@ -1,6 +1,7 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Reports.Implementations.Abstracts;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Orders.Interfaces;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Orders.Implementations
@@ -8,8 +9,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Repor
     /// <summary>
     /// Todo
     /// </summary>
-    public struct OrderReport
-        : IOrderReport
+    public class OrderReport : AbstractReport, IOrderReport
     {
         // Todo
         private readonly IList<CombatantCallSign> _currentCallSigns;
@@ -29,21 +29,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Repor
         }
 
         /// <inheritdoc/>
-        public override string ToString()
-        {
-            string currentValue = (_currentCallSigns.Count != 0)
-                ? string.Join(", ", _currentCallSigns) : "empty";
-            string upcomingValue = (_upcomingCallSigns.Count != 0)
-                ? string.Join(", ", _upcomingCallSigns) : "empty";
-            return string.Format("{0}: " +
-                "\nCurrent {1}" +
-                "\nUpcoming {2}",
-                this.GetType().Name,
-                StringUtils.Format(currentValue),
-                StringUtils.Format(upcomingValue));
-        }
-
-        /// <inheritdoc/>
         IList<CombatantCallSign> IOrderReport.GetCurrentCallSigns()
         {
             return new List<CombatantCallSign>(_currentCallSigns);
@@ -53,6 +38,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Repor
         IList<CombatantCallSign> IOrderReport.GetUpcomingCallSigns()
         {
             return new List<CombatantCallSign>(_upcomingCallSigns);
+        }
+
+        protected override string GetContent()
+        {
+            throw new System.NotImplementedException();
         }
 
         /// <summary>

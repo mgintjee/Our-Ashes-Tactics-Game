@@ -1,9 +1,15 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Engagements.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Phalanxes.CallSigns;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Models.Engagements.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Models.Engagements.Phalanxes.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Engagements.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Phalanxes.Implementaions;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Phalanxes.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Engagements.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Engagements.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Phalanxes.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Rosters.Interfaces;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Engagements.Implementations
@@ -11,8 +17,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
     /// <summary>
     /// Todo
     /// </summary>
-    public class EngagementModel
-        : IEngagementModel
+    public class EngagementModel : IEngagementModel
     {
         // Todo
         private readonly ISet<PhalanxCallSign> _activeCallSigns;
@@ -30,12 +35,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         /// Todo
         /// </summary>
         /// <param name="formationConstruction"></param>
-        public EngagementModel(IEngagementConstruction formationConstruction)
+        public EngagementModel(IEngagementModelConstruction formationConstruction)
         {
             _engagementType = formationConstruction.GetEngagementType();
             _models = new HashSet<IPhalanxModel>();
             _activeCallSigns = new HashSet<PhalanxCallSign>();
-            foreach (IPhalanxConstruction construction in formationConstruction.GetPhalanxConstructions())
+            foreach (IPhalanxModelConstruction construction in formationConstruction.GetPhalanxConstructions())
             {
                 _activeCallSigns.Add(construction.GetPhalanxCallSign());
                 _models.Add(new PhalanxModel(construction));
@@ -50,7 +55,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         }
 
         /// <inheritdoc/>
-        void IEngagementModel.Process(IRosterReport rosterReport)
+        void IEngagementModel.Process(IRosterModelReport rosterReport)
         {
             ISet<PhalanxCallSign> activePhalanxCallSigns = new HashSet<PhalanxCallSign>();
 

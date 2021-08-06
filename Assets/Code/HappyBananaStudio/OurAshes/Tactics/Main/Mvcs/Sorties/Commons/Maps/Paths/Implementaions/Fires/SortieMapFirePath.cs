@@ -1,7 +1,9 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Coordinates.Cube.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sorties.Maps.Paths.Types;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Constants.Sorties.Tiles.Models.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Implementaions.Abstracts;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Maps.Interfaces;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Implementaions.Fires
@@ -24,9 +26,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commo
         protected override float GetCubeCoordinatesCost(ICubeCoordinates cubeCoordinates)
         {
             float fireCost = float.MaxValue;
-            _mapReport.GetTileReport(cubeCoordinates).IfPresent((tileReport) =>
+            _mapReport.GetTileReport(cubeCoordinates).IfPresent(tileReport =>
             {
-                fireCost = tileReport.GetTileStats().GetTileAttributes().GetFireCost();
+                SortieTileModelConstantsManager.GetConstants(tileReport.GetSortieTileID()).IfPresent(tileConstants =>
+                {
+                    fireCost = tileConstants.GetSortieTileAttributes().GetFireCost();
+                });
                 if (tileReport.GetCombatantCallSign() != CombatantCallSign.None)
                 {
                     fireCost += 10f;

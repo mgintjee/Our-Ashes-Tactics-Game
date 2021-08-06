@@ -1,6 +1,6 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Responses.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Reports.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Controllers.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Models.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Views.Interfaces;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Interfaces
 {
@@ -12,25 +12,19 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="mvcResponse"></param>
-        void Process(IMvcResponse mvcResponse);
+        /// <param name="mvcModelReport"></param>
+        void Process(IMvcModelReport mvcModelReport);
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="mvcRequest"></param>
-        void ProcessSelected(IMvcRequest mvcRequest);
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="mvcRequest"></param>
-        void ProcessConfirmed(IMvcRequest mvcRequest);
+        /// <param name="mvcControllerReport"></param>
+        void Process(IMvcControllerReport mvcControllerReport);
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        IMvcViewReport GetMvcViewReport();
+        IMvcViewReport GetReport();
     }
 }

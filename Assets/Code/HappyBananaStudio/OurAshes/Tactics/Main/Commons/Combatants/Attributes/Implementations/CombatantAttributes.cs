@@ -16,8 +16,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants
     /// <summary>
     /// Combatant Attributes Implementations
     /// </summary>
-    public struct CombatantAttributes
-        : ICombatantAttributes
+    public struct CombatantAttributes : ICombatantAttributes
     {
         // Todo
         private readonly IDestructibleAttributes _destructibleAttributes;

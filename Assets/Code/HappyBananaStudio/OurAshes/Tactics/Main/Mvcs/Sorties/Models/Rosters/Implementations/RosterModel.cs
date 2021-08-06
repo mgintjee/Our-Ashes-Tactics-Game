@@ -10,16 +10,16 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Manage
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sorties.Maps.Paths.Types;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combatants.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combats.Damages.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Combats.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Paths.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Reports.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Reports.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.Combatants.Implementaions;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Models.Rosters.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.Combatants.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Combatants.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Combats.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Damages.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Rosters.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Rosters.Interfaces;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -28,8 +28,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
     /// <summary>
     /// Todo
     /// </summary>
-    public class RosterModel
-        : IRosterModel
+    public class RosterModel : IRosterModel
     {
         // Provides logging capability to the SORTIE logs
         private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
@@ -41,25 +40,20 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
         private readonly ISet<ICombatantModel> _models;
 
         // Todo
-        private IRosterReport _report;
+        private IRosterModelReport _report;
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="rosterConstruction"></param>
-        public RosterModel(IRosterConstruction rosterConstruction)
+        public RosterModel(IRosterModelConstruction rosterConstruction)
         {
             _models = new HashSet<ICombatantModel>();
             _activeCallSigns = new HashSet<CombatantCallSign>();
-            foreach (ICombatantConstruction construction in rosterConstruction.GetCombatantConstructions())
-            {
-                _activeCallSigns.Add(construction.GetCombatantCallSign());
-                _models.Add(new CombatantModel(construction));
-            }
         }
 
         /// <inheritdoc/>
-        IRosterReport IRosterModel.GetReport()
+        IRosterModelReport IRosterModel.GetReport()
         {
             if (_report == null)
             {
@@ -175,10 +169,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
                 allCallSigns.Add(combatantReport.GetCombatantCallSign());
                 combatantReports.Add(combatantReport);
             }
-            _report = new RosterReport.Builder()
-                .SetActiveCallSigns(_activeCallSigns)
-                .SetAllCallSigns(allCallSigns)
-                .SetCombatantReports(combatantReports)
+            _report = RosterModelReport.Builder.Get()
+                .SetActiveCombatantCallSigns(_activeCallSigns)
+                .SetAllCombatantCallSigns(allCallSigns)
+                .SetAllCombatantReports(combatantReports)
                 .Build();
         }
 

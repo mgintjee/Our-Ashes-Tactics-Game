@@ -1,14 +1,14 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants.CallSigns;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Controllers.AIs.Types;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Constructions.Controllers.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Constructions.Frames.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.AIs.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Constructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Responses.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Models.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.AIs.Implementaions;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Constructions.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Requests.Interfaces;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Implementations
@@ -16,8 +16,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
     /// <summary>
     /// Sortie Mvc Controller Interface
     /// </summary>
-    public class SortieMvcController
-        : AbstractMvcController, IMvcController
+    public class SortieMvcController : AbstractMvcController, IMvcController
     {
         // Todo
         private readonly IDictionary<AIType, IControllerAI> _aiTypeAIControllers = new Dictionary<AIType, IControllerAI>()
@@ -47,44 +46,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
             : base(mvcFrameConstruction)
         {
             IMvcControllerConstruction mvcControllerConstruction = mvcFrameConstruction.GetMvcControllerConstruction();
-            if (mvcControllerConstruction is ISortieControllerConstruction sortieControllerConstruction)
+        }
+
+        /// <inheritdoc/>
+        public override void Process(IMvcModelReport mvcModelReport)
+        {
+            if (mvcModelReport is IMvcResponse sortieResponse)
             {
-                _combatantCallSignControllerTypes = sortieControllerConstruction.GetCombatantCallSignAITypes();
-            }
-        }
-
-        /// <inheritdoc/>
-        public override bool HasRequests()
-        {
-            return _sortieRequests.Count != 0;
-        }
-
-        /// <inheritdoc/>
-        public override bool IsProcessing()
-        {
-            return _sortieRequests.Count != 0 &&
-                (_selectedSortieRequest == null ||
-                _confirmedSortieRequest == null);
-        }
-
-        /// <inheritdoc/>
-        public override IMvcRequest OutputConfirmedMvcRequest()
-        {
-            return _confirmedSortieRequest;
-        }
-
-        /// <inheritdoc/>
-        public override IMvcRequest OutputSelectedMvcRequest()
-        {
-            return _selectedSortieRequest;
-        }
-
-        /// <inheritdoc/>
-        public override void Process(IMvcResponse mvcResponse)
-        {
-            if (mvcResponse is IMvcResponse sortieResponse)
-            {
-                ((IMvcController)this).Stop();
                 _sortieRequests.UnionWith((ISet<ISortieRequest>)sortieResponse.GetMvcRequests());
                 _logger.Info("Available {} actions", _sortieRequests.Count);
                 if (_sortieRequests.Count != 0)
@@ -97,14 +65,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Contr
                     // throw an error
                 }
             }
-        }
-
-        /// <inheritdoc/>
-        public override void Stop()
-        {
-            _selectedSortieRequest = null;
-            _confirmedSortieRequest = null;
-            _sortieRequests.Clear();
         }
     }
 }

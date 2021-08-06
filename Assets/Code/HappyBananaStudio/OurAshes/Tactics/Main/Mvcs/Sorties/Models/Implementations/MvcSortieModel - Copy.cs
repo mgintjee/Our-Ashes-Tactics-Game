@@ -105,7 +105,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Model
             if (orderReport.GetCurrentCallSigns().Count > 0)
             {
                 CombatantCallSign callSign = orderReport.GetCurrentCallSigns()[0];
-                IRosterReport rosterReport = _rosterModel.GetReport();
+                IRosterModelReport rosterReport = _rosterModel.GetReport();
                 ICombatantReport combatantReport = rosterReport.GetCombatantReport(callSign).GetValue();
                 ISet<IPath> paths = _mapModel.GetPaths(combatantReport);
                 IMapReport mapReport = _mapModel.GetReport();

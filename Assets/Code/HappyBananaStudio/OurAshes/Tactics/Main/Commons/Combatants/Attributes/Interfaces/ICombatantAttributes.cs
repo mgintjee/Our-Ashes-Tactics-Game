@@ -10,28 +10,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Combatants
     /// </summary>
     public interface ICombatantAttributes
     {
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
         IDestructibleAttributes GetDestructibleAttributes();
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
         IFireableAttributes GetFireableAttributes();
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
         ILoadoutAttributes GetLoadoutAttributes();
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
         IMovableAttributes GetMovableAttributes();
     }
 }

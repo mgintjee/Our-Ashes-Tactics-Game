@@ -1,0 +1,22 @@
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Constructions.Views.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Commons.Scores.Constructions.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Views.Engagements.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Views.Maps.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Views.Rosters.Interfaces;
+
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Views.Interfaces
+{
+    /// <summary>
+    /// Sortie View Construction Interface
+    /// </summary>
+    public interface ISortieViewConstruction : IMvcViewConstruction
+    {
+        IEngagementViewConstruction GetEngagementViewConstruction();
+
+        ISortieMapViewConstruction GetSortieMapViewConstruction();
+
+        IRosterViewConstruction GetRosterViewConstruction();
+
+        IScoreConstruction GetScoreConstruction();
+    }
+}

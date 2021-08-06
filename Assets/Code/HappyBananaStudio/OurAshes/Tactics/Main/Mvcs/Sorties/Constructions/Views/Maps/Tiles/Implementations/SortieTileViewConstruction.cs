@@ -1,9 +1,8 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Maps.Coordinates.Cube.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Reports.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sorties.Maps.Tiles.Skins;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Utils.Strings;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Views.Maps.Tiles.Interfaces;
 using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Views.Maps.Tiles.Implementations
@@ -11,7 +10,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Const
     /// <summary>
     /// Sortie Tile View Construction Implementation
     /// </summary>
-    public class SortieTileViewConstruction : AbstractReport, ISortieTileViewConstruction
+    public class SortieTileViewConstruction : ISortieTileViewConstruction
     {
         // Todo
         private readonly ICubeCoordinates _cubeCoordinates;
@@ -40,13 +39,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Const
         SortieTileSkin ISortieTileViewConstruction.GetSortieTileSkin()
         {
             return _sortieTileSkin;
-        }
-
-        /// <inheritdoc/>
-        protected override string GetContent()
-        {
-            return string.Format("{0}, {1}",
-                _cubeCoordinates, StringUtils.Format(_sortieTileSkin));
         }
 
         /// <summary>

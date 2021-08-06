@@ -1,5 +1,5 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Reports.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Controllers.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Models.Interfaces;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Interfaces
 {
@@ -11,14 +11,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Model
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="mvcRequest"></param>
+        /// <param name="mvcControllerReport"></param>
         /// <returns></returns>
-        void Process(IMvcRequest mvcRequest);
+        void Process(IMvcControllerReport mvcControllerReport);
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        IMvcModelReport GetMvcModelReport();
+        IMvcModelReport GetReport();
     }
 }

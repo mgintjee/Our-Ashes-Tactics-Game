@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Models.Maps.Tiles.Interfaces;
+using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Models.Maps.Interfaces
 {
@@ -7,10 +8,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Const
     /// </summary>
     public interface ISortieMapModelConstruction
     {
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
         ISet<ISortieTileModelConstruction> GetSortieTileModelConstructions();
     }
 }

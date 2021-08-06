@@ -1,5 +1,6 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Scripts.Unity.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Responses.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Requests.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Maps.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Maps.Paths.Collections.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Maps.Paths.Collections.Interfaces;
@@ -14,8 +15,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views
     /// <summary>
     /// Todo
     /// </summary>
-    public class SortieMapView
-        : ISortieMapView
+    public class SortieMapView : ISortieMapView
     {
         // Todo
         private readonly IPathViewCollection pathViewCollection;
@@ -44,13 +44,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views
         }
 
         /// <inheritdoc/>
-        void ISortieMapView.Process(ISortieRequest controllerRequest)
-        {
-            pathViewCollection.Process(controllerRequest);
-            tileViewCollection.Process(controllerRequest);
-        }
-
-        /// <inheritdoc/>
         void ISortieMapView.Process(ISet<ISortieRequest> controllerRequests)
         {
             pathViewCollection.Process(controllerRequests);
@@ -62,6 +55,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views
         {
             pathViewCollection.Process(mvcResponse);
             tileViewCollection.Process(mvcResponse);
+        }
+
+        void ISortieMapView.ProcessSelected(ISortieRequest sortieRequest)
+        {
+            throw new System.NotImplementedException();
         }
 
         /// <summary>
