@@ -56,6 +56,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
         /// <param name="mvcFrameConstruction"></param>
         public AbstractMvcFrame(IMvcFrameConstruction mvcFrameConstruction)
         {
+            _logger.Info("Building {} {}", mvcFrameConstruction.GetMvcType(), typeof(IMvcFrame));
             _mvcType = mvcFrameConstruction.GetMvcType();
             _logger = LoggerManager.GetLogger(_mvcType, this.GetType());
             _mvcFrameScript = MvcFrameScript.Builder.Get()
@@ -79,8 +80,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
                 : new BlackBoxMvcView(_mvcFrameConstruction);
         }
 
-        /// <inheritdoc/>
-        public abstract MvcType GetReturnMvcType();
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="mvcFrameConstruction"></param>
+        /// <returns></returns>
+        public abstract IMvcFrameConstruction GetReturnMvcFrameConstruction();
 
         /// <inheritdoc/>
         void IMvcFrame.Continue()

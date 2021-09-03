@@ -20,14 +20,19 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             _isProcessing = false;
         }
 
-        /// <inheritdoc/>
         public override void Process(IMvcModelReport mvcModelReport)
         {
+            // Do nothing
         }
 
-        /// <inheritdoc/>
         public override void Process(IMvcControllerReport mvcControllerReport)
         {
+            // Do nothing
+        }
+
+        protected override void BuildCanvas()
+        {
+            // Do nothing
         }
     }
 }

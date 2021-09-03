@@ -30,6 +30,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         public AbstractMvcView(IMvcFrameConstruction mvcFrameConstruction)
         {
             _logger = LoggerManager.GetLogger(mvcFrameConstruction.GetMvcType(), this.GetType());
+            this.BuildCanvas();
             this.BuildReport();
         }
 
@@ -52,5 +53,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
                 .SetIsProcessing(_isProcessing)
                 .Build();
         }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        protected abstract void BuildCanvas();
     }
 }

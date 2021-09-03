@@ -3,7 +3,7 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Inter
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Colors.Rgbs.Interfaces;
 using System.Collections.Generic;
 
-namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Colors.Rgbs.Implementations
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Rgbs.Implementations
 {
     /// <summary>
     /// Todo

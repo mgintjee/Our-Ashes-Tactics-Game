@@ -1,4 +1,4 @@
-﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Colors.Rgbs.Interfaces
+﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Rgbs.Interfaces
 {
     /// <summary>
     /// Todo
