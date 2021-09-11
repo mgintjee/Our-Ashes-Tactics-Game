@@ -5,8 +5,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Worlds.Frames
     /// <summary>
     /// World Mvc Frame Script Interface
     /// </summary>
-    public interface IWorldMvcFrameScript
-        : IMvcFrameScript
+    public interface IWorldMvcFrameScript : IMvcFrameScript
     {
     }
 }

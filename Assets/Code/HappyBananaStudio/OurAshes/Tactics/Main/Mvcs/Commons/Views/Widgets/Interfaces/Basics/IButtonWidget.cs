@@ -6,6 +6,7 @@
     public interface IButtonWidget : IWidget
     {
         void onPress();
+
         void onRelease();
     }
 }

@@ -45,6 +45,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
         protected readonly IMvcFrameConstruction _mvcFrameConstruction;
 
         // Todo
+        private readonly IMvcFrameConstruction _returnMvcFrameConstruction;
+
+        // Todo
         private readonly IList<IMvcFrameReport> _mvcReports = new List<IMvcFrameReport>();
 
         // Todo
@@ -54,9 +57,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
         /// Todo
         /// </summary>
         /// <param name="mvcFrameConstruction"></param>
-        public AbstractMvcFrame(IMvcFrameConstruction mvcFrameConstruction)
+        public AbstractMvcFrame(IMvcFrameConstruction mvcFrameConstruction,
+            IMvcFrameConstruction returnMvcFrameConstruction)
         {
             _logger.Info("Building {} {}", mvcFrameConstruction.GetMvcType(), typeof(IMvcFrame));
+            _returnMvcFrameConstruction = returnMvcFrameConstruction;
             _mvcType = mvcFrameConstruction.GetMvcType();
             _logger = LoggerManager.GetLogger(_mvcType, this.GetType());
             _mvcFrameScript = MvcFrameScript.Builder.Get()
@@ -79,13 +84,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
                 ? this.BuildMvcView(_mvcFrameConstruction)
                 : new BlackBoxMvcView(_mvcFrameConstruction);
         }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="mvcFrameConstruction"></param>
-        /// <returns></returns>
-        public abstract IMvcFrameConstruction GetReturnMvcFrameConstruction();
 
         /// <inheritdoc/>
         void IMvcFrame.Continue()
@@ -174,5 +172,15 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
         /// <param name="mvcFrameConstruction"></param>
         /// <returns></returns>
         protected abstract IMvcView BuildMvcView(IMvcFrameConstruction mvcFrameConstruction);
+
+        IMvcFrameConstruction IMvcFrame.GetMvcFrameConstruction()
+        {
+            return this._returnMvcFrameConstruction;
+        }
+
+        IMvcFrameConstruction IMvcFrame.GetReturnMvcFrameConstruction()
+        {
+            return this._mvcFrameConstruction;
+        }
     }
 }

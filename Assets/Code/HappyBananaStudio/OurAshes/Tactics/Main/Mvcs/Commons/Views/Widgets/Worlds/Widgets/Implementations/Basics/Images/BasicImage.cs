@@ -2,21 +2,19 @@
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sprites.IDs;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Constants.Colors.Rgbs.Managers;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.ResourceLoaders.Sprites;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.UIs.Interfaces.Basics.Images;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Widgets.Implementations.Basics.Images
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Worlds.Widgets.Implementations.Basics.Images
 {
     /// <summary>
     /// Todo
     /// </summary>
     public class BasicImage
-        : AbstractBasicWidget, IBasicImage
+        : AbstractWidget, IBasicImage
     {
         // Todo
         private Image imageComponent;

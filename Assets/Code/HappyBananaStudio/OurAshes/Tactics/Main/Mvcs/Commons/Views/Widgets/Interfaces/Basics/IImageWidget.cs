@@ -7,6 +7,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
     /// </summary>
     public interface IImageWidget : IWidget
     {
-        void setSprint(SpriteID spriteID);
+        void SetSpriteID(SpriteID spriteID);
     }
 }

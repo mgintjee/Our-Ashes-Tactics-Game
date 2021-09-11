@@ -10,31 +10,31 @@
         /// Todo
         /// </summary>
         /// <returns></returns>
-        IGridConfigurationReport GetActionMenuGridConfigurationReport();
+        ICanvasGridMeasurements GetActionMenuGridConfigurationReport();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        IGridConfigurationReport GetInformationalGridConfigurationReport();
+        ICanvasGridMeasurements GetInformationalGridConfigurationReport();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        IGridConfigurationReport GetScoreBoardGridConfigurationReport();
+        ICanvasGridMeasurements GetScoreBoardGridConfigurationReport();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        IGridConfigurationReport GetSettingMenuGridConfigurationReport();
+        ICanvasGridMeasurements GetSettingMenuGridConfigurationReport();
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        IGridConfigurationReport GetTurnScrollerGridConfigurationReport();
+        ICanvasGridMeasurements GetTurnScrollerGridConfigurationReport();
         */
     }
 }

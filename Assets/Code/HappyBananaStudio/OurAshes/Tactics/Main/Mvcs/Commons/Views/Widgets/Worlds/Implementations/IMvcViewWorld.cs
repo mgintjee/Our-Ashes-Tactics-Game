@@ -1,23 +1,23 @@
-﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Interfaces
+﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Worlds.Implementations
 {
     /// <summary>
-    /// Mvc View Canvas Interface
+    /// Mvc View World Interface
     /// </summary>
-    public interface IMvcViewCanvas
+    public class MvcViewWorld : IMvcViewWorld
     {
         /// <summary>
         /// Todo
         /// </summary>
-        void Clear();
+        private void Clear();
 
         /// <summary>
         /// Todo
         /// </summary>
-        void Reset();
+        private void Reset();
 
         /// <summary>
         /// Todo
         /// </summary>
-        void Build();
+        private void Build();
     }
 }

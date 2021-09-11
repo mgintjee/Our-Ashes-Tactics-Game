@@ -8,19 +8,19 @@
         : ICanvasConfigurationReport
     {
         // Todo
-        private readonly IGridConfigurationReport canvasActionMenuConfigurationReport;
+        private readonly ICanvasGridMeasurements canvasActionMenuConfigurationReport;
 
         // Todo
-        private readonly IGridConfigurationReport canvasInformationalConfigurationReport;
+        private readonly ICanvasGridMeasurements canvasInformationalConfigurationReport;
 
         // Todo
-        private readonly IGridConfigurationReport canvasScoreBoardConfigurationReport;
+        private readonly ICanvasGridMeasurements canvasScoreBoardConfigurationReport;
 
         // TodoImpleme
-        private readonly IGridConfigurationReport canvasSettingMenuConfigurationReport;
+        private readonly ICanvasGridMeasurements canvasSettingMenuConfigurationReport;
 
         // Todo
-        private readonly IGridConfigurationReport canvasTurnScrollerConfigurationReport;
+        private readonly ICanvasGridMeasurements canvasTurnScrollerConfigurationReport;
 
         /// <summary>
         /// Todo
@@ -30,9 +30,9 @@
         /// <param name="canvasScoreBoardConfigurationReport">   </param>
         /// <param name="canvasSettingMenuConfigurationReport">  </param>
         /// <param name="canvasTurnScrollerConfigurationReport"> </param>
-        private CanvasConfigurationReport(IGridConfigurationReport canvasActionMenuConfigurationReport,
-            IGridConfigurationReport canvasInformationalConfigurationReport, IGridConfigurationReport canvasScoreBoardConfigurationReport,
-            IGridConfigurationReport canvasSettingMenuConfigurationReport, IGridConfigurationReport canvasTurnScrollerConfigurationReport)
+        private CanvasConfigurationReport(ICanvasGridMeasurements canvasActionMenuConfigurationReport,
+            ICanvasGridMeasurements canvasInformationalConfigurationReport, ICanvasGridMeasurements canvasScoreBoardConfigurationReport,
+            ICanvasGridMeasurements canvasSettingMenuConfigurationReport, ICanvasGridMeasurements canvasTurnScrollerConfigurationReport)
         {
             this.canvasActionMenuConfigurationReport = canvasActionMenuConfigurationReport;
             this.canvasInformationalConfigurationReport = canvasInformationalConfigurationReport;
@@ -73,31 +73,31 @@
         }
 
         /// <inheritdoc/>
-        IGridConfigurationReport ICanvasConfigurationReport.GetActionMenuGridConfigurationReport()
+        ICanvasGridMeasurements ICanvasConfigurationReport.GetActionMenuGridConfigurationReport()
         {
             return this.canvasActionMenuConfigurationReport;
         }
 
         /// <inheritdoc/>
-        IGridConfigurationReport ICanvasConfigurationReport.GetInformationalGridConfigurationReport()
+        ICanvasGridMeasurements ICanvasConfigurationReport.GetInformationalGridConfigurationReport()
         {
             return this.canvasInformationalConfigurationReport;
         }
 
         /// <inheritdoc/>
-        IGridConfigurationReport ICanvasConfigurationReport.GetScoreBoardGridConfigurationReport()
+        ICanvasGridMeasurements ICanvasConfigurationReport.GetScoreBoardGridConfigurationReport()
         {
             return this.canvasScoreBoardConfigurationReport;
         }
 
         /// <inheritdoc/>
-        IGridConfigurationReport ICanvasConfigurationReport.GetSettingMenuGridConfigurationReport()
+        ICanvasGridMeasurements ICanvasConfigurationReport.GetSettingMenuGridConfigurationReport()
         {
             return this.canvasSettingMenuConfigurationReport;
         }
 
         /// <inheritdoc/>
-        IGridConfigurationReport ICanvasConfigurationReport.GetTurnScrollerGridConfigurationReport()
+        ICanvasGridMeasurements ICanvasConfigurationReport.GetTurnScrollerGridConfigurationReport()
         {
             return this.canvasTurnScrollerConfigurationReport;
         }
@@ -108,19 +108,19 @@
         public class Builder
         {
             // Todo
-            private IGridConfigurationReport canvasActionMenuConfigurationReport = null;
+            private ICanvasGridMeasurements canvasActionMenuConfigurationReport = null;
 
             // Todo
-            private IGridConfigurationReport canvasInformationalConfigurationReport = null;
+            private ICanvasGridMeasurements canvasInformationalConfigurationReport = null;
 
             // Todo
-            private IGridConfigurationReport canvasScoreBoardConfigurationReport = null;
+            private ICanvasGridMeasurements canvasScoreBoardConfigurationReport = null;
 
             // Todo
-            private IGridConfigurationReport canvasSettingMenuConfigurationReport = null;
+            private ICanvasGridMeasurements canvasSettingMenuConfigurationReport = null;
 
             // Todo
-            private IGridConfigurationReport canvasTurnScrollerConfigurationReport = null;
+            private ICanvasGridMeasurements canvasTurnScrollerConfigurationReport = null;
 
             /// <summary>
             /// Todo
@@ -145,7 +145,7 @@
             /// </summary>
             /// <param name="canvasActionMenuConfigurationReport"></param>
             /// <returns></returns>
-            public Builder SetCanvasActionMenuConfigurationReport(IGridConfigurationReport canvasActionMenuConfigurationReport)
+            public Builder SetCanvasActionMenuConfigurationReport(ICanvasGridMeasurements canvasActionMenuConfigurationReport)
             {
                 this.canvasActionMenuConfigurationReport = canvasActionMenuConfigurationReport;
                 return this;
@@ -156,7 +156,7 @@
             /// </summary>
             /// <param name="canvasInformationalConfigurationReport"></param>
             /// <returns></returns>
-            public Builder SetCanvasInformationalConfigurationReport(IGridConfigurationReport canvasInformationalConfigurationReport)
+            public Builder SetCanvasInformationalConfigurationReport(ICanvasGridMeasurements canvasInformationalConfigurationReport)
             {
                 this.canvasInformationalConfigurationReport = canvasInformationalConfigurationReport;
                 return this;
@@ -167,7 +167,7 @@
             /// </summary>
             /// <param name="canvasScoreBoardConfigurationReport"></param>
             /// <returns></returns>
-            public Builder SetCanvasScoreBoardConfigurationReport(IGridConfigurationReport canvasScoreBoardConfigurationReport)
+            public Builder SetCanvasScoreBoardConfigurationReport(ICanvasGridMeasurements canvasScoreBoardConfigurationReport)
             {
                 this.canvasScoreBoardConfigurationReport = canvasScoreBoardConfigurationReport;
                 return this;
@@ -178,7 +178,7 @@
             /// </summary>
             /// <param name="canvasSettingMenuConfigurationReport"></param>
             /// <returns></returns>
-            public Builder SetCanvasSettingMenuConfigurationReport(IGridConfigurationReport canvasSettingMenuConfigurationReport)
+            public Builder SetCanvasSettingMenuConfigurationReport(ICanvasGridMeasurements canvasSettingMenuConfigurationReport)
             {
                 this.canvasSettingMenuConfigurationReport = canvasSettingMenuConfigurationReport;
                 return this;
@@ -189,7 +189,7 @@
             /// </summary>
             /// <param name="canvasTurnScrollerConfigurationReport"></param>
             /// <returns></returns>
-            public Builder SetCanvasTurnScrollerConfigurationReport(IGridConfigurationReport canvasTurnScrollerConfigurationReport)
+            public Builder SetCanvasTurnScrollerConfigurationReport(ICanvasGridMeasurements canvasTurnScrollerConfigurationReport)
             {
                 this.canvasTurnScrollerConfigurationReport = canvasTurnScrollerConfigurationReport;
                 return this;
@@ -205,23 +205,23 @@
                 ISet<string> argumentExceptionSet = new HashSet<string>();
                 if (this.canvasActionMenuConfigurationReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(IPanelActionMenu).Name + " " + typeof(IGridConfigurationReport).Name + " cannot be null.");
+                    argumentExceptionSet.Add(typeof(IPanelActionMenu).Name + " " + typeof(ICanvasGridMeasurements).Name + " cannot be null.");
                 }
                 if (this.canvasInformationalConfigurationReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(IPanelInformational).Name + " " + typeof(IGridConfigurationReport).Name + " cannot be null.");
+                    argumentExceptionSet.Add(typeof(IPanelInformational).Name + " " + typeof(ICanvasGridMeasurements).Name + " cannot be null.");
                 }
                 if (this.canvasScoreBoardConfigurationReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(IPanelScoreBoard).Name + " " + typeof(IGridConfigurationReport).Name + " cannot be null.");
+                    argumentExceptionSet.Add(typeof(IPanelScoreBoard).Name + " " + typeof(ICanvasGridMeasurements).Name + " cannot be null.");
                 }
                 if (this.canvasSettingMenuConfigurationReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(IPanelSettingMenu).Name + " " + typeof(IGridConfigurationReport).Name + " cannot be null.");
+                    argumentExceptionSet.Add(typeof(IPanelSettingMenu).Name + " " + typeof(ICanvasGridMeasurements).Name + " cannot be null.");
                 }
                 if (this.canvasTurnScrollerConfigurationReport == null)
                 {
-                    argumentExceptionSet.Add(typeof(IPanelTurnScroller).Name + " " + typeof(IGridConfigurationReport).Name + " cannot be null.");
+                    argumentExceptionSet.Add(typeof(IPanelTurnScroller).Name + " " + typeof(ICanvasGridMeasurements).Name + " cannot be null.");
                 }
                 return argumentExceptionSet;
             }

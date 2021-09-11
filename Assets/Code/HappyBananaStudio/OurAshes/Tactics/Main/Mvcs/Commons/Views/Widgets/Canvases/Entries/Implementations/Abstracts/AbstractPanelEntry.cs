@@ -1,23 +1,12 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Colors.IDs;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sprites.IDs;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Coordinates.Grids.Convertors.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Coordinates.Grids.Convertors.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Coordinates.Grids.Dimensions.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Coordinates.Grids.Reports.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Coordinates.Grids.Reports.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Canvases.Scripts.Implementations.Abstract;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Entries.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Scripts.Implementations.Abstract;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.UIs.Interfaces.Basics.Images;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.UIs.Interfaces.Complexes;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.UIs.Interfaces.Complexes.Texts;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Widgets.Implementations.Basics.Images;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Widgets.Implementations.Complexes.Texts;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Widgets.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Entries.Implementations.Abstracts
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Entries.Implementations.Abstracts
 {
     /// <summary>
     /// Todo
@@ -34,12 +23,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         protected IGridDimensions panelEntryGridDimensions;
 
         // Todo
-        protected IDictionary<IWidget, IGridConfigurationReport> widgetConfigurationReportDictionary =
-            new Dictionary<IWidget, IGridConfigurationReport>();
+        protected IDictionary<IWidget, ICanvasGridMeasurements> widgetConfigurationReportDictionary =
+            new Dictionary<IWidget, ICanvasGridMeasurements>();
 
         /// <inheritdoc/>
         void IPanelEntry.Initialize(IGridConvertor panelGridConvertor,
-            IGridConfigurationReport panelEntryConfigurationReport,
+            ICanvasGridMeasurements panelEntryConfigurationReport,
             Transform parentTransform)
         {
             this.GetGameObject().AddComponent<RectTransform>();
@@ -75,7 +64,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// <param name="widget">                   </param>
         /// <param name="widgetConfigurationReport"></param>
         protected void AddWidget(IWidget widget,
-            IGridConfigurationReport widgetConfigurationReport)
+            ICanvasGridMeasurements widgetConfigurationReport)
         {
             this.widgetConfigurationReportDictionary.Add(
                 widget, widgetConfigurationReport);
@@ -88,7 +77,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// </summary>
         /// <param name="headerString"></param>
         protected void BuildHeader(string headerString,
-            IGridConfigurationReport gridConfigurationReport)
+            ICanvasGridMeasurements gridConfigurationReport)
         {
             // Todo: Maybe have a default BasicImage Builder for background
             IComplexText complexWidgetHeader = new ComplexText.Builder()
@@ -127,7 +116,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// <param name="panelGridConvertor">           </param>
         /// <param name="panelEntryConfigurationReport"></param>
         private void ApplyGridConfiguration(IGridConvertor panelGridConvertor,
-            IGridConfigurationReport panelEntryConfigurationReport)
+            ICanvasGridMeasurements panelEntryConfigurationReport)
         {
             RectTransform rectTransform = this.GetComponent<RectTransform>();
             // Find the WorldDimensions for this panel

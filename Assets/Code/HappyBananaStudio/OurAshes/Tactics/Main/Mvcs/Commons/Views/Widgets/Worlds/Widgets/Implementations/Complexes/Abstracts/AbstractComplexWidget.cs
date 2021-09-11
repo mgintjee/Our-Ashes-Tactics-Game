@@ -3,12 +3,12 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Wid
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Widgets.Implementations.Complexes.Abstracts
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Worlds.Widgets.Implementations.Complexes.Abstracts
 {
     /// <summary>
     /// Todo
     /// </summary>
-    public abstract class AbstractComplexWidget : AbstractBasicWidget
+    public abstract class AbstractComplexWidget : AbstractWidget
     {
         // Todo
         protected ISet<IWidget> childWidgetSet = new HashSet<IWidget>();

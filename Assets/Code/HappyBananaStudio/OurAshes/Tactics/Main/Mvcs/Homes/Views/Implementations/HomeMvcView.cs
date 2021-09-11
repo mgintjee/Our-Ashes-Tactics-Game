@@ -3,6 +3,8 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.C
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Models.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Views.Canvases.Backs.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Views.Canvases.Fores.Implementations;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Views.Implementations
 {
@@ -34,7 +36,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Views.I
         /// <inheritdoc/>
         protected override void BuildCanvas()
         {
-            throw new System.NotImplementedException();
+            this.mvcViewBackCanvas = new HomeViewBackCanvas();
+            this.mvcViewForeCanvas = new HomeViewForeCanvas();
         }
     }
 }

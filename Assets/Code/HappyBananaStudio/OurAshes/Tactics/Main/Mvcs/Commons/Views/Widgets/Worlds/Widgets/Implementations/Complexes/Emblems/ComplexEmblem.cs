@@ -4,16 +4,10 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Uti
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sprites.IDs;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Constants.Schemes.Views.Emblems.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Constants.Schemes.Views.Patterns.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.UIs.Interfaces.Basics.Images;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.UIs.Interfaces.Basics.Texts;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.UIs.Interfaces.Complexes.Emblems;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Widgets.Implementations.Basics.Images;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Widgets.Implementations.Basics.Texts;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Widgets.Implementations.Complexes.Abstracts;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Widgets.Implementations.Complexes.Emblems
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Worlds.Widgets.Implementations.Complexes.Emblems
 {   /// <summary>
     /// Todo </summary>
     public class ComplexEmblem

@@ -1,9 +1,9 @@
-﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Interfaces
+﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Worlds.Interfaces
 {
     /// <summary>
-    /// Mvc View Canvas Interface
+    /// Mvc View World Interface
     /// </summary>
-    public interface IMvcViewCanvas
+    public interface IMvcViewWorld
     {
         /// <summary>
         /// Todo

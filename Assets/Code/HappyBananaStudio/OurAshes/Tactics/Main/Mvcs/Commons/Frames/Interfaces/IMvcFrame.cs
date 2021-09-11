@@ -26,6 +26,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
         /// <summary>
         /// Todo
         /// </summary>
+        IMvcFrameConstruction GetMvcFrameConstruction();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
         IMvcFrameConstruction GetReturnMvcFrameConstruction();
     }
 }

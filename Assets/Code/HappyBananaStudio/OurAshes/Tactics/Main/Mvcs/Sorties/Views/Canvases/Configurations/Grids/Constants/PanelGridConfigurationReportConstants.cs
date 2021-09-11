@@ -1,11 +1,4 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Coordinates.Grids.Dimensions.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Coordinates.Grids.Dimensions.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Coordinates.Grids.Positions.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Coordinates.Grids.Positions.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Coordinates.Grids.Reports.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Coordinates.Grids.Reports.Interfaces;
-
-namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Canvases.Configurations.Grids.Constants
+﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Canvases.Configurations.Grids.Constants
 {
     /// <summary>
     /// Todo
@@ -56,7 +49,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views
         /// Todo
         /// </summary>
         /// <returns></returns>
-        public static IGridConfigurationReport ActionMenuConfigurationReport()
+        public static ICanvasGridMeasurements ActionMenuConfigurationReport()
         {
             return new GridConfigurationReport.Builder()
                 .SetGridDimensions(ActionMenuGridDimensions)
@@ -68,7 +61,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views
         /// Todo
         /// </summary>
         /// <returns></returns>
-        public static IGridConfigurationReport InformationalConfigurationReport()
+        public static ICanvasGridMeasurements InformationalConfigurationReport()
         {
             return new GridConfigurationReport.Builder()
                 .SetGridDimensions(InformationalGridDimensions)
@@ -80,7 +73,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views
         /// Todo
         /// </summary>
         /// <returns></returns>
-        public static IGridConfigurationReport ScoreBoardConfigurationReport()
+        public static ICanvasGridMeasurements ScoreBoardConfigurationReport()
         {
             return new GridConfigurationReport.Builder()
                 .SetGridDimensions(ScoreBoardGridDimensions)
@@ -92,7 +85,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views
         /// Todo
         /// </summary>
         /// <returns></returns>
-        public static IGridConfigurationReport SettingMenuConfigurationReport()
+        public static ICanvasGridMeasurements SettingMenuConfigurationReport()
         {
             return new GridConfigurationReport.Builder()
                 .SetGridDimensions(SettingMenuGridDimensions)
@@ -104,7 +97,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views
         /// Todo
         /// </summary>
         /// <returns></returns>
-        public static IGridConfigurationReport TurnScrollerConfigurationReport()
+        public static ICanvasGridMeasurements TurnScrollerConfigurationReport()
         {
             return new GridConfigurationReport.Builder()
                 .SetGridDimensions(TurnScrollerGridDimensions)

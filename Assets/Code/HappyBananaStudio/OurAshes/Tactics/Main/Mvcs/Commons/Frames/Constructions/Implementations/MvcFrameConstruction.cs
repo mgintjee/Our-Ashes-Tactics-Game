@@ -13,7 +13,7 @@ using System.Collections.Generic;
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Implementations
 {
     /// <summary>
-    /// Mvc Construction Implementation
+    /// Mvc Frame Construction Implementation
     /// </summary>
     public class MvcFrameConstruction : IMvcFrameConstruction
     {
