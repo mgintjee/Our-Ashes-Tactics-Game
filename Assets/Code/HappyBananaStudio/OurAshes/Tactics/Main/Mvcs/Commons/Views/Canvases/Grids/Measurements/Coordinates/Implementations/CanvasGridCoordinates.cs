@@ -1,4 +1,6 @@
-﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Coordinates.Implementations
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Coordinates.Interfaces;
+
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Coordinates.Implementations
 {
     /// <summary>
     /// Canvas Grid Coordinates Implementation
@@ -14,12 +16,12 @@
             this.y = y;
         }
 
-        double ICanvasGridCoordinates.getX()
+        double ICanvasGridCoordinates.GetX()
         {
             return this.x;
         }
 
-        double ICanvasGridCoordinates.getY()
+        double ICanvasGridCoordinates.GetY()
         {
             return this.y;
         }

@@ -1,49 +1,56 @@
-﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Canvases.Configurations.Grids.Constants
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Coordinates.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Coordinates.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Dimensions.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Dimensions.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Interfaces;
+
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Canvases.Configurations.Grids.Constants
 {
     /// <summary>
     /// Todo
     /// </summary>
-    public static class PanelGridConfigurationReportConstants
+    public static class PanelCanvasGridMeasurementsConstants
     {
         // Todo
-        private static readonly IGridDimensions ActionMenuGridDimensions =
-            new GridDimensions(1.5f, 6.5f);
+        private static readonly ICanvasGridDimensions ActionMenuGridDimensions =
+            new CanvasGridDimensions(1.5f, 6.5f);
 
         // Todo
-        private static readonly IGridPosition ActionMenuGridPosition =
-            new GridPosition(0.0f, 1.0f);
+        private static readonly ICanvasGridCoordinates ActionMenuGridPosition =
+            new CanvasGridCoordinates(0.0f, 1.0f);
 
         // Todo
-        private static readonly IGridDimensions InformationalGridDimensions =
-            new GridDimensions(3.5f, 7.5f);
+        private static readonly ICanvasGridDimensions InformationalGridDimensions =
+            new CanvasGridDimensions(3.5f, 7.5f);
 
         // Todo
-        private static readonly IGridPosition InformationalGridPosition =
-            new GridPosition(7.5f, 0.0f);
+        private static readonly ICanvasGridCoordinates InformationalGridPosition =
+            new CanvasGridCoordinates(7.5f, 0.0f);
 
         // Todo
-        private static readonly IGridDimensions ScoreBoardGridDimensions =
-            new GridDimensions(3.5f, 1.5f);
+        private static readonly ICanvasGridDimensions ScoreBoardGridDimensions =
+            new CanvasGridDimensions(3.5f, 1.5f);
 
         // Todo
-        private static readonly IGridPosition ScoreBoardGridPosition =
-            new GridPosition(7.5f, 7.5f);
+        private static readonly ICanvasGridCoordinates ScoreBoardGridPosition =
+            new CanvasGridCoordinates(7.5f, 7.5f);
 
         // Todo
-        private static readonly IGridDimensions SettingMenuGridDimensions =
-            new GridDimensions(1.5f, 1.0f);
+        private static readonly ICanvasGridDimensions SettingMenuGridDimensions =
+            new CanvasGridDimensions(1.5f, 1.0f);
 
         // Todo
-        private static readonly IGridPosition SettingMenuGridPosition =
-            new GridPosition(0.0f, 0.0f);
+        private static readonly ICanvasGridCoordinates SettingMenuGridPosition =
+            new CanvasGridCoordinates(0.0f, 0.0f);
 
         // Todo
-        private static readonly IGridDimensions TurnScrollerGridDimensions =
-            new GridDimensions(7.5f, 1.5f);
+        private static readonly ICanvasGridDimensions TurnScrollerGridDimensions =
+            new CanvasGridDimensions(7.5f, 1.5f);
 
         // Todo
-        private static readonly IGridPosition TurnScrollerGridPosition =
-            new GridPosition(0.0f, 7.5f);
+        private static readonly ICanvasGridCoordinates TurnScrollerGridPosition =
+            new CanvasGridCoordinates(0.0f, 7.5f);
 
         /// <summary>
         /// Todo
@@ -51,9 +58,9 @@
         /// <returns></returns>
         public static ICanvasGridMeasurements ActionMenuConfigurationReport()
         {
-            return new GridConfigurationReport.Builder()
-                .SetGridDimensions(ActionMenuGridDimensions)
-                .SetGridPosition(ActionMenuGridPosition)
+            return CanvasGridMeasurements.Builder.Get()
+                .SetDimensions(ActionMenuGridDimensions)
+                .SetCoordinates(ActionMenuGridPosition)
                 .Build();
         }
 
@@ -63,9 +70,9 @@
         /// <returns></returns>
         public static ICanvasGridMeasurements InformationalConfigurationReport()
         {
-            return new GridConfigurationReport.Builder()
-                .SetGridDimensions(InformationalGridDimensions)
-                .SetGridPosition(InformationalGridPosition)
+            return CanvasGridMeasurements.Builder.Get()
+                .SetDimensions(InformationalGridDimensions)
+                .SetCoordinates(InformationalGridPosition)
                 .Build();
         }
 
@@ -75,9 +82,9 @@
         /// <returns></returns>
         public static ICanvasGridMeasurements ScoreBoardConfigurationReport()
         {
-            return new GridConfigurationReport.Builder()
-                .SetGridDimensions(ScoreBoardGridDimensions)
-                .SetGridPosition(ScoreBoardGridPosition)
+            return CanvasGridMeasurements.Builder.Get()
+                .SetDimensions(ScoreBoardGridDimensions)
+                .SetCoordinates(ScoreBoardGridPosition)
                 .Build();
         }
 
@@ -87,9 +94,9 @@
         /// <returns></returns>
         public static ICanvasGridMeasurements SettingMenuConfigurationReport()
         {
-            return new GridConfigurationReport.Builder()
-                .SetGridDimensions(SettingMenuGridDimensions)
-                .SetGridPosition(SettingMenuGridPosition)
+            return CanvasGridMeasurements.Builder.Get()
+                .SetDimensions(SettingMenuGridDimensions)
+                .SetCoordinates(SettingMenuGridPosition)
                 .Build();
         }
 
@@ -99,9 +106,9 @@
         /// <returns></returns>
         public static ICanvasGridMeasurements TurnScrollerConfigurationReport()
         {
-            return new GridConfigurationReport.Builder()
-                .SetGridDimensions(TurnScrollerGridDimensions)
-                .SetGridPosition(TurnScrollerGridPosition)
+            return CanvasGridMeasurements.Builder.Get()
+                .SetDimensions(TurnScrollerGridDimensions)
+                .SetCoordinates(TurnScrollerGridPosition)
                 .Build();
         }
     }

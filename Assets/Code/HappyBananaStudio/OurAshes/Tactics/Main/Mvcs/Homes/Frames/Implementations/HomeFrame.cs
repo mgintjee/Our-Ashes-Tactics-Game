@@ -19,15 +19,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Frames.
         /// Todo
         /// </summary>
         /// <param name="mvcFrameConstruction"></param>
-        public HomeFrame(IMvcFrameConstruction mvcFrameConstruction)
-            : base(mvcFrameConstruction)
+        public HomeFrame(IMvcFrameConstruction mvcFrameConstruction, IMvcFrameConstruction returnMvcFrameConstruction)
+            : base(mvcFrameConstruction, returnMvcFrameConstruction)
         {
-        }
-
-        /// <inheritdoc/>
-        public override IMvcFrameConstruction GetReturnMvcFrameConstruction()
-        {
-            return null;
         }
 
         /// <inheritdoc/>

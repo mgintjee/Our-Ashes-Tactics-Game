@@ -5,8 +5,8 @@
     /// </summary>
     public interface ICanvasGridCoordinates
     {
-        double getX();
+        double GetX();
 
-        double getY();
+        double GetY();
     }
 }

@@ -48,11 +48,11 @@
         public static ICanvasConfigurationReport DefaultViewConfigurationReport()
         {
             return new CanvasConfigurationReport(
-                PanelGridConfigurationReportConstants.ActionMenuConfigurationReport(),
-                PanelGridConfigurationReportConstants.InformationalConfigurationReport(),
-                PanelGridConfigurationReportConstants.ScoreBoardConfigurationReport(),
-                PanelGridConfigurationReportConstants.SettingMenuConfigurationReport(),
-                PanelGridConfigurationReportConstants.TurnScrollerConfigurationReport());
+                PanelCanvasGridMeasurementsConstants.ActionMenuConfigurationReport(),
+                PanelCanvasGridMeasurementsConstants.InformationalConfigurationReport(),
+                PanelCanvasGridMeasurementsConstants.ScoreBoardConfigurationReport(),
+                PanelCanvasGridMeasurementsConstants.SettingMenuConfigurationReport(),
+                PanelCanvasGridMeasurementsConstants.TurnScrollerConfigurationReport());
         }
 
         /// <inheritdoc/>
@@ -73,31 +73,31 @@
         }
 
         /// <inheritdoc/>
-        ICanvasGridMeasurements ICanvasConfigurationReport.GetActionMenuGridConfigurationReport()
+        ICanvasGridMeasurements ICanvasConfigurationReport.GetActionMenuCanvasGridMeasurements()
         {
             return this.canvasActionMenuConfigurationReport;
         }
 
         /// <inheritdoc/>
-        ICanvasGridMeasurements ICanvasConfigurationReport.GetInformationalGridConfigurationReport()
+        ICanvasGridMeasurements ICanvasConfigurationReport.GetInformationalCanvasGridMeasurements()
         {
             return this.canvasInformationalConfigurationReport;
         }
 
         /// <inheritdoc/>
-        ICanvasGridMeasurements ICanvasConfigurationReport.GetScoreBoardGridConfigurationReport()
+        ICanvasGridMeasurements ICanvasConfigurationReport.GetScoreBoardCanvasGridMeasurements()
         {
             return this.canvasScoreBoardConfigurationReport;
         }
 
         /// <inheritdoc/>
-        ICanvasGridMeasurements ICanvasConfigurationReport.GetSettingMenuGridConfigurationReport()
+        ICanvasGridMeasurements ICanvasConfigurationReport.GetSettingMenuCanvasGridMeasurements()
         {
             return this.canvasSettingMenuConfigurationReport;
         }
 
         /// <inheritdoc/>
-        ICanvasGridMeasurements ICanvasConfigurationReport.GetTurnScrollerGridConfigurationReport()
+        ICanvasGridMeasurements ICanvasConfigurationReport.GetTurnScrollerCanvasGridMeasurements()
         {
             return this.canvasTurnScrollerConfigurationReport;
         }

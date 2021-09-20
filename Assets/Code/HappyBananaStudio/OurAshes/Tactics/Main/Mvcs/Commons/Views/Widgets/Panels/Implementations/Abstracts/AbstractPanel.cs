@@ -1,9 +1,10 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Colors.IDs;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sprites.IDs;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Reports.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Utils;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Canvases.Scripts.Implementations.Abstract;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Entries.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Interfaces.Basics;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Panels.Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
     public abstract class AbstractPanel : AbstractCanvasScript, IPanel
     {
         // Todo
-        protected IBasicImage backgroundImage;
+        protected IImageWidget backgroundImage;
 
         // Todo
         protected IList<IPanelEntry> panelEntryList = new List<IPanelEntry>();
@@ -25,7 +26,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         protected IGridConvertor panelGridConvertor;
 
         // Todo
-        protected IGridDimensions panelGridDimensions;
+        protected ICanvasGridMeasurements panelGridDimensions;
 
         /// <inheritdoc/>
         void IPanel.ClearPanelEntries()
@@ -36,13 +37,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// <inheritdoc/>
         void IPanel.Initialize(IGridConvertor canvasGridConvertor,
             ICanvasGridMeasurements panelConfigurationReport,
-            IGridDimensions panelGridDimensions,
             Transform parentTransform)
         {
             this.GetGameObject().AddComponent<RectTransform>();
             this.SetParent(parentTransform);
-            this.panelGridDimensions = panelGridDimensions;
-            GridConvertorUtil.ApplyGridConfigurationReport(this,
+            GridConvertorUtil.ApplyCanvasGridMeasurements(this,
                 canvasGridConvertor, panelConfigurationReport);
             this.BuildPanelGridConvertor();
             this.LoadBackgroundImage();
@@ -72,19 +71,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// </summary>
         protected void LoadBackgroundImage()
         {
-            // Todo: Maybe have a default BasicImage Builder for background
-            this.backgroundImage = new BasicImage.Builder()
-                .SetParentTransform(this.GetTransform())
-                .SetSpriteID(SpriteID.Square)
-                .SetTransparency(0.5f)
-                .SetColorID(ColorID.Gray)
-                .Build();
-            // TOdo: Store in a const file
-            this.backgroundImage.GetTransform().name = "BackgroundImage";
-            GridConvertorUtil.ApplyGridConfigurationReport(this.backgroundImage,
-                this.panelGridConvertor, new GridConfigurationReport.Builder()
-                .SetGridDimensions(this.panelGridDimensions)
-                .Build());
         }
 
         /// <inheritdoc/>
@@ -121,7 +107,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             Vector2 sizeDelta = this.GetComponent<RectTransform>().sizeDelta;
             // Build the GridConvertor for this Panel
             this.panelGridConvertor = new GridConvertor.Builder()
-                .SetGridDimensions(this.panelGridDimensions)
+                .SetDimensions(this.panelGridDimensions.GetDimensions())
                 .SetWorldWidth(sizeDelta.x)
                 .SetWorldHeight(sizeDelta.y)
                 .Build();

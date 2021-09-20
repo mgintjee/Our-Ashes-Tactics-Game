@@ -1,12 +1,16 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Colors.IDs;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sprites.IDs;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Utils;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Dimensions.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Canvases.Scripts.Implementations.Abstract;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Entries.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Interfaces.Basics;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Entries.Implementations.Abstracts
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Entries.Implementations.Abstracts
 {
     /// <summary>
     /// Todo
@@ -14,13 +18,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
     public abstract class AbstractPanelEntry : AbstractCanvasScript, IPanelEntry
     {
         // Todo
-        protected IBasicImage basicWidgetImage;
+        protected IImageWidget basicWidgetImage;
 
         // Todo
         protected IGridConvertor panelEntryGridConvertor;
 
         // Todo
-        protected IGridDimensions panelEntryGridDimensions;
+        protected ICanvasGridDimensions panelEntryGridDimensions;
 
         // Todo
         protected IDictionary<IWidget, ICanvasGridMeasurements> widgetConfigurationReportDictionary =
@@ -34,7 +38,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             this.GetGameObject().AddComponent<RectTransform>();
             this.SetParent(parentTransform);
             this.LoadPanelEntryGridDimensions();
-            GridConvertorUtil.ApplyGridConfigurationReport(this,
+            GridConvertorUtil.ApplyCanvasGridMeasurements(this,
                 panelGridConvertor, panelEntryConfigurationReport);
             this.BuildPanelEntryGridConvertor();
             this.LoadBackgroundImage();
@@ -51,10 +55,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         {
             foreach (IWidget widget in this.widgetConfigurationReportDictionary.Keys)
             {
+                /*
                 if (widget is IComplexWidget complexWidget)
                 {
                     complexWidget.UpdateWidgets();
                 }
+                */
             }
         }
 
@@ -68,7 +74,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         {
             this.widgetConfigurationReportDictionary.Add(
                 widget, widgetConfigurationReport);
-            GridConvertorUtil.ApplyGridConfigurationReport(widget,
+            GridConvertorUtil.ApplyCanvasGridMeasurements(widget,
                 this.panelEntryGridConvertor, widgetConfigurationReport);
         }
 
@@ -77,8 +83,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// </summary>
         /// <param name="headerString"></param>
         protected void BuildHeader(string headerString,
-            ICanvasGridMeasurements gridConfigurationReport)
+            ICanvasGridMeasurements CanvasGridMeasurements)
         {
+            /*
             // Todo: Maybe have a default BasicImage Builder for background
             IComplexText complexWidgetHeader = new ComplexText.Builder()
                 .SetParentTransform(this.GetTransform())
@@ -92,7 +99,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
                 .Build();
             // TOdo: Store in a const file
             complexWidgetHeader.GetTransform().name = "HeaderText";
-            this.AddWidget(complexWidgetHeader, gridConfigurationReport);
+            this.AddWidget(complexWidgetHeader, CanvasGridMeasurements);
+            */
         }
 
         /// <summary>
@@ -121,7 +129,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             RectTransform rectTransform = this.GetComponent<RectTransform>();
             // Find the WorldDimensions for this panel
             Vector2 worldDimensions = panelGridConvertor.GetWorldDimensionsFrom(
-                panelEntryConfigurationReport.GetGridDimensions());
+                panelEntryConfigurationReport.GetDimensions());
             // Apply an offset
             // TODO: Store in a const file
             worldDimensions *= 0.95f;
@@ -129,13 +137,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             rectTransform.sizeDelta = worldDimensions;
             // Set the WorldPosition of this panel
             rectTransform.anchoredPosition = panelGridConvertor.GetWorldPositionFrom(
-                    panelEntryConfigurationReport.GetGridPosition(),
-                    panelEntryConfigurationReport.GetGridDimensions());
+                    panelEntryConfigurationReport.GetCoordinates(),
+                    panelEntryConfigurationReport.GetDimensions());
             // Collect the SizeDelta for this Panel
             Vector2 sizeDelta = rectTransform.sizeDelta;
             // Build the CanvasGridConvertor for this Panel
             this.panelEntryGridConvertor = new GridConvertor.Builder()
-                .SetGridDimensions(this.panelEntryGridDimensions)
+                .SetDimensions(this.panelEntryGridDimensions)
                 .SetWorldWidth(sizeDelta.x)
                 .SetWorldHeight(sizeDelta.y)
                 .Build();
@@ -150,7 +158,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             Vector2 sizeDelta = this.GetComponent<RectTransform>().sizeDelta;
             // Build the GridConvertor for this PanelEntry
             this.panelEntryGridConvertor = new GridConvertor.Builder()
-                .SetGridDimensions(this.panelEntryGridDimensions)
+                .SetDimensions(this.panelEntryGridDimensions)
                 .SetWorldWidth(sizeDelta.x)
                 .SetWorldHeight(sizeDelta.y)
                 .Build();
@@ -161,19 +169,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// </summary>
         private void LoadBackgroundImage()
         {
-            // Todo: Maybe have a default BasicImage Builder for background
-            IWidget backgroundImage = new BasicImage.Builder()
-                .SetParentTransform(this.GetTransform())
-                .SetSpriteID(SpriteID.Square)
-                .SetTransparency(0.5f)
-                .SetColorID(ColorID.Gray)
-                .Build();
-            // TOdo: Store in a const file
-            backgroundImage.GetTransform().name = "BackgroundImage";
-            this.AddWidget(backgroundImage,
-                new GridConfigurationReport.Builder()
-                    .SetGridDimensions(this.panelEntryGridDimensions)
-                .Build());
         }
     }
 }

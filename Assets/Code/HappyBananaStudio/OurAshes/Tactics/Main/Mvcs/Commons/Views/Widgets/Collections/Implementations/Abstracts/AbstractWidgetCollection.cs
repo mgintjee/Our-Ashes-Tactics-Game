@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Collections.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Interfaces;
+using System.Collections.Generic;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Collections.Implementations.Abstracts
 {
@@ -7,7 +9,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
     /// </summary>
     public abstract class AbstractWidgetCollection : IWidgetCollection
     {
-        private ISet<IWidget> widgets;
+        private ISet<IWidget> widgets = new HashSet<IWidget>();
 
         void IWidgetCollection.AddWidget(IWidget widget)
         {

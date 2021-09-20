@@ -1,16 +1,19 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Simulations.Types;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Simulations.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Unity.Scripts.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Controllers.Constructions.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Frames.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Models.Constructions.Implementations;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Views.Constructions.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Managers.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Splashes.Controllers.Constructions.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Splashes.Frames.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Splashes.Models.Constructions.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Splashes.Views.Constructions.Implementations;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Managers.Implementations
 {
@@ -19,6 +22,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Managers.Impl
     /// </summary>
     public class MvcManager : IMvcManager
     {
+        // Todo
+        private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Manager, new StackFrame().GetMethod().DeclaringType);
+
         // Todo
         private readonly IDictionary<MvcType, IMvcFrame> mvcTypeFrames = new Dictionary<MvcType, IMvcFrame>();
 
@@ -29,7 +35,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Managers.Impl
         private MvcType activeMvcType = MvcType.None;
 
         // Todo
-        private IUnityScript unityScript;
+        private readonly IUnityScript unityScript;
 
         /// <summary>
         /// Todo
@@ -45,13 +51,20 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Managers.Impl
             // Check if the activeMvcType has been set
             if (this.activeMvcType == MvcType.None)
             {
-                this.mvcTypeFrames[MvcType.Home] = this.BuildMvcFrame(this.buildInitialHomeConstruction());
+                _logger.Info("Building initial {} {}", MvcType.Splash, typeof(IMvcFrame));
+                this.mvcTypeFrames[MvcType.Splash] = this.BuildMvcFrame(this.BuildInitialMvcFrameConstruction());
             }
-
+            if (!this.mvcTypeFrames.ContainsKey(this.activeMvcType))
+            {
+                // Should never be here except for errors
+                _logger.Error("No {} associated to {}", typeof(IMvcFrame), this.activeMvcType);
+                return;
+            }
             IMvcFrame mvcFrame = this.mvcTypeFrames[this.activeMvcType];
             // Check if the MvcFrame is now complete
-            if (!mvcFrame.IsComplete())
+            if (mvcFrame.IsComplete())
             {
+                _logger.Info("{} is complete.", this.activeMvcType);
                 IMvcFrameConstruction mvcFrameConstruction = mvcFrame.GetReturnMvcFrameConstruction();
                 if (mvcFrameConstruction == null)
                 {
@@ -78,11 +91,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Managers.Impl
         {
             // Set the active MvcType
             this.activeMvcType = mvcFrameConstruction.GetMvcType();
+            _logger.Info("Building {} {}", this.activeMvcType, typeof(IMvcFrame));
             // Switch-case on the new active MvcType
             switch (this.activeMvcType)
             {
-                case MvcType.Home:
-                    return new HomeFrame(mvcFrameConstruction);
+                case MvcType.Splash:
+                    return new SplashFrame(mvcFrameConstruction, null);
 
                 default:
                     return null;
@@ -93,15 +107,15 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Managers.Impl
         /// Todo
         /// </summary>
         /// <returns></returns>
-        private IMvcFrameConstruction buildInitialHomeConstruction()
+        private IMvcFrameConstruction BuildInitialMvcFrameConstruction()
         {
             return MvcFrameConstruction.Builder.Get()
-                .SetMvcControllerConstruction(HomeControllerConstruction.Builder.GetBuilder().Build())
-                .SetMvcViewConstruction(HomeViewConstruction.Builder.GetBuilder().Build())
-                .SetMvcModelConstruction(HomeModelConstruction.Builder.GetBuilder().Build())
+                .SetMvcControllerConstruction(SplashControllerConstruction.Builder.GetBuilder().Build())
+                .SetMvcViewConstruction(SplashViewConstruction.Builder.GetBuilder().Build())
+                .SetMvcModelConstruction(SplashModelConstruction.Builder.GetBuilder().Build())
                 .SetSimulationType(SimulationType.Interactive)
                 .SetUnityScript(unityScript)
-                .SetMvcType(MvcType.Home)
+                .SetMvcType(MvcType.Splash)
                 .SetRandom(new Random(seed))
                 .Build();
         }

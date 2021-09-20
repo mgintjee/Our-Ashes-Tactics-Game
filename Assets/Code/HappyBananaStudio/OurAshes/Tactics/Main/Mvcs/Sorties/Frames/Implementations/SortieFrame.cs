@@ -19,16 +19,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frame
         /// Todo
         /// </summary>
         /// <param name="mvcFrameConstruction"></param>
-        public SortieFrame(IMvcFrameConstruction mvcFrameConstruction)
-            : base(mvcFrameConstruction)
+        public SortieFrame(IMvcFrameConstruction mvcFrameConstruction, IMvcFrameConstruction returnMvcFrameConstruction)
+            : base(mvcFrameConstruction, returnMvcFrameConstruction)
         {
-        }
-
-        /// <inheritdoc/>
-        public override IMvcFrameConstruction GetReturnMvcFrameConstruction()
-        {
-            // Todo: Return to home?
-            throw new System.NotImplementedException();
         }
 
         /// <inheritdoc/>

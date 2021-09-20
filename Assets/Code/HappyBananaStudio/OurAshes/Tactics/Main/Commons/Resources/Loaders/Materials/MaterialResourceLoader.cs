@@ -31,10 +31,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Resources.
         /// <returns></returns>
         private static Material LoadMaterialResource(string materialPath)
         {
-            Material material = Resources.Load<Material>(materialPath);
+            Material material = UnityEngine.Resources.Load<Material>(materialPath);
             if (material == null)
             {
-                material = Resources.Load<Material>(NullMaterialPath);
+                material = UnityEngine.Resources.Load<Material>(NullMaterialPath);
             }
             return material;
         }

@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Coordinates.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Dimensions.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Interfaces;
+using UnityEngine;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Interfaces
 {
@@ -38,9 +41,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="gridConfigurationReport"></param>
+        /// <param name="CanvasGridMeasurements"></param>
         /// <returns></returns>
-        Vector2 GetWorldPositionFrom(ICanvasGridMeasurements gridConfigurationReport);
+        Vector2 GetWorldPositionFrom(ICanvasGridMeasurements CanvasGridMeasurements);
 
         /// <summary>
         /// Todo

@@ -5,8 +5,8 @@
     /// </summary>
     public interface ICanvasGridDimensions
     {
-        double getWidth();
+        double GetWidth();
 
-        double getHeight();
+        double GetHeight();
     }
 }

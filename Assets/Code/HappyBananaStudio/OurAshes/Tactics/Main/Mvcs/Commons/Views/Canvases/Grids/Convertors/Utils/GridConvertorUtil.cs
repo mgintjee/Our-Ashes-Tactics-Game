@@ -1,5 +1,9 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Entries.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Canvases.Scripts.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Entries.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Panels.Interfaces;
 using UnityEngine;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Utils
@@ -14,11 +18,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// </summary>
         /// <param name="panel">                  </param>
         /// <param name="gridConvertor">          </param>
-        /// <param name="gridConfigurationReport"></param>
-        public static void ApplyGridConfigurationReport(IPanel panel, IGridConvertor gridConvertor,
-            ICanvasGridMeasurements gridConfigurationReport)
+        /// <param name="CanvasGridMeasurements"></param>
+        public static void ApplyCanvasGridMeasurements(IPanel panel, IGridConvertor gridConvertor,
+            ICanvasGridMeasurements CanvasGridMeasurements)
         {
-            ApplyGridConfigurationReport((ICanvasScript)panel, gridConvertor, gridConfigurationReport);
+            ApplyCanvasGridMeasurements((ICanvasScript)panel, gridConvertor, CanvasGridMeasurements);
         }
 
         /// <summary>
@@ -27,7 +31,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// <param name="widget">                   </param>
         /// <param name="gridConvertor">            </param>
         /// <param name="widgetConfigurationReport"></param>
-        public static void ApplyGridConfigurationReport(IWidget widget, IGridConvertor gridConvertor,
+        public static void ApplyCanvasGridMeasurements(IWidget widget, IGridConvertor gridConvertor,
             ICanvasGridMeasurements widgetConfigurationReport)
         {
             widget.SetWidgetDimensions(gridConvertor.GetWorldDimensionsFrom(
@@ -41,11 +45,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// </summary>
         /// <param name="panelEntry">             </param>
         /// <param name="gridConvertor">          </param>
-        /// <param name="gridConfigurationReport"></param>
-        public static void ApplyGridConfigurationReport(IPanelEntry panelEntry, IGridConvertor gridConvertor,
-            ICanvasGridMeasurements gridConfigurationReport)
+        /// <param name="CanvasGridMeasurements"></param>
+        public static void ApplyCanvasGridMeasurements(IPanelEntry panelEntry, IGridConvertor gridConvertor,
+            ICanvasGridMeasurements CanvasGridMeasurements)
         {
-            ApplyGridConfigurationReport((ICanvasScript)panelEntry, gridConvertor, gridConfigurationReport);
+            ApplyCanvasGridMeasurements((ICanvasScript)panelEntry, gridConvertor, CanvasGridMeasurements);
         }
 
         /// <summary>
@@ -53,13 +57,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// </summary>
         /// <param name="canvasScript">           </param>
         /// <param name="gridConvertor">          </param>
-        /// <param name="gridConfigurationReport"></param>
-        private static void ApplyGridConfigurationReport(ICanvasScript canvasScript,
-            IGridConvertor gridConvertor, ICanvasGridMeasurements gridConfigurationReport)
+        /// <param name="CanvasGridMeasurements"></param>
+        private static void ApplyCanvasGridMeasurements(ICanvasScript canvasScript,
+            IGridConvertor gridConvertor, ICanvasGridMeasurements CanvasGridMeasurements)
         {
             // Find the WorldDimensions for this canvasScript
             Vector2 worldDimensions = gridConvertor.GetWorldDimensionsFrom(
-                gridConfigurationReport.GetDimensions());
+                CanvasGridMeasurements.GetDimensions());
             RectTransform rectTransform = canvasScript.GetRectTransform();
             float maxDimension = Mathf.Max(gridConvertor.GetWorldWidth(), gridConvertor.GetWorldHeight());
             // Apply some offsets
@@ -69,8 +73,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             rectTransform.sizeDelta = worldDimensions;
             // Set the WorldPosition of this canvasScript
             rectTransform.anchoredPosition = gridConvertor.GetWorldPositionFrom(
-                    gridConfigurationReport.GetCoordinates(),
-                    gridConfigurationReport.GetDimensions());
+                    CanvasGridMeasurements.GetCoordinates(),
+                    CanvasGridMeasurements.GetDimensions());
         }
     }
 }

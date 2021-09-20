@@ -1,4 +1,6 @@
-﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Dimensions.Implementations
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Dimensions.Interfaces;
+
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Dimensions.Implementations
 {
     /// <summary>
     /// Canvas Grid Dimensions Implementation
@@ -14,12 +16,12 @@
             this.width = width;
         }
 
-        double ICanvasGridDimensions.getHeight()
+        double ICanvasGridDimensions.GetHeight()
         {
             return this.height;
         }
 
-        double ICanvasGridDimensions.getWidth()
+        double ICanvasGridDimensions.GetWidth()
         {
             return this.width;
         }

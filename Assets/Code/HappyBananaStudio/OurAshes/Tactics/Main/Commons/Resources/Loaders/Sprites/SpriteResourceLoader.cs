@@ -1,11 +1,11 @@
-﻿namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Resources.Loaders.Sprites
-{
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
-    using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sprites.IDs;
-    using System.Diagnostics;
-    using UnityEngine;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Optionals;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sprites.IDs;
+using System.Diagnostics;
+using UnityEngine;
 
+namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Resources.Loaders.Sprites
+{
     /// <summary>
     /// Todo
     /// </summary>
@@ -35,7 +35,7 @@
         /// <returns></returns>
         private static Sprite LoadSpriteResource(string spritePath)
         {
-            return Resources.Load<Sprite>(spritePath);
+            return UnityEngine.Resources.Load<Sprite>(spritePath);
         }
     }
 }

@@ -1,4 +1,8 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Coordinates.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Dimensions.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +14,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
     public class GridConvertor : IGridConvertor
     {
         // Todo
-        private readonly IGridDimensions gridDimensions;
+        private readonly ICanvasGridDimensions gridDimensions;
 
         // Todo
         private readonly float worldHeight;
@@ -24,7 +28,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// <param name="gridDimensions"></param>
         /// <param name="worldHeight">   </param>
         /// <param name="worldWidth">    </param>
-        private GridConvertor(IGridDimensions gridDimensions, float worldWidth, float worldHeight)
+        private GridConvertor(ICanvasGridDimensions gridDimensions, float worldWidth, float worldHeight)
         {
             this.gridDimensions = gridDimensions;
             this.worldWidth = worldWidth;
@@ -32,13 +36,13 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         }
 
         /// <inheritdoc/>
-        IGridDimensions IGridConvertor.GetGridDimensions()
+        ICanvasGridDimensions IGridConvertor.GetGridDimensions()
         {
             return this.gridDimensions;
         }
 
         /// <inheritdoc/>
-        Vector2 IGridConvertor.GetWorldDimensionsFrom(IGridDimensions gridDimensions)
+        Vector2 IGridConvertor.GetWorldDimensionsFrom(ICanvasGridDimensions gridDimensions)
         {
             return this.GetWorldDimensionsFrom(gridDimensions);
         }
@@ -50,16 +54,16 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         }
 
         /// <inheritdoc/>
-        Vector2 IGridConvertor.GetWorldPositionFrom(IGridPosition gridPosition, IGridDimensions gridDimensions)
+        Vector2 IGridConvertor.GetWorldPositionFrom(ICanvasGridCoordinates gridPosition, ICanvasGridDimensions gridDimensions)
         {
             return this.GetWorldPositionFrom(gridPosition, gridDimensions);
         }
 
         /// <inheritdoc/>
-        Vector2 IGridConvertor.GetWorldPositionFrom(ICanvasGridMeasurements gridConfigurationReport)
+        Vector2 IGridConvertor.GetWorldPositionFrom(ICanvasGridMeasurements CanvasGridMeasurements)
         {
-            return this.GetWorldPositionFrom(gridConfigurationReport.GetGridPosition(),
-                gridConfigurationReport.GetGridDimensions());
+            return this.GetWorldPositionFrom(CanvasGridMeasurements.GetCoordinates(),
+                CanvasGridMeasurements.GetDimensions());
         }
 
         /// <inheritdoc/>
@@ -73,10 +77,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// </summary>
         /// <param name="gridDimensions"></param>
         /// <returns></returns>
-        private Vector2 GetWorldDimensionsFrom(IGridDimensions gridDimensions)
+        private Vector2 GetWorldDimensionsFrom(ICanvasGridDimensions gridDimensions)
         {
-            return new Vector2(gridDimensions.GetWidth() * this.GetWorldWidthStep(),
-                   gridDimensions.GetHeight() * this.GetWorldHeightStep());
+            return new Vector2((float)(gridDimensions.GetWidth() * this.GetWorldWidthStep()),
+                   (float)(gridDimensions.GetHeight() * this.GetWorldHeightStep()));
         }
 
         /// <summary>
@@ -85,7 +89,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// <returns></returns>
         private float GetWorldHeightStep()
         {
-            return this.worldHeight / this.gridDimensions.GetHeight();
+            return (float)(this.worldHeight / this.gridDimensions.GetHeight());
         }
 
         /// <summary>
@@ -93,7 +97,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// </summary>
         /// <param name="gridDimensions"></param>
         /// <returns></returns>
-        private Vector2 GetWorldPositionFrom(IGridPosition gridPosition, IGridDimensions gridDimensions)
+        private Vector2 GetWorldPositionFrom(ICanvasGridCoordinates gridPosition, ICanvasGridDimensions gridDimensions)
         {
             // Check if the position is null
             if (gridPosition == null)
@@ -107,8 +111,8 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
                 Vector2 canvasWorldStart = new Vector2(-this.worldWidth / 2, -this.worldHeight / 2);
                 canvasWorldStart.x += worldDimensions.x / 2;
                 canvasWorldStart.y += worldDimensions.y / 2;
-                canvasWorldStart.x += gridPosition.GetCol() * this.GetWorldWidthStep();
-                canvasWorldStart.y += gridPosition.GetRow() * this.GetWorldHeightStep();
+                canvasWorldStart.x += (float)(gridPosition.GetX() * this.GetWorldWidthStep());
+                canvasWorldStart.y += (float)(gridPosition.GetY() * this.GetWorldHeightStep());
                 return canvasWorldStart;
             }
         }
@@ -119,7 +123,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// <returns></returns>
         private float GetWorldWidthStep()
         {
-            return this.worldWidth / this.gridDimensions.GetWidth();
+            return (float)(this.worldWidth / this.gridDimensions.GetWidth());
         }
 
         /// <summary>
@@ -128,7 +132,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         public class Builder
         {
             // Todo
-            private IGridDimensions gridDimensions = null;
+            private ICanvasGridDimensions gridDimensions = null;
 
             // Todo
             private float worldHeight = 0f;
@@ -159,7 +163,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// </summary>
             /// <param name="gridDimensions"></param>
             /// <returns></returns>
-            public Builder SetGridDimensions(IGridDimensions gridDimensions)
+            public Builder SetDimensions(ICanvasGridDimensions gridDimensions)
             {
                 this.gridDimensions = gridDimensions;
                 return this;
@@ -198,7 +202,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
 
                 if (this.gridDimensions == null)
                 {
-                    argumentExceptionSet.Add(typeof(IGridDimensions) + " cannot be null.");
+                    argumentExceptionSet.Add(typeof(ICanvasGridDimensions) + " cannot be null.");
                 }
 
                 if (this.worldHeight <= 0)

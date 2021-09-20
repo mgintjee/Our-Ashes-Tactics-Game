@@ -103,7 +103,7 @@ private CanvasObject(Transform parentTransform, ICanvasConfigurationReport canva
     gameObject.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
     Vector2 sizeDelta = gameObject.GetComponent<RectTransform>().sizeDelta;
     this.canvasGridConvertor = new GridConvertor.Builder()
-        .SetGridDimensions(CanvasGridConstants.GetCanvasGridDimensions())
+        .SetDimensions(CanvasGridConstants.GetCanvasGridDimensions())
         .SetWorldHeight(sizeDelta.y)
         .SetWorldWidth(sizeDelta.x)
         .Build();
@@ -111,27 +111,27 @@ private CanvasObject(Transform parentTransform, ICanvasConfigurationReport canva
     gameObject.transform.SetParent(parentTransform);
     // Should verify that the configurationReport is valid, else use the default value
     this.panelInformational = new PanelInformational.Builder()
-        .SetCanvasConfigurationReport(canvasConfigurationReport.GetInformationalGridConfigurationReport())
+        .SetCanvasConfigurationReport(canvasConfigurationReport.GetInformationalCanvasGridMeasurements())
         .SetParentTransform(gameObject.transform)
         .SetCanvasGridConvertor(this.canvasGridConvertor)
         .Build();
     this.panelActionMenu = new PanelActionMenu.Builder()
-        .SetCanvasConfigurationReport(canvasConfigurationReport.GetActionMenuGridConfigurationReport())
+        .SetCanvasConfigurationReport(canvasConfigurationReport.GetActionMenuCanvasGridMeasurements())
         .SetParentTransform(gameObject.transform)
         .SetCanvasGridConvertor(this.canvasGridConvertor)
         .Build();
     this.panelScoreBoard = new PanelScoreBoard.Builder()
-        .SetCanvasConfigurationReport(canvasConfigurationReport.GetScoreBoardGridConfigurationReport())
+        .SetCanvasConfigurationReport(canvasConfigurationReport.GetScoreBoardCanvasGridMeasurements())
         .SetParentTransform(gameObject.transform)
         .SetCanvasGridConvertor(this.canvasGridConvertor)
         .Build();
     this.panelSettingMenu = new PanelSettingMenu.Builder()
-        .SetCanvasConfigurationReport(canvasConfigurationReport.GetSettingMenuGridConfigurationReport())
+        .SetCanvasConfigurationReport(canvasConfigurationReport.GetSettingMenuCanvasGridMeasurements())
         .SetParentTransform(gameObject.transform)
         .SetCanvasGridConvertor(this.canvasGridConvertor)
         .Build();
     this.panelTurnScroller = new PanelTurnScroller.Builder()
-        .SetCanvasConfigurationReport(canvasConfigurationReport.GetTurnScrollerGridConfigurationReport())
+        .SetCanvasConfigurationReport(canvasConfigurationReport.GetTurnScrollerCanvasGridMeasurements())
         .SetParentTransform(gameObject.transform)
         .SetCanvasGridConvertor(this.canvasGridConvertor)
         .Build();

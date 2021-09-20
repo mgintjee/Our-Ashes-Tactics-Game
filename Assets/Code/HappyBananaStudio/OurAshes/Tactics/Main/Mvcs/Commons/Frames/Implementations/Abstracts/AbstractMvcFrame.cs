@@ -60,10 +60,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
         public AbstractMvcFrame(IMvcFrameConstruction mvcFrameConstruction,
             IMvcFrameConstruction returnMvcFrameConstruction)
         {
+            _logger = LoggerManager.GetLogger(mvcFrameConstruction.GetMvcType(), this.GetType());
             _logger.Info("Building {} {}", mvcFrameConstruction.GetMvcType(), typeof(IMvcFrame));
             _returnMvcFrameConstruction = returnMvcFrameConstruction;
             _mvcType = mvcFrameConstruction.GetMvcType();
-            _logger = LoggerManager.GetLogger(_mvcType, this.GetType());
             _mvcFrameScript = MvcFrameScript.Builder.Get()
                 .SetMvcFrameConstruction(mvcFrameConstruction)
                 .Build();
@@ -173,14 +173,16 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
         /// <returns></returns>
         protected abstract IMvcView BuildMvcView(IMvcFrameConstruction mvcFrameConstruction);
 
+        /// <inheritdoc/>
         IMvcFrameConstruction IMvcFrame.GetMvcFrameConstruction()
         {
-            return this._returnMvcFrameConstruction;
+            return this._mvcFrameConstruction;
         }
 
+        /// <inheritdoc/>
         IMvcFrameConstruction IMvcFrame.GetReturnMvcFrameConstruction()
         {
-            return this._mvcFrameConstruction;
+            return this._returnMvcFrameConstruction;
         }
     }
 }

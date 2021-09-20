@@ -9,6 +9,8 @@
         Sortie,
         Central,
         Home,
-        World
+        World,
+        Splash,
+        Manager
     }
 }

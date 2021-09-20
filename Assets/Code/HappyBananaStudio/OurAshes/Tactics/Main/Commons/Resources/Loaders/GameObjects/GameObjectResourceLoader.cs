@@ -22,7 +22,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Resources.
         /// <returns></returns>
         protected static GameObject LoadGameObjectResource(string path)
         {
-            GameObject prefab = Resources.Load<GameObject>(path);
+            GameObject prefab = UnityEngine.Resources.Load<GameObject>(path);
             if (prefab != null)
             {
                 GameObject spawnedGameObject = Object.Instantiate(prefab);
