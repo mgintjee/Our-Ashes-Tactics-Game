@@ -44,7 +44,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Repor
         /// <inheritdoc/>
         protected override string GetContent()
         {
-            return string.Format("_isProcessing={0}, _mvcRequests={1}", _isProcessing, _mvcRequests);
+            string mvcRequestString = (_mvcRequests.Count != 0) ? "" : "Empty";
+            foreach (IMvcRequest mvcRequest in _mvcRequests)
+            {
+                mvcRequestString += mvcRequest.ToString() + ", ";
+            }
+            return string.Format("_isProcessing={0}, _mvcRequests({1})=[{2}]", _isProcessing, _mvcRequests.Count, mvcRequestString);
         }
 
         /// <summary>

@@ -1,8 +1,8 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Implementations;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Canvases.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Canvases.Scripts.Implementations.Abstract;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Entries.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Interfaces.Basics;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Panels.Interfaces;
@@ -14,7 +14,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
     /// <summary>
     /// Todo
     /// </summary>
-    public abstract class AbstractPanel : AbstractCanvasScript, IPanel
+    public abstract class AbstractPanel : CanvasScript, IPanel
     {
         // Todo
         protected IImageWidget backgroundImage;
@@ -106,10 +106,10 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             // Collect the SizeDelta for this Panel
             Vector2 sizeDelta = this.GetComponent<RectTransform>().sizeDelta;
             // Build the GridConvertor for this Panel
-            this.panelGridConvertor = new GridConvertor.Builder()
+            this.panelGridConvertor = GridConvertor.Builder.Get()
                 .SetDimensions(this.panelGridDimensions.GetDimensions())
-                .SetWorldWidth(sizeDelta.x)
-                .SetWorldHeight(sizeDelta.y)
+                .SetWidth(sizeDelta.x)
+                .SetHeight(sizeDelta.y)
                 .Build();
         }
     }

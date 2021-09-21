@@ -5,6 +5,8 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.C
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Models.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Views.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Views.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Utils;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Interfaces;
 
@@ -30,6 +32,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         // Todo
         protected IMvcViewCanvas mvcViewForeCanvas;
 
+        // Todo
+        protected IUnityScript unityScript;
+
+        // Todo
+        protected IMvcFrameConstruction mvcFrameConstruction;
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -37,6 +45,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         public AbstractMvcView(IMvcFrameConstruction mvcFrameConstruction)
         {
             _logger = LoggerManager.GetLogger(mvcFrameConstruction.GetMvcType(), this.GetType());
+            this.mvcFrameConstruction = mvcFrameConstruction;
+            this.unityScript = UnityScriptUtils.BuildViewUnityScript(typeof(IMvcView),
+                mvcFrameConstruction.GetMvcType(), this.mvcFrameConstruction.GetUnityScript());
             this.BuildCanvas();
             this.BuildReport();
         }

@@ -1,4 +1,4 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Canvases.Scripts.Implementations.Abstract;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Canvases.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Interfaces;
 using UnityEngine;
 
@@ -7,7 +7,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
     /// <summary>
     /// Todo
     /// </summary>
-    public abstract class AbstractWidget : AbstractCanvasScript, IWidget
+    public abstract class AbstractWidget : CanvasScript, IWidget
     {
         // Todo
         protected Vector2 widgetDimensions;
@@ -54,5 +54,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             this.widgetPosition = widgetPosition;
             this.GetComponent<RectTransform>().anchoredPosition = widgetPosition;
         }
+
+        // Todo: Maybe have a protected Widget Builder class that the implemetnations can use
     }
 }

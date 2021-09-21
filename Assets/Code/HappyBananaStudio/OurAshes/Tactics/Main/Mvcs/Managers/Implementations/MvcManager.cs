@@ -5,7 +5,7 @@ using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Unity.Scripts.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Managers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Splashes.Controllers.Constructions.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Splashes.Frames.Implementations;
@@ -51,7 +51,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Managers.Impl
             // Check if the activeMvcType has been set
             if (this.activeMvcType == MvcType.None)
             {
-                _logger.Info("Building initial {} {}", MvcType.Splash, typeof(IMvcFrame));
                 this.mvcTypeFrames[MvcType.Splash] = this.BuildMvcFrame(this.BuildInitialMvcFrameConstruction());
             }
             if (!this.mvcTypeFrames.ContainsKey(this.activeMvcType))
@@ -110,9 +109,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Managers.Impl
         private IMvcFrameConstruction BuildInitialMvcFrameConstruction()
         {
             return MvcFrameConstruction.Builder.Get()
-                .SetMvcControllerConstruction(SplashControllerConstruction.Builder.GetBuilder().Build())
-                .SetMvcViewConstruction(SplashViewConstruction.Builder.GetBuilder().Build())
-                .SetMvcModelConstruction(SplashModelConstruction.Builder.GetBuilder().Build())
+                .SetMvcControllerConstruction(SplashControllerConstruction.Builder.Get().Build())
+                .SetMvcViewConstruction(SplashViewConstruction.Builder.Get().Build())
+                .SetMvcModelConstruction(SplashModelConstruction.Builder.Get().Build())
                 .SetSimulationType(SimulationType.Interactive)
                 .SetUnityScript(unityScript)
                 .SetMvcType(MvcType.Splash)

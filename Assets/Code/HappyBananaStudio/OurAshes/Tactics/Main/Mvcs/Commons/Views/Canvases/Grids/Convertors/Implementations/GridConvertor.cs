@@ -1,4 +1,5 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Implementations.Abstracts;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Coordinates.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Dimensions.Interfaces;
@@ -131,90 +132,72 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         /// </summary>
         public class Builder
         {
-            // Todo
-            private ICanvasGridDimensions gridDimensions = null;
-
-            // Todo
-            private float worldHeight = 0f;
-
-            // Todo
-            private float worldWidth = 0f;
-
-            /// <summary>
-            /// Build the implementation of the object and return it
-            /// </summary>
-            /// <returns>The new object's interface</returns>
-            public IGridConvertor Build()
-            {
-                ISet<string> invalidReasons = this.IsInvalid();
-                // Check that the set parameters are valid
-                if (invalidReasons.Count == 0)
-                {
-                    // Instantiate a new Object
-                    return new GridConvertor(this.gridDimensions,
-                        this.worldWidth, this.worldHeight);
-                }
-                throw ExceptionUtil.Arguments.Build("Unable to construct {}. Invalid Parameters. {}",
-                    this.GetType(), string.Join("\n", invalidReasons));
-            }
-
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="gridDimensions"></param>
-            /// <returns></returns>
-            public Builder SetDimensions(ICanvasGridDimensions gridDimensions)
+            public interface IBuilder : IBuilder<IGridConvertor>
             {
-                this.gridDimensions = gridDimensions;
-                return this;
-            }
+                IBuilder SetDimensions(ICanvasGridDimensions canvasGridDimensions);
 
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="worldHeight"></param>
-            /// <returns></returns>
-            public Builder SetWorldHeight(float worldHeight)
-            {
-                this.worldHeight = worldHeight;
-                return this;
-            }
+                IBuilder SetWidth(float width);
 
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <param name="worldWidth"></param>
-            /// <returns></returns>
-            public Builder SetWorldWidth(float worldWidth)
-            {
-                this.worldWidth = worldWidth;
-                return this;
+                IBuilder SetHeight(float height);
             }
 
             /// <summary>
             /// Todo
             /// </summary>
             /// <returns></returns>
-            private ISet<string> IsInvalid()
+            public static IBuilder Get()
             {
-                // Default an empty Set: String
-                ISet<string> argumentExceptionSet = new HashSet<string>();
+                return new InternalBuilder();
+            }
 
-                if (this.gridDimensions == null)
+            /// <summary>
+            /// Todo
+            /// </summary>
+            private class InternalBuilder : AbstractBuilder<IGridConvertor>, IBuilder
+            {
+                // Todo
+                private ICanvasGridDimensions canvasGridDimensions = null;
+
+                // Todo
+                private float height = 0f;
+
+                // Todo
+                private float width = 0f;
+
+                /// <inheritdoc/>
+                protected override IGridConvertor BuildObj()
                 {
-                    argumentExceptionSet.Add(typeof(ICanvasGridDimensions) + " cannot be null.");
+                    return new GridConvertor(this.canvasGridDimensions, this.width, this.height);
                 }
 
-                if (this.worldHeight <= 0)
+                /// <inheritdoc/>
+                protected override void Validate(ISet<string> invalidReasons)
                 {
-                    argumentExceptionSet.Add("worldHeight cannot be less than or equal to 0.");
+                    this.Validate(invalidReasons, canvasGridDimensions);
+                    this.Validate(invalidReasons, width);
+                    this.Validate(invalidReasons, height);
                 }
 
-                if (this.worldWidth <= 0)
+                IBuilder IBuilder.SetDimensions(ICanvasGridDimensions canvasGridDimensions)
                 {
-                    argumentExceptionSet.Add("worldWidth cannot be less than or equal to 0.");
+                    this.canvasGridDimensions = canvasGridDimensions;
+                    return this;
                 }
-                return argumentExceptionSet;
+
+                IBuilder IBuilder.SetHeight(float height)
+                {
+                    this.height = height;
+                    return this;
+                }
+
+                IBuilder IBuilder.SetWidth(float width)
+                {
+                    this.width = width;
+                    return this;
+                }
             }
         }
     }

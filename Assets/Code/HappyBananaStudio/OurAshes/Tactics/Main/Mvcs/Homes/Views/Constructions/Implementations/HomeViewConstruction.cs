@@ -33,7 +33,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Views.C
             /// Todo
             /// </summary>
             /// <returns></returns>
-            public static IBuilder GetBuilder()
+            public static IBuilder Get()
             {
                 return new InternalBuilder();
             }

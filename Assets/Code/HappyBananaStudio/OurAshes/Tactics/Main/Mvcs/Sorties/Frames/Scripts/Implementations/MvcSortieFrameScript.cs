@@ -1,5 +1,5 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Unity.Scripts.Implementations.Abstract;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Unity.Scripts.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Scripts.Interfaces;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Sorties.Frame
     /// <summary>
     /// Mvc Sortie Frame Script Implementation
     /// </summary>
-    public class MvcSortieFrameScript : AbstractUnityScript, IMvcSortieFrameScript
+    public class MvcSortieFrameScript : UnityScript, IMvcSortieFrameScript
     {
         /// <summary>
         /// Todo
