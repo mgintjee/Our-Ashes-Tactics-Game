@@ -8,8 +8,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.I
     /// <summary>
     /// Abstract Builder class Implementation
     /// </summary>
-    public abstract class AbstractBuilder<T>
-        : IBuilder<T>
+    public abstract class AbstractBuilder<T> : IBuilder<T>
     {
         /// <summary>
         /// Build the T object with the parameters that this builder is tracking

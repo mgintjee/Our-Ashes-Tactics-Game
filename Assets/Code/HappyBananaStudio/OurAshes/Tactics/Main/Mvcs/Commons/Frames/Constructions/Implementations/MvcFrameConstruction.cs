@@ -1,12 +1,15 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Simulations.Types;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Contstructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Models.Constructions.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Constructions.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Controllers.Constructions.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Models.Constructions.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Homes.Views.Constructions.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Splashes.Models.Constructions.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Splashes.Views.Constructions.Implementations;
 using System;
 using System.Collections.Generic;
 
@@ -121,27 +124,6 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
                 /// <summary>
                 /// Todo
                 /// </summary>
-                /// <param name="mvcControllerConstruction"></param>
-                /// <returns></returns>
-                IBuilder SetMvcControllerConstruction(IMvcControllerConstruction mvcControllerConstruction);
-
-                /// <summary>
-                /// Todo
-                /// </summary>
-                /// <param name="mvcModelConstruction"></param>
-                /// <returns></returns>
-                IBuilder SetMvcModelConstruction(IMvcModelConstruction mvcModelConstruction);
-
-                /// <summary>
-                /// Todo
-                /// </summary>
-                /// <param name="mvcViewConstruction"></param>
-                /// <returns></returns>
-                IBuilder SetMvcViewConstruction(IMvcViewConstruction mvcViewConstruction);
-
-                /// <summary>
-                /// Todo
-                /// </summary>
                 /// <param name="mvcType"></param>
                 /// <returns></returns>
                 IBuilder SetMvcType(MvcType mvcType);
@@ -204,30 +186,23 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
                 private Random _random;
 
                 /// <inheritdoc/>
-                IBuilder IBuilder.SetMvcControllerConstruction(IMvcControllerConstruction mvcControllerConstruction)
-                {
-                    _mvcControllerConstruction = mvcControllerConstruction;
-                    return this;
-                }
-
-                /// <inheritdoc/>
-                IBuilder IBuilder.SetMvcModelConstruction(IMvcModelConstruction mvcModelConstruction)
-                {
-                    _mvcModelConstruction = mvcModelConstruction;
-                    return this;
-                }
-
-                /// <inheritdoc/>
                 IBuilder IBuilder.SetMvcType(MvcType mvcType)
                 {
                     _mvcType = mvcType;
-                    return this;
-                }
+                    switch (mvcType)
+                    {
+                        case MvcType.Splash:
+                            _mvcControllerConstruction = SplashControllerConstruction.Builder.Get().Build();
+                            _mvcModelConstruction = SplashModelConstruction.Builder.Get().Build();
+                            _mvcViewConstruction = SplashViewConstruction.Builder.Get().Build();
+                            break;
 
-                /// <inheritdoc/>
-                IBuilder IBuilder.SetMvcViewConstruction(IMvcViewConstruction mvcViewConstruction)
-                {
-                    _mvcViewConstruction = mvcViewConstruction;
+                        case MvcType.Home:
+                            _mvcControllerConstruction = HomeControllerConstruction.Builder.Get().Build();
+                            _mvcModelConstruction = HomeModelConstruction.Builder.Get().Build();
+                            _mvcViewConstruction = HomeViewConstruction.Builder.Get().Build();
+                            break;
+                    }
                     return this;
                 }
 

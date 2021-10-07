@@ -1,7 +1,5 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Simulations.Types;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Mvcs.Types;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Randoms.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Implementations;
@@ -48,6 +46,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
         private readonly IMvcFrameConstruction _returnMvcFrameConstruction;
 
         // Todo
+        private IMvcFrameConstruction _nextMvcFrameConstruction;
+
+        // Todo
         private readonly IList<IMvcFrameReport> _mvcReports = new List<IMvcFrameReport>();
 
         // Todo
@@ -63,15 +64,12 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
             _logger = LoggerManager.GetLogger(mvcFrameConstruction.GetMvcType(), this.GetType());
             _logger.Info("Building {} {}", mvcFrameConstruction.GetMvcType(), typeof(IMvcFrame));
             _returnMvcFrameConstruction = returnMvcFrameConstruction;
+            _nextMvcFrameConstruction = null;
             _mvcType = mvcFrameConstruction.GetMvcType();
             _mvcFrameScript = MvcFrameScript.Builder.Get()
                 .SetMvcFrameConstruction(mvcFrameConstruction)
                 .Build();
             _mvcFrameConstruction = MvcFrameConstruction.Builder.Get()
-                // Copy over the orginal values
-                .SetMvcControllerConstruction(mvcFrameConstruction.GetMvcControllerConstruction())
-                .SetMvcModelConstruction(mvcFrameConstruction.GetMvcModelConstruction())
-                .SetMvcViewConstruction(mvcFrameConstruction.GetMvcViewConstruction())
                 .SetSimulationType(mvcFrameConstruction.GetSimulationType())
                 .SetMvcType(mvcFrameConstruction.GetMvcType())
                 // Set the new values
@@ -91,9 +89,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
             IMvcControllerReport mvcControllerReport = _mvcController.GetReport();
             IMvcViewReport mvcViewReport = _mvcView.GetReport();
             IMvcModelReport mvcModelReport = _mvcModel.GetReport();
-            _logger.Info("Controller: {}.", mvcControllerReport);
-            _logger.Info("View: {}.", mvcViewReport);
-            _logger.Info("Model: {}.", mvcModelReport);
+            _logger.Info("Controller: {}, View: {}, Model: {}.", mvcControllerReport, mvcViewReport, mvcModelReport);
             // Check if the MvcView is either null or no longer processing
             if (!mvcViewReport.IsProcessing())
             {
@@ -127,6 +123,11 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
                             .SetMvcViewReport(mvcViewReport)
                             .SetMvcModelReport(mvcModelReport)
                             .Build());
+                    }
+                    if (((IMvcFrame)this).IsComplete())
+                    {
+                        _nextMvcFrameConstruction = this.BuildUpcomingMvcFrameConstruction(
+                            _mvcReports[_mvcReports.Count - 1]);
                     }
                 }
             }
@@ -173,16 +174,22 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Frame
         /// <returns></returns>
         protected abstract IMvcView BuildMvcView(IMvcFrameConstruction mvcFrameConstruction);
 
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        protected abstract IMvcFrameConstruction BuildUpcomingMvcFrameConstruction(IMvcFrameReport mvcFrameReport);
+
         /// <inheritdoc/>
-        IMvcFrameConstruction IMvcFrame.GetMvcFrameConstruction()
+        IMvcFrameConstruction IMvcFrame.GetCurrentMvcFrameConstruction()
         {
             return this._mvcFrameConstruction;
         }
 
         /// <inheritdoc/>
-        IMvcFrameConstruction IMvcFrame.GetReturnMvcFrameConstruction()
+        IMvcFrameConstruction IMvcFrame.GetUpcomingMvcFrameConstruction()
         {
-            return this._returnMvcFrameConstruction;
+            return _nextMvcFrameConstruction ?? _returnMvcFrameConstruction;
         }
     }
 }

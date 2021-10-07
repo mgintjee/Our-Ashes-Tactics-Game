@@ -1,14 +1,13 @@
 ﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Canvases.Implementations;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Canvases.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sprites.IDs;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Canvases.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Interfaces;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Implementations.Abstracts;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Implementations.Abstracts.Basics;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Interfaces.Basics;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Diagnostics;
 
 namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Splashes.Views.Canvases.Backs.Implementations
 {
@@ -17,12 +16,17 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Splashes.View
     /// </summary>
     public class SplashViewBackCanvas : AbstractMvcViewCanvas, IMvcViewCanvas
     {
+        // Todo
+        private readonly ILogger _logger = LoggerManager.GetLogger(MvcType.Splash, new StackFrame().GetMethod().DeclaringType);
+
         /// <inheritdoc/>
         protected override void InternalBuild()
         {
             IImageWidget imageWidget = ImageWidget.Builder.Get()
-                .SetParentUnityScript(this)
                 .SetSpriteID(SpriteID.Circle)
+                .SetParent(this)
+                .SetName(this.GetType().Name + ":Image")
+                .SetMeasurements(canvasGridMeasurements)
                 .Build();
             this.AddWidget(imageWidget);
         }
@@ -61,7 +65,7 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Splashes.View
                 }
 
                 /// <inheritdoc/>
-                protected override IMvcViewCanvas BuildScript(GameObject gameObject)
+                protected override IMvcViewCanvas BuildScript(UnityEngine.GameObject gameObject)
                 {
                     IMvcViewCanvas mvcViewCanvas = gameObject.AddComponent<SplashViewBackCanvas>();
                     mvcViewCanvas.SetParent(this.unityScript);

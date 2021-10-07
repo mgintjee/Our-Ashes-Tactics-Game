@@ -1,11 +1,6 @@
-﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Implementations.Abstracts;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Interfaces;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Colors.IDs;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Resources.Loaders.Sprites;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Sprites.IDs;
-using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Interfaces;
+﻿using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Widgets.Implementations;
+using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Commons.Builders.Widgets.Interfaces;
 using Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Interfaces.Basics;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,16 +20,14 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
         // Todo
         protected ColorID colorID;
 
-        // Todo
-        protected IUnityScript parentUnityScript;
-
+        /// <inheritdoc/>
         public void Start()
         {
             this.image = this.GetGameObject().AddComponent<Image>();
-            this.image.sprite = SpriteResourceLoader.LoadSpriteResource(spriteID).GetValue();
         }
 
-        void IImageWidget.SetColor(ColorID colorID)
+        /// <inheritdoc/>
+        void IImageWidget.SetColorID(ColorID colorID)
         {
             this.colorID = colorID;
         }
@@ -57,20 +50,18 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// <summary>
             /// Todo
             /// </summary>
-            public interface IBuilder : IBuilder<IImageWidget>
+            public interface IImageBuilder : IWidgetBuilder<IImageWidget>
             {
-                IBuilder SetSpriteID(SpriteID spriteID);
+                IImageBuilder SetSpriteID(SpriteID spriteID);
 
-                IBuilder SetColorID(ColorID colorID);
-
-                IBuilder SetParentUnityScript(IUnityScript unityScript);
+                IImageBuilder SetColorID(ColorID colorID);
             }
 
             /// <summary>
             /// Todo
             /// </summary>
             /// <returns></returns>
-            public static IBuilder Get()
+            public static IImageBuilder Get()
             {
                 return new InternalBuilder();
             }
@@ -78,53 +69,33 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Views
             /// <summary>
             /// Todo
             /// </summary>
-            private class InternalBuilder : AbstractBuilder<IImageWidget>, IBuilder
+            private class InternalBuilder : AbstractWidgetBuilder<IImageWidget>, IImageBuilder
             {
                 // Todo
-                private SpriteID spriteID;
+                protected SpriteID spriteID;
 
                 // Todo
-                private ColorID colorID;
+                protected ColorID colorID;
 
-                // Todo
-                private IUnityScript unityScript;
-
-                /// <inheritdoc/>
-
-                IBuilder IBuilder.SetParentUnityScript(IUnityScript unityScript)
-                {
-                    this.unityScript = unityScript;
-                    return this;
-                }
-
-                /// <inheritdoc/>
-                IBuilder IBuilder.SetSpriteID(SpriteID spriteID)
-                {
-                    this.spriteID = spriteID;
-                    return this;
-                }
-
-                /// <inheritdoc/>
                 protected override IImageWidget BuildObj()
                 {
-                    GameObject gameObject = new GameObject(typeof(ImageWidget).Name);
+                    GameObject gameObject = new GameObject();
                     IImageWidget imageWidget = gameObject.AddComponent<ImageWidget>();
-                    imageWidget.SetParent(this.unityScript);
+                    this.ApplyCommonParams(imageWidget);
                     imageWidget.SetSpriteID(this.spriteID);
+                    imageWidget.SetColorID(this.colorID);
                     return imageWidget;
                 }
 
-                /// <inheritdoc/>
-                protected override void Validate(ISet<string> invalidReasons)
-                {
-                    this.Validate(invalidReasons, spriteID);
-                    // Todo: Validate the ColorID
-                }
-
-                /// <inheritdoc/>
-                IBuilder IBuilder.SetColorID(ColorID colorID)
+                IImageBuilder IImageBuilder.SetColorID(ColorID colorID)
                 {
                     this.colorID = colorID;
+                    return this;
+                }
+
+                IImageBuilder IImageBuilder.SetSpriteID(SpriteID spriteID)
+                {
+                    this.spriteID = spriteID;
                     return this;
                 }
             }

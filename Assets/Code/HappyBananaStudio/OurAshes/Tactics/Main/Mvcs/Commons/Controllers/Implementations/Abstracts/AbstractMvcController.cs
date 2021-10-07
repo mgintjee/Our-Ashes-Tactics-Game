@@ -33,6 +33,9 @@ namespace Assets.Code.HappyBananaStudio.OurAshes.Tactics.Main.Mvcs.Commons.Contr
         // Todo
         private IMvcControllerReport _mvcControllerReport;
 
+        // Todo
+        protected IMvcControllerInput mvcControllerInput;
+
         /// <summary>
         /// Todo
         /// </summary>
