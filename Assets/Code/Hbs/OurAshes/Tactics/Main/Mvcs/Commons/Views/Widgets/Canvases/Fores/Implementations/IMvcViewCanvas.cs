@@ -1,0 +1,23 @@
+﻿namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Canvases.Fores.Implementations
+{
+    /// <summary>
+    /// Mvc View Canvas Interface
+    /// </summary>
+    public interface IMvcViewCanvas
+    {
+        /// <summary>
+        /// Todo
+        /// </summary>
+        void Clear();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        void Reset();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        void Build();
+    }
+}
