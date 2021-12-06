@@ -3,21 +3,21 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Phalanxes.CallSigns;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Sorties.Maps.Spawns.Areas;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Sorties.Maps.Spawns.Sides;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Utils.Enums;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Engagements.Constructions.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Constructions.Models.Implementaions;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Constructions.Models.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Spawns.Positions.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Spawns.Positions.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Phalanxes.Constructions.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Engagements.Constrs.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Constrs.Models.Implementaions;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Constrs.Models.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Spawns.Positions.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Spawns.Positions.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Phalanxes.Constrs.Inters;
 using System;
 using System.Collections.Generic;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Maps
 {
     /// <summary>
-    /// Random Map Constructions
+    /// Random Map Constrs
     /// </summary>
-    public static class RandomMapConstructions
+    public static class RandomMapConstrs
     {
         /// <summary>
         /// Todo
@@ -29,10 +29,10 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Maps
         {
             IDictionary<CombatantCallSign, ISpawnPosition> combatantCallSignSpawnPositions = new Dictionary<CombatantCallSign, ISpawnPosition>();
             IDictionary<PhalanxCallSign, SpawnArea> phalanxCallSignSpawnArea = new Dictionary<PhalanxCallSign, SpawnArea>();
-            ISet<IPhalanxConstruction> phalanxConstructions = new HashSet<IPhalanxConstruction>(engagementConstruction.GetPhalanxConstructions());
-            IList<SpawnArea> spawnAreas = EnumUtils.GetEnumList<SpawnArea>(phalanxConstructions.Count);
+            ISet<IPhalanxConstruction> phalanxConstrs = new HashSet<IPhalanxConstruction>(engagementConstruction.GetPhalanxConstrs());
+            IList<SpawnArea> spawnAreas = EnumUtils.GetEnumList<SpawnArea>(phalanxConstrs.Count);
             int spawnAreaIndex = 0;
-            foreach (IPhalanxConstruction phalanxConstruction in phalanxConstructions)
+            foreach (IPhalanxConstruction phalanxConstruction in phalanxConstrs)
             {
                 SpawnArea spawnArea = spawnAreas[spawnAreaIndex];
                 phalanxCallSignSpawnArea.Add(phalanxConstruction.GetPhalanxCallSign(), spawnArea);
@@ -48,7 +48,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Maps
                 }
                 spawnAreaIndex++;
             }
-            // Todo: Populate the SortieTileModelConstructions
+            // Todo: Populate the SortieTileModelConstrs
             return SortieMapModelConstruction.Builder.Get()
                 .SetSortieTileModelConstruction()
                 .Build();

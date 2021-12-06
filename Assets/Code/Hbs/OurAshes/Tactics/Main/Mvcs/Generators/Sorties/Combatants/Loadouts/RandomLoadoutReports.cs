@@ -1,13 +1,13 @@
-﻿/*using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Loadouts.Interfaces;
+﻿/*using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Combatants.Attributes.Loadouts.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Combatants.IDs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Combatants.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Sizes;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Rarities;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Combatants.Models.Managers;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Gears.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Gears.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Combatants.Loadouts.Gears;
 using System;
 using System.Collections.Generic;

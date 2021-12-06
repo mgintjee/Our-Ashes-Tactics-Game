@@ -1,11 +1,11 @@
 ﻿/*using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Mvcs.Simulations.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Mvcs.Types;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Scripts.Unity.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Constructions.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Constructions.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Constructions.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Scripts.Unity.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Constrs.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Constrs.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Constrs.Inters;
 using System;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties
@@ -13,7 +13,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties
     /// <summary>
     /// Random Sortie Construction
     /// </summary>
-    public static class RandomSortieConstructions
+    public static class RandomSortieConstrs
     {
         public static IMvcFrameConstruction Generate(IUnityScript unityScript)
         {
@@ -45,10 +45,10 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties
             int mapSize = random.Next(3, 5);
             int phalanxCount = random.Next(2, GetMaxPhalanxCount(mapSize));
             int maxPhalanxCombatantCount = random.Next(1, GetMaxCombatantCount(mapSize, phalanxCount));
-            IEngagementConstruction engagementConstruction = RandomEngagementConstructions.Generate(random, simulationType, phalanxCount, maxPhalanxCombatantCount);
-            IMapConstruction mapConstruction = RandomMapConstructions.Generate(random, mapSize, engagementConstruction);
-            IRosterConstruction rosterConstruction = RandomRosterConstructions.Generate(random, simulationType, engagementConstruction);
-            IScoreConstruction scoreConstruction = RandomScoreConstructions.Generate(random);
+            IEngagementConstruction engagementConstruction = RandomEngagementConstrs.Generate(random, simulationType, phalanxCount, maxPhalanxCombatantCount);
+            IMapConstruction mapConstruction = RandomMapConstrs.Generate(random, mapSize, engagementConstruction);
+            IRosterConstruction rosterConstruction = RandomRosterConstrs.Generate(random, simulationType, engagementConstruction);
+            IScoreConstruction scoreConstruction = RandomScoreConstrs.Generate(random);
             return new MvcSortieFrameConstruction.Builder()
                 .SetSimulationType(simulationType)
                 .SetUnityScript(unityScript)

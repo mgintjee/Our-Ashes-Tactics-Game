@@ -2,14 +2,14 @@
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Loadouts.Traits.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Rarities;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Models.Traits.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Models.Traits.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Models.Traits.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Models.Traits.Inters;
 using System.Collections.Generic;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Models.Traits.Managers
 {
     /// <summary>
-    /// Trait Model Constants Manager to host the Trait Model Constants Implementations
+    /// Trait Model Constants Manager to host the Trait Model Constants Impls
     /// </summary>
     public static class TraitModelConstantsManager
     {

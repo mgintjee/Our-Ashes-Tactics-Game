@@ -2,10 +2,10 @@
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loadouts.Traits.IDs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loadouts.Traits.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Models.Gears.Managers;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Models.Traits.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Models.Traits.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Models.Traits.Managers;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Traits.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Traits.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Traits.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Traits.Inters;
 using System;
 using System.Collections.Generic;
 

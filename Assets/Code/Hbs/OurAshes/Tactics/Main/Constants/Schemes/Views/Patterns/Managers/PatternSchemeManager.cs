@@ -1,14 +1,14 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Views.Colors.IDs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Views.Schemes.Patterns.IDs;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Schemes.Views.Patterns.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Schemes.Views.Patterns.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Schemes.Views.Patterns.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Schemes.Views.Patterns.Inters;
 using System.Collections.Generic;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Schemes.Views.Patterns.Managers
 {
     /// <summary>
-    /// Pattern Scheme Manager to host the Pattern Scheme Implementations
+    /// Pattern Scheme Manager to host the Pattern Scheme Impls
     /// </summary>
     public static class PatternSchemeManager
     {

@@ -1,14 +1,14 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Views.Schemes.Emblems.IDs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Views.Sprites.IDs;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Schemes.Views.Emblems.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Schemes.Views.Emblems.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Schemes.Views.Emblems.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Schemes.Views.Emblems.Inters;
 using System.Collections.Generic;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Schemes.Views.Emblems.Managers
 {
     /// <summary>
-    /// Emblem Scheme Manager to host the Emblem Scheme Implementations
+    /// Emblem Scheme Manager to host the Emblem Scheme Impls
     /// </summary>
     public static class EmblemSchemeManager
     {

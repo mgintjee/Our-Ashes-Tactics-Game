@@ -1,12 +1,12 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Reports.Implementations.Abstracts;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Controllers.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Combats.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Engagements.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Maps.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Orders.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Rosters.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Scores.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Reports.Abstrs;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Controllers.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Combats.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Engagements.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Maps.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Orders.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Rosters.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Scores.Inters;
 using System.Collections.Generic;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Implementaions

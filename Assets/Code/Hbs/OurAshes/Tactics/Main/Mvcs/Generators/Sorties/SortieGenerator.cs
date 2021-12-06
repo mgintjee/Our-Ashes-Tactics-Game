@@ -1,11 +1,11 @@
 ﻿/*using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Mvcs.Simulations.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Mvcs.Types;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Scripts.Unity.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Constructions.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constructions.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Constructions.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Constructions.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Scripts.Unity.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Constrs.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Constrs.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Constrs.Inters;
 using System;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties

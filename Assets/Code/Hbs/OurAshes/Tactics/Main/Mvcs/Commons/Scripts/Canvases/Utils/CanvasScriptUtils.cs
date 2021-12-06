@@ -1,6 +1,6 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Frames.Types;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Canvases.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Canvases.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Canvases.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Canvases.Inters;
 using System;
 using UnityEngine;
 

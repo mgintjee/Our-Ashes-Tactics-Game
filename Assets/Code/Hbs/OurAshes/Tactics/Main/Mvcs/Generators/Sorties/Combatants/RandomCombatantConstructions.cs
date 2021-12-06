@@ -3,8 +3,8 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Combatants.IDs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Combatants.Skins;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loadouts.Gears.Skins;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Utils.Enums;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Insignias.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Insignias.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Combatants.Loadouts;
 using System;
 using System.Collections.Generic;
@@ -12,9 +12,9 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Combatants
 {
     /// <summary>
-    /// Random Combatant Constructions
+    /// Random Combatant Constrs
     /// </summary>
-    public static class RandomCombatantConstructions
+    public static class RandomCombatantConstrs
     {
         /// <summary>
         /// Todo

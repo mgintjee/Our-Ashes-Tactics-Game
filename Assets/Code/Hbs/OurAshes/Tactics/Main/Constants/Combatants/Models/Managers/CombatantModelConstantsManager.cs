@@ -1,16 +1,16 @@
-﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Attributes.Destructibles.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Attributes.Fireables.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Attributes.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Attributes.Loadouts.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Attributes.Movables.Implementations;
+﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Attributes.Destructibles.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Attributes.Fireables.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Attributes.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Attributes.Loadouts.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Attributes.Movables.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.IDs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Loadouts.Gears.Sizes;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Loadouts.Gears.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Rarities;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Combatants.Models.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Combatants.Models.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Combatants.Models.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Combatants.Models.Inters;
 using System.Collections.Generic;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Combatants.Models.Managers

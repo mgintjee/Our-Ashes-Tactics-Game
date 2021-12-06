@@ -1,13 +1,13 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Frames.Types;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Classes.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.CallSigns;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Phalanxes.CallSigns;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Phalanxes.Types;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Models.Engagements.Phalanxes.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Phalanxes.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Phalanxes.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Phalanxes.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Models.Engagements.Phalanxes.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Phalanxes.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Phalanxes.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Phalanxes.Inters;
 using System.Collections.Generic;
 using System.Diagnostics;
 

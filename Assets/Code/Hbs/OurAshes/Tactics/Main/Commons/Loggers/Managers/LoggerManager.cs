@@ -1,6 +1,6 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Frames.Types;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Mvcs.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Mvcs.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Mvcs.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Mvcs.Inters;
 using System.Collections.Generic;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers

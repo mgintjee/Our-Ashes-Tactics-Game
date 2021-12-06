@@ -1,8 +1,8 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.IDs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Skins;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Combatants.Views.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Combatants.Views.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Combatants.Views.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Combatants.Views.Inters;
 using System.Collections.Generic;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Combatants.Views.Managers

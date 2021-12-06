@@ -7,18 +7,18 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Sorties.Maps.Spawns.Areas;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Utils.Enums;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Insignias;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Phalanxes;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Engagements.Constructions.Implementaions;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Engagements.Constructions.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Phalanxes.Constructions.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Engagements.Constrs.Implementaions;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Engagements.Constrs.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Phalanxes.Constrs.Inters;
 using System;
 using System.Collections.Generic;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Engagements
 {
     /// <summary>
-    /// Random Engagement Constructions
+    /// Random Engagement Constrs
     /// </summary>
-    public static class RandomEngagementConstructions
+    public static class RandomEngagementConstrs
     {
         /// <summary>
         /// Todo
@@ -32,7 +32,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Engageme
             int phalanxCount, int maxPhalanxCombatantCount)
         {
             EngagementType engagementType = RandomEnums.GenerateRandomEnum<EngagementType>(random);
-            ISet<IPhalanxConstruction> phalanxConstructions = new HashSet<IPhalanxConstruction>();
+            ISet<IPhalanxConstruction> phalanxConstrs = new HashSet<IPhalanxConstruction>();
             int combatantIndex = 1;
             ControllerID controllerType = (simulationType == SimulationType.Interactive)
                 ? ControllerID.None : ControllerID.AI;
@@ -58,7 +58,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Engageme
 
             foreach (PhalanxCallSign phalanxCallSign in phalanxCallSigns)
             {
-                phalanxConstructions.Add(RandomPhalanxConstructions.Generate(random, phalanxCallSign,
+                phalanxConstrs.Add(RandomPhalanxConstrs.Generate(random, phalanxCallSign,
                     (controllerType != ControllerID.None) ? controllerType : RandomEnums.GenerateRandomEnum<ControllerID>(random),
                     phalanxCallSignSets[phalanxCallSign],
                     phalanxCallSignCombatantCallSigns[phalanxCallSign],
@@ -66,7 +66,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Engageme
             }
             return new EngagementConstruction.Builder()
                 .SetFormationType(engagementType)
-                .SetPhalanxConstructions(phalanxConstructions)
+                .SetPhalanxConstrs(phalanxConstrs)
                 .Build();
         }
 

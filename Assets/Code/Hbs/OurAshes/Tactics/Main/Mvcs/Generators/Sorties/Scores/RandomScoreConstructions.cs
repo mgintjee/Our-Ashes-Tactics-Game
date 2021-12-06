@@ -1,15 +1,15 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Scores.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Utils.Enums;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Commons.Scores.Constructions.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constructions.Commons.Scores.Constructions.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Commons.Scores.Constrs.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Commons.Scores.Constrs.Inters;
 using System;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Scores
 {
     /// <summary>
-    /// Random Score Constructions
+    /// Random Score Constrs
     /// </summary>
-    public static class RandomScoreConstructions
+    public static class RandomScoreConstrs
     {
         /// <summary>
         /// Todo

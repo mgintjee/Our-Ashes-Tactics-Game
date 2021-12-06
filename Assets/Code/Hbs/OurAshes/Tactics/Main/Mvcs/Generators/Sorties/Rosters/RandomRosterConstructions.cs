@@ -4,19 +4,19 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Mvcs.Simulations.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Phalanxes.CallSigns;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Combatants;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Insignias;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Engagements.Constructions.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Phalanxes.Constructions.Interfaces;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Constructions.Implementaions;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Constructions.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Engagements.Constrs.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Phalanxes.Constrs.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Constrs.Implementaions;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Constrs.Inters;
 using System;
 using System.Collections.Generic;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Rosters
 {
     /// <summary>
-    /// Random Roster Constructions
+    /// Random Roster Constrs
     /// </summary>
-    public static class RandomRosterConstructions
+    public static class RandomRosterConstrs
     {
         /// <summary>
         /// Todo
@@ -27,7 +27,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Rosters
         /// <returns></returns>
         public static IRosterConstruction Generate(Random random, SimulationType simulationType, IEngagementConstruction engagementConstruction)
         {
-            ISet<ICombatantConstruction> combatantConstructions = new HashSet<ICombatantConstruction>();
+            ISet<ICombatantConstruction> combatantConstrs = new HashSet<ICombatantConstruction>();
             IDictionary<PhalanxCallSign, IInsigniaReport> phalanxCallSignInsigniaScheme = new Dictionary<PhalanxCallSign, IInsigniaReport>();
             EngagementType engagementType = engagementConstruction.GetEngagementType();
             if (engagementType == EngagementType.Faction)
@@ -36,7 +36,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Rosters
                 IInsigniaReport insigniaSchemeB = RandomInsigniaSchemes.Generate(random);
                 ISet<PhalanxCallSign> phalanxCallSignsA = new HashSet<PhalanxCallSign>();
                 ISet<PhalanxCallSign> phalanxCallSignsB = new HashSet<PhalanxCallSign>();
-                foreach (IPhalanxConstruction phalanxConstruction in engagementConstruction.GetPhalanxConstructions())
+                foreach (IPhalanxConstruction phalanxConstruction in engagementConstruction.GetPhalanxConstrs())
                 {
                     PhalanxCallSign phalanxCallSign = phalanxConstruction.GetPhalanxCallSign();
                     if (phalanxCallSignsA == null)
@@ -61,24 +61,24 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Rosters
             }
             else if (engagementType == EngagementType.Phalanx)
             {
-                foreach (IPhalanxConstruction phalanxConstruction in engagementConstruction.GetPhalanxConstructions())
+                foreach (IPhalanxConstruction phalanxConstruction in engagementConstruction.GetPhalanxConstrs())
                 {
                     phalanxCallSignInsigniaScheme.Add(phalanxConstruction.GetPhalanxCallSign(),
                         RandomInsigniaSchemes.Generate(random));
                 }
             }
-            foreach (IPhalanxConstruction phalanxConstruction in engagementConstruction.GetPhalanxConstructions())
+            foreach (IPhalanxConstruction phalanxConstruction in engagementConstruction.GetPhalanxConstrs())
             {
                 foreach (CombatantCallSign combatantCallSign in phalanxConstruction.GetCombatantCallSigns())
                 {
                     ICombatantConstruction combatantConstruction = (simulationType != SimulationType.BlackBox)
-                        ? RandomCombatantConstructions.Generate(random, combatantCallSign, phalanxCallSignInsigniaScheme[phalanxConstruction.GetPhalanxCallSign()])
-                        : RandomCombatantConstructions.Generate(random, combatantCallSign);
-                    combatantConstructions.Add(combatantConstruction);
+                        ? RandomCombatantConstrs.Generate(random, combatantCallSign, phalanxCallSignInsigniaScheme[phalanxConstruction.GetPhalanxCallSign()])
+                        : RandomCombatantConstrs.Generate(random, combatantCallSign);
+                    combatantConstrs.Add(combatantConstruction);
                 }
             }
             return new RosterConstruction.Builder()
-                .SetCombatantConstructions(combatantConstructions)
+                .SetCombatantConstrs(combatantConstrs)
                 .Build();
         }
     }

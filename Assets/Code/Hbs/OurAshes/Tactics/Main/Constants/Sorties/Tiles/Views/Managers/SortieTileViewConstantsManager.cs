@@ -1,8 +1,8 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Frames.Sorties.Maps.Tiles.IDs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Frames.Sorties.Maps.Tiles.Skins;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Sorties.Tiles.Views.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Sorties.Tiles.Views.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Sorties.Tiles.Views.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Sorties.Tiles.Views.Inters;
 using System.Collections.Generic;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Sorties.Tiles.Views.Managers

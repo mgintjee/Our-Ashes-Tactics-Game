@@ -1,7 +1,7 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Views.Colors.IDs;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Views.Colors.Rgbs.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Views.Colors.Rgbs.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Views.Colors.Rgbs.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Views.Colors.Rgbs.Inters;
 using System.Collections.Generic;
 using UnityEngine;
 

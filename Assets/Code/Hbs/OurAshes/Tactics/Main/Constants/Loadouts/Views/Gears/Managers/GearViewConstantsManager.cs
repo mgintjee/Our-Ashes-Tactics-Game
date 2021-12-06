@@ -1,8 +1,8 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Loadouts.Gears.IDs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Loadouts.Gears.Skins;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Views.Gears.Implementations;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Views.Gears.Interfaces;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Views.Gears.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Views.Gears.Inters;
 using System.Collections.Generic;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Views.Gears.Managers
