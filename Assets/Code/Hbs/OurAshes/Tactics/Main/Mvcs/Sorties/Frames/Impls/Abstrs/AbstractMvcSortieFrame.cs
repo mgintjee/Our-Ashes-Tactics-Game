@@ -7,9 +7,9 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Responses.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Constrs.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Responses.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Impls;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controls.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controls.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controls.Requests.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Scripts.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Scripts.Inters;
@@ -29,10 +29,10 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls.Abstrs
         : IMvcSortieFrame
     {
         // Todo
-        protected ISet<ISortieRequest> _controllerRequests = new HashSet<ISortieRequest>();
+        protected ISet<ISortieRequest> _ControlRequests = new HashSet<ISortieRequest>();
 
         // Todo
-        protected IMvcSortieController _mvcSortieController;
+        protected IMvcSortieControl _mvcSortieControl;
 
         // Todo
         protected IMvcSortieModel _mvcSortieModel;
@@ -53,7 +53,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls.Abstrs
         /// Todo
         /// </summary>
         /// <param name="sortieFrameConstruction"></param>
-        public MvcSortieFrame(IMvcControllerConstruction sortieFrameConstruction)
+        public MvcSortieFrame(IMvcControlConstruction sortieFrameConstruction)
         {
             _logger.Info("Constructing {} with {}", this.GetType(), sortieFrameConstruction);
             RandomManager.GetRandom(MvcType.Sortie);
@@ -68,7 +68,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls.Abstrs
                     .SetUnityScript(sortieFrameScript)
                     .Build();
             }
-            _mvcSortieController = new MvcSortieController.Builder()
+            _mvcSortieControl = new MvcSortieControl.Builder()
                 .SetMvcSortieFrameConstruction(sortieFrameConstruction)
                 .SetUnityScript(sortieFrameScript)
                 .Build();
@@ -78,7 +78,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls.Abstrs
         void IMvcFrame.Continue()
         {
             if (_mvcSortieModel == null ||
-                _mvcSortieController == null)
+                _mvcSortieControl == null)
             {
                 return;
             }
@@ -88,20 +88,20 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls.Abstrs
                 if (this.mvcSortieView == null || !_mvcSortieView.IsProcessing())
                 {
                     _logger.Info("View is not processing");
-                    if (!_mvcSortieController.IsProcessing())
+                    if (!_mvcSortieControl.IsProcessing())
                     {
-                        _logger.Info("Controller is not processing");
-                        if (_mvcSortieController.GetControllerRequests().Count == 0)
+                        _logger.Info("Control is not processing");
+                        if (_mvcSortieControl.GetControlRequests().Count == 0)
                         {
-                            ISet<IMvcRequest> mvcControllerRequests = _mvcSortieModel.GetMvcRequests();
-                            if (mvcControllerRequests.Count != 0)
+                            ISet<IMvcRequest> mvcControlRequests = _mvcSortieModel.GetMvcRequests();
+                            if (mvcControlRequests.Count != 0)
                             {
-                                ISet<ISortieRequest> sortieControllerRequests = new HashSet<ISortieRequest>();
-                                foreach (IMvcRequest mvcControllerRequest in mvcControllerRequests)
+                                ISet<ISortieRequest> sortieControlRequests = new HashSet<ISortieRequest>();
+                                foreach (IMvcRequest mvcControlRequest in mvcControlRequests)
                                 {
-                                    sortieControllerRequests.Add((ISortieRequest)mvcControllerRequest);
+                                    sortieControlRequests.Add((ISortieRequest)mvcControlRequest);
                                 }
-                                _mvcSortieController.Process(sortieControllerRequests);
+                                _mvcSortieControl.Process(sortieControlRequests);
                             }
                             else
                             {
@@ -110,7 +110,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls.Abstrs
                         }
                         else
                         {
-                            ISortieRequest selectedRequest = _mvcSortieController.GetSelectedControllerRequest();
+                            ISortieRequest selectedRequest = _mvcSortieControl.GetSelectedControlRequest();
                             if (selectedRequest != null)
                             {
                                 _logger.Info("Selected {}", selectedRequest);
@@ -118,7 +118,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls.Abstrs
                                 {
                                     _mvcSortieView.Process(selectedRequest);
                                 }
-                                ISortieRequest confirmedRequest = _mvcSortieController.GetConfirmedControllerRequest();
+                                ISortieRequest confirmedRequest = _mvcSortieControl.GetConfirmedControlRequest();
                                 if (confirmedRequest != null)
                                 {
                                     _logger.Info("Confirmed {}", confirmedRequest);
@@ -129,10 +129,10 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls.Abstrs
                                     {
                                         _mvcSortieView.Process((IMvcResponse)mvcResponse);
                                     }
-                                    _mvcSortieController.Clear();
-                                    //_controllerRequests.Clear();
-                                    //_controllerRequests.UnionWith((ISet<ISortieRequest>)_mvcSortieModel.GetControllerRequests());
-                                    // _mvcSortieController.Process(_controllerRequests);
+                                    _mvcSortieControl.Clear();
+                                    //_ControlRequests.Clear();
+                                    //_ControlRequests.UnionWith((ISet<ISortieRequest>)_mvcSortieModel.GetControlRequests());
+                                    // _mvcSortieControl.Process(_ControlRequests);
                                     //_logger.Info(":{}", ((ISortieModelResponse)_mvcSortieModel.GetMvcModelResponse()).GetSortieResponseID());
                                     _logger.Info(":{}", _mvcSortieModel.GetMvcModelResponse());
                                 }
@@ -144,13 +144,13 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls.Abstrs
                             else
                             {
                                 _logger.Debug("Waiting for selected request");
-                                _mvcSortieView.Process(_controllerRequests);
+                                _mvcSortieView.Process(_ControlRequests);
                             }
                         }
                     }
                     else
                     {
-                        _logger.Info("Controller is still processing");
+                        _logger.Info("Control is still processing");
                     }
                 }
                 else
@@ -168,7 +168,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls.Abstrs
         bool IMvcFrame.IsComplete()
         {
             return (_mvcSortieView == null || !_mvcSortieView.IsProcessing()) &&
-                !_mvcSortieController.IsProcessing() &&
+                !_mvcSortieControl.IsProcessing() &&
                 !_mvcSortieModel.IsProcessing();
         }
 

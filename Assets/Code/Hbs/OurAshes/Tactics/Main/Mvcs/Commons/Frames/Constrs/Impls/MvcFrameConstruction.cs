@@ -2,15 +2,15 @@
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Frames.Simulations.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Frames.Types;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Contstructions.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Constrs.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Constrs.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Constrs.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Controllers.Splashes.Constrs.Impls;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Controllers.Constrs.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Controls.Constrs.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Models.Constrs.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Views.Constrs.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Controls.Constrs.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Models.Constrs.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Views.Constrs.Impls;
 using System;
@@ -27,7 +27,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Impl
         private readonly IUnityScript _unityScript;
 
         // Todo
-        private readonly IMvcControllerConstruction _mvcControllerConstruction;
+        private readonly IMvcControlConstruction _mvcControlConstruction;
 
         // Todo
         private readonly IMvcModelConstruction _mvcModelConstruction;
@@ -47,20 +47,20 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Impl
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="mvcType">                  </param>
-        /// <param name="simulationType">           </param>
-        /// <param name="unityScript">              </param>
-        /// <param name="mvcControllerConstruction"></param>
-        /// <param name="mvcModelConstruction">     </param>
-        /// <param name="mvcViewConstruction">      </param>
+        /// <param name="mvcType">               </param>
+        /// <param name="simulationType">        </param>
+        /// <param name="unityScript">           </param>
+        /// <param name="mvcControlConstruction"></param>
+        /// <param name="mvcModelConstruction">  </param>
+        /// <param name="mvcViewConstruction">   </param>
         private MvcFrameConstruction(MvcType mvcType, SimulationType simulationType, IUnityScript unityScript,
-            IMvcControllerConstruction mvcControllerConstruction, IMvcModelConstruction mvcModelConstruction,
+            IMvcControlConstruction mvcControlConstruction, IMvcModelConstruction mvcModelConstruction,
             IMvcViewConstruction mvcViewConstruction, Random random)
         {
             _mvcType = mvcType;
             _simulationType = simulationType;
             _unityScript = unityScript;
-            _mvcControllerConstruction = mvcControllerConstruction;
+            _mvcControlConstruction = mvcControlConstruction;
             _mvcModelConstruction = mvcModelConstruction;
             _mvcViewConstruction = mvcViewConstruction;
             _random = random;
@@ -73,9 +73,9 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Impl
         }
 
         /// <inheritdoc/>
-        IMvcControllerConstruction IMvcFrameConstruction.GetMvcControllerConstruction()
+        IMvcControlConstruction IMvcFrameConstruction.GetMvcControlConstruction()
         {
-            return _mvcControllerConstruction;
+            return _mvcControlConstruction;
         }
 
         /// <inheritdoc/>
@@ -168,7 +168,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Impl
             private class InternalBuilder : AbstractBuilder<IMvcFrameConstruction>, IBuilder
             {
                 // Todo
-                private IMvcControllerConstruction _mvcControllerConstruction;
+                private IMvcControlConstruction _mvcControlConstruction;
 
                 // Todo
                 private IMvcModelConstruction _mvcModelConstruction;
@@ -195,13 +195,13 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Impl
                     switch (mvcType)
                     {
                         case MvcType.Splash:
-                            _mvcControllerConstruction = SplashControllerConstruction.Builder.Get().Build();
+                            _mvcControlConstruction = SplashControlConstruction.Builder.Get().Build();
                             _mvcModelConstruction = SplashModelConstruction.Builder.Get().Build();
                             _mvcViewConstruction = SplashViewConstruction.Builder.Get().Build();
                             break;
 
                         case MvcType.Home:
-                            _mvcControllerConstruction = HomeControllerConstruction.Builder.Get().Build();
+                            _mvcControlConstruction = HomeControlConstruction.Builder.Get().Build();
                             _mvcModelConstruction = HomeModelConstruction.Builder.Get().Build();
                             _mvcViewConstruction = HomeViewConstruction.Builder.Get().Build();
                             break;
@@ -234,7 +234,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Impl
                 protected override IMvcFrameConstruction BuildObj()
                 {
                     return new MvcFrameConstruction(_mvcType, _simulationType, _unityScript,
-                        _mvcControllerConstruction, _mvcModelConstruction, _mvcViewConstruction, _random);
+                        _mvcControlConstruction, _mvcModelConstruction, _mvcViewConstruction, _random);
                 }
 
                 /// <inheritdoc/>
@@ -243,7 +243,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Impl
                     this.Validate(invalidReasons, _mvcType);
                     this.Validate(invalidReasons, _simulationType);
                     this.Validate(invalidReasons, _unityScript);
-                    this.Validate(invalidReasons, _mvcControllerConstruction);
+                    this.Validate(invalidReasons, _mvcControlConstruction);
                     this.Validate(invalidReasons, _mvcModelConstruction);
                     this.Validate(invalidReasons, _mvcViewConstruction);
                     this.Validate(invalidReasons, _random);

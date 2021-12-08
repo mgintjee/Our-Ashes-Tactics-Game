@@ -1,4 +1,4 @@
-﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Controllers.Types;
+﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Controls.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.CallSigns;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Phalanxes.CallSigns;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Phalanxes.Types;
@@ -22,7 +22,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Phal
         /// Todo
         /// </summary>
         /// <returns></returns>
-        ControllerID GetControllerType();
+        ControlID GetControlType();
 
         /// <summary>
         /// Todo

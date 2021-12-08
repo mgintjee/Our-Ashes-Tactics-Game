@@ -167,20 +167,6 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grid
                 // Todo
                 private float width = 0f;
 
-                /// <inheritdoc/>
-                protected override IGridConvertor BuildObj()
-                {
-                    return new GridConvertor(this.canvasGridDimensions, this.width, this.height);
-                }
-
-                /// <inheritdoc/>
-                protected override void Validate(ISet<string> invalidReasons)
-                {
-                    this.Validate(invalidReasons, canvasGridDimensions);
-                    this.Validate(invalidReasons, width);
-                    this.Validate(invalidReasons, height);
-                }
-
                 IBuilder IBuilder.SetDimensions(ICanvasGridDimensions canvasGridDimensions)
                 {
                     this.canvasGridDimensions = canvasGridDimensions;
@@ -197,6 +183,20 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grid
                 {
                     this.width = width;
                     return this;
+                }
+
+                /// <inheritdoc/>
+                protected override IGridConvertor BuildObj()
+                {
+                    return new GridConvertor(this.canvasGridDimensions, this.width, this.height);
+                }
+
+                /// <inheritdoc/>
+                protected override void Validate(ISet<string> invalidReasons)
+                {
+                    this.Validate(invalidReasons, canvasGridDimensions);
+                    this.Validate(invalidReasons, width);
+                    this.Validate(invalidReasons, height);
                 }
             }
         }

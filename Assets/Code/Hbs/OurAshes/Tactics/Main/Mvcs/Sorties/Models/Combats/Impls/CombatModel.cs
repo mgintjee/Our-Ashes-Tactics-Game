@@ -68,12 +68,12 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Combats.Impl
         }
 
         /// <inheritdoc/>
-        void ICombatModel.Process(ISortieRequest controllerRequest,
+        void ICombatModel.Process(ISortieRequest ControlRequest,
             IRosterModelReport rosterReport, ISortieMapReport mapReport)
         {
-            if (controllerRequest != null)
+            if (ControlRequest != null)
             {
-                ISortieMapPath path = controllerRequest.GetPath();
+                ISortieMapPath path = ControlRequest.GetPath();
                 this.damageReports.Clear();
                 if (path.GetPathType() == PathType.Fire)
                 {
@@ -81,7 +81,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Combats.Impl
                     mapReport.GetTileReport(targetCubeCoordinates).IfPresent((tileReport) =>
                     {
                         Optional<ICombatantReport> actingCombatantReport = rosterReport
-                            .GetCombatantReport(controllerRequest.GetCallSign());
+                            .GetCombatantReport(ControlRequest.GetCallSign());
                         Optional<ICombatantReport> targetCombatantReport = rosterReport
                             .GetCombatantReport(tileReport.GetCombatantCallSign());
                         if (actingCombatantReport.IsPresent() && targetCombatantReport.IsPresent())

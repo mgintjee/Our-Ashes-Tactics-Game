@@ -21,7 +21,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Models.Enga
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="formationType">       </param>
+        /// <param name="formationType"> </param>
         /// <param name="phalanxConstrs"></param>
         private EngagementModelConstruction(EngagementType formationType, ISet<IPhalanxModelConstruction> phalanxConstrs)
         {

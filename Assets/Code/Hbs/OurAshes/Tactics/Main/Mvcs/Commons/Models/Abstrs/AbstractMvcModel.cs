@@ -1,11 +1,11 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Reports.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Controllers.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Models.Impls;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Models.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Reports.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Reports.Inters;
 using System.Collections.Generic;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs
@@ -49,13 +49,13 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs
         }
 
         /// <inheritdoc/>
-        void IMvcModel.Process(IMvcControllerReport mvcControllerReport)
+        void IMvcModel.Process(IMvcControlReport mvcControlReport)
         {
-            if (mvcControllerReport.GetSelectedRequest().IsPresent())
+            if (mvcControlReport.GetSelectedRequest().IsPresent())
             {
-                if (mvcControllerReport.GetConfirmedRequest().IsPresent())
+                if (mvcControlReport.GetConfirmedRequest().IsPresent())
                 {
-                    this.ProcessConfirmedRequest(mvcControllerReport.GetConfirmedRequest().GetValue());
+                    this.ProcessConfirmedRequest(mvcControlReport.GetConfirmedRequest().GetValue());
                 }
                 else
                 {

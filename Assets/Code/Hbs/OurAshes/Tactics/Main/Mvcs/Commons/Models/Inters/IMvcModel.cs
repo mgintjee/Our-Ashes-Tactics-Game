@@ -1,5 +1,5 @@
-﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Controllers.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Models.Inters;
+﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Reports.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Reports.Inters;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters
 {
@@ -11,9 +11,9 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="mvcControllerReport"></param>
+        /// <param name="mvcControlReport"></param>
         /// <returns></returns>
-        void Process(IMvcControllerReport mvcControllerReport);
+        void Process(IMvcControlReport mvcControlReport);
 
         /// <summary>
         /// Todo

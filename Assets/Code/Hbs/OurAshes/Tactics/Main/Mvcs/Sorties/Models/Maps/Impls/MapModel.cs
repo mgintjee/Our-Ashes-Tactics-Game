@@ -139,13 +139,13 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Impls
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="controllerRequest"></param>
-        /// <param name="rosterReport">     </param>
-        void IMapModel.Process(ISortieRequest controllerRequest, IRosterModelReport rosterReport)
+        /// <param name="ControlRequest"></param>
+        /// <param name="rosterReport">  </param>
+        void IMapModel.Process(ISortieRequest ControlRequest, IRosterModelReport rosterReport)
         {
-            if (controllerRequest != null)
+            if (ControlRequest != null)
             {
-                ISortieMapPath path = controllerRequest.GetPath();
+                ISortieMapPath path = ControlRequest.GetPath();
                 if (path is SortieMapMovePath)
                 {
                     ICubeCoordinates start = path.GetStart();
@@ -156,7 +156,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Impls
                     });
                     this.GetTileModel(end).IfPresent((tileModel) =>
                     {
-                        tileModel.SetCombatantCallSign(controllerRequest.GetCallSign());
+                        tileModel.SetCombatantCallSign(ControlRequest.GetCallSign());
                     });
                 }
                 else if (path is SortieMapFirePath firePath)

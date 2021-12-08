@@ -80,16 +80,6 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Abstr
                 // Todo
                 protected ColorID colorID;
 
-                protected override IImageWidget BuildObj()
-                {
-                    GameObject gameObject = new GameObject();
-                    IImageWidget imageWidget = gameObject.AddComponent<ImageWidget>();
-                    this.ApplyCommonParams(imageWidget);
-                    imageWidget.SetSpriteID(this.spriteID);
-                    imageWidget.SetColorID(this.colorID);
-                    return imageWidget;
-                }
-
                 IImageBuilder IImageBuilder.SetColorID(ColorID colorID)
                 {
                     this.colorID = colorID;
@@ -100,6 +90,16 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Abstr
                 {
                     this.spriteID = spriteID;
                     return this;
+                }
+
+                protected override IImageWidget BuildObj()
+                {
+                    GameObject gameObject = new GameObject();
+                    IImageWidget imageWidget = gameObject.AddComponent<ImageWidget>();
+                    this.ApplyCommonParams(imageWidget);
+                    imageWidget.SetSpriteID(this.spriteID);
+                    imageWidget.SetColorID(this.colorID);
+                    return imageWidget;
                 }
             }
         }

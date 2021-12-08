@@ -13,13 +13,13 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Abstr
     public class ButtonWidget : AbstractWidget, IButtonWidget
     {
         // Todo
+        protected Button button;
+
+        // Todo
         private Action onPressAction;
 
         // Todo
         private Action onReleaseAction;
-
-        // Todo
-        protected Button button;
 
         /// <inheritdoc/>
         public void Start()
@@ -27,13 +27,6 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Abstr
             Debug.Log("BUTTON START!");
             this.button = this.GetGameObject().AddComponent<Button>();
             this.button.onClick.AddListener(() => OnPress());
-        }
-
-        void IButtonWidget.SetOnPress(Action onPressAction)
-        {
-            Debug.Log("Setting onPress!");
-            this.onPressAction = onPressAction;
-            this.OnPress();
         }
 
         /// <inheritdoc/>
@@ -45,6 +38,13 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Abstr
                 this.onPressAction.Invoke();
             }
             // log a warning
+        }
+
+        void IButtonWidget.SetOnPress(Action onPressAction)
+        {
+            Debug.Log("Setting onPress!");
+            this.onPressAction = onPressAction;
+            this.OnPress();
         }
 
         /// <summary>
@@ -83,16 +83,6 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Abstr
                 private Action onReleaseAction;
 
                 /// <inheritdoc/>
-                protected override IButtonWidget BuildObj()
-                {
-                    GameObject gameObject = new GameObject();
-                    IButtonWidget buttonWidget = gameObject.AddComponent<ButtonWidget>();
-                    buttonWidget.SetOnPress(this.onPressAction);
-                    this.ApplyCommonParams(buttonWidget);
-                    return buttonWidget;
-                }
-
-                /// <inheritdoc/>
                 IButtonBuilder IButtonBuilder.SetOnPress(Action onPressAction)
                 {
                     this.onPressAction = onPressAction;
@@ -103,6 +93,16 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Abstr
                 IButtonBuilder IButtonBuilder.SetOnRelease(Action onReleaseAction)
                 {
                     return this;
+                }
+
+                /// <inheritdoc/>
+                protected override IButtonWidget BuildObj()
+                {
+                    GameObject gameObject = new GameObject();
+                    IButtonWidget buttonWidget = gameObject.AddComponent<ButtonWidget>();
+                    buttonWidget.SetOnPress(this.onPressAction);
+                    this.ApplyCommonParams(buttonWidget);
+                    return buttonWidget;
                 }
             }
         }

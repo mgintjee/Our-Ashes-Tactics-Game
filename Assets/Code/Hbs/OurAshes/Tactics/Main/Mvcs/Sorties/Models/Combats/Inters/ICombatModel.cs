@@ -19,10 +19,10 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Combats.Inte
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="controllerRequest">    </param>
+        /// <param name="ControlRequest">       </param>
         /// <param name="combatantRosterReport"></param>
         /// <param name="mapReport">            </param>
-        void Process(ISortieRequest controllerRequest,
+        void Process(ISortieRequest ControlRequest,
             IRosterModelReport combatantRosterReport, ISortieMapReport mapReport);
     }
 }

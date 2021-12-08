@@ -1,10 +1,10 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Reports.Abstrs;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Controllers.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Frames.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Models.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Views.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Reports.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Reports.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Reports.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Reports.Inters;
 using System.Collections.Generic;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Reports.Impls
@@ -15,7 +15,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Reports.Impl
     public class MvcFrameReport : AbstractReport, IMvcFrameReport
     {
         // Todo
-        private readonly IMvcControllerReport _mvcControllerReport;
+        private readonly IMvcControlReport _mvcControlReport;
 
         // Todo
         private readonly IMvcModelReport _mvcModelReport;
@@ -26,21 +26,21 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Reports.Impl
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="mvcControllerReport"></param>
-        /// <param name="mvcModelReport">     </param>
-        /// <param name="mvcViewReport">      </param>
-        private MvcFrameReport(IMvcControllerReport mvcControllerReport,
+        /// <param name="mvcControlReport"></param>
+        /// <param name="mvcModelReport">  </param>
+        /// <param name="mvcViewReport">   </param>
+        private MvcFrameReport(IMvcControlReport mvcControlReport,
             IMvcModelReport mvcModelReport, IMvcViewReport mvcViewReport)
         {
-            _mvcControllerReport = mvcControllerReport;
+            _mvcControlReport = mvcControlReport;
             _mvcModelReport = mvcModelReport;
             _mvcViewReport = mvcViewReport;
         }
 
         /// <inheritdoc/>
-        IMvcControllerReport IMvcFrameReport.GetMvcControllerReport()
+        IMvcControlReport IMvcFrameReport.GetMvcControlReport()
         {
-            return _mvcControllerReport;
+            return _mvcControlReport;
         }
 
         /// <inheritdoc/>
@@ -59,7 +59,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Reports.Impl
         protected override string GetContent()
         {
             return string.Format("{0}, {1}, {2}",
-                _mvcControllerReport, _mvcModelReport, _mvcViewReport);
+                _mvcControlReport, _mvcModelReport, _mvcViewReport);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Reports.Impl
             /// </summary>
             public interface IBuilder : IBuilder<IMvcFrameReport>
             {
-                IBuilder SetMvcControllerReport(IMvcControllerReport mvcControllerReport);
+                IBuilder SetMvcControlReport(IMvcControlReport mvcControlReport);
 
                 IBuilder SetMvcModelReport(IMvcModelReport mvcModelReport);
 
@@ -94,7 +94,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Reports.Impl
             private class InternalBuilder : AbstractBuilder<IMvcFrameReport>, IBuilder
             {
                 // Todo
-                private IMvcControllerReport _mvcControllerReport;
+                private IMvcControlReport _mvcControlReport;
 
                 // Todo
                 private IMvcModelReport _mvcModelReport;
@@ -103,9 +103,9 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Reports.Impl
                 private IMvcViewReport _mvcViewReport;
 
                 /// <inheritdoc/>
-                IBuilder IBuilder.SetMvcControllerReport(IMvcControllerReport mvcControllerReport)
+                IBuilder IBuilder.SetMvcControlReport(IMvcControlReport mvcControlReport)
                 {
-                    _mvcControllerReport = mvcControllerReport;
+                    _mvcControlReport = mvcControlReport;
                     return this;
                 }
 
@@ -127,13 +127,13 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Reports.Impl
                 protected override IMvcFrameReport BuildObj()
                 {
                     // Instantiate a new attributes
-                    return new MvcFrameReport(_mvcControllerReport, _mvcModelReport, _mvcViewReport);
+                    return new MvcFrameReport(_mvcControlReport, _mvcModelReport, _mvcViewReport);
                 }
 
                 /// <inheritdoc/>
                 protected override void Validate(ISet<string> invalidReasons)
                 {
-                    this.Validate(invalidReasons, _mvcControllerReport);
+                    this.Validate(invalidReasons, _mvcControlReport);
                     this.Validate(invalidReasons, _mvcModelReport);
                     this.Validate(invalidReasons, _mvcViewReport);
                 }

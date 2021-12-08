@@ -21,13 +21,6 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Widgets.Impls
         // Todo
         protected ICanvasGridMeasurements canvasGridMeasurements;
 
-        protected override void Validate(ISet<string> invalidReasons)
-        {
-            this.Validate(invalidReasons, this.name);
-            this.Validate(invalidReasons, this.unityScript);
-            this.Validate(invalidReasons, this.canvasGridMeasurements);
-        }
-
         IWidgetBuilder<T> IWidgetBuilder<T>.SetName(string name)
         {
             this.name = name;
@@ -44,6 +37,13 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Widgets.Impls
         {
             this.canvasGridMeasurements = WidgetGridMeasurements;
             return this;
+        }
+
+        protected override void Validate(ISet<string> invalidReasons)
+        {
+            this.Validate(invalidReasons, this.name);
+            this.Validate(invalidReasons, this.unityScript);
+            this.Validate(invalidReasons, this.canvasGridMeasurements);
         }
 
         protected void ApplyCommonParams(IWidget widget)

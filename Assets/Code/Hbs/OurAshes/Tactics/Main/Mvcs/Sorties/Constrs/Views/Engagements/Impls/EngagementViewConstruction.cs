@@ -21,7 +21,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Views.Engag
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="formationType">           </param>
+        /// <param name="formationType">     </param>
         /// <param name="phalanxViewConstrs"></param>
         private EngagementViewConstruction(EngagementType formationType, ISet<IPhalanxViewConstruction> phalanxViewConstrs)
         {

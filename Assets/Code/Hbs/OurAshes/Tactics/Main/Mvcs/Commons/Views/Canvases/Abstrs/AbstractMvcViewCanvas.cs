@@ -1,5 +1,5 @@
-﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Controllers.Clicks.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
+﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Canvases.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Canvases.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Impls;
@@ -24,10 +24,10 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abst
         protected ISet<IWidget> widgets = new HashSet<IWidget>();
 
         // Todo
-        private IGridConvertor gridConvertor;
+        protected ICanvasGridMeasurements canvasGridMeasurements;
 
         // Todo
-        protected ICanvasGridMeasurements canvasGridMeasurements;
+        private IGridConvertor gridConvertor;
 
         /// <inheritdoc/>
         void IMvcViewCanvas.Build()
@@ -50,6 +50,17 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abst
         void IMvcViewCanvas.Reset()
         {
             throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="click"></param>
+        /// <returns></returns>
+        Optional<Action> IMvcViewCanvas.CanvasAction(IInput click)
+        {
+            // Todo: Calculate where the click falls pending on the canvas
+            throw new NotImplementedException();
         }
 
         protected void AddWidget(IWidget widget)
@@ -78,16 +89,5 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abst
         }
 
         protected abstract void InternalBuild();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="click"></param>
-        /// <returns></returns>
-        Optional<Action> IMvcViewCanvas.CanvasAction(IClick click)
-        {
-            // Todo: Calculate where the click falls pending on the canvas
-            throw new NotImplementedException();
-        }
     }
 }

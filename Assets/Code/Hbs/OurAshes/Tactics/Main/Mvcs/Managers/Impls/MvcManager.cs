@@ -30,10 +30,10 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Impls
         private readonly int seed = 22;
 
         // Todo
-        private MvcType activeMvcType = MvcType.None;
+        private readonly IUnityScript unityScript;
 
         // Todo
-        private readonly IUnityScript unityScript;
+        private MvcType activeMvcType = MvcType.None;
 
         /// <summary>
         /// Todo

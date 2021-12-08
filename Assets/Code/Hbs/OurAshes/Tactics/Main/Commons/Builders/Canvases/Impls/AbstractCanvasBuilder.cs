@@ -1,5 +1,5 @@
-﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Canvases.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
+﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Canvases.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Inters;
 using System.Collections.Generic;
@@ -21,21 +21,6 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Canvases.Impls
         // Todo
         protected ICanvasGridMeasurements canvasGridMeasurements;
 
-        protected override T BuildObj()
-        {
-            GameObject gameObject = new GameObject(this.name);
-            Canvas canvas = gameObject.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            return this.BuildScript(gameObject);
-        }
-
-        protected override void Validate(ISet<string> invalidReasons)
-        {
-            this.Validate(invalidReasons, this.name);
-            this.Validate(invalidReasons, this.unityScript);
-            this.Validate(invalidReasons, this.canvasGridMeasurements);
-        }
-
         ICanvasBuilder<T> ICanvasBuilder<T>.SetName(string name)
         {
             this.name = name;
@@ -52,6 +37,21 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Canvases.Impls
         {
             this.canvasGridMeasurements = canvasGridMeasurements;
             return this;
+        }
+
+        protected override T BuildObj()
+        {
+            GameObject gameObject = new GameObject(this.name);
+            Canvas canvas = gameObject.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            return this.BuildScript(gameObject);
+        }
+
+        protected override void Validate(ISet<string> invalidReasons)
+        {
+            this.Validate(invalidReasons, this.name);
+            this.Validate(invalidReasons, this.unityScript);
+            this.Validate(invalidReasons, this.canvasGridMeasurements);
         }
 
         protected abstract T BuildScript(GameObject gameObject);

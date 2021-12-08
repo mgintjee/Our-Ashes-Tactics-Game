@@ -1,7 +1,7 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Controllers.Clicks.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Canvases.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inters;
 using System;
@@ -19,7 +19,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Views.Canvases.Backs.
             throw new System.NotImplementedException();
         }
 
-        Optional<Action> IMvcViewCanvas.CanvasAction(IClick click)
+        Optional<Action> IMvcViewCanvas.CanvasAction(IInput click)
         {
             throw new NotImplementedException();
         }

@@ -1,4 +1,4 @@
-﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Controllers.Types;
+﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Controls.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.CallSigns;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Phalanxes.CallSigns;
@@ -18,7 +18,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Phal
         private readonly ISet<CombatantCallSign> _combatantCallSigns;
 
         // Todo
-        private readonly ControllerID _controllerType;
+        private readonly ControlID _ControlType;
 
         // Todo
         private readonly PhalanxCallSign _phalanxCallSign;
@@ -36,12 +36,12 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Phal
         /// <param name="phalanxType">       </param>
         /// <param name="phalanxCallSigns">  </param>
         /// <param name="combatantCallSigns"></param>
-        private PhalanxReport(PhalanxCallSign phalanxCallSign, PhalanxType phalanxType, ControllerID controllerType,
+        private PhalanxReport(PhalanxCallSign phalanxCallSign, PhalanxType phalanxType, ControlID ControlType,
             ISet<PhalanxCallSign> phalanxCallSigns, ISet<CombatantCallSign> combatantCallSigns)
         {
             _phalanxCallSign = phalanxCallSign;
             _phalanxType = phalanxType;
-            _controllerType = controllerType;
+            _ControlType = ControlType;
             _phalanxCallSigns = phalanxCallSigns;
             _combatantCallSigns = combatantCallSigns;
         }
@@ -53,9 +53,9 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Phal
         }
 
         /// <inheritdoc/>
-        ControllerID IPhalanxReport.GetControllerType()
+        ControlID IPhalanxReport.GetControlType()
         {
-            return _controllerType;
+            return _ControlType;
         }
 
         /// <inheritdoc/>
@@ -90,7 +90,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Phal
             private ISet<CombatantCallSign> _combatantCallSigns = null;
 
             // Todo
-            private ControllerID _controllerType = ControllerID.None;
+            private ControlID _ControlType = ControlID.None;
 
             // Todo
             private PhalanxCallSign _phalanxCallSign = PhalanxCallSign.None;
@@ -113,7 +113,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Phal
                 {
                     // Instantiate a new construction
                     return new PhalanxReport(_phalanxCallSign, _phalanxType,
-                        _controllerType, _phalanxCallSigns, _combatantCallSigns);
+                        _ControlType, _phalanxCallSigns, _combatantCallSigns);
                 }
                 throw ExceptionUtil.Arguments.Build("Unable to construct {}. Invalid Parameters. {}",
                     this.GetType(), string.Join("\n", invalidReasons));
@@ -133,11 +133,11 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Phal
             /// <summary>
             /// Todo
             /// </summary>
-            /// <param name="controllerType"></param>
+            /// <param name="ControlType"></param>
             /// <returns></returns>
-            public Builder SetControllerType(ControllerID controllerType)
+            public Builder SetControlType(ControlID ControlType)
             {
-                _controllerType = controllerType;
+                _ControlType = ControlType;
                 return this;
             }
 
@@ -192,10 +192,10 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Phal
                 {
                     argumentExceptionSet.Add(typeof(PhalanxType).Name + " cannot be none.");
                 }
-                // Check that _controllerType has been set
-                if (_controllerType == ControllerID.None)
+                // Check that _ControlType has been set
+                if (_ControlType == ControlID.None)
                 {
-                    argumentExceptionSet.Add(typeof(ControllerID).Name + " cannot be none.");
+                    argumentExceptionSet.Add(typeof(ControlID).Name + " cannot be none.");
                 }
                 // Check that _combatantCallSigns has been set
                 if (_combatantCallSigns == null)

@@ -1,10 +1,10 @@
-﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
+﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Reports.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Frames.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Controllers.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Controls.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Frames.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Models.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Views.Impls;
@@ -26,9 +26,9 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Frames.Impls
         }
 
         /// <inheritdoc/>
-        protected override IMvcController BuildMvcController(IMvcFrameConstruction mvcFrameConstruction)
+        protected override IMvcControl BuildMvcControl(IMvcFrameConstruction mvcFrameConstruction)
         {
-            return new HomeController(mvcFrameConstruction);
+            return new HomeControl(mvcFrameConstruction);
         }
 
         /// <inheritdoc/>

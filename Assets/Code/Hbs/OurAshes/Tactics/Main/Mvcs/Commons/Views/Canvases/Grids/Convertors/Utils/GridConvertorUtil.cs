@@ -16,8 +16,8 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grid
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="panel">                  </param>
-        /// <param name="gridConvertor">          </param>
+        /// <param name="panel">                 </param>
+        /// <param name="gridConvertor">         </param>
         /// <param name="CanvasGridMeasurements"></param>
         public static void ApplyCanvasGridMeasurements(IPanel panel, IGridConvertor gridConvertor,
             ICanvasGridMeasurements CanvasGridMeasurements)
@@ -43,8 +43,8 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grid
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="panelEntry">             </param>
-        /// <param name="gridConvertor">          </param>
+        /// <param name="panelEntry">            </param>
+        /// <param name="gridConvertor">         </param>
         /// <param name="CanvasGridMeasurements"></param>
         public static void ApplyCanvasGridMeasurements(IPanelEntry panelEntry, IGridConvertor gridConvertor,
             ICanvasGridMeasurements CanvasGridMeasurements)
@@ -55,8 +55,8 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grid
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="canvasScript">           </param>
-        /// <param name="gridConvertor">          </param>
+        /// <param name="canvasScript">          </param>
+        /// <param name="gridConvertor">         </param>
         /// <param name="CanvasGridMeasurements"></param>
         private static void ApplyCanvasGridMeasurements(ICanvasScript canvasScript,
             IGridConvertor gridConvertor, ICanvasGridMeasurements CanvasGridMeasurements)

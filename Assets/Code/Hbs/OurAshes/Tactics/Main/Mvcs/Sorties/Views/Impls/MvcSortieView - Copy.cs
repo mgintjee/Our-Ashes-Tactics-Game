@@ -3,7 +3,7 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Responses.Inters
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Constrs.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Responses.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controls.Requests.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Canvases.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Canvases.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Inters;
@@ -40,7 +40,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Impls
         /// </summary>
         /// <param name="mvcSortieFrameConstruction"></param>
         /// <param name="unityScript">               </param>
-        private MvcSortieView(IMvcControllerConstruction mvcSortieFrameConstruction,
+        private MvcSortieView(IMvcControlConstruction mvcSortieFrameConstruction,
             IUnityScript unityScript)
         {
             this.sortieViewScript = new SortieViewScript.Builder()
@@ -67,12 +67,12 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Impls
             throw new System.NotImplementedException();
         }
 
-        void IMvcSortieView.Process(ISortieRequest controllerRequest)
+        void IMvcSortieView.Process(ISortieRequest ControlRequest)
         {
             throw new System.NotImplementedException();
         }
 
-        void IMvcSortieView.Process(ISet<ISortieRequest> controllerRequests)
+        void IMvcSortieView.Process(ISet<ISortieRequest> ControlRequests)
         {
             throw new System.NotImplementedException();
         }
@@ -91,7 +91,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Impls
             private IUnityScript parentUnityScript;
 
             // Todo
-            private IMvcControllerConstruction mvcSortieFrameConstruction;
+            private IMvcControlConstruction mvcSortieFrameConstruction;
 
             /// <summary>
             /// Todo
@@ -118,7 +118,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Impls
             /// </summary>
             /// <param name="mvcSortieFrameConstruction"></param>
             /// <returns></returns>
-            public Builder SetMvcSortieFrameConstruction(IMvcControllerConstruction mvcSortieFrameConstruction)
+            public Builder SetMvcSortieFrameConstruction(IMvcControlConstruction mvcSortieFrameConstruction)
             {
                 this.mvcSortieFrameConstruction = mvcSortieFrameConstruction;
                 return this;

@@ -19,8 +19,8 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Response
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Responses.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Orders.Reports.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Rosters.Reports.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Impls;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controllers.Requests.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controls.Requests.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controls.Requests.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Combats.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Combats.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Engagements.Impls;
@@ -82,7 +82,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Impls
         /// Todo
         /// </summary>
         /// <param name="sortieFrameConstruction"></param>
-        public MvcSortieModel(IMvcControllerConstruction sortieFrameConstruction)
+        public MvcSortieModel(IMvcControlConstruction sortieFrameConstruction)
         {
             _logger.Info("Instantiating");
             _sortieResponseID = new SortieResponseID(0, 0, 0);
@@ -100,7 +100,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Impls
         /// <inheritdoc/>
         ISet<IMvcRequest> IMvcModel.GetMvcRequests()
         {
-            ISet<IMvcRequest> mvcControllerRequests = new HashSet<IMvcRequest>();
+            ISet<IMvcRequest> mvcControlRequests = new HashSet<IMvcRequest>();
             IOrderReport orderReport = _orderModel.GetReport();
             if (orderReport.GetCurrentCallSigns().Count > 0)
             {
@@ -123,12 +123,12 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Impls
                             }
                         }
                     }
-                    mvcControllerRequests.Add(new SortieControllerRequest.Builder()
+                    mvcControlRequests.Add(new SortieControlRequest.Builder()
                         .SetCombatantCallSign(callSign)
                         .SetPath(path)
                         .Build());
                 }
-                return mvcControllerRequests;
+                return mvcControlRequests;
             }
             else
             {
@@ -144,12 +144,12 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Impls
         }
 
         /// <inheritdoc/>
-        void IMvcModel.Process(IMvcRequest mvcControllerRequest)
+        void IMvcModel.Process(IMvcRequest mvcControlRequest)
         {
-            _logger.Info("Processing {}", mvcControllerRequest);
-            this.RefreshModels((ISortieRequest)mvcControllerRequest);
-            this.IncrementSortieResponseID((ISortieRequest)mvcControllerRequest);
-            this.BuildMvcModelResponse(mvcControllerRequest);
+            _logger.Info("Processing {}", mvcControlRequest);
+            this.RefreshModels((ISortieRequest)mvcControlRequest);
+            this.IncrementSortieResponseID((ISortieRequest)mvcControlRequest);
+            this.BuildMvcModelResponse(mvcControlRequest);
         }
 
         /// <inheritdoc/>
@@ -161,10 +161,10 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Impls
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="sortieControllerRequest"></param>
-        private void IncrementSortieResponseID(ISortieRequest sortieControllerRequest)
+        /// <param name="sortieControlRequest"></param>
+        private void IncrementSortieResponseID(ISortieRequest sortieControlRequest)
         {
-            CombatantCallSign currentCallSign = sortieControllerRequest.GetCallSign();
+            CombatantCallSign currentCallSign = sortieControlRequest.GetCallSign();
             if (_orderModel.GetReport().GetUpcomingCallSigns().Count == 0 &&
                 _rosterModel.GetReport().GetCombatantReport(currentCallSign).GetValue().GetCurrentAttributes().GetMovableAttributes().GetActions() <= 0)
             {
@@ -186,12 +186,12 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Impls
         /// <summary>
         /// Todo
         /// </summary>
-        private void BuildMvcModelResponse(IMvcRequest mvcControllerRequest)
+        private void BuildMvcModelResponse(IMvcRequest mvcControlRequest)
         {
             _mvcModelResponse = new SortieModelResponse.Builder()
                 .SetSortieResponseID(_sortieResponseID)
-                .SetMvcControllerRequest(mvcControllerRequest)
-                .SetMvcControllerRequests(((IMvcSortieModel)this).GetMvcRequests())
+                .SetMvcControlRequest(mvcControlRequest)
+                .SetMvcControlRequests(((IMvcSortieModel)this).GetMvcRequests())
                 .SetMvcSortieModelReport(_report)
                 .Build();
         }
@@ -199,15 +199,15 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Impls
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="sortieControllerRequest"></param>
-        private void RefreshModels(ISortieRequest sortieControllerRequest)
+        /// <param name="sortieControlRequest"></param>
+        private void RefreshModels(ISortieRequest sortieControlRequest)
         {
-            _combatModel.Process(sortieControllerRequest, _rosterModel.GetReport(), _mapModel.GetReport());
-            _rosterModel.Process(sortieControllerRequest, _combatModel.GetReport());
+            _combatModel.Process(sortieControlRequest, _rosterModel.GetReport(), _mapModel.GetReport());
+            _rosterModel.Process(sortieControlRequest, _combatModel.GetReport());
             _orderModel.Process(_rosterModel.GetReport());
             _engagementModel.Process(_rosterModel.GetReport());
-            _mapModel.Process(sortieControllerRequest, _rosterModel.GetReport());
-            _scoreModel.Process(sortieControllerRequest, _mapModel.GetReport(), _rosterModel.GetReport(), _engagementModel.GetReport());
+            _mapModel.Process(sortieControlRequest, _rosterModel.GetReport());
+            _scoreModel.Process(sortieControlRequest, _mapModel.GetReport(), _rosterModel.GetReport(), _engagementModel.GetReport());
 
             _report = new MvcSortieModelReport.Builder()
                 .SetCombatReport(_combatModel.GetReport())

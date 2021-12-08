@@ -1,6 +1,6 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Reports.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Reports.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Reports.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Inters;
@@ -24,9 +24,6 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
         protected bool _isProcessing = false;
 
         // Todo
-        private IMvcViewReport _mvcViewReport;
-
-        // Todo
         protected IMvcViewCanvas mvcViewBackCanvas;
 
         // Todo
@@ -37,6 +34,9 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
 
         // Todo
         protected IMvcFrameConstruction mvcFrameConstruction;
+
+        // Todo
+        private IMvcViewReport _mvcViewReport;
 
         /// <summary>
         /// Todo
@@ -56,7 +56,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
         public abstract void Process(IMvcModelReport mvcModelReport);
 
         /// <inheritdoc/>
-        public abstract void Process(IMvcControllerReport mvcControllerReport);
+        public abstract void Process(IMvcControlReport mvcControlReport);
 
         /// <inheritdoc/>
         IMvcViewReport IMvcView.GetReport()

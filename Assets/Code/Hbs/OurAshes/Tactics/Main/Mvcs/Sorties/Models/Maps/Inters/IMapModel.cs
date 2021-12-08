@@ -28,8 +28,8 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Inters
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="controllerRequest"></param>
-        /// <param name="rosterReport">     </param>
-        void Process(ISortieRequest controllerRequest, IRosterModelReport rosterReport);
+        /// <param name="ControlRequest"></param>
+        /// <param name="rosterReport">  </param>
+        void Process(ISortieRequest ControlRequest, IRosterModelReport rosterReport);
     }
 }

@@ -3,20 +3,20 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Frames.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Randoms.Managers;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controllers.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Reports.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Reports.Impls;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Reports.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Scripts.Abstrs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Scripts.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Controllers.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Frames.Impls;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Frames.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Models.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Reports.Views.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Reports.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Impls.BlackBoxes;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Reports.Inters;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -37,7 +37,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs
         protected readonly IMvcView _mvcView;
 
         // Todo
-        protected readonly IMvcController _mvcController;
+        protected readonly IMvcControl _mvcControl;
 
         // Todo
         protected readonly IClassLogger _logger;
@@ -49,13 +49,13 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs
         private readonly IMvcFrameConstruction _returnMvcFrameConstruction;
 
         // Todo
-        private IMvcFrameConstruction _nextMvcFrameConstruction;
-
-        // Todo
         private readonly IList<IMvcFrameReport> _mvcReports = new List<IMvcFrameReport>();
 
         // Todo
         private readonly MvcType _mvcType;
+
+        // Todo
+        private IMvcFrameConstruction _nextMvcFrameConstruction;
 
         /// <summary>
         /// Todo
@@ -81,7 +81,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs
                 .SetUnityScript(_mvcFrameScript)
                 .Build();
             _mvcModel = this.BuildMvcModel(_mvcFrameConstruction);
-            _mvcController = this.BuildMvcController(_mvcFrameConstruction);
+            _mvcControl = this.BuildMvcControl(_mvcFrameConstruction);
             _mvcView = (mvcFrameConstruction.GetSimulationType() != SimulationType.BlackBox)
                 ? this.BuildMvcView(_mvcFrameConstruction)
                 : new BlackBoxMvcView(_mvcFrameConstruction);
@@ -90,40 +90,40 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs
         /// <inheritdoc/>
         void IMvcFrame.Continue()
         {
-            IMvcControllerReport mvcControllerReport = _mvcController.GetReport();
+            IMvcControlReport mvcControlReport = _mvcControl.GetReport();
             IMvcViewReport mvcViewReport = _mvcView.GetReport();
             IMvcModelReport mvcModelReport = _mvcModel.GetReport();
-            _logger.Info("Controller: {}, View: {}, Model: {}.", mvcControllerReport, mvcViewReport, mvcModelReport);
+            _logger.Info("Control: {}, View: {}, Model: {}.", mvcControlReport, mvcViewReport, mvcModelReport);
             // Check if the MvcView is either null or no longer processing
             if (!mvcViewReport.IsProcessing())
             {
-                // Check if the MvcController is no longer processing
-                if (!mvcControllerReport.IsProcessing())
+                // Check if the MvcControl is no longer processing
+                if (!mvcControlReport.IsProcessing())
                 {
-                    // Check if the MvcController has any requests
-                    if (!mvcControllerReport.HasRequests())
+                    // Check if the MvcControl has any requests
+                    if (!mvcControlReport.HasRequests())
                     {
                         // Pass in the Model's available MvcRequests
-                        _mvcController.Process(mvcModelReport);
+                        _mvcControl.Process(mvcModelReport);
                     }
                     else
                     {
-                        _logger.Debug("{} is still processing.", _mvcController.GetType());
+                        _logger.Debug("{} is still processing.", _mvcControl.GetType());
                     }
                 }
                 else
                 {
-                    _mvcView.Process(mvcControllerReport);
-                    _mvcModel.Process(mvcControllerReport);
+                    _mvcView.Process(mvcControlReport);
+                    _mvcModel.Process(mvcControlReport);
                     IMvcModelReport newMvcModelReport = _mvcModel.GetReport();
                     _logger.Info("Outputted {}.", newMvcModelReport);
                     if (mvcModelReport != newMvcModelReport)
                     {
                         _mvcView.Process(newMvcModelReport);
-                        _mvcController.Process(newMvcModelReport);
+                        _mvcControl.Process(newMvcModelReport);
                         // Build the new response
                         _mvcReports.Add(MvcFrameReport.Builder.Get()
-                            .SetMvcControllerReport(mvcControllerReport)
+                            .SetMvcControlReport(mvcControlReport)
                             .SetMvcViewReport(mvcViewReport)
                             .SetMvcModelReport(mvcModelReport)
                             .Build());
@@ -152,9 +152,21 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs
         /// <inheritdoc/>
         bool IMvcFrame.IsComplete()
         {
-            return !_mvcController.GetReport().IsProcessing() &&
+            return !_mvcControl.GetReport().IsProcessing() &&
                 !_mvcModel.GetReport().IsProcessing() &&
                 !_mvcView.GetReport().IsProcessing();
+        }
+
+        /// <inheritdoc/>
+        IMvcFrameConstruction IMvcFrame.GetCurrentMvcFrameConstruction()
+        {
+            return this._mvcFrameConstruction;
+        }
+
+        /// <inheritdoc/>
+        IMvcFrameConstruction IMvcFrame.GetUpcomingMvcFrameConstruction()
+        {
+            return _nextMvcFrameConstruction ?? _returnMvcFrameConstruction;
         }
 
         /// <summary>
@@ -169,7 +181,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs
         /// </summary>
         /// <param name="mvcFrameConstruction"></param>
         /// <returns></returns>
-        protected abstract IMvcController BuildMvcController(IMvcFrameConstruction mvcFrameConstruction);
+        protected abstract IMvcControl BuildMvcControl(IMvcFrameConstruction mvcFrameConstruction);
 
         /// <summary>
         /// Todo
@@ -183,17 +195,5 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs
         /// </summary>
         /// <returns></returns>
         protected abstract IMvcFrameConstruction BuildUpcomingMvcFrameConstruction(IMvcFrameReport mvcFrameReport);
-
-        /// <inheritdoc/>
-        IMvcFrameConstruction IMvcFrame.GetCurrentMvcFrameConstruction()
-        {
-            return this._mvcFrameConstruction;
-        }
-
-        /// <inheritdoc/>
-        IMvcFrameConstruction IMvcFrame.GetUpcomingMvcFrameConstruction()
-        {
-            return _nextMvcFrameConstruction ?? _returnMvcFrameConstruction;
-        }
     }
 }
