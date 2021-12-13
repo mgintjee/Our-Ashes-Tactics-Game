@@ -30,6 +30,6 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inte
         /// </summary>
         /// <param name="click"></param>
         /// <returns></returns>
-        Optional<Action> CanvasAction(IInput click);
+        Optional<Action> CanvasAction(IMvcControlInputClick click);
     }
 }

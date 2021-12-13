@@ -1,8 +1,9 @@
-﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Reports.Inters;
+﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Reports.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Inters;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Views.Impls
 {
@@ -19,14 +20,12 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Views.Impls
         {
         }
 
-        /// <inheritdoc/>
-        public override void Process(IMvcModelReport mvcModelReport)
+        public override void Process(IMvcModelState mvcModelState)
         {
             throw new System.NotImplementedException();
         }
 
-        /// <inheritdoc/>
-        public override void Process(IMvcControlReport mvcControlReport)
+        public override IMvcViewState Process(IMvcControlInput mvcControlInput)
         {
             throw new System.NotImplementedException();
         }
@@ -39,6 +38,11 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Views.Impls
 
             //this.mvcViewForeCanvas = new HomeViewForeCanvas(this.unityScript);
             this.mvcViewBackCanvas.Build();
+        }
+
+        protected override IMvcViewState BuildInitialMvcViewState()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

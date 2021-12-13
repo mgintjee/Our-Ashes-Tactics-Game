@@ -1,8 +1,8 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Views.Schemes.Emblems.IDs;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Views.Sprites.IDs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Schemes.Views.Emblems.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Schemes.Views.Emblems.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Schemes.Emblems.IDs;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Sprites.IDs;
 using System.Collections.Generic;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Schemes.Views.Emblems.Managers

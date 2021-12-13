@@ -1,10 +1,10 @@
-﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Frames.Simulations.Types;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Frames.Types;
+﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Frames.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Simulations.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Frames.Impls;
@@ -60,9 +60,9 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Impls
             }
             IMvcFrame mvcFrame = this.mvcTypeFrames[this.activeMvcType];
             // Check if the MvcFrame is now complete
-            if (mvcFrame.IsComplete())
+            if (!mvcFrame.IsProcessing())
             {
-                _logger.Info("{} is complete.", this.activeMvcType);
+                _logger.Info("Frame: {} is complete.", this.activeMvcType);
                 IMvcFrameConstruction mvcFrameConstruction = mvcFrame.GetUpcomingMvcFrameConstruction();
                 if (mvcFrameConstruction == null)
                 {
@@ -96,7 +96,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Impls
             switch (this.activeMvcType)
             {
                 case MvcType.Splash:
-                    return new SplashFrame(mvcFrameConstruction, currentMvcFrameConstruction);
+                    return new MvcFrameSplashImpl(mvcFrameConstruction, currentMvcFrameConstruction);
 
                 default:
                     return null;

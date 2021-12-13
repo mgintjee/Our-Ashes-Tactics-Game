@@ -11,7 +11,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Frames.Requests.Im
     /// <summary>
     /// Splash Request Interface
     /// </summary>
-    public class SplashRequest : AbstractReport, ISplashRequest
+    public class SplashRequest : AbstractReport, IMvcControlSplashRequest
     {
         // Todo
         private readonly SplashRequestType _SplashRequestType;
@@ -26,7 +26,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Frames.Requests.Im
         }
 
         /// <inheritdoc/>
-        SplashRequestType ISplashRequest.GetSplashRequestType()
+        SplashRequestType IMvcControlSplashRequest.GetSplashRequestType()
         {
             return _SplashRequestType;
         }
@@ -45,7 +45,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Frames.Requests.Im
             /// <summary>
             /// Todo
             /// </summary>
-            public interface IBuilder : IBuilder<ISplashRequest>
+            public interface IBuilder : IBuilder<IMvcControlSplashRequest>
             {
                 IBuilder SetSplashRequestType(SplashRequestType SplashRequestType);
             }
@@ -62,7 +62,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Frames.Requests.Im
             /// <summary>
             /// Todo
             /// </summary>
-            private class InternalBuilder : AbstractBuilder<ISplashRequest>, IBuilder
+            private class InternalBuilder : AbstractBuilder<IMvcControlSplashRequest>, IBuilder
             {
                 private SplashRequestType _SplashRequestType;
 
@@ -74,7 +74,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Frames.Requests.Im
                 }
 
                 /// <inheritdoc/>
-                protected override ISplashRequest BuildObj()
+                protected override IMvcControlSplashRequest BuildObj()
                 {
                     return new SplashRequest(_SplashRequestType);
                 }

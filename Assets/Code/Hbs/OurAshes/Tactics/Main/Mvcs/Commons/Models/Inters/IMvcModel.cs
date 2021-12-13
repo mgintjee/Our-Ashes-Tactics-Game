@@ -1,5 +1,5 @@
-﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Reports.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Reports.Inters;
+﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Requests.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters
 {
@@ -8,17 +8,8 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters
     /// </summary>
     public interface IMvcModel
     {
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="mvcControlReport"></param>
-        /// <returns></returns>
-        void Process(IMvcControlReport mvcControlReport);
+        bool IsProcessing();
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        IMvcModelReport GetReport();
+        IMvcModelState Process(IMvcControlRequest mvcControlRequest);
     }
 }

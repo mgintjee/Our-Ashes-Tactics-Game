@@ -1,4 +1,6 @@
-﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
+﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Inters;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Handlers.Inters
@@ -8,6 +10,12 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Han
     /// </summary>
     public interface IMvcControlInputHandler : IUnityScript
     {
-        IInput GetInput();
+        void ClearInput();
+
+        void SetEnable(bool isEnabled);
+
+        Optional<IMvcControlInputClick> GetMvcControlInput();
+
+        MvcControlInputType GetMvcControlInputType();
     }
 }

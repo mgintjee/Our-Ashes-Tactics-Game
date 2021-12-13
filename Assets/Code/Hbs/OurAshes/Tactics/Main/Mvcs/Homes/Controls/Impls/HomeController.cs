@@ -1,25 +1,42 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Abstrs;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.States.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Reports.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Inters;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Controls.Impls
 {
     /// <summary>
-    /// Home Control Implementation
+    /// Mvc Control Home Implementation
     /// </summary>
-    public class HomeControl : AbstractMvcControl, IMvcControl
+    public class MvcControlHomeImpl : AbstractMvcControl, IMvcControl
     {
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="mvcFrameConstruction"></param>
-        public HomeControl(IMvcFrameConstruction mvcFrameConstruction) : base(mvcFrameConstruction)
+        public MvcControlHomeImpl(IMvcFrameConstruction mvcFrameConstruction) : base(mvcFrameConstruction)
         {
         }
 
-        /// <inheritdoc/>
-        public override void Process(IMvcModelReport mvcModelReport)
+        public override void Process(IMvcModelState mvcModelState)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void Process(IMvcViewState mvcViewState)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void Process(IMvcControlInput mvcControlInput)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override IMvcControlState BuildInitialMvcControlState()
         {
             throw new System.NotImplementedException();
         }

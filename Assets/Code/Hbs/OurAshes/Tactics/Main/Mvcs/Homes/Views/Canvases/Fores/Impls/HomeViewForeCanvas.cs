@@ -19,7 +19,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Views.Canvases.Fores.
             throw new System.NotImplementedException();
         }
 
-        Optional<Action> IMvcViewCanvas.CanvasAction(IInput click)
+        Optional<Action> IMvcViewCanvas.CanvasAction(IMvcControlInputClick click)
         {
             throw new NotImplementedException();
         }

@@ -1,17 +1,14 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Reports.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Requests.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Reports.Impls;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Reports.Inters;
-using System.Collections.Generic;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs
 {
     /// <summary>
-    /// Abstract Mvc Model Implementation
+    /// Abstract Mvc Model
     /// </summary>
     public abstract class AbstractMvcModel : IMvcModel
     {
@@ -19,7 +16,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs
         protected readonly IClassLogger _logger;
 
         // Todo
-        protected ISet<IMvcRequest> _mvcRequests = new HashSet<IMvcRequest>();
+        protected readonly IMvcModelState mvcModelState;
 
         // Todo
         protected bool _isProcessing = true;
@@ -27,67 +24,31 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs
         // Todo
         protected IMvcFrameConstruction _mvcFrameConstruction;
 
-        // Todo
-        private IMvcModelReport _mvcModelReport;
-
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="mvcFrameConstruction"></param>
         public AbstractMvcModel(IMvcFrameConstruction mvcFrameConstruction)
         {
-            _logger = LoggerManager.GetLogger(mvcFrameConstruction.GetMvcType()).GetClassLogger(this.GetType());
+            _logger = LoggerManager.GetLogger(mvcFrameConstruction.GetMvcType())
+                .GetClassLogger(this.GetType());
             _mvcFrameConstruction = mvcFrameConstruction;
-            this.BuildInitialRequests();
-            this.BuildReport();
+            this.mvcModelState = this.BuildInitialMvcModelState();
         }
 
         /// <inheritdoc/>
-        IMvcModelReport IMvcModel.GetReport()
-        {
-            return _mvcModelReport;
-        }
+        public abstract IMvcModelState Process(IMvcControlRequest mvcControlRequest);
 
         /// <inheritdoc/>
-        void IMvcModel.Process(IMvcControlReport mvcControlReport)
+        bool IMvcModel.IsProcessing()
         {
-            if (mvcControlReport.GetSelectedRequest().IsPresent())
-            {
-                if (mvcControlReport.GetConfirmedRequest().IsPresent())
-                {
-                    this.ProcessConfirmedRequest(mvcControlReport.GetConfirmedRequest().GetValue());
-                }
-                else
-                {
-                    _logger.Info("No Confirmed {}...", typeof(IMvcRequest));
-                }
-            }
-            else
-            {
-                _logger.Info("No Selected {}...", typeof(IMvcRequest));
-            }
+            return this._isProcessing;
         }
 
         /// <summary>
         /// Todo
         /// </summary>
-        protected void BuildReport()
-        {
-            _mvcModelReport = MvcModelReport.Builder.Get()
-                .SetIsProcessing(_isProcessing)
-                .SetMvcRequests(_mvcRequests)
-                .Build();
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="mvcRequest"></param>
-        protected abstract void ProcessConfirmedRequest(IMvcRequest mvcRequest);
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        protected abstract void BuildInitialRequests();
+        /// <returns></returns>
+        protected abstract IMvcModelState BuildInitialMvcModelState();
     }
 }

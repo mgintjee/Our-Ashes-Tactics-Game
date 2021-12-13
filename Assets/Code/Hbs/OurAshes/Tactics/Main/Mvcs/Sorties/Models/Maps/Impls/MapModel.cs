@@ -141,7 +141,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Impls
         /// </summary>
         /// <param name="ControlRequest"></param>
         /// <param name="rosterReport">  </param>
-        void IMapModel.Process(ISortieRequest ControlRequest, IRosterModelReport rosterReport)
+        void IMapModel.Process(IMvcControlSortieRequest ControlRequest, IRosterModelReport rosterReport)
         {
             if (ControlRequest != null)
             {

@@ -1,8 +1,8 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Widgets.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Widgets.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Views.Colors.IDs;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Views.Resources.Loaders.Sprites;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Views.Sprites.IDs;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Colors.IDs;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Resources.Loaders.Sprites;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Sprites.IDs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Inters.Basics;
 using UnityEngine;
 using UnityEngine.UI;

@@ -57,7 +57,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abst
         /// </summary>
         /// <param name="click"></param>
         /// <returns></returns>
-        Optional<Action> IMvcViewCanvas.CanvasAction(IInput click)
+        Optional<Action> IMvcViewCanvas.CanvasAction(IMvcControlInputClick click)
         {
             // Todo: Calculate where the click falls pending on the canvas
             throw new NotImplementedException();

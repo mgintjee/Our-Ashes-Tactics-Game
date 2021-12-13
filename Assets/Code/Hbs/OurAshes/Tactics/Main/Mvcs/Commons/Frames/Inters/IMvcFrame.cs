@@ -16,7 +16,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Inters
         /// Todo
         /// </summary>
         /// <returns></returns>
-        bool IsComplete();
+        bool IsProcessing();
 
         /// <summary>
         /// Todo

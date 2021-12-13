@@ -1,7 +1,8 @@
-﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Inters;
+﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Requests.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Models.Impls
 {
@@ -20,13 +21,13 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Models.Impls
         }
 
         /// <inheritdoc/>
-        protected override void BuildInitialRequests()
+        public override IMvcModelState Process(IMvcControlRequest mvcControlRequest)
         {
-            // Todo
+            throw new System.NotImplementedException();
         }
 
         /// <inheritdoc/>
-        protected override void ProcessConfirmedRequest(IMvcRequest mvcRequest)
+        protected override IMvcModelState BuildInitialMvcModelState()
         {
             throw new System.NotImplementedException();
         }

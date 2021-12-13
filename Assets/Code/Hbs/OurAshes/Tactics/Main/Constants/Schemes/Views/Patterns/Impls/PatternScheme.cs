@@ -1,9 +1,9 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Views.Colors.IDs;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Views.Schemes.Patterns.IDs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Schemes.Views.Patterns.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Colors.IDs;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Schemes.Patterns.IDs;
 using System.Collections.Generic;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Schemes.Views.Patterns.Impls
@@ -11,8 +11,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Schemes.Views.Patterns
     /// <summary>
     /// Pattern Scheme Implementation
     /// </summary>
-    public class PatternScheme
-        : IPatternScheme
+    public class PatternScheme : IPatternScheme
     {
         // Todo
         private readonly PatternSchemeID _patternSchemeID;

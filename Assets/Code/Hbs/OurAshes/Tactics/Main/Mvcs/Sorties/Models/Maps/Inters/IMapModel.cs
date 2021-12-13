@@ -30,6 +30,6 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Inters
         /// </summary>
         /// <param name="ControlRequest"></param>
         /// <param name="rosterReport">  </param>
-        void Process(ISortieRequest ControlRequest, IRosterModelReport rosterReport);
+        void Process(IMvcControlSortieRequest ControlRequest, IRosterModelReport rosterReport);
     }
 }

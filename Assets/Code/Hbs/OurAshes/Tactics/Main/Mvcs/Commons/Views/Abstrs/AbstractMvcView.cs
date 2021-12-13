@@ -1,14 +1,13 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Reports.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Reports.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Utils;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Reports.Impls;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Reports.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Inters;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
 {
@@ -19,6 +18,9 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
     {
         // Todo
         protected readonly IClassLogger _logger;
+
+        // Todo
+        protected readonly IMvcViewState mvcViewState;
 
         // Todo
         protected bool _isProcessing = false;
@@ -35,9 +37,6 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
         // Todo
         protected IMvcFrameConstruction mvcFrameConstruction;
 
-        // Todo
-        private IMvcViewReport _mvcViewReport;
-
         /// <summary>
         /// Todo
         /// </summary>
@@ -49,32 +48,30 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
             this.unityScript = UnityScriptUtils.BuildViewUnityScript(typeof(IMvcView),
                 mvcFrameConstruction.GetMvcType(), this.mvcFrameConstruction.GetUnityScript());
             this.BuildCanvas();
-            this.BuildReport();
+            this.mvcViewState = this.BuildInitialMvcViewState();
         }
 
         /// <inheritdoc/>
-        public abstract void Process(IMvcModelReport mvcModelReport);
+        public abstract void Process(IMvcModelState mvcModelState);
 
         /// <inheritdoc/>
-        public abstract void Process(IMvcControlReport mvcControlReport);
+        public abstract IMvcViewState Process(IMvcControlInput mvcControlInput);
 
         /// <inheritdoc/>
-        IMvcViewReport IMvcView.GetReport()
+        bool IMvcView.IsProcessing()
         {
-            return _mvcViewReport;
-        }
-
-        /// <inheritdoc/>
-        protected void BuildReport()
-        {
-            _mvcViewReport = MvcViewReport.Builder.Get()
-                .SetIsProcessing(_isProcessing)
-                .Build();
+            return _isProcessing;
         }
 
         /// <summary>
         /// Todo
         /// </summary>
         protected abstract void BuildCanvas();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        protected abstract IMvcViewState BuildInitialMvcViewState();
     }
 }

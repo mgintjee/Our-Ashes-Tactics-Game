@@ -1,6 +1,6 @@
-﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Reports.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Reports.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Reports.Inters;
+﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Inters;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Inters
 {
@@ -9,22 +9,10 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Inters
     /// </summary>
     public interface IMvcView
     {
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="mvcModelReport"></param>
-        void Process(IMvcModelReport mvcModelReport);
+        bool IsProcessing();
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="mvcControlReport"></param>
-        void Process(IMvcControlReport mvcControlReport);
+        void Process(IMvcModelState mvcModelState);
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        IMvcViewReport GetReport();
+        IMvcViewState Process(IMvcControlInput mvcControlInput);
     }
 }

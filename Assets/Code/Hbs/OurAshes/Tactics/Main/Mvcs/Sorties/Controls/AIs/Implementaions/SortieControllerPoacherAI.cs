@@ -2,8 +2,8 @@
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Frames.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Randoms.Managers;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.AIs.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Responses.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Requests.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.States.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Requests.Inters;
 using System.Collections.Generic;
 
@@ -12,27 +12,12 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controls.AIs.Implem
     /// <summary>
     /// Todo
     /// </summary>
-    public class SortieControlPoacherAI : IControlAI
+    public class SortieControlPoacherAI : IMvcControlAI
     {
         /// <inheritdoc/>
-        IMvcRequest IControlAI.DetermineBestRequest(IMvcResponse mvcResponse)
+        IMvcControlRequest IMvcControlAI.DetermineBestRequest(IMvcFrameState mvcFrameState)
         {
-            ISet<ISortieRequest> mvcRequests = new HashSet<ISortieRequest>((ISet<ISortieRequest>)mvcResponse.GetMvcRequest());
-            ISet<ISortieRequest> fireSortieRequests = new HashSet<ISortieRequest>();
-            foreach (ISortieRequest sortieRequest in mvcRequests)
-            {
-                if (sortieRequest.GetPath().GetPathType() == PathType.Fire)
-                {
-                    fireSortieRequests.Add(sortieRequest);
-                }
-            }
-            if (fireSortieRequests.Count != 0)
-            {
-                int fireRandomIndex = RandomManager.GetRandom(MvcType.Sortie).Next(fireSortieRequests.Count);
-                return new List<ISortieRequest>(fireSortieRequests)[fireRandomIndex];
-            }
-            int randomIndex = RandomManager.GetRandom(MvcType.Sortie).Next(mvcRequests.Count);
-            return new List<ISortieRequest>(mvcRequests)[randomIndex];
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Frames.Requests.Impls
     /// <summary>
     /// Home Request Interface
     /// </summary>
-    public class HomeRequest : AbstractReport, IHomeRequest
+    public class HomeRequest : AbstractReport, IMvcControlHomeRequest
     {
         // Todo
         private readonly HomeRequestType _homeRequestType;
@@ -26,7 +26,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Frames.Requests.Impls
         }
 
         /// <inheritdoc/>
-        HomeRequestType IHomeRequest.GetHomeRequestType()
+        HomeRequestType IMvcControlHomeRequest.GetHomeRequestType()
         {
             return _homeRequestType;
         }
@@ -45,7 +45,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Frames.Requests.Impls
             /// <summary>
             /// Todo
             /// </summary>
-            public interface IBuilder : IBuilder<IHomeRequest>
+            public interface IBuilder : IBuilder<IMvcControlHomeRequest>
             {
                 IBuilder SetHomeRequestType(HomeRequestType homeRequestType);
             }
@@ -62,7 +62,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Frames.Requests.Impls
             /// <summary>
             /// Todo
             /// </summary>
-            private class InternalBuilder : AbstractBuilder<IHomeRequest>, IBuilder
+            private class InternalBuilder : AbstractBuilder<IMvcControlHomeRequest>, IBuilder
             {
                 private HomeRequestType _homeRequestType;
 
@@ -74,7 +74,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Frames.Requests.Impls
                 }
 
                 /// <inheritdoc/>
-                protected override IHomeRequest BuildObj()
+                protected override IMvcControlHomeRequest BuildObj()
                 {
                     return new HomeRequest(_homeRequestType);
                 }

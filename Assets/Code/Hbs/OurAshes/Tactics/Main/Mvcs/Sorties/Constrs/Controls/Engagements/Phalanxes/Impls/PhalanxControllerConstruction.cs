@@ -1,9 +1,9 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Controls.AIs.Types;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Controls.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.CallSigns;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Phalanxes.CallSigns;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.AIs.Types;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.IDs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Controls.Engagements.Phalanxes.Inters;
 using System.Collections.Generic;
 
@@ -17,6 +17,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Controls.En
         // Todo
         private readonly PhalanxCallSign _phalanxCallSign;
 
+        // Todo
         private readonly AIType _aiType;
 
         // Todo
@@ -55,7 +56,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Controls.En
         }
 
         /// <inheritdoc/>
-        ControlID IPhalanxControlConstruction.GetControlType()
+        ControlID IPhalanxControlConstruction.GetControlID()
         {
             return _ControlID;
         }

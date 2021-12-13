@@ -1,5 +1,5 @@
-﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Views.Colors.IDs;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Views.Sprites.IDs;
+﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Colors.IDs;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Sprites.IDs;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Inters.Basics
 {

@@ -1,7 +1,7 @@
-﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Controls.AIs.Types;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Controls.Types;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.CallSigns;
+﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.CallSigns;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Phalanxes.CallSigns;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.AIs.Types;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.IDs;
 using System.Collections.Generic;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Controls.Engagements.Phalanxes.Inters
@@ -27,7 +27,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Controls.En
         /// Todo
         /// </summary>
         /// <returns></returns>
-        ControlID GetControlType();
+        ControlID GetControlID();
 
         /// <summary>
         /// Todo

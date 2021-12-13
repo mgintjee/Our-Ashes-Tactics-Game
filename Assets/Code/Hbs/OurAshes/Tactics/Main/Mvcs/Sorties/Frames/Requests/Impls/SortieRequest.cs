@@ -12,7 +12,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Requests.Imp
     /// <summary>
     /// Sortie Request Interface
     /// </summary>
-    public class SortieRequest : AbstractReport, ISortieRequest
+    public class SortieRequest : AbstractReport, IMvcControlSortieRequest
     {
         // Todo
         private readonly CombatantCallSign _combatantCallSign;
@@ -32,13 +32,13 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Requests.Imp
         }
 
         /// <inheritdoc/>
-        CombatantCallSign ISortieRequest.GetCallSign()
+        CombatantCallSign IMvcControlSortieRequest.GetCallSign()
         {
             return _combatantCallSign;
         }
 
         /// <inheritdoc/>
-        ISortieMapPath ISortieRequest.GetPath()
+        ISortieMapPath IMvcControlSortieRequest.GetPath()
         {
             return _sortieMapPath;
         }
@@ -58,7 +58,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Requests.Imp
             /// <summary>
             /// Todo
             /// </summary>
-            public interface IBuilder : IBuilder<ISortieRequest>
+            public interface IBuilder : IBuilder<IMvcControlSortieRequest>
             {
                 IBuilder SetCombatantCallSign(CombatantCallSign combatantCallSign);
 
@@ -77,7 +77,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Requests.Imp
             /// <summary>
             /// Todo
             /// </summary>
-            private class InternalBuilder : AbstractBuilder<ISortieRequest>, IBuilder
+            private class InternalBuilder : AbstractBuilder<IMvcControlSortieRequest>, IBuilder
             {
                 // Todo
                 private CombatantCallSign _combatantCallSign;
@@ -100,7 +100,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Requests.Imp
                 }
 
                 /// <inheritdoc/>
-                protected override ISortieRequest BuildObj()
+                protected override IMvcControlSortieRequest BuildObj()
                 {
                     return new SortieRequest(_combatantCallSign, _sortieMapPath);
                 }

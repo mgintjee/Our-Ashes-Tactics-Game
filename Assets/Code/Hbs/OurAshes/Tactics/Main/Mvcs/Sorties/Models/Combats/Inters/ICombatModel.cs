@@ -22,7 +22,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Combats.Inte
         /// <param name="ControlRequest">       </param>
         /// <param name="combatantRosterReport"></param>
         /// <param name="mapReport">            </param>
-        void Process(ISortieRequest ControlRequest,
+        void Process(IMvcControlSortieRequest ControlRequest,
             IRosterModelReport combatantRosterReport, ISortieMapReport mapReport);
     }
 }

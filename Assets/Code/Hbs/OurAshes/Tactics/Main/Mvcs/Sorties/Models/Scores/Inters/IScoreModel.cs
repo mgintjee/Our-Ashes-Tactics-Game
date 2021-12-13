@@ -24,6 +24,6 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Scores.Inter
         /// <param name="mapReport">       </param>
         /// <param name="rosterReport">    </param>
         /// <param name="engagementReport"></param>
-        void Process(ISortieRequest ControlRequest, ISortieMapReport mapReport, IRosterModelReport rosterReport, IEngagementReport engagementReport);
+        void Process(IMvcControlSortieRequest ControlRequest, ISortieMapReport mapReport, IRosterModelReport rosterReport, IEngagementReport engagementReport);
     }
 }

@@ -64,7 +64,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.Impl
         }
 
         /// <inheritdoc/>
-        void IRosterModel.Process(ISortieRequest ControlRequest, ICombatReport combatReport)
+        void IRosterModel.Process(IMvcControlSortieRequest ControlRequest, ICombatReport combatReport)
         {
             if (ControlRequest != null)
             {
