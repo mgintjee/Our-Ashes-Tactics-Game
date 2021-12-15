@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Models.Constrs.Impls
 {
     /// <summary>
-    /// Splash Mvc Model Implementation
+    /// Splash Mvc Model Impl
     /// </summary>
     public class SplashModelConstruction : ISplashModelConstruction
     {

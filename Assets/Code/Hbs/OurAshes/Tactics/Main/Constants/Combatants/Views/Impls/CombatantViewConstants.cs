@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Combatants.Views.Impls
 {
     /// <summary>
-    /// Combatant View Constants Implementation
+    /// Combatant View Constants Impl
     /// </summary>
     public struct CombatantViewConstants : ICombatantViewConstants
     {
@@ -58,7 +58,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Combatants.Views.Impls
             }
 
             /// <summary>
-            /// Builder Implementation for this object
+            /// Builder Impl for this object
             /// </summary>
             private class InternalBuilder : AbstractBuilder<ICombatantViewConstants>, IBuilder
             {

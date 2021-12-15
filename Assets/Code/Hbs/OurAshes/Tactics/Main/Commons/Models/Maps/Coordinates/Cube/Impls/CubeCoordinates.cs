@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Maps.Coordinates.Cube.Impls
 {
     /// <summary>
-    /// Cube Coordinates Implementation
+    /// Cube Coordinates Impl
     /// </summary>
     public struct CubeCoordinates
         : ICubeCoordinates
@@ -130,7 +130,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Maps.Coordinates.
             }
 
             /// <summary>
-            /// Builder Implementation for this object
+            /// Builder Impl for this object
             /// </summary>
             private class InternalBuilder : AbstractBuilder<ICubeCoordinates>, IBuilder
             {

@@ -1,5 +1,5 @@
-﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Requests.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.States.Inters;
+﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.States.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Requests.Inters;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.AIs.Inters
 {
@@ -13,6 +13,6 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.AIs.Inters
         /// </summary>
         /// <param name="mvcFrameState"></param>
         /// <returns></returns>
-        IMvcControlRequest DetermineBestRequest(IMvcFrameState mvcFrameState);
+        IMvcModelRequest DetermineBestRequest(IMvcFrameState mvcFrameState);
     }
 }

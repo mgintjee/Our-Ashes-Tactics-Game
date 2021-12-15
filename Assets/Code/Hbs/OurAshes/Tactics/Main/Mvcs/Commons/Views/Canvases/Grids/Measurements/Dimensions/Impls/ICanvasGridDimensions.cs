@@ -3,7 +3,7 @@
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Dimensions.Impls
 {
     /// <summary>
-    /// Canvas Grid Dimensions Implementation
+    /// Canvas Grid Dimensions Impl
     /// </summary>
     public struct CanvasGridDimensions : ICanvasGridDimensions
     {

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Views.Engagements.Phalanxes.Impls
 {
     /// <summary>
-    /// Phalanx View Construction Implementation
+    /// Phalanx View Construction Impl
     /// </summary>
     public struct PhalanxViewConstruction : IPhalanxViewConstruction
     {

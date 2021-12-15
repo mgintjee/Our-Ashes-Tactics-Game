@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Models.Maps.Tiles.Impls
 {
     /// <summary>
-    /// Sortie Tile Model Construction Implementation
+    /// Sortie Tile Model Construction Impl
     /// </summary>
     public class SortieTileModelConstruction : ISortieTileModelConstruction
     {

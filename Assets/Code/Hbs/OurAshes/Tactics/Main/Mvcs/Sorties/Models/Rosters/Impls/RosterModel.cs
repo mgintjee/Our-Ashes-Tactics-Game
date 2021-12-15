@@ -64,12 +64,12 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.Impl
         }
 
         /// <inheritdoc/>
-        void IRosterModel.Process(IMvcControlSortieRequest ControlRequest, ICombatReport combatReport)
+        void IRosterModel.Process(IMvcControlSortieRequest ModelRequest, ICombatReport combatReport)
         {
-            if (ControlRequest != null)
+            if (ModelRequest != null)
             {
-                CombatantCallSign callSign = ControlRequest.GetCallSign();
-                ISortieMapPath path = ControlRequest.GetPath();
+                CombatantCallSign callSign = ModelRequest.GetCallSign();
+                ISortieMapPath path = ModelRequest.GetPath();
                 _report.GetCombatantReport(callSign).IfPresent((combatantReport) =>
                 {
                     float actionCost = 0.0f;

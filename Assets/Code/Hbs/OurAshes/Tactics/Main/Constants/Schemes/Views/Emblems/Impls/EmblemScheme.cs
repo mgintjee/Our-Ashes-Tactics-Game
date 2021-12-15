@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Schemes.Views.Emblems.Impls
 {
     /// <summary>
-    /// Emblem Scheme Implementation
+    /// Emblem Scheme Impl
     /// </summary>
     public class EmblemScheme : IEmblemScheme
     {

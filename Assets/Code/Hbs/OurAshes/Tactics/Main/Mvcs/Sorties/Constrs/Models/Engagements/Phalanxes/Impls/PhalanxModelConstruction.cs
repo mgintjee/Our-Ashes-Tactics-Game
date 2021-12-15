@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Models.Engagements.Phalanxes.Impls
 {
     /// <summary>
-    /// Phalanx Model Construction Implementation
+    /// Phalanx Model Construction Impl
     /// </summary>
     public struct PhalanxModelConstruction : IPhalanxModelConstruction
     {

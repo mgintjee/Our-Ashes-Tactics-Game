@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Attributes.Weapons.Impls
 {
     /// <summary>
-    /// Weapon Attributes Implementation
+    /// Weapon Attributes Impl
     /// </summary>
     public struct WeaponAttributes : IWeaponAttributes
     {
@@ -156,7 +156,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Attrib
             }
 
             /// <summary>
-            /// Builder Implementation for this object
+            /// Builder Impl for this object
             /// </summary>
             private class InternalBuilder : AbstractBuilder<IWeaponAttributes>, IBuilder
             {

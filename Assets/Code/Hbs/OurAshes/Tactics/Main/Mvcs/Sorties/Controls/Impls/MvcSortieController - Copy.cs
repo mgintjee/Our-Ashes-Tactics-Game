@@ -11,7 +11,7 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Phalanxes.Const
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controls.AIs.Implementaions;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controls.AIs.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controls.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controls.Requests.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Requests.Inters;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -38,13 +38,13 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controls.Impls
             new Dictionary<CombatantCallSign, AIType>();
 
         // Todo
-        private readonly ISet<ISortieRequest> _sortieControlRequests = new HashSet<ISortieRequest>();
+        private readonly ISet<ISortieRequest> _sortieModelRequests = new HashSet<ISortieRequest>();
 
         // Todo
-        private ISortieRequest _confirmedSortieControlRequest;
+        private ISortieRequest _confirmedSortieModelRequest;
 
         // Todo
-        private ISortieRequest _selectedSortieControlRequest;
+        private ISortieRequest _selectedSortieModelRequest;
 
         /// <summary>
         /// Todo
@@ -71,56 +71,56 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controls.Impls
         }
 
         /// <inheritdoc/>
-        ISortieRequest IMvcSortieControl.GetConfirmedControlRequest()
+        ISortieRequest IMvcSortieControl.GetConfirmedModelRequest()
         {
-            return _confirmedSortieControlRequest;
+            return _confirmedSortieModelRequest;
         }
 
         /// <inheritdoc/>
-        ISet<ISortieRequest> IMvcSortieControl.GetControlRequests()
+        ISet<ISortieRequest> IMvcSortieControl.GetModelRequests()
         {
-            return new HashSet<ISortieRequest>(_sortieControlRequests);
+            return new HashSet<ISortieRequest>(_sortieModelRequests);
         }
 
         /// <inheritdoc/>
-        ISortieRequest IMvcSortieControl.GetSelectedControlRequest()
+        ISortieRequest IMvcSortieControl.GetSelectedModelRequest()
         {
-            return _selectedSortieControlRequest;
+            return _selectedSortieModelRequest;
         }
 
         /// <inheritdoc/>
         bool IMvcSortieControl.IsProcessing()
         {
-            return _sortieControlRequests.Count != 0 &&
-                (_selectedSortieControlRequest == null ||
-                _confirmedSortieControlRequest == null);
+            return _sortieModelRequests.Count != 0 &&
+                (_selectedSortieModelRequest == null ||
+                _confirmedSortieModelRequest == null);
         }
 
         /// <inheritdoc/>
-        void IMvcSortieControl.Process(ISet<ISortieRequest> sortieControlRequests)
+        void IMvcSortieControl.Process(ISet<ISortieRequest> sortieModelRequests)
         {
-            if (sortieControlRequests.Count == 0)
+            if (sortieModelRequests.Count == 0)
             {
                 throw ExceptionUtil.Arguments.Build();
             }
             _logger.Info("Available {}s ({}): [" +
                 "\n{}" +
                 "\n]",
-                typeof(ISortieRequest), sortieControlRequests.Count,
-                string.Join("\n", sortieControlRequests));
-            _sortieControlRequests.Clear();
-            _sortieControlRequests.UnionWith(sortieControlRequests);
-            _selectedSortieControlRequest = null;
-            _confirmedSortieControlRequest = null;
+                typeof(ISortieRequest), sortieModelRequests.Count,
+                string.Join("\n", sortieModelRequests));
+            _sortieModelRequests.Clear();
+            _sortieModelRequests.UnionWith(sortieModelRequests);
+            _selectedSortieModelRequest = null;
+            _confirmedSortieModelRequest = null;
             CombatantCallSign combatantCallSign = new List<ISortieRequest>
-                (sortieControlRequests)[0].GetCallSign();
+                (sortieModelRequests)[0].GetCallSign();
             AIType aiType = _combatantCallSignControlTypes[combatantCallSign];
             if (aiType != AIType.None)
             {
-                ISortieRequest sortieControlRequest = _aiTypeAIControls[aiType]
-                    .DetermineControlRequest(null, sortieControlRequests);
-                _selectedSortieControlRequest = sortieControlRequest;
-                _confirmedSortieControlRequest = sortieControlRequest;
+                ISortieRequest sortieModelRequest = _aiTypeAIControls[aiType]
+                    .DetermineModelRequest(null, sortieModelRequests);
+                _selectedSortieModelRequest = sortieModelRequest;
+                _confirmedSortieModelRequest = sortieModelRequest;
             }
             else
             {
@@ -131,9 +131,9 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controls.Impls
         /// <inheritdoc/>
         void IMvcSortieControl.Clear()
         {
-            _sortieControlRequests.Clear();
-            _selectedSortieControlRequest = null;
-            _confirmedSortieControlRequest = null;
+            _sortieModelRequests.Clear();
+            _selectedSortieModelRequest = null;
+            _confirmedSortieModelRequest = null;
         }
 
         /// <summary>

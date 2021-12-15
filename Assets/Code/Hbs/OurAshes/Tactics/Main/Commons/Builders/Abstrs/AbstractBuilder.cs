@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Abstrs
 {
     /// <summary>
-    /// Abstract Builder class Implementation
+    /// Abstract Builder class Impl
     /// </summary>
     public abstract class AbstractBuilder<T> : IBuilder<T>
     {

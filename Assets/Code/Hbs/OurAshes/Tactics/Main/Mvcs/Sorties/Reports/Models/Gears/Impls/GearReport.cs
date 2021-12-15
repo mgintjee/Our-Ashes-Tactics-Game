@@ -14,7 +14,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Gears.Impls
 {
     /// <summary>
-    /// Gear Report Implementation
+    /// Gear Report Impl
     /// </summary>
     public class GearReport : AbstractReport, IGearReport
     {
@@ -107,7 +107,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Gear
             }
 
             /// <summary>
-            /// Builder Implementation for this object
+            /// Builder Impl for this object
             /// </summary>
             private class InternalBuilder : AbstractBuilder<IGearReport>, IBuilder
             {

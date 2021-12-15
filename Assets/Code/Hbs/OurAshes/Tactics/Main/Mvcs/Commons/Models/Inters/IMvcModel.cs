@@ -1,4 +1,4 @@
-﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Requests.Inters;
+﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Requests.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters
@@ -10,6 +10,6 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters
     {
         bool IsProcessing();
 
-        IMvcModelState Process(IMvcControlRequest mvcControlRequest);
+        IMvcModelState Process(IMvcModelRequest mvcModelRequest);
     }
 }

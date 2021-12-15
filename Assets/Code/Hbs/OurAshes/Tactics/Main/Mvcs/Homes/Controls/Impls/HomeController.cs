@@ -9,15 +9,15 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Inters;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Controls.Impls
 {
     /// <summary>
-    /// Mvc Control Home Implementation
+    /// Mvc Control Home Impl
     /// </summary>
-    public class MvcControlHomeImpl : AbstractMvcControl, IMvcControl
+    public class HomeControl : AbstractMvcControl, IMvcControl
     {
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="mvcFrameConstruction"></param>
-        public MvcControlHomeImpl(IMvcFrameConstruction mvcFrameConstruction) : base(mvcFrameConstruction)
+        public HomeControl(IMvcFrameConstruction mvcFrameConstruction) : base(mvcFrameConstruction)
         {
         }
 

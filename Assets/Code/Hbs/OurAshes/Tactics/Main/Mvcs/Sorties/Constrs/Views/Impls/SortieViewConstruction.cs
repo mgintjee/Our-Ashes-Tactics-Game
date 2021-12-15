@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Views.Impls
 {
     /// <summary>
-    /// Sortie View Construction Implementation
+    /// Sortie View Construction Impl
     /// </summary>
     public struct SortieViewConstruction : ISortieViewConstruction
     {

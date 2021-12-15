@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Views.Maps.Tiles.Impls
 {
     /// <summary>
-    /// Sortie Tile View Construction Implementation
+    /// Sortie Tile View Construction Impl
     /// </summary>
     public class SortieTileViewConstruction : ISortieTileViewConstruction
     {

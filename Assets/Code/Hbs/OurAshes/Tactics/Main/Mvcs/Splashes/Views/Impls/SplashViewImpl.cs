@@ -1,29 +1,32 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Requests.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Coordinates.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Dimensions.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Views.Canvases.Backs.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Views.Canvases.Fores.Impls;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Views.States.Impls;
+using System.Collections.Generic;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Views.Impls
 {
     /// <summary>
-    /// Mvc View Splash Implementation
+    /// Splash View Impl
     /// </summary>
-    public class MvcViewSplashImpl
+    public class SplashViewImpl
         : AbstractMvcView, IMvcView
     {
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="mvcFrameConstruction"></param>
-        public MvcViewSplashImpl(IMvcFrameConstruction mvcFrameConstruction)
+        public SplashViewImpl(IMvcFrameConstruction mvcFrameConstruction)
             : base(mvcFrameConstruction)
         {
         }
@@ -31,13 +34,18 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Views.Impls
         /// <inheritdoc/>
         public override void Process(IMvcModelState mvcModelState)
         {
-            throw new System.NotImplementedException();
+            _logger.Info("Processing {}...", mvcModelState);
+            this.mvcModelState = mvcModelState;
         }
 
         /// <inheritdoc/>
         public override IMvcViewState Process(IMvcControlInput mvcControlInput)
         {
-            _logger.Info("User clicked {}", mvcControlInput) ;
+            _logger.Info("Processing {}...", mvcControlInput);
+            ((MvcViewStateImpl)this.mvcViewState).SetMvcControlInputTypes(
+                new HashSet<MvcControlInputType>());
+            ((MvcViewStateImpl)this.mvcViewState).SetMvcModelRequest(
+                new List<IMvcModelRequest>(this.mvcModelState.GetMvcModelRequests())[0]);
             return this.mvcViewState;
         }
 
@@ -70,7 +78,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Views.Impls
         /// <inheritdoc/>
         protected override IMvcViewState BuildInitialMvcViewState()
         {
-            return new MvcViewStateSplashImpl();
+            return new MvcViewStateImpl();
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Models.Rosters.Impls
 {
     /// <summary>
-    /// Roster Model Construction Implementation
+    /// Roster Model Construction Impl
     /// </summary>
     public struct RosterModelConstruction : IRosterModelConstruction
     {

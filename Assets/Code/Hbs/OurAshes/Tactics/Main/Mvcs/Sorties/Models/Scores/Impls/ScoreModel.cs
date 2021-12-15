@@ -57,9 +57,9 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Scores.Impls
         }
 
         /// <inheritdoc/>
-        void IScoreModel.Process(IMvcControlSortieRequest ControlRequest, ISortieMapReport mapReport, IRosterModelReport rosterReport, IEngagementReport engagementReport)
+        void IScoreModel.Process(IMvcControlSortieRequest ModelRequest, ISortieMapReport mapReport, IRosterModelReport rosterReport, IEngagementReport engagementReport)
         {
-            if (ControlRequest != null)
+            if (ModelRequest != null)
             {
                 this.BuildScoreTallies(mapReport, rosterReport, engagementReport);
             }

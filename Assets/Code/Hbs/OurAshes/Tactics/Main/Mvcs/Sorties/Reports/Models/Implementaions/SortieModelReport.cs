@@ -12,7 +12,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Implementaions
 {
     /// <summary>
-    /// Sortie Model Report Implementation
+    /// Sortie Model Report Impl
     /// </summary>
     public class SortieModelReport : AbstractReport, ISortieModelReport
     {

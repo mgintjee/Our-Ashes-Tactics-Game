@@ -13,7 +13,7 @@ using System.Diagnostics;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Tiles.Impls
 {
     /// <summary>
-    /// Sortie Tile Model Implementation
+    /// Sortie Tile Model Impl
     /// </summary>
     public class SortieTileModel : ISortieTileModel
     {

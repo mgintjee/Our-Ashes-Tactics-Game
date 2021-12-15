@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Traits.Impls
 {
     /// <summary>
-    /// Trait Report Implementation
+    /// Trait Report Impl
     /// </summary>
     public class TraitReport : AbstractReport, ITraitReport
     {
@@ -61,7 +61,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Trai
             }
 
             /// <summary>
-            /// Builder Implementation for this object
+            /// Builder Impl for this object
             /// </summary>
             private class InternalBuilder : AbstractBuilder<ITraitReport>, IBuilder
             {

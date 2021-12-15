@@ -1,11 +1,13 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Frames.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Randoms.Managers;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Simulations.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Frames.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Frames.Impls;
 using System;
@@ -15,7 +17,7 @@ using System.Diagnostics;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Impls
 {
     /// <summary>
-    /// Mvc Manager Implementationw
+    /// Mvc Manager Implw
     /// </summary>
     public class MvcManager : IMvcManager
     {
@@ -91,16 +93,31 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Impls
         {
             // Set the active MvcType
             this.activeMvcType = mvcFrameConstruction.GetMvcType();
-            _logger.Info("Building {} {}", this.activeMvcType, typeof(IMvcFrame));
+            IMvcFrame mvcFrame;
             // Switch-case on the new active MvcType
             switch (this.activeMvcType)
             {
                 case MvcType.Splash:
-                    return new MvcFrameSplashImpl(mvcFrameConstruction, currentMvcFrameConstruction);
+                    mvcFrame = new SplashFrameImpl(mvcFrameConstruction, currentMvcFrameConstruction);
+                    break;
+                case MvcType.Home:
+                    mvcFrame = new HomeFrameImpl(mvcFrameConstruction, currentMvcFrameConstruction);
+                    break;
 
                 default:
-                    return null;
+                    mvcFrame = null;
+                    break;
             }
+            if (mvcFrame != null)
+            {
+                _logger.Info("Transitioning to {}", mvcFrame.GetType());
+            }
+            else
+            {
+                _logger.Info("Unsupported {}:{}. Unable to build {}.",
+                    typeof(MvcType), this.activeMvcType, typeof(IMvcFrame));
+            }
+            return mvcFrame;
         }
 
         /// <summary>
@@ -113,7 +130,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Impls
                 .SetSimulationType(SimulationType.Interactive)
                 .SetUnityScript(unityScript)
                 .SetMvcType(MvcType.Splash)
-                .SetRandom(new Random(seed))
+                .SetRandom(RandomManager.GetRandom(MvcType.Splash))
                 .Build();
         }
     }

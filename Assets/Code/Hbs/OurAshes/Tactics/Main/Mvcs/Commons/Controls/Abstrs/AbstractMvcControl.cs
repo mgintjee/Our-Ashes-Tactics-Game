@@ -12,7 +12,7 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Inters;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Abstrs
 {
     /// <summary>
-    /// Abstract Mvc Control Implementation
+    /// Abstract Mvc Control Impl
     /// </summary>
     public abstract class AbstractMvcControl : IMvcControl
     {

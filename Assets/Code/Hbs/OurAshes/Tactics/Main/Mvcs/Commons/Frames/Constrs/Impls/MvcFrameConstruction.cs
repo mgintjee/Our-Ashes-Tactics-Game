@@ -19,7 +19,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Impls
 {
     /// <summary>
-    /// Mvc Frame Construction Implementation
+    /// Mvc Frame Construction Impl
     /// </summary>
     public class MvcFrameConstruction : IMvcFrameConstruction
     {

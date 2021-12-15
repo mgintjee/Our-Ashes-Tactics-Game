@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Models.Impls
 {
     /// <summary>
-    /// Sortie Model Construction Implementation
+    /// Sortie Model Construction Impl
     /// </summary>
     public struct SortieModelConstruction : ISortieModelConstruction
     {

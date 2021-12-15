@@ -12,7 +12,7 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Inters;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
 {
     /// <summary>
-    /// Abstract Mvc View Implementation
+    /// Abstract Mvc View Impl
     /// </summary>
     public abstract class AbstractMvcView : IMvcView
     {
@@ -21,6 +21,9 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
 
         // Todo
         protected readonly IMvcViewState mvcViewState;
+
+        // Todo
+        protected IMvcModelState mvcModelState;
 
         // Todo
         protected bool _isProcessing = false;

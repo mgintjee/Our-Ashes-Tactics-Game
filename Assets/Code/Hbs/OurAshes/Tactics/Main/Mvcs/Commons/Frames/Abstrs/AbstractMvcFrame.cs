@@ -5,7 +5,6 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Randoms.Managers;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Requests.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.States.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
@@ -15,45 +14,49 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Scripts.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Simulations.Types;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.States.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Requests.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Impls.BlackBoxes;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Inters;
-using System.Diagnostics;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs
 {
     /// <summary>
     /// Abstact Mvc Frame Interface
     /// </summary>
-    public abstract class AbstractMvcFrame : IMvcFrame
+    public abstract class AbstractMvcFrame
+        : IMvcFrame
     {
         // Todo
         protected readonly IMvcFrameScript _mvcFrameScript;
 
         // Todo
-        protected readonly IMvcModel _mvcModel;
+        protected readonly IMvcModel mvcModel;
 
         // Todo
-        protected readonly IMvcView _mvcView;
+        protected readonly IMvcView mvcView;
 
         // Todo
-        protected readonly IMvcControl _mvcControl;
+        protected readonly IMvcControl mvcControl;
 
         // Todo
         protected readonly IClassLogger _logger;
 
         // Todo
-        protected readonly IMvcFrameConstruction _mvcFrameConstruction;
+        protected readonly IMvcFrameConstruction mvcFrameConstruction;
 
         // Todo
-        private readonly IMvcFrameConstruction _returnMvcFrameConstruction;
+        protected readonly IMvcFrameConstruction _returnMvcFrameConstruction;
 
         // Todo
-        private readonly MvcType _mvcType;
+        protected readonly MvcType _mvcType;
 
         // Todo
-        private IMvcFrameConstruction _nextMvcFrameConstruction;
+        protected IMvcFrameConstruction nextMvcFrameConstruction;
+
+        // Todo
+        private bool initialRequestProcessed = false;
 
         /// <summary>
         /// Todo
@@ -62,53 +65,63 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs
         public AbstractMvcFrame(IMvcFrameConstruction mvcFrameConstruction,
             IMvcFrameConstruction returnMvcFrameConstruction)
         {
-            _logger = LoggerManager.GetLogger(mvcFrameConstruction.GetMvcType())
-                .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
-            _logger.Info("Building {} {}", mvcFrameConstruction.GetMvcType(), typeof(IMvcFrame));
             _returnMvcFrameConstruction = returnMvcFrameConstruction;
-            _nextMvcFrameConstruction = null;
+            nextMvcFrameConstruction = null;
             _mvcType = mvcFrameConstruction.GetMvcType();
             _mvcFrameScript = MvcFrameScriptImpl.Builder.Get()
                 .SetMvcFrameConstruction(mvcFrameConstruction)
                 .Build();
-            _mvcFrameConstruction = MvcFrameConstruction.Builder.Get()
+            this.mvcFrameConstruction = MvcFrameConstruction.Builder.Get()
                 .SetSimulationType(mvcFrameConstruction.GetSimulationType())
                 .SetMvcType(mvcFrameConstruction.GetMvcType())
                 // Set the new values
                 .SetRandom(RandomManager.GetRandom(_mvcType, mvcFrameConstruction.GetRandom().Next()))
                 .SetUnityScript(_mvcFrameScript)
                 .Build();
-            _mvcModel = this.BuildMvcModel(_mvcFrameConstruction);
-            _mvcControl = this.BuildMvcControl(_mvcFrameConstruction);
-            _mvcView = (mvcFrameConstruction.GetSimulationType() != SimulationType.BlackBox)
-                ? this.BuildMvcView(_mvcFrameConstruction)
-                : new MvcViewBlackBoxImpl(_mvcFrameConstruction);
+            mvcModel = this.BuildMvcModel(this.mvcFrameConstruction);
+            mvcControl = this.BuildMvcControl(this.mvcFrameConstruction);
+            mvcView = (mvcFrameConstruction.GetSimulationType() != SimulationType.BlackBox)
+                ? this.BuildMvcView(this.mvcFrameConstruction)
+                : new MvcViewBlackBoxImpl(this.mvcFrameConstruction);
+            _logger = this.GetClassLogger();
+            _logger.Info("Built {}...", this.GetType());
         }
 
         /// <inheritdoc/>
         void IMvcFrame.Continue()
         {
-            if (this._mvcControl.IsProcessing() || this._mvcView.IsProcessing())
+            if (this.mvcControl.IsProcessing() || this.mvcView.IsProcessing())
             {
                 _logger.Info("Cannot have {} continue yet. {} isProcessing: {}, {} isProcessing: {}.",
-                    this.GetType(), this._mvcControl.GetType(), this._mvcControl.IsProcessing(),
-                    this._mvcView.GetType(), this._mvcView.IsProcessing());
+                    this.GetType(), this.mvcControl.GetType(), this.mvcControl.IsProcessing(),
+                    this.mvcView.GetType(), this.mvcView.IsProcessing());
             }
             else
             {
-                IMvcControlState mvcControlState = this._mvcControl.GetMvcControlState();
-                Optional<IMvcControlInput> mvcControlInput = mvcControlState.GetMvcControlInput();
-                Optional<IMvcControlRequest> mvcControlRequest = mvcControlState.GetMvcControlRequest();
-                if (mvcControlRequest.IsPresent())
+                if (this.initialRequestProcessed)
                 {
-                    IMvcModelState mvcModelState = this._mvcModel.Process(mvcControlRequest.GetValue());
-                    this._mvcControl.Process(mvcModelState);
-                    this._mvcView.Process(mvcModelState);
+                    IMvcControlState mvcControlState = this.mvcControl.GetMvcControlState();
+                    Optional<IMvcControlInput> mvcControlInput = mvcControlState.GetMvcControlInput();
+                    Optional<IMvcModelRequest> mvcModelRequest = mvcControlState.GetMvcModelRequest();
+                    if (mvcModelRequest.IsPresent())
+                    {
+                        IMvcModelState mvcModelState = this.mvcModel.Process(mvcModelRequest.GetValue());
+                        this.mvcControl.Process(mvcModelState);
+                        this.mvcView.Process(mvcModelState);
+                    }
+                    else if (mvcControlInput.IsPresent())
+                    {
+                        IMvcViewState mvcViewState = this.mvcView.Process(mvcControlInput.GetValue());
+                        this.mvcControl.Process(mvcViewState);
+                    }
                 }
-                else if (mvcControlInput.IsPresent())
+                else
                 {
-                    IMvcViewState mvcViewResponse = this._mvcView.Process(mvcControlInput.GetValue());
-                    this._mvcControl.Process(mvcViewResponse);
+                    _logger.Info("Processing initial request...");
+                    IMvcModelState mvcModelState = this.mvcModel.Process(null);
+                    this.mvcControl.Process(mvcModelState);
+                    this.mvcView.Process(mvcModelState);
+                    this.initialRequestProcessed = true;
                 }
             }
         }
@@ -124,21 +137,21 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs
         /// <inheritdoc/>
         bool IMvcFrame.IsProcessing()
         {
-            return _mvcControl.IsProcessing() ||
-                _mvcModel.IsProcessing() ||
-                _mvcView.IsProcessing();
+            return mvcControl.IsProcessing() ||
+                mvcModel.IsProcessing() ||
+                mvcView.IsProcessing();
         }
 
         /// <inheritdoc/>
         IMvcFrameConstruction IMvcFrame.GetCurrentMvcFrameConstruction()
         {
-            return this._mvcFrameConstruction;
+            return this.mvcFrameConstruction;
         }
 
         /// <inheritdoc/>
         IMvcFrameConstruction IMvcFrame.GetUpcomingMvcFrameConstruction()
         {
-            return _nextMvcFrameConstruction ?? _returnMvcFrameConstruction;
+            return nextMvcFrameConstruction ?? _returnMvcFrameConstruction;
         }
 
         /// <summary>
@@ -162,10 +175,11 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs
         /// <returns></returns>
         protected abstract IMvcView BuildMvcView(IMvcFrameConstruction mvcFrameConstruction);
 
+
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        protected abstract IMvcFrameConstruction BuildUpcomingMvcFrameConstruction(IMvcFrameState mvcFrameState);
+        protected abstract IClassLogger GetClassLogger();
     }
 }

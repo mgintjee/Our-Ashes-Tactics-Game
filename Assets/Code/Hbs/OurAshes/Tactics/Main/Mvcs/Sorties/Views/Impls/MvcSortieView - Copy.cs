@@ -3,7 +3,7 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Responses.Inters
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Frames.Constrs.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Models.Responses.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controls.Requests.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Requests.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Canvases.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Canvases.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Inters;
@@ -18,7 +18,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Impls
 {
     /// <summary>
-    /// Sortie Mvc View Implementation
+    /// Sortie Mvc View Impl
     /// </summary>
     public class MvcSortieView
         : IMvcSortieView
@@ -67,12 +67,12 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Impls
             throw new System.NotImplementedException();
         }
 
-        void IMvcSortieView.Process(ISortieRequest ControlRequest)
+        void IMvcSortieView.Process(ISortieRequest ModelRequest)
         {
             throw new System.NotImplementedException();
         }
 
-        void IMvcSortieView.Process(ISet<ISortieRequest> ControlRequests)
+        void IMvcSortieView.Process(ISet<ISortieRequest> ModelRequests)
         {
             throw new System.NotImplementedException();
         }

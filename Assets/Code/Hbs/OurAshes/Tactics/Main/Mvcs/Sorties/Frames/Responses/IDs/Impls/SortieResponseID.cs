@@ -10,7 +10,7 @@ using System.Diagnostics;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Responses.IDs.Impls
 {
     /// <summary>
-    /// Sortie Response ID Implementation
+    /// Sortie Response ID Impl
     /// </summary>
     public class SortieResponseID : ISortieResponseID
     {

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Sorties.Tiles.Views.Impls
 {
     /// <summary>
-    /// Sortie Tile View Constants Implementation
+    /// Sortie Tile View Constants Impl
     /// </summary>
     public struct SortieTileViewConstants : ISortieTileViewConstants
     {
@@ -58,7 +58,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Sorties.Tiles.Views.Im
             }
 
             /// <summary>
-            /// Builder Implementation for this object
+            /// Builder Impl for this object
             /// </summary>
             private class InternalBuilder : AbstractBuilder<ISortieTileViewConstants>, IBuilder
             {

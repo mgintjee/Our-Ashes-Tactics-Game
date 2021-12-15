@@ -9,7 +9,7 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Inters;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Impls.BlackBoxes
 {
     /// <summary>
-    /// Black Box Mvc View Implementation
+    /// Black Box Mvc View Impl
     /// </summary>
     public class MvcViewBlackBoxImpl : AbstractMvcView, IMvcView
     {
@@ -40,7 +40,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Impls.BlackBo
 
         protected override IMvcViewState BuildInitialMvcViewState()
         {
-            return new MvcViewStateBlackBoxImpl();
+            return new MvcViewStateImpl();
         }
     }
 }

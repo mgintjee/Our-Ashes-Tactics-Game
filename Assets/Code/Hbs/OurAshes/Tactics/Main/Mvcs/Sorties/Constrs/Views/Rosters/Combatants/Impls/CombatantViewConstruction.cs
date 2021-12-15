@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Views.Rosters.Combatants.Impls
 {
     /// <summary>
-    /// Combatant View Construction Implementation
+    /// Combatant View Construction Impl
     /// </summary>
     public struct CombatantViewConstruction : ICombatantViewConstruction
     {

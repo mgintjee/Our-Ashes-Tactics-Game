@@ -5,7 +5,7 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Inters;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Scripts.Impls
 {
     /// <summary>
-    /// Mvc Manager Script Implementation
+    /// Mvc Manager Script Impl
     /// </summary>
     public class MvcManagerScript : UnityScript
     {

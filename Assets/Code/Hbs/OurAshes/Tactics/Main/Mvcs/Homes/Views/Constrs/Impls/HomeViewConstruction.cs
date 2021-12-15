@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Views.Constrs.Impls
 {
     /// <summary>
-    /// Home View Construction Implementation
+    /// Home View Construction Impl
     /// </summary>
     public class HomeViewConstruction : IHomeViewConstruction
     {

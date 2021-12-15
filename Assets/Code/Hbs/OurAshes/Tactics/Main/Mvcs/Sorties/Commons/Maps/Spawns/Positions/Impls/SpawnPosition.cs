@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Spawns.Positions.Impls
 {
     /// <summary>
-    /// Spawn Position Implementation
+    /// Spawn Position Impl
     /// </summary>
     public struct SpawnPosition : ISpawnPosition
     {

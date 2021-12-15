@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Widgets.Collections.Abstrs
 {
     /// <summary>
-    /// Abstract Mvc View Canvas Widget Collection Implementation
+    /// Abstract Mvc View Canvas Widget Collection Impl
     /// </summary>
     public abstract class AbstractWidgetCollection : IWidgetCollection
     {

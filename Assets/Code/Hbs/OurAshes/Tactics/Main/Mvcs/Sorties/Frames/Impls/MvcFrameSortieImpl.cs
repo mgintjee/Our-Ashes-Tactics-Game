@@ -1,4 +1,6 @@
-﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inters;
+﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.States.Inters;
@@ -8,11 +10,12 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controls.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Impls;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Impls;
+using System.Diagnostics;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls
 {
     /// <summary>
-    /// Sortie Frame Implementation
+    /// Sortie Frame Impl
     /// </summary>
     public class MvcFrameSortieImpl : AbstractMvcFrame, ISortieMvcFrame
     {
@@ -43,12 +46,11 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls
             return new MvcViewSortieImpl(mvcFrameConstruction);
         }
 
-
         /// <inheritdoc/>
-
-        protected override IMvcFrameConstruction BuildUpcomingMvcFrameConstruction(IMvcFrameState mvcFrameState)
+        protected override IClassLogger GetClassLogger()
         {
-            throw new System.NotImplementedException();
+            return LoggerManager.GetLogger(mvcFrameConstruction.GetMvcType())
+                .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
         }
     }
 }

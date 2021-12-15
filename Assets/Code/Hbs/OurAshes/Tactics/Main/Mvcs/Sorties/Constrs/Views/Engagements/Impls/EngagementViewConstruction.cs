@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Views.Engagements.Impls
 {
     /// <summary>
-    /// Engagement View Construction Implementation
+    /// Engagement View Construction Impl
     /// </summary>
     public struct EngagementViewConstruction : IEngagementViewConstruction
     {

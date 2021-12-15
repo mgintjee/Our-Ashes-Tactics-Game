@@ -13,7 +13,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Models.Traits.Impls
 {
     /// <summary>
-    /// Trait Model Constants Implementation
+    /// Trait Model Constants Impl
     /// </summary>
     public struct TraitModelConstants : ITraitModelConstants
     {
@@ -104,7 +104,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Models.Traits
             }
 
             /// <summary>
-            /// Builder Implementation for this object
+            /// Builder Impl for this object
             /// </summary>
             private class InternalBuilder : AbstractBuilder<ITraitModelConstants>, IBuilder
             {

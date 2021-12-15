@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Models.Rosters.Combatants.Impls
 {
     /// <summary>
-    /// Combatant Model Construction Implementation
+    /// Combatant Model Construction Impl
     /// </summary>
     public struct CombatantModelConstruction : ICombatantModelConstruction
     {

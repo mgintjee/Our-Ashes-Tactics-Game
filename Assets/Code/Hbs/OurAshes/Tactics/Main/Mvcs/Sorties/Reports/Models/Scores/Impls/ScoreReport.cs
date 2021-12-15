@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Scores.Impls
 {
     /// <summary>
-    /// Score Report Implementation
+    /// Score Report Impl
     /// </summary>
     public class ScoreReport : AbstractReport, IScoreReport
     {

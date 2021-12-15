@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Attributes.Loadouts.Impls
 {
     /// <summary>
-    /// Loadout Attributes Implementation
+    /// Loadout Attributes Impl
     /// </summary>
     public struct LoadoutAttributes : ILoadoutAttributes
     {
@@ -124,7 +124,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Attrib
             }
 
             /// <summary>
-            /// Builder Implementation for this object
+            /// Builder Impl for this object
             /// </summary>
             private class InternalBuilder : AbstractBuilder<ILoadoutAttributes>, IBuilder
             {

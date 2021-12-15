@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Scripts.Impls
 {
     /// <summary>
-    /// Mvc Frame Script Implementation
+    /// Mvc Frame Script Impl
     /// </summary>
     public class MvcFrameScriptImpl : UnityScript, IMvcFrameScript
     {
@@ -36,7 +36,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Scripts.Impl
             }
 
             /// <summary>
-            /// Builder Implementation for this object
+            /// Builder Impl for this object
             /// </summary>
             private class InternalBuilder : AbstractBuilder<IMvcFrameScript>, IBuilder
             {

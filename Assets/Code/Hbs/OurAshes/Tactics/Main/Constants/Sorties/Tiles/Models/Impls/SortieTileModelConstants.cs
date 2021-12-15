@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Sorties.Tiles.Models.Impls
 {
     /// <summary>
-    /// Sortie Tile Model Constants Implementation
+    /// Sortie Tile Model Constants Impl
     /// </summary>
     public struct SortieTileModelConstants : ISortieTileModelConstants
     {
@@ -58,7 +58,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Sorties.Tiles.Models.I
             }
 
             /// <summary>
-            /// Builder Implementation for this object
+            /// Builder Impl for this object
             /// </summary>
             private class InternalBuilder : AbstractBuilder<ISortieTileModelConstants>, IBuilder
             {

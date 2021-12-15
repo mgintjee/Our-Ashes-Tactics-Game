@@ -18,7 +18,7 @@ using UnityEngine;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Managers.Impls
 {
     /// <summary>
-    /// Mvc Control Input Implementation
+    /// Mvc Control Input Impl
     /// </summary>
     public class MvcControlInputManagerImpl :
         UnityScript,
@@ -54,7 +54,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Man
         /// <summary>
         /// Todo
         /// </summary>
-        public void Update()
+        public void FixedUpdate()
         {
             bool inputExists = false;
             foreach (IMvcControlInputHandler mvcControlInputHandler in this.mvcControlInputHandlers)
@@ -62,7 +62,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Man
                 Optional<IMvcControlInputClick> mvcControlInput = mvcControlInputHandler.GetMvcControlInput();
                 if (mvcControlInput.IsPresent())
                 {
-                    _logger.Debug("Handler: {} has input...", mvcControlInputHandler.GetType());
+                    _logger.Debug("Input found with {}!", mvcControlInputHandler.GetType());
                     this.mvcControl.Process(mvcControlInput.GetValue());
                     inputExists = true;
                     break;
@@ -74,10 +74,6 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Man
                 {
                     inputHandler.ClearInput();
                 }
-            }
-            else
-            {
-                _logger.Info("No inputs detected...");
             }
         }
 

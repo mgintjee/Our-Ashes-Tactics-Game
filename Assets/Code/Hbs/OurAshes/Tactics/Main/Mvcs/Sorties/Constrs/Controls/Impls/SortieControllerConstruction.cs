@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Controls.Impls
 {
     /// <summary>
-    /// Sortie Control Construction Implementation
+    /// Sortie Control Construction Impl
     /// </summary>
     public struct SortieControlConstruction : ISortieControlConstruction
     {

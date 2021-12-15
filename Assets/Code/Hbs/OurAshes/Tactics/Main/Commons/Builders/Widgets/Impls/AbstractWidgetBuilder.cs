@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Widgets.Impls
 {
     /// <summary>
-    /// Abstract Widget Builder Implementation
+    /// Abstract Widget Builder Impl
     /// </summary>
     public abstract class AbstractWidgetBuilder<T> : AbstractBuilder<T>, IWidgetBuilder<T>
     {

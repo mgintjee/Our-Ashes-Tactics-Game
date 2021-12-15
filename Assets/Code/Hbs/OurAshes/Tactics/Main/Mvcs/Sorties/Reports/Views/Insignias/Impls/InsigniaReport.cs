@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Views.Insignias.Impls
 {
     /// <summary>
-    /// Insignia Report Implementation
+    /// Insignia Report Impl
     /// </summary>
     public class InsigniaReport : AbstractReport, IInsigniaReport
     {

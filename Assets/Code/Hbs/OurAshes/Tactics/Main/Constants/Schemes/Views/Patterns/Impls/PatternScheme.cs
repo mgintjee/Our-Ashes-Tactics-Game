@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Schemes.Views.Patterns.Impls
 {
     /// <summary>
-    /// Pattern Scheme Implementation
+    /// Pattern Scheme Impl
     /// </summary>
     public class PatternScheme : IPatternScheme
     {

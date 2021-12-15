@@ -1,6 +1,4 @@
-﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Frames.Types;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Abstrs;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Managers.Impls;
+﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Abstrs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.States.Impls;
@@ -12,32 +10,40 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Inters;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Controls.Impls
 {
     /// <summary>
-    /// Mvc Control Splash Implementation
+    /// Mvc Control Splash Impl
     /// </summary>
-    public class MvcControlSplashImpl
+    public class SplashControlImpl
         : AbstractMvcControl, IMvcControl
     {
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="mvcFrameConstruction"></param>
-        public MvcControlSplashImpl(IMvcFrameConstruction mvcFrameConstruction)
+        public SplashControlImpl(IMvcFrameConstruction mvcFrameConstruction)
             : base(mvcFrameConstruction)
         {
         }
 
         public override void Process(IMvcModelState mvcModelState)
         {
-            throw new System.NotImplementedException();
+            _logger.Info("Processing {}...", mvcModelState);
+            ((MvcControlStateImpl)this.mvcControlState).SetMvcControlInput(null);
+            ((MvcControlStateImpl)this.mvcControlState).SetMvcModelRequest(null);
         }
 
         public override void Process(IMvcViewState mvcViewState)
         {
-            throw new System.NotImplementedException();
+            _logger.Info("Processing {}...", mvcViewState);
+            ((MvcControlStateImpl)this.mvcControlState).SetMvcControlInput(null);
+            mvcViewState.GetMvcModelRequest().IfPresent(mvcModelRequest =>
+            {
+                ((MvcControlStateImpl)this.mvcControlState).SetMvcModelRequest(mvcModelRequest);
+            });
         }
 
         public override void Process(IMvcControlInput mvcControlInput)
         {
+            _logger.Info("Processing {}...", mvcControlInput);
             ((MvcControlStateImpl)this.mvcControlState).SetMvcControlInput(mvcControlInput);
         }
 

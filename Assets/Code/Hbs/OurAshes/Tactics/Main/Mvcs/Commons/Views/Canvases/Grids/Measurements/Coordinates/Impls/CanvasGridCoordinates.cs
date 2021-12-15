@@ -3,7 +3,7 @@
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Measurements.Coordinates.Impls
 {
     /// <summary>
-    /// Canvas Grid Coordinates Implementation
+    /// Canvas Grid Coordinates Impl
     /// </summary>
     public struct CanvasGridCoordinates : ICanvasGridCoordinates
     {

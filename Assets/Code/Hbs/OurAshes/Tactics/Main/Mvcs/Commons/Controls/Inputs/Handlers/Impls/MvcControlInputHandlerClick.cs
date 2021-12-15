@@ -31,14 +31,12 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Han
                 this.classLogger.Debug("Pressed Primary @ {}", Input.mousePosition);
                 this.mvcControlInput = new MvcControlInputClick(0, Input.mousePosition.x, Input.mousePosition.y);
             }
-
-            if (Input.GetMouseButtonDown(1))
+            else if (Input.GetMouseButtonDown(1))
             {
                 this.classLogger.Debug("Pressed Secondary @ {}", Input.mousePosition);
                 this.mvcControlInput = new MvcControlInputClick(1, Input.mousePosition.x, Input.mousePosition.y);
             }
-
-            if (Input.GetMouseButtonDown(2))
+            else if (Input.GetMouseButtonDown(2))
             {
                 this.classLogger.Debug("Pressed Tertiary @ {}", Input.mousePosition);
                 this.mvcControlInput = new MvcControlInputClick(2, Input.mousePosition.x, Input.mousePosition.y);

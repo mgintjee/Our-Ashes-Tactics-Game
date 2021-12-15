@@ -8,7 +8,7 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Impls;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Handlers.Abstrs
 {
     /// <summary>
-    /// Abstract Mvc Control Implementation
+    /// Abstract Mvc Control Impl
     /// </summary>
     public abstract class AbstractMvcControlInputHandler : UnityScript, IMvcControlInputHandler
     {
@@ -24,7 +24,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Han
         // Todo
         private bool isEnabled = false;
 
-        public void FixedUpdate()
+        public void Update()
         {
             if (this.isEnabled)
             {

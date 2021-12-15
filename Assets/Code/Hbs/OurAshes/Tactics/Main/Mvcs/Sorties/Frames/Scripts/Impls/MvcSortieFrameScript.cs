@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Scripts.Impls
 {
     /// <summary>
-    /// Mvc Sortie Frame Script Implementation
+    /// Mvc Sortie Frame Script Impl
     /// </summary>
     public class MvcSortieFrameScript : UnityScript, IMvcSortieFrameScript
     {

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Tiles.Impls
 {
     /// <summary>
-    /// Sortie Tile Report Implementation
+    /// Sortie Tile Report Impl
     /// </summary>
     public class SortieTileReport : AbstractReport, ISortieTileReport
     {

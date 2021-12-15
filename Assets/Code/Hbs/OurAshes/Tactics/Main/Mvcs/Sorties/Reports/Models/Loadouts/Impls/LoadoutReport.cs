@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Loadouts.Impls
 {
     /// <summary>
-    /// Loadout Report Implementation
+    /// Loadout Report Impl
     /// </summary>
     public class LoadoutReport : AbstractReport, ILoadoutReport
     {
@@ -80,7 +80,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Load
             }
 
             /// <summary>
-            /// Builder Implementation for this object
+            /// Builder Impl for this object
             /// </summary>
             private class InternalBuilder : AbstractBuilder<ILoadoutReport>, IBuilder
             {

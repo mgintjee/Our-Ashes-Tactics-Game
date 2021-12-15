@@ -20,10 +20,10 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Scores.Inter
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="ControlRequest">  </param>
+        /// <param name="ModelRequest">  </param>
         /// <param name="mapReport">       </param>
         /// <param name="rosterReport">    </param>
         /// <param name="engagementReport"></param>
-        void Process(IMvcControlSortieRequest ControlRequest, ISortieMapReport mapReport, IRosterModelReport rosterReport, IEngagementReport engagementReport);
+        void Process(IMvcControlSortieRequest ModelRequest, ISortieMapReport mapReport, IRosterModelReport rosterReport, IEngagementReport engagementReport);
     }
 }

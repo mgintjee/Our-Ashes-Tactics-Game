@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Models.Maps.Impls
 {
     /// <summary>
-    /// Sortie Map Model Construction Implementation
+    /// Sortie Map Model Construction Impl
     /// </summary>
     public struct SortieMapModelConstruction : ISortieMapModelConstruction
     {

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Maps.Coordinates.Offset.Impls
 {
     /// <summary>
-    /// Offset Coordinates Implementation
+    /// Offset Coordinates Impl
     /// </summary>
     public struct OffsetCoordinates : IOffsetCoordinates
     {
@@ -86,7 +86,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Maps.Coordinates.
             }
 
             /// <summary>
-            /// Builder Implementation for this object
+            /// Builder Impl for this object
             /// </summary>
             private class InternalBuilder : AbstractBuilder<IOffsetCoordinates>, IBuilder
             {

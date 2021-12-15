@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Views.Gears.Impls
 {
     /// <summary>
-    /// Gear View Constants Implementation
+    /// Gear View Constants Impl
     /// </summary>
     public struct GearViewConstants : IGearViewConstants
     {
@@ -58,7 +58,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Views.Gears.I
             }
 
             /// <summary>
-            /// Builder Implementation for this object
+            /// Builder Impl for this object
             /// </summary>
             private class InternalBuilder : AbstractBuilder<IGearViewConstants>, IBuilder
             {

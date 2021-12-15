@@ -1,8 +1,8 @@
 ﻿using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Reports.Abstrs;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
-using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Requests.Inters;
 using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.States.Inters;
+using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Requests.Inters;
 
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.States.Abstrs
 {
@@ -16,7 +16,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.States.Abs
         protected IMvcControlInput mvcControlInput = null;
 
         // Todo
-        protected IMvcControlRequest mvcControlRequest = null;
+        protected IMvcModelRequest mvcModelRequest = null;
 
         public AbstractMvcControlState()
         {
@@ -25,12 +25,12 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.States.Abs
         public AbstractMvcControlState(IMvcControlState mvcControlState)
         {
             this.mvcControlInput = mvcControlState.GetMvcControlInput().GetValue();
-            this.mvcControlRequest = mvcControlState.GetMvcControlRequest().GetValue();
+            this.mvcModelRequest = mvcControlState.GetMvcModelRequest().GetValue();
         }
 
-        public Optional<IMvcControlRequest> GetMvcControlRequest()
+        public Optional<IMvcModelRequest> GetMvcModelRequest()
         {
-            return Optional<IMvcControlRequest>.Of(this.mvcControlRequest);
+            return Optional<IMvcModelRequest>.Of(this.mvcModelRequest);
         }
 
         public Optional<IMvcControlInput> GetMvcControlInput()

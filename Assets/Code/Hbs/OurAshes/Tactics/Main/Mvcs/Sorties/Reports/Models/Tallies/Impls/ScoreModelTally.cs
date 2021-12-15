@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Tallies.Impls
 {
     /// <summary>
-    /// Score Model Tally Implementation
+    /// Score Model Tally Impl
     /// </summary>
     public class ScoreModelTally : AbstractReport, IScoreModelTally
     {

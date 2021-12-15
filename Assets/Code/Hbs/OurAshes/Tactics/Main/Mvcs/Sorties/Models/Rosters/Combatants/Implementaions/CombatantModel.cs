@@ -25,7 +25,7 @@ using System.Diagnostics;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.Combatants.Implementaions
 {
     /// <summary>
-    /// Combatant Model Implementation
+    /// Combatant Model Impl
     /// </summary>
     public class CombatantModel
         : ICombatantModel

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Attributes.Destructibles.Impls
 {
     /// <summary>
-    /// Destructible Attributes Implementation
+    /// Destructible Attributes Impl
     /// </summary>
     public struct DestructibleAttributes
         : IDestructibleAttributes

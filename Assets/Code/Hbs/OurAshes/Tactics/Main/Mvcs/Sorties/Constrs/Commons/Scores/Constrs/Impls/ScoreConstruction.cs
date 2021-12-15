@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Commons.Scores.Constrs.Impls
 {
     /// <summary>
-    /// Score Construcion Implementation
+    /// Score Construcion Impl
     /// </summary>
     public struct ScoreConstruction : IScoreConstruction
     {

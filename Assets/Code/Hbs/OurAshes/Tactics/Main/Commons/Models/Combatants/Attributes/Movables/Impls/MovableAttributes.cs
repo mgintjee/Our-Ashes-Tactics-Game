@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Attributes.Movables.Impls
 {
     /// <summary>
-    /// Movable Attributes Implementation
+    /// Movable Attributes Impl
     /// </summary>
     public struct MovableAttributes
         : IMovableAttributes
@@ -82,7 +82,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Attrib
             }
 
             /// <summary>
-            /// Builder Implementation for this object
+            /// Builder Impl for this object
             /// </summary>
             private class InternalBuilder : AbstractBuilder<IMovableAttributes>, IBuilder
             {

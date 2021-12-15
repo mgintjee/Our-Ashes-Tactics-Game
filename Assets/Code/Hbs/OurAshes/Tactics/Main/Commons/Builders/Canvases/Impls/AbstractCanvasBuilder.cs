@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Commons.Builders.Canvases.Impls
 {
     /// <summary>
-    /// Abstract Canvas Builder Implementation
+    /// Abstract Canvas Builder Impl
     /// </summary>
     public abstract class AbstractCanvasBuilder<T> : AbstractBuilder<T>, ICanvasBuilder<T>
     {

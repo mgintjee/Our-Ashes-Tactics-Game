@@ -14,7 +14,7 @@ using System.Diagnostics;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Phalanxes.Implementaions
 {
     /// <summary>
-    /// Phalanx Model Implementation
+    /// Phalanx Model Impl
     /// </summary>
     public class PhalanxModel : IPhalanxModel
     {

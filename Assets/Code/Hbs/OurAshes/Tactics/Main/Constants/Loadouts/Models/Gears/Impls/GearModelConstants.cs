@@ -16,7 +16,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Models.Gears.Impls
 {
     /// <summary>
-    /// Gear Model Constants Implementation
+    /// Gear Model Constants Impl
     /// </summary>
     public struct GearModelConstants : IGearModelConstants
     {
@@ -138,7 +138,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Models.Gears.
             }
 
             /// <summary>
-            /// Builder Implementation for this object
+            /// Builder Impl for this object
             /// </summary>
             private class InternalBuilder : AbstractBuilder<IGearModelConstants>, IBuilder
             {

@@ -8,7 +8,7 @@ using Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Inters;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Impls
 {
     /// <summary>
-    /// Sortie Mvc View Implementation
+    /// Sortie Mvc View Impl
     /// </summary>
     public class MvcViewSortieImpl : AbstractMvcView, IMvcView
     {

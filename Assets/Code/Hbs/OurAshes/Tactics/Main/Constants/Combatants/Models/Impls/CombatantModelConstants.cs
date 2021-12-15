@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Combatants.Models.Impls
 {
     /// <summary>
-    /// Combatant Model Constants Implementation
+    /// Combatant Model Constants Impl
     /// </summary>
     public struct CombatantModelConstants : ICombatantModelConstants
     {
@@ -96,7 +96,7 @@ namespace Assets.Code.Hbs.OurAshes.Tactics.Main.Constants.Combatants.Models.Impl
             }
 
             /// <summary>
-            /// Builder Implementation for this object
+            /// Builder Impl for this object
             /// </summary>
             private class InternalBuilder : AbstractBuilder<ICombatantModelConstants>, IBuilder
             {
