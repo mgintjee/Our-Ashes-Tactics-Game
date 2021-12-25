@@ -8,7 +8,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Scripts.
     /// <summary>
     /// Mvc Sortie Frame Script Impl
     /// </summary>
-    public class MvcSortieFrameScript 
+    public class MvcSortieFrameScript
         : AbstractUnityScript, IMvcSortieFrameScript
     {
         /// <summary>

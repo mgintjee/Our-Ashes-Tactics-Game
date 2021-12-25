@@ -16,11 +16,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Phalanxe
     /// <summary>
     /// Phalanx Model Impl
     /// </summary>
-    public class PhalanxModel 
+    public class PhalanxModel
         : IPhalanxModel
     {
         // Provides logging capability to the SORTIE logs
-        private readonly IClassLogger _logger = LoggerManager.GetLogger(MvcType.Sortie)
+        private readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Sortie)
             .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
@@ -41,7 +41,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Phalanxe
         /// <param name="phalanxConstruction"></param>
         public PhalanxModel(IPhalanxModelConstruction phalanxConstruction)
         {
-            _logger.Info("Instantiating with {}", phalanxConstruction);
+            logger.Info("Instantiating with {}", phalanxConstruction);
             phalanxCallSign = phalanxConstruction.GetPhalanxCallSign();
             phalanxType = phalanxConstruction.GetPhalanxType();
             phalanxCallSigns = phalanxConstruction.GetPhalanxCallSigns();

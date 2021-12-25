@@ -28,7 +28,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs
             new HashSet<IMvcControlInputHandler>();
 
         // Todo
-        private readonly IClassLogger _logger = LoggerManager.GetLogger(MvcType.Splash)
+        private readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.ScreenSplash)
             .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
@@ -61,7 +61,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs
                 Optional<IMvcControlInputClick> mvcControlInput = mvcControlInputHandler.GetMvcControlInput();
                 if (mvcControlInput.IsPresent())
                 {
-                    _logger.Debug("Input found with {}!", mvcControlInputHandler.GetType());
+                    logger.Debug("Input found with {}!", mvcControlInputHandler.GetType());
                     this.mvcControl.Process(mvcControlInput.GetValue());
                     inputExists = true;
                     break;

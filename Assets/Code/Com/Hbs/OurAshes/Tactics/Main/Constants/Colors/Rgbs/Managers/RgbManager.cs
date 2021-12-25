@@ -31,7 +31,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Constants.Colors.Rgbs.Manage
                 { ColorID.Olive,RgbImpl.Builder.Get().SetRed(128).SetBlue( 128).SetGreen( 0).Build()},
                 { ColorID.Yellow,RgbImpl.Builder.Get().SetRed(255).SetBlue( 255).SetGreen( 0).Build()},
                 { ColorID.ChartReuse,RgbImpl.Builder.Get().SetRed(127).SetBlue( 255).SetGreen( 0).Build()},
-                { ColorID.DarkGreen,RgbImpl.Builder.Get().SetRed(0).SetBlue( 100).SetGreen( 0).Build()},
+                { ColorID.DarkGreen,RgbImpl.Builder.Get().SetRed(0).SetBlue( 0).SetGreen( 100).Build()},
                 { ColorID.ForestGreen,RgbImpl.Builder.Get().SetRed(34).SetBlue( 139).SetGreen( 34).Build()},
                 { ColorID.Lime,RgbImpl.Builder.Get().SetRed(0).SetBlue( 255).SetGreen( 0).Build()},
                 { ColorID.PaleGreen,RgbImpl.Builder.Get().SetRed(152).SetBlue( 251).SetGreen( 152).Build()},

@@ -1,18 +1,13 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.Aligns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Builders.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Builders.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Sprites.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Specs.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Specs.Inters;
-using System.Diagnostics;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Specs.Grids.Impls;
 using System.Numerics;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Views.Canvases
@@ -23,49 +18,71 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Views.Canvases
     public class SplashViewCanvasImpl
         : AbstractMvcViewCanvas, IMvcViewCanvas
     {
-        // Todo
-        private readonly IClassLogger _logger = LoggerManager.GetLogger(MvcType.Splash)
-            .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
-
         /// <inheritdoc/>
         protected override void InternalBuild()
         {
-            Vector2 imageGridSize = new Vector2(7, 5);
-            Vector2 imageGridCoords = new Vector2(0, 0);
-            Vector2 imageWorldSize = this.gridConvertor.GetWorldSize(imageGridSize);
-            Vector2 imageWorldCoords = this.gridConvertor.GetWorldCoords(imageGridCoords, imageGridSize);
-            Vector2 textGridSize = new Vector2(3, 1);
-            Vector2 textGridCoords = new Vector2(2, 1);
-            Vector2 textWorldSize = this.gridConvertor.GetWorldSize(imageGridSize);
-            Vector2 textWorldCoords = this.gridConvertor.GetWorldCoords(imageGridCoords, imageGridSize);
-            IImageWidget imageWidget = ImageWidgetImpl.Builder.Get()
-                .SetSpriteID(SpriteID.Circle)
-                .SetColorID(ColorID.Gray)
-                .SetCanvasWidgetSpec(new CanvasWidgetSpecImpl()
-                    .SetCanvasLevel(3)
-                    .SetInteractable(true)
-                    .SetCanvasGridCoords(imageGridCoords)
-                    .SetCanvasGridSize(imageGridSize)
-                    .SetCanvasWorldCoords(imageWorldCoords)
-                    .SetCanvasWorldSize(imageWorldSize))
+            this.BuildSplashImages();
+            this.BuildSplashTexts();
+        }
+
+        private void BuildSplashImages()
+        {
+            this.AddWidget(ImageWidgetImpl.Builder.Get()
+                .SetSpriteID(SpriteID.SquareBordered)
+                .SetColorID(ColorID.DarkGreen)
+                .SetCanvasLevel(0)
+                .SetInteractable(true)
+                .SetMvcViewCanvas(this)
+                .SetWidgetGridSpec(new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(Vector2.Zero)
+                    .SetCanvasGridSize(this.gridConvertor.GetGridSize()))
                 .SetParent(this)
-                .SetName(this.GetType().Name + ":Image")
-                .Build();
-            ITextWidget textWidget = TextWidgetImpl.Builder.Get()
-                .SetText("PRESS ANYWHERE TO CONTINUE")
+                .SetName(typeof(ImageWidgetImpl).Name + ":Back")
+                .Build());
+            this.AddWidget(ImageWidgetImpl.Builder.Get()
+                .SetSpriteID(SpriteID.SquareBordered)
+                .SetColorID(ColorID.Blue)
+                .SetCanvasLevel(1)
+                .SetInteractable(false)
+                .SetMvcViewCanvas(this)
+                .SetWidgetGridSpec(new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(new Vector2(0, 3))
+                    .SetCanvasGridSize(new Vector2(this.gridConvertor.GetGridSize().X, 3)))
+                .SetParent(this)
+                .SetName(typeof(ImageWidgetImpl).Name + ":Stripe")
+                .Build());
+        }
+
+        private void BuildSplashTexts()
+        {
+            this.AddWidget(TextWidgetImpl.Builder.Get()
+                .SetText("Our Ashes\n Tactics")
                 .SetFont(FontID.Arial)
-                .SetCanvasWidgetSpec(new CanvasWidgetSpecImpl()
-                    .SetCanvasLevel(3)
-                    .SetInteractable(true)
-                    .SetCanvasGridCoords(textGridCoords)
-                    .SetCanvasGridSize(textGridSize)
-                    .SetCanvasWorldCoords(textWorldCoords)
-                    .SetCanvasWorldSize(textWorldSize))
+                .SetAlign(AlignType.MiddleCenter)
+                .SetBestFit(true, 10, 200)
+                .SetCanvasLevel(1)
+                .SetInteractable(false)
+                .SetMvcViewCanvas(this)
+                .SetWidgetGridSpec(new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(new Vector2(0, 3))
+                    .SetCanvasGridSize(new Vector2(this.gridConvertor.GetGridSize().X, 3)))
                 .SetParent(this)
-                .SetName(this.GetType().Name + ":Text")
-                .Build();
-            this.AddWidget(imageWidget);
-            this.AddWidget(textWidget);
+                .SetName(typeof(TextWidgetImpl).Name + ":Title")
+                .Build());
+            this.AddWidget(TextWidgetImpl.Builder.Get()
+                .SetText("Input anywhere to continue...")
+                .SetFont(FontID.Arial)
+                .SetAlign(AlignType.MiddleCenter)
+                .SetBestFit(true, 13, 50)
+                .SetCanvasLevel(1)
+                .SetInteractable(false)
+                .SetMvcViewCanvas(this)
+                .SetWidgetGridSpec(new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(new Vector2(3, 1))
+                    .SetCanvasGridSize(new Vector2(3, 1)))
+                .SetParent(this)
+                .SetName(typeof(TextWidgetImpl).Name + ":Info")
+                .Build());
         }
 
         /// <summary>
@@ -76,8 +93,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Views.Canvases
             /// <summary>
             /// Todo
             /// </summary>
-            public interface IBuilder
-                : ICanvasBuilder<IMvcViewCanvas>
+            public interface IInternalBuilder
+                : AbstractCanvasBuilders.ICanvasBuilder<IMvcViewCanvas>
             {
             }
 
@@ -85,7 +102,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Views.Canvases
             /// Todo
             /// </summary>
             /// <returns></returns>
-            public static IBuilder Get()
+            public static IInternalBuilder Get()
             {
                 return new InternalBuilder();
             }
@@ -94,12 +111,14 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Views.Canvases
             /// Todo
             /// </summary>
             private class InternalBuilder
-                : AbstractCanvasBuilder<IMvcViewCanvas>, IBuilder
+                : AbstractCanvasBuilders.AbstractCanvasBuilder<IMvcViewCanvas>, IInternalBuilder
             {
                 /// <inheritdoc/>
                 protected override IMvcViewCanvas BuildScript(UnityEngine.GameObject gameObject)
                 {
                     IMvcViewCanvas mvcViewCanvas = gameObject.AddComponent<SplashViewCanvasImpl>();
+                    ((SplashViewCanvasImpl)mvcViewCanvas).logger = LoggerManager.GetLogger(MvcType.ScreenSplash)
+                        .GetClassLogger(mvcViewCanvas.GetType());
                     this.ApplyCanvasValues((AbstractMvcViewCanvas)mvcViewCanvas);
                     mvcViewCanvas.Build();
                     return mvcViewCanvas;

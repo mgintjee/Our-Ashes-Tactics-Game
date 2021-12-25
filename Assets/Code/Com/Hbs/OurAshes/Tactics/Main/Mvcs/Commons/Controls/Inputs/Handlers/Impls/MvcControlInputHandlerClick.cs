@@ -16,6 +16,10 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs
     public class MvcControlInputHandlerClick
         : AbstractMvcControlInputHandler
     {
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="classLogger"></param>
         public void SetClassLogger(IClassLogger classLogger)
         {
             if (this.classLogger == null)
@@ -27,23 +31,24 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs
         /// <inheritdoc/>
         protected override void DetermineInput()
         {
+            Vector3 mousePixelCoords = Input.mousePosition;
             if (Input.GetMouseButtonDown(0))
             {
-                this.classLogger.Debug("Pressed Primary @ {}", Input.mousePosition);
+                this.classLogger.Debug("Pressed Primary @ Pixel:{}", mousePixelCoords);
                 this.mvcControlInput = new MvcControlInputClick(0,
-                    new System.Numerics.Vector2(Input.mousePosition.x, Input.mousePosition.y));
+                    new System.Numerics.Vector2(mousePixelCoords.x, mousePixelCoords.y));
             }
             else if (Input.GetMouseButtonDown(1))
             {
-                this.classLogger.Debug("Pressed Secondary @ {}", Input.mousePosition);
+                this.classLogger.Debug("Pressed Secondary @ Pixel:{}", mousePixelCoords);
                 this.mvcControlInput = new MvcControlInputClick(1,
-                    new System.Numerics.Vector2(Input.mousePosition.x, Input.mousePosition.y));
+                    new System.Numerics.Vector2(mousePixelCoords.x, mousePixelCoords.y));
             }
             else if (Input.GetMouseButtonDown(2))
             {
-                this.classLogger.Debug("Pressed Tertiary @ {}", Input.mousePosition);
+                this.classLogger.Debug("Pressed Tertiary @ Pixel:{}", mousePixelCoords);
                 this.mvcControlInput = new MvcControlInputClick(2,
-                    new System.Numerics.Vector2(Input.mousePosition.x, Input.mousePosition.y));
+                    new System.Numerics.Vector2(mousePixelCoords.x, mousePixelCoords.y));
             }
         }
 

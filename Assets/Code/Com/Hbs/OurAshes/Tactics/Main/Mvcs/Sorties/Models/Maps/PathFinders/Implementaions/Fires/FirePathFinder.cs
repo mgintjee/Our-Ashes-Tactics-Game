@@ -20,11 +20,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Pat
     /// <summary>
     /// Todo
     /// </summary>
-    public class FirePathFinder 
+    public class FirePathFinder
         : AbstractPathFinder
     {
         // Provide logging capability
-        private readonly IClassLogger _logger = LoggerManager.GetLogger(MvcType.Sortie)
+        private readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Sortie)
             .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
@@ -53,7 +53,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Pat
         /// <inheritdoc/>
         protected override void PathFind()
         {
-            _logger.Debug("PathFind @ {} for accuracy={} and range={}", _cubeCoordinates, _accuracy, _range);
+            logger.Debug("PathFind @ {} for accuracy={} and range={}", _cubeCoordinates, _accuracy, _range);
             ISet<ICubeCoordinates> allCubeCoordinates = _mapReport.GetCubeCoordinates();
             ISet<ICubeCoordinates> validCubeCoordinates = new HashSet<ICubeCoordinates>();
             // Iterate over all of the CubeCoordinates

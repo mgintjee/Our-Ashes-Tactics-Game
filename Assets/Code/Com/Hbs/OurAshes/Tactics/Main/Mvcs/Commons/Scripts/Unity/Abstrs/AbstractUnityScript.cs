@@ -1,4 +1,7 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Inters;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Inters;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Abstrs
@@ -40,6 +43,12 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.A
             this.SetParent(transform);
         }
 
+        /// <inheritdoc/>
+        string IUnityScript.GetName()
+        {
+            return this.GetGameObject().name;
+        }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -67,6 +76,93 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.A
         protected Transform GetTransform()
         {
             return this.transform;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        public class AbstractBuilder
+        {
+            /// <summary>
+            /// Script Builder Interface
+            /// </summary>
+            public interface IScriptBuilder<T>
+                : IBuilder<T>
+            {
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <returns></returns>
+                IScriptBuilder<T> SetName(string name);
+
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <returns></returns>
+                IScriptBuilder<T> SetParent(IUnityScript unityScript);
+            }
+
+            /// <summary>
+            /// Abstract Script Builder
+            /// </summary>
+            public abstract class AbstractScriptBuilder<T>
+                : AbstractBuilder<T>, IScriptBuilder<T>
+            {
+                // Todo
+                protected string name;
+
+                // Todo
+                protected IUnityScript unityScript;
+
+                /// <inheritdoc/>
+                IScriptBuilder<T> IScriptBuilder<T>.SetName(string name)
+                {
+                    this.name = name;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                IScriptBuilder<T> IScriptBuilder<T>.SetParent(IUnityScript unityScript)
+                {
+                    this.unityScript = unityScript;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                protected override T BuildObj()
+                {
+                    return this.BuildScript(new UnityEngine.GameObject(this.name));
+                }
+
+                /// <inheritdoc/>
+                protected override void Validate(ISet<string> invalidReasons)
+                {
+                    this.Validate(invalidReasons, this.name);
+                    this.Validate(invalidReasons, this.unityScript);
+                    this.ValidateScriptBuilder(invalidReasons);
+                }
+
+                protected void ApplyScriptValues(IUnityScript unityScript)
+                {
+                    unityScript.GetGameObject().name = this.name;
+                    unityScript.SetParent(this.unityScript);
+                }
+
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <param name="invalidReasons"></param>
+                protected virtual void ValidateScriptBuilder(ISet<string> invalidReasons)
+                {
+                }
+
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <param name="gameObject"></param>
+                /// <returns></returns>
+                protected abstract T BuildScript(UnityEngine.GameObject gameObject);
+            }
         }
     }
 }

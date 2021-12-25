@@ -21,7 +21,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.
     /// <summary>
     /// Mvc Frame Construction Impl
     /// </summary>
-    public class MvcFrameConstruction 
+    public class MvcFrameConstruction
         : IMvcFrameConstruction
     {
         // Todo
@@ -123,7 +123,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.
             /// <summary>
             /// Todo
             /// </summary>
-            public interface IBuilder 
+            public interface IBuilder
                 : IBuilder<IMvcFrameConstruction>
             {
                 /// <summary>
@@ -167,7 +167,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.
             /// <summary>
             /// Todo
             /// </summary>
-            private class InternalBuilder 
+            private class InternalBuilder
                 : AbstractBuilder<IMvcFrameConstruction>, IBuilder
             {
                 // Todo
@@ -197,13 +197,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.
                     _mvcType = mvcType;
                     switch (mvcType)
                     {
-                        case MvcType.Splash:
+                        case MvcType.ScreenSplash:
                             _mvcControlConstruction = SplashControlConstruction.Builder.Get().Build();
                             _mvcModelConstruction = SplashModelConstruction.Builder.Get().Build();
                             _mvcViewConstruction = SplashViewConstruction.Builder.Get().Build();
                             break;
 
-                        case MvcType.Home:
+                        case MvcType.MenuHome:
                             _mvcControlConstruction = HomeControlConstruction.Builder.Get().Build();
                             _mvcModelConstruction = HomeModelConstruction.Builder.Get().Build();
                             _mvcViewConstruction = HomeViewConstruction.Builder.Get().Build();

@@ -17,11 +17,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Orders.I
     /// <summary>
     /// Todo
     /// </summary>
-    public class OrderModel 
+    public class OrderModel
         : IOrderModel
     {
         // Provides logging capability to the SORTIE logs
-        private readonly IClassLogger _logger = LoggerManager.GetLogger(MvcType.Sortie)
+        private readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Sortie)
             .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
@@ -38,7 +38,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Orders.I
         /// </summary>
         public OrderModel()
         {
-            _logger.Info("Instantiating");
+            logger.Info("Instantiating");
             _currentCallSigns = new List<CombatantCallSign>();
             _upcomingCallSigns = new List<CombatantCallSign>();
             this.BuildReport();
@@ -118,7 +118,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Orders.I
         {
             // Default an empty set
             ISet<CombatantCallSign> completeCallSigns = new HashSet<CombatantCallSign>();
-            _logger.Info("Current [{}]", string.Join(", ", _currentCallSigns));
+            logger.Info("Current [{}]", string.Join(", ", _currentCallSigns));
             // Iterate over all of the currentCallSigns
             foreach (CombatantCallSign callSign in _currentCallSigns)
             {
@@ -129,7 +129,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Orders.I
                     // Check if the combatant has any remaining actions
                     if (combatantReport.GetCurrentAttributes().GetMovableAttributes().GetActions() <= 0)
                     {
-                        _logger.Info(" {} No longer has actions", callSign);
+                        logger.Info(" {} No longer has actions", callSign);
                         // Add this callSign to the completed callSigns
                         completeCallSigns.Add(callSign);
                     }
@@ -151,7 +151,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Orders.I
             // Check if the currentCallSigns is empty
             if (_currentCallSigns.Count == 0)
             {
-                _logger.Info("Current {} is empty. Populating with Upcoming {} {}s.", typeof(CombatantCallSign), _upcomingCallSigns.Count, typeof(CombatantCallSign));
+                logger.Info("Current {} is empty. Populating with Upcoming {} {}s.", typeof(CombatantCallSign), _upcomingCallSigns.Count, typeof(CombatantCallSign));
                 // Iterate over the upcomingCallSigns
                 foreach (CombatantCallSign callSign in _upcomingCallSigns)
                 {

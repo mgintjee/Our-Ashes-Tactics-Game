@@ -3,9 +3,13 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Requests.Int
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Models.Requests.Impls
 {
-    public class SplashModelRequestImpl
+    /// <summary>
+    /// Todo
+    /// </summary>
+    public class SplashRequestImpl
         : AbstractReport, IMvcModelRequest
     {
+        /// <inheritdoc/>
         protected override string GetContent()
         {
             return "";

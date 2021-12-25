@@ -15,11 +15,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Til
     /// <summary>
     /// Sortie Tile Model Impl
     /// </summary>
-    public class SortieTileModel 
+    public class SortieTileModel
         : ISortieTileModel
     {
         // Provides logging capability
-        private readonly IClassLogger _logger = LoggerManager.GetLogger(MvcType.Sortie)
+        private readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Sortie)
             .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
@@ -57,11 +57,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Til
         {
             if (combatantCallSign != CombatantCallSign.None)
             {
-                _logger.Info("Setting {} @ {}", combatantCallSign, _cubeCoordinates);
+                logger.Info("Setting {} @ {}", combatantCallSign, _cubeCoordinates);
             }
             else
             {
-                _logger.Info("Clearing {} @ {}", typeof(CombatantCallSign), _cubeCoordinates);
+                logger.Info("Clearing {} @ {}", typeof(CombatantCallSign), _cubeCoordinates);
             }
             _combatantCallSign = combatantCallSign;
             this.BuildReport();

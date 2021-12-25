@@ -17,10 +17,10 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         : AbstractCanvasWidget, IImageWidget
     {
         // Todo
-        protected SpriteID spriteID;
+        private SpriteID spriteID;
 
         // Todo
-        protected ColorID colorID;
+        private ColorID colorID;
 
         /// <inheritdoc/>
         void IImageWidget.SetColorID(ColorID colorID)
@@ -105,6 +105,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                 {
                     IImageWidget imageWidget = gameObject.AddComponent<ImageWidgetImpl>();
                     this.ApplyImageValues(imageWidget);
+                    ((ImageWidgetImpl)imageWidget).mvcViewCanvas = this.mvcViewCanvas;
                     return imageWidget;
                 }
 

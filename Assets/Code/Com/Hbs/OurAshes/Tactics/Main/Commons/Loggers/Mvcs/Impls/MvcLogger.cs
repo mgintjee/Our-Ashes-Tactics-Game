@@ -14,7 +14,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Mvcs.Impls
     /// <summary>
     /// Todo
     /// </summary>
-    public class MvcLogger 
+    public class MvcLogger
         : IMvcLogger
     {
         private readonly IFileLogger fileLogger;

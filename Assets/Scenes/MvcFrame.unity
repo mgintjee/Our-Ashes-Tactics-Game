@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 1105596914}
   - component: {fileID: 1105596913}
   m_Layer: 0
-  m_Name: mvcManager
+  m_Name: MvcManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 1492353583}
   - component: {fileID: 1492353582}
   m_Layer: 0
-  m_Name: directionalLight
+  m_Name: DirectionalLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 1940505076}
   - component: {fileID: 1940505075}
   m_Layer: 0
-  m_Name: camera
+  m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

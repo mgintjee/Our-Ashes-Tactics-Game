@@ -6,14 +6,15 @@
     public enum SpriteID
     {
         None,
-        Circle,
-        RoundedSquare,
-        Square,
-        TriangleUp,
-        TriangleDown,
-        DiamondVertical,
-        DiamondHorizontal,
-        CapsuleVertical,
-        CapsuleHorizontal,
+        CircleBordered,
+        CircleBorderless,
+        CapsuleBordered,
+        CapsuleBorderless,
+        RoundSquareBorderless,
+        RoundSquareBordered,
+        SquareBordered,
+        SquareBorderless,
+        TriangleBordered,
+        TriangleBorderless,
     }
 }

@@ -19,12 +19,17 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Impls
         {
         }
 
-        public override IMvcModelState Process(IMvcModelRequest mvcModelRequest)
+        protected override IMvcModelState BuildInitialMvcModelState()
         {
             throw new System.NotImplementedException();
         }
 
-        protected override IMvcModelState BuildInitialMvcModelState()
+        protected override IMvcModelState ProcessInitialMvcModelRequest()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override IMvcModelState ProcessMvcModelRequest(IMvcModelRequest mvcModelRequest)
         {
             throw new System.NotImplementedException();
         }

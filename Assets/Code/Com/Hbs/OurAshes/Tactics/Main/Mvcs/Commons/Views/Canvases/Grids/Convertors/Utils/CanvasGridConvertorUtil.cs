@@ -1,8 +1,7 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Canvases.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Specs.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Specs.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Specs.Grids.Inters;
 using System.Numerics;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Utils
@@ -22,6 +21,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         public static void ApplyCanvasGridMeasurements(ICanvasWidget canvasWidget,
             ICanvasGridConvertor canvasGridConvertor, Vector2 gridSize, Vector2 gridCoords)
         {
+            /*
             ICanvasWidgetSpec canvasWidgetSpec = canvasWidget.GetCanvasWidgetSpec();
             CanvasWidgetSpecImpl newCanvasWidgetSpec = new CanvasWidgetSpecImpl();
             newCanvasWidgetSpec.SetCanvasGridCoords(gridCoords);
@@ -31,16 +31,17 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             newCanvasWidgetSpec.SetCanvasWorldCoords(canvasGridConvertor.GetWorldCoords(gridCoords, gridSize));
             newCanvasWidgetSpec.SetCanvasWorldSize(canvasGridConvertor.GetWorldSize(gridSize));
             canvasWidget.SetCanvasWidgetSpec(newCanvasWidgetSpec);
+            */
         }
 
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="canvasScript">    </param>
-        /// <param name="gridConvertor">   </param>
-        /// <param name="canvasWidgetSpec"></param>
+        /// <param name="canvasScript">  </param>
+        /// <param name="gridConvertor"> </param>
+        /// <param name="widgetGridSpec"></param>
         private static void ApplyCanvasGridMeasurements(ICanvasScript canvasScript,
-            ICanvasGridConvertor gridConvertor, ICanvasWidgetSpec canvasWidgetSpec)
+            ICanvasGridConvertor gridConvertor, IWidgetGridSpec widgetGridSpec)
         {
             /*
             // Find the WorldDimensions for this canvasScript

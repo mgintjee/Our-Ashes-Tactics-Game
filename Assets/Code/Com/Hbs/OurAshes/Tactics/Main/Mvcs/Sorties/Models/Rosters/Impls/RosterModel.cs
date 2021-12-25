@@ -28,11 +28,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.
     /// <summary>
     /// Todo
     /// </summary>
-    public class RosterModel 
+    public class RosterModel
         : IRosterModel
     {
         // Provides logging capability to the SORTIE logs
-        private readonly IClassLogger _logger = LoggerManager.GetLogger(MvcType.Sortie)
+        private readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Sortie)
             .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
@@ -75,7 +75,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.
                 {
                     float actionCost = 0.0f;
                     float movementCost = 0.0f;
-                    _logger.Info(" {}: Applying {}", callSign, path);
+                    logger.Info(" {}: Applying {}", callSign, path);
                     switch (path.GetPathType())
                     {
                         case PathType.Move:
@@ -142,7 +142,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.
         /// <param name="combatReport"></param>
         private void ApplyCombatReport(ICombatReport combatReport)
         {
-            _logger.Info("Applying {}", combatReport);
+            logger.Info("Applying {}", combatReport);
             ISet<IDestructibleAttributes> destructibleAttributesSet = new HashSet<IDestructibleAttributes>();
             foreach (IDamageReport damageReport in combatReport.GetDamageReports())
             {
@@ -188,15 +188,15 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.
         {
             this.GetModel(callSign).IfPresent((model) =>
             {
-                _logger.Info("Applying {} to {}", combatantAttributes, callSign);
-                _logger.Info("Pre Current {}", model.GetReport().GetCurrentAttributes());
+                logger.Info("Applying {} to {}", combatantAttributes, callSign);
+                logger.Info("Pre Current {}", model.GetReport().GetCurrentAttributes());
                 model.ApplyCombatantAttributes(combatantAttributes);
                 if (model.GetReport().GetCurrentAttributes()
                     .GetDestructibleAttributes().GetHealth() <= 0.0f)
                 {
                     _activeCallSigns.Remove(callSign);
                 }
-                _logger.Info("Post Current {}", model.GetReport().GetCurrentAttributes());
+                logger.Info("Post Current {}", model.GetReport().GetCurrentAttributes());
             });
         }
     }

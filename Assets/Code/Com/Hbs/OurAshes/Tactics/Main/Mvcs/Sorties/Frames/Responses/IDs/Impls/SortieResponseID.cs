@@ -12,11 +12,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Response
     /// <summary>
     /// Sortie Response ID Impl
     /// </summary>
-    public class SortieResponseID 
+    public class SortieResponseID
         : ISortieResponseID
     {
         // Provides logging capability
-        private readonly IClassLogger _logger = LoggerManager.GetLogger(MvcType.Sortie)
+        private readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Sortie)
             .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
@@ -91,21 +91,21 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Response
         /// <inheritdoc/>
         ISortieResponseID ISortieResponseID.IncrementAction()
         {
-            _logger.Info("Incrementing {}'s action.", this);
+            logger.Info("Incrementing {}'s action.", this);
             return new SortieResponseID(_phase, _turn, _action + 1);
         }
 
         /// <inheritdoc/>
         ISortieResponseID ISortieResponseID.IncrementPhase()
         {
-            _logger.Info("Incrementing {}'s phase.", this);
+            logger.Info("Incrementing {}'s phase.", this);
             return new SortieResponseID(_phase + 1, 0, 0);
         }
 
         /// <inheritdoc/>
         ISortieResponseID ISortieResponseID.IncrementTurn()
         {
-            _logger.Info("Incrementing {}'s turn.", this);
+            logger.Info("Incrementing {}'s turn.", this);
             return new SortieResponseID(_phase, _turn + 1, 0);
         }
 

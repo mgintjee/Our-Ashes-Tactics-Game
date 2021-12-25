@@ -14,7 +14,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Pa
     /// <summary>
     /// Todo
     /// </summary>
-    public abstract class AbstractSortieMapPath 
+    public abstract class AbstractSortieMapPath
         : ISortieMapPath
     {
         // Todo
@@ -36,7 +36,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Pa
         protected ICubeCoordinates _start;
 
         // Provides logging capability
-        private readonly IClassLogger _logger = LoggerManager.GetLogger(MvcType.Sortie)
+        private readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Sortie)
             .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 
         /// <summary>

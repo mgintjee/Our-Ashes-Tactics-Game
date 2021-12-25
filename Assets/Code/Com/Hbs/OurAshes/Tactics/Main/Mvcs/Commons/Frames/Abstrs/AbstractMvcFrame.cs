@@ -40,7 +40,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs
         protected readonly IMvcControl mvcControl;
 
         // Todo
-        protected readonly IClassLogger _logger;
+        protected readonly IClassLogger logger;
 
         // Todo
         protected readonly IMvcFrameConstruction mvcFrameConstruction;
@@ -83,17 +83,16 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs
             mvcView = (mvcFrameConstruction.GetSimulationType() != SimsType.BlackBox)
                 ? this.BuildMvcView(this.mvcFrameConstruction)
                 : new BlackBoxViewImpl(this.mvcFrameConstruction);
-            _logger = this.GetClassLogger();
-            _logger.Info("Built {}...", this.GetType());
+            logger = this.GetClassLogger();
+            logger.Info("Built {}...", this.GetType());
         }
 
         /// <inheritdoc/>
         void IMvcFrame.Continue()
         {
-            if (this.mvcControl.IsProcessing() ||
-                this.mvcView.IsProcessing())
+            if (this.mvcControl.IsProcessing() || this.mvcView.IsProcessing())
             {
-                _logger.Info("Cannot have {} continue yet. {} isProcessing: {}, {} isProcessing: {}.",
+                logger.Info("Cannot have {} continue yet. {} isProcessing: {}, {} isProcessing: {}.",
                     this.GetType(), this.mvcControl.GetType(), this.mvcControl.IsProcessing(),
                     this.mvcView.GetType(), this.mvcView.IsProcessing());
             }
@@ -118,7 +117,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs
                 }
                 else
                 {
-                    _logger.Info("Processing initial request...");
+                    logger.Info("Processing initial request...");
                     IMvcModelState mvcModelState = this.mvcModel.Process(null);
                     this.mvcControl.Process(mvcModelState);
                     this.mvcView.Process(mvcModelState);
@@ -138,9 +137,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs
         /// <inheritdoc/>
         bool IMvcFrame.IsProcessing()
         {
-            return mvcControl.IsProcessing() ||
-                mvcModel.IsProcessing() ||
-                mvcView.IsProcessing();
+            return mvcControl.IsProcessing() || mvcModel.IsProcessing() || mvcView.IsProcessing();
         }
 
         /// <inheritdoc/>

@@ -16,6 +16,12 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.I
         /// Todo
         /// </summary>
         /// <returns></returns>
+        string GetName();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
         GameObject GetGameObject();
 
         /// <summary>

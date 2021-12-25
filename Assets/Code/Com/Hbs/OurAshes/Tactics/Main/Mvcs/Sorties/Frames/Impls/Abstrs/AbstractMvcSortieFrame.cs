@@ -44,7 +44,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls.Ab
         protected IMvcSortieFrameScript sortieFrameScript;
 
         // Todo
-        private readonly IClassLogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
+        private readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private readonly IList<IMvcModelResponse> mvcModelResponses = new List<IMvcModelResponse>();
@@ -55,7 +55,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls.Ab
         /// <param name="sortieFrameConstruction"></param>
         public MvcSortieFrame(IMvcControlConstruction sortieFrameConstruction)
         {
-            _logger.Info("Constructing {} with {}", this.GetType(), sortieFrameConstruction);
+            logger.Info("Constructing {} with {}", this.GetType(), sortieFrameConstruction);
             RandomManager.GetRandom(MvcType.Sortie);
             this.sortieFrameScript = new MvcSortieFrameScript.Builder()
                 .SetUnityScript(sortieFrameConstruction.GetUnityScript())
@@ -84,13 +84,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls.Ab
             }
             if (_mvcSortieModel.IsProcessing())
             {
-                _logger.Info("Model is still processing");
+                logger.Info("Model is still processing");
                 if (this.mvcSortieView == null || !_mvcSortieView.IsProcessing())
                 {
-                    _logger.Info("View is not processing");
+                    logger.Info("View is not processing");
                     if (!_mvcSortieControl.IsProcessing())
                     {
-                        _logger.Info("Control is not processing");
+                        logger.Info("Control is not processing");
                         if (_mvcSortieControl.GetModelRequests().Count == 0)
                         {
                             ISet<IMvcRequest> mvcModelRequests = _mvcSortieModel.GetMvcRequests();
@@ -105,7 +105,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls.Ab
                             }
                             else
                             {
-                                _logger.Error("No available {}s. END THE GAME.", typeof(ISortieRequest));
+                                logger.Error("No available {}s. END THE GAME.", typeof(ISortieRequest));
                             }
                         }
                         else
@@ -113,7 +113,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls.Ab
                             ISortieRequest selectedRequest = _mvcSortieControl.GetSelectedModelRequest();
                             if (selectedRequest != null)
                             {
-                                _logger.Info("Selected {}", selectedRequest);
+                                logger.Info("Selected {}", selectedRequest);
                                 if (_mvcSortieView != null)
                                 {
                                     _mvcSortieView.Process(selectedRequest);
@@ -121,7 +121,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls.Ab
                                 ISortieRequest confirmedRequest = _mvcSortieControl.GetConfirmedModelRequest();
                                 if (confirmedRequest != null)
                                 {
-                                    _logger.Info("Confirmed {}", confirmedRequest);
+                                    logger.Info("Confirmed {}", confirmedRequest);
                                     _mvcSortieModel.Process(confirmedRequest);
                                     IMvcModelResponse mvcResponse = _mvcSortieModel.GetMvcModelResponse();
                                     mvcModelResponses.Add(mvcResponse);
@@ -133,34 +133,34 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls.Ab
                                     //_ModelRequests.Clear();
                                     //_ModelRequests.UnionWith((ISet<ISortieRequest>)_mvcSortieModel.GetModelRequests());
                                     // _mvcSortieControl.Process(_ModelRequests);
-                                    //_logger.Info(":{}", ((ISortieModelResponse)_mvcSortieModel.GetMvcModelResponse()).GetSortieResponseID());
-                                    _logger.Info(":{}", _mvcSortieModel.GetMvcModelResponse());
+                                    //logger.Info(":{}", ((ISortieModelResponse)_mvcSortieModel.GetMvcModelResponse()).GetSortieResponseID());
+                                    logger.Info(":{}", _mvcSortieModel.GetMvcModelResponse());
                                 }
                                 else
                                 {
-                                    _logger.Debug("Waiting for confirmed request");
+                                    logger.Debug("Waiting for confirmed request");
                                 }
                             }
                             else
                             {
-                                _logger.Debug("Waiting for selected request");
+                                logger.Debug("Waiting for selected request");
                                 _mvcSortieView.Process(_ModelRequests);
                             }
                         }
                     }
                     else
                     {
-                        _logger.Info("Control is still processing");
+                        logger.Info("Control is still processing");
                     }
                 }
                 else
                 {
-                    _logger.Info("View is still processing");
+                    logger.Info("View is still processing");
                 }
             }
             else
             {
-                _logger.Info("Model is not processing");
+                logger.Info("Model is not processing");
             }
         }
 
@@ -175,7 +175,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls.Ab
         /// <inheritdoc/>
         void IMvcFrame.Destroy()
         {
-            _logger.Info("Destroying this Mvc");
+            logger.Info("Destroying this Mvc");
             this.sortieFrameScript.Destroy();
             LoggerManager.EndLoggingFile(MvcType.Sortie);
         }

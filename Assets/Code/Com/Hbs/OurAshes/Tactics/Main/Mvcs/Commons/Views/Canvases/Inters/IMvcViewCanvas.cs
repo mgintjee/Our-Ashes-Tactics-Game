@@ -3,6 +3,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Obj
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Canvases.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
+using System.Numerics;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inters
 {
@@ -16,11 +17,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// Todo
         /// </summary>
         void Clear();
-
-        /// <summary>
-        /// Todo: Delete. Maybe redundant with the Build method
-        /// </summary>
-        void Reset();
 
         /// <summary>
         /// Todo
@@ -39,5 +35,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <param name="mvcControlInput"></param>
         /// <returns></returns>
         Optional<ICanvasWidget> GetWidget(IMvcControlInput mvcControlInput);
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        Vector2 GetWorldSize();
     }
 }

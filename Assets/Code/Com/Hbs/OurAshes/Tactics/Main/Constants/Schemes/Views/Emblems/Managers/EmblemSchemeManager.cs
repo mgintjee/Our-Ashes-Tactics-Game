@@ -18,21 +18,21 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Constants.Schemes.Views.Embl
             {
                 EmblemScheme.Builder.Get()
                     .SetEmblemSchemeID(EmblemSchemeID.Alpha)
-                    .SetIconSpriteID(SpriteID.Circle)
-                    .SetForegroundSpriteID(SpriteID.Circle)
-                    .SetBackgroundSpriteID(SpriteID.Circle)
+                    .SetIconSpriteID(SpriteID.CircleBordered)
+                    .SetForegroundSpriteID(SpriteID.CircleBordered)
+                    .SetBackgroundSpriteID(SpriteID.CircleBordered)
                     .Build(),
                 EmblemScheme.Builder.Get()
                     .SetEmblemSchemeID(EmblemSchemeID.Bravo)
-                    .SetIconSpriteID(SpriteID.Circle)
-                    .SetForegroundSpriteID(SpriteID.Circle)
-                    .SetBackgroundSpriteID(SpriteID.Circle)
+                    .SetIconSpriteID(SpriteID.CircleBordered)
+                    .SetForegroundSpriteID(SpriteID.CircleBordered)
+                    .SetBackgroundSpriteID(SpriteID.CircleBordered)
                     .Build(),
                 EmblemScheme.Builder.Get()
                     .SetEmblemSchemeID(EmblemSchemeID.Charlie)
-                    .SetIconSpriteID(SpriteID.Circle)
-                    .SetForegroundSpriteID(SpriteID.Circle)
-                    .SetBackgroundSpriteID(SpriteID.Circle)
+                    .SetIconSpriteID(SpriteID.CircleBordered)
+                    .SetForegroundSpriteID(SpriteID.CircleBordered)
+                    .SetBackgroundSpriteID(SpriteID.CircleBordered)
                     .Build(),
             };
 

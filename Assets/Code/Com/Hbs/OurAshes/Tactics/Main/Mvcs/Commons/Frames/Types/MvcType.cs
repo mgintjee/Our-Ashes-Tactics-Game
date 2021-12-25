@@ -7,10 +7,10 @@
     {
         None,
         Sortie,
-        Central,
-        Home,
-        World,
-        Splash,
+        MenuHome,
+        QSortieHome,
+        ScreenSplash,
+        ScreenLoading,
         Manager
     }
 }

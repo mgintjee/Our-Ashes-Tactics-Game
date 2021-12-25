@@ -31,11 +31,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Combats.
     /// <summary>
     /// Todo
     /// </summary>
-    public class CombatModel 
+    public class CombatModel
         : ICombatModel
     {
         // Provides logging capability to the SORTIE logs
-        private readonly IClassLogger _logger = LoggerManager.GetLogger(MvcType.Sortie)
+        private readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Sortie)
             .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
@@ -55,7 +55,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Combats.
         /// </summary>
         public CombatModel()
         {
-            _logger.Info("Instantiating");
+            logger.Info("Instantiating");
         }
 
         /// <inheritdoc/>

@@ -15,11 +15,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Pat
     /// <summary>
     /// Todo
     /// </summary>
-    public class WaitPathFinder 
+    public class WaitPathFinder
         : AbstractPathFinder
     {
         // Provides logging capability to the SORTIE logs
-        private readonly IClassLogger _logger = LoggerManager.GetLogger(MvcType.Sortie)
+        private readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Sortie)
             .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Pat
         /// <inheritdoc/>
         protected override void PathFind()
         {
-            _logger.Debug("PathFind @ {}", _cubeCoordinates);
+            logger.Debug("PathFind @ {}", _cubeCoordinates);
             _cubeCoordinatesPaths.Add(_cubeCoordinates,
                 new SortieMapWaitPath(new List<ICubeCoordinates>() { _cubeCoordinates }, _mapReport));
         }

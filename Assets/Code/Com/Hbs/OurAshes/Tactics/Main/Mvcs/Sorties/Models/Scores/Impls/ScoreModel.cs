@@ -22,11 +22,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Scores.I
     /// <summary>
     /// Todo
     /// </summary>
-    public class ScoreModel 
+    public class ScoreModel
         : IScoreModel
     {
         // Todo
-        private readonly IClassLogger _logger = LoggerManager.GetLogger(MvcType.Sortie)
+        private readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Sortie)
             .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo

@@ -1,7 +1,8 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Builders.Abstrs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Builders.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Specs.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Specs.Grids.Inters;
 using System.Collections.Generic;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Builders.Impls
@@ -13,26 +14,52 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         : AbstractScriptBuilder<T>, IWidgetBuilder<T>
     {
         // Todo
-        protected ICanvasWidgetSpec canvasWidgetSpec;
+        protected IWidgetGridSpec widgetGridSpec;
 
-        IWidgetBuilder<T> IWidgetBuilder<T>.SetCanvasWidgetSpec(ICanvasWidgetSpec canvasWidgetSpec)
+        // Todo
+        protected bool interactable;
+
+        // Todo
+        protected int canvasLevel;
+
+        // Todo
+        protected IMvcViewCanvas mvcViewCanvas;
+
+        IWidgetBuilder<T> IWidgetBuilder<T>.SetWidgetGridSpec(IWidgetGridSpec widgetGridSpec)
         {
-            this.canvasWidgetSpec = canvasWidgetSpec;
+            this.widgetGridSpec = widgetGridSpec;
+            return this;
+        }
+
+        IWidgetBuilder<T> IWidgetBuilder<T>.SetInteractable(bool interactable)
+        {
+            this.interactable = interactable;
+            return this;
+        }
+
+        IWidgetBuilder<T> IWidgetBuilder<T>.SetCanvasLevel(int canvasLevel)
+        {
+            this.canvasLevel = canvasLevel;
+            return this;
+        }
+
+        IWidgetBuilder<T> IWidgetBuilder<T>.SetMvcViewCanvas(IMvcViewCanvas mvcViewCanvas)
+        {
+            this.mvcViewCanvas = mvcViewCanvas;
             return this;
         }
 
         protected override void ValidateScriptBuilder(ISet<string> invalidReasons)
         {
-            this.Validate(invalidReasons, this.canvasWidgetSpec);
-            if (this.canvasWidgetSpec != null)
+            this.Validate(invalidReasons, this.widgetGridSpec);
+            if (this.widgetGridSpec != null)
             {
-                this.Validate(invalidReasons, this.canvasWidgetSpec.GetGridCoords());
-                this.Validate(invalidReasons, this.canvasWidgetSpec.GetGridSize());
-                this.Validate(invalidReasons, this.canvasWidgetSpec.GetWorldCoords());
-                this.Validate(invalidReasons, this.canvasWidgetSpec.GetWorldSize());
-                this.Validate(invalidReasons, this.canvasWidgetSpec.GetLevel());
-                this.Validate(invalidReasons, this.canvasWidgetSpec.GetInteractable());
+                this.Validate(invalidReasons, this.widgetGridSpec.GetGridCoords());
+                this.Validate(invalidReasons, this.widgetGridSpec.GetGridSize());
             }
+            this.Validate(invalidReasons, this.interactable);
+            this.Validate(invalidReasons, this.canvasLevel);
+            this.Validate(invalidReasons, this.mvcViewCanvas);
             this.ValidateWidgetBuilder(invalidReasons);
         }
 
@@ -43,7 +70,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         protected void ApplyCommonValues(ICanvasWidget canvasWidget)
         {
             this.ApplyScriptValues(canvasWidget);
-            canvasWidget.SetCanvasWidgetSpec(this.canvasWidgetSpec);
+            canvasWidget.SetWidgetGridSpec(this.widgetGridSpec);
+            canvasWidget.SetInteractable(this.interactable);
+            canvasWidget.SetCanvasLevel(this.canvasLevel);
         }
     }
 }

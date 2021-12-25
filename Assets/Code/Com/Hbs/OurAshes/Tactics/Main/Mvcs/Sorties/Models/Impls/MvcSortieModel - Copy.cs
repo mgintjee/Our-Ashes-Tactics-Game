@@ -46,7 +46,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Impls
         : IMvcSortieModel
     {
         // Provides logging capability to the SORTIE logs
-        private readonly IClassLogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
+        private readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private readonly ICombatModel _combatModel;
@@ -84,7 +84,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Impls
         /// <param name="sortieFrameConstruction"></param>
         public MvcSortieModel(IMvcControlConstruction sortieFrameConstruction)
         {
-            _logger.Info("Instantiating");
+            logger.Info("Instantiating");
             _sortieResponseID = new SortieResponseID(0, 0, 0);
             _rosterModel = new RosterModel(sortieFrameConstruction.GetRosterConstruction());
             _engagementModel = new EngagementModel(sortieFrameConstruction.GetFormationConstruction());
@@ -132,7 +132,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Impls
             }
             else
             {
-                _logger.Warn("Current {} is empty. Game should end.", typeof(CombatantCallSign));
+                logger.Warn("Current {} is empty. Game should end.", typeof(CombatantCallSign));
                 return new HashSet<IMvcRequest>();
             }
         }
@@ -146,7 +146,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Impls
         /// <inheritdoc/>
         void IMvcModel.Process(IMvcRequest mvcModelRequest)
         {
-            _logger.Info("Processing {}", mvcModelRequest);
+            logger.Info("Processing {}", mvcModelRequest);
             this.RefreshModels((ISortieRequest)mvcModelRequest);
             this.IncrementSortieResponseID((ISortieRequest)mvcModelRequest);
             this.BuildMvcModelResponse(mvcModelRequest);

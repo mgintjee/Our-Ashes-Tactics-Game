@@ -19,7 +19,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Abstrs
         : IMvcControl
     {
         // Todo
-        protected readonly IClassLogger _logger;
+        protected readonly IClassLogger logger;
 
         // Todo
         protected readonly IMvcControlState mvcControlState;
@@ -38,7 +38,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Abstrs
         /// <param name="mvcFrameConstruction"></param>
         public AbstractMvcControl(IMvcFrameConstruction mvcFrameConstruction)
         {
-            _logger = LoggerManager.GetLogger(mvcFrameConstruction.GetMvcType())
+            logger = LoggerManager.GetLogger(mvcFrameConstruction.GetMvcType())
                 .GetClassLogger(this.GetType());
             this.mvcControlState = this.BuildInitialMvcControlState();
             this.mvcControlInput = MvcControlInputManagerImpl.Builder.Get()
@@ -48,15 +48,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Abstrs
                 .SetParent(mvcFrameConstruction.GetUnityScript())
                 .Build();
         }
-
-        /// <inheritdoc/>
-        public abstract void Process(IMvcModelState mvcModelState);
-
-        /// <inheritdoc/>
-        public abstract void Process(IMvcViewState mvcViewState);
-
-        /// <inheritdoc/>
-        public abstract void Process(IMvcControlInput mvcControlInput);
 
         /// <inheritdoc/>
         bool IMvcControl.IsProcessing()
@@ -71,9 +62,68 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Abstrs
         }
 
         /// <inheritdoc/>
+        void IMvcControl.Process(IMvcModelState mvcModelState)
+        {
+            this.InternalProcess(mvcModelState);
+        }
+
+        /// <inheritdoc/>
+        void IMvcControl.Process(IMvcControlInput mvcControlInput)
+        {
+            this.InternalProcess(mvcControlInput);
+        }
+
+        /// <inheritdoc/>
+        void IMvcControl.Process(IMvcViewState mvcViewState)
+        {
+            this.InternalProcess(mvcViewState);
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="mvcViewState"></param>
+        protected virtual void InternalProcess(IMvcViewState mvcViewState)
+        {
+            logger.Info("Processing {}...", mvcViewState);
+            ((MvcControlStateImpl)this.mvcControlState)
+                .SetMvcControlInput(null);
+            mvcViewState.GetMvcModelRequest().IfPresent(mvcModelRequest =>
+            {
+                ((MvcControlStateImpl)this.mvcControlState).SetMvcModelRequest(mvcModelRequest);
+            });
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="mvcControlInput"></param>
+        protected virtual void InternalProcess(IMvcControlInput mvcControlInput)
+        {
+            logger.Info("Processing {}...", mvcControlInput);
+            ((MvcControlStateImpl)this.mvcControlState)
+                .SetMvcControlInput(mvcControlInput);
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
         protected virtual IMvcControlState BuildInitialMvcControlState()
         {
             return new MvcControlStateImpl();
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="mvcModelState"></param>
+        protected virtual void InternalProcess(IMvcModelState mvcModelState)
+        {
+            logger.Info("Processing {}...", mvcModelState);
+            ((MvcControlStateImpl)this.mvcControlState)
+                .SetMvcControlInput(null)
+                .SetMvcModelRequest(null);
         }
     }
 }

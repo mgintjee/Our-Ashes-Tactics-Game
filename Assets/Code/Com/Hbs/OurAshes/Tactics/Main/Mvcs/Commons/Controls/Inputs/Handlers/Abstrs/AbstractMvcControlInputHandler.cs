@@ -10,7 +10,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs
     /// <summary>
     /// Abstract Mvc Control Impl
     /// </summary>
-    public abstract class AbstractMvcControlInputHandler 
+    public abstract class AbstractMvcControlInputHandler
         : AbstractUnityScript, IMvcControlInputHandler
     {
         // Todo

@@ -14,7 +14,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs
     public abstract class AbstractMvcModel : IMvcModel
     {
         // Todo
-        protected readonly IClassLogger _logger;
+        protected readonly IClassLogger logger;
 
         // Todo
         protected readonly IMvcModelState mvcModelState;
@@ -31,7 +31,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs
         /// <param name="mvcFrameConstruction"></param>
         public AbstractMvcModel(IMvcFrameConstruction mvcFrameConstruction)
         {
-            _logger = LoggerManager.GetLogger(mvcFrameConstruction.GetMvcType())
+            logger = LoggerManager.GetLogger(mvcFrameConstruction.GetMvcType())
                 .GetClassLogger(this.GetType());
             _mvcFrameConstruction = mvcFrameConstruction;
             this.mvcModelState = this.BuildInitialMvcModelState();
@@ -39,12 +39,23 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs
         }
 
         /// <inheritdoc/>
-        public abstract IMvcModelState Process(IMvcModelRequest mvcModelRequest);
-
-        /// <inheritdoc/>
         bool IMvcModel.IsProcessing()
         {
             return this._isProcessing;
+        }
+
+        /// <inheritdoc/>
+        IMvcModelState IMvcModel.Process(IMvcModelRequest mvcModelRequest)
+        {
+            if (mvcModelRequest != null)
+            {
+                logger.Info("Processing {}...", mvcModelRequest);
+                return this.ProcessMvcModelRequest(mvcModelRequest);
+            }
+            else
+            {
+                return this.ProcessInitialMvcModelRequest();
+            }
         }
 
         /// <summary>
@@ -55,5 +66,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs
         {
             return new MvcModelStateImpl();
         }
+
+        protected abstract IMvcModelState ProcessMvcModelRequest(IMvcModelRequest mvcModelRequest);
+
+        protected abstract IMvcModelState ProcessInitialMvcModelRequest();
     }
 }

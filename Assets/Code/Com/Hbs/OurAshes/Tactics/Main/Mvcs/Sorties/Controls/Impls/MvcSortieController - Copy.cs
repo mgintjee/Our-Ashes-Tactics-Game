@@ -24,7 +24,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controls.Impls
         : AbstractControl, IMvcSortieControl
     {
         // Todo
-        private readonly IClassLogger _logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
+        private readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Sortie, new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private readonly IDictionary<AIType, IAISortieControl> _aiTypeAIControls = new Dictionary<AIType, IAISortieControl>()
@@ -103,7 +103,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Controls.Impls
             {
                 throw ExceptionUtil.Arguments.Build();
             }
-            _logger.Info("Available {}s ({}): [" +
+            logger.Info("Available {}s ({}): [" +
                 "\n{}" +
                 "\n]",
                 typeof(ISortieRequest), sortieModelRequests.Count,

@@ -2,7 +2,6 @@
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Sprites.IDs;
 using System.Diagnostics;
-using UnityEngine;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Resources.Loaders.Sprites
 {
@@ -12,20 +11,29 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
     public class SpriteResourceLoader
     {
         // Todo
-        private static readonly string SPRITE_FOLDER_HOME = "Sprites/";
+        private static readonly string SPRITE_FOLDER_HOME = "Sprites/sprite_";
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="spriteID"></param>
         /// <returns></returns>
-        public static Optional<Sprite> LoadSpriteResource(SpriteID spriteID)
+        public static Optional<UnityEngine.Sprite> LoadSpriteResource(SpriteID spriteID)
         {
             if (spriteID != SpriteID.None)
             {
-                return Optional<Sprite>.Of(LoadSpriteResource(SPRITE_FOLDER_HOME + spriteID.ToString()));
+                string path = SPRITE_FOLDER_HOME + spriteID.ToString();
+                UnityEngine.Sprite sprite = LoadSpriteResource(path);
+                if (sprite != null)
+                {
+                    // Todo have a way of spltting off of camel case
+                    return Optional<UnityEngine.Sprite>.Of(sprite);
+                }
+                throw ExceptionUtil.Arguments.Build("Unable to {}. {} did not provide a Sprite.",
+                    new StackFrame().GetMethod().Name, path);
             }
-            throw ExceptionUtil.Arguments.Build("Unable to {}. {} is not supported.", new StackFrame().GetMethod().Name);
+            throw ExceptionUtil.Arguments.Build("Unable to {}. {} is not supported.",
+                new StackFrame().GetMethod().Name, spriteID);
         }
 
         /// <summary>
@@ -33,9 +41,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// </summary>
         /// <param name="spritePath"></param>
         /// <returns></returns>
-        private static Sprite LoadSpriteResource(string spritePath)
+        private static UnityEngine.Sprite LoadSpriteResource(string spritePath)
         {
-            return UnityEngine.Resources.Load<Sprite>(spritePath);
+            return UnityEngine.Resources.Load<UnityEngine.Sprite>(spritePath);
         }
     }
 }

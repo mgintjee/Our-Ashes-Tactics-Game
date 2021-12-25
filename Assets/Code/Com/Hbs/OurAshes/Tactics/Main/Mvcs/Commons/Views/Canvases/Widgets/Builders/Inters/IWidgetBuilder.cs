@@ -1,5 +1,6 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Builders.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Specs.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Specs.Grids.Inters;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Builders.Inters
 {
@@ -9,10 +10,12 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
     public interface IWidgetBuilder<T>
         : IScriptBuilder<T>
     {
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        IWidgetBuilder<T> SetCanvasWidgetSpec(ICanvasWidgetSpec canvasWidgetSpec);
+        IWidgetBuilder<T> SetWidgetGridSpec(IWidgetGridSpec widgetGridSpec);
+
+        IWidgetBuilder<T> SetInteractable(bool interactable);
+
+        IWidgetBuilder<T> SetCanvasLevel(int canvasLevel);
+
+        IWidgetBuilder<T> SetMvcViewCanvas(IMvcViewCanvas mvcViewCanvas);
     }
 }

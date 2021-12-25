@@ -32,8 +32,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Frames.Impls
             this.nextMvcFrameConstruction = MvcFrameConstruction.Builder.Get()
                 .SetUnityScript(mvcFrameConstruction.GetUnityScript())
                 .SetSimulationType(SimsType.Interactive)
-                .SetMvcType(MvcType.Home)
-                .SetRandom(RandomManager.GetRandom(MvcType.Home))
+                .SetMvcType(MvcType.MenuHome)
+                .SetRandom(RandomManager.GetRandom(MvcType.MenuHome))
                 .Build();
         }
 

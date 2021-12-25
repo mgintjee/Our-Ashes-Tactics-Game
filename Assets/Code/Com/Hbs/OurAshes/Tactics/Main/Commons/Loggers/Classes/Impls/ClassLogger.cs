@@ -11,7 +11,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Classes.Impl
     /// <summary>
     /// Todo
     /// </summary>
-    public class ClassLogger 
+    public class ClassLogger
         : IClassLogger
     {
         // Todo

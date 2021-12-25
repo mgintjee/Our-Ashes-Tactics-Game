@@ -1,6 +1,4 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Scripts.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Builders.Abstrs;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Builders.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Abstrs;
 using UnityEngine;
 
@@ -20,8 +18,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Scripts.
             /// <summary>
             /// Builder Interface for this object
             /// </summary>
-            public interface IBuilder
-                : IScriptBuilder<IMvcFrameScript>
+            public interface IInternalBuilder
+                : AbstractBuilder.IScriptBuilder<IMvcFrameScript>
             {
             }
 
@@ -29,7 +27,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Scripts.
             /// Get the Builder for this object
             /// </summary>
             /// <returns></returns>
-            public static IBuilder Get()
+            public static IInternalBuilder Get()
             {
                 return new InternalBuilder();
             }
@@ -38,7 +36,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Scripts.
             /// Builder Impl for this object
             /// </summary>
             private class InternalBuilder
-                : AbstractScriptBuilder<IMvcFrameScript>, IBuilder
+                : AbstractBuilder.AbstractScriptBuilder<IMvcFrameScript>, IInternalBuilder
             {
                 /// <inheritdoc/>
                 protected override IMvcFrameScript BuildScript(GameObject gameObject)

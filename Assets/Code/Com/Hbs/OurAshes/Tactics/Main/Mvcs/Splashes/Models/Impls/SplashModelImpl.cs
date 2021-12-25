@@ -24,29 +24,15 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Models.Impls
         {
         }
 
-        /// <inheritdoc/>
-        public override IMvcModelState Process(IMvcModelRequest mvcModelRequest)
-        {
-            if (mvcModelRequest != null)
-            {
-                _logger.Info("Processing {}...", mvcModelRequest);
-                return this.ProcessMvcModelRequest(mvcModelRequest);
-            }
-            else
-            {
-                return this.ProcessInitialMvcModelRequest();
-            }
-        }
-
         /// <summary>
         /// Todo
         /// </summary>
         /// <returns></returns>
-        private IMvcModelState ProcessInitialMvcModelRequest()
+        protected override IMvcModelState ProcessInitialMvcModelRequest()
         {
-            ISet<IMvcModelRequest> mvcModelRequests = new HashSet<IMvcModelRequest>
-                { new SplashModelRequestImpl() };
-            ((MvcModelStateImpl)this.mvcModelState).SetMvcModelRequests(mvcModelRequests);
+            ((MvcModelStateImpl)this.mvcModelState)
+                .SetMvcModelRequests(new HashSet<IMvcModelRequest>
+                    { new SplashRequestImpl() });
             return this.mvcModelState;
         }
 
@@ -55,7 +41,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Models.Impls
         /// </summary>
         /// <param name="mvcModelRequest"></param>
         /// <returns></returns>
-        private IMvcModelState ProcessMvcModelRequest(IMvcModelRequest mvcModelRequest)
+        protected override IMvcModelState ProcessMvcModelRequest(IMvcModelRequest mvcModelRequest)
         {
             _isProcessing = false;
             return this.mvcModelState;

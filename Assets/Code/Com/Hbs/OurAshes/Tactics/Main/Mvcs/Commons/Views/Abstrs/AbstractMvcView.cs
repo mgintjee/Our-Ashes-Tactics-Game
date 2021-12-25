@@ -17,7 +17,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
         : IMvcView
     {
         // Todo
-        protected readonly IClassLogger _logger;
+        protected readonly IClassLogger logger;
 
         // Todo
         protected readonly IMvcViewState mvcViewState;
@@ -40,7 +40,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
         /// <param name="mvcFrameConstruction"></param>
         public AbstractMvcView(IMvcFrameConstruction mvcFrameConstruction)
         {
-            _logger = LoggerManager.GetLogger(mvcFrameConstruction.GetMvcType())
+            logger = LoggerManager.GetLogger(mvcFrameConstruction.GetMvcType())
                 .GetClassLogger(this.GetType());
             this.mvcFrameConstruction = mvcFrameConstruction;
             this.mvcViewState = this.BuildInitialMvcViewState();
@@ -48,15 +48,24 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
         }
 
         /// <inheritdoc/>
-        public abstract void Process(IMvcModelState mvcModelState);
-
-        /// <inheritdoc/>
-        public abstract IMvcViewState Process(IMvcControlInput mvcControlInput);
-
-        /// <inheritdoc/>
         bool IMvcView.IsProcessing()
         {
             return _isProcessing;
+        }
+
+        /// <inheritdoc/>
+        void IMvcView.Process(IMvcModelState mvcModelState)
+        {
+            logger.Info("Processing {}...", mvcModelState);
+            this.InternalProcess(mvcModelState);
+        }
+
+        /// <inheritdoc/>
+        IMvcViewState IMvcView.Process(IMvcControlInput mvcControlInput)
+        {
+            logger.Info("Processing {}...", mvcControlInput);
+            this.InternalProcess(mvcControlInput);
+            return this.mvcViewState;
         }
 
         /// <summary>
@@ -71,6 +80,24 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
         protected virtual IMvcViewState BuildInitialMvcViewState()
         {
             return new MvcViewStateImpl();
+        }
+
+        /// <summary>
+        /// /Todo
+        /// </summary>
+        /// <param name="mvcModelState"></param>
+        protected virtual void InternalProcess(IMvcModelState mvcModelState)
+        {
+            this.mvcModelState = mvcModelState;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="mvcControlInput"></param>
+        protected virtual void InternalProcess(IMvcControlInput mvcControlInput)
+        {
+            // Todo
         }
     }
 }

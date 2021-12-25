@@ -36,11 +36,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Imp
     /// <summary>
     /// Todo
     /// </summary>
-    public class MapModel 
+    public class MapModel
         : IMapModel
     {
         // Provides logging capability
-        private readonly IClassLogger _logger = LoggerManager.GetLogger(MvcType.Sortie)
+        private readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Sortie)
             .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
@@ -84,7 +84,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Maps.Imp
         /// <inheritdoc/>
         ISet<ISortieMapPath> IMapModel.GetPaths(ICombatantReport combatantReport)
         {
-            _logger.Info("GetPaths for {}. {}", combatantReport, _mapReport);
+            logger.Info("GetPaths for {}. {}", combatantReport, _mapReport);
             ISet<ISortieMapPath> paths = new HashSet<ISortieMapPath>();
             ISet<IPathFinder> pathFinders = new HashSet<IPathFinder>();
             this.GetTileModel(combatantReport.GetCombatantCallSign()).IfPresent((tileModel) =>

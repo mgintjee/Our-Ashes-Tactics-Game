@@ -16,11 +16,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Maps.Pa
     /// <summary>
     /// Todo
     /// </summary>
-    public class SortieMapMovePath 
+    public class SortieMapMovePath
         : AbstractSortieMapPath
     {
         // Provides logging capability to the SORTIE logs
-        private readonly IClassLogger _logger = LoggerManager.GetLogger(MvcType.Sortie)
+        private readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Sortie)
             .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 
         /// <summary>

@@ -21,14 +21,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Impls
     public class MvcManager : IMvcManager
     {
         // Todo
-        private readonly IClassLogger _logger = LoggerManager.GetLogger(MvcType.Manager)
+        private readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Manager)
             .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
         private readonly IDictionary<MvcType, IMvcFrame> mvcTypeFrames = new Dictionary<MvcType, IMvcFrame>();
-
-        // Todo
-        private readonly int seed = 22;
 
         // Todo
         private readonly IUnityScript unityScript;
@@ -50,21 +47,21 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Impls
             // Check if the activeMvcType has been set
             if (this.activeMvcType == MvcType.None)
             {
-                _logger.Info("Creating initial {}...", typeof(IMvcFrame));
-                this.mvcTypeFrames[MvcType.Splash] = this.BuildMvcFrame(this.BuildInitialMvcFrameConstruction(),
+                logger.Info("Creating initial {}...", typeof(IMvcFrame));
+                this.mvcTypeFrames[MvcType.ScreenSplash] = this.BuildMvcFrame(this.BuildInitialMvcFrameConstruction(),
                     null);
             }
             if (!this.mvcTypeFrames.ContainsKey(this.activeMvcType))
             {
                 // Should never be here except for errors
-                _logger.Error("No {} associated to {}", typeof(IMvcFrame), this.activeMvcType);
+                logger.Error("No {} associated to {}", typeof(IMvcFrame), this.activeMvcType);
                 return;
             }
             IMvcFrame mvcFrame = this.mvcTypeFrames[this.activeMvcType];
             // Check if the MvcFrame is now complete
             if (!mvcFrame.IsProcessing())
             {
-                _logger.Info("Frame: {} is complete.", this.activeMvcType);
+                logger.Info("Frame: {} is complete.", this.activeMvcType);
                 IMvcFrameConstruction mvcFrameConstruction = mvcFrame.GetUpcomingMvcFrameConstruction();
                 if (mvcFrameConstruction == null)
                 {
@@ -72,6 +69,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Impls
                     unityScript.Destroy();
                     return;
                 }
+                this.mvcTypeFrames[this.activeMvcType].Destroy();
                 this.mvcTypeFrames[this.activeMvcType] = null;
                 this.mvcTypeFrames[mvcFrameConstruction.GetMvcType()] = this.BuildMvcFrame(mvcFrameConstruction,
                     mvcFrame.GetCurrentMvcFrameConstruction());
@@ -97,11 +95,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Impls
             // Switch-case on the new active MvcType
             switch (this.activeMvcType)
             {
-                case MvcType.Splash:
+                case MvcType.ScreenSplash:
                     mvcFrame = new SplashFrameImpl(mvcFrameConstruction, currentMvcFrameConstruction);
                     break;
 
-                case MvcType.Home:
+                case MvcType.MenuHome:
                     mvcFrame = new HomeFrameImpl(mvcFrameConstruction, currentMvcFrameConstruction);
                     break;
 
@@ -111,11 +109,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Impls
             }
             if (mvcFrame != null)
             {
-                _logger.Info("Transitioning to {}", mvcFrame.GetType());
+                logger.Info("Transitioning to {}", mvcFrame.GetType());
             }
             else
             {
-                _logger.Info("Unsupported {}:{}. Unable to build {}.",
+                logger.Info("Unsupported {}:{}. Unable to build {}.",
                     typeof(MvcType), this.activeMvcType, typeof(IMvcFrame));
             }
             return mvcFrame;
@@ -130,8 +128,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Impls
             return MvcFrameConstruction.Builder.Get()
                 .SetSimulationType(SimsType.Interactive)
                 .SetUnityScript(unityScript)
-                .SetMvcType(MvcType.Splash)
-                .SetRandom(RandomManager.GetRandom(MvcType.Splash))
+                .SetMvcType(MvcType.ScreenSplash)
+                .SetRandom(RandomManager.GetRandom(MvcType.ScreenSplash))
                 .Build();
         }
     }

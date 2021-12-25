@@ -1,10 +1,14 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Constants;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Views.Canvases.Impls;
+using System.Collections.Generic;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Views.Impls
 {
@@ -24,21 +28,28 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Views.Impls
         }
 
         /// <inheritdoc/>
-        public override void Process(IMvcModelState mvcModelState)
+        protected override void InternalProcess(IMvcControlInput mvcControlInput)
         {
-            throw new System.NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        public override IMvcViewState Process(IMvcControlInput mvcControlInput)
-        {
-            throw new System.NotImplementedException();
+            logger.Info("Processing {}...", mvcControlInput);
+            this.mvcViewCanvas.GetWidget(mvcControlInput).IfPresent(widget =>
+            {
+                logger.Info("Widget to process: Name={}", widget.GetName());
+                if (widget.GetName().Contains("Image"))
+                {
+                    ((MvcViewStateImpl)this.mvcViewState)
+                        .SetMvcControlInputTypes(new HashSet<MvcControlInputType>());
+                }
+            });
         }
 
         /// <inheritdoc/>
         protected override IMvcViewCanvas BuildInitialMvcViewCanvas()
         {
-            throw new System.NotImplementedException();
+            return HomeViewCanvasImpl.Builder.Get()
+                .SetGridSize(CanvasGridConstants.GetMvcTypeGridSize(MvcType.MenuHome))
+                .SetName(typeof(HomeViewCanvasImpl).Name)
+                .SetParent(this.mvcFrameConstruction.GetUnityScript())
+                .Build();
         }
     }
 }

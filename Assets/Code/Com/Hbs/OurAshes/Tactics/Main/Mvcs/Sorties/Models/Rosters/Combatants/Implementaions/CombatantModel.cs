@@ -31,7 +31,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.
         : ICombatantModel
     {
         // Provides logging capability to the SORTIE logs
-        private readonly IClassLogger _logger = LoggerManager.GetLogger(MvcType.Sortie)
+        private readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Sortie)
             .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 
         // Todo
@@ -61,7 +61,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.
         /// <param name="combatantConstruction"></param>
         public CombatantModel(ICombatantModelConstruction combatantConstruction)
         {
-            _logger.Info("Instantiating with {}", combatantConstruction);
+            logger.Info("Instantiating with {}", combatantConstruction);
             _combatantCallSign = combatantConstruction.GetCombatantCallSign();
             _combatantID = combatantConstruction.GetCombatantID();
             _loadoutReport = combatantConstruction.GetLoadoutReport();
@@ -86,9 +86,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.
             _destructibleModel = new DestructibleModel(combatantAttributes);
             _fireableModel = new FireableModel(combatantAttributes);
             _movableModel = new MovableModel(combatantAttributes);
-            _logger.Info("Current {}", _destructibleModel.GetCurrentAttributes());
-            _logger.Info("Current {}", _fireableModel.GetCurrentAttributes());
-            _logger.Info("Current {}", _movableModel.GetCurrentAttributes());
+            logger.Info("Current {}", _destructibleModel.GetCurrentAttributes());
+            logger.Info("Current {}", _fireableModel.GetCurrentAttributes());
+            logger.Info("Current {}", _movableModel.GetCurrentAttributes());
         }
 
         /// <inheritdoc/>
@@ -114,7 +114,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Rosters.
         /// <inheritdoc/>
         void ICombatantModel.ResetForPhase()
         {
-            _logger.Info("Resetting {} for phase", _combatantCallSign);
+            logger.Info("Resetting {} for phase", _combatantCallSign);
             _movableModel.ResetForPhase();
         }
 
