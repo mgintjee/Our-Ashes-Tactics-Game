@@ -109,11 +109,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             widget.ApplyGridConvertor(this.gridConvertor);
         }
 
+        protected abstract void InternalBuild();
+
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="mvcControlInput"></param>
-        /// <param name="canvasWidget"></param>
+        /// <param name="canvasWidget">   </param>
         /// <returns></returns>
         private bool IsInputOnWidget(IMvcControlInput mvcControlInput, ICanvasWidget canvasWidget)
         {
@@ -140,7 +142,5 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                     return false;
             }
         }
-
-        protected abstract void InternalBuild();
     }
 }

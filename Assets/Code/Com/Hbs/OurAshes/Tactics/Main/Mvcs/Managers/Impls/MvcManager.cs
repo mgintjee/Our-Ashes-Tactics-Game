@@ -9,7 +9,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Frames.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Frames.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Splashes.Frames.Impls;
 using System.Collections.Generic;
 using System.Diagnostics;
 

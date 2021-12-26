@@ -10,9 +10,12 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Constrs.Inter
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Controls.Constrs.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Models.Constrs.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Views.Constrs.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Controls.Constrs.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Models.Constrs.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Views.Constrs.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Loadings.Controls.Constrs.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Loadings.Models.Constrs.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Loadings.Views.Constrs.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Splashes.Controls.Constrs.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Splashes.Models.Constrs.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Splashes.Views.Constrs.Impls;
 using System;
 using System.Collections.Generic;
 
@@ -207,6 +210,12 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.
                             _mvcControlConstruction = HomeControlConstruction.Builder.Get().Build();
                             _mvcModelConstruction = HomeModelConstruction.Builder.Get().Build();
                             _mvcViewConstruction = HomeViewConstruction.Builder.Get().Build();
+                            break;
+
+                        case MvcType.ScreenLoading:
+                            _mvcControlConstruction = LoadingControlConstruction.Builder.Get().Build();
+                            _mvcModelConstruction = LoadingModelConstruction.Builder.Get().Build();
+                            _mvcViewConstruction = LoadingViewConstruction.Builder.Get().Build();
                             break;
                     }
                     return this;
