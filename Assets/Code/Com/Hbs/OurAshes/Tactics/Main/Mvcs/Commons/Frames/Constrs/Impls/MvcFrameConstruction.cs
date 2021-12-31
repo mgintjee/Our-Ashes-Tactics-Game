@@ -7,12 +7,6 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Constrs.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Constrs.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Controls.Constrs.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Models.Constrs.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Homes.Views.Constrs.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Controls.Constrs.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Models.Constrs.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Splashes.Views.Constrs.Impls;
 using System;
 using System.Collections.Generic;
 
@@ -133,6 +127,12 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.
                 /// <returns></returns>
                 IBuilder SetMvcType(MvcType mvcType);
 
+                IBuilder SetMvcControlConstruction(IMvcControlConstruction mvcControlConstruction);
+
+                IBuilder SetMvcViewConstruction(IMvcViewConstruction mvcViewConstruction);
+
+                IBuilder SetMvcModelConstruction(IMvcModelConstruction mvcModelConstruction);
+
                 /// <summary>
                 /// Todo
                 /// </summary>
@@ -195,20 +195,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.
                 IBuilder IBuilder.SetMvcType(MvcType mvcType)
                 {
                     _mvcType = mvcType;
-                    switch (mvcType)
-                    {
-                        case MvcType.ScreenSplash:
-                            _mvcControlConstruction = SplashControlConstruction.Builder.Get().Build();
-                            _mvcModelConstruction = SplashModelConstruction.Builder.Get().Build();
-                            _mvcViewConstruction = SplashViewConstruction.Builder.Get().Build();
-                            break;
-
-                        case MvcType.MenuHome:
-                            _mvcControlConstruction = HomeControlConstruction.Builder.Get().Build();
-                            _mvcModelConstruction = HomeModelConstruction.Builder.Get().Build();
-                            _mvcViewConstruction = HomeViewConstruction.Builder.Get().Build();
-                            break;
-                    }
                     return this;
                 }
 
@@ -230,6 +216,27 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.
                 IBuilder IBuilder.SetUnityScript(IUnityScript unityScript)
                 {
                     _unityScript = unityScript;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetMvcControlConstruction(IMvcControlConstruction mvcControlConstruction)
+                {
+                    this._mvcControlConstruction = mvcControlConstruction;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetMvcViewConstruction(IMvcViewConstruction mvcViewConstruction)
+                {
+                    this._mvcViewConstruction = mvcViewConstruction;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                IBuilder IBuilder.SetMvcModelConstruction(IMvcModelConstruction mvcModelConstruction)
+                {
+                    this._mvcModelConstruction = mvcModelConstruction;
                     return this;
                 }
 

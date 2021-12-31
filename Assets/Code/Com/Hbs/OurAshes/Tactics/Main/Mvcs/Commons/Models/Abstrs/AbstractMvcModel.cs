@@ -33,6 +33,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs
         {
             logger = LoggerManager.GetLogger(mvcFrameConstruction.GetMvcType())
                 .GetClassLogger(this.GetType());
+            logger.Info("Constructing {} for MvcType: {}",
+                typeof(IMvcModel), mvcFrameConstruction.GetMvcType());
             _mvcFrameConstruction = mvcFrameConstruction;
             this.mvcModelState = this.BuildInitialMvcModelState();
             _isProcessing = true;

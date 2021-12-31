@@ -42,6 +42,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
         {
             logger = LoggerManager.GetLogger(mvcFrameConstruction.GetMvcType())
                 .GetClassLogger(this.GetType());
+            logger.Info("Constructing {} for MvcType: {}",
+                typeof(IMvcView), mvcFrameConstruction.GetMvcType());
             this.mvcFrameConstruction = mvcFrameConstruction;
             this.mvcViewState = this.BuildInitialMvcViewState();
             this.mvcViewCanvas = this.BuildInitialMvcViewCanvas();

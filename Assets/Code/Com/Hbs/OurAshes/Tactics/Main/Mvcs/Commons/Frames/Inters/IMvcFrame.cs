@@ -1,4 +1,5 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Reports.Inters;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Inters
 {
@@ -26,11 +27,17 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Inters
         /// <summary>
         /// Todo
         /// </summary>
-        IMvcFrameConstruction GetCurrentMvcFrameConstruction();
+        /// <returns></returns>
+        IMvcFrameResult GetMvcFrameResult();
 
         /// <summary>
         /// Todo
         /// </summary>
-        IMvcFrameConstruction GetUpcomingMvcFrameConstruction();
+        IMvcFrameConstruction GetCurrMvcFrameConstruction();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        IMvcFrameConstruction GetNextMvcFrameConstruction();
     }
 }

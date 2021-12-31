@@ -40,6 +40,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Abstrs
         {
             logger = LoggerManager.GetLogger(mvcFrameConstruction.GetMvcType())
                 .GetClassLogger(this.GetType());
+            logger.Info("Constructing {} for MvcType: {}", typeof(IMvcControl), mvcFrameConstruction.GetMvcType());
             this.mvcControlState = this.BuildInitialMvcControlState();
             this.mvcControlInput = MvcControlInputManagerImpl.Builder.Get()
                 .SetMvcType(mvcFrameConstruction.GetMvcType())

@@ -28,8 +28,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs
             new HashSet<IMvcControlInputHandler>();
 
         // Todo
-        private readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.ScreenSplash)
-            .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
+        private IClassLogger logger;
 
         // Todo
         private IMvcControl mvcControl;
@@ -42,6 +41,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs
         /// </summary>
         public void Start()
         {
+            logger = LoggerManager.GetLogger(this.mvcType)
+            .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
             this.mvcControlInputHandlers.Add(MvcControlInputHandlerClick.Builder.Get()
                 .SetMvcType(this.mvcType)
                 .SetIsEnabled(true)
@@ -145,9 +146,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs
                 {
                     IMvcControlInputManager mvcControlInputManager = gameObject.AddComponent<MvcControlInputManagerImpl>();
                     mvcControlInputManager.SetParent(this.unityScript);
-
                     ((MvcControlInputManagerImpl)mvcControlInputManager).mvcType = this.mvcType;
-
                     ((MvcControlInputManagerImpl)mvcControlInputManager).mvcControl = this.mvcControl;
                     return mvcControlInputManager;
                 }

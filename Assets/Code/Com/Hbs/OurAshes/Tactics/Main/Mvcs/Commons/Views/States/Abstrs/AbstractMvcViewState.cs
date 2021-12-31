@@ -1,5 +1,4 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Reports.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Requests.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Inters;
@@ -11,7 +10,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Ab
     /// Todo: Add a builder
     /// </summary>
     public abstract class AbstractMvcViewState
-        : AbstractReport, IMvcViewState
+        : IMvcViewState
     {
         // Todo
         protected ISet<MvcControlInputType> mvcControlInputTypes = new HashSet<MvcControlInputType>();
@@ -19,24 +18,19 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Ab
         // Todo
         protected IMvcModelRequest mvcModelRequest = null;
 
-        public AbstractMvcViewState()
-        {
-        }
+        /// <inheritdoc/>
+        public abstract IMvcViewState GetCopy();
 
-        public AbstractMvcViewState(IMvcViewState mvcControlState)
-        {
-            this.mvcControlInputTypes = new HashSet<MvcControlInputType>(mvcControlState.GetMvcControlInputTypes());
-            this.mvcModelRequest = mvcControlState.GetMvcModelRequest().GetValue();
-        }
-
-        public Optional<IMvcModelRequest> GetMvcModelRequest()
-        {
-            return Optional<IMvcModelRequest>.Of(this.mvcModelRequest);
-        }
-
+        /// <inheritdoc/>
         ISet<MvcControlInputType> IMvcViewState.GetMvcControlInputTypes()
         {
             return new HashSet<MvcControlInputType>(this.mvcControlInputTypes);
+        }
+
+        /// <inheritdoc/>
+        Optional<IMvcModelRequest> IMvcViewState.GetMvcModelRequest()
+        {
+            return Optional<IMvcModelRequest>.Of(this.mvcModelRequest);
         }
     }
 }

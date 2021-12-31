@@ -18,21 +18,21 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Constants.Schemes.Views.Patt
             {
                 PatternScheme.Builder.Get()
                     .SetPatternSchemeID(PatternSchemeID.Alpha)
-                    .SetPrimaryColorID(ColorID.Blue)
-                    .SetSecondaryColorID(ColorID.Blue)
-                    .SetTertiaryColorID(ColorID.Blue)
+                    .SetPrimaryColorID(ColorID.White)
+                    .SetSecondaryColorID(ColorID.White)
+                    .SetTertiaryColorID(ColorID.White)
                     .Build(),
                 PatternScheme.Builder.Get()
                     .SetPatternSchemeID(PatternSchemeID.Bravo)
-                    .SetPrimaryColorID(ColorID.Red)
-                    .SetSecondaryColorID(ColorID.Red)
-                    .SetTertiaryColorID(ColorID.Red)
+                    .SetPrimaryColorID(ColorID.White)
+                    .SetSecondaryColorID(ColorID.White)
+                    .SetTertiaryColorID(ColorID.White)
                     .Build(),
                 PatternScheme.Builder.Get()
                     .SetPatternSchemeID(PatternSchemeID.Charlie)
-                    .SetPrimaryColorID(ColorID.DarkGreen)
-                    .SetSecondaryColorID(ColorID.DarkGreen)
-                    .SetTertiaryColorID(ColorID.DarkGreen)
+                    .SetPrimaryColorID(ColorID.White)
+                    .SetSecondaryColorID(ColorID.White)
+                    .SetTertiaryColorID(ColorID.White)
                     .Build(),
             };
 

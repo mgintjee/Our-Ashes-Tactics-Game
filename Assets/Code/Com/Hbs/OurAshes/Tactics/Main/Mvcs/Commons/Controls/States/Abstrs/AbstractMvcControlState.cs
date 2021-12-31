@@ -1,5 +1,4 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Reports.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.States.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Requests.Inters;
@@ -10,7 +9,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.States
     /// Todo: Add a builder
     /// </summary>
     public abstract class AbstractMvcControlState
-        : AbstractReport, IMvcControlState
+        : IMvcControlState
     {
         // Todo
         protected IMvcControlInput mvcControlInput = null;
@@ -18,24 +17,19 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.States
         // Todo
         protected IMvcModelRequest mvcModelRequest = null;
 
-        public AbstractMvcControlState()
-        {
-        }
+        /// <inheritdoc/>
+        public abstract IMvcControlState GetCopy();
 
-        public AbstractMvcControlState(IMvcControlState mvcControlState)
-        {
-            this.mvcControlInput = mvcControlState.GetMvcControlInput().GetValue();
-            this.mvcModelRequest = mvcControlState.GetMvcModelRequest().GetValue();
-        }
-
-        public Optional<IMvcModelRequest> GetMvcModelRequest()
-        {
-            return Optional<IMvcModelRequest>.Of(this.mvcModelRequest);
-        }
-
-        public Optional<IMvcControlInput> GetMvcControlInput()
+        /// <inheritdoc/>
+        Optional<IMvcControlInput> IMvcControlState.GetMvcControlInput()
         {
             return Optional<IMvcControlInput>.Of(this.mvcControlInput);
+        }
+
+        /// <inheritdoc/>
+        Optional<IMvcModelRequest> IMvcControlState.GetMvcModelRequest()
+        {
+            return Optional<IMvcModelRequest>.Of(this.mvcModelRequest);
         }
     }
 }

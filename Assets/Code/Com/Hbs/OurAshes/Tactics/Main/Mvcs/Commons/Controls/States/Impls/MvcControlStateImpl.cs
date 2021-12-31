@@ -15,11 +15,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.States
         {
         }
 
-        public MvcControlStateImpl(IMvcControlState mvcControlState)
-            : base(mvcControlState)
-        {
-        }
-
         public MvcControlStateImpl SetMvcModelRequest(IMvcModelRequest mvcModelRequest)
         {
             this.mvcModelRequest = mvcModelRequest;
@@ -32,9 +27,12 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.States
             return this;
         }
 
-        protected override string GetContent()
+        /// <inheritdoc/>
+        public override IMvcControlState GetCopy()
         {
-            throw new System.NotImplementedException();
+            return new MvcControlStateImpl()
+                .SetMvcModelRequest(this.mvcModelRequest)
+                .SetMvcControlInput(this.mvcControlInput);
         }
     }
 }
