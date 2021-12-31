@@ -14,7 +14,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             new Dictionary<MvcType, Vector2>()
             {
                 { MvcType.ScreenSplash, new Vector2(9, 7) },
-                { MvcType.MenuHome, new Vector2(9, 7) }
+                { MvcType.MenuHome, new Vector2(9, 7) },
+                { MvcType.ScreenLoading, new Vector2(9, 7) }
             };
 
         /// <summary>

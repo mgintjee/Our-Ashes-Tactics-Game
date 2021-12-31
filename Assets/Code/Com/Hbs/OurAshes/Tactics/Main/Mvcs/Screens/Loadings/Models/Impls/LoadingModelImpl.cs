@@ -1,10 +1,10 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Requests.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Requests.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Loadings.Models.Requests.Impls;
 using System.Collections.Generic;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Loadings.Models.Impls
@@ -22,6 +22,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Loadings.Models
         public LoadingModelImpl(IMvcFrameConstruction mvcFrameConstruction)
             : base(mvcFrameConstruction)
         {
+            _isProcessing = false;
+            // Todo
         }
 
         /// <summary>
@@ -30,9 +32,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Loadings.Models
         /// <returns></returns>
         protected override IMvcModelState ProcessInitialMvcModelRequest()
         {
-            ((MvcModelStateImpl)this.mvcModelState)
-                .SetMvcModelRequests(new HashSet<IMvcModelRequest>
-                    { new LoadingRequestImpl() });
+            ((MvcModelStateImpl)this.mvcModelState).SetMvcModelRequests(
+                new HashSet<IMvcModelRequest> { new MvcModelRequestImpl() });
             return this.mvcModelState;
         }
 

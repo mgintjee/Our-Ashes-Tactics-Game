@@ -29,7 +29,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Splashes.Views.
         {
             this.AddWidget(ImageWidgetImpl.Builder.Get()
                 .SetSpriteID(SpriteID.SquareBordered)
-                .SetColorID(ColorID.DarkGreen)
+                .SetColorID(ColorID.Blue)
                 .SetCanvasLevel(0)
                 .SetInteractable(true)
                 .SetMvcViewCanvas(this)
@@ -41,7 +41,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Splashes.Views.
                 .Build());
             this.AddWidget(ImageWidgetImpl.Builder.Get()
                 .SetSpriteID(SpriteID.SquareBordered)
-                .SetColorID(ColorID.Blue)
+                .SetColorID(ColorID.Lime)
                 .SetCanvasLevel(1)
                 .SetInteractable(false)
                 .SetMvcViewCanvas(this)

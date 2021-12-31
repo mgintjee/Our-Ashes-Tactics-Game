@@ -13,7 +13,7 @@ using System.Numerics;
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Loadings.Views.Canvases
 {
     /// <summary>
-    /// Splash View Canvas Interface
+    /// Loading View Canvas Implementation
     /// </summary>
     public class LoadingViewCanvasImpl
         : AbstractMvcViewCanvas, IMvcViewCanvas
@@ -29,9 +29,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Loadings.Views.
         {
             this.AddWidget(ImageWidgetImpl.Builder.Get()
                 .SetSpriteID(SpriteID.SquareBordered)
-                .SetColorID(ColorID.DarkGreen)
+                .SetColorID(ColorID.Red)
                 .SetCanvasLevel(0)
-                .SetInteractable(true)
+                .SetInteractable(false)
                 .SetMvcViewCanvas(this)
                 .SetWidgetGridSpec(new WidgetGridSpecImpl()
                     .SetCanvasGridCoords(Vector2.Zero)
@@ -39,24 +39,12 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Loadings.Views.
                 .SetParent(this)
                 .SetName(typeof(ImageWidgetImpl).Name + ":Back")
                 .Build());
-            this.AddWidget(ImageWidgetImpl.Builder.Get()
-                .SetSpriteID(SpriteID.SquareBordered)
-                .SetColorID(ColorID.Blue)
-                .SetCanvasLevel(1)
-                .SetInteractable(false)
-                .SetMvcViewCanvas(this)
-                .SetWidgetGridSpec(new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(0, 3))
-                    .SetCanvasGridSize(new Vector2(this.gridConvertor.GetGridSize().X, 3)))
-                .SetParent(this)
-                .SetName(typeof(ImageWidgetImpl).Name + ":Stripe")
-                .Build());
         }
 
         private void BuildSplashTexts()
         {
             this.AddWidget(TextWidgetImpl.Builder.Get()
-                .SetText("Our Ashes\n Tactics")
+                .SetText("Loading...")
                 .SetFont(FontID.Arial)
                 .SetAlign(AlignType.MiddleCenter)
                 .SetBestFit(true, 10, 200)
@@ -64,24 +52,10 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Loadings.Views.
                 .SetInteractable(false)
                 .SetMvcViewCanvas(this)
                 .SetWidgetGridSpec(new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(0, 3))
-                    .SetCanvasGridSize(new Vector2(this.gridConvertor.GetGridSize().X, 3)))
+                    .SetCanvasGridCoords(Vector2.Zero)
+                    .SetCanvasGridSize(this.gridConvertor.GetGridSize()))
                 .SetParent(this)
                 .SetName(typeof(TextWidgetImpl).Name + ":Title")
-                .Build());
-            this.AddWidget(TextWidgetImpl.Builder.Get()
-                .SetText("Input anywhere to continue...")
-                .SetFont(FontID.Arial)
-                .SetAlign(AlignType.MiddleCenter)
-                .SetBestFit(true, 13, 50)
-                .SetCanvasLevel(1)
-                .SetInteractable(false)
-                .SetMvcViewCanvas(this)
-                .SetWidgetGridSpec(new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(3, 1))
-                    .SetCanvasGridSize(new Vector2(3, 1)))
-                .SetParent(this)
-                .SetName(typeof(TextWidgetImpl).Name + ":Info")
                 .Build());
         }
 
@@ -117,7 +91,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Loadings.Views.
                 protected override IMvcViewCanvas BuildScript(UnityEngine.GameObject gameObject)
                 {
                     IMvcViewCanvas mvcViewCanvas = gameObject.AddComponent<LoadingViewCanvasImpl>();
-                    ((LoadingViewCanvasImpl)mvcViewCanvas).logger = LoggerManager.GetLogger(MvcType.ScreenSplash)
+                    ((LoadingViewCanvasImpl)mvcViewCanvas).logger = LoggerManager.GetLogger(MvcType.ScreenLoading)
                         .GetClassLogger(mvcViewCanvas.GetType());
                     this.ApplyCanvasValues((AbstractMvcViewCanvas)mvcViewCanvas);
                     mvcViewCanvas.Build();

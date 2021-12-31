@@ -5,10 +5,14 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Reports.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Sims.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Menus.Homes.Controls.Constrs.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Menus.Homes.Models.Constrs.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Menus.Homes.Views.Constrs.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Splashes.Controls.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Splashes.Models.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Splashes.Views.Impls;
@@ -26,14 +30,17 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Splashes.Frames
         /// Todo
         /// </summary>
         /// <param name="mvcFrameConstruction"></param>
-        public SplashFrameImpl(IMvcFrameConstruction mvcFrameConstruction, IMvcFrameConstruction returnMvcFrameConstruction)
-            : base(mvcFrameConstruction, returnMvcFrameConstruction)
+        public SplashFrameImpl(IMvcFrameConstruction mvcFrameConstruction, IMvcFrameResult prevMvcFrameResult)
+            : base(mvcFrameConstruction, prevMvcFrameResult)
         {
             this.nextMvcFrameConstruction = MvcFrameConstruction.Builder.Get()
                 .SetUnityScript(mvcFrameConstruction.GetUnityScript())
                 .SetSimulationType(SimsType.Interactive)
                 .SetMvcType(MvcType.MenuHome)
-                .SetRandom(RandomManager.GetRandom(MvcType.MenuHome))
+                .SetMvcControlConstruction(HomeControlConstruction.Builder.Get().Build())
+                .SetMvcModelConstruction(HomeModelConstruction.Builder.Get().Build())
+                .SetMvcViewConstruction(HomeViewConstruction.Builder.Get().Build())
+                .SetRandom(RandomManager.GetRandom(MvcType.ScreenLoading))
                 .Build();
         }
 
@@ -58,7 +65,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Splashes.Frames
         /// <inheritdoc/>
         protected override IClassLogger GetClassLogger()
         {
-            return LoggerManager.GetLogger(this.mvcFrameConstruction.GetMvcType())
+            return LoggerManager.GetLogger(this.currMvcFrameConstruction.GetMvcType())
                 .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
         }
     }

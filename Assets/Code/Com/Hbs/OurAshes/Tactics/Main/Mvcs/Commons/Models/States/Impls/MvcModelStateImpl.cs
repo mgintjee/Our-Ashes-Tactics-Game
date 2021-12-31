@@ -1,5 +1,6 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Requests.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Abstrs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using System.Collections.Generic;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Impls
@@ -10,17 +11,17 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.I
     public class MvcModelStateImpl
         : AbstractMvcModelState
     {
-        /// <inheritdoc/>
-        public void SetMvcModelRequests(ISet<IMvcModelRequest> mvcModelRequests)
+        public override IMvcModelState GetCopy()
         {
-            this.mvcModelRequests = new HashSet<IMvcModelRequest>(mvcModelRequests);
+            return new MvcModelStateImpl()
+                .SetMvcModelRequests(this.mvcModelRequests);
         }
 
         /// <inheritdoc/>
-        protected override string GetContent()
+        public MvcModelStateImpl SetMvcModelRequests(ISet<IMvcModelRequest> mvcModelRequests)
         {
-            return string.Format("{0}s:[{1}]", typeof(IMvcModelRequest).Name,
-                string.Join(", ", this.mvcModelRequests));
+            this.mvcModelRequests = new HashSet<IMvcModelRequest>(mvcModelRequests);
+            return this;
         }
     }
 }

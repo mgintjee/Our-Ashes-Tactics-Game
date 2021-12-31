@@ -1,7 +1,6 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Loadings.Views.Constrs.Inters;
-using System.Collections.Generic;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Loadings.Views.Constrs.Impls
 {
@@ -14,19 +13,12 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Loadings.Views.
         /// <summary>
         /// Todo
         /// </summary>
-        private LoadingViewConstruction()
-        {
-        }
-
-        /// <summary>
-        /// Todo
-        /// </summary>
         public class Builder
         {
             /// <summary>
             /// Todo
             /// </summary>
-            public interface IBuilder
+            public interface IInternalBuilder
                 : IBuilder<ILoadingViewConstruction>
             {
             }
@@ -35,26 +27,21 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Loadings.Views.
             /// Todo
             /// </summary>
             /// <returns></returns>
-            public static IBuilder Get()
+            public static IInternalBuilder Get()
             {
-                return new InternalBuilder();
+                return new InternalBuilderImpl();
             }
 
             /// <summary>
             /// Todo
             /// </summary>
-            private class InternalBuilder
-                : AbstractBuilder<ILoadingViewConstruction>, IBuilder
+            private class InternalBuilderImpl
+                : AbstractBuilder<ILoadingViewConstruction>, IInternalBuilder
             {
                 /// <inheritdoc/>
                 protected override ILoadingViewConstruction BuildObj()
                 {
                     return new LoadingViewConstruction();
-                }
-
-                /// <inheritdoc/>
-                protected override void Validate(ISet<string> invalidReasons)
-                {
                 }
             }
         }

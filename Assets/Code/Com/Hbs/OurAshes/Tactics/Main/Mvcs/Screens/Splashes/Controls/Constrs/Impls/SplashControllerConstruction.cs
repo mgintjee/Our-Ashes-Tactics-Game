@@ -26,7 +26,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Splashes.Contro
             /// <summary>
             /// Todo
             /// </summary>
-            public interface IBuilder : IBuilder<ISplashControlConstruction>
+            public interface IBuilder
+                : IBuilder<ISplashControlConstruction>
             {
             }
 
@@ -42,7 +43,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Splashes.Contro
             /// <summary>
             /// Todo
             /// </summary>
-            private class InternalBuilder : AbstractBuilder<ISplashControlConstruction>, IBuilder
+            private class InternalBuilder
+                : AbstractBuilder<ISplashControlConstruction>, IBuilder
             {
                 /// <inheritdoc/>
                 protected override ISplashControlConstruction BuildObj()
