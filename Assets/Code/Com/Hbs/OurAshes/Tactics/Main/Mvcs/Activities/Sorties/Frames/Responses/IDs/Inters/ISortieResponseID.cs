@@ -1,4 +1,4 @@
-﻿namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Responses.IDs.Inters
+﻿namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Activities.Sorties.Frames.Responses.IDs.Inters
 {
     /// <summary>
     /// Sortie Response ID Interface

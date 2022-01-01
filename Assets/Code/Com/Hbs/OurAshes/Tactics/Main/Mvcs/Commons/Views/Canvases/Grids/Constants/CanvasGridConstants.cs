@@ -13,9 +13,12 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         private static readonly IDictionary<MvcType, Vector2> MVC_TYPE_GRID_SIZES =
             new Dictionary<MvcType, Vector2>()
             {
-                { MvcType.ScreenSplash, new Vector2(9, 7) },
-                { MvcType.MenuHome, new Vector2(9, 7) },
-                { MvcType.ScreenLoading, new Vector2(9, 7) }
+                // Screen MVCs
+                { MvcType.SplashScreen, new Vector2(9, 7) },
+                { MvcType.LoadingScreen, new Vector2(9, 7) },
+                // Menu MVCs
+                { MvcType.HomeMenu, new Vector2(9, 7) },
+                { MvcType.QSortieMenu, new Vector2(9, 7) }
             };
 
         /// <summary>
@@ -29,7 +32,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             {
                 return MVC_TYPE_GRID_SIZES[mvcType];
             }
-            return Vector2.Zero;
+            return Vector2.One;
         }
     }
 }

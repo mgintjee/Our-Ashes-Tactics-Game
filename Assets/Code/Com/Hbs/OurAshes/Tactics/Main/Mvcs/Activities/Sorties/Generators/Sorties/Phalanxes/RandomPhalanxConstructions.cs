@@ -10,7 +10,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Commons.Phalanxes.C
 using System;
 using System.Collections.Generic;
 
-namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Generators.Sorties.Phalanxes
+namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Activities.Sorties.Generators.Sorties.Phalanxes
 {
     /// <summary>
     /// Random Phalanx Constrs

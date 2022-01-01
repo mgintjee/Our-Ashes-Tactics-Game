@@ -9,7 +9,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Reports.Tr
 using System;
 using System.Collections.Generic;
 
-namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Generators.Sorties.Combatants.Loadouts.Traits
+namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Activities.Sorties.Generators.Sorties.Combatants.Loadouts.Traits
 {
     /// <summary>
     /// Random Trait Reports

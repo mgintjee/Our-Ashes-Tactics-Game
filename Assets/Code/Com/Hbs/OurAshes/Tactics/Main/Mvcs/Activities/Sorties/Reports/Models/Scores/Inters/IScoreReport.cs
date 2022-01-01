@@ -2,10 +2,10 @@
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Models.Scores.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Reports.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Tallies.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Activities.Sorties.Reports.Models.Tallies.Inters;
 using System.Collections.Generic;
 
-namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Scores.Inters
+namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Activities.Sorties.Reports.Models.Scores.Inters
 {
     /// <summary>
     /// Todo

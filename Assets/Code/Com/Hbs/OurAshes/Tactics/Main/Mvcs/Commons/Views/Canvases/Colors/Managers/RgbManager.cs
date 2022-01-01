@@ -5,15 +5,15 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colo
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Constants.Colors.Rgbs.Managers
+namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.Managers
 {
     /// <summary>
     /// Names and RGB values pulled from https://www.rapidtables.com/web/color/RGB_Color.html
     /// </summary>
-    public static class ColorManager
+    public static class RgbManager
     {
         // Todo
-        private static readonly IDictionary<ColorID, IRgb> IDRgbs =
+        private static readonly IDictionary<ColorID, IRgb> ID_RGBS =
             new Dictionary<ColorID, IRgb>()
             {
                 {ColorID.Black, new BlackRgbImpl() },
@@ -21,19 +21,18 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Constants.Colors.Rgbs.Manage
                 {ColorID.Red, new RedRgbImpl() },
                 {ColorID.Lime, new LimeRgbImpl() },
                 {ColorID.Blue, new BlueRgbImpl() },
+                {ColorID.Yellow, new YellowRgbImpl() },
+                {ColorID.Cyan, new CyanRgbImpl() },
+                {ColorID.Fuchsia, new FuchsiaRgbImpl() },
+                {ColorID.Silver, new SilverRgbImpl() },
+                {ColorID.Gray, new GrayRgbImpl() },
+                {ColorID.Maroon, new MaroonRgbImpl() },
+                {ColorID.Olive, new OliveRgbImpl() },
+                {ColorID.Green, new GreenRgbImpl() },
+                {ColorID.Purple, new PurpleRgbImpl() },
+                {ColorID.Teal, new TealRgbImpl() },
+                {ColorID.Navy, new NavyRgbImpl() },
             };
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="colorID"></param>
-        /// <returns></returns>
-        public static Optional<IRgb> GetRgb(ColorID colorID)
-        {
-            return (IDRgbs.ContainsKey(colorID))
-                ? Optional<IRgb>.Of((IDRgbs[colorID]))
-                : Optional<IRgb>.Empty();
-        }
 
         /// <summary>
         /// Todo
@@ -41,12 +40,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Constants.Colors.Rgbs.Manage
         /// <param name="colorID"></param>
         public static Color GetUnityColor(ColorID colorID)
         {
-            Optional<IRgb> rgb = GetRgb(colorID);
-            return (rgb.IsPresent())
-                ? new Color(rgb.GetValue().GetFloatRed(),
-                    rgb.GetValue().GetFloatGreen(),
-                    rgb.GetValue().GetFloatBlue())
-            : new Color();
+            return new Color(ID_RGBS[colorID].GetFloatRed(),
+                ID_RGBS[colorID].GetFloatGreen(),
+                ID_RGBS[colorID].GetFloatBlue());
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Impls
 {
     /// <summary>
-    /// Todo: Add a builder
+    /// Todo
     /// </summary>
     public class MvcModelStateImpl
         : AbstractMvcModelState
@@ -14,13 +14,18 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.I
         public override IMvcModelState GetCopy()
         {
             return new MvcModelStateImpl()
-                .SetMvcModelRequests(this.mvcModelRequests);
+                .SetMvcRequests(this.mvcModelRequests)
+                .SetPrevMvcRequest(this.prevMvcRequest);
         }
 
-        /// <inheritdoc/>
-        public MvcModelStateImpl SetMvcModelRequests(ISet<IMvcModelRequest> mvcModelRequests)
+        public MvcModelStateImpl SetMvcRequests(ISet<IMvcRequest> mvcModelRequests)
         {
-            this.mvcModelRequests = new HashSet<IMvcModelRequest>(mvcModelRequests);
+            this.mvcModelRequests = new HashSet<IMvcRequest>(mvcModelRequests);
+            return this;
+        }
+        public MvcModelStateImpl SetPrevMvcRequest(IMvcRequest prevMvcRequest)
+        {
+            this.prevMvcRequest = prevMvcRequest;
             return this;
         }
     }

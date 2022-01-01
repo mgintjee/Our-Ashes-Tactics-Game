@@ -4,17 +4,15 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Randoms.Managers;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Reports.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Results.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Sims.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Frames.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.LoadingScreens.Frames.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Menus.Homes.Frames.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Loadings.Controls.Constrs.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Loadings.Frames.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Loadings.Models.Constrs.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Loadings.Views.Constrs.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Screens.Splashes.Frames.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Frames.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.SplashScreens.Frames.Impls;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -67,6 +65,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Impls
                 return;
             }
             IMvcFrame mvcFrame = this.mvcTypeFrames[this.activeMvcType];
+            if(mvcFrame == null)
+            {
+                // Should never be here except for errors
+                logger.Error("No {} associated to active {}:{}",
+                    typeof(IMvcFrame), typeof(MvcType), this.activeMvcType);
+                return;
+            }
             // Check if the MvcFrame is now complete
             if (!mvcFrame.IsProcessing())
             {
@@ -82,7 +87,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Impls
                 }
                 this.mvcTypeFrames[this.activeMvcType].Destroy();
                 this.mvcTypeFrames[this.activeMvcType] = null;
-                if (this.activeMvcType != MvcType.ScreenLoading)
+                if (this.activeMvcType != MvcType.LoadingScreen)
                 {
                     IMvcFrameConstruction loadingFrameConstruction = this.BuildLoadingFrameConstruction();
                     this.mvcTypeFrames[loadingFrameConstruction.GetMvcType()] =
@@ -108,22 +113,24 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Impls
         /// <returns></returns>
         private IMvcFrame BuildMvcFrame(IMvcFrameConstruction nextMvcFrameConstruction, IMvcFrameResult currMvcFrameResult)
         {
-            // Set the active MvcType
-            this.activeMvcType = nextMvcFrameConstruction.GetMvcType();
             IMvcFrame mvcFrame;
             // Switch-case on the new active MvcType
-            switch (this.activeMvcType)
+            switch (nextMvcFrameConstruction.GetMvcType())
             {
-                case MvcType.ScreenSplash:
-                    mvcFrame = new SplashFrameImpl(nextMvcFrameConstruction, currMvcFrameResult);
+                case MvcType.SplashScreen:
+                    mvcFrame = new SplashScreenFrameImpl(nextMvcFrameConstruction, currMvcFrameResult);
                     break;
 
-                case MvcType.MenuHome:
-                    mvcFrame = new HomeFrameImpl(nextMvcFrameConstruction, currMvcFrameResult);
+                case MvcType.HomeMenu:
+                    mvcFrame = new HomeMenuFrameImpl(nextMvcFrameConstruction, currMvcFrameResult);
                     break;
 
-                case MvcType.ScreenLoading:
-                    mvcFrame = new LoadingFrameImpl(nextMvcFrameConstruction, currMvcFrameResult);
+                case MvcType.LoadingScreen:
+                    mvcFrame = new LoadingScreenFrameImpl(nextMvcFrameConstruction, currMvcFrameResult);
+                    break;
+
+                case MvcType.QSortieMenu:
+                    mvcFrame = new QSortieMenuFrameImpl(nextMvcFrameConstruction, currMvcFrameResult);
                     break;
 
                 default:
@@ -132,12 +139,15 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Impls
             }
             if (mvcFrame != null)
             {
-                logger.Info("Transitioning to {}", mvcFrame.GetType());
+                logger.Info("Transitioning {}s : {} => {}", typeof(MvcType),
+                    this.activeMvcType, nextMvcFrameConstruction.GetMvcType());
+                // Set the active MvcType
+                this.activeMvcType = nextMvcFrameConstruction.GetMvcType();
             }
             else
             {
                 logger.Info("Unsupported {}:{}. Unable to build {}.",
-                    typeof(MvcType), this.activeMvcType, typeof(IMvcFrame));
+                    typeof(MvcType), nextMvcFrameConstruction.GetMvcType(), typeof(IMvcFrame));
             }
             return mvcFrame;
         }
@@ -151,11 +161,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Impls
             return MvcFrameConstruction.Builder.Get()
                 .SetSimulationType(SimsType.Interactive)
                 .SetUnityScript(unityScript)
-                .SetMvcType(MvcType.ScreenLoading)
-                .SetMvcControlConstruction(LoadingControlConstructionImpl.Builder.Get().Build())
-                .SetMvcModelConstruction(LoadingModelConstruction.Builder.Get().Build())
-                .SetMvcViewConstruction(LoadingViewConstruction.Builder.Get().Build())
-                .SetRandom(RandomManager.GetRandom(MvcType.ScreenLoading))
+                .SetMvcType(MvcType.LoadingScreen)
+                .SetRandom(RandomManager.GetRandom(MvcType.LoadingScreen))
                 .Build();
         }
     }

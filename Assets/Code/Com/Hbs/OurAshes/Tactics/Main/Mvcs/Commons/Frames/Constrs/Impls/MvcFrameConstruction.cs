@@ -1,11 +1,14 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Constrs.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Constrs.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Sims.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Constrs.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Constrs.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Constrs.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Constrs.Inters;
 using System;
 using System.Collections.Generic;
@@ -195,6 +198,17 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.
                 IBuilder IBuilder.SetMvcType(MvcType mvcType)
                 {
                     _mvcType = mvcType;
+                    switch (mvcType)
+                    {
+                        case MvcType.LoadingScreen:
+                        case MvcType.HomeMenu:
+                        case MvcType.SplashScreen:
+                        case MvcType.QSortieMenu:
+                            _mvcControlConstruction = new MvcControlConstructionImpl();
+                            _mvcViewConstruction = new MvcViewConstructionImpl();
+                            _mvcModelConstruction = new MvcModelConstructionImpl();
+                            break;
+                    }
                     return this;
                 }
 

@@ -1,4 +1,5 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Requests.Inters;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Requests.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using System.Collections.Generic;
 
@@ -10,13 +11,20 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.A
     public abstract class AbstractMvcModelState
         : IMvcModelState
     {
-        protected ISet<IMvcModelRequest> mvcModelRequests = new HashSet<IMvcModelRequest>();
+        protected ISet<IMvcRequest> mvcModelRequests = new HashSet<IMvcRequest>();
+
+        protected IMvcRequest prevMvcRequest;
 
         public abstract IMvcModelState GetCopy();
 
-        ISet<IMvcModelRequest> IMvcModelState.GetMvcModelRequests()
+        ISet<IMvcRequest> IMvcModelState.GetMvcRequests()
         {
-            return new HashSet<IMvcModelRequest>(this.mvcModelRequests);
+            return new HashSet<IMvcRequest>(this.mvcModelRequests);
+        }
+
+        Optional<IMvcRequest> IMvcModelState.GetPrevMvcRequest()
+        {
+            return Optional<IMvcRequest>.Of(this.prevMvcRequest);
         }
     }
 }

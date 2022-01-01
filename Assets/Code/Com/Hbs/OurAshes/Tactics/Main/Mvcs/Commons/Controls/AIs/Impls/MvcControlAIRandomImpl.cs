@@ -24,11 +24,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.AIs.Im
         }
 
         /// <inheritdoc/>
-        IMvcModelRequest IMvcControlAI.DetermineBestRequest(IMvcFrameState mvcFrameState)
+        IMvcRequest IMvcControlAI.DetermineBestRequest(IMvcFrameState mvcFrameState)
         {
-            ISet<IMvcModelRequest> mvcModelRequests = mvcFrameState
-                .GetMvcModelState().GetMvcModelRequests();
-            return new List<IMvcModelRequest>(mvcModelRequests)
+            ISet<IMvcRequest> mvcModelRequests = mvcFrameState
+                .GetMvcModelState().GetMvcRequests();
+            return new List<IMvcRequest>(mvcModelRequests)
                 [_random.Next(mvcModelRequests.Count)];
         }
     }

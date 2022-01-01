@@ -78,6 +78,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.A
             return this.transform;
         }
 
+        IUnityScript IUnityScript.GetParent()
+        {
+            return this.transform.parent.GetComponent<IUnityScript>();
+        }
+
         /// <summary>
         /// Todo
         /// </summary>

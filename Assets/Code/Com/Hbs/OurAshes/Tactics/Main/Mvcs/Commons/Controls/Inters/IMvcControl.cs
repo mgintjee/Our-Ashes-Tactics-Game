@@ -12,7 +12,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inters
     {
         bool IsProcessing();
 
-        IMvcControlState GetMvcControlState();
+        IMvcControlState GetState();
 
         void Process(IMvcModelState mvcModelState);
 

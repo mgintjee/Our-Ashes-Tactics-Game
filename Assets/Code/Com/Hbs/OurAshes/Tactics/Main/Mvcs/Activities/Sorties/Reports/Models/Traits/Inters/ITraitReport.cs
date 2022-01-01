@@ -2,7 +2,7 @@
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Reports.Inters;
 using System.Collections.Generic;
 
-namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Traits.Inters
+namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Activities.Sorties.Reports.Models.Traits.Inters
 {
     /// <summary>
     /// Trait Report Interface

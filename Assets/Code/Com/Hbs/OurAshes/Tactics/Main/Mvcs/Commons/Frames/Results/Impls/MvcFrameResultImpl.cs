@@ -1,11 +1,11 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Reports.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Results.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.States.Inters;
 using System.Collections.Generic;
 
-namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Results.Abstrs
+namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Results.Impls
 {
     /// <summary>
     /// Mvc Frame Result Implementation
@@ -13,10 +13,10 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Results.
     public struct MvcFrameResultImpl
         : IMvcFrameResult
     {
-        private IMvcFrameConstruction nextMvcFrameConstruction;
-        private IMvcFrameConstruction currMvcFrameConstruction;
-        private IMvcFrameConstruction prevMvcFrameConstruction;
-        private IMvcFrameState mvcFrameState;
+        private readonly IMvcFrameConstruction nextMvcFrameConstruction;
+        private readonly IMvcFrameConstruction currMvcFrameConstruction;
+        private readonly IMvcFrameConstruction prevMvcFrameConstruction;
+        private readonly IMvcFrameState mvcFrameState;
 
         private MvcFrameResultImpl(IMvcFrameConstruction nextMvcFrameConstruction,
             IMvcFrameConstruction currMvcFrameConstruction, IMvcFrameConstruction prevMvcFrameConstruction,

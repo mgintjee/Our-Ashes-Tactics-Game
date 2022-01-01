@@ -9,7 +9,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Generators.Sorties.Combatan
 using System;
 using System.Collections.Generic;
 
-namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Generators.Sorties.Combatants
+namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Activities.Sorties.Generators.Sorties.Combatants
 {
     /// <summary>
     /// Random Combatant Constrs

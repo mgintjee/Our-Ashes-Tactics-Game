@@ -15,7 +15,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.States
         {
         }
 
-        public MvcControlStateImpl SetMvcModelRequest(IMvcModelRequest mvcModelRequest)
+        public MvcControlStateImpl SetMvcModelRequest(IMvcRequest mvcModelRequest)
         {
             this.mvcModelRequest = mvcModelRequest;
             return this;

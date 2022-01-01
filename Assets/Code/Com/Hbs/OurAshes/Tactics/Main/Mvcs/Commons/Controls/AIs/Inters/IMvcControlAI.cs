@@ -13,6 +13,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.AIs.In
         /// </summary>
         /// <param name="mvcFrameState"></param>
         /// <returns></returns>
-        IMvcModelRequest DetermineBestRequest(IMvcFrameState mvcFrameState);
+        IMvcRequest DetermineBestRequest(IMvcFrameState mvcFrameState);
     }
 }

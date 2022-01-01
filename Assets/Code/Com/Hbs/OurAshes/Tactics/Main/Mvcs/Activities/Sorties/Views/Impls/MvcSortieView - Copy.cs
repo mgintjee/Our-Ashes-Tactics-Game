@@ -15,7 +15,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Scripts.Impls
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Scripts.Inters;
 using System.Collections.Generic;
 
-namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Impls
+namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Activities.Sorties.Views.Impls
 {
     /// <summary>
     /// Sortie Mvc View Impl

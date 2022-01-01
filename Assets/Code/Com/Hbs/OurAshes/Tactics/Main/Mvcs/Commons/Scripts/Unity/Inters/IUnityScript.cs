@@ -22,6 +22,12 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.I
         /// Todo
         /// </summary>
         /// <returns></returns>
+        IUnityScript GetParent();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
         GameObject GetGameObject();
 
         /// <summary>

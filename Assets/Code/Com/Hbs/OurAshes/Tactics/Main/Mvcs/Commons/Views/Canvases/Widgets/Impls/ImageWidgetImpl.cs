@@ -1,5 +1,5 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Constants.Colors.Rgbs.Managers;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.Managers;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Resources.Loaders.Sprites;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Sprites.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Abstrs;
@@ -33,8 +33,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         void IImageWidget.SetSpriteID(SpriteID spriteID)
         {
             this.spriteID = spriteID;
-            this.GetImage().sprite = SpriteResourceLoader
-                .LoadSpriteResource(spriteID).GetValue();
+            this.GetImage().sprite = SpriteResourceLoader .LoadSpriteResource(spriteID).GetValue();
         }
 
         protected UnityEngine.UI.Image GetImage()

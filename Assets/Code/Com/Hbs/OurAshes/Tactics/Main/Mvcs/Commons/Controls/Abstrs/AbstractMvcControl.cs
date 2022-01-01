@@ -7,6 +7,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.States.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.States.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Requests.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Inters;
 
@@ -57,7 +58,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Abstrs
         }
 
         /// <inheritdoc/>
-        IMvcControlState IMvcControl.GetMvcControlState()
+        IMvcControlState IMvcControl.GetState()
         {
             return this.mvcControlState;
         }
@@ -87,10 +88,10 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Abstrs
         protected virtual void InternalProcess(IMvcViewState mvcViewState)
         {
             logger.Info("Processing {}...", mvcViewState);
-            ((MvcControlStateImpl)this.mvcControlState)
-                .SetMvcControlInput(null);
+            ((MvcControlStateImpl)this.mvcControlState).SetMvcControlInput(null);
             mvcViewState.GetMvcModelRequest().IfPresent(mvcModelRequest =>
             {
+                logger.Info("Setting {}...", typeof(IMvcRequest));
                 ((MvcControlStateImpl)this.mvcControlState).SetMvcModelRequest(mvcModelRequest);
             });
         }

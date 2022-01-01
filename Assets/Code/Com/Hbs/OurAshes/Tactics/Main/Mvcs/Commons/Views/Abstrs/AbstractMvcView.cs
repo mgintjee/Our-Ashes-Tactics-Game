@@ -63,11 +63,10 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
         }
 
         /// <inheritdoc/>
-        IMvcViewState IMvcView.Process(IMvcControlInput mvcControlInput)
+        void IMvcView.Process(IMvcControlInput mvcControlInput)
         {
             logger.Info("Processing {}...", mvcControlInput);
             this.InternalProcess(mvcControlInput);
-            return this.mvcViewState;
         }
 
         /// <summary>
@@ -100,6 +99,12 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
         protected virtual void InternalProcess(IMvcControlInput mvcControlInput)
         {
             // Todo
+        }
+
+
+        IMvcViewState IMvcView.GetState()
+        {
+            return this.mvcViewState;
         }
     }
 }

@@ -21,7 +21,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Views.Inters;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Frames.Impls.Abstrs
+namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Activities.Sorties.Frames.Impls.Abstrs
 {
     /// <summary>
     /// Mvc Sortie Frame Impl

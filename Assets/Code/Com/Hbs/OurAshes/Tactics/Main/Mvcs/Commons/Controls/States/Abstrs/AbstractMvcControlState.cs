@@ -15,7 +15,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.States
         protected IMvcControlInput mvcControlInput = null;
 
         // Todo
-        protected IMvcModelRequest mvcModelRequest = null;
+        protected IMvcRequest mvcModelRequest = null;
 
         /// <inheritdoc/>
         public abstract IMvcControlState GetCopy();
@@ -27,9 +27,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.States
         }
 
         /// <inheritdoc/>
-        Optional<IMvcModelRequest> IMvcControlState.GetMvcModelRequest()
+        Optional<IMvcRequest> IMvcControlState.GetMvcModelRequest()
         {
-            return Optional<IMvcModelRequest>.Of(this.mvcModelRequest);
+            return Optional<IMvcRequest>.Of(this.mvcModelRequest);
         }
     }
 }

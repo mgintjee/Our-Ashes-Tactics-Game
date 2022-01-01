@@ -10,6 +10,17 @@
         White,
         Red,
         Lime,
-        Blue
+        Blue,
+        Yellow,
+        Cyan,
+        Fuchsia,
+        Silver,
+        Gray,
+        Maroon,
+        Olive,
+        Green,
+        Purple,
+        Teal,
+        Navy
     }
 }

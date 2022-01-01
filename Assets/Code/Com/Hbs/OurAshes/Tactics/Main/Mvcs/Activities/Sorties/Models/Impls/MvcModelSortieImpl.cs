@@ -4,7 +4,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Requests.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 
-namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Impls
+namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Activities.Sorties.Models.Impls
 {
     /// <summary>
     /// Sortie Model Impl
@@ -29,7 +29,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Models.Impls
             throw new System.NotImplementedException();
         }
 
-        protected override IMvcModelState ProcessMvcModelRequest(IMvcModelRequest mvcModelRequest)
+        protected override IMvcModelState ProcessMvcModelRequest(IMvcRequest mvcModelRequest)
         {
             throw new System.NotImplementedException();
         }

@@ -3,7 +3,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Models.Phalanxes.CallSig
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Models.Phalanxes.Types;
 using System.Collections.Generic;
 
-namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Constrs.Models.Engagements.Phalanxes.Inters
+namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Activities.Sorties.Constrs.Models.Engagements.Phalanxes.Inters
 {
     /// <summary>
     /// Phalanx Model Construction Interface

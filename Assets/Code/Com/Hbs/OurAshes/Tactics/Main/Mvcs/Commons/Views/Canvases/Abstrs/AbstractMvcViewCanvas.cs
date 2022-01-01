@@ -1,11 +1,15 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Types;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Builders.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Builders.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Canvases.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Canvases.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
@@ -34,6 +38,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
 
         // Todo
         protected IClassLogger logger;
+
+        // Todo
+        protected MvcType mvcType;
 
         public void SetGridSize(Vector2 gridSize)
         {
@@ -140,6 +147,45 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
 
                 default:
                     return false;
+            }
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        public class AbstractViewCanvasBuilders
+        {
+            /// <summary>
+            /// Todo
+            /// </summary>
+            public interface IViewCanvasBuilder
+                : AbstractCanvasBuilders.ICanvasBuilder<IMvcViewCanvas>
+            {
+                IViewCanvasBuilder SetMvcType(MvcType mvcType);
+            }
+
+            /// <summary>
+            /// Todo
+            /// </summary>
+            public abstract class AbstractViewCanvasBuilder
+                : AbstractCanvasBuilders.AbstractCanvasBuilder<IMvcViewCanvas>, IViewCanvasBuilder
+            {
+                private MvcType mvcType;
+
+                protected void ApplyMvcViewValues(IMvcViewCanvas mvcViewCanvas)
+                {
+                    ((AbstractMvcViewCanvas)mvcViewCanvas).mvcType = this.mvcType;
+                    ((AbstractMvcViewCanvas)mvcViewCanvas).logger = LoggerManager.GetLogger(this.mvcType)
+                        .GetClassLogger(mvcViewCanvas.GetType());
+                    this.ApplyCanvasValues((AbstractMvcViewCanvas)mvcViewCanvas);
+                }
+
+                /// <inheritdoc/>
+                IViewCanvasBuilder IViewCanvasBuilder.SetMvcType(MvcType mvcType)
+                {
+                    this.mvcType = mvcType;
+                    return this;
+                }
             }
         }
     }

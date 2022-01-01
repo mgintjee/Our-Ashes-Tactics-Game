@@ -6,7 +6,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.States
 {
     public interface IMvcControlState
     {
-        Optional<IMvcModelRequest> GetMvcModelRequest();
+        Optional<IMvcRequest> GetMvcModelRequest();
 
         Optional<IMvcControlInput> GetMvcControlInput();
 

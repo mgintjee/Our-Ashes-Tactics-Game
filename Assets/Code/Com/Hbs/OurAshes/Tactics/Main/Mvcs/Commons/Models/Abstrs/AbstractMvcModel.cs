@@ -2,16 +2,19 @@
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Requests.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Requests.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
+using System.Collections.Generic;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs
 {
     /// <summary>
     /// Abstract Mvc Model
     /// </summary>
-    public abstract class AbstractMvcModel : IMvcModel
+    public abstract class AbstractMvcModel
+        : IMvcModel
     {
         // Todo
         protected readonly IClassLogger logger;
@@ -47,16 +50,19 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs
         }
 
         /// <inheritdoc/>
-        IMvcModelState IMvcModel.Process(IMvcModelRequest mvcModelRequest)
+        void IMvcModel.Process(IMvcRequest mvcModelRequest)
         {
+            ((MvcModelStateImpl)this.mvcModelState)
+                .SetPrevMvcRequest(mvcModelRequest);
             if (mvcModelRequest != null)
             {
                 logger.Info("Processing {}...", mvcModelRequest);
-                return this.ProcessMvcModelRequest(mvcModelRequest);
+                this.ProcessMvcModelRequest(mvcModelRequest);
             }
             else
             {
-                return this.ProcessInitialMvcModelRequest();
+                logger.Info("Processing initial {}...", typeof(IMvcRequest));
+                this.ProcessInitialMvcModelRequest();
             }
         }
 
@@ -69,8 +75,18 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs
             return new MvcModelStateImpl();
         }
 
-        protected abstract IMvcModelState ProcessMvcModelRequest(IMvcModelRequest mvcModelRequest);
+        protected abstract IMvcModelState ProcessMvcModelRequest(IMvcRequest mvcModelRequest);
 
-        protected abstract IMvcModelState ProcessInitialMvcModelRequest();
+        protected virtual IMvcModelState ProcessInitialMvcModelRequest()
+        {
+            ((MvcModelStateImpl)this.mvcModelState).SetMvcRequests(
+                new HashSet<IMvcRequest> { new MvcRequestImpl() });
+            return this.mvcModelState;
+        }
+
+        IMvcModelState IMvcModel.GetState()
+        {
+            return this.mvcModelState;
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Im
         {
         }
 
-        public MvcViewStateImpl SetMvcModelRequest(IMvcModelRequest mvcModelRequest)
+        public MvcViewStateImpl SetMvcModelRequest(IMvcRequest mvcModelRequest)
         {
             this.mvcModelRequest = mvcModelRequest;
             return this;

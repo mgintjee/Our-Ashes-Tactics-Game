@@ -16,7 +16,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Ab
         protected ISet<MvcControlInputType> mvcControlInputTypes = new HashSet<MvcControlInputType>();
 
         // Todo
-        protected IMvcModelRequest mvcModelRequest = null;
+        protected IMvcRequest mvcModelRequest = null;
 
         /// <inheritdoc/>
         public abstract IMvcViewState GetCopy();
@@ -28,9 +28,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Ab
         }
 
         /// <inheritdoc/>
-        Optional<IMvcModelRequest> IMvcViewState.GetMvcModelRequest()
+        Optional<IMvcRequest> IMvcViewState.GetMvcModelRequest()
         {
-            return Optional<IMvcModelRequest>.Of(this.mvcModelRequest);
+            return Optional<IMvcRequest>.Of(this.mvcModelRequest);
         }
     }
 }

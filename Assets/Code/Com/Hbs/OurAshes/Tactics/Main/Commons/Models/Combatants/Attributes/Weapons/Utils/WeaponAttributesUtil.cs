@@ -3,8 +3,8 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Attrib
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Models.Loadouts.Traits.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Models.Gears.Managers;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Constants.Loadouts.Models.Traits.Managers;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Gears.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Sorties.Reports.Models.Traits.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Activities.Sorties.Reports.Models.Gears.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Activities.Sorties.Reports.Models.Traits.Inters;
 using System.Collections.Generic;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Models.Combatants.Attributes.Weapons.Utils

@@ -10,6 +10,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters
     {
         bool IsProcessing();
 
-        IMvcModelState Process(IMvcModelRequest mvcModelRequest);
+        IMvcModelState GetState();
+        void Process(IMvcRequest mvcModelRequest);
     }
 }
