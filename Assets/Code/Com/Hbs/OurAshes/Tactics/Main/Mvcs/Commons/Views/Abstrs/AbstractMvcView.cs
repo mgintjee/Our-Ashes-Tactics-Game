@@ -69,6 +69,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
             this.InternalProcess(mvcControlInput);
         }
 
+        IMvcViewState IMvcView.GetState()
+        {
+            return this.mvcViewState;
+        }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -99,12 +104,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
         protected virtual void InternalProcess(IMvcControlInput mvcControlInput)
         {
             // Todo
-        }
-
-
-        IMvcViewState IMvcView.GetState()
-        {
-            return this.mvcViewState;
         }
     }
 }

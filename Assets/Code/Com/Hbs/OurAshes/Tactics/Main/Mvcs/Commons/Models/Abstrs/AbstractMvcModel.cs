@@ -66,6 +66,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs
             }
         }
 
+        IMvcModelState IMvcModel.GetState()
+        {
+            return this.mvcModelState;
+        }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -81,11 +86,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs
         {
             ((MvcModelStateImpl)this.mvcModelState).SetMvcRequests(
                 new HashSet<IMvcRequest> { new MvcRequestImpl() });
-            return this.mvcModelState;
-        }
-
-        IMvcModelState IMvcModel.GetState()
-        {
             return this.mvcModelState;
         }
     }

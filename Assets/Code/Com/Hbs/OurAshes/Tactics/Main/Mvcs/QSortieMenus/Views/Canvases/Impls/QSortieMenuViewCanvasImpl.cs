@@ -1,12 +1,8 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abstrs;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.Aligns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Builders.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Builders.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Sprites.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Specs.Grids.Impls;
@@ -55,6 +51,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Views.Canv
             this.AddWidget(TextWidgetImpl.Builder.Get()
                 .SetText(QSortieRequestType.Map)
                 .SetFont(FontID.Arial)
+                .SetColor(ColorID.White)
                 .SetAlign(AlignType.MiddleCenter)
                 .SetBestFit(true, 13, 60)
                 .SetCanvasLevel(0)
@@ -69,6 +66,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Views.Canv
             this.AddWidget(TextWidgetImpl.Builder.Get()
                 .SetText(QSortieRequestType.Combatants)
                 .SetFont(FontID.Arial)
+                .SetColor(ColorID.White)
                 .SetAlign(AlignType.MiddleCenter)
                 .SetBestFit(true, 13, 60)
                 .SetCanvasLevel(0)

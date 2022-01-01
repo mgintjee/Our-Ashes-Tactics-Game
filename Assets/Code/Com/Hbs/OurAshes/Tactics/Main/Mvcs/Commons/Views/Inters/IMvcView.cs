@@ -14,6 +14,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Inters
         void Process(IMvcModelState mvcModelState);
 
         void Process(IMvcControlInput mvcControlInput);
+
         IMvcViewState GetState();
     }
 }

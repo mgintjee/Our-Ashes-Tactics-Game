@@ -49,6 +49,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.SplashScreens.Views.Imp
         protected override IMvcViewCanvas BuildInitialMvcViewCanvas()
         {
             return SplashScreenViewCanvasImpl.Builder.Get()
+                .SetMvcType(MvcType.SplashScreen)
                 .SetGridSize(CanvasGridConstants.GetMvcTypeGridSize(MvcType.SplashScreen))
                 .SetName(typeof(SplashScreenViewCanvasImpl).Name)
                 .SetParent(this.mvcFrameConstruction.GetUnityScript())

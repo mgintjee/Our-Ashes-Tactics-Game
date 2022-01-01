@@ -1,6 +1,4 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abstrs;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.Aligns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.IDs;
@@ -46,6 +44,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             this.AddWidget(TextWidgetImpl.Builder.Get()
                 .SetText("DEFAULT...")
                 .SetFont(FontID.Arial)
+                .SetColor(ColorID.White)
                 .SetAlign(AlignType.MiddleCenter)
                 .SetBestFit(true, 10, 200)
                 .SetCanvasLevel(1)

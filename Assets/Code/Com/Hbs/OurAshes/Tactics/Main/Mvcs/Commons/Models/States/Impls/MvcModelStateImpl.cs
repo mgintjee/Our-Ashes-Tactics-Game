@@ -23,6 +23,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.I
             this.mvcModelRequests = new HashSet<IMvcRequest>(mvcModelRequests);
             return this;
         }
+
         public MvcModelStateImpl SetPrevMvcRequest(IMvcRequest prevMvcRequest)
         {
             this.prevMvcRequest = prevMvcRequest;

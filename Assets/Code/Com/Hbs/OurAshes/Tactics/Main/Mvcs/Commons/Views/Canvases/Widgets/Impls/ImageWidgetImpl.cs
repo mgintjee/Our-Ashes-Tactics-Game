@@ -33,7 +33,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         void IImageWidget.SetSpriteID(SpriteID spriteID)
         {
             this.spriteID = spriteID;
-            this.GetImage().sprite = SpriteResourceLoader .LoadSpriteResource(spriteID).GetValue();
+            this.GetImage().sprite = SpriteResourceLoader.LoadSpriteResource(spriteID).GetValue();
         }
 
         protected UnityEngine.UI.Image GetImage()

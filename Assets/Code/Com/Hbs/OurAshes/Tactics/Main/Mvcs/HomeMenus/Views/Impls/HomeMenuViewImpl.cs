@@ -36,17 +36,17 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Views.Impls
             this.mvcViewCanvas.GetWidget(mvcControlInput).IfPresent(widget =>
             {
                 logger.Info("Widget to process: Name={}", widget.GetName());
-                foreach(IMvcRequest request in this.mvcModelState.GetMvcRequests())
+                foreach (IMvcRequest request in this.mvcModelState.GetMvcRequests())
                 {
                     IHomeMenuRequest homeMenuRequest = (IHomeMenuRequest)request;
-                    if(widget.GetName().Contains(homeMenuRequest.GetHomeRequestType().ToString()))
+                    if (widget.GetName().Contains(homeMenuRequest.GetHomeRequestType().ToString()))
                     {
                         logger.Info("Setting {}:{}", typeof(IHomeMenuRequest), homeMenuRequest.GetHomeRequestType());
                         ((MvcViewStateImpl)this.mvcViewState).SetMvcModelRequest(request);
                         break;
                     }
                 }
-                if(this.mvcViewState.GetMvcModelRequest().IsPresent())
+                if (this.mvcViewState.GetMvcModelRequest().IsPresent())
                 {
                     ((MvcViewStateImpl)this.mvcViewState).SetMvcControlInputTypes(new HashSet<MvcControlInputType>());
                 }
@@ -57,6 +57,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Views.Impls
         protected override IMvcViewCanvas BuildInitialMvcViewCanvas()
         {
             return HomeMenuViewCanvasImpl.Builder.Get()
+                .SetMvcType(MvcType.HomeMenu)
                 .SetGridSize(CanvasGridConstants.GetMvcTypeGridSize(MvcType.HomeMenu))
                 .SetName(typeof(HomeMenuViewCanvasImpl).Name)
                 .SetParent(this.mvcFrameConstruction.GetUnityScript())

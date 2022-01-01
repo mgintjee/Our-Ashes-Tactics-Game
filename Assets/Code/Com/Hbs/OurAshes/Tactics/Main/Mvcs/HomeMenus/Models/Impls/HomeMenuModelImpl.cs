@@ -48,7 +48,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Models.Impls
         /// <returns></returns>
         protected override IMvcModelState ProcessMvcModelRequest(IMvcRequest mvcModelRequest)
         {
-            switch(((IHomeMenuRequest)mvcModelRequest).GetHomeRequestType())
+            switch (((IHomeMenuRequest)mvcModelRequest).GetHomeRequestType())
             {
                 case HomeRequestType.Exit:
                 case HomeRequestType.QSortie:

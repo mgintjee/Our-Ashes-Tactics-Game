@@ -1,4 +1,6 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.Aligns;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.Managers;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.Aligns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Builders.Impls;
@@ -25,6 +27,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
 
         // Todo
         private bool bestFit;
+
+        // Todo
+        private ColorID colorID;
 
         // Todo
         private AlignType alignType;
@@ -57,6 +62,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             this.GetText().resizeTextForBestFit = bestFit;
             this.GetText().resizeTextMinSize = minSize;
             this.GetText().resizeTextMaxSize = maxSize;
+        }
+
+        /// <inheritdoc/>
+        void ITextWidget.SetColorID(ColorID colorID)
+        {
+            this.colorID = colorID;
+            this.GetText().color = RgbManager.GetUnityColor(colorID);
         }
 
         /// <inheritdoc/>
@@ -134,6 +146,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
 
                 ITextBuilder SetFont(FontID fontID);
 
+                ITextBuilder SetColor(ColorID colorID);
+
                 ITextBuilder SetAlign(AlignType alignType);
 
                 ITextBuilder SetBestFit(bool bestFit, int minSize, int maxSize);
@@ -177,6 +191,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                 // Todo
                 protected AlignType alignType;
 
+                // Todo
+                protected ColorID colorID;
+
                 ITextBuilder ITextBuilder.SetText(string text)
                 {
                     this.text = text;
@@ -215,12 +232,19 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                     return this;
                 }
 
+                ITextBuilder ITextBuilder.SetColor(ColorID colorID)
+                {
+                    this.colorID = colorID;
+                    return this;
+                }
+
                 protected override void ValidateWidgetBuilder(ISet<string> invalidReasons)
                 {
                     this.Validate(invalidReasons, this.text);
                     this.Validate(invalidReasons, this.fontID);
                     this.Validate(invalidReasons, this.size);
                     this.Validate(invalidReasons, this.alignType);
+                    this.Validate(invalidReasons, this.colorID);
                 }
 
                 protected override ITextWidget BuildScript(UnityEngine.GameObject gameObject)
@@ -239,6 +263,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                     textWidget.SetAlignType(this.alignType);
                     textWidget.SetBestFit(this.bestFit, this.minSize, this.maxSize);
                     textWidget.SetSize(this.size);
+                    textWidget.SetColorID(this.colorID);
                 }
             }
         }

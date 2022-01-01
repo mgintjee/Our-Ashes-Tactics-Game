@@ -49,6 +49,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.A
             return this.GetGameObject().name;
         }
 
+        IUnityScript IUnityScript.GetParent()
+        {
+            return this.transform.parent.GetComponent<IUnityScript>();
+        }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -76,11 +81,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.A
         protected Transform GetTransform()
         {
             return this.transform;
-        }
-
-        IUnityScript IUnityScript.GetParent()
-        {
-            return this.transform.parent.GetComponent<IUnityScript>();
         }
 
         /// <summary>

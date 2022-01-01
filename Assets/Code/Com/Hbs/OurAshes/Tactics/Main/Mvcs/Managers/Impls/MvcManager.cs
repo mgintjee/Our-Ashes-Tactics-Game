@@ -65,7 +65,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Impls
                 return;
             }
             IMvcFrame mvcFrame = this.mvcTypeFrames[this.activeMvcType];
-            if(mvcFrame == null)
+            if (mvcFrame == null)
             {
                 // Should never be here except for errors
                 logger.Error("No {} associated to active {}:{}",

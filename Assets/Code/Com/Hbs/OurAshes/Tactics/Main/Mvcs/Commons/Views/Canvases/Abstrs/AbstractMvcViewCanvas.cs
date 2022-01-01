@@ -8,8 +8,6 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inter
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Builders.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Builders.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Canvases.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Canvases.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
@@ -34,7 +32,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         protected ICanvasGridConvertor gridConvertor;
 
         // Todo
-        protected Vector2 gridSize;
+        protected Vector2 worldGridSize;
 
         // Todo
         protected IClassLogger logger;
@@ -44,7 +42,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
 
         public void SetGridSize(Vector2 gridSize)
         {
-            this.gridSize = gridSize;
+            this.worldGridSize = gridSize;
             Vector2 worldSize = new Vector2(this.GetRectTransform().sizeDelta.x,
                 this.GetRectTransform().sizeDelta.y);
             this.gridConvertor = new CanvasGridConvertorImpl(gridSize, worldSize);
@@ -172,19 +170,19 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             {
                 private MvcType mvcType;
 
+                /// <inheritdoc/>
+                IViewCanvasBuilder IViewCanvasBuilder.SetMvcType(MvcType mvcType)
+                {
+                    this.mvcType = mvcType;
+                    return this;
+                }
+
                 protected void ApplyMvcViewValues(IMvcViewCanvas mvcViewCanvas)
                 {
                     ((AbstractMvcViewCanvas)mvcViewCanvas).mvcType = this.mvcType;
                     ((AbstractMvcViewCanvas)mvcViewCanvas).logger = LoggerManager.GetLogger(this.mvcType)
                         .GetClassLogger(mvcViewCanvas.GetType());
                     this.ApplyCanvasValues((AbstractMvcViewCanvas)mvcViewCanvas);
-                }
-
-                /// <inheritdoc/>
-                IViewCanvasBuilder IViewCanvasBuilder.SetMvcType(MvcType mvcType)
-                {
-                    this.mvcType = mvcType;
-                    return this;
                 }
             }
         }

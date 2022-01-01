@@ -1,6 +1,4 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abstrs;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.Aligns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.IDs;
@@ -8,6 +6,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inte
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Sprites.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Specs.Grids.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Specs.Grids.Inters;
 using System.Numerics;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.SplashScreens.Views.Canvases
@@ -21,57 +20,63 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.SplashScreens.Views.Can
         /// <inheritdoc/>
         protected override void InternalBuild()
         {
-            this.BuildSplashImages();
-            this.BuildSplashTexts();
+            this.BuildBack();
+            this.BuildTitle();
+            this.BuildSubtitle();
         }
 
-        private void BuildSplashImages()
+        private void BuildBack()
         {
             this.AddWidget(ImageWidgetImpl.Builder.Get()
                 .SetSpriteID(SpriteID.SquareBorderless)
                 .SetColorID(ColorID.Blue)
-                .SetCanvasLevel(0)
+                .SetCanvasLevel(1)
                 .SetInteractable(true)
                 .SetMvcViewCanvas(this)
                 .SetWidgetGridSpec(new WidgetGridSpecImpl()
                     .SetCanvasGridCoords(Vector2.Zero)
                     .SetCanvasGridSize(this.gridConvertor.GetGridSize()))
                 .SetParent(this)
-                .SetName(typeof(ImageWidgetImpl).Name + ":Back")
+                .SetName(this.mvcType + ":BackImage")
                 .Build());
+        }
+
+        private void BuildTitle()
+        {
+            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(new Vector2(0, 3))
+                    .SetCanvasGridSize(new Vector2(this.gridConvertor.GetGridSize().X, 3));
             this.AddWidget(ImageWidgetImpl.Builder.Get()
-                .SetSpriteID(SpriteID.SquareBordered)
+                .SetSpriteID(SpriteID.SquareBorderless)
                 .SetColorID(ColorID.Yellow)
                 .SetCanvasLevel(1)
                 .SetInteractable(false)
                 .SetMvcViewCanvas(this)
-                .SetWidgetGridSpec(new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(0, 3))
-                    .SetCanvasGridSize(new Vector2(this.gridConvertor.GetGridSize().X, 3)))
+                .SetWidgetGridSpec(widgetGridSpec)
                 .SetParent(this)
-                .SetName(typeof(ImageWidgetImpl).Name + ":Stripe")
+                .SetName(this.mvcType + ":TitleImage")
                 .Build());
-        }
-
-        private void BuildSplashTexts()
-        {
             this.AddWidget(TextWidgetImpl.Builder.Get()
                 .SetText("Our Ashes\n Tactics")
                 .SetFont(FontID.Arial)
+                .SetColor(ColorID.Black)
                 .SetAlign(AlignType.MiddleCenter)
                 .SetBestFit(true, 10, 200)
                 .SetCanvasLevel(1)
                 .SetInteractable(false)
                 .SetMvcViewCanvas(this)
-                .SetWidgetGridSpec(new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(0, 3))
-                    .SetCanvasGridSize(new Vector2(this.gridConvertor.GetGridSize().X, 3)))
+                .SetWidgetGridSpec(widgetGridSpec)
                 .SetParent(this)
-                .SetName(typeof(TextWidgetImpl).Name + ":Title")
+                .SetName(this.mvcType + ":TitleText")
                 .Build());
+        }
+
+        private void BuildSubtitle()
+        {
             this.AddWidget(TextWidgetImpl.Builder.Get()
-                .SetText("Input anywhere to continue...")
+                .SetText("Input anywhere/anything to continue...")
                 .SetFont(FontID.Arial)
+                .SetColor(ColorID.White)
                 .SetAlign(AlignType.MiddleCenter)
                 .SetBestFit(true, 13, 50)
                 .SetCanvasLevel(1)
@@ -81,7 +86,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.SplashScreens.Views.Can
                     .SetCanvasGridCoords(new Vector2(3, 1))
                     .SetCanvasGridSize(new Vector2(3, 1)))
                 .SetParent(this)
-                .SetName(typeof(TextWidgetImpl).Name + ":Info")
+                .SetName(this.mvcType + ":SubtitleText")
                 .Build());
         }
 
