@@ -3,8 +3,6 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colo
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Resources.Loaders.Sprites;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Sprites.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Abstrs;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Builders.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Builders.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
 using System.Collections.Generic;
 
@@ -36,7 +34,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             this.GetImage().sprite = SpriteResourceLoader.LoadSpriteResource(spriteID).GetValue();
         }
 
-        protected UnityEngine.UI.Image GetImage()
+        private UnityEngine.UI.Image GetImage()
         {
             if (this.GetComponent<UnityEngine.UI.Image>() == null)
             {
@@ -53,19 +51,19 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             /// <summary>
             /// Todo
             /// </summary>
-            public interface IImageBuilder
-                : IWidgetBuilder<IImageWidget>
+            public interface IInternalBuilder
+                : AbstractWidgetBuilders.IWidgetBuilder<IImageWidget>
             {
-                IImageBuilder SetSpriteID(SpriteID spriteID);
+                IInternalBuilder SetSpriteID(SpriteID spriteID);
 
-                IImageBuilder SetColorID(ColorID colorID);
+                IInternalBuilder SetColorID(ColorID colorID);
             }
 
             /// <summary>
             /// Todo
             /// </summary>
             /// <returns></returns>
-            public static IImageBuilder Get()
+            public static IInternalBuilder Get()
             {
                 return new InternalBuilder();
             }
@@ -74,7 +72,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             /// Todo
             /// </summary>
             private class InternalBuilder
-                : AbstractWidgetBuilder<IImageWidget>, IImageBuilder
+                : AbstractWidgetBuilders.AbstractWidgetBuilder<IImageWidget>, IInternalBuilder
             {
                 // Todo
                 protected SpriteID spriteID;
@@ -82,13 +80,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                 // Todo
                 protected ColorID colorID;
 
-                IImageBuilder IImageBuilder.SetColorID(ColorID colorID)
+                IInternalBuilder IInternalBuilder.SetColorID(ColorID colorID)
                 {
                     this.colorID = colorID;
                     return this;
                 }
 
-                IImageBuilder IImageBuilder.SetSpriteID(SpriteID spriteID)
+                IInternalBuilder IInternalBuilder.SetSpriteID(SpriteID spriteID)
                 {
                     this.spriteID = spriteID;
                     return this;
@@ -104,7 +102,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                 {
                     IImageWidget imageWidget = gameObject.AddComponent<ImageWidgetImpl>();
                     this.ApplyImageValues(imageWidget);
-                    ((ImageWidgetImpl)imageWidget).mvcViewCanvas = this.mvcViewCanvas;
                     return imageWidget;
                 }
 

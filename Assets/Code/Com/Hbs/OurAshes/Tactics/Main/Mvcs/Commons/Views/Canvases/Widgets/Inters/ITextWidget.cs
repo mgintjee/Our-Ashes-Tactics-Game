@@ -19,6 +19,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         void SetBestFit(bool isBestFit, int minSize, int maxSize);
 
         void SetColorID(ColorID colorID);
+
         void SetAlignType(AlignType alignType);
     }
 }

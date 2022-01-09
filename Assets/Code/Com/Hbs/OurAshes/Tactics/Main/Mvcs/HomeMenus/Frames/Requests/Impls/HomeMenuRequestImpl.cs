@@ -1,14 +1,13 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Reports.Abstrs;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Models.Requests.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Models.Requests.Types;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Frames.Requests.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Frames.Requests.Types;
 
-namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Models.Requests.Impls
+namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Frames.Requests.Impls
 {
     /// <summary>
     /// Todo
     /// </summary>
     public class HomeMenuRequestImpl
-        : AbstractReport, IHomeMenuRequest
+        : IHomeMenuRequest
     {
         // Todo
         private HomeRequestType homeRequestType = HomeRequestType.None;
@@ -27,13 +26,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Models.Reques
         HomeRequestType IHomeMenuRequest.GetHomeRequestType()
         {
             return this.homeRequestType;
-        }
-
-        /// <inheritdoc/>
-        protected override string GetContent()
-        {
-            return string.Format("{0}:{1}",
-                typeof(HomeRequestType).Name, this.homeRequestType);
         }
     }
 }

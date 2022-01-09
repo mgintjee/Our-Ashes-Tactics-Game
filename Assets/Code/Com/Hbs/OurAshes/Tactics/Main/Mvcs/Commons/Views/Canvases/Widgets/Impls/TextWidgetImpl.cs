@@ -3,8 +3,6 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colo
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.Aligns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Abstrs;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Builders.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Builders.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
 using System.Collections.Generic;
 
@@ -78,7 +76,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             this.GetText().alignment = this.GetTextAnchor(this.alignType);
         }
 
-        protected UnityEngine.UI.Text GetText()
+        private UnityEngine.UI.Text GetText()
         {
             if (this.GetComponent<UnityEngine.UI.Text>() == null)
             {
@@ -138,7 +136,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             /// Todo
             /// </summary>
             public interface ITextBuilder
-                : IWidgetBuilder<ITextWidget>
+                : AbstractWidgetBuilders.IWidgetBuilder<ITextWidget>
             {
                 ITextBuilder SetText(string text);
 
@@ -168,7 +166,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             /// Todo
             /// </summary>
             private class InternalBuilder
-                : AbstractWidgetBuilder<ITextWidget>, ITextBuilder
+                : AbstractWidgetBuilders.AbstractWidgetBuilder<ITextWidget>, ITextBuilder
             {
                 // Todo
                 protected FontID fontID;
@@ -251,7 +249,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                 {
                     ITextWidget textWidget = gameObject.AddComponent<TextWidgetImpl>();
                     this.ApplyTextValues(textWidget);
-                    ((TextWidgetImpl)textWidget).mvcViewCanvas = this.mvcViewCanvas;
                     return textWidget;
                 }
 

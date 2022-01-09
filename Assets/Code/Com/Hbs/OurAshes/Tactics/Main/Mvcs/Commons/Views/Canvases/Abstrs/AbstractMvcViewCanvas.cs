@@ -10,6 +10,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grid
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Canvases.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Canvases.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Utils;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
 using System.Collections.Generic;
 using System.Numerics;
@@ -29,7 +30,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         protected IDictionary<int, ISet<ICanvasWidget>> canvasLevelWidgets = new Dictionary<int, ISet<ICanvasWidget>>();
 
         // Todo
-        protected ICanvasGridConvertor gridConvertor;
+        protected ICanvasGridConvertor canvasGridConvertor;
 
         // Todo
         protected Vector2 worldGridSize;
@@ -45,16 +46,19 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             this.worldGridSize = gridSize;
             Vector2 worldSize = new Vector2(this.GetRectTransform().sizeDelta.x,
                 this.GetRectTransform().sizeDelta.y);
-            this.gridConvertor = new CanvasGridConvertorImpl(gridSize, worldSize);
+            this.canvasGridConvertor = new CanvasGridConvertorImpl(gridSize, worldSize);
         }
 
         /// <inheritdoc/>
         void IMvcViewCanvas.Build()
         {
             logger.Info("Building associated widgets within gridSize: {}",
-                this.gridConvertor.GetGridSize());
+                this.canvasGridConvertor.GetGridSize());
             ((IMvcViewCanvas)this).Clear();
-            this.InternalBuild();
+            foreach (ICanvasWidget canvasWidget in this.InternalBuild())
+            {
+                this.AddWidget(canvasWidget);
+            }
         }
 
         /// <inheritdoc/>
@@ -78,43 +82,29 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <inheritdoc/>
         Optional<ICanvasWidget> IMvcViewCanvas.GetWidget(IMvcControlInput mvcControlInput)
         {
-            List<int> canvasLevels = new List<int>(this.canvasLevelWidgets.Keys);
-            canvasLevels.Sort();
-            foreach (int canvasLevel in canvasLevels)
-            {
-                foreach (ICanvasWidget canvasWidget in this.canvasLevelWidgets[canvasLevel])
-                {
-                    bool isInputOnWidget = canvasWidget.GetInteractable() &&
-                        this.IsInputOnWidget(mvcControlInput, canvasWidget);
-                    logger.Debug("Checking input on {}: isOnWidget={}",
-                        canvasWidget.GetName(), isInputOnWidget);
-                    if (isInputOnWidget)
-                    {
-                        return Optional<ICanvasWidget>.Of(canvasWidget);
-                    }
-                }
-            }
-            return Optional<ICanvasWidget>.Empty();
+            Optional<ICanvasWidget> canvasWidget = CanvasWidgetUtils.GetWidgetFromInput(this.canvasGridConvertor,
+                this.canvasLevelWidgets, mvcControlInput);
+            canvasWidget.IfPresent(widget => this.ProcessSelectedWidget(widget));
+            return canvasWidget;
         }
 
         /// <inheritdoc/>
         Vector2 IMvcViewCanvas.GetWorldSize()
         {
-            return this.gridConvertor.GetWorldSize();
+            return this.canvasGridConvertor.GetWorldSize();
+        }
+
+        protected virtual void ProcessSelectedWidget(ICanvasWidget canvasWidget)
+        {
         }
 
         protected void AddWidget(ICanvasWidget widget)
         {
             logger.Info("Adding {}:{}", widget.GetType(), widget.GetName());
-            if (!this.canvasLevelWidgets.ContainsKey(widget.GetCanvasLevel()))
-            {
-                this.canvasLevelWidgets[widget.GetCanvasLevel()] = new HashSet<ICanvasWidget>();
-            }
-            this.canvasLevelWidgets[widget.GetCanvasLevel()].Add(widget);
-            widget.ApplyGridConvertor(this.gridConvertor);
+            CanvasWidgetUtils.AddWidget(this.canvasGridConvertor, this.canvasLevelWidgets, widget);
         }
 
-        protected abstract void InternalBuild();
+        protected abstract ISet<ICanvasWidget> InternalBuild();
 
         /// <summary>
         /// Todo
@@ -128,7 +118,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             {
                 case MvcControlInputType.Click:
                     Vector2 clickPixelCoords = ((IMvcControlInputClick)mvcControlInput).GetWorldCoords();
-                    Vector2 canvasWorldSize = this.gridConvertor.GetWorldSize();
+                    Vector2 canvasWorldSize = this.canvasGridConvertor.GetWorldSize();
                     Vector2 clickWorldCoords = new Vector2(clickPixelCoords.X - canvasWorldSize.X / 2,
                         clickPixelCoords.Y - canvasWorldSize.Y / 2);
                     Vector2 widgetWorldCoords = canvasWidget.GetWidgetWorldSpec().GetWorldCoords();

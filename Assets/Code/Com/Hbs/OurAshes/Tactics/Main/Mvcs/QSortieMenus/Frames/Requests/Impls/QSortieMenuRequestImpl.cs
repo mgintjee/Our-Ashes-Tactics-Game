@@ -1,5 +1,4 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Reports.Abstrs;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Frames.Requests.Inters;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Frames.Requests.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Frames.Requests.Types;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Frames.Requests.Impls
@@ -8,7 +7,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Frames.Req
     /// Todo
     /// </summary>
     public class QSortieMenuRequestImpl
-        : AbstractReport, IQSortieMenuRequest
+        : IQSortieMenuRequest
     {
         // Todo
         private QSortieRequestType qSortieRequestType = QSortieRequestType.None;
@@ -27,13 +26,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Frames.Req
         QSortieRequestType IQSortieMenuRequest.GetQSortieRequestType()
         {
             return this.qSortieRequestType;
-        }
-
-        /// <inheritdoc/>
-        protected override string GetContent()
-        {
-            return string.Format("{0}:{1}",
-                typeof(QSortieRequestType).Name, this.qSortieRequestType);
         }
     }
 }

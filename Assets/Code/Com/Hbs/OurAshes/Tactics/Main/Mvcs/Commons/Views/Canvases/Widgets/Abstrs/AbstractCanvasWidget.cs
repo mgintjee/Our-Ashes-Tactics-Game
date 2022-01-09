@@ -4,11 +4,11 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Builders.In
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Canvases.Abstrs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Worlds.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Worlds.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Specs.Grids.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Specs.Grids.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Specs.Worlds.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Specs.Worlds.Inters;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -21,16 +21,19 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         : AbstractCanvasScript, ICanvasWidget
     {
         // Todo
-        protected IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl();
+        protected IWidgetGridSpec widgetGridSpec = new CanvasGridSpecImpl();
 
         // Todo
-        protected IWidgetWorldSpec widgetWorldSpec = new WidgetWorldSpecImpl();
+        protected ICanvasWorldSpec widgetWorldSpec = new CanvasWorldSpecImpl();
 
         // Todo
-        protected bool interactable;
+        protected bool isInteractable;
 
         // Todo
         protected int canvasLevel;
+
+        // Todo
+        protected bool isEnabled;
 
         // Todo
         protected IMvcViewCanvas mvcViewCanvas;
@@ -65,7 +68,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         }
 
         /// <inheritdoc/>
-        IWidgetWorldSpec ICanvasWidget.GetWidgetWorldSpec()
+        ICanvasWorldSpec ICanvasWidget.GetWidgetWorldSpec()
         {
             return this.widgetWorldSpec;
         }
@@ -73,7 +76,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <inheritdoc/>
         bool ICanvasWidget.GetInteractable()
         {
-            return this.interactable;
+            return this.isInteractable;
         }
 
         /// <inheritdoc/>
@@ -89,9 +92,16 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         }
 
         /// <inheritdoc/>
+        void ICanvasWidget.SetEnabled(bool enabled)
+        {
+            this.isEnabled = enabled;
+            this.gameObject.SetActive(enabled);
+        }
+
+        /// <inheritdoc/>
         void ICanvasWidget.SetInteractable(bool interactable)
         {
-            this.interactable = interactable;
+            this.isInteractable = interactable;
         }
 
         /// <inheritdoc/>
@@ -106,7 +116,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             Vector2 worldSize = canvasGridConvertor.GetWorldSize(this.widgetGridSpec.GetGridSize());
             Vector2 worldCoords = canvasGridConvertor.GetWorldCoords(
                 this.widgetGridSpec.GetGridCoords(), this.widgetGridSpec.GetGridSize());
-            ((WidgetWorldSpecImpl)this.widgetWorldSpec)
+            ((CanvasWorldSpecImpl)this.widgetWorldSpec)
                 .SetCanvasWorldCoords(worldCoords)
                 .SetCanvasWorldSize(worldSize);
             this.GetRectTransform().sizeDelta = new UnityEngine.Vector2(worldSize.X, worldSize.Y);
@@ -128,9 +138,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
 
                 IWidgetBuilder<T> SetInteractable(bool interactable);
 
-                IWidgetBuilder<T> SetCanvasLevel(int canvasLevel);
+                IWidgetBuilder<T> SetEnabled(bool enabled);
 
-                IWidgetBuilder<T> SetMvcViewCanvas(IMvcViewCanvas mvcViewCanvas);
+                IWidgetBuilder<T> SetCanvasLevel(int canvasLevel);
             }
 
             /// <summary>
@@ -143,13 +153,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                 protected IWidgetGridSpec widgetGridSpec;
 
                 // Todo
-                protected bool interactable;
+                protected bool isInteractable;
+
+                // Todo
+                protected bool isEnabled;
 
                 // Todo
                 protected int canvasLevel;
-
-                // Todo
-                protected IMvcViewCanvas mvcViewCanvas;
 
                 IWidgetBuilder<T> IWidgetBuilder<T>.SetWidgetGridSpec(IWidgetGridSpec widgetGridSpec)
                 {
@@ -159,7 +169,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
 
                 IWidgetBuilder<T> IWidgetBuilder<T>.SetInteractable(bool interactable)
                 {
-                    this.interactable = interactable;
+                    this.isInteractable = interactable;
                     return this;
                 }
 
@@ -169,9 +179,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                     return this;
                 }
 
-                IWidgetBuilder<T> IWidgetBuilder<T>.SetMvcViewCanvas(IMvcViewCanvas mvcViewCanvas)
+                IWidgetBuilder<T> IWidgetBuilder<T>.SetEnabled(bool enabled)
                 {
-                    this.mvcViewCanvas = mvcViewCanvas;
+                    this.isEnabled = enabled;
                     return this;
                 }
 
@@ -183,9 +193,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                         this.Validate(invalidReasons, this.widgetGridSpec.GetGridCoords());
                         this.Validate(invalidReasons, this.widgetGridSpec.GetGridSize());
                     }
-                    this.Validate(invalidReasons, this.interactable);
+                    this.Validate(invalidReasons, this.isInteractable);
+                    this.Validate(invalidReasons, this.isEnabled);
                     this.Validate(invalidReasons, this.canvasLevel);
-                    this.Validate(invalidReasons, this.mvcViewCanvas);
                     this.ValidateWidgetBuilder(invalidReasons);
                 }
 
@@ -195,10 +205,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
 
                 protected void ApplyCommonValues(ICanvasWidget canvasWidget)
                 {
+                    canvasWidget.GetRectTransform().anchorMin = new UnityEngine.Vector2(0.5f, 0.5f);
+                    canvasWidget.GetRectTransform().anchorMax = new UnityEngine.Vector2(0.5f, 0.5f);
                     this.ApplyScriptValues(canvasWidget);
                     canvasWidget.SetWidgetGridSpec(this.widgetGridSpec);
-                    canvasWidget.SetInteractable(this.interactable);
+                    canvasWidget.SetInteractable(this.isInteractable);
                     canvasWidget.SetCanvasLevel(this.canvasLevel);
+                    canvasWidget.SetEnabled(this.isEnabled);
                 }
             }
         }

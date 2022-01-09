@@ -1,7 +1,7 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Requests.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Frames.Requests.Impls;
@@ -34,8 +34,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Models.Imp
             ((MvcModelStateImpl)this.mvcModelState)
                 .SetMvcRequests(new HashSet<IMvcRequest>
                     {
-                        new QSortieMenuRequestImpl().SetQSortieRequestType(QSortieRequestType.Combatants),
-                        new QSortieMenuRequestImpl().SetQSortieRequestType(QSortieRequestType.Map)
+                        new QSortieMenuRequestImpl().SetQSortieRequestType(QSortieRequestType.CombatantDetails),
+                        new QSortieMenuRequestImpl().SetQSortieRequestType(QSortieRequestType.MapDetails)
                     });
             return this.mvcModelState;
         }

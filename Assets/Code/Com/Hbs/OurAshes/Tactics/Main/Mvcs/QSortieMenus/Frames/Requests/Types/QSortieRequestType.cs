@@ -6,7 +6,10 @@
     public enum QSortieRequestType
     {
         None,
-        Map,
-        Combatants,
+        MapDetails,
+        CombatantDetails,
+        SortieDetails,
+        StartSortie,
+        SortieStart
     }
 }

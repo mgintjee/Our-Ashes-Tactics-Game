@@ -1,5 +1,5 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Requests.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using System.Collections.Generic;
 

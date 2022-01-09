@@ -15,33 +15,35 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         private static readonly IDictionary<ColorID, IRgb> ID_RGBS =
             new Dictionary<ColorID, IRgb>()
             {
-                {ColorID.Black, new BlackRgbImpl() },
-                {ColorID.White, new WhiteRgbImpl() },
-                {ColorID.Red, new RedRgbImpl() },
-                {ColorID.Lime, new LimeRgbImpl() },
-                {ColorID.Blue, new BlueRgbImpl() },
-                {ColorID.Yellow, new YellowRgbImpl() },
-                {ColorID.Cyan, new CyanRgbImpl() },
-                {ColorID.Fuchsia, new FuchsiaRgbImpl() },
-                {ColorID.Silver, new SilverRgbImpl() },
-                {ColorID.Gray, new GrayRgbImpl() },
-                {ColorID.Maroon, new MaroonRgbImpl() },
-                {ColorID.Olive, new OliveRgbImpl() },
-                {ColorID.Green, new GreenRgbImpl() },
-                {ColorID.Purple, new PurpleRgbImpl() },
-                {ColorID.Teal, new TealRgbImpl() },
-                {ColorID.Navy, new NavyRgbImpl() },
+                {ColorID.Black, new BlackImpl() },
+                {ColorID.White, new WhiteImpl() },
+                {ColorID.Red, new RedImpl() },
+                {ColorID.Lime, new LimeImpl() },
+                {ColorID.Blue, new BlueImpl() },
+                {ColorID.Yellow, new YellowImpl() },
+                {ColorID.Cyan, new CyanImpl() },
+                {ColorID.Fuchsia, new FuchsiaImpl() },
+                {ColorID.Silver, new SilverImpl() },
+                {ColorID.Gray, new GrayImpl() },
+                {ColorID.Maroon, new MaroonImpl() },
+                {ColorID.Olive, new OliveImpl() },
+                {ColorID.Green, new GreenImpl() },
+                {ColorID.Purple, new PurpleImpl() },
+                {ColorID.Teal, new TealImpl() },
+                {ColorID.Navy, new NavyImpl() },
             };
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="colorID"></param>
+        public static IRgb GetRgb(ColorID colorID)
+        {
+            return ID_RGBS.ContainsKey(colorID)
+                ? ID_RGBS[colorID]
+                : ID_RGBS[ColorID.White];
+        }
+
         public static Color GetUnityColor(ColorID colorID)
         {
-            return new Color(ID_RGBS[colorID].GetFloatRed(),
-                ID_RGBS[colorID].GetFloatGreen(),
-                ID_RGBS[colorID].GetFloatBlue());
+            IRgb rgb = GetRgb(colorID);
+            return new Color(rgb.GetFloatRed(), rgb.GetFloatGreen(), rgb.GetFloatBlue());
         }
     }
 }

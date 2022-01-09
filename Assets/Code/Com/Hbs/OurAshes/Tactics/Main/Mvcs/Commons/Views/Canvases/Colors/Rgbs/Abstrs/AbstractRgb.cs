@@ -1,5 +1,4 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.Rgbs.Inters;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.Rgbs.Inters;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.Rgbs.Abstrs
 {
@@ -10,9 +9,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         : IRgb
     {
         // Todo
-        protected ColorID colorID;
-
-        // Todo
         protected int blue;
 
         // Todo
@@ -20,12 +16,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
 
         // Todo
         protected int red;
-
-        /// <inheritdoc/>
-        ColorID IRgb.GetColorID()
-        {
-            return this.colorID;
-        }
 
         /// <inheritdoc/>
         float IRgb.GetFloatBlue()
