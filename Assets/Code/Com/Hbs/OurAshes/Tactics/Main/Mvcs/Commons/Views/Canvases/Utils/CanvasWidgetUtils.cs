@@ -1,6 +1,7 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Types;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
 using System.Collections.Generic;
@@ -55,7 +56,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             {
                 foreach (ICanvasWidget canvasWidget in canvasLevelWidgets[canvasLevel])
                 {
-                    if (canvasWidget.GetInteractable() &&
+                    if (canvasWidget.GetEnabled() && canvasWidget.GetInteractable() &&
                         IsInputOnWidget(canvasGridConvertor, mvcControlInput, canvasWidget))
                     {
                         return Optional<ICanvasWidget>.Of(canvasWidget);
@@ -63,6 +64,27 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                 }
             }
             return Optional<ICanvasWidget>.Empty();
+        }
+
+        public static void EnableWidgets(ICollection<ICanvasWidget> canvasWidgets, bool enable)
+        {
+            foreach(ICanvasWidget canvasWidget in canvasWidgets)
+            {
+                canvasWidget.SetEnabled(enable);
+            }
+        }
+
+        public static void SetButtonInteractable(IImageWidget imageWidget, bool interactable)
+        {
+            imageWidget.SetInteractable(interactable);
+            if (interactable)
+            {
+                imageWidget.SetColorID(ColorID.Red);
+            }
+            else
+            {
+                imageWidget.SetColorID(ColorID.Gray);
+            }
         }
     }
 }

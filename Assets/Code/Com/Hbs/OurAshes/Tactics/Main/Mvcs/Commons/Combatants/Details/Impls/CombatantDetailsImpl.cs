@@ -1,5 +1,6 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.CallSigns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Details.Inters;
@@ -10,13 +11,26 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Deta
     public struct CombatantDetailsImpl
         : ICombatantDetails
     {
+        // Todo
+        private readonly CallSign callSign;
+
+        // Todo
         private readonly CombatantID combatantID;
+
+        // Todo
         private readonly ILoadoutDetails loadoutDetails;
 
-        private CombatantDetailsImpl(CombatantID combatantID, ILoadoutDetails loadoutDetails)
+        private CombatantDetailsImpl(CallSign callSign, CombatantID combatantID, ILoadoutDetails loadoutDetails)
         {
+            this.callSign = callSign;
             this.combatantID = combatantID;
             this.loadoutDetails = loadoutDetails;
+        }
+
+        /// <inheritdoc/>
+        CallSign ICombatantDetails.GetCallSign()
+        {
+            return this.callSign;
         }
 
         /// <inheritdoc/>
@@ -42,6 +56,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Deta
             public interface IInternalBuilder
                 : IBuilder<ICombatantDetails>
             {
+                IInternalBuilder SetCallSign(CallSign callSign);
+
                 IInternalBuilder SetCombatantID(CombatantID id);
 
                 IInternalBuilder SetLoadoutDetails(ILoadoutDetails details);
@@ -62,6 +78,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Deta
             private class InternalBuilder
                 : AbstractBuilder<ICombatantDetails>, IInternalBuilder
             {
+                private CallSign callSign;
                 private CombatantID combatantID;
                 private ILoadoutDetails loadoutDetails;
 
@@ -80,16 +97,25 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Deta
                 }
 
                 /// <inheritdoc/>
+                IInternalBuilder IInternalBuilder.SetCallSign(CallSign callSign)
+                {
+                    this.callSign = callSign;
+                    return this;
+                }
+
+                /// <inheritdoc/>
                 protected override ICombatantDetails BuildObj()
                 {
-                    return new CombatantDetailsImpl(this.combatantID, this.loadoutDetails);
+                    return new CombatantDetailsImpl(this.callSign,
+                        this.combatantID, this.loadoutDetails);
                 }
 
                 /// <inheritdoc/>
                 protected override void Validate(ISet<string> invalidReasons)
                 {
-                    this.Validate(invalidReasons, combatantID);
-                    this.Validate(invalidReasons, loadoutDetails);
+                    this.Validate(invalidReasons, this.callSign);
+                    this.Validate(invalidReasons, this.combatantID);
+                    this.Validate(invalidReasons, this.loadoutDetails);
                 }
             }
         }

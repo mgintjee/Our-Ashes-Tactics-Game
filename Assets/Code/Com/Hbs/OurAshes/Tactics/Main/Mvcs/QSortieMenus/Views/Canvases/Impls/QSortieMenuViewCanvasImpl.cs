@@ -1,4 +1,6 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abstrs;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.Aligns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.IDs;
@@ -6,6 +8,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inte
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Sprites.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Utils;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Frames.Requests.Types;
@@ -20,125 +23,122 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Views.Canv
     public class QSortieMenuViewCanvasImpl
         : AbstractMvcViewCanvas, IMvcViewCanvas
     {
-        private IDictionary<QSortieRequestType, ISet<ICanvasWidget>> qSortieTypeWidgets = new Dictionary<QSortieRequestType, ISet<ICanvasWidget>>();
+        private readonly List<ICanvasWidget> combatantDetailsPanelWidgets = new List<ICanvasWidget>();
+        private readonly List<ICanvasWidget> mapDetailsPanelWidgets = new List<ICanvasWidget>();
+        private readonly List<ICanvasWidget> sortieDetailsPanelWidgets = new List<ICanvasWidget>();
+        private IImageWidget combatantDetailsButton;
+        private IImageWidget mapDetailsButton;
+        private IImageWidget sortieDetailsButton;
+
+        public override void Process(IMvcModelState mvcModelState)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void InitialBuild()
+        {
+            List<ICanvasWidget> canvasWidgets = new List<ICanvasWidget>() { this.BuildBackground() };
+
+            canvasWidgets.AddRange(this.BuildHeader());
+            canvasWidgets.AddRange(this.BuildBackgrounds());
+
+            this.mapDetailsButton = MapDetailsUtil.BuildButtonImage(this.canvasGridConvertor, this);
+            this.sortieDetailsButton = SortieDetailsUtil.BuildButtonImage(this.canvasGridConvertor, this);
+
+            canvasWidgets.Add(this.mapDetailsButton);
+            canvasWidgets.Add(MapDetailsUtil.BuildButtonText(this.canvasGridConvertor, this));
+            canvasWidgets.Add(this.sortieDetailsButton);
+            canvasWidgets.Add(SortieDetailsUtil.BuildButtonText(this.canvasGridConvertor, this));
+
+            canvasWidgets.AddRange(this.BuildCombatantDetailsButton());
+
+            ICollection<ICanvasWidget> sortieDetailsPanelWidgets = SortieDetailsUtil
+                .BuildPanel(this.canvasGridConvertor, this);
+            canvasWidgets.AddRange(sortieDetailsPanelWidgets);
+            this.sortieDetailsPanelWidgets.AddRange(sortieDetailsPanelWidgets);
+
+            ICollection<ICanvasWidget> mapDetailsPanelWidgets = MapDetailsUtil
+                .BuildPanel(this.canvasGridConvertor, this);
+            canvasWidgets.AddRange(mapDetailsPanelWidgets);
+            this.mapDetailsPanelWidgets.AddRange(mapDetailsPanelWidgets);
+
+            canvasWidgets.AddRange(this.BuildSortieStartButton());
+            this.AddWidgets(canvasWidgets);
+        }
 
         /// <inheritdoc/>
-        protected override ISet<ICanvasWidget> InternalBuild()
-        {
-            ISet<ICanvasWidget> canvasWidgets = new HashSet<ICanvasWidget>()
-            {
-                this.BuildBackground(),
-                this.BuildDetailsBackground()
-            };
-            this.BuildHeader();
-            this.BuildMapDetailsButton();
-            this.BuildCombatantDetailsButton();
-            this.BuildSortieDetailsButton();
-            this.BuildSortieStartButton();
-            return canvasWidgets;
-        }
-
         protected override void ProcessSelectedWidget(ICanvasWidget canvasWidget)
         {
+            string widgetName = canvasWidget.GetName();
+            if (canvasWidget.GetInteractable() && widgetName.Contains("Button") &&
+                !widgetName.Contains(QSortieRequestType.SortieStart.ToString()))
+            {
+                if (widgetName.Contains(QSortieRequestType.CombatantDetails.ToString()))
+                {
+                    CanvasWidgetUtils.SetButtonInteractable(this.combatantDetailsButton, false);
+                    CanvasWidgetUtils.EnableWidgets(this.combatantDetailsPanelWidgets, true);
+
+                    CanvasWidgetUtils.SetButtonInteractable(this.mapDetailsButton, true);
+                    CanvasWidgetUtils.EnableWidgets(this.mapDetailsPanelWidgets, false);
+
+                    CanvasWidgetUtils.SetButtonInteractable(this.sortieDetailsButton, true);
+                    CanvasWidgetUtils.EnableWidgets(this.sortieDetailsPanelWidgets, false);
+                }
+                else if (widgetName.Contains(QSortieRequestType.MapDetails.ToString()))
+                {
+                    CanvasWidgetUtils.SetButtonInteractable(this.combatantDetailsButton, true);
+                    CanvasWidgetUtils.EnableWidgets(this.combatantDetailsPanelWidgets, false);
+
+                    CanvasWidgetUtils.SetButtonInteractable(this.mapDetailsButton, false);
+                    CanvasWidgetUtils.EnableWidgets(this.mapDetailsPanelWidgets, true);
+
+                    CanvasWidgetUtils.SetButtonInteractable(this.sortieDetailsButton, true);
+                    CanvasWidgetUtils.EnableWidgets(this.sortieDetailsPanelWidgets, false);
+                }
+                else if (widgetName.Contains(QSortieRequestType.SortieDetails.ToString()))
+                {
+                    CanvasWidgetUtils.SetButtonInteractable(this.combatantDetailsButton, true);
+                    CanvasWidgetUtils.EnableWidgets(this.combatantDetailsPanelWidgets, false);
+
+                    CanvasWidgetUtils.SetButtonInteractable(this.mapDetailsButton, true);
+                    CanvasWidgetUtils.EnableWidgets(this.mapDetailsPanelWidgets, false);
+
+                    CanvasWidgetUtils.SetButtonInteractable(this.sortieDetailsButton, false);
+                    CanvasWidgetUtils.EnableWidgets(this.sortieDetailsPanelWidgets, true);
+                }
+            }
         }
 
-        private ICanvasWidget BuildBackground()
+        private ISet<ICanvasWidget> BuildBackgrounds()
         {
-            return ImageWidgetImpl.Builder.Get()
-                .SetSpriteID(SpriteID.SquareBordered)
-                .SetColorID(ColorID.Blue)
-                .SetCanvasLevel(0)
-                .SetInteractable(false)
-                .SetEnabled(true)
-                .SetWidgetGridSpec(new CanvasGridSpecImpl()
-                    .SetCanvasGridCoords(Vector2.Zero)
-                    .SetCanvasGridSize(this.canvasGridConvertor.GetGridSize()))
-                .SetParent(this)
-                .SetName(this.mvcType + ":BackImage")
-                .Build();
-        }
-
-        private ICanvasWidget BuildDetailsBackground()
-        {
-            return ImageWidgetImpl.Builder.Get()
-                .SetSpriteID(SpriteID.SquareBordered)
-                .SetColorID(ColorID.Blue)
-                .SetCanvasLevel(0)
-                .SetInteractable(false)
-                .SetEnabled(true)
-                .SetWidgetGridSpec(new CanvasGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(this.canvasGridConvertor.GetGridSize().X / 4, 0))
-                    .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X * 3 / 4,
-                        this.canvasGridConvertor.GetGridSize().Y - 1)))
-                .SetParent(this)
-                .SetName(this.mvcType + ":DetailsBackImage")
-                .Build();
-        }
-
-        private ISet<ICanvasWidget> BuildHeader()
-        {
-            int widgetHeight = 1;
-            IWidgetGridSpec widgetGridSpec = new CanvasGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(0, this.canvasGridConvertor.GetGridSize().Y - widgetHeight))
-                    .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X / 2, widgetHeight));
-            return new HashSet<ICanvasWidget>
+            int widgetHeight = (int)(this.canvasGridConvertor.GetGridSize().Y - 1);
+            float panelWidth = this.canvasGridConvertor.GetGridSize().X * 3 / 4;
+            float buttonWidth = this.canvasGridConvertor.GetGridSize().X / 4;
+            return new HashSet<ICanvasWidget>()
             {
                 ImageWidgetImpl.Builder.Get()
                     .SetSpriteID(SpriteID.SquareBordered)
-                    .SetColorID(ColorID.Red)
-                    .SetCanvasLevel(1)
+                    .SetColorID(ColorID.Blue)
+                    .SetCanvasLevel(0)
                     .SetInteractable(false)
                     .SetEnabled(true)
-                    .SetWidgetGridSpec(widgetGridSpec)
+                    .SetWidgetGridSpec(new CanvasGridSpecImpl()
+                        .SetCanvasGridCoords(new Vector2(0, 0))
+                        .SetCanvasGridSize(new Vector2(buttonWidth, widgetHeight)))
                     .SetParent(this)
-                    .SetName(this.mvcType + ":HeaderImage")
+                    .SetName(this.mvcType + ":Background:Button:Image")
                     .Build(),
-                TextWidgetImpl.Builder.Get()
-                    .SetText(this.mvcType.ToString())
-                    .SetFont(FontID.Arial)
-                    .SetColor(ColorID.White)
-                    .SetAlign(AlignType.MiddleCenter)
-                    .SetBestFit(true, 25, 100)
-                    .SetCanvasLevel(1)
-                    .SetInteractable(false)
-                    .SetEnabled(true)
-                    .SetWidgetGridSpec(widgetGridSpec)
-                    .SetParent(this)
-                    .SetName(this.mvcType + ":HeaderText")
-                    .Build()
-                };
-        }
-
-        private ISet<ICanvasWidget> BuildMapDetailsButton()
-        {
-            int widgetHeight = 1;
-            IWidgetGridSpec widgetGridSpec = new CanvasGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(0, this.canvasGridConvertor.GetGridSize().Y - widgetHeight - 1))
-                    .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X / 4, 1));
-            return new HashSet<ICanvasWidget>
-            {
                 ImageWidgetImpl.Builder.Get()
                     .SetSpriteID(SpriteID.SquareBordered)
-                    .SetColorID(ColorID.Red)
-                    .SetCanvasLevel(1)
-                    .SetInteractable(true)
-                    .SetEnabled(true)
-                    .SetWidgetGridSpec(widgetGridSpec)
-                    .SetParent(this)
-                    .SetName(this.mvcType + ":" + QSortieRequestType.MapDetails + "Image")
-                    .Build(),
-                TextWidgetImpl.Builder.Get()
-                    .SetText(QSortieRequestType.MapDetails.ToString())
-                    .SetFont(FontID.Arial)
-                    .SetColor(ColorID.White)
-                    .SetAlign(AlignType.MiddleCenter)
-                    .SetBestFit(true, 25, 100)
-                    .SetCanvasLevel(1)
+                    .SetColorID(ColorID.Blue)
+                    .SetCanvasLevel(0)
                     .SetInteractable(false)
                     .SetEnabled(true)
-                    .SetWidgetGridSpec(widgetGridSpec)
+                    .SetWidgetGridSpec(new CanvasGridSpecImpl()
+                        .SetCanvasGridCoords(new Vector2(buttonWidth, 0))
+                        .SetCanvasGridSize(new Vector2(panelWidth, widgetHeight)))
                     .SetParent(this)
-                    .SetName(this.mvcType + ":" + QSortieRequestType.MapDetails + "Text")
+                    .SetName(this.mvcType + ":Background:Panel:Image")
                     .Build()
             };
         }
@@ -149,31 +149,32 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Views.Canv
             IWidgetGridSpec widgetGridSpec = new CanvasGridSpecImpl()
                     .SetCanvasGridCoords(new Vector2(0, this.canvasGridConvertor.GetGridSize().Y - widgetHeight - 2))
                     .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X / 4, 1));
+            this.combatantDetailsButton = ImageWidgetImpl.Builder.Get()
+                    .SetSpriteID(SpriteID.SquareBordered)
+                    .SetColorID(ColorID.Red)
+                    .SetCanvasLevel(1)
+                    .SetInteractable(true)
+                    .SetEnabled(true)
+                    .SetWidgetGridSpec(widgetGridSpec)
+                    .SetParent(this)
+                    .SetName(this.mvcType + ":" + QSortieRequestType.CombatantDetails + ":Button:Image")
+                    .Build();
             return new HashSet<ICanvasWidget>
             {
-                ImageWidgetImpl.Builder.Get()
-                .SetSpriteID(SpriteID.SquareBordered)
-                .SetColorID(ColorID.Red)
-                .SetCanvasLevel(1)
-                .SetInteractable(true)
-                .SetEnabled(true)
-                .SetWidgetGridSpec(widgetGridSpec)
-                .SetParent(this)
-                .SetName(this.mvcType + ":" + QSortieRequestType.CombatantDetails + "Image")
-                .Build(),
+                this.combatantDetailsButton,
                 TextWidgetImpl.Builder.Get()
-                .SetText(QSortieRequestType.CombatantDetails.ToString())
-                .SetFont(FontID.Arial)
-                .SetColor(ColorID.White)
-                .SetAlign(AlignType.MiddleCenter)
-                .SetBestFit(true, 25, 100)
-                .SetCanvasLevel(1)
-                .SetInteractable(false)
-                .SetEnabled(true)
-                .SetWidgetGridSpec(widgetGridSpec)
-                .SetParent(this)
-                .SetName(this.mvcType + ":" + QSortieRequestType.CombatantDetails + "Text")
-                .Build()
+                    .SetText(QSortieRequestType.CombatantDetails.ToString())
+                    .SetFont(FontID.Arial)
+                    .SetColor(ColorID.White)
+                    .SetAlign(AlignType.MiddleCenter)
+                    .SetBestFit(true, 25, 100)
+                    .SetCanvasLevel(1)
+                    .SetInteractable(false)
+                    .SetEnabled(true)
+                    .SetWidgetGridSpec(widgetGridSpec)
+                    .SetParent(this)
+                    .SetName(this.mvcType + ":" + QSortieRequestType.CombatantDetails + ":Button:Text")
+                    .Build()
             };
         }
 
@@ -181,20 +182,21 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Views.Canv
         {
             int widgetHeight = 1;
             IWidgetGridSpec widgetGridSpec = new CanvasGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(0, 0))
+                    .SetCanvasGridCoords(new Vector2(0, this.canvasGridConvertor.GetGridSize().Y - widgetHeight - 3))
                     .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X / 4, widgetHeight));
-            return new HashSet<ICanvasWidget>
-            {
-                ImageWidgetImpl.Builder.Get()
+            this.sortieDetailsButton = ImageWidgetImpl.Builder.Get()
                     .SetSpriteID(SpriteID.SquareBordered)
-                    .SetColorID(ColorID.Red)
+                    .SetColorID(ColorID.Gray)
                     .SetCanvasLevel(1)
-                    .SetInteractable(true)
+                    .SetInteractable(false)
                     .SetEnabled(true)
                     .SetWidgetGridSpec(widgetGridSpec)
                     .SetParent(this)
-                    .SetName(this.mvcType + ":" + QSortieRequestType.SortieDetails + "Image")
-                    .Build(),
+                    .SetName(this.mvcType + ":" + QSortieRequestType.SortieDetails + ":Button:Image")
+                    .Build();
+            return new HashSet<ICanvasWidget>
+            {
+                this.sortieDetailsButton,
                 TextWidgetImpl.Builder.Get()
                     .SetText(QSortieRequestType.SortieDetails.ToString())
                     .SetFont(FontID.Arial)
@@ -206,41 +208,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Views.Canv
                     .SetEnabled(true)
                     .SetWidgetGridSpec(widgetGridSpec)
                     .SetParent(this)
-                    .SetName(this.mvcType + ":" + QSortieRequestType.SortieDetails + "Text")
-                    .Build()
-            };
-        }
-
-        private ISet<ICanvasWidget> BuildSortieDetailsPanel()
-        {
-            int widgetHeight = 1;
-            IWidgetGridSpec widgetGridSpec = new CanvasGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(0, 0))
-                    .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X / 4, widgetHeight));
-            return new HashSet<ICanvasWidget>
-            {
-                ImageWidgetImpl.Builder.Get()
-                    .SetSpriteID(SpriteID.SquareBordered)
-                    .SetColorID(ColorID.Red)
-                    .SetCanvasLevel(1)
-                    .SetInteractable(true)
-                    .SetEnabled(true)
-                    .SetWidgetGridSpec(widgetGridSpec)
-                    .SetParent(this)
-                    .SetName(this.mvcType + ":" + QSortieRequestType.SortieDetails + "Image")
-                    .Build(),
-                TextWidgetImpl.Builder.Get()
-                    .SetText(QSortieRequestType.SortieDetails.ToString())
-                    .SetFont(FontID.Arial)
-                    .SetColor(ColorID.White)
-                    .SetAlign(AlignType.MiddleCenter)
-                    .SetBestFit(true, 25, 100)
-                    .SetCanvasLevel(1)
-                    .SetInteractable(false)
-                    .SetEnabled(true)
-                    .SetWidgetGridSpec(widgetGridSpec)
-                    .SetParent(this)
-                    .SetName(this.mvcType + ":" + QSortieRequestType.SortieDetails + "Text")
+                    .SetName(this.mvcType + ":" + QSortieRequestType.SortieDetails + ":Button:Text")
                     .Build()
             };
         }
@@ -249,7 +217,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Views.Canv
         {
             int widgetHeight = 1;
             IWidgetGridSpec widgetGridSpec = new CanvasGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(this.canvasGridConvertor.GetGridSize().X * 3 / 4, 0))
+                    .SetCanvasGridCoords(new Vector2(0, 0))
                     .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X / 4, widgetHeight));
             return new HashSet<ICanvasWidget>
             {
@@ -261,7 +229,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Views.Canv
                     .SetEnabled(true)
                     .SetWidgetGridSpec(widgetGridSpec)
                     .SetParent(this)
-                    .SetName(this.mvcType + ":" + QSortieRequestType.SortieStart + "Image")
+                    .SetName(this.mvcType + ":" + QSortieRequestType.SortieStart + ":Button:Image")
                     .Build(),
                 TextWidgetImpl.Builder.Get()
                     .SetText(QSortieRequestType.SortieStart.ToString())
@@ -274,7 +242,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Views.Canv
                     .SetEnabled(true)
                     .SetWidgetGridSpec(widgetGridSpec)
                     .SetParent(this)
-                    .SetName(this.mvcType + ":" + QSortieRequestType.SortieStart + "Text")
+                    .SetName(this.mvcType + ":" + QSortieRequestType.SortieStart + ":Button:Text")
                     .Build()
             };
         }
@@ -312,7 +280,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Views.Canv
                 {
                     IMvcViewCanvas mvcViewCanvas = gameObject.AddComponent<QSortieMenuViewCanvasImpl>();
                     this.ApplyMvcViewValues((AbstractMvcViewCanvas)mvcViewCanvas);
-                    mvcViewCanvas.Build();
+                    mvcViewCanvas.InitialBuild();
                     return mvcViewCanvas;
                 }
             }

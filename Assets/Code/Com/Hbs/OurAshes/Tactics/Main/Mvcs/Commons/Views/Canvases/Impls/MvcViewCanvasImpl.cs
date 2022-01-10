@@ -1,4 +1,5 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abstrs;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
@@ -16,28 +17,15 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
     public class MvcViewCanvasImpl
         : AbstractMvcViewCanvas, IMvcViewCanvas
     {
-        /// <inheritdoc/>
-        protected override ISet<ICanvasWidget> InternalBuild()
+        public override void InitialBuild()
         {
-            ISet<ICanvasWidget> canvasWidgets = new HashSet<ICanvasWidget>();
-            this.BuildBackground();
-            return canvasWidgets;
+            this.AddWidget(this.BuildBackground());
         }
 
-        private void BuildBackground()
+        /// <inheritdoc/>
+        public override void Process(IMvcModelState mvcModelState)
         {
-            this.AddWidget(ImageWidgetImpl.Builder.Get()
-                .SetSpriteID(SpriteID.SquareBorderless)
-                .SetColorID(ColorID.Red)
-                .SetCanvasLevel(0)
-                .SetInteractable(false)
-                .SetEnabled(true)
-                .SetWidgetGridSpec(new CanvasGridSpecImpl()
-                    .SetCanvasGridCoords(Vector2.Zero)
-                    .SetCanvasGridSize(this.canvasGridConvertor.GetGridSize()))
-                .SetParent(this)
-                .SetName(typeof(ImageWidgetImpl).Name + ":Back")
-                .Build());
+            // Do nothing
         }
 
         /// <summary>
@@ -73,7 +61,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                 {
                     IMvcViewCanvas mvcViewCanvas = gameObject.AddComponent<MvcViewCanvasImpl>();
                     this.ApplyMvcViewValues((AbstractMvcViewCanvas)mvcViewCanvas);
-                    mvcViewCanvas.Build();
+                    mvcViewCanvas.InitialBuild();
                     return mvcViewCanvas;
                 }
             }

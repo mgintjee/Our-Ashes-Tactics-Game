@@ -123,6 +123,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             this.GetRectTransform().anchoredPosition = new UnityEngine.Vector2(worldCoords.X, worldCoords.Y);
         }
 
+        bool ICanvasWidget.GetEnabled()
+        {
+            return this.isEnabled;
+        }
+
         /// <summary>
         /// Todo
         /// </summary>

@@ -16,18 +16,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <summary>
         /// Todo
         /// </summary>
-        void Clear();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        void Build();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
         /// <param name="mvcModelState"></param>
         void Process(IMvcModelState mvcModelState);
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        void InitialBuild();
 
         /// <summary>
         /// Todo

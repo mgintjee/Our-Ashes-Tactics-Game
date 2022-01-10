@@ -5,12 +5,19 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Obj
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.Aligns;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Canvases.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Canvases.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Sprites.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Utils;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
 using System.Collections.Generic;
 using System.Numerics;
@@ -49,34 +56,67 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             this.canvasGridConvertor = new CanvasGridConvertorImpl(gridSize, worldSize);
         }
 
-        /// <inheritdoc/>
-        void IMvcViewCanvas.Build()
+        protected ICanvasWidget BuildBackground()
         {
-            logger.Info("Building associated widgets within gridSize: {}",
-                this.canvasGridConvertor.GetGridSize());
-            ((IMvcViewCanvas)this).Clear();
-            foreach (ICanvasWidget canvasWidget in this.InternalBuild())
-            {
-                this.AddWidget(canvasWidget);
-            }
+            return ImageWidgetImpl.Builder.Get()
+                .SetSpriteID(SpriteID.SquareBordered)
+                .SetColorID(ColorID.Blue)
+                .SetCanvasLevel(0)
+                .SetInteractable(false)
+                .SetEnabled(true)
+                .SetWidgetGridSpec(new CanvasGridSpecImpl()
+                    .SetCanvasGridCoords(Vector2.Zero)
+                    .SetCanvasGridSize(new Vector2(
+                        this.canvasGridConvertor.GetGridSize().X,
+                        this.canvasGridConvertor.GetGridSize().Y - 1)))
+                .SetParent(this)
+                .SetName(this.mvcType + ":Background:Image")
+                .Build();
         }
-
-        /// <inheritdoc/>
-        void IMvcViewCanvas.Clear()
+        protected ISet<ICanvasWidget> BuildHeader()
         {
-            foreach (int canvasLevel in this.canvasLevelWidgets.Keys)
+            int headerHeight = 1;
+            IWidgetGridSpec widgetGridSpec = new CanvasGridSpecImpl()
+                    .SetCanvasGridCoords(new Vector2(0, this.canvasGridConvertor.GetGridSize().Y - headerHeight))
+                    .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X / 2, headerHeight));
+            return new HashSet<ICanvasWidget>
             {
-                foreach (ICanvasWidget canvasWidget in this.canvasLevelWidgets[canvasLevel])
-                {
-                    canvasWidget.Destroy();
-                }
-            }
-            this.canvasLevelWidgets.Clear();
-        }
-
-        /// <inheritdoc/>
-        void IMvcViewCanvas.Process(IMvcModelState mvcModelState)
-        {
+                ImageWidgetImpl.Builder.Get()
+                    .SetSpriteID(SpriteID.SquareBordered)
+                    .SetColorID(ColorID.Blue)
+                    .SetCanvasLevel(1)
+                    .SetInteractable(false)
+                    .SetEnabled(true)
+                    .SetWidgetGridSpec(new CanvasGridSpecImpl()
+                        .SetCanvasGridCoords(new Vector2(0, this.canvasGridConvertor.GetGridSize().Y - headerHeight))
+                        .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X, headerHeight)))
+                    .SetParent(this)
+                    .SetName(this.mvcType + ":Header:BackImage")
+                    .Build(),
+                ImageWidgetImpl.Builder.Get()
+                    .SetSpriteID(SpriteID.SquareBordered)
+                    .SetColorID(ColorID.Red)
+                    .SetCanvasLevel(1)
+                    .SetInteractable(false)
+                    .SetEnabled(true)
+                    .SetWidgetGridSpec(widgetGridSpec)
+                    .SetParent(this)
+                    .SetName(this.mvcType + ":Header:FrontImage")
+                    .Build(),
+                TextWidgetImpl.Builder.Get()
+                    .SetText(this.mvcType.ToString())
+                    .SetFont(FontID.Arial)
+                    .SetColor(ColorID.White)
+                    .SetAlign(AlignType.MiddleCenter)
+                    .SetBestFit(true, 25, 100)
+                    .SetCanvasLevel(1)
+                    .SetInteractable(false)
+                    .SetEnabled(true)
+                    .SetWidgetGridSpec(widgetGridSpec)
+                    .SetParent(this)
+                    .SetName(this.mvcType + ":Header:Text")
+                    .Build()
+                };
         }
 
         /// <inheritdoc/>
@@ -103,40 +143,15 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             logger.Info("Adding {}:{}", widget.GetType(), widget.GetName());
             CanvasWidgetUtils.AddWidget(this.canvasGridConvertor, this.canvasLevelWidgets, widget);
         }
-
-        protected abstract ISet<ICanvasWidget> InternalBuild();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="mvcControlInput"></param>
-        /// <param name="canvasWidget">   </param>
-        /// <returns></returns>
-        private bool IsInputOnWidget(IMvcControlInput mvcControlInput, ICanvasWidget canvasWidget)
+        protected void AddWidgets(ICollection<ICanvasWidget> widgets)
         {
-            switch (mvcControlInput.GetMvcControlInputType())
+            foreach(ICanvasWidget canvasWidget in widgets)
             {
-                case MvcControlInputType.Click:
-                    Vector2 clickPixelCoords = ((IMvcControlInputClick)mvcControlInput).GetWorldCoords();
-                    Vector2 canvasWorldSize = this.canvasGridConvertor.GetWorldSize();
-                    Vector2 clickWorldCoords = new Vector2(clickPixelCoords.X - canvasWorldSize.X / 2,
-                        clickPixelCoords.Y - canvasWorldSize.Y / 2);
-                    Vector2 widgetWorldCoords = canvasWidget.GetWidgetWorldSpec().GetWorldCoords();
-                    Vector2 widgetWorldSize = canvasWidget.GetWidgetWorldSpec().GetWorldSize();
-                    logger.Debug("Checking Input location on {} : " +
-                        "\nC-PixelCoords: {}, C-WorldCoords: {}, " +
-                        "\nW-WorldCoords: {}, W-WorldSize: {}",
-                        canvasWidget.GetName(), clickPixelCoords, clickWorldCoords,
-                        widgetWorldCoords, widgetWorldSize);
-                    return clickWorldCoords.X >= widgetWorldCoords.X - widgetWorldSize.X / 2 &&
-                        clickWorldCoords.X <= widgetWorldCoords.X + widgetWorldSize.X / 2 &&
-                        clickWorldCoords.Y >= widgetWorldCoords.Y - widgetWorldSize.Y / 2 &&
-                        clickWorldCoords.Y <= widgetWorldCoords.Y + widgetWorldSize.Y / 2;
-
-                default:
-                    return false;
+                this.AddWidget(canvasWidget);
             }
         }
+        public abstract void Process(IMvcModelState mvcModelState);
+        public abstract void InitialBuild();
 
         /// <summary>
         /// Todo

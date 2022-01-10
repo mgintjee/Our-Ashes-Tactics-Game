@@ -1,9 +1,9 @@
-﻿namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.CallSigns
+﻿namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.CallSigns
 {
     /// <summary>
     /// Todo
     /// </summary>
-    public enum CombatantCallSign
+    public enum CallSign
     {
         None,
         Alpha,

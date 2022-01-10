@@ -1,4 +1,5 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abstrs;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.Aligns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.IDs;
@@ -19,68 +20,22 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.SplashScreens.Views.Can
     public class SplashScreenViewCanvasImpl
         : AbstractMvcViewCanvas, IMvcViewCanvas
     {
-        /// <inheritdoc/>
-        protected override ISet<ICanvasWidget> InternalBuild()
+        public override void InitialBuild()
         {
-            ISet<ICanvasWidget> canvasWidgets = new HashSet<ICanvasWidget>
+            ICanvasWidget backgrounWidget = this.BuildBackground();
+            backgrounWidget.SetInteractable(true);
+            List<ICanvasWidget> canvasWidgets = new List<ICanvasWidget>
             {
-                this.BuildBackground(),
+                backgrounWidget,
                 this.BuildSubheader()
             };
-            foreach (ICanvasWidget canvasWidget in this.BuildHeader())
-            {
-                canvasWidgets.Add(canvasWidget);
-            }
-            return canvasWidgets;
+            canvasWidgets.AddRange(this.BuildHeader());
+            this.AddWidgets(canvasWidgets);
         }
 
-        private ICanvasWidget BuildBackground()
+        public override void Process(IMvcModelState mvcModelState)
         {
-            return ImageWidgetImpl.Builder.Get()
-                .SetSpriteID(SpriteID.SquareBorderless)
-                .SetColorID(ColorID.Blue)
-                .SetCanvasLevel(1)
-                .SetInteractable(true)
-                .SetEnabled(true)
-                .SetWidgetGridSpec(new CanvasGridSpecImpl()
-                    .SetCanvasGridCoords(Vector2.Zero)
-                    .SetCanvasGridSize(this.canvasGridConvertor.GetGridSize()))
-                .SetParent(this)
-                .SetName(this.mvcType + ":Background")
-                .Build();
-        }
-
-        private ISet<ICanvasWidget> BuildHeader()
-        {
-            IWidgetGridSpec widgetGridSpec = new CanvasGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(0, 3))
-                    .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X, 3));
-            return new HashSet<ICanvasWidget>
-            {
-                ImageWidgetImpl.Builder.Get()
-                    .SetSpriteID(SpriteID.SquareBorderless)
-                    .SetColorID(ColorID.Yellow)
-                    .SetCanvasLevel(1)
-                    .SetInteractable(false)
-                    .SetEnabled(true)
-                    .SetWidgetGridSpec(widgetGridSpec)
-                    .SetParent(this)
-                    .SetName(this.mvcType + ":HeaderImage")
-                    .Build(),
-                TextWidgetImpl.Builder.Get()
-                    .SetText("Our Ashes\n Tactics")
-                    .SetFont(FontID.Arial)
-                    .SetColor(ColorID.Black)
-                    .SetAlign(AlignType.MiddleCenter)
-                    .SetBestFit(true, 10, 200)
-                    .SetCanvasLevel(1)
-                    .SetInteractable(false)
-                    .SetEnabled(true)
-                    .SetWidgetGridSpec(widgetGridSpec)
-                    .SetParent(this)
-                    .SetName(this.mvcType + ":HeaderText")
-                    .Build()
-            }; ;
+            throw new System.NotImplementedException();
         }
 
         private ICanvasWidget BuildSubheader()
@@ -135,7 +90,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.SplashScreens.Views.Can
                 {
                     IMvcViewCanvas mvcViewCanvas = gameObject.AddComponent<SplashScreenViewCanvasImpl>();
                     this.ApplyMvcViewValues((AbstractMvcViewCanvas)mvcViewCanvas);
-                    mvcViewCanvas.Build();
+                    mvcViewCanvas.InitialBuild();
                     return mvcViewCanvas;
                 }
             }

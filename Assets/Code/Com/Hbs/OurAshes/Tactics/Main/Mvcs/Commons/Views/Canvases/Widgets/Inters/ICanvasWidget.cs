@@ -21,6 +21,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         ICanvasWorldSpec GetWidgetWorldSpec();
 
         bool GetInteractable();
+        bool GetEnabled();
 
         int GetCanvasLevel();
 
