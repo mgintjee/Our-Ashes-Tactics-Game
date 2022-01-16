@@ -23,7 +23,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Impls
     /// </summary>
     public class MvcManager : IMvcManager
     {
-        // Todo
+        // Provides logging capability
         private readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Manager)
             .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 

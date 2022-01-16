@@ -34,8 +34,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Models.Imp
             ((MvcModelStateImpl)this.mvcModelState)
                 .SetMvcRequests(new HashSet<IMvcRequest>
                     {
-                        new QSortieMenuRequestImpl().SetQSortieRequestType(QSortieRequestType.CombatantDetails),
-                        new QSortieMenuRequestImpl().SetQSortieRequestType(QSortieRequestType.MapDetails)
+                        new QSortieMenuRequestImpl().SetQSortieRequestType(QSortieMenuRequestType.CombatantDetails),
+                        new QSortieMenuRequestImpl().SetQSortieRequestType(QSortieMenuRequestType.SortieDetails),
+                        new QSortieMenuRequestImpl().SetQSortieRequestType(QSortieMenuRequestType.PhalanxDetails),
+                        new QSortieMenuRequestImpl().SetQSortieRequestType(QSortieMenuRequestType.SortieDetails),
+                        new QSortieMenuRequestImpl().SetQSortieRequestType(QSortieMenuRequestType.MapDetails)
                     });
             return this.mvcModelState;
         }
@@ -47,7 +50,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Models.Imp
         /// <returns></returns>
         protected override IMvcModelState ProcessMvcModelRequest(IMvcRequest mvcModelRequest)
         {
-            _isProcessing = false;
             return this.mvcModelState;
         }
     }

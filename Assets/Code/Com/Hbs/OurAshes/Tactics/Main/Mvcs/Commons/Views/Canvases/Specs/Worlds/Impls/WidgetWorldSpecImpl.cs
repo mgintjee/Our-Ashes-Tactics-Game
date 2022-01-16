@@ -6,8 +6,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
     /// <summary>
     /// Todo
     /// </summary>
-    public class CanvasWorldSpecImpl
-        : ICanvasWorldSpec
+    public class WidgetWorldSpecImpl
+        : IWidgetWorldSpec
     {
         // Todo
         private Vector2 worldSize;
@@ -18,7 +18,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <summary>
         /// Todo
         /// </summary>
-        public CanvasWorldSpecImpl()
+        public WidgetWorldSpecImpl()
         {
         }
 
@@ -29,26 +29,26 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                 this.GetType().Name, this.worldSize, this.worldCoords);
         }
 
-        public CanvasWorldSpecImpl SetCanvasWorldSize(Vector2 worldSize)
+        public WidgetWorldSpecImpl SetCanvasWorldSize(Vector2 worldSize)
         {
             this.worldSize = worldSize;
             return this;
         }
 
-        public CanvasWorldSpecImpl SetCanvasWorldCoords(Vector2 worldCoords)
+        public WidgetWorldSpecImpl SetCanvasWorldCoords(Vector2 worldCoords)
         {
             this.worldCoords = worldCoords;
             return this;
         }
 
         /// <inheritdoc/>
-        Vector2 ICanvasWorldSpec.GetWorldCoords()
+        Vector2 IWidgetWorldSpec.GetWorldCoords()
         {
             return this.worldCoords;
         }
 
         /// <inheritdoc/>
-        Vector2 ICanvasWorldSpec.GetWorldSize()
+        Vector2 IWidgetWorldSpec.GetWorldSize()
         {
             return this.worldSize;
         }

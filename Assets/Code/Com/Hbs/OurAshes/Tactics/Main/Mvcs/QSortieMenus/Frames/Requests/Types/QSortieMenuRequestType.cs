@@ -3,13 +3,13 @@
     /// <summary>
     /// Todo
     /// </summary>
-    public enum QSortieRequestType
+    public enum QSortieMenuRequestType
     {
         None,
         MapDetails,
         CombatantDetails,
+        PhalanxDetails,
         SortieDetails,
-        StartSortie,
         SortieStart
     }
 }

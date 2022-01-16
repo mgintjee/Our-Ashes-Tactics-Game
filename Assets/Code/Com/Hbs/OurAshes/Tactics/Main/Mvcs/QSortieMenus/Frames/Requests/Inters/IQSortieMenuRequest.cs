@@ -13,6 +13,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Frames.Req
         /// Todo
         /// </summary>
         /// <returns></returns>
-        QSortieRequestType GetQSortieRequestType();
+        QSortieMenuRequestType GetQSortieRequestType();
     }
 }

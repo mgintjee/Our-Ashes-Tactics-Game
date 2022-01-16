@@ -5,7 +5,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
     /// <summary>
     /// Todo
     /// </summary>
-    public interface ICanvasWorldSpec
+    public interface IWidgetWorldSpec
     {
         Vector2 GetWorldSize();
 

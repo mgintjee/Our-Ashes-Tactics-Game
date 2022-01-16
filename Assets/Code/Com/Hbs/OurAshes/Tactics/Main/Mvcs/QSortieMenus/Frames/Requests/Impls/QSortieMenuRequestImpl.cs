@@ -10,20 +10,20 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Frames.Req
         : IQSortieMenuRequest
     {
         // Todo
-        private QSortieRequestType qSortieRequestType = QSortieRequestType.None;
+        private QSortieMenuRequestType qSortieRequestType = QSortieMenuRequestType.None;
 
         /// <summary>
         /// Todo
         /// </summary>
         /// <param name="qSortieRequestType"></param>
-        public IQSortieMenuRequest SetQSortieRequestType(QSortieRequestType qSortieRequestType)
+        public IQSortieMenuRequest SetQSortieRequestType(QSortieMenuRequestType qSortieRequestType)
         {
             this.qSortieRequestType = qSortieRequestType;
             return this;
         }
 
         /// <inheritdoc/>
-        QSortieRequestType IQSortieMenuRequest.GetQSortieRequestType()
+        QSortieMenuRequestType IQSortieMenuRequest.GetQSortieRequestType()
         {
             return this.qSortieRequestType;
         }

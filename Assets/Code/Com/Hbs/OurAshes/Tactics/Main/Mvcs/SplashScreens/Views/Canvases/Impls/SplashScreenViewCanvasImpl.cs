@@ -1,12 +1,9 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abstrs;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.Aligns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Sprites.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
 using System.Collections.Generic;
@@ -33,11 +30,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.SplashScreens.Views.Can
             this.AddWidgets(canvasWidgets);
         }
 
-        public override void Process(IMvcModelState mvcModelState)
-        {
-            throw new System.NotImplementedException();
-        }
-
         private ICanvasWidget BuildSubheader()
         {
             return TextWidgetImpl.Builder.Get()
@@ -46,10 +38,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.SplashScreens.Views.Can
                 .SetColor(ColorID.White)
                 .SetAlign(AlignType.MiddleCenter)
                 .SetBestFit(true, 13, 50)
+                .SetMvcType(this.mvcType)
                 .SetCanvasLevel(1)
                 .SetInteractable(false)
                 .SetEnabled(true)
-                .SetWidgetGridSpec(new CanvasGridSpecImpl()
+                .SetWidgetGridSpec(new WidgetGridSpecImpl()
                     .SetCanvasGridCoords(new Vector2(3, 1))
                     .SetCanvasGridSize(new Vector2(3, 1)))
                 .SetParent(this)

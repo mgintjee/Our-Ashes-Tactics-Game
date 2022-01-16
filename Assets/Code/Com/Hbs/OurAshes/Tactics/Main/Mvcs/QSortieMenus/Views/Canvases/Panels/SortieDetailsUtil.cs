@@ -18,28 +18,28 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Views.Canv
     /// <summary>
     /// Todo
     /// </summary>
-    public class MapDetailsUtil
+    public class SortieDetailsUtil
     {
         private static readonly int BUTTON_HEIGHT = 1;
-        private static readonly int BUTTON_Y_OFFSET = 1 * BUTTON_HEIGHT;
+        private static readonly int BUTTON_Y_OFFSET = 4 * BUTTON_HEIGHT;
 
         public static ICanvasWidget BuildButtonText(ICanvasGridConvertor canvasGridConvertor, IMvcViewCanvas mvcViewCanvas)
         {
             return TextWidgetImpl.Builder.Get()
-                .SetText(QSortieRequestType.MapDetails.ToString())
+                .SetText(QSortieMenuRequestType.MapDetails.ToString())
                 .SetFont(FontID.Arial)
                 .SetColor(ColorID.White)
                 .SetAlign(AlignType.MiddleCenter)
                 .SetBestFit(true, 25, 100)
+                .SetMvcType(MvcType.QSortieMenu)
                 .SetCanvasLevel(1)
                 .SetInteractable(false)
                 .SetEnabled(true)
-                .SetWidgetGridSpec(new CanvasGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(0,
-                        canvasGridConvertor.GetGridSize().Y - BUTTON_HEIGHT - BUTTON_Y_OFFSET))
+                .SetWidgetGridSpec(new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(new Vector2(0, canvasGridConvertor.GetGridSize().Y - BUTTON_HEIGHT - BUTTON_Y_OFFSET))
                     .SetCanvasGridSize(new Vector2(canvasGridConvertor.GetGridSize().X / 4, 1)))
                 .SetParent(mvcViewCanvas)
-                .SetName(MvcType.QSortieMenu + ":" + QSortieRequestType.MapDetails + ":Button:Text")
+                .SetName(MvcType.QSortieMenu + ":" + QSortieMenuRequestType.SortieDetails + ":Button:Text")
                 .Build();
         }
 
@@ -48,15 +48,15 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Views.Canv
             return ImageWidgetImpl.Builder.Get()
                 .SetSpriteID(SpriteID.SquareBordered)
                 .SetColorID(ColorID.Red)
+                .SetMvcType(MvcType.QSortieMenu)
                 .SetCanvasLevel(1)
                 .SetInteractable(true)
                 .SetEnabled(true)
-                .SetWidgetGridSpec(new CanvasGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(0,
-                        canvasGridConvertor.GetGridSize().Y - BUTTON_HEIGHT - BUTTON_Y_OFFSET))
+                .SetWidgetGridSpec(new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(new Vector2(0, canvasGridConvertor.GetGridSize().Y - BUTTON_HEIGHT - BUTTON_Y_OFFSET))
                     .SetCanvasGridSize(new Vector2(canvasGridConvertor.GetGridSize().X / 4, 1)))
                 .SetParent(mvcViewCanvas)
-                .SetName(MvcType.QSortieMenu + ":" + QSortieRequestType.MapDetails + ":Button:Image")
+                .SetName(MvcType.QSortieMenu + ":" + QSortieMenuRequestType.SortieDetails + ":Button:Image")
                 .Build();
         }
 
@@ -70,15 +70,16 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Views.Canv
                 ImageWidgetImpl.Builder.Get()
                     .SetSpriteID(SpriteID.RoundSquareBordered)
                     .SetColorID(ColorID.Red)
+                .SetMvcType(MvcType.QSortieMenu)
                     .SetCanvasLevel(1)
                     .SetInteractable(false)
                     .SetEnabled(true)
-                    .SetWidgetGridSpec(new CanvasGridSpecImpl()
+                    .SetWidgetGridSpec(new WidgetGridSpecImpl()
                         .SetCanvasGridCoords(new Vector2(widgetWidth,
                             canvasGridConvertor.GetGridSize().Y - 1 - widgetHeight))
                         .SetCanvasGridSize(widgetGridSize))
                     .SetParent(mvcViewCanvas)
-                    .SetName(MvcType.QSortieMenu + ":" + QSortieRequestType.SortieDetails + ":Panel:Field:ID:Image")
+                    .SetName(MvcType.QSortieMenu + ":" + QSortieMenuRequestType.SortieDetails + ":Panel:Field:ID:Image")
                     .Build(),
                 TextWidgetImpl.Builder.Get()
                     .SetText(typeof(FieldID).Name  + ":" + FieldID.None.ToString())
@@ -86,28 +87,30 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Views.Canv
                     .SetColor(ColorID.White)
                     .SetAlign(AlignType.MiddleLeft)
                     .SetBestFit(true, 25, 100)
+                .SetMvcType(MvcType.QSortieMenu)
                     .SetCanvasLevel(1)
                     .SetInteractable(false)
                     .SetEnabled(true)
-                    .SetWidgetGridSpec(new CanvasGridSpecImpl()
+                    .SetWidgetGridSpec(new WidgetGridSpecImpl()
                         .SetCanvasGridCoords(new Vector2(widgetWidth,
                             canvasGridConvertor.GetGridSize().Y - 1 - widgetHeight))
                         .SetCanvasGridSize(widgetGridSize))
                     .SetParent(mvcViewCanvas)
-                    .SetName(MvcType.QSortieMenu + ":" + QSortieRequestType.SortieDetails + ":Panel:Field:ID:Text")
+                    .SetName(MvcType.QSortieMenu + ":" + QSortieMenuRequestType.SortieDetails + ":Panel:Field:ID:Text")
                     .Build(),
                 ImageWidgetImpl.Builder.Get()
                     .SetSpriteID(SpriteID.RoundSquareBordered)
                     .SetColorID(ColorID.Red)
                     .SetCanvasLevel(1)
+                .SetMvcType(MvcType.QSortieMenu)
                     .SetInteractable(false)
                     .SetEnabled(true)
-                    .SetWidgetGridSpec(new CanvasGridSpecImpl()
+                    .SetWidgetGridSpec(new WidgetGridSpecImpl()
                         .SetCanvasGridCoords(new Vector2(2*widgetWidth,
                             canvasGridConvertor.GetGridSize().Y - 1 - widgetHeight))
                         .SetCanvasGridSize(widgetGridSize))
                     .SetParent(mvcViewCanvas)
-                    .SetName(MvcType.QSortieMenu + ":" + QSortieRequestType.SortieDetails + ":Panel:Field:Tile:Count:Image")
+                    .SetName(MvcType.QSortieMenu + ":" + QSortieMenuRequestType.SortieDetails + ":Panel:Field:Tile:Count:Image")
                     .Build(),
                 TextWidgetImpl.Builder.Get()
                     .SetText( "Tile#:" + 0)
@@ -115,28 +118,30 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Views.Canv
                     .SetColor(ColorID.White)
                     .SetAlign(AlignType.MiddleLeft)
                     .SetBestFit(true, 25, 100)
+                .SetMvcType(MvcType.QSortieMenu)
                     .SetCanvasLevel(1)
                     .SetInteractable(false)
                     .SetEnabled(true)
-                    .SetWidgetGridSpec(new CanvasGridSpecImpl()
+                    .SetWidgetGridSpec(new WidgetGridSpecImpl()
                         .SetCanvasGridCoords(new Vector2(2*widgetWidth,
                             canvasGridConvertor.GetGridSize().Y - 1 - widgetHeight))
                         .SetCanvasGridSize(widgetGridSize))
                     .SetParent(mvcViewCanvas)
-                    .SetName(MvcType.QSortieMenu + ":" + QSortieRequestType.SortieDetails + ":Panel:Field:Tile:CountD:Text")
+                    .SetName(MvcType.QSortieMenu + ":" + QSortieMenuRequestType.SortieDetails + ":Panel:Field:Tile:CountD:Text")
                     .Build(),
                 ImageWidgetImpl.Builder.Get()
                     .SetSpriteID(SpriteID.RoundSquareBordered)
                     .SetColorID(ColorID.Red)
+                .SetMvcType(MvcType.QSortieMenu)
                     .SetCanvasLevel(1)
                     .SetInteractable(false)
                     .SetEnabled(true)
-                    .SetWidgetGridSpec(new CanvasGridSpecImpl()
+                    .SetWidgetGridSpec(new WidgetGridSpecImpl()
                         .SetCanvasGridCoords(new Vector2(widgetWidth,
                             canvasGridConvertor.GetGridSize().Y - 1 - 2 * widgetHeight))
                         .SetCanvasGridSize(widgetGridSize))
                     .SetParent(mvcViewCanvas)
-                    .SetName(MvcType.QSortieMenu + ":" + QSortieRequestType.SortieDetails + ":Panel:Phalanx:Count:Image")
+                    .SetName(MvcType.QSortieMenu + ":" + QSortieMenuRequestType.SortieDetails + ":Panel:Phalanx:Count:Image")
                     .Build(),
                 TextWidgetImpl.Builder.Get()
                     .SetText("Phalanx#:" + 0)
@@ -144,28 +149,30 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Views.Canv
                     .SetColor(ColorID.White)
                     .SetAlign(AlignType.MiddleLeft)
                     .SetBestFit(true, 25, 100)
+                .SetMvcType(MvcType.QSortieMenu)
                     .SetCanvasLevel(1)
                     .SetInteractable(false)
                     .SetEnabled(true)
-                    .SetWidgetGridSpec(new CanvasGridSpecImpl()
+                    .SetWidgetGridSpec(new WidgetGridSpecImpl()
                         .SetCanvasGridCoords(new Vector2(widgetWidth,
                             canvasGridConvertor.GetGridSize().Y - 1 - 2 * widgetHeight))
                         .SetCanvasGridSize(widgetGridSize))
                     .SetParent(mvcViewCanvas)
-                    .SetName(MvcType.QSortieMenu + ":" + QSortieRequestType.SortieDetails + ":Panel:Phalanx:Count:Text")
+                    .SetName(MvcType.QSortieMenu + ":" + QSortieMenuRequestType.SortieDetails + ":Panel:Phalanx:Count:Text")
                     .Build(),
                 ImageWidgetImpl.Builder.Get()
                     .SetSpriteID(SpriteID.RoundSquareBordered)
                     .SetColorID(ColorID.Red)
+                .SetMvcType(MvcType.QSortieMenu)
                     .SetCanvasLevel(1)
                     .SetInteractable(false)
                     .SetEnabled(true)
-                    .SetWidgetGridSpec(new CanvasGridSpecImpl()
+                    .SetWidgetGridSpec(new WidgetGridSpecImpl()
                         .SetCanvasGridCoords(new Vector2(2*widgetWidth,
                             canvasGridConvertor.GetGridSize().Y - 1 - 2 * widgetHeight))
                         .SetCanvasGridSize(widgetGridSize))
                     .SetParent(mvcViewCanvas)
-                    .SetName(MvcType.QSortieMenu + ":" + QSortieRequestType.SortieDetails + ":Panel:Phalanx:Count:Image")
+                    .SetName(MvcType.QSortieMenu + ":" + QSortieMenuRequestType.SortieDetails + ":Panel:Phalanx:Count:Image")
                     .Build(),
                 TextWidgetImpl.Builder.Get()
                     .SetText("Combatant#:" + 0)
@@ -173,15 +180,16 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Views.Canv
                     .SetColor(ColorID.White)
                     .SetAlign(AlignType.MiddleLeft)
                     .SetBestFit(true, 25, 100)
+                .SetMvcType(MvcType.QSortieMenu)
                     .SetCanvasLevel(1)
                     .SetInteractable(false)
                     .SetEnabled(true)
-                    .SetWidgetGridSpec(new CanvasGridSpecImpl()
+                    .SetWidgetGridSpec(new WidgetGridSpecImpl()
                         .SetCanvasGridCoords(new Vector2(2*widgetWidth,
                             canvasGridConvertor.GetGridSize().Y - 1 - 2 * widgetHeight))
                         .SetCanvasGridSize(widgetGridSize))
                     .SetParent(mvcViewCanvas)
-                    .SetName(MvcType.QSortieMenu + ":" + QSortieRequestType.SortieDetails + ":Panel:Combatant:Count:Text")
+                    .SetName(MvcType.QSortieMenu + ":" + QSortieMenuRequestType.SortieDetails + ":Panel:Combatant:Count:Text")
                     .Build()
             };
         }

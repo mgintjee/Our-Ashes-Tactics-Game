@@ -1,4 +1,5 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Canvases.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
@@ -18,9 +19,16 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
 
         IWidgetGridSpec GetWidgetGridSpec();
 
-        ICanvasWorldSpec GetWidgetWorldSpec();
+        IWidgetWorldSpec GetWidgetWorldSpec();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="mvcModelState"></param>
+        void Process(IMvcModelState mvcModelState);
 
         bool GetInteractable();
+
         bool GetEnabled();
 
         int GetCanvasLevel();

@@ -6,7 +6,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
     /// <summary>
     /// Todo
     /// </summary>
-    public class CanvasGridSpecImpl
+    public class WidgetGridSpecImpl
         : IWidgetGridSpec
     {
         // Todo
@@ -18,7 +18,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <summary>
         /// Todo
         /// </summary>
-        public CanvasGridSpecImpl()
+        public WidgetGridSpecImpl()
         {
         }
 
@@ -29,13 +29,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                 this.GetType().Name, this.gridSize, this.gridCoords);
         }
 
-        public CanvasGridSpecImpl SetCanvasGridSize(Vector2 gridSize)
+        public WidgetGridSpecImpl SetCanvasGridSize(Vector2 gridSize)
         {
             this.gridSize = gridSize;
             return this;
         }
 
-        public CanvasGridSpecImpl SetCanvasGridCoords(Vector2 gridCoords)
+        public WidgetGridSpecImpl SetCanvasGridCoords(Vector2 gridCoords)
         {
             this.gridCoords = gridCoords;
             return this;

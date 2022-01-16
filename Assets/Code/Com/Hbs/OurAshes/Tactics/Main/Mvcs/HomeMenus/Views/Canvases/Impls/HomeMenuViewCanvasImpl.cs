@@ -1,5 +1,4 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abstrs;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.Aligns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.IDs;
@@ -21,9 +20,22 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Views.Canvase
     public class HomeMenuViewCanvasImpl
         : AbstractMvcViewCanvas, IMvcViewCanvas
     {
+        public override void InitialBuild()
+        {
+            List<ICanvasWidget> canvasWidgets = new List<ICanvasWidget>()
+            {
+                this.BuildBackground()
+            };
+            canvasWidgets.AddRange(this.BuildHeader());
+            canvasWidgets.AddRange(this.BuildExitButton());
+            canvasWidgets.AddRange(this.BuildQSortieButton());
+
+            this.AddWidgets(canvasWidgets);
+        }
+
         private ISet<ICanvasWidget> BuildExitButton()
         {
-            IWidgetGridSpec widgetGridSpec = new CanvasGridSpecImpl()
+            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
                     .SetCanvasGridCoords(new Vector2(1, 1))
                     .SetCanvasGridSize(new Vector2(2, 1));
             return new HashSet<ICanvasWidget>
@@ -31,6 +43,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Views.Canvase
                 ImageWidgetImpl.Builder.Get()
                     .SetSpriteID(SpriteID.RoundSquareBordered)
                     .SetColorID(ColorID.Red)
+                .SetMvcType(this.mvcType)
                     .SetCanvasLevel(1)
                     .SetInteractable(false)
                     .SetEnabled(true)
@@ -44,6 +57,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Views.Canvase
                     .SetColor(ColorID.White)
                     .SetAlign(AlignType.MiddleCenter)
                     .SetBestFit(true, 13, 60)
+                .SetMvcType(this.mvcType)
                     .SetCanvasLevel(0)
                     .SetInteractable(true)
                     .SetEnabled(true)
@@ -56,7 +70,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Views.Canvase
 
         private ISet<ICanvasWidget> BuildQSortieButton()
         {
-            IWidgetGridSpec widgetGridSpec = new CanvasGridSpecImpl()
+            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
                     .SetCanvasGridCoords(new Vector2(6, 1))
                     .SetCanvasGridSize(new Vector2(2, 1));
             return new HashSet<ICanvasWidget>
@@ -64,6 +78,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Views.Canvase
                 ImageWidgetImpl.Builder.Get()
                     .SetSpriteID(SpriteID.RoundSquareBordered)
                     .SetColorID(ColorID.Red)
+                .SetMvcType(this.mvcType)
                     .SetCanvasLevel(1)
                     .SetInteractable(false)
                     .SetEnabled(true)
@@ -77,6 +92,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Views.Canvase
                     .SetColor(ColorID.White)
                     .SetAlign(AlignType.MiddleCenter)
                     .SetBestFit(true, 13, 60)
+                .SetMvcType(this.mvcType)
                     .SetCanvasLevel(0)
                     .SetInteractable(true)
                     .SetEnabled(true)
@@ -85,26 +101,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Views.Canvase
                     .SetName(this.mvcType + ":" + HomeRequestType.QSortie + "Text")
                     .Build()
             };
-        }
-
-        public override void Process(IMvcModelState mvcModelState)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void InitialBuild()
-        {
-            List<ICanvasWidget> canvasWidgets = new List<ICanvasWidget>()
-            {
-                this.BuildBackground()
-            };
-            canvasWidgets.AddRange(this.BuildHeader());
-            canvasWidgets.AddRange(this.BuildExitButton());
-            canvasWidgets.AddRange(this.BuildQSortieButton());
-
-
-                this.AddWidgets(canvasWidgets);
-
         }
 
         /// <summary>

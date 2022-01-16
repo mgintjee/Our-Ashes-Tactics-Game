@@ -3,6 +3,8 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Obj
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Worlds.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
 using System.Collections.Generic;
 using System.Numerics;
@@ -14,6 +16,19 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
     /// </summary>
     public class CanvasWidgetUtils
     {
+        public static void ApplyGridConvertor(ICanvasGridConvertor canvasGridConvertor, ICanvasWidget canvasWidget)
+        {
+            IWidgetGridSpec widgetGridSpec = canvasWidget.GetWidgetGridSpec();
+            Vector2 worldSize = canvasGridConvertor.GetWorldSize(widgetGridSpec.GetGridSize());
+            Vector2 worldCoords = canvasGridConvertor.GetWorldCoords(
+                widgetGridSpec.GetGridCoords(), widgetGridSpec.GetGridSize());
+            ((WidgetWorldSpecImpl)canvasWidget.GetWidgetWorldSpec())
+                .SetCanvasWorldCoords(worldCoords)
+                .SetCanvasWorldSize(worldSize);
+            canvasWidget.GetRectTransform().sizeDelta = new UnityEngine.Vector2(worldSize.X, worldSize.Y);
+            canvasWidget.GetRectTransform().anchoredPosition = new UnityEngine.Vector2(worldCoords.X, worldCoords.Y);
+        }
+
         public static void AddWidget(ICanvasGridConvertor canvasGridConvertor,
             IDictionary<int, ISet<ICanvasWidget>> canvasLevelWidgets, ICanvasWidget widget)
         {
@@ -56,7 +71,15 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             {
                 foreach (ICanvasWidget canvasWidget in canvasLevelWidgets[canvasLevel])
                 {
-                    if (canvasWidget.GetEnabled() && canvasWidget.GetInteractable() &&
+                    if (canvasWidget is IPanelWidget panelWidget)
+                    {
+                        Optional<ICanvasWidget> returnedWidget = panelWidget.GetWidgetFromInput(mvcControlInput);
+                        if (returnedWidget.IsPresent())
+                        {
+                            return returnedWidget;
+                        }
+                    }
+                    else if (canvasWidget.GetEnabled() && canvasWidget.GetInteractable() &&
                         IsInputOnWidget(canvasGridConvertor, mvcControlInput, canvasWidget))
                     {
                         return Optional<ICanvasWidget>.Of(canvasWidget);
@@ -68,7 +91,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
 
         public static void EnableWidgets(ICollection<ICanvasWidget> canvasWidgets, bool enable)
         {
-            foreach(ICanvasWidget canvasWidget in canvasWidgets)
+            foreach (ICanvasWidget canvasWidget in canvasWidgets)
             {
                 canvasWidget.SetEnabled(enable);
             }

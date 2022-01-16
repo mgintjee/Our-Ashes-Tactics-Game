@@ -27,6 +27,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         }
 
         /// <inheritdoc/>
+        public override string ToString()
+        {
+            return string.Format("{0}: Grid:{1}, World:{2}",
+                this.GetType().Name, this.gridSize, this.worldSize);
+        }
+
+        /// <inheritdoc/>
         Vector2 ICanvasGridConvertor.GetGridSize()
         {
             return this.gridSize;
