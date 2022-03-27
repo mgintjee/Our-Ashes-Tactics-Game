@@ -88,11 +88,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Abstrs
         protected virtual void InternalProcess(IMvcViewState mvcViewState)
         {
             logger.Info("Processing {}...", mvcViewState);
-            ((MvcControlStateImpl)this.mvcControlState).SetMvcControlInput(null);
+            ((DefaultMvcControlStateImpl)this.mvcControlState)
+                .SetMvcControlInput(null);
             mvcViewState.GetMvcModelRequest().IfPresent(mvcModelRequest =>
             {
                 logger.Info("Setting {}...", typeof(IMvcRequest));
-                ((MvcControlStateImpl)this.mvcControlState).SetMvcModelRequest(mvcModelRequest);
+                ((DefaultMvcControlStateImpl)this.mvcControlState)
+                    .SetMvcModelRequest(mvcModelRequest);
             });
         }
 
@@ -103,7 +105,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Abstrs
         protected virtual void InternalProcess(IMvcControlInput mvcControlInput)
         {
             logger.Info("Processing {}...", mvcControlInput);
-            ((MvcControlStateImpl)this.mvcControlState)
+            ((DefaultMvcControlStateImpl)this.mvcControlState)
                 .SetMvcControlInput(mvcControlInput);
         }
 
@@ -113,7 +115,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Abstrs
         /// <returns></returns>
         protected virtual IMvcControlState BuildInitialMvcControlState()
         {
-            return new MvcControlStateImpl();
+            return new DefaultMvcControlStateImpl();
         }
 
         /// <summary>
@@ -123,7 +125,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Abstrs
         protected virtual void InternalProcess(IMvcModelState mvcModelState)
         {
             logger.Info("Processing {}...", mvcModelState);
-            ((MvcControlStateImpl)this.mvcControlState)
+            ((DefaultMvcControlStateImpl)this.mvcControlState)
                 .SetMvcControlInput(null)
                 .SetMvcModelRequest(null);
         }

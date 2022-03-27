@@ -21,10 +21,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
 
         IWidgetWorldSpec GetWidgetWorldSpec();
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="mvcModelState"></param>
         void Process(IMvcModelState mvcModelState);
 
         bool GetInteractable();

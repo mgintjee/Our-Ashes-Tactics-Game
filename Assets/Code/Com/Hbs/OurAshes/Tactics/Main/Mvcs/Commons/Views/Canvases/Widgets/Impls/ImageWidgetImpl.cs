@@ -1,4 +1,5 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.Managers;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Resources.Loaders.Sprites;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Sprites.IDs;
@@ -23,6 +24,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <inheritdoc/>
         void IImageWidget.SetColorID(ColorID colorID)
         {
+            logger.Debug("W|{}: Setting {}", this.widgetName, StringUtils.Format(colorID));
             this.colorID = colorID;
             this.GetImage().color = RgbManager.GetUnityColor(colorID);
         }
@@ -30,6 +32,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <inheritdoc/>
         void IImageWidget.SetSpriteID(SpriteID spriteID)
         {
+            logger.Debug("W|{}: Setting {}", this.widgetName, StringUtils.Format(spriteID));
             this.spriteID = spriteID;
             this.GetImage().sprite = SpriteResourceLoader.LoadSpriteResource(spriteID).GetValue();
         }

@@ -1,5 +1,4 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Inters;
@@ -40,28 +39,26 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             widget.ApplyGridConvertor(canvasGridConvertor);
         }
 
-        public static bool IsInputOnWidget(ICanvasGridConvertor canvasGridConvertor,
-            IMvcControlInput mvcControlInput, ICanvasWidget canvasWidget)
+        public static bool IsInputOnWidget(IMvcControlInput mvcControlInput, ICanvasWidget canvasWidget)
         {
             switch (mvcControlInput.GetMvcControlInputType())
             {
                 case MvcControlInputType.Click:
                     Vector2 clickPixelCoords = ((IMvcControlInputClick)mvcControlInput).GetWorldCoords();
-                    Vector2 canvasWorldSize = canvasGridConvertor.GetWorldSize();
-                    Vector2 clickWorldCoords = new Vector2(clickPixelCoords.X - canvasWorldSize.X / 2,
-                        clickPixelCoords.Y - canvasWorldSize.Y / 2);
-                    Vector2 widgetWorldCoords = canvasWidget.GetWidgetWorldSpec().GetWorldCoords();
+                    Vector2 widgetWorldCoords = new Vector2(canvasWidget.GetRectTransform().transform.position.x,
+                        canvasWidget.GetRectTransform().transform.position.y);//.GetWorldCoords();
                     Vector2 widgetWorldSize = canvasWidget.GetWidgetWorldSpec().GetWorldSize();
-                    return clickWorldCoords.X >= widgetWorldCoords.X - widgetWorldSize.X / 2 &&
-                        clickWorldCoords.X <= widgetWorldCoords.X + widgetWorldSize.X / 2 &&
-                        clickWorldCoords.Y >= widgetWorldCoords.Y - widgetWorldSize.Y / 2 &&
-                        clickWorldCoords.Y <= widgetWorldCoords.Y + widgetWorldSize.Y / 2;
+                    return clickPixelCoords.Y >= widgetWorldCoords.Y - widgetWorldSize.Y / 2 &&
+                        clickPixelCoords.Y <= widgetWorldCoords.Y + widgetWorldSize.Y / 2 &&
+                        clickPixelCoords.X >= widgetWorldCoords.X - widgetWorldSize.X / 2 &&
+                        clickPixelCoords.X <= widgetWorldCoords.X + widgetWorldSize.X / 2;
 
                 default:
                     return false;
             }
         }
 
+        /*
         public static Optional<ICanvasWidget> GetWidgetFromInput(ICanvasGridConvertor canvasGridConvertor,
             IDictionary<int, ISet<ICanvasWidget>> canvasLevelWidgets, IMvcControlInput mvcControlInput)
         {
@@ -73,7 +70,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                 {
                     if (canvasWidget is IPanelWidget panelWidget)
                     {
-                        Optional<ICanvasWidget> returnedWidget = panelWidget.GetWidgetFromInput(mvcControlInput);
+                        Optional<ICanvasWidget> returnedWidget = panelWidget.GetWidgetFromInput(canvasGridConvertor, mvcControlInput);
                         if (returnedWidget.IsPresent())
                         {
                             return returnedWidget;
@@ -88,13 +85,19 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             }
             return Optional<ICanvasWidget>.Empty();
         }
+        */
 
         public static void EnableWidgets(ICollection<ICanvasWidget> canvasWidgets, bool enable)
         {
             foreach (ICanvasWidget canvasWidget in canvasWidgets)
             {
-                canvasWidget.SetEnabled(enable);
+                EnableWidget(canvasWidget, enable);
             }
+        }
+
+        public static void EnableWidget(ICanvasWidget canvasWidget, bool enable)
+        {
+            canvasWidget.SetEnabled(enable);
         }
 
         public static void SetButtonInteractable(IImageWidget imageWidget, bool interactable)

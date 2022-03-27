@@ -1,4 +1,6 @@
-﻿namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.Rgbs.Inters
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
+
+namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.Rgbs.Inters
 {
     /// <summary>
     /// Todo
@@ -40,5 +42,11 @@
         /// </summary>
         /// <returns></returns>
         int GetIntRed();
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        ColorID GetColorID();
     }
 }

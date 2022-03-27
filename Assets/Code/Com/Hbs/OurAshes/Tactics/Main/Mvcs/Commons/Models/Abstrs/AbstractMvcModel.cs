@@ -52,7 +52,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs
         /// <inheritdoc/>
         void IMvcModel.Process(IMvcRequest mvcModelRequest)
         {
-            ((MvcModelStateImpl)this.mvcModelState)
+            ((DefaultMvcModelStateImpl)this.mvcModelState)
                 .SetPrevMvcRequest(mvcModelRequest);
             if (mvcModelRequest != null)
             {
@@ -71,20 +71,16 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs
             return this.mvcModelState;
         }
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
         protected virtual IMvcModelState BuildInitialMvcModelState()
         {
-            return new MvcModelStateImpl();
+            return new DefaultMvcModelStateImpl();
         }
 
         protected abstract IMvcModelState ProcessMvcModelRequest(IMvcRequest mvcModelRequest);
 
         protected virtual IMvcModelState ProcessInitialMvcModelRequest()
         {
-            ((MvcModelStateImpl)this.mvcModelState).SetMvcRequests(
+            ((DefaultMvcModelStateImpl)this.mvcModelState).SetMvcRequests(
                 new HashSet<IMvcRequest> { new MvcRequestImpl() });
             return this.mvcModelState;
         }

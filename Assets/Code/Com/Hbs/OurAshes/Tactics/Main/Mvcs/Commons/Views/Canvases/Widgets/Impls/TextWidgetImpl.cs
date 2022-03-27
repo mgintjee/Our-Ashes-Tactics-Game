@@ -1,4 +1,5 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.Managers;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.Aligns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.IDs;
@@ -35,6 +36,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <inheritdoc/>
         void ITextWidget.SetText(string text)
         {
+            logger.Debug("W|{}: Setting Text={}", this.widgetName, text);
             this.text = text;
             this.GetText().text = text;
         }
@@ -42,6 +44,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <inheritdoc/>
         void ITextWidget.SetFont(FontID fontID)
         {
+            logger.Debug("W|{}: Setting {}", this.widgetName, StringUtils.Format(fontID));
             this.fontID = fontID;
             this.GetText().font = this.GetFont(this.fontID);
         }
@@ -49,6 +52,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <inheritdoc/>
         void ITextWidget.SetSize(int size)
         {
+            logger.Debug("W|{}: Setting Size={}", this.widgetName, size);
             this.size = size;
             this.GetText().fontSize = size;
         }
@@ -65,14 +69,16 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <inheritdoc/>
         void ITextWidget.SetColorID(ColorID colorID)
         {
+            logger.Debug("W|{}: Setting {}", this.widgetName, StringUtils.Format(colorID));
             this.colorID = colorID;
             this.GetText().color = RgbManager.GetUnityColor(colorID);
         }
 
         /// <inheritdoc/>
-        void ITextWidget.SetAlignType(AlignType hAlignType)
+        void ITextWidget.SetAlignType(AlignType alignType)
         {
-            this.alignType = hAlignType;
+            logger.Debug("W|{}: Setting {}", this.widgetName, StringUtils.Format(alignType));
+            this.alignType = alignType;
             this.GetText().alignment = this.GetTextAnchor(this.alignType);
         }
 

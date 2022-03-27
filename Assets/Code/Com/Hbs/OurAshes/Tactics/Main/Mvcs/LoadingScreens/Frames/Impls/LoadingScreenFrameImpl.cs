@@ -47,13 +47,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.LoadingScreens.Frames.I
         /// <inheritdoc/>
         protected override IMvcView BuildMvcView(IMvcFrameConstruction mvcFrameConstruction)
         {
-            return new LoadingScreenViewImpl(mvcFrameConstruction);
+            return new MvcViewImpl(mvcFrameConstruction);
         }
 
         /// <inheritdoc/>
         protected override IMvcModel BuildMvcModel(IMvcFrameConstruction mvcFrameConstruction)
         {
-            return new LoadingScreenModelImpl(mvcFrameConstruction);
+            return new MvcModelImpl(mvcFrameConstruction);
         }
 
         private void Process(IMvcFrameConstruction mvcFrameConstruction)

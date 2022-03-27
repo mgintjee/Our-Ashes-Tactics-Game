@@ -13,6 +13,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Frames.Reques
         /// Todo
         /// </summary>
         /// <returns></returns>
-        HomeRequestType GetHomeRequestType();
+        RequestType GetRequestType();
     }
 }

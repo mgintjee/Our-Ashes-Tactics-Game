@@ -58,6 +58,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
         /// <inheritdoc/>
         void IMvcView.Process(IMvcModelState mvcModelState)
         {
+            ((DefaultMvcViewStateImpl)this.mvcViewState).Reset();
             logger.Info("Processing {}...", mvcModelState);
             this.InternalProcess(mvcModelState);
         }
@@ -65,6 +66,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
         /// <inheritdoc/>
         void IMvcView.Process(IMvcControlInput mvcControlInput)
         {
+            ((DefaultMvcViewStateImpl)this.mvcViewState).Reset();
             logger.Info("Processing {}...", mvcControlInput);
             this.InternalProcess(mvcControlInput);
         }
@@ -85,7 +87,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
         /// <returns></returns>
         protected virtual IMvcViewState BuildInitialMvcViewState()
         {
-            return new MvcViewStateImpl();
+            return new DefaultMvcViewStateImpl();
         }
 
         /// <summary>
@@ -95,6 +97,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs
         protected virtual void InternalProcess(IMvcModelState mvcModelState)
         {
             this.mvcModelState = mvcModelState;
+            this.mvcViewCanvas.Process(mvcModelState);
         }
 
         /// <summary>

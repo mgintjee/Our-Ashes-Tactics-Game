@@ -5,15 +5,15 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Obj
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.Aligns;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Constants;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Canvases.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Scripts.Canvases.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Sprites.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Utils;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Impls;
@@ -72,10 +72,31 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <inheritdoc/>
         Optional<ICanvasWidget> IMvcViewCanvas.GetWidget(IMvcControlInput mvcControlInput)
         {
-            Optional<ICanvasWidget> canvasWidget = CanvasWidgetUtils.GetWidgetFromInput(this.canvasGridConvertor,
-                this.canvasLevelWidgets, mvcControlInput);
-            canvasWidget.IfPresent(widget => this.ProcessSelectedWidget(widget));
-            return canvasWidget;
+            List<int> canvasLevels = new List<int>(canvasLevelWidgets.Keys);
+            canvasLevels.Sort();
+            foreach (int canvasLevel in canvasLevels)
+            {
+                foreach (ICanvasWidget canvasWidget in canvasLevelWidgets[canvasLevel])
+                {
+                    logger.Debug("Checking if input is on W: {}", canvasWidget.GetName());
+                    if (canvasWidget is IPanelWidget panelWidget)
+                    {
+                        Optional<ICanvasWidget> returnedWidget = panelWidget.GetWidgetFromInput(
+                            this.canvasGridConvertor, mvcControlInput);
+                        if (returnedWidget.IsPresent())
+                        {
+                            return returnedWidget;
+                        }
+                    }
+                    else if (canvasWidget.GetEnabled() && canvasWidget.GetInteractable() &&
+                        CanvasWidgetUtils.IsInputOnWidget(mvcControlInput, canvasWidget))
+                    {
+                        return Optional<ICanvasWidget>.Of(canvasWidget);
+                    }
+                    logger.Debug("Input is not on W: {}", canvasWidget.GetName());
+                }
+            }
+            return Optional<ICanvasWidget>.Empty();
         }
 
         /// <inheritdoc/>
@@ -88,69 +109,38 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         {
             return ImageWidgetImpl.Builder.Get()
                 .SetSpriteID(SpriteID.SquareBordered)
-                .SetColorID(ColorID.Blue)
+                .SetColorID(ColorID.DodgerBlue)
                 .SetMvcType(this.mvcType)
                 .SetCanvasLevel(0)
                 .SetMvcType(this.mvcType)
                 .SetInteractable(false)
                 .SetEnabled(true)
                 .SetWidgetGridSpec(new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(Vector2.Zero)
                     .SetCanvasGridSize(new Vector2(
                         this.canvasGridConvertor.GetGridSize().X,
-                        this.canvasGridConvertor.GetGridSize().Y - 1)))
+                        this.canvasGridConvertor.GetGridSize().Y * (1 - PanelWidgetConstants.GetBannerPanelRatio())))
+                    .SetCanvasGridCoords(Vector2.Zero))
                 .SetParent(this)
                 .SetName(this.mvcType + ":Background:" + CanvasWidgetType.Image)
                 .Build();
         }
 
-        protected ISet<ICanvasWidget> BuildHeader()
+        protected IPanelWidget BuildBanner()
         {
-            int headerHeight = 1;
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(0, this.canvasGridConvertor.GetGridSize().Y - headerHeight))
-                    .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X / 2, headerHeight));
-            return new HashSet<ICanvasWidget>
-            {
-                ImageWidgetImpl.Builder.Get()
-                    .SetSpriteID(SpriteID.SquareBordered)
-                    .SetColorID(ColorID.Blue)
+            return BannerPanelImpl.Builder.Get()
+                .SetText(this.mvcType.ToString())
+                .SetPanelGridSize(new Vector2(2, 1))
+                .SetWidgetGridSpec(new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(new Vector2(0, this.canvasGridConvertor.GetGridSize().Y * (1 - PanelWidgetConstants.GetBannerPanelRatio())))
+                    .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X,
+                        this.canvasGridConvertor.GetGridSize().Y * PanelWidgetConstants.GetBannerPanelRatio())))
                 .SetMvcType(this.mvcType)
-                    .SetCanvasLevel(1)
-                    .SetInteractable(false)
-                    .SetEnabled(true)
-                    .SetWidgetGridSpec(new WidgetGridSpecImpl()
-                        .SetCanvasGridCoords(new Vector2(0, this.canvasGridConvertor.GetGridSize().Y - headerHeight))
-                        .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X, headerHeight)))
-                    .SetParent(this)
-                    .SetName(this.mvcType + ":Header:Back:" + CanvasWidgetType.Image)
-                    .Build(),
-                ImageWidgetImpl.Builder.Get()
-                    .SetSpriteID(SpriteID.SquareBordered)
-                    .SetColorID(ColorID.Red)
-                .SetMvcType(this.mvcType)
-                    .SetCanvasLevel(1)
-                    .SetInteractable(false)
-                    .SetEnabled(true)
-                    .SetWidgetGridSpec(widgetGridSpec)
-                    .SetParent(this)
-                    .SetName(this.mvcType + ":Header:Front:" + CanvasWidgetType.Image)
-                    .Build(),
-                TextWidgetImpl.Builder.Get()
-                    .SetText(this.mvcType.ToString())
-                    .SetFont(FontID.Arial)
-                    .SetColor(ColorID.White)
-                    .SetAlign(AlignType.MiddleCenter)
-                    .SetBestFit(true, 25, 100)
-                .SetMvcType(this.mvcType)
-                    .SetCanvasLevel(1)
-                    .SetInteractable(false)
-                    .SetEnabled(true)
-                    .SetWidgetGridSpec(widgetGridSpec)
-                    .SetParent(this)
-                    .SetName(this.mvcType + ":Header:" + CanvasWidgetType.Text)
-                    .Build()
-                };
+                .SetCanvasLevel(0)
+                .SetInteractable(false)
+                .SetEnabled(true)
+                .SetName(this.mvcType + ":Header:" + CanvasWidgetType.Panel)
+                .SetParent(this)
+                .Build();
         }
 
         protected virtual void ProcessSelectedWidget(ICanvasWidget canvasWidget)

@@ -37,7 +37,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Impls
                 logger.Info("Widget to process: Name={}", widget.GetName());
                 if (widget.GetName().Contains("Image"))
                 {
-                    ((MvcViewStateImpl)this.mvcViewState)
+                    ((DefaultMvcViewStateImpl)this.mvcViewState)
                         .SetMvcControlInputTypes(new HashSet<MvcControlInputType>())
                         .SetMvcModelRequest(new List<IMvcRequest>(
                             this.mvcModelState.GetMvcRequests())[0]);
@@ -48,10 +48,10 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Impls
         /// <inheritdoc/>
         protected override IMvcViewCanvas BuildInitialMvcViewCanvas()
         {
-            return MvcViewCanvasImpl.Builder.Get()
+            return DefaultMvcViewCanvasImpl.Builder.Get()
                 .SetMvcType(MvcType.None)
                 .SetGridSize(CanvasGridConstants.GetMvcTypeGridSize(MvcType.LoadingScreen))
-                .SetName(typeof(MvcViewCanvasImpl).Name)
+                .SetName(typeof(DefaultMvcViewCanvasImpl).Name)
                 .SetParent(this.mvcFrameConstruction.GetUnityScript())
                 .Build();
         }

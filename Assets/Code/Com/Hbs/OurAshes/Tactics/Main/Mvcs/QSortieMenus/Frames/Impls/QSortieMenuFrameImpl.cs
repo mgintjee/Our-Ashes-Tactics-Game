@@ -23,13 +23,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Frames.Imp
         /// <inheritdoc/>
         protected override IMvcModel BuildMvcModel(IMvcFrameConstruction mvcFrameConstruction)
         {
-            return new QSortieMenuModelImpl(mvcFrameConstruction);
+            return new MvcModelImpl(mvcFrameConstruction);
         }
 
         /// <inheritdoc/>
         protected override IMvcView BuildMvcView(IMvcFrameConstruction mvcFrameConstruction)
         {
-            return new QSortieMenuViewImpl(mvcFrameConstruction);
+            return new MvcViewImpl(mvcFrameConstruction);
         }
     }
 }

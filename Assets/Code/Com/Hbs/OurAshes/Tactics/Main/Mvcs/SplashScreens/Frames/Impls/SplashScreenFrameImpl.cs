@@ -34,7 +34,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.SplashScreens.Frames.Im
         /// <inheritdoc/>
         protected override IMvcView BuildMvcView(IMvcFrameConstruction mvcFrameConstruction)
         {
-            return new SplashScreenViewImpl(mvcFrameConstruction);
+            return new MvcViewImpl(mvcFrameConstruction);
         }
     }
 }

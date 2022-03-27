@@ -49,6 +49,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         // Todo
         protected IMvcViewCanvas mvcViewCanvas;
 
+        // Todo
+        protected MvcType mvcType;
+
         public virtual void Process(IMvcModelState mvcModelState)
         {
             // Do nothing
@@ -110,6 +113,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <inheritdoc/>
         void ICanvasWidget.SetEnabled(bool enabled)
         {
+            logger.Debug("W| {}, isEnabled:{}", this.widgetName, enabled);
             this.isEnabled = enabled;
             this.gameObject.SetActive(enabled);
         }
@@ -117,6 +121,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <inheritdoc/>
         void ICanvasWidget.SetInteractable(bool interactable)
         {
+            logger.Debug("W| {}, isInteractable:{}", this.widgetName, interactable);
             this.isInteractable = interactable;
         }
 
@@ -234,6 +239,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                     ((AbstractCanvasWidget)canvasWidget).widgetName = this.name;
                     ((AbstractCanvasWidget)canvasWidget).logger = LoggerManager.GetLogger(this.mvcType)
                         .GetClassLogger(canvasWidget.GetType());
+                    ((AbstractCanvasWidget)canvasWidget).mvcType = this.mvcType;
                     canvasWidget.GetRectTransform().anchorMin = new UnityEngine.Vector2(0.5f, 0.5f);
                     canvasWidget.GetRectTransform().anchorMax = new UnityEngine.Vector2(0.5f, 0.5f);
                     this.ApplyScriptValues(canvasWidget);

@@ -34,13 +34,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Frames.Impls
         /// <inheritdoc/>
         protected override IMvcModel BuildMvcModel(IMvcFrameConstruction mvcFrameConstruction)
         {
-            return new HomeMenuModelImpl(mvcFrameConstruction);
+            return new MvcModelImpl(mvcFrameConstruction);
         }
 
         /// <inheritdoc/>
         protected override IMvcView BuildMvcView(IMvcFrameConstruction mvcFrameConstruction)
         {
-            return new HomeMenuViewImpl(mvcFrameConstruction);
+            return new MvcViewImpl(mvcFrameConstruction);
         }
 
         /// <inheritdoc/>
@@ -50,10 +50,10 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Frames.Impls
                 {
                     IHomeMenuRequest homeMenuRequest = (IHomeMenuRequest)request;
                     logger.Info("Building next {} for {}",
-                        typeof(IMvcFrameConstruction), homeMenuRequest.GetHomeRequestType());
-                    switch (homeMenuRequest.GetHomeRequestType())
+                        typeof(IMvcFrameConstruction), homeMenuRequest.GetRequestType());
+                    switch (homeMenuRequest.GetRequestType())
                     {
-                        case HomeRequestType.QSortie:
+                        case RequestType.QSortie:
                             this.nextMvcFrameConstruction = MvcFrameConstruction.Builder.Get()
                                 .SetUnityScript(this.currMvcFrameConstruction
                                     .GetUnityScript().GetParent())

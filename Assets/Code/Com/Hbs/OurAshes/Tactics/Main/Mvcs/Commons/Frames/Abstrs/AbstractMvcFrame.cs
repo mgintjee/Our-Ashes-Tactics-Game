@@ -165,8 +165,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs
         {
             bool isProcessing = mvcControl.IsProcessing() ||
                 mvcModel.IsProcessing() || mvcView.IsProcessing();
-            logger.Info("IsProcessing:{}, M={}, V={}, C={}", isProcessing,
-                mvcModel.IsProcessing(), mvcView.IsProcessing(), mvcControl.IsProcessing());
             if (!isProcessing)
             {
                 this.BuildNextMvcFrameConstruction();
