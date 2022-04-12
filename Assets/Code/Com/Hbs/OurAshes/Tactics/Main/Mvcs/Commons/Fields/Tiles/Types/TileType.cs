@@ -6,6 +6,12 @@
     public enum TileType
     {
         None,
-        Hexagon
+        Plains,
+        Road,
+        Forest,
+        Marsh,
+        Mountain,
+        City,
+        Village,
     }
 }

@@ -86,7 +86,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.A
         /// <summary>
         /// Todo
         /// </summary>
-        public class AbstractBuilder
+        public class ScriptBuilder
         {
             /// <summary>
             /// Script Builder Interface

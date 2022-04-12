@@ -6,6 +6,7 @@
     public enum FieldID
     {
         None,
+        Random,
         Alpha
     }
 }

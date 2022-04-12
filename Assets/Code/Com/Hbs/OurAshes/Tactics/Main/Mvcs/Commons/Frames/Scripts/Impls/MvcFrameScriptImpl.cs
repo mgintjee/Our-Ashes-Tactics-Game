@@ -19,7 +19,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Scripts.
             /// Builder Interface for this object
             /// </summary>
             public interface IInternalBuilder
-                : AbstractBuilder.IScriptBuilder<IMvcFrameScript>
+                : ScriptBuilder.IScriptBuilder<IMvcFrameScript>
             {
             }
 
@@ -36,7 +36,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Scripts.
             /// Builder Impl for this object
             /// </summary>
             private class InternalBuilder
-                : AbstractBuilder.AbstractScriptBuilder<IMvcFrameScript>, IInternalBuilder
+                : ScriptBuilder.AbstractScriptBuilder<IMvcFrameScript>, IInternalBuilder
             {
                 /// <inheritdoc/>
                 protected override IMvcFrameScript BuildScript(GameObject gameObject)

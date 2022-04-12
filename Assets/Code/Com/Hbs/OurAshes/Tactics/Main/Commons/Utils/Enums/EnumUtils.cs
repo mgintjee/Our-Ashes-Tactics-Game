@@ -47,5 +47,53 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Enums
             }
             return ((List<TEnum>)tEnums).GetRange(0, end);
         }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <typeparam name="TEnum"></typeparam>
+        /// <param name="random"></param>
+        /// <returns></returns>
+        public static TEnum GenerateRandomEnum<TEnum>(Random random)
+            where TEnum : Enum
+        {
+            IList<TEnum> tEnums = GetEnumListWithoutFirst<TEnum>();
+            return tEnums[random.Next(tEnums.Count)];
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <typeparam name="TEnum"></typeparam>
+        /// <param name="random"></param>
+        /// <returns></returns>
+        public static TEnum GenerateRandomEnumFrom<TEnum>(Random random, ISet<TEnum> enums)
+            where TEnum : Enum
+        {
+            IList<TEnum> tEnums = new List<TEnum>(enums);
+            return tEnums[random.Next(tEnums.Count)];
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <typeparam name="TEnum"></typeparam>
+        /// <param name="random"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public static ISet<TEnum> GenerateRandomEnumsFrom<TEnum>(Random random, ISet<TEnum> availableEnums, int count)
+            where TEnum : Enum
+        {
+            ISet<TEnum> tEnums = new HashSet<TEnum>();
+            ISet<TEnum> tempAvailableEnums = new HashSet<TEnum>(availableEnums);
+            while(tEnums.Count < count && tEnums.Count < availableEnums.Count)
+            {
+                TEnum tEnum = GenerateRandomEnumFrom(random, tempAvailableEnums);
+                tempAvailableEnums.Remove(tEnum);
+                tEnums.Add(tEnum);
+            }
+
+            return tEnums;
+        }
     }
 }

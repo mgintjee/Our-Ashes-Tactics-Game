@@ -11,7 +11,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Inter
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Frames.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.LoadingScreens.Frames.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Managers.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSortieMenus.Frames.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.SplashScreens.Frames.Impls;
 using System.Collections.Generic;
 using System.Diagnostics;
