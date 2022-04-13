@@ -7,6 +7,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings
     /// </summary>
     public static class StringUtils
     {
+        private static readonly string COLLECTION_STRING = "Collection";
+        private static readonly string NULL_STRING = "null";
         /// <summary>
         /// Todo
         /// </summary>
@@ -15,7 +17,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings
         /// <returns></returns>
         public static string FormatCollection<TObject>(ICollection<TObject> collection)
         {
-            return string.Format("Collection {0}:[{1}]",
+            return string.Format("{0} {1}:[{2}]", COLLECTION_STRING,
                 typeof(TObject).Name, string.Join(", ", collection));
         }
 
@@ -28,7 +30,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings
         public static string Format<TObject>(TObject tObject)
         {
             return string.Format("{0}:{1}",
-                typeof(TObject).Name, (tObject != null) ? tObject.ToString() : "Null");
+                typeof(TObject).Name, (tObject != null) ? tObject.ToString() : NULL_STRING);
         }
     }
 }

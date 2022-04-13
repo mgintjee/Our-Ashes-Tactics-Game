@@ -1,4 +1,4 @@
-﻿namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Engines.IDs
+﻿namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Engines.Gears.IDs
 {
     /// <summary>
     /// Armor Gear ID Enum

@@ -51,11 +51,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
             public interface IInternalBuilder
                 : IBuilder<IPhalanxDetails>
             {
-                IInternalBuilder GetFactionID(FactionID factionID);
+                IInternalBuilder SetFactionID(FactionID factionID);
 
-                IInternalBuilder GetCallSign(CallSign callSign);
+                IInternalBuilder SetCallSign(CallSign callSign);
 
-                IInternalBuilder GetCombatantDetails(ISet<ICombatantDetails> combatantDetails);
+                IInternalBuilder SetCombatantDetails(ISet<ICombatantDetails> combatantDetails);
             }
 
             /// <summary>
@@ -77,19 +77,19 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
                 private CallSign callSign;
                 private ISet<ICombatantDetails> combatantDetails;
 
-                IInternalBuilder IInternalBuilder.GetCallSign(CallSign callSign)
+                IInternalBuilder IInternalBuilder.SetCallSign(CallSign callSign)
                 {
                     this.callSign = callSign;
                     return this;
                 }
 
-                IInternalBuilder IInternalBuilder.GetCombatantDetails(ISet<ICombatantDetails> combatantDetails)
+                IInternalBuilder IInternalBuilder.SetCombatantDetails(ISet<ICombatantDetails> combatantDetails)
                 {
                     this.combatantDetails = new HashSet<ICombatantDetails>(combatantDetails);
                     return this;
                 }
 
-                IInternalBuilder IInternalBuilder.GetFactionID(FactionID factionID)
+                IInternalBuilder IInternalBuilder.SetFactionID(FactionID factionID)
                 {
                     this.factionID = factionID;
                     return this;

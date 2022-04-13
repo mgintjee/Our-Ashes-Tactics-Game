@@ -1,11 +1,13 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Randoms.Managers;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Utils;
 using System.Collections.Generic;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
@@ -37,7 +39,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
                         new MvcRequestImpl().SetRequestType(RequestType.CombatantDetails),
                         new MvcRequestImpl().SetRequestType(RequestType.SortieDetails),
                         new MvcRequestImpl().SetRequestType(RequestType.PhalanxDetails),
-                        new MvcRequestImpl().SetRequestType(RequestType.SortieDetails),
+                        new MvcRequestImpl().SetRequestType(RequestType.SortieStart),
                         new MvcRequestImpl().SetRequestType(RequestType.MapDetails)
                     });
             return this.mvcModelState;
@@ -50,17 +52,14 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
         /// <returns></returns>
         protected override IMvcModelState ProcessMvcModelRequest(IMvcRequest mvcModelRequest)
         {
+            // Todo: This is where I would modify the existing MvcModelState
             return this.mvcModelState;
         }
 
         protected override IMvcModelState BuildInitialMvcModelState()
         {
-            return new States.Impls.MvcModelStateImpl();
+            return MvcModelStateRandomizerUtil.Randomize(RandomManager.GetRandom(MvcType.QSortieMenu));
         }
 
-        private IMvcModelState BuidlRandomMvcModelState()
-        {
-            return new MvcModelStateImpl();
-        }
     }
 }

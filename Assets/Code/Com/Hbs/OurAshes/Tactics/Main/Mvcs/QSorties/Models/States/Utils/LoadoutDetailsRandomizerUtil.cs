@@ -9,26 +9,33 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Inte
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Sizes;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Details.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Details.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Armors.Details.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Armors.Details.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Armors.IDs;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Cabins.Details.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Cabins.Details.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Cabins.IDs;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Engines.Details.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Engines.Details.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Engines.IDs;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Weapons.Details.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Weapons.Details.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Traits.Armors.IDs;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Traits.Cabins.IDs;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Traits.Engines.IDs;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Traits.Weapons.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Armors.Gears.Details.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Armors.Gears.Details.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Armors.Gears.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Cabins.Gears.Details.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Cabins.Gears.Details.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Cabins.Gears.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Engines.Gears.Details.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Engines.Gears.Details.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Engines.Gears.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Weapons.Gears.Details.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Weapons.Gears.Details.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Armors.Traits.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Cabins.Traits.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Engines.Traits.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Weapons.Traits.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Impls;
 using System;
 using System.Collections.Generic;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Weapons.Gears.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Engines.Gears.Constants;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Armors.Gears.Constants;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Weapons.Gears.Constants;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Cabins.Gears.Constants;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Constants;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Combatants.Attrs.Managers;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Utils
 {
@@ -50,36 +57,40 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
 
         private static IArmorGearDetails RandomizeArmorGearDetails(Random random, CombatantID combatantID)
         {
-            ArmorGearID armorGearID = EnumUtils.GenerateRandomEnum<ArmorGearID>(random);
-            int traitCount = 0;
-            ISet<ArmorTraitID> availableArmorTraitIDs;
-            ISet<ArmorTraitID> armorTraitIDs = EnumUtils.GenerateRandomEnumsFrom(random, availableArmorTraitIDs, traitCount);
+            ISet<ArmorGearID> availableArmorIDs = CombatantGearIDConstants.Armor.GetArmorTraitIDs(combatantID);
+            ArmorGearID gearID = EnumUtils.GenerateRandomEnumFrom(random, availableArmorIDs);
+            int traitCount = ArmorTraitIDConstants.GetArmorTraitCount(gearID);
+            ISet<ArmorTraitID> availableTraitIDs = ArmorTraitIDConstants.GetArmorTraitIDs(gearID);
+            ISet<ArmorTraitID> traitIDs = EnumUtils.GenerateRandomEnumsFrom(random, availableTraitIDs, traitCount);
             return ArmorGearDetailsImpl.Builder.Get()
-                .SetArmorGearID(armorGearID)
-                .SetArmorTraitIDs(armorTraitIDs)
+                .SetArmorGearID(gearID)
+                .SetArmorTraitIDs(traitIDs)
                 .Build();
         }
 
         private static ICabinGearDetails RandomizeCabinGearDetails(Random random, CombatantID combatantID)
         {
-            CabinGearID cabinGearID = EnumUtils.GenerateRandomEnum<CabinGearID>(random);
-            int traitCount = 0;
-            ISet<CabinTraitID> availableCabinTraitIDs;
-            ISet<CabinTraitID> cabinTraitIDs = EnumUtils.GenerateRandomEnumsFrom(random, availableCabinTraitIDs, traitCount);
+            ISet<CabinGearID> availableCabinIDs = CombatantGearIDConstants.Cabin.GetCabinTraitIDs(combatantID);
+            CabinGearID gearID = EnumUtils.GenerateRandomEnumFrom(random, availableCabinIDs);
+            int traitCount = CabinTraitIDConstants.GetCabinTraitCount(gearID);
+            ISet<CabinTraitID> availableTraitIDs = CabinTraitIDConstants.GetCabinTraitIDs(gearID);
+            ISet<CabinTraitID> traitIDs = EnumUtils.GenerateRandomEnumsFrom(random, availableTraitIDs, traitCount);
             return CabinGearDetailsImpl.Builder.Get()
-                .SetCabinGearID(cabinGearID)
-                .SetCabinTraitIDs(cabinTraitIDs)
+                .SetCabinGearID(gearID)
+                .SetCabinTraitIDs(traitIDs)
                 .Build();
         }
 
         private static IEngineGearDetails RandomizeEngineGearDetails(Random random, CombatantID combatantID)
         {
-            EngineGearID engineGearID = EnumUtils.GenerateRandomEnum<EngineGearID>(random);
-            int traitCount = 0;
-            ISet<EngineTraitID> engineTraitIDs = EnumUtils.GenerateRandomEnumsFrom<EngineTraitID>(random, traitCount);
+            ISet<EngineGearID> availableEngineIDs = CombatantGearIDConstants.Engine.GetEngineTraitIDs(combatantID);
+            EngineGearID gearID = EnumUtils.GenerateRandomEnumFrom(random, availableEngineIDs);
+            int traitCount = EngineTraitIDConstants.GetEngineTraitCount(gearID);
+            ISet<EngineTraitID> availableTraitIDs = EngineTraitIDConstants.GetEngineTraitIDs(gearID);
+            ISet<EngineTraitID> traitIDs = EnumUtils.GenerateRandomEnumsFrom(random, availableTraitIDs, traitCount);
             return EngineGearDetailsImpl.Builder.Get()
-                .SetEngineGearID(engineGearID)
-                .SetEngineTraitIDs(engineTraitIDs)
+                .SetEngineGearID(gearID)
+                .SetEngineTraitIDs(traitIDs)
                 .Build();
         }
 
@@ -87,9 +98,14 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
         {
             int weaponCount = 0;
 
+            CombatantAttributesManager.GetCombatantAttributes(combatantID).IfPresent(attribtues =>
+            {
+                weaponCount = attribtues.GetMountableAttributes().GetWeaponGearSizes().Count;
+            });
+
             ISet<IWeaponGearDetails> weaponGearDetails = new HashSet<IWeaponGearDetails>();
 
-            for(int i = 0; i < weaponCount; ++i)
+            for (int i = 0; i < weaponCount; ++i)
             {
                 weaponGearDetails.Add(RandomizeWeaponGearDetails(random, combatantID));
             }
@@ -99,14 +115,15 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
 
         private static IWeaponGearDetails RandomizeWeaponGearDetails(Random random, CombatantID combatantID)
         {
-            WeaponGearID weaponGearID = EnumUtils.GenerateRandomEnum<WeaponGearID>(random);
-            int traitCount = 0;
-            ISet<WeaponTraitID> weaponTraitIDs = EnumUtils.GenerateRandomEnumsFrom<WeaponTraitID>(random, traitCount);
+            ISet<WeaponGearID> availableWeaponIDs = CombatantGearIDConstants.Weapon.GetWeaponTraitIDs(combatantID);
+            WeaponGearID gearID = EnumUtils.GenerateRandomEnumFrom(random, availableWeaponIDs);
+            int traitCount = WeaponTraitIDConstants.GetWeaponTraitCount(gearID);
+            ISet<WeaponTraitID> availableTraitIDs = WeaponTraitIDConstants.GetWeaponTraitIDs(gearID);
+            ISet<WeaponTraitID> traitIDs = EnumUtils.GenerateRandomEnumsFrom(random, availableTraitIDs, traitCount);
             return WeaponGearDetailsImpl.Builder.Get()
-                .SetWeaponGearID(weaponGearID)
-                .SetWeaponTraitIDs(weaponTraitIDs)
+                .SetWeaponGearID(gearID)
+                .SetWeaponTraitIDs(traitIDs)
                 .Build();
         }
-
     }
 }

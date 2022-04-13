@@ -1,4 +1,4 @@
-﻿namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Traits.Weapons.IDs
+﻿namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Weapons.Traits.IDs
 {
     /// <summary>
     /// ArmorTrait ID Enum

@@ -2,38 +2,44 @@
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Sizes;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Algorithms.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Algorithms.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Gears.Armors.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Armors.Gears.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Armors.Traits.IDs;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Constants.Combatants
+namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Armors.Gears.Constants
 {
     /// <summary>
     /// Todo
     /// </summary>
     public class ArmorTraitIDConstants
     {
-        private static IDictionary<ArmorGearID, ISet<ArmorTraitID>>
-        public static int GetMaxCombatantCounts(FieldSize fieldSize, int phalanxCount)
+        private static readonly IDictionary<ArmorGearID, ISet<ArmorTraitID>> ARMOR_GEAR_ID_TRAIT_IDS = new Dictionary<ArmorGearID, ISet<ArmorTraitID>>();
+        private static readonly IDictionary<ArmorGearID, int> ARMOR_GEAR_ID_TRAIT_COUNTS = new Dictionary<ArmorGearID, int>();
+
+        public static ISet<ArmorTraitID> GetArmorTraitIDs(ArmorGearID armorGearID)
         {
-            switch (fieldSize)
+            ISet<ArmorTraitID> armorTraitIDs = new HashSet<ArmorTraitID>();
+
+            if (ARMOR_GEAR_ID_TRAIT_IDS.ContainsKey(armorGearID))
             {
-                case FieldSize.Small:
-                    return GetMaxCombatantCounts(phalanxCount, SMALL_COMBATANT_FACTOR, SMALL_MAX_COMBATANT_COUNT);
-                case FieldSize.Medium:
-                    return GetMaxCombatantCounts(phalanxCount, MEDIUM_COMBATANT_FACTOR, MEDIUM_MAX_COMBATANT_COUNT);
-                case FieldSize.Large:
-                    return GetMaxCombatantCounts(phalanxCount, LARGE_COMBATANT_FACTOR, LARGE_MAX_COMBATANT_COUNT);
-                case FieldSize.None:
-                default:
-                    return 0;
+                armorTraitIDs = new HashSet<ArmorTraitID>(ARMOR_GEAR_ID_TRAIT_IDS[armorGearID]);
             }
+
+            return armorTraitIDs;
         }
 
-        private static int GetMaxCombatantCounts(int phalanxCount, int combatantFactor, int maxCombatantCount)
+        public static int GetArmorTraitCount(ArmorGearID armorGearID)
         {
-            return Math.Max(phalanxCount * combatantFactor, maxCombatantCount);
+            int armorTraitCount = 0;
+
+            if (ARMOR_GEAR_ID_TRAIT_COUNTS.ContainsKey(armorGearID))
+            {
+                armorTraitCount = ARMOR_GEAR_ID_TRAIT_COUNTS[armorGearID];
+            }
+
+            return armorTraitCount;
         }
     }
 }
