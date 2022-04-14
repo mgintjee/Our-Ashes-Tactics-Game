@@ -10,13 +10,10 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Request
     /// <summary>
     /// Todo
     /// </summary>
-    public interface IQSortieMenuMvcRequest
-        : IMvcRequest
+    public interface IMvcRequestCombatantMod
+        : IMvcRequestMod
     {
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        RequestType GetRequestType();
+        CallSign GetPhalanxCallSign();
+        ICombatantDetails GetCombatantDetails();
     }
 }

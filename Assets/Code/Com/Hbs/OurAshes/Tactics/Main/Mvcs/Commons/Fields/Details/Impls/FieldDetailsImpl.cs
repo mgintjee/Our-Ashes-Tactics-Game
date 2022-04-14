@@ -16,6 +16,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.
     public class FieldDetailsImpl
         : IFieldDetails
     {
+        // Todo: Include the seed for the map
         private readonly FieldID fieldID;
         private readonly FieldBiome fieldBiome;
         private readonly FieldShape fieldShape;

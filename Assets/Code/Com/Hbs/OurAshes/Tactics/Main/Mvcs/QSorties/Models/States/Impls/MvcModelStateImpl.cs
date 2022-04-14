@@ -1,8 +1,8 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Inters;
 using System.Collections.Generic;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Details.Inters;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Impls
 {
@@ -12,21 +12,21 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
     public class MvcModelStateImpl
         : DefaultMvcModelStateImpl, IMvcModelState
     {
-        private ISet<IPhalanxDetails> phalanxDetails = new HashSet<IPhalanxDetails>();
+        private ISet<IFactionDetails> factionDetails = new HashSet<IFactionDetails>();
         private IFieldDetails fieldDetails;
 
         public override Commons.Models.States.Inters.IMvcModelState GetCopy()
         {
             return new MvcModelStateImpl()
                 .SetFieldDetails(this.fieldDetails)
-                .SetPhalanxDetails(this.phalanxDetails)
+                .SetFactionDetails(this.factionDetails)
                 .SetMvcRequests(this.mvcModelRequests)
                 .SetPrevMvcRequest(this.prevMvcRequest);
         }
 
-        public MvcModelStateImpl SetPhalanxDetails(ISet<IPhalanxDetails> phalanxDetails)
+        public MvcModelStateImpl SetFactionDetails(ISet<IFactionDetails> factionDetails)
         {
-            this.phalanxDetails = new HashSet<IPhalanxDetails>(phalanxDetails);
+            this.factionDetails = new HashSet<IFactionDetails>(factionDetails);
             return this;
         }
 
@@ -41,9 +41,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             return this.fieldDetails;
         }
 
-        ISet<IPhalanxDetails> IMvcModelState.GetPhalanxDetails()
+        ISet<IFactionDetails> IMvcModelState.GetFactionDetails()
         {
-            return this.phalanxDetails;
+            return this.factionDetails;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Request
         : IQSortieMenuMvcRequest
     {
         // Todo
-        private RequestType qSortieRequestType = RequestType.None;
+        private RequestType requestType = RequestType.None;
 
         /// <summary>
         /// Todo
@@ -18,14 +18,14 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Request
         /// <param name="qSortieRequestType"></param>
         public IQSortieMenuMvcRequest SetRequestType(RequestType qSortieRequestType)
         {
-            this.qSortieRequestType = qSortieRequestType;
+            this.requestType = qSortieRequestType;
             return this;
         }
 
         /// <inheritdoc/>
         RequestType IQSortieMenuMvcRequest.GetRequestType()
         {
-            return this.qSortieRequestType;
+            return this.requestType;
         }
     }
 }

@@ -10,13 +10,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Request
     /// <summary>
     /// Todo
     /// </summary>
-    public interface IQSortieMenuMvcRequest
-        : IMvcRequest
+    public interface IMvcRequestMod
+        : IQSortieMenuMvcRequest
     {
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        RequestType GetRequestType();
+        bool IsDel();
     }
 }

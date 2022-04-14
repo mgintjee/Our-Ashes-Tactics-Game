@@ -35,10 +35,10 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
             Vector2 buttonGridSize = new Vector2(this.canvasGridConvertor.GetGridSize().X,
                 this.canvasGridConvertor.GetGridSize().Y / 6);
             this.InternalAddWidget(this.BuildBackground());
-            this.qSortieMenuTypeButtons.Add(RequestType.MapDetails,
+            this.qSortieMenuTypeButtons.Add(RequestType.FieldDetails,
                 (IButtonPanelWidget)ButtonPanelImpl.Builder.Get()
-                .SetButtonText(RequestType.MapDetails.ToString())
-                .SetButtonType(RequestType.MapDetails.ToString())
+                .SetButtonText(RequestType.FieldDetails.ToString())
+                .SetButtonType(RequestType.FieldDetails.ToString())
                 .SetPanelGridSize(new Vector2(2, 1))
                 .SetWidgetGridSpec(new WidgetGridSpecImpl()
                     .SetCanvasGridCoords(new Vector2(0, this.canvasGridConvertor.GetGridSize().Y * 5 / 6))
@@ -47,7 +47,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
                 .SetCanvasLevel(0)
                 .SetInteractable(false)
                 .SetEnabled(true)
-                .SetName(this.mvcType + ":" + RequestType.MapDetails + ":Button:" + CanvasWidgetType.Panel)
+                .SetName(this.mvcType + ":" + RequestType.FieldDetails + ":Button:" + CanvasWidgetType.Panel)
                 .SetParent(this)
                 .Build());
             this.qSortieMenuTypeButtons.Add(RequestType.PhalanxDetails,

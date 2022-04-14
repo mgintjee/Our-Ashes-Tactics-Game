@@ -24,6 +24,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
         public static IFieldDetails Randomize(Random random)
         {
             FieldID fieldID = EnumUtils.GenerateRandomEnum<FieldID>(random);
+            return GetFieldDetails(random, fieldID);
+        }
+
+        public static IFieldDetails GetFieldDetails(Random random, FieldID fieldID)
+        {
             if (fieldID == FieldID.Random)
             {
                 return GetRandomFieldDetails(random);
@@ -34,14 +39,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             }
         }
 
-        private static IFieldDetails GetRandomFieldDetails(Random random)
+        private static IFieldDetails GetRandomFieldDetails(Random random, FieldID fieldID, FieldBiome fieldBiome, FieldShape fieldShape, FieldSize fieldSize)
         {
-            FieldBiome fieldBiome = EnumUtils.GenerateRandomEnum<FieldBiome>(random);
-            FieldShape fieldShape = EnumUtils.GenerateRandomEnum<FieldShape>(random);
-            FieldSize fieldSize = EnumUtils.GenerateRandomEnum<FieldSize>(random);
             ISet<ITileDetails> tileDetails = GetRandomTileDetails(random, fieldShape, fieldSize);
             IFieldDetails fieldDetails = FieldDetailsImpl.Builder.Get()
-                .SetFieldID(FieldID.Random)
+                .SetFieldID(fieldID)
                 .SetFieldBiome(fieldBiome)
                 .SetFieldShape(fieldShape)
                 .SetFieldSize(fieldSize)
@@ -50,7 +52,15 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             return fieldDetails;
         }
 
-        private static ISet<ITileDetails> GetRandomTileDetails(Random random, FieldShape fieldShape, FieldSize fieldSize)
+        private static IFieldDetails GetRandomFieldDetails(Random random)
+        {
+            FieldBiome fieldBiome = EnumUtils.GenerateRandomEnum<FieldBiome>(random);
+            FieldShape fieldShape = EnumUtils.GenerateRandomEnum<FieldShape>(random);
+            FieldSize fieldSize = EnumUtils.GenerateRandomEnum<FieldSize>(random);
+            return GetRandomFieldDetails(random, FieldID.Random, fieldBiome, fieldShape, fieldSize);
+        }
+
+        public static ISet<ITileDetails> GetRandomTileDetails(Random random, FieldShape fieldShape, FieldSize fieldSize)
         {
             IDictionary<Vector3, ITileDetails> tileCoordDetails = new Dictionary<Vector3, ITileDetails>();
 

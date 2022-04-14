@@ -76,10 +76,10 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
                     .SetCanvasLevel(0)
                     .SetInteractable(false)
                     .SetEnabled(true)
-                    .SetName(this.mvcType + ":" + RequestType.MapDetails + ":" + CanvasWidgetType.Panel)
+                    .SetName(this.mvcType + ":" + RequestType.FieldDetails + ":" + CanvasWidgetType.Panel)
                     .SetParent(this)
                     .Build();
-            this.requestTypeDetailsPanels[RequestType.MapDetails] = detailsPanelWidget;
+            this.requestTypeDetailsPanels[RequestType.FieldDetails] = detailsPanelWidget;
             return detailsPanelWidget;
         }
 

@@ -15,13 +15,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
         : IPhalanxDetails
     {
         private readonly CallSign callSign;
-        private readonly FactionID factionID;
         private readonly ISet<ICombatantDetails> combatantDetails;
 
-        private PhalanxDetailsImpl(CallSign callSign, FactionID factionID, ISet<ICombatantDetails> combatantDetails)
+        private PhalanxDetailsImpl(CallSign callSign, ISet<ICombatantDetails> combatantDetails)
         {
             this.callSign = callSign;
-            this.factionID = factionID;
             this.combatantDetails = combatantDetails;
         }
 
@@ -35,11 +33,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
             return new HashSet<ICombatantDetails>(combatantDetails);
         }
 
-        FactionID IPhalanxDetails.GetFactionID()
-        {
-            return factionID;
-        }
-
         /// <summary>
         /// Todo
         /// </summary>
@@ -51,7 +44,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
             public interface IInternalBuilder
                 : IBuilder<IPhalanxDetails>
             {
-                IInternalBuilder SetFactionID(FactionID factionID);
 
                 IInternalBuilder SetCallSign(CallSign callSign);
 
@@ -73,7 +65,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
             private class InternalBuilder
                 : AbstractBuilder<IPhalanxDetails>, IInternalBuilder
             {
-                private FactionID factionID;
                 private CallSign callSign;
                 private ISet<ICombatantDetails> combatantDetails;
 
@@ -89,15 +80,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
                     return this;
                 }
 
-                IInternalBuilder IInternalBuilder.SetFactionID(FactionID factionID)
-                {
-                    this.factionID = factionID;
-                    return this;
-                }
-
                 protected override IPhalanxDetails BuildObj()
                 {
-                    return new PhalanxDetailsImpl(callSign, factionID, combatantDetails);
+                    return new PhalanxDetailsImpl(callSign, combatantDetails);
                 }
             }
         }

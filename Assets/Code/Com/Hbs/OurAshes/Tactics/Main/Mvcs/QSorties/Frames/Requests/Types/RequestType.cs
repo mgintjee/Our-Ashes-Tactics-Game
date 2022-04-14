@@ -6,10 +6,18 @@
     public enum RequestType
     {
         None,
-        MapDetails,
+        FieldDetails,
+        FieldMod,
+        FieldRandomize,
+        FactionDetails,
+        FactionMod,
+        FactionRandomize,
         CombatantDetails,
+        CombatantMod,
         PhalanxDetails,
+        PhalanxMod,
         SortieDetails,
+        SortieRandomize,
         SortieStart
     }
 }

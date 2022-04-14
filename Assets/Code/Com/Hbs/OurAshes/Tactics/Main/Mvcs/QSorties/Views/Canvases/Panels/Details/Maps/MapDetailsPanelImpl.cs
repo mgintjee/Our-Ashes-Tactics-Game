@@ -37,7 +37,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
         private IPanelWidget BuildBannerWidget()
         {
             return BannerPanelImpl.Builder.Get()
-                .SetText(RequestType.MapDetails.ToString())
+                .SetText(RequestType.FieldDetails.ToString())
                 .SetPanelGridSize(new Vector2(2, 1))
                 .SetWidgetGridSpec(new WidgetGridSpecImpl()
                     .SetCanvasGridCoords(new Vector2(0, this.canvasGridConvertor.GetGridSize().Y * (1 - PanelWidgetConstants.GetBannerPanelRatio())))

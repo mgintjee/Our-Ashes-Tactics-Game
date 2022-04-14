@@ -65,7 +65,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
                 .SetCanvasLevel(0)
                 .SetInteractable(false)
                 .SetEnabled(true)
-                .SetName(this.mvcType + ":" + RequestType.MapDetails + ":MapShape:DualText:" + CanvasWidgetType.Panel)
+                .SetName(this.mvcType + ":" + RequestType.FieldDetails + ":MapShape:DualText:" + CanvasWidgetType.Panel)
                 .SetParent(this)
                 .Build();
         }

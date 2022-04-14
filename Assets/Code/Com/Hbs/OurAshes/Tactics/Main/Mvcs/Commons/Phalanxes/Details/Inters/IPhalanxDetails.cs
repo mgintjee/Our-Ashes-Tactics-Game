@@ -9,8 +9,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
     {
         CallSign GetCallSign();
 
-        FactionID GetFactionID();
-
         ISet<ICombatantDetails> GetCombatantDetails();
     }
 }

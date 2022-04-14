@@ -25,8 +25,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             int phalanxCount = GetPhalanxCount(random, fieldSize);
             int combatantCount = GetCombatantCount(random, fieldSize, phalanxCount);
             IDictionary<CallSign, ISet<ICombatantDetails>> phalanxCombatantDetailsMap = BuildPhalanxCombatantDetails(random, phalanxCount, combatantCount);
-            IDictionary<CallSign, FactionID> phalanxFactionIDs = BuildPhalanxFactionIDs(random, new HashSet<CallSign>(phalanxCombatantDetailsMap.Keys));
-            foreach(KeyValuePair<CallSign, ISet<ICombatantDetails>> phalanxCombatantDetails in phalanxCombatantDetailsMap)
+           foreach(KeyValuePair<CallSign, ISet<ICombatantDetails>> phalanxCombatantDetails in phalanxCombatantDetailsMap)
             {
                 CallSign phalanxCallSign = phalanxCombatantDetails.Key;
                 ISet<ICombatantDetails> combatantDetails = phalanxCombatantDetails.Value;
@@ -34,31 +33,10 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
                     PhalanxDetailsImpl.Builder.Get()
                     .SetCallSign(phalanxCallSign)
                     .SetCombatantDetails(combatantDetails)
-                    .SetFactionID(phalanxFactionIDs[phalanxCallSign])
                     .Build());
             }
 
             return phalanxDetails;
-        }
-
-        private static IDictionary<CallSign, FactionID> BuildPhalanxFactionIDs(Random random, ISet<CallSign> phalanxCallSigns)
-        {
-            IDictionary<CallSign, FactionID> phalanxFactionIDs = new Dictionary<CallSign, FactionID>();
-
-            if (true)
-            {
-                foreach(CallSign phalanxCallSign in phalanxCallSigns)
-                {
-                    phalanxFactionIDs.Add(phalanxCallSign, FactionID.Unaffiliated);
-                }
-            }
-            else
-            {
-                /// Todo Add support for allied phalanxes
-            }
-
-            return phalanxFactionIDs;
-
         }
 
         private static IDictionary<CallSign, ISet<ICombatantDetails>> BuildPhalanxCombatantDetails(Random random, int phalanxCount, int combatantCount)
