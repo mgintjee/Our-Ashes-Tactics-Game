@@ -12,7 +12,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Armors
     /// <summary>
     /// Armor Gear Details Implementation
     /// </summary>
-    public struct ArmorGearDetailsImpl
+    public class ArmorGearDetailsImpl
         : IArmorGearDetails
     {
         // Todo
@@ -37,7 +37,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Armors
         {
             return string.Format("{0}, {1}",
                 StringUtils.Format(this.armorGearID),
-                StringUtils.FormatCollection(this.armorTraitIDs));
+                StringUtils.Format(this.armorTraitIDs));
         }
 
         /// <inheritdoc/>

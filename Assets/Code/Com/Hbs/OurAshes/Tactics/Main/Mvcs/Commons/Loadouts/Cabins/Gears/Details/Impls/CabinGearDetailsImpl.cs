@@ -37,7 +37,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Cabins
         {
             return string.Format("{0}, {1}",
                 StringUtils.Format(this.cabinGearID),
-                StringUtils.FormatCollection(this.cabinTraitIDs));
+                StringUtils.Format(this.cabinTraitIDs));
         }
 
         /// <inheritdoc/>

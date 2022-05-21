@@ -1,5 +1,4 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Randoms.Managers;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Randoms.Managers;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.CallSigns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Details.Impls;
@@ -24,8 +23,8 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Im
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Utils;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Utils.Finders;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Utils.Queries;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Utils.Randomizations;
 using System.Collections.Generic;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
@@ -51,9 +50,57 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
         /// <returns></returns>
         protected override IMvcModelState ProcessInitialMvcModelRequest()
         {
-            ((MvcModelStateImpl)this.mvcModelState)
-                .SetMvcRequests(this.BuildInitialMvcModelRequests());
             return this.mvcModelState;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="mvcRequest"></param>
+        /// <returns></returns>
+        protected override IMvcModelState ProcessMvcModelRequest(IMvcRequest mvcRequest)
+        {
+            IQSortieMenuMvcRequest qSortieMenuMvcRequest = (IQSortieMenuMvcRequest)mvcRequest;
+            logger.Info("Received {}", qSortieMenuMvcRequest.GetRequestType());
+            switch (qSortieMenuMvcRequest.GetRequestType())
+            {
+                case RequestType.SortieRandomize:
+                    this.HandleSortieRandomize();
+                    break;
+
+                case RequestType.FieldRandomize:
+                    this.HandleFieldRandomize();
+                    break;
+
+                case RequestType.FactionRandomize:
+                    this.HandleFactionRandomize();
+                    break;
+
+                case RequestType.FieldMod:
+                    this.HandleFieldMod((IMvcRequestFieldMod)mvcRequest);
+                    break;
+
+                case RequestType.FactionMod:
+                    this.HandleFactionMod((IMvcRequestFactionMod)mvcRequest);
+                    break;
+
+                case RequestType.PhalanxMod:
+                    this.HandlePhalanxMod((IMvcRequestPhalanxMod)mvcRequest);
+                    break;
+
+                case RequestType.CombatantMod:
+                    this.HandleCombatantMod((IMvcRequestCombatantMod)mvcRequest);
+                    break;
+            }
+            ((MvcModelStateImpl)this.mvcModelState)
+                .SetPrevMvcRequest(mvcRequest);
+            // Todo: This is where I would modify the existing MvcModelState
+            return this.mvcModelState;
+        }
+
+        protected override IMvcModelState BuildInitialMvcModelState()
+        {
+            return MvcModelStateRandomizerUtil.Randomize(RandomManager.GetRandom(MvcType.QSortieMenu));
         }
 
         private ISet<IMvcRequest> BuildInitialMvcModelRequests()
@@ -62,6 +109,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
             panelMvcRequests.Add(new MvcRequestImpl().SetRequestType(RequestType.SortieRandomize));
             return panelMvcRequests;
         }
+
         private ISet<IMvcRequest> BuildPanelMvcModelRequests()
         {
             return new HashSet<IMvcRequest>
@@ -74,44 +122,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
                     };
         }
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="mvcRequest"></param>
-        /// <returns></returns>
-        protected override IMvcModelState ProcessMvcModelRequest(IMvcRequest mvcRequest)
-        {
-            IQSortieMenuMvcRequest qSortieMenuMvcRequest = (IQSortieMenuMvcRequest)mvcRequest;
-            logger.Info("Received {}", qSortieMenuMvcRequest.GetRequestType());
-            switch(qSortieMenuMvcRequest.GetRequestType())
-            {
-                case RequestType.SortieRandomize:
-                    this.HandleSortieRandomize();
-                    break;
-                case RequestType.FieldRandomize:
-                    this.HandleFieldRandomize();
-                    break;
-                case RequestType.FactionRandomize:
-                    this.HandleFactionRandomize();
-                    break;
-                case RequestType.FieldMod:
-                    this.HandleFieldMod((IMvcRequestFieldMod)mvcRequest);
-                    break;
-                case RequestType.FactionMod:
-                    this.HandleFactionMod((IMvcRequestFactionMod)mvcRequest);
-                    break;
-                case RequestType.PhalanxMod:
-                    this.HandlePhalanxMod((IMvcRequestPhalanxMod)mvcRequest);
-                    break;
-                case RequestType.CombatantMod:
-                    this.HandleCombatantMod((IMvcRequestCombatantMod)mvcRequest);
-                    break;
-            }
-            ((MvcModelStateImpl)this.mvcModelState)
-                .SetPrevMvcRequest(mvcRequest);
-            // Todo: This is where I would modify the existing MvcModelState
-            return this.mvcModelState;
-        }
         private void HandlePhalanxMod(IMvcRequestPhalanxMod mvcRequest)
         {
             FactionID factionID = mvcRequest.GetFactionID();
@@ -121,12 +131,16 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
             {
                 this.DelPhalanxCallSign(phalanxDetails.GetCallSign());
             }
-            else
+            else if (mvcRequest.IsAdd())
             {
-
                 this.AddPhalanxCallSign(factionID, phalanxDetails);
             }
+            else if(mvcRequest.IsMod())
+            {
+
+            }
         }
+
 
         private void HandleCombatantMod(IMvcRequestCombatantMod mvcRequest)
         {
@@ -137,15 +151,21 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
             {
                 this.DelCombatantCallSign(combatantDetails.GetCallSign());
             }
-            else
+            else if (mvcRequest.IsAdd())
             {
                 this.AddCombatantCallSign(phalanxCallSign, combatantDetails);
             }
+            else if (mvcRequest.IsMod())
+            {
+
+            }
         }
+
         private void AddCombatantCallSign(CallSign phalanxCallSign, ICombatantDetails combatantDetails)
         {
             // Todo
         }
+
         private void DelCombatantCallSign(CallSign combatantCallSign)
         {
             // Todo
@@ -167,7 +187,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
                 factionDetailsSetCopy.Add(factionDetails);
                 this.UpdateFactionDetails(factionDetailsSetCopy);
             });
-            }
+        }
+
         private void DelPhalanxCallSign(CallSign phalanxCallSign)
         {
             FactionID factionID = MvcModelStateQueryUtil.GetFactionIDFromPhalanx(this.CastMvcModelState(), phalanxCallSign);
@@ -189,11 +210,12 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
                 });
             });
         }
+
         private void HandleFactionMod(IMvcRequestFactionMod mvcRequest)
         {
             FactionID factionID = mvcRequest.GetFactionID();
 
-            if(mvcRequest.IsDel())
+            if (mvcRequest.IsDel())
             {
                 this.DelFactionID(factionID);
             }
@@ -202,6 +224,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
                 this.AddFactionID(factionID);
             }
         }
+
         private void AddFactionID(FactionID factionID)
         {
             if (!MvcModelStateQueryUtil.GetFactionDetails(this.CastMvcModelState(), factionID).IsPresent())
@@ -215,6 +238,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
                 this.UpdateFactionDetails(factionDetailsSetCopy);
             }
         }
+
         private void DelFactionID(FactionID factionID)
         {
             MvcModelStateQueryUtil.GetFactionDetails(this.CastMvcModelState(), factionID).IfPresent(factionDetails =>
@@ -224,6 +248,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
                 this.UpdateFactionDetails(factionDetailsSetCopy);
             });
         }
+
         private void HandleFieldMod(IMvcRequestFieldMod mvcRequest)
         {
             IFieldDetails fieldDetailsMod = mvcRequest.GetFieldDetails();
@@ -260,17 +285,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
                 .Randomize(RandomManager.GetRandom(MvcType.QSortieMenu));
             this.UpdateFieldDetails(fieldDetails);
         }
+
         private void HandleFactionRandomize()
         {
-            ISet<IFactionDetails> factionDetails= FactionDetailsRandomizerUtil
+            ISet<IFactionDetails> factionDetails = FactionDetailsRandomizerUtil
                 .Randomize(RandomManager.GetRandom(MvcType.QSortieMenu),
                 this.CastMvcModelState().GetFieldDetails());
             this.UpdateFactionDetails(factionDetails);
-        }
-
-        protected override IMvcModelState BuildInitialMvcModelState()
-        {
-            return MvcModelStateRandomizerUtil.Randomize(RandomManager.GetRandom(MvcType.QSortieMenu));
         }
 
         private void UpdateFieldDetails(IFieldDetails fieldDetails)

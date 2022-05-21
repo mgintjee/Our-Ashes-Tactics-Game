@@ -14,14 +14,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.I
         public override IMvcModelState GetCopy()
         {
             return new DefaultMvcModelStateImpl()
-                .SetMvcRequests(this.mvcModelRequests)
                 .SetPrevMvcRequest(this.prevMvcRequest);
-        }
-
-        public DefaultMvcModelStateImpl SetMvcRequests(ISet<IMvcRequest> mvcModelRequests)
-        {
-            this.mvcModelRequests = new HashSet<IMvcRequest>(mvcModelRequests);
-            return this;
         }
 
         public DefaultMvcModelStateImpl SetPrevMvcRequest(IMvcRequest prevMvcRequest)

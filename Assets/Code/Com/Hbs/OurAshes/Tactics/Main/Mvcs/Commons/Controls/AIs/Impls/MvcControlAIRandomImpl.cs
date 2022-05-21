@@ -26,10 +26,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.AIs.Im
         /// <inheritdoc/>
         IMvcRequest IMvcControlAI.DetermineBestRequest(IMvcFrameState mvcFrameState)
         {
-            ISet<IMvcRequest> mvcModelRequests = mvcFrameState
-                .GetMvcModelState().GetMvcRequests();
-            return new List<IMvcRequest>(mvcModelRequests)
-                [_random.Next(mvcModelRequests.Count)];
+            return null;
         }
     }
 }

@@ -7,6 +7,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widg
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Maps;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -32,84 +33,12 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
 
         protected override void InitialBuild()
         {
-            Vector2 buttonGridSize = new Vector2(this.canvasGridConvertor.GetGridSize().X,
-                this.canvasGridConvertor.GetGridSize().Y / 6);
             this.InternalAddWidget(this.BuildBackground());
-            this.qSortieMenuTypeButtons.Add(RequestType.FieldDetails,
-                (IButtonPanelWidget)ButtonPanelImpl.Builder.Get()
-                .SetButtonText(RequestType.FieldDetails.ToString())
-                .SetButtonType(RequestType.FieldDetails.ToString())
-                .SetPanelGridSize(new Vector2(2, 1))
-                .SetWidgetGridSpec(new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(0, this.canvasGridConvertor.GetGridSize().Y * 5 / 6))
-                    .SetCanvasGridSize(buttonGridSize))
-                .SetMvcType(this.mvcType)
-                .SetCanvasLevel(0)
-                .SetInteractable(false)
-                .SetEnabled(true)
-                .SetName(this.mvcType + ":" + RequestType.FieldDetails + ":Button:" + CanvasWidgetType.Panel)
-                .SetParent(this)
-                .Build());
-            this.qSortieMenuTypeButtons.Add(RequestType.PhalanxDetails,
-                (IButtonPanelWidget)ButtonPanelImpl.Builder.Get()
-                .SetButtonText(RequestType.PhalanxDetails.ToString())
-                .SetButtonType(RequestType.PhalanxDetails.ToString())
-                .SetPanelGridSize(new Vector2(2, 1))
-                .SetWidgetGridSpec(new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(0, this.canvasGridConvertor.GetGridSize().Y * 4 / 6))
-                    .SetCanvasGridSize(buttonGridSize))
-                .SetMvcType(this.mvcType)
-                .SetCanvasLevel(0)
-                .SetInteractable(false)
-                .SetEnabled(true)
-                .SetName(this.mvcType + ":" + RequestType.PhalanxDetails + ":Button:" + CanvasWidgetType.Panel)
-                .SetParent(this)
-                .Build());
-            this.qSortieMenuTypeButtons.Add(RequestType.CombatantDetails,
-                (IButtonPanelWidget)ButtonPanelImpl.Builder.Get()
-                .SetButtonText(RequestType.CombatantDetails.ToString())
-                .SetButtonType(RequestType.CombatantDetails.ToString())
-                .SetPanelGridSize(new Vector2(2, 1))
-                .SetWidgetGridSpec(new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(0, this.canvasGridConvertor.GetGridSize().Y * 3 / 6))
-                    .SetCanvasGridSize(buttonGridSize))
-                .SetMvcType(this.mvcType)
-                .SetCanvasLevel(0)
-                .SetInteractable(false)
-                .SetEnabled(true)
-                .SetName(this.mvcType + ":" + RequestType.CombatantDetails + ":Button:" + CanvasWidgetType.Panel)
-                .SetParent(this)
-                .Build());
-            this.qSortieMenuTypeButtons.Add(RequestType.SortieDetails,
-                (IButtonPanelWidget)ButtonPanelImpl.Builder.Get()
-                .SetButtonText(RequestType.SortieDetails.ToString())
-                .SetButtonType(RequestType.SortieDetails.ToString())
-                .SetPanelGridSize(new Vector2(2, 1))
-                .SetWidgetGridSpec(new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(0, this.canvasGridConvertor.GetGridSize().Y * 2 / 6))
-                    .SetCanvasGridSize(buttonGridSize))
-                .SetMvcType(this.mvcType)
-                .SetCanvasLevel(0)
-                .SetInteractable(false)
-                .SetEnabled(true)
-                .SetName(this.mvcType + ":" + RequestType.SortieDetails + ":Button:" + CanvasWidgetType.Panel)
-                .SetParent(this)
-                .Build());
-            this.qSortieMenuTypeButtons.Add(RequestType.SortieStart,
-                (IButtonPanelWidget)ButtonPanelImpl.Builder.Get()
-                .SetButtonText(RequestType.SortieStart.ToString())
-                .SetButtonType(RequestType.SortieStart.ToString())
-                .SetPanelGridSize(new Vector2(2, 1))
-                .SetWidgetGridSpec(new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(0, 0))
-                    .SetCanvasGridSize(buttonGridSize))
-                .SetMvcType(this.mvcType)
-                .SetCanvasLevel(0)
-                .SetInteractable(false)
-                .SetEnabled(true)
-                .SetName(this.mvcType + ":" + RequestType.SortieStart + ":Button:" + CanvasWidgetType.Panel)
-                .SetParent(this)
-                .Build());
+            this.BuildAndSetFieldDetailsButton();
+            this.BuildAndSetPhalanxDetailsButton();
+            this.BuildAndSetCombatantDetailsButton();
+            this.BuildAndSetSortieDetailsButton();
+            this.BuildAndSetSortieStartButton();
             this.UpdateButtons(RequestType.SortieDetails);
             foreach (ICanvasWidget canvasWidget in this.qSortieMenuTypeButtons.Values)
             {
@@ -117,11 +46,58 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
             }
         }
 
+        private IButtonPanelWidget BuildAndSetFieldDetailsButton()
+        {
+            return this.BuildAndSetRequestTypeButtonPanel(RequestType.FieldDetails, ButtonPanelConstants.BUTTON_FIELD_DETAILS_COORDS);
+        }
+        private IButtonPanelWidget BuildAndSetPhalanxDetailsButton()
+        {
+            return this.BuildAndSetRequestTypeButtonPanel(RequestType.PhalanxDetails, ButtonPanelConstants.BUTTON_PHALANX_DETAILS_COORDS);
+        }
+        private IButtonPanelWidget BuildAndSetSortieDetailsButton()
+        {
+            return this.BuildAndSetRequestTypeButtonPanel(RequestType.SortieDetails, ButtonPanelConstants.BUTTON_SORTIE_DETAILS_COORDS);
+        }
+        private IButtonPanelWidget BuildAndSetCombatantDetailsButton()
+        {
+            return this.BuildAndSetRequestTypeButtonPanel(RequestType.CombatantDetails, ButtonPanelConstants.BUTTON_COMBATANT_DETAILS_COORDS);
+        }
+        private IButtonPanelWidget BuildAndSetSortieStartButton()
+        {
+            return this.BuildAndSetRequestTypeButtonPanel(RequestType.SortieStart, ButtonPanelConstants.BUTTON_SORTIE_START_COORDS);
+        }
+
+        private IButtonPanelWidget BuildAndSetRequestTypeButtonPanel(RequestType requestType, Vector2 buttonCoords)
+        {
+            this.qSortieMenuTypeButtons[requestType] = this.BuildButtonPanelWidget(requestType, buttonCoords);
+            return this.qSortieMenuTypeButtons[requestType];
+        }
+
+        private IButtonPanelWidget BuildButtonPanelWidget(RequestType requestType, Vector2 canvasGridCoords)
+        {
+            return (IButtonPanelWidget)ButtonPanelImpl.Builder.Get()
+                    .SetButtonText(requestType.ToString())
+                    .SetButtonType(requestType.ToString())
+                    .SetPanelGridSize(Vector2.One)
+                    .SetWidgetGridSpec(new WidgetGridSpecImpl()
+                        .SetCanvasGridCoords(canvasGridCoords)
+                        .SetCanvasGridSize(ButtonPanelConstants.BUTTON_SIZE))
+                    .SetMvcType(this.mvcType)
+                    .SetCanvasLevel(0)
+                    .SetInteractable(false)
+                    .SetEnabled(true)
+                    .SetName(this.mvcType + ":" + requestType + ":Button:" + CanvasWidgetType.Panel)
+                    .SetParent(this)
+                    .Build();
+        }
+
         private void UpdateButtons(RequestType qSortieMenuRequestType)
         {
             foreach (KeyValuePair<RequestType, IButtonPanelWidget> typeImagePair in this.qSortieMenuTypeButtons)
             {
-                CanvasWidgetUtils.SetButtonInteractable(typeImagePair.Value.GetImageWidget(),
+                CanvasWidgetUtils.SetImageInteractable(typeImagePair.Value.GetImageWidget(),
+                    typeImagePair.Key != qSortieMenuRequestType);
+                CanvasWidgetUtils.SetTextInteractable(typeImagePair.Value.GetTextWidget(),
                     typeImagePair.Key != qSortieMenuRequestType);
             }
         }

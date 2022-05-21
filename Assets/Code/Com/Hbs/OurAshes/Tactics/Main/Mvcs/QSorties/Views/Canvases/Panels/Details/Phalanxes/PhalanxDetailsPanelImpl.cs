@@ -13,16 +13,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
     /// Panel Widget Impl
     /// </summary>
     public class PhalanxDetailsPanelImpl
-        : AbstractPanelWidget, IDetailsPanelWidget
+        : AbstractPanelWidget, IPanelWidget
     {
         private IDualTextPanelWidget tileCountDualTextPanelWidget;
 
         public override void Process(Commons.Models.States.Inters.IMvcModelState mvcModelState)
-        {
-            Models.States.Inters.IMvcModelState qSortieMenuModelState = (Models.States.Inters.IMvcModelState)mvcModelState;
-        }
-
-        void IDetailsPanelWidget.ProcessState(Commons.Models.States.Inters.IMvcModelState mvcModelState)
         {
             Models.States.Inters.IMvcModelState qSortieMenuModelState = (Models.States.Inters.IMvcModelState)mvcModelState;
         }

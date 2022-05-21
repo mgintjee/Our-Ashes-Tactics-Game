@@ -6,6 +6,7 @@
     public enum CanvasWidgetType
     {
         Text,
+        DualText,
         Image,
         Panel
     }

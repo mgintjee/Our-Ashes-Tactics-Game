@@ -1,10 +1,11 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.CallSigns;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.IDs;
-using System.Collections.Generic;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Details.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Details.Inters;
+using System.Collections.Generic;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Details.Impls
 {
@@ -17,7 +18,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Detail
         private readonly FactionID factionID;
         private readonly ISet<IPhalanxDetails> phalanxDetails;
 
-        private FactionDetailsImpl( FactionID factionID, ISet<IPhalanxDetails> PhalanxDetails)
+        private FactionDetailsImpl(FactionID factionID, ISet<IPhalanxDetails> PhalanxDetails)
         {
             this.factionID = factionID;
             this.phalanxDetails = PhalanxDetails;
@@ -31,6 +32,14 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Detail
         FactionID IFactionDetails.GetFactionID()
         {
             return factionID;
+        }
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return string.Format("\n{0}" +
+                "\n{1}",
+                StringUtils.Format(this.factionID),
+                StringUtils.Format(this.phalanxDetails));
         }
 
         /// <summary>
@@ -68,7 +77,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Detail
                 private CallSign callSign;
                 private ISet<IPhalanxDetails> phalanxDetails;
 
-
                 IInternalBuilder IInternalBuilder.SetPhalanxDetails(ISet<IPhalanxDetails> phalanxDetails)
                 {
                     this.phalanxDetails = new HashSet<IPhalanxDetails>(phalanxDetails);
@@ -83,7 +91,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Detail
 
                 protected override IFactionDetails BuildObj()
                 {
-                    return new FactionDetailsImpl( factionID, phalanxDetails);
+                    return new FactionDetailsImpl(factionID, phalanxDetails);
                 }
             }
         }

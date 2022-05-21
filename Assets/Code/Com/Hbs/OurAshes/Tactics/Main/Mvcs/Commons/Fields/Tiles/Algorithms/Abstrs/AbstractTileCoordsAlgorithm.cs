@@ -1,9 +1,13 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Shapes;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Sizes;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Sizes.Managers;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Algorithms.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Numerics;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Algorithms.Abstrs
@@ -14,40 +18,46 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Al
     public abstract class AbstractTileCoordsAlgorithm
         : ITileCoordsAlgorithm
     {
+        private static readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Common)
+                .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
         ISet<Vector3> ITileCoordsAlgorithm.GetTileCoords(FieldShape fieldShape, FieldSize fieldSize)
         {
             int expectedTileCount = FieldShapeTileCountManager.GetTileCounts(fieldShape, fieldSize);
-            ISet<Vector3> tileCoords = new HashSet<Vector3>();
-            IList<Vector3> perimeterTileCoords = new List<Vector3>() { Vector3.Zero };
-            while (perimeterTileCoords.Count != 0 && tileCoords.Count < expectedTileCount)
+            ISet<Vector3> vistedTileCoords = new HashSet<Vector3>();
+            IList<Vector3> unvisitedTileCoords = new List<Vector3>() { Vector3.Zero };
+            logger.Info("Getting TileCoords for {} and {}. Expected TileCount: {}", fieldShape, fieldSize, expectedTileCount);
+            while (unvisitedTileCoords.Count != 0 && vistedTileCoords.Count < expectedTileCount)
             {
-                GetNextTileCoord(tileCoords, perimeterTileCoords).IfPresent(tileCoord =>
+                GetNextTileCoord(vistedTileCoords, unvisitedTileCoords).IfPresent(tileCoord =>
                 {
-                    ProcessTileCoord(tileCoords, perimeterTileCoords, tileCoord);
+                    ProcessTileCoord(vistedTileCoords, unvisitedTileCoords, tileCoord);
                 });
             }
 
-            return tileCoords;
+            return vistedTileCoords;
         }
-        protected abstract Optional<Vector3> GetNextTileCoord(ISet<Vector3> tileCoords, IList<Vector3> perimeterTileCoords);
 
-        private void ProcessTileCoord(ISet<Vector3> tileCoords, IList<Vector3> perimeterTileCoords, Vector3 tileCoord)
+        protected abstract Optional<Vector3> GetNextTileCoord(ISet<Vector3> visitedTileCoords, IList<Vector3> unvisitedTileCoords);
+
+        private void ProcessTileCoord(ISet<Vector3> visitedTileCoords, IList<Vector3> unvisitedTileCoords, Vector3 tileCoord)
         {
-            tileCoords.Add(tileCoord);
-            perimeterTileCoords.Remove(tileCoord);
-            IList<Vector3> validNeighbors = GetNeighborsTileCoords(tileCoord, tileCoords);
+            logger.Info("Processing TileCoord: {}", tileCoord);
+            visitedTileCoords.Add(tileCoord);
+            unvisitedTileCoords.Remove(tileCoord);
+            IList<Vector3> validNeighbors = GetNeighborsTileCoords(tileCoord);
             foreach (Vector3 neighborTileCoords in validNeighbors)
             {
-                if (!tileCoords.Contains(neighborTileCoords))
+                if (!visitedTileCoords.Contains(neighborTileCoords))
                 {
-                    perimeterTileCoords.Add(neighborTileCoords);
+                    logger.Info("Adding TileCoord: {} to the unvisted coords", neighborTileCoords);
+                    unvisitedTileCoords.Add(neighborTileCoords);
                 }
             }
         }
 
-        private IList<Vector3> GetNeighborsTileCoords(Vector3 tileCoord, ISet<Vector3> tileCoords)
+        private IList<Vector3> GetNeighborsTileCoords(Vector3 tileCoord)
         {
-            IList<Vector3> neighborTileCoords = new List<Vector3>
+            return new List<Vector3>
             {
                 BuildNorthTile(tileCoord),
                 BuildNorthEastTile(tileCoord),
@@ -56,46 +66,36 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Al
                 BuildSouthWestTile(tileCoord),
                 BuildNorthWestTile(tileCoord)
             };
-
-            foreach(Vector3 neighborTileCoord in neighborTileCoords)
-            {
-                if(tileCoords .Contains(neighborTileCoord))
-                {
-                    neighborTileCoords.Remove(neighborTileCoord);
-                }
-            }
-
-            return neighborTileCoords;
         }
 
-        private Vector3 BuildNorthTile(Vector3 vector3)
+        private Vector3 BuildNorthTile(Vector3 tileCoord)
         {
-            return new Vector3(vector3.X + 1, vector3.Y, vector3.Z - 1);
+            return new Vector3(tileCoord.X + 1, tileCoord.Y, tileCoord.Z - 1);
         }
 
-        private Vector3 BuildNorthEastTile(Vector3 vector3)
+        private Vector3 BuildNorthEastTile(Vector3 tileCoord)
         {
-            return new Vector3(vector3.X + 1, vector3.Y - 1, vector3.Z);
+            return new Vector3(tileCoord.X + 1, tileCoord.Y - 1, tileCoord.Z);
         }
 
-        private Vector3 BuildSouthEastTile(Vector3 vector3)
+        private Vector3 BuildSouthEastTile(Vector3 tileCoord)
         {
-            return new Vector3(vector3.X, vector3.Y - 1, vector3.Z + 1);
+            return new Vector3(tileCoord.X, tileCoord.Y - 1, tileCoord.Z + 1);
         }
 
-        private Vector3 BuildSouthTile(Vector3 vector3)
+        private Vector3 BuildSouthTile(Vector3 tileCoord)
         {
-            return new Vector3(vector3.X - 1, vector3.Y, vector3.Z + 1);
+            return new Vector3(tileCoord.X - 1, tileCoord.Y, tileCoord.Z + 1);
         }
 
-        private Vector3 BuildSouthWestTile(Vector3 vector3)
+        private Vector3 BuildSouthWestTile(Vector3 tileCoord)
         {
-            return new Vector3(vector3.X - 1, vector3.Y + 1, vector3.Z);
+            return new Vector3(tileCoord.X - 1, tileCoord.Y + 1, tileCoord.Z);
         }
 
-        private Vector3 BuildNorthWestTile(Vector3 vector3)
+        private Vector3 BuildNorthWestTile(Vector3 tileCoord)
         {
-            return new Vector3(vector3.X - 1, vector3.Y + 1, vector3.Z);
+            return new Vector3(tileCoord.X - 1, tileCoord.Y + 1, tileCoord.Z);
         }
     }
 }

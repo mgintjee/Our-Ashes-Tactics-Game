@@ -1,8 +1,8 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.CallSigns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Details.Inters;
 using System.Collections.Generic;
 
@@ -33,6 +33,16 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
             return new HashSet<ICombatantDetails>(combatantDetails);
         }
 
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return string.Format("\n{0}" +
+                "\n{1}",
+                StringUtils.Format(this.callSign),
+                StringUtils.Format(this.combatantDetails));
+        }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -44,7 +54,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
             public interface IInternalBuilder
                 : IBuilder<IPhalanxDetails>
             {
-
                 IInternalBuilder SetCallSign(CallSign callSign);
 
                 IInternalBuilder SetCombatantDetails(ISet<ICombatantDetails> combatantDetails);

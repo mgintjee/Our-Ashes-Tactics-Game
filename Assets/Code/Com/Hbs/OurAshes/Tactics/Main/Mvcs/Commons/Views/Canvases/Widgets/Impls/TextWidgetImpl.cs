@@ -40,6 +40,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             this.text = text;
             this.GetText().text = text;
         }
+        /// <inheritdoc/>
+        void ITextWidget.SetText(object obj)
+        {
+            ((ITextWidget)this).SetText(obj.ToString());
+        }
 
         /// <inheritdoc/>
         void ITextWidget.SetFont(FontID fontID)

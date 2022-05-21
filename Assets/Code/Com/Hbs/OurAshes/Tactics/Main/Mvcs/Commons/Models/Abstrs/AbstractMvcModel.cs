@@ -80,8 +80,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs
 
         protected virtual IMvcModelState ProcessInitialMvcModelRequest()
         {
-            ((DefaultMvcModelStateImpl)this.mvcModelState).SetMvcRequests(
-                new HashSet<IMvcRequest> { new MvcRequestImpl() });
             return this.mvcModelState;
         }
     }

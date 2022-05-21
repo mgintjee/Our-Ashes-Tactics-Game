@@ -1,4 +1,5 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Enums;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Biomes;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Impls;
@@ -7,24 +8,28 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Mana
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Shapes;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Sizes;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Sizes.Managers;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Algorithms.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Algorithms.Managers;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Details.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Types;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Numerics;
 
-namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Utils
+namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Utils.Randomizations
 {
     public class FieldDetailsRandomizerUtil
     {
+        private static readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Common)
+                .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
         public static IFieldDetails Randomize(Random random)
         {
             FieldID fieldID = EnumUtils.GenerateRandomEnum<FieldID>(random);
-            return GetFieldDetails(random, fieldID);
+            IFieldDetails details = GetFieldDetails(random, fieldID);
+            logger.Info("Randomized: {}", details);
+            return details;
         }
 
         public static IFieldDetails GetFieldDetails(Random random, FieldID fieldID)
@@ -37,6 +42,24 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             {
                 return FieldDetailsManager.GetFieldDetails(fieldID).GetValue();
             }
+        }
+
+        public static ISet<ITileDetails> GetRandomTileDetails(Random random, FieldShape fieldShape, FieldSize fieldSize)
+        {
+            IDictionary<Vector3, ITileDetails> tileCoordDetails = new Dictionary<Vector3, ITileDetails>();
+
+            bool isMapMirrored = random.Next() % 2 == 0;
+            TileCoordsAlgorithmsManager.GetTileCoordsAlgorithm(fieldShape).IfPresent(tileCoordsAlgorithm =>
+            {
+                ISet<Vector3> tileCoords = tileCoordsAlgorithm.GetTileCoords(fieldShape, fieldSize);
+
+                foreach (Vector3 tileCoord in tileCoords)
+                {
+                    BuildRandomTileDetails(random, tileCoordDetails, isMapMirrored, tileCoord);
+                }
+            });
+
+            return new HashSet<ITileDetails>(tileCoordDetails.Values);
         }
 
         private static IFieldDetails GetRandomFieldDetails(Random random, FieldID fieldID, FieldBiome fieldBiome, FieldShape fieldShape, FieldSize fieldSize)
@@ -60,27 +83,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             return GetRandomFieldDetails(random, FieldID.Random, fieldBiome, fieldShape, fieldSize);
         }
 
-        public static ISet<ITileDetails> GetRandomTileDetails(Random random, FieldShape fieldShape, FieldSize fieldSize)
-        {
-            IDictionary<Vector3, ITileDetails> tileCoordDetails = new Dictionary<Vector3, ITileDetails>();
-
-            bool isMapMirrored = random.Next() % 2 == 0;
-            TileCoordsAlgorithmsManager.GetTileCoordsAlgorithm(fieldShape).IfPresent(tileCoordsAlgorithm =>
-            {
-                ISet<Vector3> tileCoords = tileCoordsAlgorithm.GetTileCoords(fieldShape, fieldSize);
-
-                foreach(Vector3 tileCoord in tileCoords)
-                {
-                    BuildRandomTileDetails(random, tileCoordDetails, isMapMirrored, tileCoord);
-                }
-            });
-
-            return new HashSet<ITileDetails>( tileCoordDetails.Values);
-        }
-
         private static void BuildRandomTileDetails(Random random, IDictionary<Vector3, ITileDetails> tileCoordDetails, bool isMapMirrored, Vector3 tileCoord)
         {
-            if(isMapMirrored && tileCoordDetails.ContainsKey(tileCoord * -1))
+            if (isMapMirrored && tileCoordDetails.ContainsKey(tileCoord * -1))
             {
                 ITileDetails tileDetails = tileCoordDetails[tileCoord * -1];
                 ITileDetails mirroredTileDetails = TileDetailsImpl.Builder.Get()
@@ -90,7 +95,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
                 tileCoordDetails.Add(tileCoord, mirroredTileDetails);
             }
 
-            if(!tileCoordDetails.ContainsKey(tileCoord))
+            if (!tileCoordDetails.ContainsKey(tileCoord))
             {
                 tileCoordDetails.Add(tileCoord, BuildRandomTileDetails(random, tileCoord));
             }

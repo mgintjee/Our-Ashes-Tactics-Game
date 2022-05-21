@@ -36,7 +36,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Weapon
         {
             return string.Format("{0}, {1}",
                 StringUtils.Format(this.weaponGearID),
-                StringUtils.FormatCollection(this.weaponTraitIDs));
+                StringUtils.Format(this.weaponTraitIDs));
         }
 
         /// <inheritdoc/>

@@ -1,22 +1,26 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.CallSigns;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.CallSigns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Constants.Combatants;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Constants.Phalanxes;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Sizes;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Details.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Details.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Impls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
-namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Utils
+namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Utils.Randomizations
 {
     public class PhalanxDetailsRandomizerUtil
     {
         private static readonly int MIN_PHALANX_COUNT = 2;
+
+        private static readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Common)
+                .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
         public static ISet<IPhalanxDetails> Randomize(Random random, IFieldDetails fieldDetails)
         {
             ISet<IPhalanxDetails> phalanxDetails = new HashSet<IPhalanxDetails>();
@@ -25,7 +29,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             int phalanxCount = GetPhalanxCount(random, fieldSize);
             int combatantCount = GetCombatantCount(random, fieldSize, phalanxCount);
             IDictionary<CallSign, ISet<ICombatantDetails>> phalanxCombatantDetailsMap = BuildPhalanxCombatantDetails(random, phalanxCount, combatantCount);
-           foreach(KeyValuePair<CallSign, ISet<ICombatantDetails>> phalanxCombatantDetails in phalanxCombatantDetailsMap)
+            foreach (KeyValuePair<CallSign, ISet<ICombatantDetails>> phalanxCombatantDetails in phalanxCombatantDetailsMap)
             {
                 CallSign phalanxCallSign = phalanxCombatantDetails.Key;
                 ISet<ICombatantDetails> combatantDetails = phalanxCombatantDetails.Value;
@@ -35,7 +39,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
                     .SetCombatantDetails(combatantDetails)
                     .Build());
             }
-
+            logger.Debug("Randomized {}", phalanxDetails);
             return phalanxDetails;
         }
 
@@ -44,12 +48,12 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             IDictionary<CallSign, ISet<ICombatantDetails>> phalanxCombatantDetails = new Dictionary<CallSign, ISet<ICombatantDetails>>();
 
             ISet<CallSign> phalanxCallSigns = BuildCallSigns(phalanxCount);
-            foreach(CallSign phalanxCallSign in phalanxCallSigns)
+            foreach (CallSign phalanxCallSign in phalanxCallSigns)
             {
                 phalanxCombatantDetails.Add(phalanxCallSign, new HashSet<ICombatantDetails>());
             }
 
-            for(int i = 0; i < combatantCount; ++i)
+            for (int i = 0; i < combatantCount; ++i)
             {
                 CallSign phalanxCallSign = (CallSign)(i % phalanxCount);
                 CallSign combatantCallSign = (CallSign)i;
@@ -64,7 +68,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
         {
             ISet<CallSign> callSigns = new HashSet<CallSign>();
 
-            for(int i =0; i < count; ++i)
+            for (int i = 0; i < count; ++i)
             {
                 callSigns.Add((CallSign)i);
             }

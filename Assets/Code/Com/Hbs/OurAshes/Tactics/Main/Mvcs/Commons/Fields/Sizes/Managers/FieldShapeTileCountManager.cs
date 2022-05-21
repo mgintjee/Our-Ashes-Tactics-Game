@@ -35,7 +35,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Sizes.Ma
             IDictionary<FieldSize, int> fieldSizeTileCounts = new Dictionary<FieldSize, int>();
             fieldSizeTileCounts.Add(FieldSize.Small, 1 + 6 + 12);
             fieldSizeTileCounts.Add(FieldSize.Medium, fieldSizeTileCounts[FieldSize.Small] + 18);
-            fieldSizeTileCounts.Add(FieldSize.Medium, fieldSizeTileCounts[FieldSize.Large] + 24);
+            fieldSizeTileCounts.Add(FieldSize.Large, fieldSizeTileCounts[FieldSize.Medium] + 24);
             return fieldSizeTileCounts;
         }
     }

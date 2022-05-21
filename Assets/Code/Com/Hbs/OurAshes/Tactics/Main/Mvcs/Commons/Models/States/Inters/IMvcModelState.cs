@@ -6,8 +6,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.I
 {
     public interface IMvcModelState
     {
-        ISet<IMvcRequest> GetMvcRequests();
-
         Optional<IMvcRequest> GetPrevMvcRequest();
 
         IMvcModelState GetCopy();

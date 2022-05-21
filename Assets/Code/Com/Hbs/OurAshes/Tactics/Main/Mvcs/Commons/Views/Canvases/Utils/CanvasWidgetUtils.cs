@@ -5,6 +5,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grid
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Worlds.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Maps;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -100,16 +101,28 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             canvasWidget.SetEnabled(enable);
         }
 
-        public static void SetButtonInteractable(IImageWidget imageWidget, bool interactable)
+        public static void SetImageInteractable(IImageWidget imageWidget, bool interactable)
         {
             imageWidget.SetInteractable(interactable);
             if (interactable)
             {
-                imageWidget.SetColorID(ColorID.Red);
+                imageWidget.SetColorID(WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR);
             }
             else
             {
-                imageWidget.SetColorID(ColorID.Gray);
+                imageWidget.SetColorID(WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR);
+            }
+        }
+        public static void SetTextInteractable(ITextWidget textWidget, bool interactable)
+        {
+            textWidget.SetInteractable(interactable);
+            if (interactable)
+            {
+                textWidget.SetColorID(WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR);
+            }
+            else
+            {
+                textWidget.SetColorID(WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR);
             }
         }
     }

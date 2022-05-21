@@ -18,8 +18,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
     public class DetailsPanelImpl
         : AbstractPanelWidget
     {
-        private readonly IDictionary<RequestType, IDetailsPanelWidget> requestTypeDetailsPanels =
-            new Dictionary<RequestType, IDetailsPanelWidget>();
+        private readonly IDictionary<RequestType, IPanelWidget> requestTypeDetailsPanels =
+            new Dictionary<RequestType, IPanelWidget>();
 
         public override void Process(Commons.Models.States.Inters.IMvcModelState mvcModelState)
         {
@@ -32,44 +32,47 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
 
         protected override void InitialBuild()
         {
-            this.InternalAddWidget(this.BuildBackground());
-            this.InternalAddWidget(this.BuildAndCacheMapDetailsPanel());
-            this.InternalAddWidget(this.BuildAndCacheSortieDetailsPanel());
-            this.InternalAddWidget(this.BuildAndCacheCombatantDetailsPanel());
-            this.InternalAddWidget(this.BuildAndCachePhalanxDetailsPanel());
+            ISet<ICanvasWidget> panelWidgets = new HashSet<ICanvasWidget>() {
+                this.BuildBackground(),
+                this.BuildAndSetFieldDetailsPanel(),
+                this.BuildAndSetSortieDetailsPanel(),
+                this.BuildAndSetCombatantDetailsPanel(),
+                this.BuildAndSetPhalanxDetailsPanel()
+            };
+            this.InternalAddWidgets(panelWidgets);
             this.EnableDetailPanels(RequestType.SortieDetails);
         }
 
         private void UpdateDetailPanelsContent(RequestType requestType, Models.States.Inters.IMvcModelState modelState)
         {
-            logger.Debug("Updating {}s based off of {}", typeof(IDetailsPanelWidget), requestType);
+            logger.Debug("Updating {}s based off of {}", typeof(IPanelWidget), requestType);
             if (requestType != RequestType.None)
             {
                 this.EnableDetailPanels(requestType);
             }
             if (this.requestTypeDetailsPanels.ContainsKey(requestType))
             {
-                this.requestTypeDetailsPanels[requestType].ProcessState(modelState);
+                this.requestTypeDetailsPanels[requestType].Process(modelState);
             }
         }
 
         private void EnableDetailPanels(RequestType requestType)
         {
-            logger.Debug("Enabling {}s based off of {}", typeof(IDetailsPanelWidget), requestType);
-            foreach (KeyValuePair<RequestType, IDetailsPanelWidget> requestTypeDetailsPanel in this.requestTypeDetailsPanels)
+            logger.Debug("Enabling {}s based off of {}", typeof(IPanelWidget), requestType);
+            foreach (KeyValuePair<RequestType, IPanelWidget> requestTypeDetailsPanel in this.requestTypeDetailsPanels)
             {
-                IDetailsPanelWidget detailsPanelWidget = requestTypeDetailsPanel.Value;
+                IPanelWidget detailsPanelWidget = requestTypeDetailsPanel.Value;
                 bool isDetailsPanelEnabled = requestTypeDetailsPanel.Key == requestType;
                 CanvasWidgetUtils.EnableWidget(detailsPanelWidget, isDetailsPanelEnabled);
             }
         }
 
-        private ICanvasWidget BuildAndCacheMapDetailsPanel()
+        private ICanvasWidget BuildAndSetFieldDetailsPanel()
         {
-            IDetailsPanelWidget detailsPanelWidget = (IDetailsPanelWidget)MapDetailsPanelImpl.Builder.Get()
-                    .SetPanelGridSize(new Vector2(4, 5))
+            this.requestTypeDetailsPanels[RequestType.FieldDetails] = FieldDetailsPanelImpl.Builder.Get()
+                    .SetPanelGridSize(DetailsPanelConstants.FIELD_PANEL_DIMENSIONS)
                     .SetWidgetGridSpec(new WidgetGridSpecImpl()
-                        .SetCanvasGridCoords(new Vector2(0, 0))
+                        .SetCanvasGridCoords(Vector2.Zero)
                         .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X,
                             this.canvasGridConvertor.GetGridSize().Y)))
                     .SetMvcType(this.mvcType)
@@ -79,16 +82,15 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
                     .SetName(this.mvcType + ":" + RequestType.FieldDetails + ":" + CanvasWidgetType.Panel)
                     .SetParent(this)
                     .Build();
-            this.requestTypeDetailsPanels[RequestType.FieldDetails] = detailsPanelWidget;
-            return detailsPanelWidget;
+            return this.requestTypeDetailsPanels[RequestType.FieldDetails];
         }
 
-        private ICanvasWidget BuildAndCacheSortieDetailsPanel()
+        private ICanvasWidget BuildAndSetSortieDetailsPanel()
         {
-            IDetailsPanelWidget detailsPanelWidget = (IDetailsPanelWidget)SortieDetailsPanelImpl.Builder.Get()
+            this.requestTypeDetailsPanels[RequestType.SortieDetails] = SortieDetailsPanelImpl.Builder.Get()
                     .SetPanelGridSize(new Vector2(4, 5))
                     .SetWidgetGridSpec(new WidgetGridSpecImpl()
-                        .SetCanvasGridCoords(new Vector2(0, 0))
+                        .SetCanvasGridCoords(Vector2.Zero)
                         .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X,
                             this.canvasGridConvertor.GetGridSize().Y)))
                     .SetMvcType(this.mvcType)
@@ -98,16 +100,15 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
                     .SetName(this.mvcType + ":" + RequestType.SortieDetails + ":" + CanvasWidgetType.Panel)
                     .SetParent(this)
                     .Build();
-            this.requestTypeDetailsPanels[RequestType.SortieDetails] = detailsPanelWidget;
-            return detailsPanelWidget;
+            return this.requestTypeDetailsPanels[RequestType.SortieDetails];
         }
 
-        private ICanvasWidget BuildAndCachePhalanxDetailsPanel()
+        private ICanvasWidget BuildAndSetPhalanxDetailsPanel()
         {
-            IDetailsPanelWidget detailsPanelWidget = (IDetailsPanelWidget)PhalanxDetailsPanelImpl.Builder.Get()
+            this.requestTypeDetailsPanels[RequestType.PhalanxDetails] = PhalanxDetailsPanelImpl.Builder.Get()
                     .SetPanelGridSize(new Vector2(4, 5))
                     .SetWidgetGridSpec(new WidgetGridSpecImpl()
-                        .SetCanvasGridCoords(new Vector2(0, 0))
+                        .SetCanvasGridCoords(Vector2.Zero)
                         .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X,
                             this.canvasGridConvertor.GetGridSize().Y)))
                     .SetMvcType(this.mvcType)
@@ -117,16 +118,15 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
                     .SetName(this.mvcType + ":" + RequestType.PhalanxDetails + ":" + CanvasWidgetType.Panel)
                     .SetParent(this)
                     .Build();
-            this.requestTypeDetailsPanels[RequestType.PhalanxDetails] = detailsPanelWidget;
-            return detailsPanelWidget;
+            return this.requestTypeDetailsPanels[RequestType.PhalanxDetails];
         }
 
-        private ICanvasWidget BuildAndCacheCombatantDetailsPanel()
+        private ICanvasWidget BuildAndSetCombatantDetailsPanel()
         {
-            IDetailsPanelWidget detailsPanelWidget = (IDetailsPanelWidget)CombatantDetailsPanelImpl.Builder.Get()
+            this.requestTypeDetailsPanels[RequestType.CombatantDetails] = CombatantDetailsPanelImpl.Builder.Get()
                     .SetPanelGridSize(new Vector2(4, 5))
                     .SetWidgetGridSpec(new WidgetGridSpecImpl()
-                        .SetCanvasGridCoords(new Vector2(0, 0))
+                        .SetCanvasGridCoords(Vector2.Zero)
                         .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X,
                             this.canvasGridConvertor.GetGridSize().Y)))
                     .SetMvcType(this.mvcType)
@@ -136,8 +136,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
                     .SetName(this.mvcType + ":" + RequestType.CombatantDetails + ":" + CanvasWidgetType.Panel)
                     .SetParent(this)
                     .Build();
-            this.requestTypeDetailsPanels[RequestType.CombatantDetails] = detailsPanelWidget;
-            return detailsPanelWidget;
+            return this.requestTypeDetailsPanels[RequestType.CombatantDetails];
         }
 
         /// <summary>

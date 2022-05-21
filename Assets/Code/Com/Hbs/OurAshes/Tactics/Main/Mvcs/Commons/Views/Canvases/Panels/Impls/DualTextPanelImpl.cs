@@ -20,6 +20,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
     {
         private string leftText;
         private string rightText;
+        private ColorID leftTextColorID;
+        private ColorID rightTextColorID;
+        private ColorID backgroundColorID;
+        private ColorID leftColorID;
+        private ColorID rightColorID;
         private IImageWidget backImageWidget;
         private IImageWidget leftImageWidget;
         private IImageWidget rightImageWidget;
@@ -70,7 +75,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         {
             return ImageWidgetImpl.Builder.Get()
                 .SetSpriteID(SpriteID.SquareBordered)
-                .SetColorID(ColorID.Gray)
+                .SetColorID(this.backgroundColorID)
                 .SetMvcType(this.mvcType)
                 .SetCanvasLevel(1)
                 .SetInteractable(true)
@@ -87,7 +92,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         {
             return ImageWidgetImpl.Builder.Get()
                 .SetSpriteID(SpriteID.RoundSquareBordered)
-                .SetColorID(ColorID.Gray)
+                .SetColorID(this.leftColorID)
                 .SetMvcType(this.mvcType)
                 .SetCanvasLevel(1)
                 .SetInteractable(true)
@@ -105,7 +110,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         {
             return ImageWidgetImpl.Builder.Get()
                 .SetSpriteID(SpriteID.RoundSquareBordered)
-                .SetColorID(ColorID.Gray)
+                .SetColorID(this.rightColorID)
                 .SetMvcType(this.mvcType)
                 .SetCanvasLevel(1)
                 .SetInteractable(true)
@@ -124,7 +129,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             return TextWidgetImpl.Builder.Get()
                 .SetText(this.leftText)
                 .SetFont(FontID.Arial)
-                .SetColor(ColorID.White)
+                .SetColor(this.leftTextColorID)
                 .SetAlign(AlignType.MiddleCenter)
                 .SetBestFit(true, 25, 100)
                 .SetMvcType(this.mvcType)
@@ -145,7 +150,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             return TextWidgetImpl.Builder.Get()
                 .SetText(this.rightText)
                 .SetFont(FontID.Arial)
-                .SetColor(ColorID.White)
+                .SetColor(this.rightTextColorID)
                 .SetAlign(AlignType.MiddleCenter)
                 .SetBestFit(true, 25, 100)
                 .SetMvcType(this.mvcType)
@@ -175,6 +180,12 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                 IInternalBuilder SetLeftText(string text);
 
                 IInternalBuilder SetRightText(string text);
+
+                IInternalBuilder SetBackgroundColor(ColorID colorID);
+                IInternalBuilder SetLeftColor(ColorID colorID);
+                IInternalBuilder SetRightColor(ColorID colorID);
+                IInternalBuilder SetLeftTextColor(ColorID colorID);
+                IInternalBuilder SetRightTextColor(ColorID colorID);
             }
 
             /// <summary>
@@ -192,8 +203,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             private class InternalBuilder
                 : PanelWidgetBuilders.InternalPanelWidgetBuilder, IInternalBuilder
             {
-                private string leftText;
-                private string rightText;
+                private string leftText = "null";
+                private ColorID backgroundColorID = ColorID.Gray;
+                private ColorID leftColorID = ColorID.Gray;
+                private ColorID rightColorID = ColorID.Gray;
+                private ColorID leftTextColorID = ColorID.Gray;
+                private ColorID rightTextColorID = ColorID.Gray;
+                private string rightText = "null";
 
                 IInternalBuilder IInternalBuilder.SetLeftText(string text)
                 {
@@ -211,9 +227,40 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                 {
                     IPanelWidget widget = gameObject.AddComponent<DualTextPanelImpl>();
                     ((DualTextPanelImpl)widget).leftText = leftText;
+                    ((DualTextPanelImpl)widget).leftTextColorID = leftTextColorID;
                     ((DualTextPanelImpl)widget).rightText = rightText;
+                    ((DualTextPanelImpl)widget).rightTextColorID = rightTextColorID;
+                    ((DualTextPanelImpl)widget).backgroundColorID = backgroundColorID;
+                    ((DualTextPanelImpl)widget).leftColorID = leftColorID;
+                    ((DualTextPanelImpl)widget).rightColorID = rightColorID;
                     this.ApplyPanelValues(widget);
                     return widget;
+                }
+
+                IInternalBuilder IInternalBuilder.SetBackgroundColor(ColorID colorID)
+                {
+                    this.backgroundColorID = colorID;
+                    return this;
+                }
+                IInternalBuilder IInternalBuilder.SetLeftColor(ColorID colorID)
+                {
+                    this.leftColorID = colorID;
+                    return this;
+                }
+                IInternalBuilder IInternalBuilder.SetRightColor(ColorID colorID)
+                {
+                    this.rightColorID = colorID;
+                    return this;
+                }
+                IInternalBuilder IInternalBuilder.SetLeftTextColor(ColorID colorID)
+                {
+                    this.leftTextColorID = colorID;
+                    return this;
+                }
+                IInternalBuilder IInternalBuilder.SetRightTextColor(ColorID colorID)
+                {
+                    this.rightTextColorID = colorID;
+                    return this;
                 }
             }
         }

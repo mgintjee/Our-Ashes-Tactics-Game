@@ -17,11 +17,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.A
 
         public abstract IMvcModelState GetCopy();
 
-        ISet<IMvcRequest> IMvcModelState.GetMvcRequests()
-        {
-            return new HashSet<IMvcRequest>(this.mvcModelRequests);
-        }
-
         Optional<IMvcRequest> IMvcModelState.GetPrevMvcRequest()
         {
             return Optional<IMvcRequest>.Of(this.prevMvcRequest);

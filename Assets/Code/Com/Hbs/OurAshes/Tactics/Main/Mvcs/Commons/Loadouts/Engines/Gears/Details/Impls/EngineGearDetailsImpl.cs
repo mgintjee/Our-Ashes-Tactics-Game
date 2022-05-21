@@ -36,7 +36,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Engine
         {
             return string.Format("{0}, {1}",
                 StringUtils.Format(this.engineGearID),
-                StringUtils.FormatCollection(this.engineTraitIDs));
+                StringUtils.Format(this.engineTraitIDs));
         }
 
         /// <inheritdoc/>

@@ -29,9 +29,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Im
         public void Reset()
         {
             this.mvcModelRequest = null;
-            this.mvcControlInputTypes = new HashSet<MvcControlInputType>() {
-                MvcControlInputType.Click
-            };
+            this.mvcControlInputTypes = new HashSet<MvcControlInputType>() { MvcControlInputType.Click };
         }
 
         /// <inheritdoc/>
@@ -39,7 +37,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Im
         {
             return string.Format("{0}: {1}, {2}",
                 this.GetType().Name, this.mvcModelRequest,
-                StringUtils.FormatCollection(this.mvcControlInputTypes));
+                StringUtils.Format(this.mvcControlInputTypes));
         }
 
         /// <inheritdoc/>

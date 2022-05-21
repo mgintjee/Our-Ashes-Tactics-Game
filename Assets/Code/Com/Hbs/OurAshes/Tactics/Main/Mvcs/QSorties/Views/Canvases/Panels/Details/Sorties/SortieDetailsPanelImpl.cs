@@ -13,7 +13,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
     /// Panel Widget Impl
     /// </summary>
     public class SortieDetailsPanelImpl
-        : AbstractPanelWidget, IDetailsPanelWidget
+        : AbstractPanelWidget, IPanelWidget
     {
         private IDualTextPanelWidget tileCountDualTextPanelWidget;
 
@@ -22,10 +22,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
             Models.States.Inters.IMvcModelState qSortieMenuModelState = (Models.States.Inters.IMvcModelState)mvcModelState;
         }
 
-        void IDetailsPanelWidget.ProcessState(Commons.Models.States.Inters.IMvcModelState mvcModelState)
-        {
-            Models.States.Inters.IMvcModelState qSortieMenuModelState = (Models.States.Inters.IMvcModelState)mvcModelState;
-        }
 
         protected override void InitialBuild()
         {

@@ -1,5 +1,6 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.CallSigns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.IDs;
@@ -43,6 +44,17 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Deta
         ILoadoutDetails ICombatantDetails.GetLoadoutDetails()
         {
             return this.loadoutDetails;
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return string.Format("\n{0}" +
+                "\n{1}" +
+                "\n{2}",
+                StringUtils.Format(this.callSign),
+                StringUtils.Format(this.combatantID),
+                StringUtils.Format(this.loadoutDetails));
         }
 
         /// <summary>

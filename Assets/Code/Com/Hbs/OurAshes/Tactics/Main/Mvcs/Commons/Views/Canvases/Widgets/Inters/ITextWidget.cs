@@ -11,6 +11,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         : ICanvasWidget
     {
         void SetText(string text);
+        void SetText(object obj);
 
         void SetFont(FontID fontID);
 

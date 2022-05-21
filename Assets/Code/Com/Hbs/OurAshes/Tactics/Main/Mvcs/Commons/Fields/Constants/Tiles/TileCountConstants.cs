@@ -1,7 +1,5 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Shapes;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Sizes;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Algorithms.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Algorithms.Inters;
 using System.Collections.Generic;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Constants.Tiles
@@ -12,6 +10,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Constant
     public class TileCountConstants
     {
         private static readonly int HEXAGON_LAYER_COUNT = 6;
+
         private static readonly IDictionary<FieldShape, IDictionary<FieldSize, int>> FIELD_SHAPE_TILE_COUNTS =
             new Dictionary<FieldShape, IDictionary<FieldSize, int>>()
             {

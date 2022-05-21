@@ -9,6 +9,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grid
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Frames.Requests.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Frames.Requests.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Frames.Requests.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Views.Canvases.Impls;
@@ -40,18 +41,10 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Views.Impls
                 RequestType requestType = this.DetermineRequestType(widget.GetName());
                 logger.Info("Widget to process: Name={}, Found={}",
                     widget.GetName(), StringUtils.Format(requestType));
-                foreach (IMvcRequest request in this.mvcModelState.GetMvcRequests())
-                {
-                    logger.Info("Checking Desired: {}, Sample: {}",
-                        requestType, ((IHomeMenuRequest)request).GetRequestType());
-                    if (((IHomeMenuRequest)request).GetRequestType() == requestType)
-                    {
-                        logger.Info("Setting {}", request);
-                        ((DefaultMvcViewStateImpl)this.mvcViewState)
-                            .SetMvcModelRequest(request);
-                        break;
-                    }
-                }
+                IHomeMenuRequest homeMenuRequest = new MvcRequestImpl()
+                    .SetRequestType(requestType);
+                ((DefaultMvcViewStateImpl)this.mvcViewState)
+                    .SetMvcModelRequest(homeMenuRequest);
             });
         }
 

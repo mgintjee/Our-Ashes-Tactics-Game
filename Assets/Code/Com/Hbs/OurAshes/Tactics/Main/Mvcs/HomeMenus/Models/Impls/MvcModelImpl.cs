@@ -32,12 +32,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.HomeMenus.Models.Impls
         /// <returns></returns>
         protected override IMvcModelState ProcessInitialMvcModelRequest()
         {
-            ((DefaultMvcModelStateImpl)this.mvcModelState)
-                .SetMvcRequests(new HashSet<IMvcRequest>
-                    {
-                        new MvcRequestImpl().SetRequestType(RequestType.Exit),
-                        new MvcRequestImpl().SetRequestType(RequestType.QSortie)
-                    });
             return this.mvcModelState;
         }
 

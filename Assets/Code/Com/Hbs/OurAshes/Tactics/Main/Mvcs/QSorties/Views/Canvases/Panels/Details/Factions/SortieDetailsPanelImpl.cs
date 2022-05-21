@@ -1,4 +1,5 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Constants;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
@@ -7,24 +8,19 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widg
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
 using System.Numerics;
 
-namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Maps
+namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Factions
 {
     /// <summary>
     /// Panel Widget Impl
     /// </summary>
-    public class MapDetailsPanelImpl
-        : AbstractPanelWidget, IDetailsPanelWidget
+    public class SortieDetailsPanelImpl
+        : AbstractPanelWidget, IPanelWidget
     {
         private IDualTextPanelWidget tileCountDualTextPanelWidget;
 
-        public override void Process(Commons.Models.States.Inters.IMvcModelState mvcModelState)
+        public override void Process(IMvcModelState modelState)
         {
-            Models.States.Inters.IMvcModelState qSortieMenuModelState = (Models.States.Inters.IMvcModelState)mvcModelState;
-        }
-
-        void IDetailsPanelWidget.ProcessState(Commons.Models.States.Inters.IMvcModelState mvcModelState)
-        {
-            Models.States.Inters.IMvcModelState qSortieMenuModelState = (Models.States.Inters.IMvcModelState)mvcModelState;
+            Models.States.Inters.IMvcModelState mvcModelState = (Models.States.Inters.IMvcModelState)modelState;
         }
 
         protected override void InitialBuild()
@@ -37,7 +33,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
         private IPanelWidget BuildBannerWidget()
         {
             return BannerPanelImpl.Builder.Get()
-                .SetText(RequestType.FieldDetails.ToString())
+                .SetText(RequestType.SortieDetails.ToString())
                 .SetPanelGridSize(new Vector2(2, 1))
                 .SetWidgetGridSpec(new WidgetGridSpecImpl()
                     .SetCanvasGridCoords(new Vector2(0, this.canvasGridConvertor.GetGridSize().Y * (1 - PanelWidgetConstants.GetBannerPanelRatio())))
@@ -82,7 +78,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
             {
                 protected override IPanelWidget BuildScript(UnityEngine.GameObject gameObject)
                 {
-                    IPanelWidget widget = gameObject.AddComponent<MapDetailsPanelImpl>();
+                    IPanelWidget widget = gameObject.AddComponent<SortieDetailsPanelImpl>();
                     this.ApplyPanelValues(widget);
                     return widget;
                 }

@@ -79,14 +79,14 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Enums
         /// </summary>
         /// <typeparam name="TEnum"></typeparam>
         /// <param name="random"></param>
-        /// <param name="count"></param>
+        /// <param name="count"> </param>
         /// <returns></returns>
         public static ISet<TEnum> GenerateRandomEnumsFrom<TEnum>(Random random, ISet<TEnum> availableEnums, int count)
             where TEnum : Enum
         {
             ISet<TEnum> tEnums = new HashSet<TEnum>();
             ISet<TEnum> tempAvailableEnums = new HashSet<TEnum>(availableEnums);
-            while(tEnums.Count < count && tEnums.Count < availableEnums.Count)
+            while (tEnums.Count < count && tEnums.Count < availableEnums.Count)
             {
                 TEnum tEnum = GenerateRandomEnumFrom(random, tempAvailableEnums);
                 tempAvailableEnums.Remove(tEnum);

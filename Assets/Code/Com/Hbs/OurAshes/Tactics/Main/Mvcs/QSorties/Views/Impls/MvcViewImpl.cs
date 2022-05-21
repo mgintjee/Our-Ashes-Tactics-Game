@@ -8,6 +8,8 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grid
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Impls;
 using System.Collections.Generic;
@@ -40,20 +42,41 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Impls
                     widget.GetName(), StringUtils.Format(requestType));
                 if (requestType != RequestType.None)
                 {
-                    foreach (Commons.Frames.Requests.Inters.IMvcRequest request in this.mvcModelState.GetMvcRequests())
-                    {
-                        logger.Info("Checking Desired: {}, Sample: {}",
-                            requestType, ((Frames.Requests.Inters.IQSortieMenuMvcRequest)request).GetRequestType());
-                        if (((Frames.Requests.Inters.IQSortieMenuMvcRequest)request).GetRequestType() == requestType)
-                        {
-                            logger.Info("Setting {}", request);
-                            ((DefaultMvcViewStateImpl)this.mvcViewState)
-                                .SetMvcModelRequest(request);
-                            break;
-                        }
-                    }
+                    IQSortieMenuMvcRequest qSortieMenuMvcRequest = this.BuildMvcRequestFrom(requestType);
+                    ((DefaultMvcViewStateImpl)this.mvcViewState)
+                        .SetMvcModelRequest(qSortieMenuMvcRequest);
                 }
             });
+        }
+
+        private IQSortieMenuMvcRequest BuildMvcRequestFrom(RequestType requestType)
+        {
+            IQSortieMenuMvcRequest qSortieMenuMvcRequest;
+            switch (requestType)
+            {
+                case RequestType.CombatantDetails:
+                case RequestType.FactionDetails:
+                case RequestType.FieldDetails:
+                case RequestType.PhalanxDetails:
+                case RequestType.SortieDetails:
+                case RequestType.FactionRandomize:
+                case RequestType.FieldRandomize:
+                case RequestType.SortieRandomize:
+                    qSortieMenuMvcRequest = new MvcRequestDetailsImpl()
+                        .SetRequestType(requestType);
+                    break;
+                case RequestType.FieldMod:
+                case RequestType.CombatantMod:
+                case RequestType.PhalanxMod:
+                case RequestType.FactionMod:
+                case RequestType.None:
+
+                default:
+                    logger.Warn("Unable to build {}. {} is not currently supported.", typeof(IQSortieMenuMvcRequest), requestType);
+                    qSortieMenuMvcRequest = new MvcRequestImpl();
+                    break;
+            }
+            return qSortieMenuMvcRequest;
         }
 
         /// <inheritdoc/>
@@ -69,12 +92,12 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Impls
 
         private RequestType DetermineRequestType(string widgetName)
         {
-            IList<RequestType> qSortieMenuRequestTypes = EnumUtils.GetEnumListWithoutFirst<RequestType>();
-            foreach (RequestType qSortieMenuRequestType in qSortieMenuRequestTypes)
+            IList<RequestType> requestTypes = EnumUtils.GetEnumListWithoutFirst<RequestType>();
+            foreach (RequestType requestType in requestTypes)
             {
-                if (widgetName.Contains(qSortieMenuRequestType.ToString()))
+                if (widgetName.Contains(requestType.ToString()))
                 {
-                    return qSortieMenuRequestType;
+                    return requestType;
                 }
             }
             return RequestType.None;

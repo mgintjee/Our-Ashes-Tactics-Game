@@ -9,7 +9,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Files.Impls
     /// <summary>
     /// Todo
     /// </summary>
-    public class FileLogger : IFileLogger
+    public class FileLogger
+        : IFileLogger
     {
         // Todo
         private readonly Queue<string> _messageQueue = new Queue<string>();
@@ -18,11 +19,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Files.Impls
         private readonly Thread loggingThread;
 
         // Todo
-        private readonly string _logFilePath;
+        private readonly string logFilePath;
 
         public FileLogger(string logFilePath)
         {
-            _logFilePath = logFilePath;
+            this.logFilePath = logFilePath;
             loggingThread = new Thread(this.LogToFile);
             loggingThread.Start();
         }
@@ -43,7 +44,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Files.Impls
             {
                 if (this._messageQueue.Count != 0)
                 {
-                    StreamWriter logFileStream = File.AppendText(_logFilePath);
+                    StreamWriter logFileStream = File.AppendText(logFilePath);
                     logFileStream.Write(DateTime.Now.ToLongTimeString() + ": " + this._messageQueue.Dequeue() + "\n");
                     logFileStream.Close();
                 }

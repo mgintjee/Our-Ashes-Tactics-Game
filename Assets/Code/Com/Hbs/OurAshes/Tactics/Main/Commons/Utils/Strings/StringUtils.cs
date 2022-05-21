@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings
 {
@@ -7,30 +9,45 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings
     /// </summary>
     public static class StringUtils
     {
-        private static readonly string COLLECTION_STRING = "Collection";
         private static readonly string NULL_STRING = "null";
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <typeparam name="TObject"></typeparam>
-        /// <param name="collection"></param>
-        /// <returns></returns>
-        public static string FormatCollection<TObject>(ICollection<TObject> collection)
+
+        public static string Format(object obj)
         {
-            return string.Format("{0} {1}:[{2}]", COLLECTION_STRING,
-                typeof(TObject).Name, string.Join(", ", collection));
+            string nameSpace = obj.GetType().Namespace;
+            if (nameSpace.StartsWith("System") && !nameSpace.Contains("Collection"))
+            {
+                return obj.ToString();
+            }
+            else if(obj is IEnumerable enumerable)
+            {
+                return FormatEnumerable(enumerable);
+            }
+            else
+            {
+                return FormatObject(obj);
+            }
         }
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <typeparam name="TObject"></typeparam>
-        /// <param name="tObject"></param>
-        /// <returns></returns>
-        public static string Format<TObject>(TObject tObject)
+        private static string FormatEnumerable(IEnumerable enumberable)
+        {
+            IEnumerator enumerator = enumberable.GetEnumerator();
+            string returnedString = string.Format("{0}:[{1}",
+                enumberable.GetType().Name, (enumerator.MoveNext())
+                    ? enumerator.Current
+                    : NULL_STRING);
+            while (enumerator.MoveNext())
+            {
+                returnedString += "," + enumerator.Current;
+            }
+            return returnedString + "]";
+        }
+
+        private static string FormatObject<TObject>(TObject tObject)
         {
             return string.Format("{0}:{1}",
-                typeof(TObject).Name, (tObject != null) ? tObject.ToString() : NULL_STRING);
+                tObject.GetType().Name, (tObject != null)
+                    ? tObject.ToString()
+                    : NULL_STRING);
         }
     }
 }

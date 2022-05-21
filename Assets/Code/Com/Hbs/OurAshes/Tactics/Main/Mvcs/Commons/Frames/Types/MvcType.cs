@@ -6,6 +6,7 @@
     public enum MvcType
     {
         None,
+        Common,
         Sortie,
         HomeMenu,
         QSortieMenu,

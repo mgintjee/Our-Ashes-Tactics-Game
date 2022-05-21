@@ -7,6 +7,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widg
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Buttons;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Maps;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -28,7 +29,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
                 this.BuildBackground(),
                 this.BuildBanner(),
                 ButtonsPanelImpl.Builder.Get()
-                    .SetPanelGridSize(new Vector2(1, 5))
+                    .SetPanelGridSize(ButtonPanelConstants.BUTTON_PANEL_SIZE)
                     .SetWidgetGridSpec(new WidgetGridSpecImpl()
                         .SetCanvasGridCoords(Vector2.Zero)
                         .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X / 4,

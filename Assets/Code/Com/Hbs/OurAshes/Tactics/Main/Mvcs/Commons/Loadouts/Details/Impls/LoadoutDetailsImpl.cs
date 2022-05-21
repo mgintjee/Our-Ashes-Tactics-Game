@@ -1,8 +1,9 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Details.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Armors.Gears.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Cabins.Gears.Details.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Engines.Gears.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Weapons.Gears.Details.Inters;
 using System.Collections.Generic;
@@ -48,6 +49,19 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Detail
         ISet<IWeaponGearDetails> ILoadoutDetails.GetWeaponGearDetails()
         {
             return new HashSet<IWeaponGearDetails>(this.weaponGearDetails);
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return string.Format("\n{0}" +
+                "\n{1}" +
+                "\n{2}" +
+                "\n{3}",
+                StringUtils.Format(this.armorGearDetails),
+                StringUtils.Format(this.cabinGearDetails),
+                StringUtils.Format(this.engineGearDetails),
+                StringUtils.Format(this.weaponGearDetails));
         }
 
         /// <summary>

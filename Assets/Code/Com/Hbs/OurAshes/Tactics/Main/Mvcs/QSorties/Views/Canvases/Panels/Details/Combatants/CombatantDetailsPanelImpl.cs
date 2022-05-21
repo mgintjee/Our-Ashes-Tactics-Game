@@ -1,4 +1,5 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Constants;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
@@ -13,7 +14,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
     /// Panel Widget Impl
     /// </summary>
     public class CombatantDetailsPanelImpl
-        : AbstractPanelWidget, IDetailsPanelWidget
+        : AbstractPanelWidget, IPanelWidget
     {
         private IDualTextPanelWidget tileCountDualTextPanelWidget;
 
@@ -21,10 +22,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
         {
             Models.States.Inters.IMvcModelState qSortieMenuModelState = (Models.States.Inters.IMvcModelState)mvcModelState;
         }
-
-        void IDetailsPanelWidget.ProcessState(Commons.Models.States.Inters.IMvcModelState mvcModelState)
+        private void ProcessFieldDetails(IFieldDetails fieldDetails)
         {
-            Models.States.Inters.IMvcModelState qSortieMenuModelState = (Models.States.Inters.IMvcModelState)mvcModelState;
+
         }
 
         protected override void InitialBuild()
