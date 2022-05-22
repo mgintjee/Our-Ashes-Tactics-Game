@@ -35,7 +35,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             // Check if this will be a free-for-all
             if (true)
             {
-                factionPhalanxDetails.Add(FactionID.Unaffiliated, phalanxDetails);
+                factionPhalanxDetails.Add(FactionID.Delta, phalanxDetails);
             }
             else
             {

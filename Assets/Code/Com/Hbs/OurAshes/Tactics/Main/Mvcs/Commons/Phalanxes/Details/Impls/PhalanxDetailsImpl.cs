@@ -1,8 +1,8 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.CallSigns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.CallSigns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Details.Inters;
 using System.Collections.Generic;
 
@@ -14,25 +14,14 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
     public class PhalanxDetailsImpl
         : IPhalanxDetails
     {
-        private readonly CallSign callSign;
+        private readonly PhalanxCallSign callSign;
         private readonly ISet<ICombatantDetails> combatantDetails;
 
-        private PhalanxDetailsImpl(CallSign callSign, ISet<ICombatantDetails> combatantDetails)
+        private PhalanxDetailsImpl(PhalanxCallSign callSign, ISet<ICombatantDetails> combatantDetails)
         {
             this.callSign = callSign;
             this.combatantDetails = combatantDetails;
         }
-
-        CallSign IPhalanxDetails.GetCallSign()
-        {
-            return callSign;
-        }
-
-        ISet<ICombatantDetails> IPhalanxDetails.GetCombatantDetails()
-        {
-            return new HashSet<ICombatantDetails>(combatantDetails);
-        }
-
 
         /// <inheritdoc/>
         public override string ToString()
@@ -41,6 +30,16 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
                 "\n{1}",
                 StringUtils.Format(this.callSign),
                 StringUtils.Format(this.combatantDetails));
+        }
+
+        PhalanxCallSign IPhalanxDetails.GetCallSign()
+        {
+            return callSign;
+        }
+
+        ISet<ICombatantDetails> IPhalanxDetails.GetCombatantDetails()
+        {
+            return new HashSet<ICombatantDetails>(combatantDetails);
         }
 
         /// <summary>
@@ -54,7 +53,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
             public interface IInternalBuilder
                 : IBuilder<IPhalanxDetails>
             {
-                IInternalBuilder SetCallSign(CallSign callSign);
+                IInternalBuilder SetCallSign(PhalanxCallSign callSign);
 
                 IInternalBuilder SetCombatantDetails(ISet<ICombatantDetails> combatantDetails);
             }
@@ -74,10 +73,10 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
             private class InternalBuilder
                 : AbstractBuilder<IPhalanxDetails>, IInternalBuilder
             {
-                private CallSign callSign;
+                private PhalanxCallSign callSign;
                 private ISet<ICombatantDetails> combatantDetails;
 
-                IInternalBuilder IInternalBuilder.SetCallSign(CallSign callSign)
+                IInternalBuilder IInternalBuilder.SetCallSign(PhalanxCallSign callSign)
                 {
                     this.callSign = callSign;
                     return this;

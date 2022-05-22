@@ -7,7 +7,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widg
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Maps;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Buttons.Constants;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -24,8 +24,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
 
         public override void Process(Commons.Models.States.Inters.IMvcModelState mvcModelState)
         {
-            Models.States.Inters.IMvcModelState qSortieMenuModelState = (Models.States.Inters.IMvcModelState)mvcModelState;
-            qSortieMenuModelState.GetPrevMvcRequest().IfPresent(request =>
+            mvcModelState.GetPrevMvcRequest().IfPresent(request =>
             {
                 this.UpdateButtons(((IQSortieMenuMvcRequest)request).GetRequestType());
             });
@@ -35,6 +34,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
         {
             this.InternalAddWidget(this.BuildBackground());
             this.BuildAndSetFieldDetailsButton();
+            this.BuildAndSetFactionDetailsButton();
             this.BuildAndSetPhalanxDetailsButton();
             this.BuildAndSetCombatantDetailsButton();
             this.BuildAndSetSortieDetailsButton();
@@ -48,20 +48,34 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
 
         private IButtonPanelWidget BuildAndSetFieldDetailsButton()
         {
-            return this.BuildAndSetRequestTypeButtonPanel(RequestType.FieldDetails, ButtonPanelConstants.BUTTON_FIELD_DETAILS_COORDS);
+            return this.BuildAndSetRequestTypeButtonPanel(RequestType.FieldDetails,
+                ButtonPanelConstants.BUTTON_FIELD_DETAILS_COORDS);
         }
+
+        private IButtonPanelWidget BuildAndSetFactionDetailsButton()
+        {
+            return this.BuildAndSetRequestTypeButtonPanel(RequestType.FactionDetails,
+                ButtonPanelConstants.BUTTON_FACTION_DETAILS_COORDS);
+        }
+
         private IButtonPanelWidget BuildAndSetPhalanxDetailsButton()
         {
-            return this.BuildAndSetRequestTypeButtonPanel(RequestType.PhalanxDetails, ButtonPanelConstants.BUTTON_PHALANX_DETAILS_COORDS);
+            return this.BuildAndSetRequestTypeButtonPanel(RequestType.PhalanxDetails,
+                ButtonPanelConstants.BUTTON_PHALANX_DETAILS_COORDS);
         }
+
         private IButtonPanelWidget BuildAndSetSortieDetailsButton()
         {
-            return this.BuildAndSetRequestTypeButtonPanel(RequestType.SortieDetails, ButtonPanelConstants.BUTTON_SORTIE_DETAILS_COORDS);
+            return this.BuildAndSetRequestTypeButtonPanel(RequestType.SortieDetails,
+                ButtonPanelConstants.BUTTON_SORTIE_DETAILS_COORDS);
         }
+
         private IButtonPanelWidget BuildAndSetCombatantDetailsButton()
         {
-            return this.BuildAndSetRequestTypeButtonPanel(RequestType.CombatantDetails, ButtonPanelConstants.BUTTON_COMBATANT_DETAILS_COORDS);
+            return this.BuildAndSetRequestTypeButtonPanel(RequestType.CombatantDetails,
+                ButtonPanelConstants.BUTTON_COMBATANT_DETAILS_COORDS);
         }
+
         private IButtonPanelWidget BuildAndSetSortieStartButton()
         {
             return this.BuildAndSetRequestTypeButtonPanel(RequestType.SortieStart, ButtonPanelConstants.BUTTON_SORTIE_START_COORDS);

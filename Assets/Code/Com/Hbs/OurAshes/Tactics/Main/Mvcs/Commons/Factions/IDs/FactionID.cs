@@ -6,7 +6,6 @@
     public enum FactionID
     {
         None,
-        Unaffiliated,
         Alpha,
         Bravo,
         Charlie,

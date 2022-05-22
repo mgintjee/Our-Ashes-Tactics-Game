@@ -37,6 +37,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
     {
         private static readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Common)
                 .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
+
         public static ILoadoutDetails Randomize(Random random, CombatantID combatantID)
         {
             IArmorGearDetails armorGearDetails = RandomizeArmorGearDetails(random, combatantID);

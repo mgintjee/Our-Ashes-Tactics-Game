@@ -1,8 +1,9 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.CallSigns;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.CallSigns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.CallSigns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Details.Inters;
 using System.Collections.Generic;
 
@@ -27,7 +28,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             return Optional<IFactionDetails>.Of(returnedFactionDetails);
         }
 
-        public static Optional<IPhalanxDetails> GetPhalanxDetails(Inters.IMvcModelState mvcModelState, CallSign phalanxCallSign)
+        public static Optional<IPhalanxDetails> GetPhalanxDetails(Inters.IMvcModelState mvcModelState, PhalanxCallSign phalanxCallSign)
         {
             IPhalanxDetails returnedPhalanxDetails = null;
 
@@ -45,7 +46,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             return Optional<IPhalanxDetails>.Of(returnedPhalanxDetails);
         }
 
-        public static Optional<IPhalanxDetails> GetPhalanxDetails(CallSign phalanxCallSign, ISet<IPhalanxDetails> phalanxDetailsSet)
+        public static Optional<IPhalanxDetails> GetPhalanxDetails(PhalanxCallSign phalanxCallSign, ISet<IPhalanxDetails> phalanxDetailsSet)
         {
             IPhalanxDetails returnedPhalanxDetails = null;
             foreach (IPhalanxDetails phalanxDetails in phalanxDetailsSet)
@@ -59,7 +60,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             return Optional<IPhalanxDetails>.Of(returnedPhalanxDetails);
         }
 
-        public static Optional<ICombatantDetails> GetCombatantDetails(Inters.IMvcModelState mvcModelState, CallSign combatantCallSign)
+        public static Optional<ICombatantDetails> GetCombatantDetails(Inters.IMvcModelState mvcModelState, CombatantCallSign combatantCallSign)
         {
             ICombatantDetails returnedCombatantDetails = null;
 
@@ -77,14 +78,14 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             return Optional<ICombatantDetails>.Of(returnedCombatantDetails);
         }
 
-        public static FactionID GetFactionIDFromCombatant(Inters.IMvcModelState mvcModelState, CallSign combatantCallSign)
+        public static FactionID GetFactionIDFromCombatant(Inters.IMvcModelState mvcModelState, CombatantCallSign combatantCallSign)
         {
-            CallSign phalanxCallSign = GetPhalanxCallSignFromCombatant(mvcModelState, combatantCallSign);
+            PhalanxCallSign phalanxCallSign = GetPhalanxCallSignFromCombatant(mvcModelState, combatantCallSign);
             FactionID factionID = GetFactionIDFromPhalanx(mvcModelState, phalanxCallSign);
             return factionID;
         }
 
-        public static FactionID GetFactionIDFromPhalanx(Inters.IMvcModelState mvcModelState, CallSign phalanxCallSign)
+        public static FactionID GetFactionIDFromPhalanx(Inters.IMvcModelState mvcModelState, PhalanxCallSign phalanxCallSign)
         {
             FactionID factionID = FactionID.None;
 
@@ -101,14 +102,14 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             return factionID;
         }
 
-        public static CallSign GetPhalanxCallSignFromCombatant(Inters.IMvcModelState mvcModelState, CallSign combatantCallSign)
+        public static PhalanxCallSign GetPhalanxCallSignFromCombatant(Inters.IMvcModelState mvcModelState, CombatantCallSign combatantCallSign)
         {
-            CallSign phalanxCallSign = CallSign.None;
+            PhalanxCallSign phalanxCallSign = PhalanxCallSign.None;
 
             foreach (IFactionDetails factionDetails in mvcModelState.GetFactionDetails())
             {
                 phalanxCallSign = GetPhalanxCallSignFromCombatant(combatantCallSign, factionDetails.GetPhalanxDetails());
-                if (phalanxCallSign != CallSign.None)
+                if (phalanxCallSign != PhalanxCallSign.None)
                 {
                     break;
                 }
@@ -117,7 +118,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             return phalanxCallSign;
         }
 
-        private static Optional<ICombatantDetails> GetCombatantDetails(CallSign combatantCallSign, ISet<IPhalanxDetails> phalanxDetailsSet)
+        private static Optional<ICombatantDetails> GetCombatantDetails(CombatantCallSign combatantCallSign, ISet<IPhalanxDetails> phalanxDetailsSet)
         {
             ICombatantDetails returnedCombatantDetails = null;
             foreach (IPhalanxDetails phalanxDetails in phalanxDetailsSet)
@@ -132,7 +133,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             return Optional<ICombatantDetails>.Of(returnedCombatantDetails);
         }
 
-        private static Optional<ICombatantDetails> GetCombatantDetails(CallSign combatantCallSign, ISet<ICombatantDetails> combatantDetailsSet)
+        private static Optional<ICombatantDetails> GetCombatantDetails(CombatantCallSign combatantCallSign, ISet<ICombatantDetails> combatantDetailsSet)
         {
             ICombatantDetails returnedCombatantDetails = null;
             foreach (ICombatantDetails combatantDetails in combatantDetailsSet)
@@ -146,9 +147,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             return Optional<ICombatantDetails>.Of(returnedCombatantDetails);
         }
 
-        private static CallSign GetPhalanxCallSignFromCombatant(CallSign combatantCallSign, ISet<IPhalanxDetails> phalanxDetailsSet)
+        private static PhalanxCallSign GetPhalanxCallSignFromCombatant(CombatantCallSign combatantCallSign, ISet<IPhalanxDetails> phalanxDetailsSet)
         {
-            CallSign phalanxCallSign = CallSign.None;
+            PhalanxCallSign phalanxCallSign = PhalanxCallSign.None;
 
             foreach (IPhalanxDetails phalanxDetails in phalanxDetailsSet)
             {

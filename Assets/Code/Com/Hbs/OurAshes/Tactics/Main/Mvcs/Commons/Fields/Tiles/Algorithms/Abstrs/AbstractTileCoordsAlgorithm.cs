@@ -20,6 +20,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Al
     {
         private static readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Common)
                 .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
+
         ISet<Vector3> ITileCoordsAlgorithm.GetTileCoords(FieldShape fieldShape, FieldSize fieldSize)
         {
             int expectedTileCount = FieldShapeTileCountManager.GetTileCounts(fieldShape, fieldSize);

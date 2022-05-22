@@ -7,7 +7,9 @@
         : IQSortieMenuMvcRequest
     {
         bool IsAdd();
+
         bool IsMod();
+
         bool IsDel();
     }
 }

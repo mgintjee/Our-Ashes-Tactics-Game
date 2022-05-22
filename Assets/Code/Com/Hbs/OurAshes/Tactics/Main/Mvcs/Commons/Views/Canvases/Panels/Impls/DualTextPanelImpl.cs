@@ -182,9 +182,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                 IInternalBuilder SetRightText(string text);
 
                 IInternalBuilder SetBackgroundColor(ColorID colorID);
+
                 IInternalBuilder SetLeftColor(ColorID colorID);
+
                 IInternalBuilder SetRightColor(ColorID colorID);
+
                 IInternalBuilder SetLeftTextColor(ColorID colorID);
+
                 IInternalBuilder SetRightTextColor(ColorID colorID);
             }
 
@@ -223,6 +227,36 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                     return this;
                 }
 
+                IInternalBuilder IInternalBuilder.SetBackgroundColor(ColorID colorID)
+                {
+                    this.backgroundColorID = colorID;
+                    return this;
+                }
+
+                IInternalBuilder IInternalBuilder.SetLeftColor(ColorID colorID)
+                {
+                    this.leftColorID = colorID;
+                    return this;
+                }
+
+                IInternalBuilder IInternalBuilder.SetRightColor(ColorID colorID)
+                {
+                    this.rightColorID = colorID;
+                    return this;
+                }
+
+                IInternalBuilder IInternalBuilder.SetLeftTextColor(ColorID colorID)
+                {
+                    this.leftTextColorID = colorID;
+                    return this;
+                }
+
+                IInternalBuilder IInternalBuilder.SetRightTextColor(ColorID colorID)
+                {
+                    this.rightTextColorID = colorID;
+                    return this;
+                }
+
                 protected override IPanelWidget BuildScript(UnityEngine.GameObject gameObject)
                 {
                     IPanelWidget widget = gameObject.AddComponent<DualTextPanelImpl>();
@@ -235,32 +269,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                     ((DualTextPanelImpl)widget).rightColorID = rightColorID;
                     this.ApplyPanelValues(widget);
                     return widget;
-                }
-
-                IInternalBuilder IInternalBuilder.SetBackgroundColor(ColorID colorID)
-                {
-                    this.backgroundColorID = colorID;
-                    return this;
-                }
-                IInternalBuilder IInternalBuilder.SetLeftColor(ColorID colorID)
-                {
-                    this.leftColorID = colorID;
-                    return this;
-                }
-                IInternalBuilder IInternalBuilder.SetRightColor(ColorID colorID)
-                {
-                    this.rightColorID = colorID;
-                    return this;
-                }
-                IInternalBuilder IInternalBuilder.SetLeftTextColor(ColorID colorID)
-                {
-                    this.leftTextColorID = colorID;
-                    return this;
-                }
-                IInternalBuilder IInternalBuilder.SetRightTextColor(ColorID colorID)
-                {
-                    this.rightTextColorID = colorID;
-                    return this;
                 }
             }
         }

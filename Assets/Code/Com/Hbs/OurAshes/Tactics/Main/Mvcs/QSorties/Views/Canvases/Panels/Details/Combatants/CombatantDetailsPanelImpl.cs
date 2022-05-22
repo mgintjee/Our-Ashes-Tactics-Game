@@ -22,16 +22,16 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
         {
             Models.States.Inters.IMvcModelState qSortieMenuModelState = (Models.States.Inters.IMvcModelState)mvcModelState;
         }
-        private void ProcessFieldDetails(IFieldDetails fieldDetails)
-        {
-
-        }
 
         protected override void InitialBuild()
         {
             Vector2 widgetSize = new Vector2(this.canvasGridConvertor.GetGridSize().X / 2,
                 this.canvasGridConvertor.GetGridSize().Y / 6);
             this.InternalAddWidget(this.BuildBannerWidget());
+        }
+
+        private void ProcessFieldDetails(IFieldDetails fieldDetails)
+        {
         }
 
         private IPanelWidget BuildBannerWidget()

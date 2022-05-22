@@ -1,7 +1,6 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.CallSigns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Details.Inters;
@@ -24,6 +23,15 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Detail
             this.phalanxDetails = PhalanxDetails;
         }
 
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return string.Format("\n{0}" +
+                "\n{1}",
+                StringUtils.Format(this.factionID),
+                StringUtils.Format(this.phalanxDetails));
+        }
+
         ISet<IPhalanxDetails> IFactionDetails.GetPhalanxDetails()
         {
             return new HashSet<IPhalanxDetails>(phalanxDetails);
@@ -32,14 +40,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Detail
         FactionID IFactionDetails.GetFactionID()
         {
             return factionID;
-        }
-        /// <inheritdoc/>
-        public override string ToString()
-        {
-            return string.Format("\n{0}" +
-                "\n{1}",
-                StringUtils.Format(this.factionID),
-                StringUtils.Format(this.phalanxDetails));
         }
 
         /// <summary>
@@ -74,7 +74,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Detail
                 : AbstractBuilder<IFactionDetails>, IInternalBuilder
             {
                 private FactionID factionID;
-                private CallSign callSign;
                 private ISet<IPhalanxDetails> phalanxDetails;
 
                 IInternalBuilder IInternalBuilder.SetPhalanxDetails(ISet<IPhalanxDetails> phalanxDetails)

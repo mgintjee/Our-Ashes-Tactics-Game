@@ -113,6 +113,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             canvasWidget.SetParent(this);
             CanvasWidgetUtils.AddWidget(this.canvasGridConvertor, this.canvasLevelWidgets, canvasWidget);
         }
+
         protected void InternalAddWidgets(ISet<ICanvasWidget> canvasWidgets)
         {
             logger.Info("Adding {} {}s...", canvasWidgets.Count, typeof(ICanvasWidget));

@@ -1,7 +1,7 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.CallSigns;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.CallSigns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Details.Inters;
@@ -13,7 +13,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Deta
         : ICombatantDetails
     {
         // Todo
-        private readonly CallSign callSign;
+        private readonly CombatantCallSign callSign;
 
         // Todo
         private readonly CombatantID combatantID;
@@ -21,7 +21,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Deta
         // Todo
         private readonly ILoadoutDetails loadoutDetails;
 
-        private CombatantDetailsImpl(CallSign callSign, CombatantID combatantID, ILoadoutDetails loadoutDetails)
+        private CombatantDetailsImpl(CombatantCallSign callSign, CombatantID combatantID, ILoadoutDetails loadoutDetails)
         {
             this.callSign = callSign;
             this.combatantID = combatantID;
@@ -29,7 +29,18 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Deta
         }
 
         /// <inheritdoc/>
-        CallSign ICombatantDetails.GetCallSign()
+        public override string ToString()
+        {
+            return string.Format("\n{0}" +
+                "\n{1}" +
+                "\n{2}",
+                StringUtils.Format(this.callSign),
+                StringUtils.Format(this.combatantID),
+                StringUtils.Format(this.loadoutDetails));
+        }
+
+        /// <inheritdoc/>
+        CombatantCallSign ICombatantDetails.GetCallSign()
         {
             return this.callSign;
         }
@@ -46,17 +57,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Deta
             return this.loadoutDetails;
         }
 
-        /// <inheritdoc/>
-        public override string ToString()
-        {
-            return string.Format("\n{0}" +
-                "\n{1}" +
-                "\n{2}",
-                StringUtils.Format(this.callSign),
-                StringUtils.Format(this.combatantID),
-                StringUtils.Format(this.loadoutDetails));
-        }
-
         /// <summary>
         /// Todo
         /// </summary>
@@ -68,7 +68,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Deta
             public interface IInternalBuilder
                 : IBuilder<ICombatantDetails>
             {
-                IInternalBuilder SetCallSign(CallSign callSign);
+                IInternalBuilder SetCallSign(CombatantCallSign callSign);
 
                 IInternalBuilder SetCombatantID(CombatantID id);
 
@@ -90,7 +90,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Deta
             private class InternalBuilder
                 : AbstractBuilder<ICombatantDetails>, IInternalBuilder
             {
-                private CallSign callSign;
+                private CombatantCallSign callSign;
                 private CombatantID combatantID;
                 private ILoadoutDetails loadoutDetails;
 
@@ -109,7 +109,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Deta
                 }
 
                 /// <inheritdoc/>
-                IInternalBuilder IInternalBuilder.SetCallSign(CallSign callSign)
+                IInternalBuilder IInternalBuilder.SetCallSign(CombatantCallSign callSign)
                 {
                     this.callSign = callSign;
                     return this;

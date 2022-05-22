@@ -28,6 +28,19 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Detail
         }
 
         /// <inheritdoc/>
+        public override string ToString()
+        {
+            return string.Format("\n{0}" +
+                "\n{1}" +
+                "\n{2}" +
+                "\n{3}",
+                StringUtils.Format(this.armorGearDetails),
+                StringUtils.Format(this.cabinGearDetails),
+                StringUtils.Format(this.engineGearDetails),
+                StringUtils.Format(this.weaponGearDetails));
+        }
+
+        /// <inheritdoc/>
         IArmorGearDetails ILoadoutDetails.GetArmorGearDetails()
         {
             return this.armorGearDetails;
@@ -49,19 +62,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Detail
         ISet<IWeaponGearDetails> ILoadoutDetails.GetWeaponGearDetails()
         {
             return new HashSet<IWeaponGearDetails>(this.weaponGearDetails);
-        }
-
-        /// <inheritdoc/>
-        public override string ToString()
-        {
-            return string.Format("\n{0}" +
-                "\n{1}" +
-                "\n{2}" +
-                "\n{3}",
-                StringUtils.Format(this.armorGearDetails),
-                StringUtils.Format(this.cabinGearDetails),
-                StringUtils.Format(this.engineGearDetails),
-                StringUtils.Format(this.weaponGearDetails));
         }
 
         /// <summary>

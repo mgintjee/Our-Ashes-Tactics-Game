@@ -1,28 +1,25 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.IDs;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Constants;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Types;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
-using System.Collections.Generic;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Constants;
 using System.Numerics;
 
-namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Maps
+namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Fields.Constants
 {
     /// <summary>
     /// Field Details Panel Constants
     /// </summary>
     public class FieldDetailsPanelConstants
     {
-        public static readonly Vector2 HEADER_COORDS = DetailsPanelConstants.FIELD_PANEL_DIMENSIONS * DetailsPanelConstants.PANEL_HEADER_COORDS_RATIO;
-        public static readonly Vector2 HEADER_SIZE = DetailsPanelConstants.FIELD_PANEL_DIMENSIONS * DetailsPanelConstants.PANEL_HEADER_SIZE_RATIO;
+        public static readonly float FIELD_ID_Y = DetailsPanelConstants.FIELD_PANEL_DIMENSIONS.Y - 1;
+        public static readonly float FIELD_BIOME_Y = DetailsPanelConstants.FIELD_PANEL_DIMENSIONS.Y - 2;
+        public static readonly float FIELD_SIZE_Y = DetailsPanelConstants.FIELD_PANEL_DIMENSIONS.Y - 3;
+        public static readonly float FIELD_SHAPE_Y = DetailsPanelConstants.FIELD_PANEL_DIMENSIONS.Y - 4;
         public static readonly Vector2 TEXT_SIZE = DetailsPanelConstants.FIELD_PANEL_DIMENSIONS * new Vector2(1 / 2f, 1 / 4f);
-        public static readonly Vector2 TEXT_FIELD_ID_COORDS = new Vector2(0, 3);
-        public static readonly Vector2 TEXT_FIELD_BIOME_COORDS = new Vector2(1, 3);
-        public static readonly Vector2 TEXT_FIELD_SIZE_COORDS = new Vector2(0, 2);
-        public static readonly Vector2 TEXT_FIELD_SHAPE_COORDS = new Vector2(1, 2);
+        public static readonly Vector2 FIELD_ID_TEXT_COORDS = new Vector2(0, FIELD_ID_Y);
+        public static readonly Vector2 FIELD_ID_BUTTONS_COORDS = new Vector2(1, FIELD_ID_Y);
+        public static readonly Vector2 FIELD_BIOME_TEXT_COORDS = new Vector2(0, FIELD_BIOME_Y);
+        public static readonly Vector2 FIELD_SIZE_TEXT_COORDS = new Vector2(0, FIELD_SIZE_Y);
+        public static readonly Vector2 FIELD_SHAPE_TEXT_COORDS = new Vector2(0, FIELD_SHAPE_Y);
+        public static readonly Vector2 FIELD_BIOME_BUTTONS_COORDS = new Vector2(1, FIELD_BIOME_Y);
+        public static readonly Vector2 FIELD_SIZE_BUTTONS_COORDS = new Vector2(1, FIELD_SIZE_Y);
+        public static readonly Vector2 FIELD_SHAPE_BUTTONS_COORDS = new Vector2(1, FIELD_SHAPE_Y);
     }
 }

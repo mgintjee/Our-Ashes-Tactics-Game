@@ -22,7 +22,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
             Models.States.Inters.IMvcModelState qSortieMenuModelState = (Models.States.Inters.IMvcModelState)mvcModelState;
         }
 
-
         protected override void InitialBuild()
         {
             Vector2 widgetSize = new Vector2(this.canvasGridConvertor.GetGridSize().X / 2,

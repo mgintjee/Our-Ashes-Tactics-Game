@@ -1,5 +1,5 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Randoms.Managers;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.CallSigns;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.CallSigns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Details.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Details.Inters;
@@ -18,6 +18,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.CallSigns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Inters;
@@ -135,16 +136,14 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
             {
                 this.AddPhalanxCallSign(factionID, phalanxDetails);
             }
-            else if(mvcRequest.IsMod())
+            else if (mvcRequest.IsMod())
             {
-
             }
         }
 
-
         private void HandleCombatantMod(IMvcRequestCombatantMod mvcRequest)
         {
-            CallSign phalanxCallSign = mvcRequest.GetPhalanxCallSign();
+            PhalanxCallSign phalanxCallSign = mvcRequest.GetPhalanxCallSign();
             ICombatantDetails combatantDetails = mvcRequest.GetCombatantDetails();
 
             if (mvcRequest.IsDel())
@@ -157,16 +156,15 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
             }
             else if (mvcRequest.IsMod())
             {
-
             }
         }
 
-        private void AddCombatantCallSign(CallSign phalanxCallSign, ICombatantDetails combatantDetails)
+        private void AddCombatantCallSign(PhalanxCallSign phalanxCallSign, ICombatantDetails combatantDetails)
         {
             // Todo
         }
 
-        private void DelCombatantCallSign(CallSign combatantCallSign)
+        private void DelCombatantCallSign(CombatantCallSign combatantCallSign)
         {
             // Todo
         }
@@ -189,7 +187,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
             });
         }
 
-        private void DelPhalanxCallSign(CallSign phalanxCallSign)
+        private void DelPhalanxCallSign(PhalanxCallSign phalanxCallSign)
         {
             FactionID factionID = MvcModelStateQueryUtil.GetFactionIDFromPhalanx(this.CastMvcModelState(), phalanxCallSign);
 

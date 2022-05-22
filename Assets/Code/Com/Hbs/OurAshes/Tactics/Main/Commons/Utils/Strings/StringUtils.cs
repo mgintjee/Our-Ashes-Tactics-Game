@@ -1,6 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings
 {
@@ -18,7 +16,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings
             {
                 return obj.ToString();
             }
-            else if(obj is IEnumerable enumerable)
+            else if (obj is IEnumerable enumerable)
             {
                 return FormatEnumerable(enumerable);
             }

@@ -49,6 +49,17 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Impls
             });
         }
 
+        /// <inheritdoc/>
+        protected override IMvcViewCanvas BuildInitialMvcViewCanvas()
+        {
+            return MvcViewCanvasImpl.Builder.Get()
+                .SetMvcType(MvcType.QSortieMenu)
+                .SetGridSize(CanvasGridConstants.GetMvcTypeGridSize(MvcType.QSortieMenu))
+                .SetName(typeof(MvcViewCanvasImpl).Name)
+                .SetParent(this.mvcFrameConstruction.GetUnityScript())
+                .Build();
+        }
+
         private IQSortieMenuMvcRequest BuildMvcRequestFrom(RequestType requestType)
         {
             IQSortieMenuMvcRequest qSortieMenuMvcRequest;
@@ -65,6 +76,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Impls
                     qSortieMenuMvcRequest = new MvcRequestDetailsImpl()
                         .SetRequestType(requestType);
                     break;
+
                 case RequestType.FieldMod:
                 case RequestType.CombatantMod:
                 case RequestType.PhalanxMod:
@@ -77,17 +89,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Impls
                     break;
             }
             return qSortieMenuMvcRequest;
-        }
-
-        /// <inheritdoc/>
-        protected override IMvcViewCanvas BuildInitialMvcViewCanvas()
-        {
-            return MvcViewCanvasImpl.Builder.Get()
-                .SetMvcType(MvcType.QSortieMenu)
-                .SetGridSize(CanvasGridConstants.GetMvcTypeGridSize(MvcType.QSortieMenu))
-                .SetName(typeof(MvcViewCanvasImpl).Name)
-                .SetParent(this.mvcFrameConstruction.GetUnityScript())
-                .Build();
         }
 
         private RequestType DetermineRequestType(string widgetName)

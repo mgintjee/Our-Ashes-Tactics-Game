@@ -24,6 +24,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
     {
         private static readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Common)
                 .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
+
         public static IFieldDetails Randomize(Random random)
         {
             FieldID fieldID = EnumUtils.GenerateRandomEnum<FieldID>(random);

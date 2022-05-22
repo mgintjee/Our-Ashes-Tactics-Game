@@ -48,6 +48,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Cons
                     ArmorGearID.AlphaAlpha
                 };
             }
+
             private static ISet<ArmorGearID> GetGearIDsForMediumAlpha()
             {
                 return new HashSet<ArmorGearID>()
@@ -55,6 +56,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Cons
                     ArmorGearID.AlphaAlpha
                 };
             }
+
             private static ISet<ArmorGearID> GetGearIDsForHeavyAlpha()
             {
                 return new HashSet<ArmorGearID>()
@@ -66,17 +68,17 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Cons
 
         public class Cabin
         {
-            public static ISet<CabinGearID> GetCabinTraitIDs(CombatantID combatantID)
-            {
-                return GetEnumSet(combatantID, CABIN_GEAR_ID_TRAIT_IDS);
-            }
-
             private static readonly IDictionary<CombatantID, ISet<CabinGearID>> CABIN_GEAR_ID_TRAIT_IDS = new Dictionary<CombatantID, ISet<CabinGearID>>()
             {
                 { CombatantID.LightAlpha, GetGearIDsForLightAlpha() },
                 { CombatantID.MediumAlpha, GetGearIDsForMediumAlpha() },
                 { CombatantID.HeavyAlpha, GetGearIDsForHeavyAlpha() },
             };
+
+            public static ISet<CabinGearID> GetCabinTraitIDs(CombatantID combatantID)
+            {
+                return GetEnumSet(combatantID, CABIN_GEAR_ID_TRAIT_IDS);
+            }
 
             private static ISet<CabinGearID> GetGearIDsForLightAlpha()
             {
@@ -85,6 +87,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Cons
                     CabinGearID.AlphaAlpha
                 };
             }
+
             private static ISet<CabinGearID> GetGearIDsForMediumAlpha()
             {
                 return new HashSet<CabinGearID>()
@@ -92,6 +95,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Cons
                     CabinGearID.AlphaAlpha
                 };
             }
+
             private static ISet<CabinGearID> GetGearIDsForHeavyAlpha()
             {
                 return new HashSet<CabinGearID>()
@@ -110,6 +114,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Cons
                 { CombatantID.HeavyAlpha, GetGearIDsForHeavyAlpha() },
             };
 
+            public static ISet<EngineGearID> GetEngineTraitIDs(CombatantID combatantID)
+            {
+                return GetEnumSet(combatantID, ENGINE_GEAR_ID_TRAIT_IDS);
+            }
+
             private static ISet<EngineGearID> GetGearIDsForLightAlpha()
             {
                 return new HashSet<EngineGearID>()
@@ -117,6 +126,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Cons
                     EngineGearID.AlphaAlpha
                 };
             }
+
             private static ISet<EngineGearID> GetGearIDsForMediumAlpha()
             {
                 return new HashSet<EngineGearID>()
@@ -124,16 +134,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Cons
                     EngineGearID.AlphaAlpha
                 };
             }
+
             private static ISet<EngineGearID> GetGearIDsForHeavyAlpha()
             {
                 return new HashSet<EngineGearID>()
                 {
                     EngineGearID.AlphaAlpha
                 };
-            }
-            public static ISet<EngineGearID> GetEngineTraitIDs(CombatantID combatantID)
-            {
-                return GetEnumSet(combatantID, ENGINE_GEAR_ID_TRAIT_IDS);
             }
         }
 
@@ -146,6 +153,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Cons
                 { CombatantID.HeavyAlpha, GetGearIDsForHeavyAlpha() },
             };
 
+            public static ISet<WeaponGearID> GetWeaponTraitIDs(CombatantID combatantID)
+            {
+                return GetEnumSet(combatantID, WEAPON_GEAR_ID_TRAIT_IDS);
+            }
+
             private static ISet<WeaponGearID> GetGearIDsForLightAlpha()
             {
                 return new HashSet<WeaponGearID>()
@@ -153,6 +165,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Cons
                     WeaponGearID.AlphaAlpha
                 };
             }
+
             private static ISet<WeaponGearID> GetGearIDsForMediumAlpha()
             {
                 return new HashSet<WeaponGearID>()
@@ -160,16 +173,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Cons
                     WeaponGearID.AlphaAlpha
                 };
             }
+
             private static ISet<WeaponGearID> GetGearIDsForHeavyAlpha()
             {
                 return new HashSet<WeaponGearID>()
                 {
                     WeaponGearID.AlphaAlpha
                 };
-            }
-            public static ISet<WeaponGearID> GetWeaponTraitIDs(CombatantID combatantID)
-            {
-                return GetEnumSet(combatantID, WEAPON_GEAR_ID_TRAIT_IDS);
             }
         }
     }

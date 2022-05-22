@@ -6,9 +6,6 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Files.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Classes.Impls
 {

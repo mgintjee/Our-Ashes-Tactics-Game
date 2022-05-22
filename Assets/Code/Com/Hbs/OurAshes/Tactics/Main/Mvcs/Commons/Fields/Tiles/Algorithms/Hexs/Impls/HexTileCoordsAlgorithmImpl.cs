@@ -2,14 +2,14 @@
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Algorithms.Abstrs;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Algorithms.Hexagons.Utils;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Algorithms.Hexs.Utils;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Algorithms.Utils;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
 
-namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Algorithms.Hexagons.Impls
+namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Algorithms.Hexs.Impls
 {
     /// <summary>
     /// Todo
@@ -19,6 +19,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Al
     {
         private static readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Common)
                 .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
+
         private readonly int MAX_HEX_LAYER = 9;
 
         protected override Optional<Vector3> GetNextTileCoord(ISet<Vector3> visitedTileCoords, IList<Vector3> unvisitedTileCoords)
@@ -46,12 +47,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Al
                 ISet<Vector3> layerTileCoords = HexTileCoordsUtil.GetTileCoordsForLayer(i);
                 if (!TileCoordsUtil.IsSubsetOf(tileCoords, layerTileCoords))
                 {
-                    logger.Debug("Found unfinished layer: {}, TileCoords: {}", i, layerTileCoords) ;
+                    logger.Debug("Found unfinished layer: {}, TileCoords: {}", i, layerTileCoords);
                     return layerTileCoords;
                 }
             }
             return new HashSet<Vector3>();
         }
-
     }
 }
