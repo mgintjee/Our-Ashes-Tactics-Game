@@ -1,15 +1,18 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Details.Inters;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Enums;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.CallSigns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Constants;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Types;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Utils.Queries;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Factions.Constants;
 using System.Collections.Generic;
@@ -23,163 +26,174 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
     public class FactionDetailsPanelImpl
         : AbstractPanelWidget, IPanelWidget
     {
-        private IDualTextPanelWidget alphaText;
-        private IDualTextPanelWidget bravoText;
-        private IDualTextPanelWidget charlieText;
-        private IDualTextPanelWidget deltaText;
-        private IDualTextPanelWidget alphaButtons;
-        private IDualTextPanelWidget bravoButtons;
-        private IDualTextPanelWidget charlieButtons;
-        private IDualTextPanelWidget deltaButtons;
+        private readonly IList<FactionID> factionIDs = EnumUtils.GetEnumListWithoutFirst<FactionID>();
+        private IMultiTextPanelWidget factionIDCarouselText;
+        private IMultiTextPanelWidget factionIDCarouselButtons;
+        private IMultiTextPanelWidget selectedFactionIDText;
+        private IMultiTextPanelWidget phalanxCallSignsHeader;
+        private IMultiTextPanelWidget phalanxCallSignsList;
+        private IMultiTextPanelWidget selectedFactionIDButtons;
+        private int currentFactionIndex = 0;
 
         public override void Process(IMvcModelState modelState)
         {
             Models.States.Inters.IMvcModelState mvcModelState = (Models.States.Inters.IMvcModelState)modelState;
-            this.UpdateText(FactionID.Alpha, this.alphaText, mvcModelState);
-            this.UpdateText(FactionID.Bravo, this.bravoText, mvcModelState);
-            this.UpdateText(FactionID.Charlie, this.charlieText, mvcModelState);
-            this.UpdateText(FactionID.Delta, this.deltaText, mvcModelState);
+            this.UpdateCurrentFactionID(mvcModelState);
+            this.UpdateFactionInfo(mvcModelState);
+            this.UpdateCarouselText(mvcModelState);
         }
 
         protected override void InitialBuild()
         {
             ISet<ICanvasWidget> panelWidgets = new HashSet<ICanvasWidget>() {
-                this.BuildAndSetDeltaText(),
-                this.BuildAndSetAlphaText(),
-                this.BuildAndSetBravoText(),
-                this.BuildAndSetCharlieText(),
-                this.BuildAndSetDeltaButtons(),
-                this.BuildAndSetAlphaButtons(),
-                this.BuildAndSetBravoButtons(),
-                this.BuildAndSetCharlieButtons()
+                this.BuildAndSetFactionCarouselTexts(),
+                this.BuildAndSetFactionCarouselButtons(),
+                this.BuildAndSetSelectedFactionIDText(),
+                this.BuildAndSetSelectedFactionIDButtons(),
+                this.BuildAndSetPhalanxCallSignsHeader(),
+                this.BuildAndSetPhalanxCallSignsList()
             };
             this.InternalAddWidgets(panelWidgets);
         }
 
-        private void UpdateText(FactionID factionID, IDualTextPanelWidget text, Models.States.Inters.IMvcModelState mvcModelState)
+        private void UpdateCurrentFactionID(Models.States.Inters.IMvcModelState mvcModelState)
         {
+        }
+
+        private void UpdateFactionInfo(Models.States.Inters.IMvcModelState mvcModelState)
+        {
+            FactionID factionID = factionIDs[this.currentFactionIndex];
+            this.selectedFactionIDText.GetTextWidget(1).IfPresent(widget => widget.SetText(factionID.ToString()));
+
+            IList<IFactionDetails> factionDetails = mvcModelState.GetFactionDetails();
             MvcModelStateQueryUtil.GetFactionDetails(mvcModelState, factionID).IfPresent(factionDetails =>
             {
-                this.UpdateText(text, factionDetails.GetPhalanxDetails());
+                IList<IPhalanxDetails> phalanxDetails = factionDetails.GetPhalanxDetails();
+                IList<PhalanxCallSign> phalanxCallSigns = new List<PhalanxCallSign>();
+                foreach (IPhalanxDetails details in phalanxDetails)
+                {
+                    phalanxCallSigns.Add(details.GetCallSign());
+                }
+                this.phalanxCallSignsList.GetTextWidget(1).IfPresent(widget => widget.SetText(StringUtils.Format(phalanxCallSigns)));
             });
         }
 
-        private void UpdateText(IDualTextPanelWidget text, ISet<IPhalanxDetails> phalanxDetails)
+        private void UpdateCarouselText(Models.States.Inters.IMvcModelState mvcModelState)
         {
-            string textString = "[";
-            foreach (IPhalanxDetails details in phalanxDetails)
+            int leftFactionIndex = (this.currentFactionIndex > 0) ? this.currentFactionIndex - 1 : factionIDs.Count - 1;
+            int rightFactionIndex = (this.currentFactionIndex < factionIDs.Count - 1) ? this.currentFactionIndex + 1 : 0;
+            FactionID leftFactionID = factionIDs[leftFactionIndex];
+            FactionID centerFactionID = factionIDs[this.currentFactionIndex];
+            FactionID rightFactionID = factionIDs[rightFactionIndex];
+            this.factionIDCarouselText.GetTextWidget(0).IfPresent(widget => widget.SetText(leftFactionID.ToString()));
+            this.factionIDCarouselText.GetTextWidget(1).IfPresent(widget => widget.SetText(centerFactionID.ToString()));
+            this.factionIDCarouselText.GetTextWidget(2).IfPresent(widget => widget.SetText(rightFactionID.ToString()));
+        }
+
+        private IMultiTextPanelWidget BuildAndSetFactionCarouselTexts()
+        {
+            List<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>();
+            textImageWidgetStructs.Add(new TextImageWidgetStruct(FactionID.None.ToString(),
+                WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR, WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR));
+            textImageWidgetStructs.Add(new TextImageWidgetStruct(FactionID.None.ToString(),
+                WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR, WidgetConstants.SECONDARY_COLOR_ID));
+            textImageWidgetStructs.Add(new TextImageWidgetStruct(FactionID.None.ToString(),
+                WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR, WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR));
+            string textName = "FactionIDCarouselTexts";
+            Vector2 canvasGridSize = PanelConstants.Carousel.Vectors.TEXT_SIZE;
+            Vector2 canvasGridCoords = PanelConstants.Carousel.Vectors.TEXT_COORDS;
+            this.factionIDCarouselText = this.BuildMultiText(textName, canvasGridCoords, canvasGridSize, textImageWidgetStructs, false);
+            return this.factionIDCarouselText;
+        }
+
+        private IMultiTextPanelWidget BuildAndSetFactionCarouselButtons()
+        {
+            List<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>();
+            textImageWidgetStructs.Add(new TextImageWidgetStruct("<",
+                WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR, WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR));
+            textImageWidgetStructs.Add(new TextImageWidgetStruct(">",
+                WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR, WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR));
+            string textName = "FactionIDCarouselButtons";
+            Vector2 canvasGridSize = PanelConstants.Carousel.Vectors.BUTTONS_SIZE;
+            Vector2 canvasGridCoords = PanelConstants.Carousel.Vectors.BUTTONS_COORDS;
+            this.factionIDCarouselButtons = this.BuildMultiText(textName, canvasGridCoords, canvasGridSize, textImageWidgetStructs, true);
+            return this.factionIDCarouselButtons;
+        }
+
+        private IMultiTextPanelWidget BuildAndSetSelectedFactionIDText()
+        {
+            List<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>();
+            textImageWidgetStructs.Add(new TextImageWidgetStruct(typeof(FactionID).Name,
+                WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR, WidgetConstants.SECONDARY_COLOR_ID));
+            textImageWidgetStructs.Add(new TextImageWidgetStruct(FactionID.None.ToString(),
+                WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR, WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR));
+            string textName = "SelectedFactionIDText";
+            Vector2 canvasGridSize = PanelConstants.SelectedFaction.Vectors.TEXTS_SIZE;
+            Vector2 canvasGridCoords = PanelConstants.SelectedFaction.Vectors.TEXTS_COORDS;
+            this.selectedFactionIDText = this.BuildMultiText(textName, canvasGridCoords, canvasGridSize, textImageWidgetStructs, false);
+            return this.selectedFactionIDText;
+        }
+
+        private IMultiTextPanelWidget BuildAndSetSelectedFactionIDButtons()
+        {
+            List<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>();
+            textImageWidgetStructs.Add(new TextImageWidgetStruct("-",
+                WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR, WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR));
+            textImageWidgetStructs.Add(new TextImageWidgetStruct("+",
+                WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR, WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR));
+            string textName = "SelectedFactionIDText";
+            Vector2 canvasGridSize = PanelConstants.SelectedFaction.Vectors.BUTTONS_SIZE;
+            Vector2 canvasGridCoords = PanelConstants.SelectedFaction.Vectors.BUTTONS_COORDS;
+            this.selectedFactionIDButtons = this.BuildMultiText(textName, canvasGridCoords, canvasGridSize, textImageWidgetStructs, true);
+            return this.selectedFactionIDButtons;
+        }
+
+        private IMultiTextPanelWidget BuildAndSetPhalanxCallSignsHeader()
+        {
+            List<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>();
+            textImageWidgetStructs.Add(new TextImageWidgetStruct(typeof(PhalanxCallSign).Name + "s",
+                WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR, WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR));
+            string textName = "PhalanxCallSignsHeader";
+            Vector2 canvasGridSize = PanelConstants.PhalanxCallSigns.Vectors.HEADER_SIZE;
+            Vector2 canvasGridCoords = PanelConstants.PhalanxCallSigns.Vectors.HEADER_COORDS;
+            this.phalanxCallSignsHeader = this.BuildMultiText(textName, canvasGridCoords, canvasGridSize, textImageWidgetStructs, false);
+            return this.phalanxCallSignsHeader;
+        }
+
+        private IMultiTextPanelWidget BuildAndSetPhalanxCallSignsList()
+        {
+            List<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>();
+            textImageWidgetStructs.Add(new TextImageWidgetStruct("[]",
+                WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR, WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR));
+            string textName = "PhalanxCallSignsList";
+            Vector2 canvasGridSize = PanelConstants.PhalanxCallSigns.Vectors.LIST_SIZE;
+            Vector2 canvasGridCoords = PanelConstants.PhalanxCallSigns.Vectors.LIST_COORDS;
+            this.phalanxCallSignsList = this.BuildMultiText(textName, canvasGridCoords, canvasGridSize, textImageWidgetStructs, false);
+            return this.phalanxCallSignsList;
+        }
+
+        private IMultiTextPanelWidget BuildMultiText(string widgetName, Vector2 canvasGridCoords,
+            Vector2 canvasGridSize, List<TextImageWidgetStruct> textImageWidgetStructs, bool interactable)
+        {
+            Vector2 panelGridSize = new Vector2(textImageWidgetStructs.Count, 1);
+            IDictionary<int, TextImageWidgetStruct> indexTextImageWidgetStructs = new Dictionary<int, TextImageWidgetStruct>();
+            for (int i = 0; i < textImageWidgetStructs.Count; ++i)
             {
-                if (textString.Length == 1)
-                {
-                    textString += details.GetCallSign();
-                }
-                else
-                {
-                    textString += ", " + details.GetCallSign();
-                }
+                indexTextImageWidgetStructs.Add(i, textImageWidgetStructs[i]);
             }
-            textString += "]";
-            text.GetRightTextWidget().SetText(textString);
-        }
-
-        private IDualTextPanelWidget BuildAndSetAlphaText()
-        {
-            this.alphaText = this.BuildText(FactionID.Alpha.ToString(),
-                FactionDetailsPanelConstants.ALPHA_TEXT_COORDS);
-            return this.alphaText;
-        }
-
-        private IDualTextPanelWidget BuildAndSetBravoText()
-        {
-            this.bravoText = this.BuildText(FactionID.Bravo.ToString(),
-                FactionDetailsPanelConstants.BRAVO_TEXT_COORDS);
-            return this.bravoText;
-        }
-
-        private IDualTextPanelWidget BuildAndSetCharlieText()
-        {
-            this.charlieText = this.BuildText(FactionID.Charlie.ToString(),
-                FactionDetailsPanelConstants.CHARLIE_TEXT_COORDS);
-            return this.charlieText;
-        }
-
-        private IDualTextPanelWidget BuildAndSetDeltaText()
-        {
-            this.deltaText = this.BuildText(FactionID.Delta.ToString(),
-                FactionDetailsPanelConstants.DELTA_TEXT_COORDS);
-            return this.deltaText;
-        }
-
-        private IDualTextPanelWidget BuildAndSetAlphaButtons()
-        {
-            this.alphaButtons = this.BuildButtons(FactionID.Alpha.ToString(),
-                FactionDetailsPanelConstants.ALPHA_BUTTONS_COORDS);
-            return this.alphaButtons;
-        }
-
-        private IDualTextPanelWidget BuildAndSetBravoButtons()
-        {
-            this.bravoButtons = this.BuildButtons(FactionID.Bravo.ToString(),
-                FactionDetailsPanelConstants.BRAVO_BUTTONS_COORDS);
-            return this.bravoButtons;
-        }
-
-        private IDualTextPanelWidget BuildAndSetCharlieButtons()
-        {
-            this.charlieButtons = this.BuildButtons(FactionID.Charlie.ToString(),
-                FactionDetailsPanelConstants.CHARLIE_BUTTONS_COORDS);
-            return this.charlieButtons;
-        }
-
-        private IDualTextPanelWidget BuildAndSetDeltaButtons()
-        {
-            this.deltaButtons = this.BuildButtons(FactionID.Delta.ToString(),
-                FactionDetailsPanelConstants.DELTA_BUTTONS_COORDS);
-            return this.deltaButtons;
-        }
-
-        private IDualTextPanelWidget BuildText(string enumString, Vector2 canvasGridCoords)
-        {
-            return (IDualTextPanelWidget)DualTextPanelImpl.Builder.Get()
-                .SetLeftText(enumString)
-                .SetLeftTextColor(WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR)
-                .SetRightText("null")
-                .SetRightTextColor(WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR)
-                .SetBackgroundColor(WidgetConstants.PRIMARY_COLOR_ID)
-                .SetLeftColor(WidgetConstants.SECONDARY_COLOR_ID)
-                .SetRightColor(WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
-                .SetPanelGridSize(new Vector2(2, 1))
-                .SetWidgetGridSpec(new WidgetGridSpecImpl()
+            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
                     .SetCanvasGridCoords(canvasGridCoords)
-                    .SetCanvasGridSize(FactionDetailsPanelConstants.TEXT_SIZE))
+                    .SetCanvasGridSize(canvasGridSize);
+            return (IMultiTextPanelWidget)MultiTextPanelImpl.Builder.Get()
+                .SetTextImageWidgetStructs(indexTextImageWidgetStructs)
+                .SetBackgroundColor(WidgetConstants.PRIMARY_COLOR_ID)
+                .SetPanelGridSize(panelGridSize)
+                .SetWidgetGridSpec(widgetGridSpec)
                 .SetMvcType(this.mvcType)
                 .SetCanvasLevel(1)
-                .SetInteractable(true)
+                .SetInteractable(interactable)
                 .SetEnabled(true)
-                .SetName(this.mvcType + ":" + RequestType.FactionDetails + ":" + CanvasWidgetType.Panel + ":" + enumString)
-                .SetParent(this)
-                .Build();
-        }
-
-        private IDualTextPanelWidget BuildButtons(string enumString, Vector2 canvasGridCoords)
-        {
-            return (IDualTextPanelWidget)DualTextPanelImpl.Builder.Get()
-                .SetLeftText("-")
-                .SetLeftTextColor(WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR)
-                .SetRightText("+")
-                .SetRightTextColor(WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR)
-                .SetBackgroundColor(WidgetConstants.PRIMARY_COLOR_ID)
-                .SetLeftColor(WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR)
-                .SetRightColor(WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR)
-                .SetPanelGridSize(new Vector2(2, 1))
-                .SetWidgetGridSpec(new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(canvasGridCoords)
-                    .SetCanvasGridSize(FactionDetailsPanelConstants.TEXT_SIZE))
-                .SetMvcType(this.mvcType)
-                .SetCanvasLevel(1)
-                .SetInteractable(true)
-                .SetEnabled(true)
-                .SetName(this.mvcType + ":" + RequestType.FactionDetails + ":" + CanvasWidgetType.Panel + ":" + enumString + ":Buttons")
+                .SetName(this.mvcType + ":" + this.GetType().Name + ":" + CanvasWidgetType.Panel + ":" + widgetName)
                 .SetParent(this)
                 .Build();
         }

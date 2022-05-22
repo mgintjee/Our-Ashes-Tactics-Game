@@ -15,9 +15,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
         : IPhalanxDetails
     {
         private readonly PhalanxCallSign callSign;
-        private readonly ISet<ICombatantDetails> combatantDetails;
+        private readonly IList<ICombatantDetails> combatantDetails;
 
-        private PhalanxDetailsImpl(PhalanxCallSign callSign, ISet<ICombatantDetails> combatantDetails)
+        private PhalanxDetailsImpl(PhalanxCallSign callSign, IList<ICombatantDetails> combatantDetails)
         {
             this.callSign = callSign;
             this.combatantDetails = combatantDetails;
@@ -37,9 +37,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
             return callSign;
         }
 
-        ISet<ICombatantDetails> IPhalanxDetails.GetCombatantDetails()
+        IList<ICombatantDetails> IPhalanxDetails.GetCombatantDetails()
         {
-            return new HashSet<ICombatantDetails>(combatantDetails);
+            return new List<ICombatantDetails>(combatantDetails);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
             {
                 IInternalBuilder SetCallSign(PhalanxCallSign callSign);
 
-                IInternalBuilder SetCombatantDetails(ISet<ICombatantDetails> combatantDetails);
+                IInternalBuilder SetCombatantDetails(IList<ICombatantDetails> combatantDetails);
             }
 
             /// <summary>
@@ -74,7 +74,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
                 : AbstractBuilder<IPhalanxDetails>, IInternalBuilder
             {
                 private PhalanxCallSign callSign;
-                private ISet<ICombatantDetails> combatantDetails;
+                private IList<ICombatantDetails> combatantDetails;
 
                 IInternalBuilder IInternalBuilder.SetCallSign(PhalanxCallSign callSign)
                 {
@@ -82,9 +82,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
                     return this;
                 }
 
-                IInternalBuilder IInternalBuilder.SetCombatantDetails(ISet<ICombatantDetails> combatantDetails)
+                IInternalBuilder IInternalBuilder.SetCombatantDetails(IList<ICombatantDetails> combatantDetails)
                 {
-                    this.combatantDetails = new HashSet<ICombatantDetails>(combatantDetails);
+                    this.combatantDetails = new List<ICombatantDetails>(combatantDetails);
                     return this;
                 }
 

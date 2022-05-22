@@ -8,6 +8,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Detail
     {
         FactionID GetFactionID();
 
-        ISet<IPhalanxDetails> GetPhalanxDetails();
+        IList<IPhalanxDetails> GetPhalanxDetails();
     }
 }

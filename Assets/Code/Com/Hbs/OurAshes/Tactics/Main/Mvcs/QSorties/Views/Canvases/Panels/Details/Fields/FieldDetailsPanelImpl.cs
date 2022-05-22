@@ -7,6 +7,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Pane
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Constants;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Types;
@@ -23,23 +24,23 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
     public class FieldDetailsPanelImpl
         : AbstractPanelWidget, IPanelWidget
     {
-        private IDualTextPanelWidget fieldIDText;
-        private IDualTextPanelWidget fieldIDButtons;
-        private IDualTextPanelWidget fieldSizeText;
-        private IDualTextPanelWidget fieldShapeText;
-        private IDualTextPanelWidget fieldBiomeText;
-        private IDualTextPanelWidget fieldSizeButtons;
-        private IDualTextPanelWidget fieldShapeButtons;
-        private IDualTextPanelWidget fieldBiomeButtons;
+        private IMultiTextPanelWidget fieldIDText;
+        private IMultiTextPanelWidget fieldIDButtons;
+        private IMultiTextPanelWidget fieldSizeText;
+        private IMultiTextPanelWidget fieldShapeText;
+        private IMultiTextPanelWidget fieldBiomeText;
+        private IMultiTextPanelWidget fieldSizeButtons;
+        private IMultiTextPanelWidget fieldShapeButtons;
+        private IMultiTextPanelWidget fieldBiomeButtons;
 
         public override void Process(Commons.Models.States.Inters.IMvcModelState mvcModelState)
         {
             Models.States.Inters.IMvcModelState qSortieMenuModelState = (Models.States.Inters.IMvcModelState)mvcModelState;
             IFieldDetails fieldDetails = qSortieMenuModelState.GetFieldDetails();
-            this.fieldIDText.GetRightTextWidget().SetText(fieldDetails.GetFieldID());
-            this.fieldSizeText.GetRightTextWidget().SetText(fieldDetails.GetFieldSize());
-            this.fieldShapeText.GetRightTextWidget().SetText(fieldDetails.GetFieldShape());
-            this.fieldBiomeText.GetRightTextWidget().SetText(fieldDetails.GetFieldBiome());
+            this.fieldIDText.GetTextWidget(1).IfPresent(textWidget => { textWidget.SetText(fieldDetails.GetFieldID()); });
+            this.fieldSizeText.GetTextWidget(1).IfPresent(textWidget => { textWidget.SetText(fieldDetails.GetFieldSize()); });
+            this.fieldShapeText.GetTextWidget(1).IfPresent(textWidget => { textWidget.SetText(fieldDetails.GetFieldShape()); });
+            this.fieldBiomeText.GetTextWidget(1).IfPresent(textWidget => { textWidget.SetText(fieldDetails.GetFieldBiome()); });
         }
 
         protected override void InitialBuild()
@@ -57,104 +58,108 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
             this.InternalAddWidgets(panelWidgets);
         }
 
-        private IDualTextPanelWidget BuildAndSetFieldIDText()
+        private IMultiTextPanelWidget BuildAndSetFieldIDText()
         {
             this.fieldIDText = this.BuildText(typeof(FieldID).Name,
                 FieldDetailsPanelConstants.FIELD_ID_TEXT_COORDS);
             return this.fieldIDText;
         }
 
-        private IDualTextPanelWidget BuildAndSetFieldIDButtons()
+        private IMultiTextPanelWidget BuildAndSetFieldIDButtons()
         {
             this.fieldIDButtons = this.BuildButtons(typeof(FieldID).Name,
                 FieldDetailsPanelConstants.FIELD_ID_BUTTONS_COORDS);
             return this.fieldIDButtons;
         }
 
-        private IDualTextPanelWidget BuildAndSetFieldBiomeText()
+        private IMultiTextPanelWidget BuildAndSetFieldBiomeText()
         {
             this.fieldBiomeText = this.BuildText(typeof(FieldBiome).Name,
                 FieldDetailsPanelConstants.FIELD_BIOME_TEXT_COORDS);
             return this.fieldBiomeText;
         }
 
-        private IDualTextPanelWidget BuildAndSetFieldSizeText()
+        private IMultiTextPanelWidget BuildAndSetFieldSizeText()
         {
             this.fieldSizeText = this.BuildText(typeof(FieldSize).Name,
                 FieldDetailsPanelConstants.FIELD_SIZE_TEXT_COORDS);
             return this.fieldSizeText;
         }
 
-        private IDualTextPanelWidget BuildAndSetFieldShapeText()
+        private IMultiTextPanelWidget BuildAndSetFieldShapeText()
         {
             this.fieldShapeText = this.BuildText(typeof(FieldShape).Name,
                 FieldDetailsPanelConstants.FIELD_SHAPE_TEXT_COORDS);
             return this.fieldShapeText;
         }
 
-        private IDualTextPanelWidget BuildAndSetFieldBiomeButtons()
+        private IMultiTextPanelWidget BuildAndSetFieldBiomeButtons()
         {
             this.fieldBiomeButtons = this.BuildButtons(typeof(FieldBiome).Name,
                 FieldDetailsPanelConstants.FIELD_BIOME_BUTTONS_COORDS);
             return this.fieldBiomeButtons;
         }
 
-        private IDualTextPanelWidget BuildAndSetFieldSizeButtons()
+        private IMultiTextPanelWidget BuildAndSetFieldSizeButtons()
         {
             this.fieldSizeButtons = this.BuildButtons(typeof(FieldSize).Name,
                 FieldDetailsPanelConstants.FIELD_SIZE_BUTTONS_COORDS);
             return this.fieldSizeButtons;
         }
 
-        private IDualTextPanelWidget BuildAndSetFieldShapeButtons()
+        private IMultiTextPanelWidget BuildAndSetFieldShapeButtons()
         {
             this.fieldShapeButtons = this.BuildButtons(typeof(FieldShape).Name,
                 FieldDetailsPanelConstants.FIELD_SHAPE_BUTTONS_COORDS);
             return this.fieldShapeButtons;
         }
 
-        private IDualTextPanelWidget BuildText(string enumString, Vector2 canvasGridCoords)
+        private IMultiTextPanelWidget BuildText(string enumString, Vector2 canvasGridCoords)
         {
-            return (IDualTextPanelWidget)DualTextPanelImpl.Builder.Get()
-                .SetLeftText(enumString)
-                .SetLeftTextColor(WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR)
-                .SetRightText("null")
-                .SetRightTextColor(WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR)
-                .SetBackgroundColor(WidgetConstants.PRIMARY_COLOR_ID)
-                .SetLeftColor(WidgetConstants.SECONDARY_COLOR_ID)
-                .SetRightColor(WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
-                .SetPanelGridSize(new Vector2(2, 1))
-                .SetWidgetGridSpec(new WidgetGridSpecImpl()
+            TextImageWidgetStruct leftTextImageWidgetStruct = new TextImageWidgetStruct(enumString,
+                WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR, WidgetConstants.SECONDARY_COLOR_ID);
+            TextImageWidgetStruct rightTextImageWidgetStruct = new TextImageWidgetStruct("null",
+                WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR, WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR);
+            Vector2 panelGridSize = new Vector2(2, 1);
+            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
                     .SetCanvasGridCoords(canvasGridCoords)
-                    .SetCanvasGridSize(FieldDetailsPanelConstants.TEXT_SIZE))
+                    .SetCanvasGridSize(FieldDetailsPanelConstants.TEXT_SIZE);
+            return (IMultiTextPanelWidget)MultiTextPanelImpl.Builder.Get()
+                .SetTextImageWidgetStruct(0, leftTextImageWidgetStruct)
+                .SetTextImageWidgetStruct(1, rightTextImageWidgetStruct)
+                .SetBackgroundColor(WidgetConstants.PRIMARY_COLOR_ID)
+                .SetPanelGridSize(panelGridSize)
+                .SetWidgetGridSpec(widgetGridSpec)
                 .SetMvcType(this.mvcType)
                 .SetCanvasLevel(1)
                 .SetInteractable(true)
                 .SetEnabled(true)
-                .SetName(this.mvcType + ":" + RequestType.FieldDetails + ":" + CanvasWidgetType.Panel + ":" + enumString)
+                .SetName(this.mvcType + ":" + this.GetType().Name + ":" + CanvasWidgetType.Panel + ":" + enumString + ":Texts")
                 .SetParent(this)
                 .Build();
         }
 
-        private IDualTextPanelWidget BuildButtons(string enumString, Vector2 canvasGridCoords)
+        private IMultiTextPanelWidget BuildButtons(string enumString, Vector2 canvasGridCoords)
         {
-            return (IDualTextPanelWidget)DualTextPanelImpl.Builder.Get()
-                .SetLeftText("<")
-                .SetLeftTextColor(WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR)
-                .SetRightText(">")
-                .SetRightTextColor(WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR)
-                .SetBackgroundColor(WidgetConstants.PRIMARY_COLOR_ID)
-                .SetLeftColor(WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR)
-                .SetRightColor(WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR)
-                .SetPanelGridSize(new Vector2(2, 1))
-                .SetWidgetGridSpec(new WidgetGridSpecImpl()
+            TextImageWidgetStruct leftTextImageWidgetStruct = new TextImageWidgetStruct("<",
+                WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR, WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR);
+            TextImageWidgetStruct rightTextImageWidgetStruct = new TextImageWidgetStruct(">",
+                WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR, WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR);
+            Vector2 panelGridSize = new Vector2(2, 1);
+            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
                     .SetCanvasGridCoords(canvasGridCoords)
-                    .SetCanvasGridSize(FieldDetailsPanelConstants.TEXT_SIZE))
+                    .SetCanvasGridSize(FieldDetailsPanelConstants.TEXT_SIZE);
+            return (IMultiTextPanelWidget)MultiTextPanelImpl.Builder.Get()
+                .SetTextImageWidgetStruct(0, leftTextImageWidgetStruct)
+                .SetTextImageWidgetStruct(1, rightTextImageWidgetStruct)
+                .SetBackgroundColor(WidgetConstants.PRIMARY_COLOR_ID)
+                .SetPanelGridSize(panelGridSize)
+                .SetWidgetGridSpec(widgetGridSpec)
                 .SetMvcType(this.mvcType)
                 .SetCanvasLevel(1)
                 .SetInteractable(true)
                 .SetEnabled(true)
-                .SetName(this.mvcType + ":" + RequestType.FieldDetails + ":" + CanvasWidgetType.Panel + ":" + enumString + ":Buttons")
+                .SetName(this.mvcType + ":" + this.GetType().Name + ":" + CanvasWidgetType.Panel + ":" + enumString + ":Buttons")
                 .SetParent(this)
                 .Build();
         }

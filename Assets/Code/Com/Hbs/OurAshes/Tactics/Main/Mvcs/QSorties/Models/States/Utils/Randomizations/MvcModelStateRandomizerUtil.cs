@@ -13,7 +13,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
         {
             MvcModelStateImpl mvcModelState = new MvcModelStateImpl();
             IFieldDetails fieldDetails = FieldDetailsRandomizerUtil.Randomize(random);
-            ISet<IFactionDetails> factionDetails = FactionDetailsRandomizerUtil.Randomize(random, fieldDetails);
+            IList<IFactionDetails> factionDetails = FactionDetailsRandomizerUtil.Randomize(random, fieldDetails);
             mvcModelState.SetFieldDetails(fieldDetails);
             mvcModelState.SetFactionDetails(factionDetails);
             return mvcModelState;

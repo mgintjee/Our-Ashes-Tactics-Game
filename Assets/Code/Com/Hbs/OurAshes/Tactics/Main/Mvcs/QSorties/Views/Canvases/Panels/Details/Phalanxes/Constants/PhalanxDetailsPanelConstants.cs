@@ -10,13 +10,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
     {
         public static readonly int TEXT_COLUMN = 0;
         public static readonly int BUTTONS_COLUMN = 1;
-        public static readonly float ALPHA_ROW = DetailsPanelConstants.PHALANX_PANEL_DIMENSIONS.Y - 1;
-        public static readonly float BRAVO_ROW = DetailsPanelConstants.PHALANX_PANEL_DIMENSIONS.Y - 2;
-        public static readonly float CHARLIE_ROW = DetailsPanelConstants.PHALANX_PANEL_DIMENSIONS.Y - 3;
-        public static readonly float DELTA_ROW = DetailsPanelConstants.PHALANX_PANEL_DIMENSIONS.Y - 4;
-        public static readonly float ECHO_ROW = DetailsPanelConstants.PHALANX_PANEL_DIMENSIONS.Y - 5;
-        public static readonly float FOXTROT_ROW = DetailsPanelConstants.PHALANX_PANEL_DIMENSIONS.Y - 6;
-        public static readonly Vector2 TEXT_SIZE = DetailsPanelConstants.PHALANX_PANEL_DIMENSIONS * new Vector2(1 / 2f, 1 / 6f);
+        public static readonly float ALPHA_ROW = DetailsPanelConstants.Vectors.PHALANX_PANEL_DIMENSIONS.Y - 1;
+        public static readonly float BRAVO_ROW = DetailsPanelConstants.Vectors.PHALANX_PANEL_DIMENSIONS.Y - 2;
+        public static readonly float CHARLIE_ROW = DetailsPanelConstants.Vectors.PHALANX_PANEL_DIMENSIONS.Y - 3;
+        public static readonly float DELTA_ROW = DetailsPanelConstants.Vectors.PHALANX_PANEL_DIMENSIONS.Y - 4;
+        public static readonly float ECHO_ROW = DetailsPanelConstants.Vectors.PHALANX_PANEL_DIMENSIONS.Y - 5;
+        public static readonly float FOXTROT_ROW = DetailsPanelConstants.Vectors.PHALANX_PANEL_DIMENSIONS.Y - 6;
+        public static readonly Vector2 TEXT_SIZE = DetailsPanelConstants.Vectors.PHALANX_PANEL_DIMENSIONS * new Vector2(1 / 2f, 1 / 6f);
         public static readonly Vector2 ALPHA_TEXT_COORDS = new Vector2(TEXT_COLUMN, ALPHA_ROW);
         public static readonly Vector2 BRAVO_TEXT_COORDS = new Vector2(TEXT_COLUMN, BRAVO_ROW);
         public static readonly Vector2 CHARLIE_TEXT_COORDS = new Vector2(TEXT_COLUMN, CHARLIE_ROW);

@@ -8,6 +8,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
     {
         PhalanxCallSign GetCallSign();
 
-        ISet<ICombatantDetails> GetCombatantDetails();
+        IList<ICombatantDetails> GetCombatantDetails();
     }
 }

@@ -9,6 +9,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
     {
         IFieldDetails GetFieldDetails();
 
-        ISet<IFactionDetails> GetFactionDetails();
+        IList<IFactionDetails> GetFactionDetails();
     }
 }

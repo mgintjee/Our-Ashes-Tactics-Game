@@ -73,7 +73,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
         private ICanvasWidget BuildAndSetFieldDetailsPanel()
         {
             this.requestTypeDetailsPanels[RequestType.FieldDetails] = FieldDetailsPanelImpl.Builder.Get()
-                    .SetPanelGridSize(DetailsPanelConstants.FIELD_PANEL_DIMENSIONS)
+                    .SetPanelGridSize(DetailsPanelConstants.Field.Vectors.SIZE)
                     .SetWidgetGridSpec(new WidgetGridSpecImpl()
                         .SetCanvasGridCoords(Vector2.Zero)
                         .SetCanvasGridSize(this.canvasGridConvertor.GetGridSize()))
@@ -90,7 +90,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
         private ICanvasWidget BuildAndSetFactionDetailsPanel()
         {
             this.requestTypeDetailsPanels[RequestType.FactionDetails] = FactionDetailsPanelImpl.Builder.Get()
-                    .SetPanelGridSize(DetailsPanelConstants.FACTION_PANEL_DIMENSIONS)
+                    .SetPanelGridSize(DetailsPanelConstants.Vectors.FACTION_PANEL_DIMENSIONS)
                     .SetWidgetGridSpec(new WidgetGridSpecImpl()
                         .SetCanvasGridCoords(Vector2.Zero)
                         .SetCanvasGridSize(this.canvasGridConvertor.GetGridSize()))
@@ -124,7 +124,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
         private ICanvasWidget BuildAndSetPhalanxDetailsPanel()
         {
             this.requestTypeDetailsPanels[RequestType.PhalanxDetails] = PhalanxDetailsPanelImpl.Builder.Get()
-                    .SetPanelGridSize(DetailsPanelConstants.PHALANX_PANEL_DIMENSIONS)
+                    .SetPanelGridSize(DetailsPanelConstants.Vectors.PHALANX_PANEL_DIMENSIONS)
                     .SetWidgetGridSpec(new WidgetGridSpecImpl()
                         .SetCanvasGridCoords(Vector2.Zero)
                         .SetCanvasGridSize(this.canvasGridConvertor.GetGridSize()))

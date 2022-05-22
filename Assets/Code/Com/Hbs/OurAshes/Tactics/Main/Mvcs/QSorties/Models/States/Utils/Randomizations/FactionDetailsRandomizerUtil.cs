@@ -10,14 +10,14 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
 {
     public class FactionDetailsRandomizerUtil
     {
-        public static ISet<IFactionDetails> Randomize(Random random, IFieldDetails fieldDetails)
+        public static IList<IFactionDetails> Randomize(Random random, IFieldDetails fieldDetails)
         {
-            ISet<IFactionDetails> factionDetails = new HashSet<IFactionDetails>();
-            IDictionary<FactionID, ISet<IPhalanxDetails>> factionPhalanxDetailsMap = BuildFactionPhalanxDetails(random, fieldDetails);
-            foreach (KeyValuePair<FactionID, ISet<IPhalanxDetails>> factionPhalanxDetails in factionPhalanxDetailsMap)
+            IList<IFactionDetails> factionDetails = new List<IFactionDetails>();
+            IDictionary<FactionID, IList<IPhalanxDetails>> factionPhalanxDetailsMap = BuildFactionPhalanxDetails(random, fieldDetails);
+            foreach (KeyValuePair<FactionID, IList<IPhalanxDetails>> factionPhalanxDetails in factionPhalanxDetailsMap)
             {
                 FactionID factionID = factionPhalanxDetails.Key;
-                ISet<IPhalanxDetails> phalanxDetails = factionPhalanxDetails.Value;
+                IList<IPhalanxDetails> phalanxDetails = factionPhalanxDetails.Value;
                 factionDetails.Add(
                     FactionDetailsImpl.Builder.Get()
                     .SetFactionID(factionID)
@@ -28,10 +28,10 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             return factionDetails;
         }
 
-        private static IDictionary<FactionID, ISet<IPhalanxDetails>> BuildFactionPhalanxDetails(Random random, IFieldDetails fieldDetails)
+        private static IDictionary<FactionID, IList<IPhalanxDetails>> BuildFactionPhalanxDetails(Random random, IFieldDetails fieldDetails)
         {
-            IDictionary<FactionID, ISet<IPhalanxDetails>> factionPhalanxDetails = new Dictionary<FactionID, ISet<IPhalanxDetails>>();
-            ISet<IPhalanxDetails> phalanxDetails = PhalanxDetailsRandomizerUtil.Randomize(random, fieldDetails);
+            IDictionary<FactionID, IList<IPhalanxDetails>> factionPhalanxDetails = new Dictionary<FactionID, IList<IPhalanxDetails>>();
+            IList<IPhalanxDetails> phalanxDetails = PhalanxDetailsRandomizerUtil.Randomize(random, fieldDetails);
             // Check if this will be a free-for-all
             if (true)
             {

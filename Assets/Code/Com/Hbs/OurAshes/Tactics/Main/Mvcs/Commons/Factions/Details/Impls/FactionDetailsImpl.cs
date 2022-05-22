@@ -15,9 +15,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Detail
         : IFactionDetails
     {
         private readonly FactionID factionID;
-        private readonly ISet<IPhalanxDetails> phalanxDetails;
+        private readonly IList<IPhalanxDetails> phalanxDetails;
 
-        private FactionDetailsImpl(FactionID factionID, ISet<IPhalanxDetails> PhalanxDetails)
+        private FactionDetailsImpl(FactionID factionID, IList<IPhalanxDetails> PhalanxDetails)
         {
             this.factionID = factionID;
             this.phalanxDetails = PhalanxDetails;
@@ -32,9 +32,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Detail
                 StringUtils.Format(this.phalanxDetails));
         }
 
-        ISet<IPhalanxDetails> IFactionDetails.GetPhalanxDetails()
+        IList<IPhalanxDetails> IFactionDetails.GetPhalanxDetails()
         {
-            return new HashSet<IPhalanxDetails>(phalanxDetails);
+            return new List<IPhalanxDetails>(phalanxDetails);
         }
 
         FactionID IFactionDetails.GetFactionID()
@@ -55,7 +55,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Detail
             {
                 IInternalBuilder SetFactionID(FactionID factionID);
 
-                IInternalBuilder SetPhalanxDetails(ISet<IPhalanxDetails> phalanxDetails);
+                IInternalBuilder SetPhalanxDetails(IList<IPhalanxDetails> phalanxDetails);
             }
 
             /// <summary>
@@ -74,11 +74,11 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Detail
                 : AbstractBuilder<IFactionDetails>, IInternalBuilder
             {
                 private FactionID factionID;
-                private ISet<IPhalanxDetails> phalanxDetails;
+                private IList<IPhalanxDetails> phalanxDetails;
 
-                IInternalBuilder IInternalBuilder.SetPhalanxDetails(ISet<IPhalanxDetails> phalanxDetails)
+                IInternalBuilder IInternalBuilder.SetPhalanxDetails(IList<IPhalanxDetails> phalanxDetails)
                 {
-                    this.phalanxDetails = new HashSet<IPhalanxDetails>(phalanxDetails);
+                    this.phalanxDetails = new List<IPhalanxDetails>(phalanxDetails);
                     return this;
                 }
 

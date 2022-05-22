@@ -173,7 +173,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
         {
             MvcModelStateQueryUtil.GetFactionDetails(this.CastMvcModelState(), factionID).IfPresent(factionDetails =>
             {
-                ISet<IPhalanxDetails> phalanxDetailsSet = factionDetails.GetPhalanxDetails();
+                IList<IPhalanxDetails> phalanxDetailsSet = factionDetails.GetPhalanxDetails();
                 this.DelPhalanxCallSign(phalanxDetails.GetCallSign());
                 this.DelFactionID(factionID);
                 phalanxDetailsSet.Add(phalanxDetails);
@@ -181,7 +181,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
                   .SetFactionID(factionID)
                   .SetPhalanxDetails(phalanxDetailsSet)
                   .Build();
-                ISet<IFactionDetails> factionDetailsSetCopy = this.CastMvcModelState().GetFactionDetails();
+                IList<IFactionDetails> factionDetailsSetCopy = this.CastMvcModelState().GetFactionDetails();
                 factionDetailsSetCopy.Add(factionDetails);
                 this.UpdateFactionDetails(factionDetailsSetCopy);
             });
@@ -195,14 +195,14 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
             {
                 MvcModelStateQueryUtil.GetPhalanxDetails(phalanxCallSign, factionDetails.GetPhalanxDetails()).IfPresent(phalanxDetails =>
                 {
-                    ISet<IPhalanxDetails> phalanxDetailsSetCopy = factionDetails.GetPhalanxDetails();
+                    IList<IPhalanxDetails> phalanxDetailsSetCopy = factionDetails.GetPhalanxDetails();
                     phalanxDetailsSetCopy.Remove(phalanxDetails);
                     this.DelFactionID(factionID);
                     IFactionDetails newFactionDetails = FactionDetailsImpl.Builder.Get()
                         .SetFactionID(factionID)
                         .SetPhalanxDetails(phalanxDetailsSetCopy)
                         .Build();
-                    ISet<IFactionDetails> newFactionDetailsSet = this.CastMvcModelState().GetFactionDetails();
+                    IList<IFactionDetails> newFactionDetailsSet = this.CastMvcModelState().GetFactionDetails();
                     newFactionDetailsSet.Add(newFactionDetails);
                     this.UpdateFactionDetails(newFactionDetailsSet);
                 });
@@ -229,9 +229,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
             {
                 IFactionDetails factionDetails = FactionDetailsImpl.Builder.Get()
                   .SetFactionID(factionID)
-                  .SetPhalanxDetails(new HashSet<IPhalanxDetails>())
+                  .SetPhalanxDetails(new List<IPhalanxDetails>())
                   .Build();
-                ISet<IFactionDetails> factionDetailsSetCopy = this.CastMvcModelState().GetFactionDetails();
+                IList<IFactionDetails> factionDetailsSetCopy = this.CastMvcModelState().GetFactionDetails();
                 factionDetailsSetCopy.Add(factionDetails);
                 this.UpdateFactionDetails(factionDetailsSetCopy);
             }
@@ -241,7 +241,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
         {
             MvcModelStateQueryUtil.GetFactionDetails(this.CastMvcModelState(), factionID).IfPresent(factionDetails =>
             {
-                ISet<IFactionDetails> factionDetailsSetCopy = this.CastMvcModelState().GetFactionDetails();
+                IList<IFactionDetails> factionDetailsSetCopy = this.CastMvcModelState().GetFactionDetails();
                 factionDetailsSetCopy.Remove(factionDetails);
                 this.UpdateFactionDetails(factionDetailsSetCopy);
             });
@@ -286,7 +286,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
 
         private void HandleFactionRandomize()
         {
-            ISet<IFactionDetails> factionDetails = FactionDetailsRandomizerUtil
+            IList<IFactionDetails> factionDetails = FactionDetailsRandomizerUtil
                 .Randomize(RandomManager.GetRandom(MvcType.QSortieMenu),
                 this.CastMvcModelState().GetFieldDetails());
             this.UpdateFactionDetails(factionDetails);
@@ -298,7 +298,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
                 .SetFieldDetails(fieldDetails);
         }
 
-        private void UpdateFactionDetails(ISet<IFactionDetails> factionDetails)
+        private void UpdateFactionDetails(IList<IFactionDetails> factionDetails)
         {
             ((MvcModelStateImpl)this.mvcModelState)
                 .SetFactionDetails(factionDetails);

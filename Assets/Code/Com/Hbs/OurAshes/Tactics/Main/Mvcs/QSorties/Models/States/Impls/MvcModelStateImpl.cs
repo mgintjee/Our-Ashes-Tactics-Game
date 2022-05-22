@@ -12,7 +12,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
     public class MvcModelStateImpl
         : DefaultMvcModelStateImpl, IMvcModelState
     {
-        private ISet<IFactionDetails> factionDetails = new HashSet<IFactionDetails>();
+        private IList<IFactionDetails> factionDetails = new List<IFactionDetails>();
         private IFieldDetails fieldDetails;
 
         public override Commons.Models.States.Inters.IMvcModelState GetCopy()
@@ -23,9 +23,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
                 .SetPrevMvcRequest(this.prevMvcRequest);
         }
 
-        public MvcModelStateImpl SetFactionDetails(ISet<IFactionDetails> factionDetails)
+        public MvcModelStateImpl SetFactionDetails(IList<IFactionDetails> factionDetails)
         {
-            this.factionDetails = new HashSet<IFactionDetails>(factionDetails);
+            this.factionDetails = new List<IFactionDetails>(factionDetails);
             return this;
         }
 
@@ -40,7 +40,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             return this.fieldDetails;
         }
 
-        ISet<IFactionDetails> IMvcModelState.GetFactionDetails()
+        IList<IFactionDetails> IMvcModelState.GetFactionDetails()
         {
             return this.factionDetails;
         }
