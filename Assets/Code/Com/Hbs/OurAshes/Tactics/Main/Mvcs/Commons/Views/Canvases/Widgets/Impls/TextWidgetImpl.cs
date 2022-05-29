@@ -36,7 +36,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <inheritdoc/>
         void ITextWidget.SetText(string text)
         {
-            logger.Debug("W|{}: Setting Text={}", this.widgetName, text);
             this.text = text;
             this.GetText().text = text;
         }
@@ -50,7 +49,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <inheritdoc/>
         void ITextWidget.SetFont(FontID fontID)
         {
-            logger.Debug("W|{}: Setting {}", this.widgetName, StringUtils.Format(fontID));
             this.fontID = fontID;
             this.GetText().font = this.GetFont(this.fontID);
         }
@@ -58,7 +56,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <inheritdoc/>
         void ITextWidget.SetSize(int size)
         {
-            logger.Debug("W|{}: Setting Size={}", this.widgetName, size);
             this.size = size;
             this.GetText().fontSize = size;
         }
@@ -75,7 +72,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <inheritdoc/>
         void ITextWidget.SetColorID(ColorID colorID)
         {
-            logger.Debug("W|{}: Setting {}", this.widgetName, StringUtils.Format(colorID));
             this.colorID = colorID;
             this.GetText().color = RgbManager.GetUnityColor(colorID);
         }
@@ -83,7 +79,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <inheritdoc/>
         void ITextWidget.SetAlignType(AlignType alignType)
         {
-            logger.Debug("W|{}: Setting {}", this.widgetName, StringUtils.Format(alignType));
             this.alignType = alignType;
             this.GetText().alignment = this.GetTextAnchor(this.alignType);
         }

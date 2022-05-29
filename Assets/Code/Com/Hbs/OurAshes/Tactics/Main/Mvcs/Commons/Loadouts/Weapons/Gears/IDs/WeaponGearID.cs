@@ -6,6 +6,6 @@
     public enum WeaponGearID
     {
         None,
-        AlphaAlpha,
+        AA,
     }
 }

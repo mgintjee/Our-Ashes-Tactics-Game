@@ -6,6 +6,6 @@
     public enum ArmorTraitID
     {
         None,
-        AlphaAlpha,
+        AA,
     }
 }

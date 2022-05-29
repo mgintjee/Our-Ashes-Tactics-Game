@@ -61,6 +61,16 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Enums
             return tEnums[random.Next(tEnums.Count)];
         }
 
+        public static IList<string> GetEnumsAsStrings<TEnum>(IList<TEnum> enums)
+        {
+            List<string> strings = new List<string>();
+            foreach (TEnum tEnum in enums)
+            {
+                strings.Add(tEnum.ToString());
+            }
+            return strings;
+        }
+
         /// <summary>
         /// Todo
         /// </summary>

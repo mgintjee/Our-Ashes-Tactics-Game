@@ -1,13 +1,13 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.CallSigns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Constants.Combatants;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Constants.Phalanxes;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Sizes;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.CallSigns;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Details.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Details.Inters;
 using System;
@@ -30,14 +30,14 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             FieldSize fieldSize = fieldDetails.GetFieldSize();
             int phalanxCount = GetPhalanxCount(random, fieldSize);
             int combatantCount = GetCombatantCount(random, fieldSize, phalanxCount);
-            IDictionary<PhalanxCallSign, IList<ICombatantDetails>> phalanxCombatantDetailsMap = BuildPhalanxCombatantDetails(random, phalanxCount, combatantCount);
-            foreach (KeyValuePair<PhalanxCallSign, IList<ICombatantDetails>> phalanxCombatantDetails in phalanxCombatantDetailsMap)
+            IDictionary<PhalanxID, IList<ICombatantDetails>> phalanxCombatantDetailsMap = BuildPhalanxCombatantDetails(random, phalanxCount, combatantCount);
+            foreach (KeyValuePair<PhalanxID, IList<ICombatantDetails>> phalanxCombatantDetails in phalanxCombatantDetailsMap)
             {
-                PhalanxCallSign phalanxCallSign = phalanxCombatantDetails.Key;
+                PhalanxID phalanxID = phalanxCombatantDetails.Key;
                 IList<ICombatantDetails> combatantDetails = phalanxCombatantDetails.Value;
                 phalanxDetails.Add(
                     PhalanxDetailsImpl.Builder.Get()
-                    .SetCallSign(phalanxCallSign)
+                    .SetID(phalanxID)
                     .SetCombatantDetails(combatantDetails)
                     .Build());
             }
@@ -45,37 +45,37 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             return phalanxDetails;
         }
 
-        private static IDictionary<PhalanxCallSign, IList<ICombatantDetails>> BuildPhalanxCombatantDetails(Random random, int phalanxCount, int combatantCount)
+        private static IDictionary<PhalanxID, IList<ICombatantDetails>> BuildPhalanxCombatantDetails(Random random, int phalanxCount, int combatantCount)
         {
-            IDictionary<PhalanxCallSign, IList<ICombatantDetails>> phalanxCombatantDetails = new Dictionary<PhalanxCallSign, IList<ICombatantDetails>>();
+            IDictionary<PhalanxID, IList<ICombatantDetails>> phalanxCombatantDetails = new Dictionary<PhalanxID, IList<ICombatantDetails>>();
 
-            IList<PhalanxCallSign> phalanxCallSigns = BuildCallSigns(phalanxCount);
-            foreach (PhalanxCallSign phalanxCallSign in phalanxCallSigns)
+            IList<PhalanxID> phalanxIDs = BuildIDs(phalanxCount);
+            foreach (PhalanxID phalanxID in phalanxIDs)
             {
-                phalanxCombatantDetails.Add(phalanxCallSign, new List<ICombatantDetails>());
+                phalanxCombatantDetails.Add(phalanxID, new List<ICombatantDetails>());
             }
 
             for (int i = 0; i < combatantCount; ++i)
             {
-                PhalanxCallSign phalanxCallSign = (PhalanxCallSign)(i % phalanxCount);
-                CombatantCallSign combatantCallSign = (CombatantCallSign)i;
-                ICombatantDetails combatantDetails = CombatantDetailsRandomizerUtil.Randomize(random, combatantCallSign);
-                phalanxCombatantDetails[phalanxCallSign].Add(combatantDetails);
+                PhalanxID phalanxID = (PhalanxID)((i % phalanxCount)+1);
+                CombatantID combatantID = (CombatantID)(i+1);
+                ICombatantDetails combatantDetails = CombatantDetailsRandomizerUtil.Randomize(random, combatantID);
+                phalanxCombatantDetails[phalanxID].Add(combatantDetails);
             }
 
             return phalanxCombatantDetails;
         }
 
-        private static IList<PhalanxCallSign> BuildCallSigns(int count)
+        private static IList<PhalanxID> BuildIDs(int count)
         {
-            IList<PhalanxCallSign> callSigns = new List<PhalanxCallSign>();
+            IList<PhalanxID> ids = new List<PhalanxID>();
 
             for (int i = 0; i < count; ++i)
             {
-                callSigns.Add((PhalanxCallSign)i);
+                ids.Add((PhalanxID)(i+1));
             }
 
-            return callSigns;
+            return ids;
         }
 
         private static int GetPhalanxCount(Random random, FieldSize fieldSize)

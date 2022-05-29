@@ -15,7 +15,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Armors
         private static readonly IDictionary<ArmorGearID, IGearAttributes> ID_ATTRIBUTES =
             new Dictionary<ArmorGearID, IGearAttributes>()
             {
-                { ArmorGearID.AlphaAlpha, new ArmorGearAlphaAlphaAttributesImpl() },
+                { ArmorGearID.AA, new ArmorGearAlphaAlphaAttributesImpl() },
             };
 
         /// <summary>

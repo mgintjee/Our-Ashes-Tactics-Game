@@ -16,7 +16,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Request
         /// Todo
         /// </summary>
         /// <param name="qSortieRequestType"></param>
-        public IQSortieMenuMvcRequest SetRequestType(RequestType qSortieRequestType)
+        public MvcRequestImpl SetRequestType(RequestType qSortieRequestType)
         {
             this.requestType = qSortieRequestType;
             return this;

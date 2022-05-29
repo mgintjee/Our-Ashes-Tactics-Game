@@ -6,8 +6,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
     public interface IMultiTextPanelWidget
         : IPanelWidget
     {
-
         int GetMaxIndex();
+
         IImageWidget GetBackImageWidget();
 
         Optional<ITextWidget> GetTextWidget(int index);

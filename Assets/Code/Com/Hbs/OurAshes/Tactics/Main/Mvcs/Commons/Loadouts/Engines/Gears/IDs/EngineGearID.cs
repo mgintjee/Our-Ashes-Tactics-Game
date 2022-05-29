@@ -6,6 +6,6 @@
     public enum EngineGearID
     {
         None,
-        AlphaAlpha,
+        AA,
     }
 }

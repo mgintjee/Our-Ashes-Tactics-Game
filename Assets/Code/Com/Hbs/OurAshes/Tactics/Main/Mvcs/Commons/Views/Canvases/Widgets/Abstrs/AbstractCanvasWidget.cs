@@ -113,7 +113,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <inheritdoc/>
         void ICanvasWidget.SetEnabled(bool enabled)
         {
-            logger.Debug("W| {}, isEnabled:{}", this.widgetName, enabled);
             this.isEnabled = enabled;
             this.gameObject.SetActive(enabled);
         }
@@ -121,7 +120,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <inheritdoc/>
         void ICanvasWidget.SetInteractable(bool interactable)
         {
-            logger.Debug("W| {}, isInteractable:{}", this.widgetName, interactable);
             this.isInteractable = interactable;
         }
 

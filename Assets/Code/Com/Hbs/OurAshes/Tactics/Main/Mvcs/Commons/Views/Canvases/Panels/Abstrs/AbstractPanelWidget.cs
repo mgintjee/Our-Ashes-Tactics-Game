@@ -3,11 +3,15 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Obj
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Structs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Sprites.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Utils;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Abstrs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Constants;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Types;
@@ -121,6 +125,55 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             {
                 this.InternalAddWidget(canvasWidget);
             }
+        }
+
+        protected ICarouselPanelWidget BuildCarousel(string name, IWidgetGridSpec widgetGridSpec)
+        {
+            IList<TextImageWidgetStruct> headerTextImageWidgetStructs = new List<TextImageWidgetStruct>
+            {
+                new TextImageWidgetStruct(name+":",
+                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
+                    WidgetConstants.SECONDARY_COLOR_ID)
+            };
+            Vector2 panelGridSize = new Vector2(6, 1);
+            return (ICarouselPanelWidget)CarouselPanelImpl.Builder.Get()
+                .SetHeaderTextImageWidgetStructs(headerTextImageWidgetStructs)
+                .SetBackgroundColor(WidgetConstants.PRIMARY_COLOR_ID)
+                .SetPanelGridSize(panelGridSize)
+                .SetWidgetGridSpec(widgetGridSpec)
+                .SetMvcType(this.mvcType)
+                .SetCanvasLevel(1)
+                .SetInteractable(false)
+                .SetEnabled(true)
+                .SetName(this.mvcType + ":" + this.GetType().Name + ":" + CanvasWidgetType.Panel + ":Carousel:" + widgetName)
+                .SetParent(this)
+                .Build();
+        }
+
+        protected IMultiTextPanelWidget BuildMultiText(string widgetName, Vector2 canvasGridCoords,
+            Vector2 canvasGridSize, IList<TextImageWidgetStruct> textImageWidgetStructs, bool interactable)
+        {
+            Vector2 panelGridSize = new Vector2(textImageWidgetStructs.Count, 1);
+            IDictionary<int, TextImageWidgetStruct> indexTextImageWidgetStructs = new Dictionary<int, TextImageWidgetStruct>();
+            for (int i = 0; i < textImageWidgetStructs.Count; ++i)
+            {
+                indexTextImageWidgetStructs.Add(i, textImageWidgetStructs[i]);
+            }
+            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(canvasGridCoords)
+                    .SetCanvasGridSize(canvasGridSize);
+            return (IMultiTextPanelWidget)MultiTextPanelImpl.Builder.Get()
+                .SetTextImageWidgetStructs(indexTextImageWidgetStructs)
+                .SetBackgroundColor(WidgetConstants.PRIMARY_COLOR_ID)
+                .SetPanelGridSize(panelGridSize)
+                .SetWidgetGridSpec(widgetGridSpec)
+                .SetMvcType(this.mvcType)
+                .SetCanvasLevel(1)
+                .SetInteractable(interactable)
+                .SetEnabled(true)
+                .SetName(this.mvcType + ":" + this.GetType().Name + ":" + CanvasWidgetType.Panel + ":" + widgetName)
+                .SetParent(this)
+                .Build();
         }
 
         /// <summary>

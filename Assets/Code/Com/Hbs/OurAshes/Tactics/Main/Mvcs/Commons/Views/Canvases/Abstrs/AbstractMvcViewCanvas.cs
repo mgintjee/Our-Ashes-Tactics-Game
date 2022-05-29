@@ -78,22 +78,24 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             {
                 foreach (ICanvasWidget canvasWidget in canvasLevelWidgets[canvasLevel])
                 {
-                    logger.Debug("Checking if input is on W: {}", canvasWidget.GetName());
+                    logger.Debug("Checking if input is on {}...", canvasWidget.GetName());
                     if (canvasWidget is IPanelWidget panelWidget)
                     {
                         Optional<ICanvasWidget> returnedWidget = panelWidget.GetWidgetFromInput(
                             this.canvasGridConvertor, mvcControlInput);
                         if (returnedWidget.IsPresent())
                         {
+                            logger.Debug("Input is on {}!", returnedWidget.GetValue().GetName());
                             return returnedWidget;
                         }
                     }
                     else if (canvasWidget.GetEnabled() && canvasWidget.GetInteractable() &&
                         CanvasWidgetUtils.IsInputOnWidget(mvcControlInput, canvasWidget))
                     {
+                        logger.Debug("Input is on {}!", canvasWidget.GetName());
                         return Optional<ICanvasWidget>.Of(canvasWidget);
                     }
-                    logger.Debug("Input is not on W: {}", canvasWidget.GetName());
+                    logger.Debug("Input is not on {}.", canvasWidget.GetName());
                 }
             }
             return Optional<ICanvasWidget>.Empty();

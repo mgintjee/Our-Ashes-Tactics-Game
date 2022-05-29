@@ -1,9 +1,9 @@
 ﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.CallSigns;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Models;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Details.Inters;
 using System.Collections.Generic;
 
@@ -13,18 +13,18 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Deta
         : ICombatantDetails
     {
         // Todo
-        private readonly CombatantCallSign callSign;
+        private readonly CombatantID id;
 
         // Todo
-        private readonly CombatantID combatantID;
+        private readonly ModelID modelID;
 
         // Todo
         private readonly ILoadoutDetails loadoutDetails;
 
-        private CombatantDetailsImpl(CombatantCallSign callSign, CombatantID combatantID, ILoadoutDetails loadoutDetails)
+        private CombatantDetailsImpl(CombatantID id, ModelID modelID, ILoadoutDetails loadoutDetails)
         {
-            this.callSign = callSign;
-            this.combatantID = combatantID;
+            this.id = id;
+            this.modelID = modelID;
             this.loadoutDetails = loadoutDetails;
         }
 
@@ -34,21 +34,21 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Deta
             return string.Format("\n{0}" +
                 "\n{1}" +
                 "\n{2}",
-                StringUtils.Format(this.callSign),
-                StringUtils.Format(this.combatantID),
+                StringUtils.Format(this.id),
+                StringUtils.Format(this.modelID),
                 StringUtils.Format(this.loadoutDetails));
         }
 
         /// <inheritdoc/>
-        CombatantCallSign ICombatantDetails.GetCallSign()
+        CombatantID ICombatantDetails.GetID()
         {
-            return this.callSign;
+            return this.id;
         }
 
         /// <inheritdoc/>
-        CombatantID ICombatantDetails.GetCombatantID()
+        ModelID ICombatantDetails.GetModelID()
         {
-            return this.combatantID;
+            return this.modelID;
         }
 
         /// <inheritdoc/>
@@ -68,9 +68,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Deta
             public interface IInternalBuilder
                 : IBuilder<ICombatantDetails>
             {
-                IInternalBuilder SetCallSign(CombatantCallSign callSign);
-
                 IInternalBuilder SetCombatantID(CombatantID id);
+
+                IInternalBuilder SetModelID(ModelID modelID);
 
                 IInternalBuilder SetLoadoutDetails(ILoadoutDetails details);
             }
@@ -90,14 +90,14 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Deta
             private class InternalBuilder
                 : AbstractBuilder<ICombatantDetails>, IInternalBuilder
             {
-                private CombatantCallSign callSign;
                 private CombatantID combatantID;
+                private ModelID modelID;
                 private ILoadoutDetails loadoutDetails;
 
                 /// <inheritdoc/>
-                IInternalBuilder IInternalBuilder.SetCombatantID(CombatantID id)
+                IInternalBuilder IInternalBuilder.SetModelID(ModelID id)
                 {
-                    this.combatantID = id;
+                    this.modelID = id;
                     return this;
                 }
 
@@ -109,24 +109,24 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Deta
                 }
 
                 /// <inheritdoc/>
-                IInternalBuilder IInternalBuilder.SetCallSign(CombatantCallSign callSign)
+                IInternalBuilder IInternalBuilder.SetCombatantID(CombatantID id)
                 {
-                    this.callSign = callSign;
+                    this.combatantID = id;
                     return this;
                 }
 
                 /// <inheritdoc/>
                 protected override ICombatantDetails BuildObj()
                 {
-                    return new CombatantDetailsImpl(this.callSign,
-                        this.combatantID, this.loadoutDetails);
+                    return new CombatantDetailsImpl(this.combatantID,
+                        this.modelID, this.loadoutDetails);
                 }
 
                 /// <inheritdoc/>
                 protected override void Validate(ISet<string> invalidReasons)
                 {
-                    this.Validate(invalidReasons, this.callSign);
                     this.Validate(invalidReasons, this.combatantID);
+                    this.Validate(invalidReasons, this.modelID);
                     this.Validate(invalidReasons, this.loadoutDetails);
                 }
             }

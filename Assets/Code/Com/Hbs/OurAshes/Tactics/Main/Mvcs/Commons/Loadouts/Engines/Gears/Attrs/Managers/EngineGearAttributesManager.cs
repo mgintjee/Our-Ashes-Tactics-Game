@@ -14,7 +14,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Engine
         private static readonly IDictionary<EngineGearID, IGearAttributes> ID_ATTRIBUTES =
             new Dictionary<EngineGearID, IGearAttributes>()
             {
-                { EngineGearID.AlphaAlpha, new EngineGearAlphaAlphaAttributesImpl() },
+                { EngineGearID.AA, new EngineGearAlphaAlphaAttributesImpl() },
             };
 
         /// <summary>

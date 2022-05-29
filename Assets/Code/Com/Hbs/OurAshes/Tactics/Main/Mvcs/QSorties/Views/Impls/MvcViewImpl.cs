@@ -42,7 +42,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Impls
                     widget.GetName(), StringUtils.Format(requestType));
                 if (requestType != RequestType.None)
                 {
-                    IQSortieMenuMvcRequest qSortieMenuMvcRequest = this.BuildMvcRequestFrom(requestType);
+                    IQSortieMenuMvcRequest qSortieMenuMvcRequest = this.BuildMvcRequestFrom(requestType, widget.GetName());
                     ((DefaultMvcViewStateImpl)this.mvcViewState)
                         .SetMvcModelRequest(qSortieMenuMvcRequest);
                 }
@@ -60,9 +60,10 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Impls
                 .Build();
         }
 
-        private IQSortieMenuMvcRequest BuildMvcRequestFrom(RequestType requestType)
+        private IQSortieMenuMvcRequest BuildMvcRequestFrom(RequestType requestType, string widgetName)
         {
-            IQSortieMenuMvcRequest qSortieMenuMvcRequest;
+            IQSortieMenuMvcRequest qSortieMenuMvcRequest = new MvcRequestImpl()
+                        .SetRequestType(requestType);
             switch (requestType)
             {
                 case RequestType.CombatantDetails:
@@ -73,7 +74,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Impls
                 case RequestType.FactionRandomize:
                 case RequestType.FieldRandomize:
                 case RequestType.SortieRandomize:
-                    qSortieMenuMvcRequest = new MvcRequestDetailsImpl()
+                    qSortieMenuMvcRequest = new MvcRequestImpl()
                         .SetRequestType(requestType);
                     break;
 

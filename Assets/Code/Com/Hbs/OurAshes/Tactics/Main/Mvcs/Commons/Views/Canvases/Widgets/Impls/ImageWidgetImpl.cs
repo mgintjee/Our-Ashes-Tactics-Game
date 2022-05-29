@@ -24,7 +24,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <inheritdoc/>
         void IImageWidget.SetColorID(ColorID colorID)
         {
-            logger.Debug("W|{}: Setting {}", this.widgetName, StringUtils.Format(colorID));
             this.colorID = colorID;
             this.GetImage().color = RgbManager.GetUnityColor(colorID);
         }
@@ -32,7 +31,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         /// <inheritdoc/>
         void IImageWidget.SetSpriteID(SpriteID spriteID)
         {
-            logger.Debug("W|{}: Setting {}", this.widgetName, StringUtils.Format(spriteID));
             this.spriteID = spriteID;
             this.GetImage().sprite = SpriteResourceLoader.LoadSpriteResource(spriteID).GetValue();
         }

@@ -2,7 +2,7 @@
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Builders.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.CallSigns;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Details.Inters;
 using System.Collections.Generic;
 
@@ -14,12 +14,12 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
     public class PhalanxDetailsImpl
         : IPhalanxDetails
     {
-        private readonly PhalanxCallSign callSign;
+        private readonly PhalanxID id;
         private readonly IList<ICombatantDetails> combatantDetails;
 
-        private PhalanxDetailsImpl(PhalanxCallSign callSign, IList<ICombatantDetails> combatantDetails)
+        private PhalanxDetailsImpl(PhalanxID id, IList<ICombatantDetails> combatantDetails)
         {
-            this.callSign = callSign;
+            this.id = id;
             this.combatantDetails = combatantDetails;
         }
 
@@ -28,13 +28,13 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
         {
             return string.Format("\n{0}" +
                 "\n{1}",
-                StringUtils.Format(this.callSign),
+                StringUtils.Format(this.id),
                 StringUtils.Format(this.combatantDetails));
         }
 
-        PhalanxCallSign IPhalanxDetails.GetCallSign()
+        PhalanxID IPhalanxDetails.GetID()
         {
-            return callSign;
+            return id;
         }
 
         IList<ICombatantDetails> IPhalanxDetails.GetCombatantDetails()
@@ -53,7 +53,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
             public interface IInternalBuilder
                 : IBuilder<IPhalanxDetails>
             {
-                IInternalBuilder SetCallSign(PhalanxCallSign callSign);
+                IInternalBuilder SetID(PhalanxID id);
 
                 IInternalBuilder SetCombatantDetails(IList<ICombatantDetails> combatantDetails);
             }
@@ -73,12 +73,12 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
             private class InternalBuilder
                 : AbstractBuilder<IPhalanxDetails>, IInternalBuilder
             {
-                private PhalanxCallSign callSign;
+                private PhalanxID id;
                 private IList<ICombatantDetails> combatantDetails;
 
-                IInternalBuilder IInternalBuilder.SetCallSign(PhalanxCallSign callSign)
+                IInternalBuilder IInternalBuilder.SetID(PhalanxID id)
                 {
-                    this.callSign = callSign;
+                    this.id = id;
                     return this;
                 }
 
@@ -90,7 +90,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Detai
 
                 protected override IPhalanxDetails BuildObj()
                 {
-                    return new PhalanxDetailsImpl(callSign, combatantDetails);
+                    return new PhalanxDetailsImpl(id, combatantDetails);
                 }
             }
         }

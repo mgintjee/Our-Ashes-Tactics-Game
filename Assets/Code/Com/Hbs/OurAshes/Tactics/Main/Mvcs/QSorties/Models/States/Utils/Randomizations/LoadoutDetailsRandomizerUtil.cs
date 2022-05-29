@@ -3,7 +3,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Enums;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attrs.Managers;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Constants;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Models;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Armors.Gears.Constants;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Armors.Gears.Details.Impls;
@@ -38,7 +38,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
         private static readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Common)
                 .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 
-        public static ILoadoutDetails Randomize(Random random, CombatantID combatantID)
+        public static ILoadoutDetails Randomize(Random random, ModelID combatantID)
         {
             IArmorGearDetails armorGearDetails = RandomizeArmorGearDetails(random, combatantID);
             ICabinGearDetails cabinGearDetails = RandomizeCabinGearDetails(random, combatantID);
@@ -54,9 +54,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             return details;
         }
 
-        private static IArmorGearDetails RandomizeArmorGearDetails(Random random, CombatantID combatantID)
+        private static IArmorGearDetails RandomizeArmorGearDetails(Random random, ModelID modelID)
         {
-            ISet<ArmorGearID> availableArmorIDs = CombatantGearIDConstants.Armor.GetArmorTraitIDs(combatantID);
+            ISet<ArmorGearID> availableArmorIDs = CombatantGearIDConstants.Armor.GetArmorTraitIDs(modelID);
             ArmorGearID gearID = EnumUtils.GenerateRandomEnumFrom(random, availableArmorIDs);
             int traitCount = ArmorTraitIDConstants.GetArmorTraitCount(gearID);
             ISet<ArmorTraitID> availableTraitIDs = ArmorTraitIDConstants.GetArmorTraitIDs(gearID);
@@ -69,7 +69,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             return gearDetails;
         }
 
-        private static ICabinGearDetails RandomizeCabinGearDetails(Random random, CombatantID combatantID)
+        private static ICabinGearDetails RandomizeCabinGearDetails(Random random, ModelID combatantID)
         {
             ISet<CabinGearID> availableCabinIDs = CombatantGearIDConstants.Cabin.GetCabinTraitIDs(combatantID);
             CabinGearID gearID = EnumUtils.GenerateRandomEnumFrom(random, availableCabinIDs);
@@ -84,7 +84,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             return cabinGearDetails;
         }
 
-        private static IEngineGearDetails RandomizeEngineGearDetails(Random random, CombatantID combatantID)
+        private static IEngineGearDetails RandomizeEngineGearDetails(Random random, ModelID combatantID)
         {
             ISet<EngineGearID> availableEngineIDs = CombatantGearIDConstants.Engine.GetEngineTraitIDs(combatantID);
             EngineGearID gearID = EnumUtils.GenerateRandomEnumFrom(random, availableEngineIDs);
@@ -99,7 +99,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             return gearDetails;
         }
 
-        private static ISet<IWeaponGearDetails> RandomizeWeaponGearDetailsSet(Random random, CombatantID combatantID)
+        private static ISet<IWeaponGearDetails> RandomizeWeaponGearDetailsSet(Random random, ModelID combatantID)
         {
             int weaponCount = 0;
 
@@ -118,7 +118,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
             return weaponGearDetails;
         }
 
-        private static IWeaponGearDetails RandomizeWeaponGearDetails(Random random, CombatantID combatantID)
+        private static IWeaponGearDetails RandomizeWeaponGearDetails(Random random, ModelID combatantID)
         {
             ISet<WeaponGearID> availableWeaponIDs = CombatantGearIDConstants.Weapon.GetWeaponTraitIDs(combatantID);
             WeaponGearID gearID = EnumUtils.GenerateRandomEnumFrom(random, availableWeaponIDs);

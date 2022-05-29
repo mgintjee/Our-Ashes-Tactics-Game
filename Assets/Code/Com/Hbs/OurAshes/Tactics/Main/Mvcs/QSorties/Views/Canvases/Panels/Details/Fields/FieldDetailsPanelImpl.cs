@@ -1,167 +1,101 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Biomes;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Commons.Utils.Enums;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Biomes;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Shapes;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Sizes;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Constants;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Types;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Fields.Constants;
 using System.Collections.Generic;
-using System.Numerics;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Fields
 {
     /// <summary>
-    /// FieldDetails Panel Impl
+    /// Field Details Panel Impl
     /// </summary>
     public class FieldDetailsPanelImpl
         : AbstractPanelWidget, IPanelWidget
     {
-        private IMultiTextPanelWidget fieldIDText;
-        private IMultiTextPanelWidget fieldIDButtons;
-        private IMultiTextPanelWidget fieldSizeText;
-        private IMultiTextPanelWidget fieldShapeText;
-        private IMultiTextPanelWidget fieldBiomeText;
-        private IMultiTextPanelWidget fieldSizeButtons;
-        private IMultiTextPanelWidget fieldShapeButtons;
-        private IMultiTextPanelWidget fieldBiomeButtons;
+        private static readonly IList<FieldID> ids = EnumUtils.GetEnumListWithoutFirst<FieldID>();
+        private static readonly IList<FieldBiome> biomes = EnumUtils.GetEnumListWithoutFirst<FieldBiome>();
+        private static readonly IList<FieldSize> sizes = EnumUtils.GetEnumListWithoutFirst<FieldSize>();
+        private static readonly IList<FieldShape> shapes = EnumUtils.GetEnumListWithoutFirst<FieldShape>();
+        private static readonly IList<string> idStrings = EnumUtils.GetEnumsAsStrings(ids);
+        private static readonly IList<string> biomeStrings = EnumUtils.GetEnumsAsStrings(biomes);
+        private static readonly IList<string> sizeStrings = EnumUtils.GetEnumsAsStrings(sizes);
+        private static readonly IList<string> shapeStrings = EnumUtils.GetEnumsAsStrings(shapes);
+        private ICarouselPanelWidget idCarouselWidget;
+        private ICarouselPanelWidget biomeCarouselWidget;
+        private ICarouselPanelWidget sizeCarouselWidget;
+        private ICarouselPanelWidget shapeCarouselWidget;
+        private int biomeIndex = 0;
+        private int sizeIndex = 0;
+        private int idIndex = 0;
+        private int shapeIndex = 0;
 
         public override void Process(Commons.Models.States.Inters.IMvcModelState mvcModelState)
         {
             Models.States.Inters.IMvcModelState qSortieMenuModelState = (Models.States.Inters.IMvcModelState)mvcModelState;
             IFieldDetails fieldDetails = qSortieMenuModelState.GetFieldDetails();
-            this.fieldIDText.GetTextWidget(1).IfPresent(textWidget => { textWidget.SetText(fieldDetails.GetFieldID()); });
-            this.fieldSizeText.GetTextWidget(1).IfPresent(textWidget => { textWidget.SetText(fieldDetails.GetFieldSize()); });
-            this.fieldShapeText.GetTextWidget(1).IfPresent(textWidget => { textWidget.SetText(fieldDetails.GetFieldShape()); });
-            this.fieldBiomeText.GetTextWidget(1).IfPresent(textWidget => { textWidget.SetText(fieldDetails.GetFieldBiome()); });
+            this.idCarouselWidget.UpdateSpinnerText(idIndex, idStrings);
+            this.biomeCarouselWidget.UpdateSpinnerText(biomeIndex, biomeStrings);
+            this.sizeCarouselWidget.UpdateSpinnerText(sizeIndex, sizeStrings);
+            this.shapeCarouselWidget.UpdateSpinnerText(shapeIndex, shapeStrings);
         }
 
         protected override void InitialBuild()
         {
             ISet<ICanvasWidget> panelWidgets = new HashSet<ICanvasWidget>() {
-                this.BuildAndSetFieldIDText(),
-                this.BuildAndSetFieldSizeText(),
-                this.BuildAndSetFieldShapeText(),
-                this.BuildAndSetFieldBiomeText(),
-                this.BuildAndSetFieldIDButtons(),
-                this.BuildAndSetFieldSizeButtons(),
-                this.BuildAndSetFieldShapeButtons(),
-                this.BuildAndSetFieldBiomeButtons()
+                this.BuildAndSetIDCarousel(),
+                this.BuildAndSetBiomeCarousel(),
+                this.BuildAndSetSizeCarousel(),
+                this.BuildAndSetShapeCarousel(),
             };
             this.InternalAddWidgets(panelWidgets);
         }
 
-        private IMultiTextPanelWidget BuildAndSetFieldIDText()
+        private ICarouselPanelWidget BuildAndSetIDCarousel()
         {
-            this.fieldIDText = this.BuildText(typeof(FieldID).Name,
-                FieldDetailsPanelConstants.FIELD_ID_TEXT_COORDS);
-            return this.fieldIDText;
-        }
-
-        private IMultiTextPanelWidget BuildAndSetFieldIDButtons()
-        {
-            this.fieldIDButtons = this.BuildButtons(typeof(FieldID).Name,
-                FieldDetailsPanelConstants.FIELD_ID_BUTTONS_COORDS);
-            return this.fieldIDButtons;
-        }
-
-        private IMultiTextPanelWidget BuildAndSetFieldBiomeText()
-        {
-            this.fieldBiomeText = this.BuildText(typeof(FieldBiome).Name,
-                FieldDetailsPanelConstants.FIELD_BIOME_TEXT_COORDS);
-            return this.fieldBiomeText;
-        }
-
-        private IMultiTextPanelWidget BuildAndSetFieldSizeText()
-        {
-            this.fieldSizeText = this.BuildText(typeof(FieldSize).Name,
-                FieldDetailsPanelConstants.FIELD_SIZE_TEXT_COORDS);
-            return this.fieldSizeText;
-        }
-
-        private IMultiTextPanelWidget BuildAndSetFieldShapeText()
-        {
-            this.fieldShapeText = this.BuildText(typeof(FieldShape).Name,
-                FieldDetailsPanelConstants.FIELD_SHAPE_TEXT_COORDS);
-            return this.fieldShapeText;
-        }
-
-        private IMultiTextPanelWidget BuildAndSetFieldBiomeButtons()
-        {
-            this.fieldBiomeButtons = this.BuildButtons(typeof(FieldBiome).Name,
-                FieldDetailsPanelConstants.FIELD_BIOME_BUTTONS_COORDS);
-            return this.fieldBiomeButtons;
-        }
-
-        private IMultiTextPanelWidget BuildAndSetFieldSizeButtons()
-        {
-            this.fieldSizeButtons = this.BuildButtons(typeof(FieldSize).Name,
-                FieldDetailsPanelConstants.FIELD_SIZE_BUTTONS_COORDS);
-            return this.fieldSizeButtons;
-        }
-
-        private IMultiTextPanelWidget BuildAndSetFieldShapeButtons()
-        {
-            this.fieldShapeButtons = this.BuildButtons(typeof(FieldShape).Name,
-                FieldDetailsPanelConstants.FIELD_SHAPE_BUTTONS_COORDS);
-            return this.fieldShapeButtons;
-        }
-
-        private IMultiTextPanelWidget BuildText(string enumString, Vector2 canvasGridCoords)
-        {
-            TextImageWidgetStruct leftTextImageWidgetStruct = new TextImageWidgetStruct(enumString,
-                WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR, WidgetConstants.SECONDARY_COLOR_ID);
-            TextImageWidgetStruct rightTextImageWidgetStruct = new TextImageWidgetStruct("null",
-                WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR, WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR);
-            Vector2 panelGridSize = new Vector2(2, 1);
             IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(canvasGridCoords)
-                    .SetCanvasGridSize(FieldDetailsPanelConstants.TEXT_SIZE);
-            return (IMultiTextPanelWidget)MultiTextPanelImpl.Builder.Get()
-                .SetTextImageWidgetStruct(0, leftTextImageWidgetStruct)
-                .SetTextImageWidgetStruct(1, rightTextImageWidgetStruct)
-                .SetBackgroundColor(WidgetConstants.PRIMARY_COLOR_ID)
-                .SetPanelGridSize(panelGridSize)
-                .SetWidgetGridSpec(widgetGridSpec)
-                .SetMvcType(this.mvcType)
-                .SetCanvasLevel(1)
-                .SetInteractable(true)
-                .SetEnabled(true)
-                .SetName(this.mvcType + ":" + this.GetType().Name + ":" + CanvasWidgetType.Panel + ":" + enumString + ":Texts")
-                .SetParent(this)
-                .Build();
+                    .SetCanvasGridCoords(PanelConstants.FieldID.COORDS)
+                    .SetCanvasGridSize(PanelConstants.SIZE);
+            string textName = typeof(FieldID).Name;
+            this.idCarouselWidget = this.BuildCarousel(textName, widgetGridSpec);
+            return this.idCarouselWidget;
         }
 
-        private IMultiTextPanelWidget BuildButtons(string enumString, Vector2 canvasGridCoords)
+        private ICarouselPanelWidget BuildAndSetBiomeCarousel()
         {
-            TextImageWidgetStruct leftTextImageWidgetStruct = new TextImageWidgetStruct("<",
-                WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR, WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR);
-            TextImageWidgetStruct rightTextImageWidgetStruct = new TextImageWidgetStruct(">",
-                WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR, WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR);
-            Vector2 panelGridSize = new Vector2(2, 1);
             IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(canvasGridCoords)
-                    .SetCanvasGridSize(FieldDetailsPanelConstants.TEXT_SIZE);
-            return (IMultiTextPanelWidget)MultiTextPanelImpl.Builder.Get()
-                .SetTextImageWidgetStruct(0, leftTextImageWidgetStruct)
-                .SetTextImageWidgetStruct(1, rightTextImageWidgetStruct)
-                .SetBackgroundColor(WidgetConstants.PRIMARY_COLOR_ID)
-                .SetPanelGridSize(panelGridSize)
-                .SetWidgetGridSpec(widgetGridSpec)
-                .SetMvcType(this.mvcType)
-                .SetCanvasLevel(1)
-                .SetInteractable(true)
-                .SetEnabled(true)
-                .SetName(this.mvcType + ":" + this.GetType().Name + ":" + CanvasWidgetType.Panel + ":" + enumString + ":Buttons")
-                .SetParent(this)
-                .Build();
+                    .SetCanvasGridCoords(PanelConstants.FieldBiome.COORDS)
+                    .SetCanvasGridSize(PanelConstants.SIZE);
+            string textName = typeof(FieldBiome).Name;
+            this.biomeCarouselWidget = this.BuildCarousel(textName, widgetGridSpec);
+            return this.biomeCarouselWidget;
+        }
+
+        private ICarouselPanelWidget BuildAndSetSizeCarousel()
+        {
+            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(PanelConstants.FieldSize.COORDS)
+                    .SetCanvasGridSize(PanelConstants.SIZE);
+            string textName = typeof(FieldSize).Name;
+            this.sizeCarouselWidget = this.BuildCarousel(textName, widgetGridSpec);
+            return this.sizeCarouselWidget;
+        }
+
+        private ICarouselPanelWidget BuildAndSetShapeCarousel()
+        {
+            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(PanelConstants.FieldShape.COORDS)
+                    .SetCanvasGridSize(PanelConstants.SIZE);
+            string textName = typeof(FieldShape).Name;
+            this.shapeCarouselWidget = this.BuildCarousel(textName, widgetGridSpec);
+            return this.shapeCarouselWidget;
         }
 
         /// <summary>

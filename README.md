@@ -20,3 +20,9 @@
 
 ## Project Structure:
 - Todo
+
+## Notes:
+- Hex Tiles are in X, Y, Z
+-- X-Axis is SouthWest to NorthEast
+-- Y-Axis is NorthWest to SouthEast
+-- Z-Axis is West to East
