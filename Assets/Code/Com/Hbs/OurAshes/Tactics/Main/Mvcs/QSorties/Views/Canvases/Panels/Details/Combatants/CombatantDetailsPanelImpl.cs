@@ -70,8 +70,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
 
         private IMultiTextPanelWidget BuildAndSetWeaponGearIDHeader()
         {
-            Vector2 size = PanelConstants.WeaponGearIDList.HEADER_SIZE;
-            Vector2 coords = PanelConstants.WeaponGearIDList.HEADER_COORDS;
+            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(PanelConstants.WeaponGearIDList.HEADER_COORDS)
+                    .SetCanvasGridSize(PanelConstants.WeaponGearIDList.HEADER_SIZE);
             IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
             {
                 new TextImageWidgetStruct(typeof(WeaponGearID).Name,
@@ -79,15 +80,16 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
                     WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
             };
             string textName = typeof(WeaponGearID).Name + ":Header";
-            this.weaponGearIDHeader = this.BuildMultiText(textName, coords, size,
+            this.weaponGearIDHeader = this.BuildMultiText(textName, widgetGridSpec,
                 textImageWidgetStructs, false);
             return this.weaponGearIDHeader;
         }
 
         private IMultiTextPanelWidget BuildAndSetWeaponGearIDList()
         {
-            Vector2 size = PanelConstants.WeaponGearIDList.LIST_SIZE;
-            Vector2 coords = PanelConstants.WeaponGearIDList.LIST_COORDS;
+            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(PanelConstants.WeaponGearIDList.LIST_COORDS)
+                    .SetCanvasGridSize(PanelConstants.WeaponGearIDList.LIST_SIZE);
             IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
             {
                 new TextImageWidgetStruct("[]",
@@ -95,15 +97,16 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
                     WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
             };
             string textName = typeof(WeaponGearID).Name + ":List";
-            this.weaponGearIDList = this.BuildMultiText(textName, coords, size,
+            this.weaponGearIDList = this.BuildMultiText(textName, widgetGridSpec,
                 textImageWidgetStructs, false);
             return this.weaponGearIDList;
         }
 
         private IMultiTextPanelWidget BuildAndSetWeaponGearIDButtons()
         {
-            Vector2 size = PanelConstants.WeaponGearIDList.BUTTONS_SIZE;
-            Vector2 coords = PanelConstants.WeaponGearIDList.BUTTONS_COORDS;
+            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(PanelConstants.WeaponGearIDList.BUTTONS_COORDS)
+                    .SetCanvasGridSize(PanelConstants.WeaponGearIDList.BUTTONS_SIZE);
             IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
             {
                 new TextImageWidgetStruct("-",
@@ -114,7 +117,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases
                     WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR)
             };
             string textName = typeof(WeaponGearID).Name + ":Buttons";
-            this.weaponGearIDButtons = this.BuildMultiText(textName, coords, size,
+            this.weaponGearIDButtons = this.BuildMultiText(textName, widgetGridSpec,
                 textImageWidgetStructs, true);
             return this.weaponGearIDButtons;
         }

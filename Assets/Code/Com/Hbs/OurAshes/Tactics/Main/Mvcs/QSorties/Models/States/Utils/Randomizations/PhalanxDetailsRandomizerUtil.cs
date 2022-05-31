@@ -7,9 +7,9 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Constants.Ph
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Sizes;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
-using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Details.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Details.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.IDs;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -57,8 +57,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
 
             for (int i = 0; i < combatantCount; ++i)
             {
-                PhalanxID phalanxID = (PhalanxID)((i % phalanxCount)+1);
-                CombatantID combatantID = (CombatantID)(i+1);
+                PhalanxID phalanxID = (PhalanxID)((i % phalanxCount) + 1);
+                CombatantID combatantID = (CombatantID)(i + 1);
                 ICombatantDetails combatantDetails = CombatantDetailsRandomizerUtil.Randomize(random, combatantID);
                 phalanxCombatantDetails[phalanxID].Add(combatantDetails);
             }
@@ -72,7 +72,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.
 
             for (int i = 0; i < count; ++i)
             {
-                ids.Add((PhalanxID)(i+1));
+                ids.Add((PhalanxID)(i + 1));
             }
 
             return ids;

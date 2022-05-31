@@ -3,6 +3,7 @@ using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Pane
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Structs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Sprites.IDs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Constants;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Impls;
@@ -56,12 +57,15 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
         protected override void InitialBuild()
         {
             Vector2 overallSize = this.canvasGridConvertor.GetGridSize();
-            Vector2 headerSize = new Vector2(1 / 6f, 1) * overallSize;
-            Vector2 spinnerSize = new Vector2(3 / 6f, 1) * overallSize;
-            Vector2 buttonsSize = new Vector2(2 / 6f, 1) * overallSize;
-            Vector2 headerCoords = new Vector2(0, 0);
-            Vector2 spinnerCoords = new Vector2(1, 0);
-            Vector2 buttonsCoords = new Vector2(4, 0);
+            IWidgetGridSpec headerWidgetGridSpec = new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(new Vector2(0, 0))
+                    .SetCanvasGridSize(new Vector2(1 / 6f, 1) * overallSize);
+            IWidgetGridSpec spinnerWidgetGridSpec = new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(new Vector2(1, 0))
+                    .SetCanvasGridSize(new Vector2(3 / 6f, 1) * overallSize);
+            IWidgetGridSpec buttonsWidgetGridSpec = new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(new Vector2(4, 0))
+                    .SetCanvasGridSize(new Vector2(2 / 6f, 1) * overallSize);
             this.buttonTextImageWidgetStructs = new List<TextImageWidgetStruct>
             {
                 new TextImageWidgetStruct("<",
@@ -84,12 +88,9 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                     WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
             };
             this.backImageWidget = this.BuildBackImage();
-            this.header = this.BuildMultiText(this.widgetName + ":Header", headerCoords,
-                headerSize, this.headerTextImageWidgetStructs, false);
-            this.spinner = this.BuildMultiText(this.widgetName + ":Spinner", spinnerCoords,
-                spinnerSize, this.spinnerTextImageWidgetStructs, false);
-            this.buttons = this.BuildMultiText(this.widgetName + ":Buttons", buttonsCoords,
-                buttonsSize, this.buttonTextImageWidgetStructs, true);
+            this.header = this.BuildMultiText(this.widgetName + ":Header", headerWidgetGridSpec, this.headerTextImageWidgetStructs, false);
+            this.spinner = this.BuildMultiText(this.widgetName + ":Spinner", spinnerWidgetGridSpec, this.spinnerTextImageWidgetStructs, false);
+            this.buttons = this.BuildMultiText(this.widgetName + ":Buttons", buttonsWidgetGridSpec, this.buttonTextImageWidgetStructs, true);
             this.InternalAddWidget(this.backImageWidget);
             this.InternalAddWidget(this.header);
             this.InternalAddWidget(this.spinner);

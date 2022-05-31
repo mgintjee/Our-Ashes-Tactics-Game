@@ -129,6 +129,7 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
 
         protected ICarouselPanelWidget BuildCarousel(string name, IWidgetGridSpec widgetGridSpec)
         {
+            logger.Debug("Building Carousel @ {}", widgetGridSpec);
             IList<TextImageWidgetStruct> headerTextImageWidgetStructs = new List<TextImageWidgetStruct>
             {
                 new TextImageWidgetStruct(name+":",
@@ -150,8 +151,8 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
                 .Build();
         }
 
-        protected IMultiTextPanelWidget BuildMultiText(string widgetName, Vector2 canvasGridCoords,
-            Vector2 canvasGridSize, IList<TextImageWidgetStruct> textImageWidgetStructs, bool interactable)
+        protected IMultiTextPanelWidget BuildMultiText(string widgetName, IWidgetGridSpec widgetGridSpec,
+            IList<TextImageWidgetStruct> textImageWidgetStructs, bool interactable)
         {
             Vector2 panelGridSize = new Vector2(textImageWidgetStructs.Count, 1);
             IDictionary<int, TextImageWidgetStruct> indexTextImageWidgetStructs = new Dictionary<int, TextImageWidgetStruct>();
@@ -159,9 +160,6 @@ namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.
             {
                 indexTextImageWidgetStructs.Add(i, textImageWidgetStructs[i]);
             }
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(canvasGridCoords)
-                    .SetCanvasGridSize(canvasGridSize);
             return (IMultiTextPanelWidget)MultiTextPanelImpl.Builder.Get()
                 .SetTextImageWidgetStructs(indexTextImageWidgetStructs)
                 .SetBackgroundColor(WidgetConstants.PRIMARY_COLOR_ID)

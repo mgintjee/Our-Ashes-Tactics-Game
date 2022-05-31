@@ -1,52 +1,130 @@
-﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
+﻿using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Factions.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.IDs;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Constants;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Impls;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Structs;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Constants;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Types;
 using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
+using Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Sorties.Constants;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace Assets.Code.Com.Hbs.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Sorties
 {
     /// <summary>
-    /// Panel Widget Impl
+    /// Sortie Details Panel Widget Impl
     /// </summary>
     public class SortieDetailsPanelImpl
         : AbstractPanelWidget, IPanelWidget
     {
-        private IDualTextPanelWidget tileCountDualTextPanelWidget;
+        private IMultiTextPanelWidget factionCountWidget;
+        private IMultiTextPanelWidget phalanxCountWidget;
+        private IMultiTextPanelWidget combatantCountWidget;
+        private IMultiTextPanelWidget fieldIDWidget;
 
-        public override void Process(Commons.Models.States.Inters.IMvcModelState mvcModelState)
+        public override void Process(IMvcModelState modelState)
         {
-            Models.States.Inters.IMvcModelState qSortieMenuModelState = (Models.States.Inters.IMvcModelState)mvcModelState;
+            Models.States.Inters.IMvcModelState mvcModelState = (Models.States.Inters.IMvcModelState)modelState;
         }
 
         protected override void InitialBuild()
         {
-            Vector2 widgetSize = new Vector2(this.canvasGridConvertor.GetGridSize().X / 2,
-                this.canvasGridConvertor.GetGridSize().Y / 6);
-            this.InternalAddWidget(this.BuildBannerWidget());
+            ISet<ICanvasWidget> panelWidgets = new HashSet<ICanvasWidget>() {
+                this.BuildAndSetFactionCount(),
+                this.BuildAndSetPhalanxCount(),
+                this.BuildAndSetCombatantCount(),
+                this.BuildAndSetFieldID()
+            };
+            this.InternalAddWidgets(panelWidgets);
         }
 
-        private IPanelWidget BuildBannerWidget()
+        private IMultiTextPanelWidget BuildAndSetFactionCount()
         {
-            return BannerPanelImpl.Builder.Get()
-                .SetText(RequestType.SortieDetails.ToString())
-                .SetPanelGridSize(new Vector2(2, 1))
-                .SetWidgetGridSpec(new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(0, this.canvasGridConvertor.GetGridSize().Y * (1 - PanelWidgetConstants.GetBannerPanelRatio())))
-                    .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X,
-                        this.canvasGridConvertor.GetGridSize().Y * PanelWidgetConstants.GetBannerPanelRatio())))
-                .SetMvcType(this.mvcType)
-                .SetCanvasLevel(0)
-                .SetInteractable(false)
-                .SetEnabled(true)
-                .SetName(this.mvcType + ":" + RequestType.SortieDetails + ":Header:" + CanvasWidgetType.Panel)
-                .SetParent(this)
-                .Build();
+            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(PanelConstants.Factions.COORDS)
+                    .SetCanvasGridSize(PanelConstants.COUNTER_SIZE);
+            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
+            {
+                new TextImageWidgetStruct("Faction Count:",
+                    WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR,
+                    WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR),
+                new TextImageWidgetStruct("0",
+                    WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR,
+                    WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR)
+            };
+            string textName = typeof(FactionID).Name + ":Counter";
+            this.factionCountWidget = this.BuildMultiText(textName, widgetGridSpec,
+                textImageWidgetStructs, false);
+            return this.factionCountWidget;
         }
 
+        private IMultiTextPanelWidget BuildAndSetPhalanxCount()
+        {
+            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(PanelConstants.Phalanxes.COORDS)
+                    .SetCanvasGridSize(PanelConstants.COUNTER_SIZE);
+            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
+            {
+                new TextImageWidgetStruct("Phalanx Count",
+                    WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR,
+                    WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR),
+                new TextImageWidgetStruct("0",
+                    WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR,
+                    WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR)
+            };
+            string textName = typeof(PhalanxID).Name + ":Counter";
+            this.phalanxCountWidget = this.BuildMultiText(textName, widgetGridSpec,
+                textImageWidgetStructs, false);
+            return this.phalanxCountWidget;
+        }
+
+        private IMultiTextPanelWidget BuildAndSetCombatantCount()
+        {
+            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(PanelConstants.Combatants.COORDS)
+                    .SetCanvasGridSize(PanelConstants.COUNTER_SIZE);
+            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
+            {
+                new TextImageWidgetStruct("Combatant Count",
+                    WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR,
+                    WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR),
+                new TextImageWidgetStruct("0",
+                    WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR,
+                    WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR)
+            };
+            string textName = typeof(CombatantID).Name + ":Counter";
+            this.combatantCountWidget = this.BuildMultiText(textName, widgetGridSpec,
+                textImageWidgetStructs, false);
+            return this.combatantCountWidget;
+        }
+
+        private IMultiTextPanelWidget BuildAndSetFieldID()
+        {
+            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(PanelConstants.Fields.COORDS)
+                    .SetCanvasGridSize(PanelConstants.COUNTER_SIZE);
+            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
+            {
+                new TextImageWidgetStruct("Field ID:",
+                    WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR,
+                    WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR),
+                new TextImageWidgetStruct("null",
+                    WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR,
+                    WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR)
+            };
+            string textName = typeof(FactionID).Name + ":Header";
+            this.fieldIDWidget = this.BuildMultiText(textName, widgetGridSpec,
+                textImageWidgetStructs, true);
+            return this.fieldIDWidget;
+        }
         /// <summary>
         /// Todo
         /// </summary>
