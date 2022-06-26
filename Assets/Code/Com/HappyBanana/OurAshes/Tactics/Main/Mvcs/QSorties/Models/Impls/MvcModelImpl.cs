@@ -62,7 +62,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         protected override IMvcModelState ProcessMvcModelRequest(IMvcRequest mvcRequest)
         {
             IQSortieMenuMvcRequest qSortieMenuMvcRequest = (IQSortieMenuMvcRequest)mvcRequest;
-            logger.Info("Received {}", qSortieMenuMvcRequest.GetRequestType());
+            logger.Info("Received {}", qSortieMenuMvcRequest);
             switch (qSortieMenuMvcRequest.GetRequestType())
             {
                 case RequestType.SortieRandomize:
@@ -77,8 +77,24 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
                     this.HandleFactionRandomize();
                     break;
 
-                case RequestType.FieldMod:
-                    this.HandleFieldMod((IMvcRequestFieldMod)mvcRequest);
+                case RequestType.FieldIDMod:
+                    this.HandleFieldIDMod((IFieldIDModRequest)mvcRequest);
+                    break;
+
+                case RequestType.FactionIDMod:
+                    this.HandleFactionIDMod((IFactionIDModRequest)mvcRequest);
+                    break;
+
+                case RequestType.FieldBiomeMod:
+                    this.HandleFieldBiomeMod((IFieldBiomeModRequest)mvcRequest);
+                    break;
+
+                case RequestType.FieldSizeMod:
+                    this.HandleFieldSizeMod((IFieldSizeModRequest)mvcRequest);
+                    break;
+
+                case RequestType.FieldShapeMod:
+                    this.HandleFieldShapeMod((IFieldShapeModRequest)mvcRequest);
                     break;
 
                 case RequestType.FactionMod:
@@ -107,7 +123,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         private ISet<IMvcRequest> BuildInitialMvcModelRequests()
         {
             ISet<IMvcRequest> panelMvcRequests = this.BuildPanelMvcModelRequests();
-            panelMvcRequests.Add(new MvcRequestImpl().SetRequestType(RequestType.SortieRandomize));
+            panelMvcRequests.Add(new DefaultRequestImpl().SetRequestType(RequestType.SortieRandomize));
             return panelMvcRequests;
         }
 
@@ -115,11 +131,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         {
             return new HashSet<IMvcRequest>
                     {
-                        new MvcRequestImpl().SetRequestType(RequestType.FieldDetails),
-                        new MvcRequestImpl().SetRequestType(RequestType.PhalanxDetails),
-                        new MvcRequestImpl().SetRequestType(RequestType.CombatantDetails),
-                        new MvcRequestImpl().SetRequestType(RequestType.SortieDetails),
-                        new MvcRequestImpl().SetRequestType(RequestType.SortieStart),
+                        new DefaultRequestImpl().SetRequestType(RequestType.FieldDetails),
+                        new DefaultRequestImpl().SetRequestType(RequestType.PhalanxDetails),
+                        new DefaultRequestImpl().SetRequestType(RequestType.CombatantDetails),
+                        new DefaultRequestImpl().SetRequestType(RequestType.SortieDetails),
+                        new DefaultRequestImpl().SetRequestType(RequestType.SortieStart),
                     };
         }
 
@@ -247,19 +263,79 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             });
         }
 
-        private void HandleFieldMod(IMvcRequestFieldMod mvcRequest)
+        private void HandleFactionIDMod(IFactionIDModRequest mvcRequest)
         {
-            IFieldDetails fieldDetailsMod = mvcRequest.GetFieldDetails();
-            FieldID fieldID = fieldDetailsMod.GetFieldID();
+            FactionID id = mvcRequest.GetFactionID();
 
-            IFieldDetails fieldDetails = FieldDetailsManager.GetFieldDetails(fieldID).GetValue();
-            if (fieldID == FieldID.Random)
+            IList<IFactionDetails> currentFactionDetails = this.CastMvcModelState().GetFactionDetails();
+            IList<IFactionDetails> factionDetails = new List<IFactionDetails>();
+            int idIndex = this.GetFactionIDIndex(id, currentFactionDetails);
+
+            for(int i = 0; i < currentFactionDetails.Count; ++i)
             {
-                FieldBiome fieldBiome = fieldDetailsMod.GetFieldBiome();
-                FieldShape fieldShape = fieldDetailsMod.GetFieldShape();
-                FieldSize fieldSize = fieldDetailsMod.GetFieldSize();
-                ISet<ITileDetails> tileDetails = FieldDetailsRandomizerUtil.GetRandomTileDetails(
-                    RandomManager.GetRandom(MvcType.QSortieMenu), fieldShape, fieldSize);
+                int indexToGet = (idIndex + i) % currentFactionDetails.Count;
+                factionDetails.Add(currentFactionDetails[indexToGet]);
+            }
+
+            logger.Debug("OG:{}" +
+                "\nNew:{}", currentFactionDetails, factionDetails);
+
+            this.UpdateFactionDetails(factionDetails);
+        }
+
+        private int GetFactionIDIndex(FactionID id, IList<IFactionDetails> factionDetails)
+        {
+            int counter = 0;
+            foreach(IFactionDetails details in factionDetails)
+            {
+                if(details.GetFactionID() == id)
+                {
+                    return counter;
+                }
+                counter++;
+            }
+            return 0;
+        }
+
+        private void HandleFieldIDMod(IFieldIDModRequest mvcRequest)
+        {
+            FieldID id = mvcRequest.GetFieldID();
+            IFieldDetails fieldDetails = this.GetFieldDetails();
+            this.UpdateFieldDetails(id, fieldDetails.GetFieldBiome(), fieldDetails.GetFieldShape(), fieldDetails.GetFieldSize());
+        }
+
+        private void HandleFieldBiomeMod(IFieldBiomeModRequest mvcRequest)
+        {
+            FieldBiome biome = mvcRequest.GetFieldBiome();
+            IFieldDetails fieldDetails = this.GetFieldDetails();
+            this.UpdateFieldDetails(fieldDetails.GetFieldID(), biome, fieldDetails.GetFieldShape(), fieldDetails.GetFieldSize());
+        }
+
+        private void HandleFieldSizeMod(IFieldSizeModRequest mvcRequest)
+        {
+            FieldSize size = mvcRequest.GetFieldSize();
+            IFieldDetails fieldDetails = this.GetFieldDetails();
+            this.UpdateFieldDetails(fieldDetails.GetFieldID(), fieldDetails.GetFieldBiome(), fieldDetails.GetFieldShape(), size);
+        }
+
+        private void HandleFieldShapeMod(IFieldShapeModRequest mvcRequest)
+        {
+            FieldShape shape = mvcRequest.GetFieldShape();
+            IFieldDetails fieldDetails = this.GetFieldDetails();
+            this.UpdateFieldDetails(fieldDetails.GetFieldID(), fieldDetails.GetFieldBiome(), shape, fieldDetails.GetFieldSize());
+        }
+
+        private void UpdateFieldDetails(FieldID fieldID, FieldBiome fieldBiome, FieldShape fieldShape, FieldSize fieldSize)
+        {
+            IFieldDetails fieldDetails = FieldDetailsManager.GetFieldDetails(fieldID).GetValue();
+            if (fieldDetails == null)
+            {
+                ISet<ITileDetails> tileDetails = this.GetFieldDetails().GetTileDetails();
+                if(this.ShouldBuildNewTileDetails(fieldID, fieldShape, fieldSize))
+                {
+                    tileDetails = FieldDetailsRandomizerUtil.GetRandomTileDetails(
+                       RandomManager.GetRandom(MvcType.QSortieMenu), fieldShape, fieldSize);
+                }
                 fieldDetails = FieldDetailsImpl.Builder.Get()
                     .SetFieldBiome(fieldBiome)
                     .SetFieldID(fieldID)
@@ -269,6 +345,14 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
                     .Build();
             }
             this.UpdateFieldDetails(fieldDetails);
+        }
+
+        private bool ShouldBuildNewTileDetails(FieldID fieldID, FieldShape fieldShape, FieldSize fieldSize)
+        {
+            IFieldDetails currentFieldDetails = this.GetFieldDetails();
+            return fieldID == FieldID.Random ||
+                fieldShape != currentFieldDetails.GetFieldShape() ||
+                fieldSize != currentFieldDetails.GetFieldSize();
         }
 
         private void HandleSortieRandomize()
@@ -307,6 +391,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         private States.Inters.IMvcModelState CastMvcModelState()
         {
             return ((States.Inters.IMvcModelState)this.mvcModelState);
+        }
+
+        private IFieldDetails GetFieldDetails()
+        {
+            return this.CastMvcModelState().GetFieldDetails();
         }
     }
 }

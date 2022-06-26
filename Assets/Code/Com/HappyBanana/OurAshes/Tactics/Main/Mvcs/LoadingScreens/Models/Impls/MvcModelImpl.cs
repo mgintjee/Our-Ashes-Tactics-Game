@@ -19,7 +19,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.LoadingScreens.
         public MvcModelImpl(IMvcFrameConstruction mvcFrameConstruction)
             : base(mvcFrameConstruction)
         {
-            _isProcessing = false;
+            isProcessing = false;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.LoadingScreens.
         /// <returns></returns>
         protected override IMvcModelState ProcessMvcModelRequest(IMvcRequest mvcModelRequest)
         {
-            _isProcessing = false;
+            isProcessing = false;
             return this.mvcModelState;
         }
     }

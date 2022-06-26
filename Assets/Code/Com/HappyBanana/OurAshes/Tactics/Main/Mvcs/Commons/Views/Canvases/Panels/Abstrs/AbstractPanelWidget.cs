@@ -34,7 +34,20 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             Vector2 worldSize = new Vector2(this.GetRectTransform().sizeDelta.x,
                 this.GetRectTransform().sizeDelta.y);
             this.canvasGridConvertor = new CanvasGridConvertorImpl(gridSize, worldSize);
-            this.logger.Debug("Updated: {}", this.canvasGridConvertor);
+        }
+
+        /// <inheritdoc/>
+        void ICanvasWidget.SetEnabled(bool enabled)
+        {
+            this.isEnabled = enabled;
+            this.gameObject.SetActive(enabled);
+            foreach (ISet<ICanvasWidget> canvasWidgets in this.canvasLevelWidgets.Values)
+            {
+                foreach (ICanvasWidget canvasWidget in canvasWidgets)
+                {
+                    canvasWidget.SetEnabled(enabled);
+                }
+            }
         }
 
         void IPanelWidget.AddWidget(ICanvasWidget canvasWidget)
@@ -44,16 +57,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
 
         void IPanelWidget.AddWidgets(ICollection<ICanvasWidget> canvasWidgets)
         {
-            foreach (ICanvasWidget canvasWidget in canvasWidgets)
-            {
-                this.InternalAddWidget(canvasWidget);
-            }
+            this.InternalAddWidgets(canvasWidgets);
         }
 
         /// <inheritdoc/>
         void ICanvasWidget.ApplyGridConvertor(ICanvasGridConvertor canvasGridConvertor)
         {
-            this.logger.Debug("Applying {} to {}...", canvasGridConvertor, this.widgetName);
             CanvasWidgetUtils.ApplyGridConvertor(canvasGridConvertor, this);
             this.canvasGridConvertor = new CanvasGridConvertorImpl(this.canvasGridConvertor.GetGridSize(),
                 new Vector2(this.GetRectTransform().sizeDelta.x, this.GetRectTransform().sizeDelta.y));
@@ -69,27 +78,46 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         Optional<ICanvasWidget> IPanelWidget.GetWidgetFromInput(ICanvasGridConvertor canvasGridConvertor, IMvcControlInput mvcControlInput)
         {
             List<int> canvasLevels = new List<int>(canvasLevelWidgets.Keys);
-            canvasLevels.Sort();
+            canvasLevels.Reverse();
+
             foreach (int canvasLevel in canvasLevels)
             {
+                logger.Debug("Checking level:{}, {} available widgets", canvasLevel, canvasLevelWidgets[canvasLevel].Count);
                 foreach (ICanvasWidget canvasWidget in canvasLevelWidgets[canvasLevel])
                 {
+                    logger.Debug("Checking if input is on {}...", canvasWidget.GetName());
                     if (canvasWidget is IPanelWidget panelWidget)
                     {
-                        Optional<ICanvasWidget> returnedWidget = panelWidget.GetWidgetFromInput(canvasGridConvertor, mvcControlInput);
+                        Optional<ICanvasWidget> returnedWidget = panelWidget.GetWidgetFromInput(
+                            this.canvasGridConvertor, mvcControlInput);
                         if (returnedWidget.IsPresent())
                         {
+                            logger.Debug("Input is on {}!", returnedWidget.GetValue().GetName());
                             return returnedWidget;
                         }
                     }
                     else if (canvasWidget.GetEnabled() && canvasWidget.GetInteractable() &&
                         CanvasWidgetUtils.IsInputOnWidget(mvcControlInput, canvasWidget))
                     {
+                        logger.Debug("Input is on {}!", canvasWidget.GetName());
                         return Optional<ICanvasWidget>.Of(canvasWidget);
                     }
                 }
             }
             return Optional<ICanvasWidget>.Empty();
+        }
+
+        void IPanelWidget.RemoveWidget(ICanvasWidget canvasWidget)
+        {
+            this.InternalRemoveWidget(canvasWidget);
+        }
+
+        void IPanelWidget.RemoveWidgets(ICollection<ICanvasWidget> canvasWidgets)
+        {
+            foreach (ICanvasWidget canvasWidget in canvasWidgets)
+            {
+                this.InternalRemoveWidget(canvasWidget);
+            }
         }
 
         protected ICanvasWidget BuildBackground()
@@ -106,7 +134,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     .SetCanvasGridCoords(Vector2.Zero)
                     .SetCanvasGridSize(this.canvasGridConvertor.GetGridSize()))
                 .SetParent(this)
-                .SetName(this.mvcType + ":" + this.GetType().Name + ":Background:" + CanvasWidgetType.Image)
+                .SetName(this.GetType().Name + ":Background")
                 .Build();
         }
 
@@ -119,9 +147,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             CanvasWidgetUtils.AddWidget(this.canvasGridConvertor, this.canvasLevelWidgets, canvasWidget);
         }
 
-        protected void InternalAddWidgets(ISet<ICanvasWidget> canvasWidgets)
+        protected void InternalAddWidgets(ICollection<ICanvasWidget> canvasWidgets)
         {
-            logger.Info("Adding {} {}s...", canvasWidgets.Count, typeof(ICanvasWidget));
+            logger.Info("Adding {} {}s...", canvasWidgets.Count, typeof(ICanvasWidget).Name);
             foreach (ICanvasWidget canvasWidget in canvasWidgets)
             {
                 this.InternalAddWidget(canvasWidget);
@@ -147,12 +175,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 .SetCanvasLevel(1)
                 .SetInteractable(false)
                 .SetEnabled(true)
-                .SetName(this.mvcType + ":" + this.GetType().Name + ":" + CanvasWidgetType.Panel + ":Carousel:" + widgetName)
+                .SetName(this.GetType().Name + ":" + CanvasWidgetType.Panel)
                 .SetParent(this)
                 .Build();
         }
 
-        protected IButtonPanelWidget BuildButton(string widgetName, IWidgetGridSpec widgetGridSpec, string buttonText, string buttonType)
+        protected IButtonPanelWidget BuildButton(string widgetName, IWidgetGridSpec widgetGridSpec, string buttonText, string buttonType, int canvasLevel)
         {
             IButtonPanelWidget buttonPanelWidget = (IButtonPanelWidget)ButtonPanelImpl.Builder.Get()
                 .SetButtonText(buttonText)
@@ -160,13 +188,18 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 .SetPanelGridSize(Vector2.One)
                 .SetWidgetGridSpec(widgetGridSpec)
                 .SetMvcType(this.mvcType)
-                .SetCanvasLevel(0)
+                .SetCanvasLevel(canvasLevel)
                 .SetInteractable(true)
                 .SetEnabled(true)
-                .SetName(this.mvcType + ":" + widgetName + ":Button")
+                .SetName(widgetName)
                 .SetParent(this)
                 .Build();
             return buttonPanelWidget;
+        }
+
+        protected IButtonPanelWidget BuildButton(string widgetName, IWidgetGridSpec widgetGridSpec, string buttonText, string buttonType)
+        {
+            return this.BuildButton(widgetName, widgetGridSpec, buttonText, buttonType, 0);
         }
 
         protected IMultiTextPanelWidget BuildMultiText(string widgetName, IWidgetGridSpec widgetGridSpec,
@@ -187,9 +220,16 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 .SetCanvasLevel(1)
                 .SetInteractable(interactable)
                 .SetEnabled(true)
-                .SetName(this.mvcType + ":" + this.GetType().Name + ":" + CanvasWidgetType.Panel + ":" + widgetName)
+                .SetName(this.GetType().Name + ":" + CanvasWidgetType.Panel + ":" + widgetName)
                 .SetParent(this)
                 .Build();
+        }
+
+        protected void InternalRemoveWidget(ICanvasWidget canvasWidget)
+        {
+            logger.Info("Removing {}...", canvasWidget.GetName());
+            canvasWidget.SetParent(this);
+            CanvasWidgetUtils.RemoveWidget(this.canvasLevelWidgets, canvasWidget);
         }
 
         /// <summary>

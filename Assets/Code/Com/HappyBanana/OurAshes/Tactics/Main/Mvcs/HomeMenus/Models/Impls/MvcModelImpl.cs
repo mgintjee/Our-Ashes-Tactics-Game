@@ -43,7 +43,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.HomeMenus.Model
             {
                 case RequestType.Exit:
                 case RequestType.QSortie:
-                    _isProcessing = false;
+                    isProcessing = false;
                     break;
             }
             return this.mvcModelState;

@@ -7,7 +7,6 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canva
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Sprites.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Types;
 using System.Numerics;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Impls
@@ -36,7 +35,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     .SetCanvasGridCoords(Vector2.Zero)
                     .SetCanvasGridSize(widgetGridSize))
                 .SetParent(this)
-                .SetName(this.mvcType + ":Banner:Left:" + CanvasWidgetType.Image)
+                .SetName("Banner:Left")
                 .Build());
             this.InternalAddWidget(ImageWidgetImpl.Builder.Get()
                 .SetAlpha(1f)
@@ -50,7 +49,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     .SetCanvasGridCoords(new Vector2(widgetGridSize.X, 0))
                     .SetCanvasGridSize(widgetGridSize))
                 .SetParent(this)
-                .SetName(this.mvcType + ":Banner:Right:" + CanvasWidgetType.Image)
+                .SetName("Banner:Right")
                 .Build());
             this.textWidget = TextWidgetImpl.Builder.Get()
                 .SetText("null")
@@ -66,7 +65,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     .SetCanvasGridCoords(Vector2.Zero)
                     .SetCanvasGridSize(widgetGridSize))
                 .SetParent(this)
-                .SetName(this.mvcType + ":Banner:" + CanvasWidgetType.Text)
+                .SetName("Banner")
                 .Build();
             this.InternalAddWidget(this.textWidget);
         }

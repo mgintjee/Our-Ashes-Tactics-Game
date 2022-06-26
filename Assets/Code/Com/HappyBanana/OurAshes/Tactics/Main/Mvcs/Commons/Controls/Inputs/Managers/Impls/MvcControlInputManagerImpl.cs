@@ -62,7 +62,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Control
                 Optional<IMvcControlInputClick> mvcControlInput = mvcControlInputHandler.GetMvcControlInput();
                 if (mvcControlInput.IsPresent())
                 {
-                    logger.Debug("Input found with {}!", mvcControlInputHandler.GetType());
+                    logger.Debug("Input found with {}!", mvcControlInputHandler.GetType().Name);
                     this.mvcControl.Process(mvcControlInput.GetValue());
                     inputExists = true;
                     break;

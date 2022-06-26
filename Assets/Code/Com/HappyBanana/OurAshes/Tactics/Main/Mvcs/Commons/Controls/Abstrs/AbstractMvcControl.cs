@@ -41,7 +41,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Control
         {
             logger = LoggerManager.GetLogger(mvcFrameConstruction.GetMvcType())
                 .GetClassLogger(this.GetType());
-            logger.Info("Constructing {} for MvcType: {}", typeof(IMvcControl), mvcFrameConstruction.GetMvcType());
+            logger.Info("Constructing {}...", this.GetType().Name);
             this.mvcControlState = this.BuildInitialMvcControlState();
             this.mvcControlInput = MvcControlInputManagerImpl.Builder.Get()
                 .SetMvcType(mvcFrameConstruction.GetMvcType())
@@ -92,7 +92,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Control
                 .SetMvcControlInput(null);
             mvcViewState.GetMvcModelRequest().IfPresent(mvcModelRequest =>
             {
-                logger.Info("Setting {}...", typeof(IMvcRequest));
+                logger.Info("Setting {}...", typeof(IMvcRequest).Name);
                 ((DefaultMvcControlStateImpl)this.mvcControlState)
                     .SetMvcModelRequest(mvcModelRequest);
             });

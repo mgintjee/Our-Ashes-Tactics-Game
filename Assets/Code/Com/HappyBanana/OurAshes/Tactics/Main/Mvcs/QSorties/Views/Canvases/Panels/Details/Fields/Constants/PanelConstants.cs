@@ -13,6 +13,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         public static readonly float SIZE_Y = 1;
         public static readonly Vector2 INFO_SIZE = new Vector2(INFO_SIZE_X, SIZE_Y);
 
+        public class PopUps
+        {
+            public static readonly Vector2 SIZE = Vector2.One;
+            public static readonly Vector2 COORDS = new Vector2(0, 1);
+        }
+
         public class IDs
         {
             public static readonly float COORDS_Y = DetailsPanelConstants.Fields.Vectors.SIZE.Y - 1;

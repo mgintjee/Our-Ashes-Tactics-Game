@@ -29,10 +29,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
             {
                 if (!visitedTileCoords.Contains(tileCoord) && unvisitedTileCoords.Contains(tileCoord))
                 {
+                    /*
                     logger.Debug("Selected TileCoord: {}" +
                         "\nUnvisited Set: {}" +
                         "\nVisited Set: {}",
                         tileCoord, unvisitedTileCoords, visitedTileCoords);
+                    */
                     return Optional<Vector3>.Of(tileCoord);
                 }
             }
@@ -47,7 +49,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
                 ISet<Vector3> layerTileCoords = HexTileCoordsUtil.GetTileCoordsForLayer(i);
                 if (!TileCoordsUtil.IsSubsetOf(tileCoords, layerTileCoords))
                 {
-                    logger.Debug("Found unfinished layer: {}, TileCoords: {}", i, layerTileCoords);
+                    //logger.Debug("Found unfinished layer: {}, TileCoords: {}", i, layerTileCoords);
                     return layerTileCoords;
                 }
             }

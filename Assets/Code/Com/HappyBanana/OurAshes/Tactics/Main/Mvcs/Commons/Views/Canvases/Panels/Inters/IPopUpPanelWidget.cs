@@ -6,6 +6,6 @@
     public interface IPopUpPanelWidget
         : IPanelWidget
     {
-        void UpdatePopup(IPanelWidget panelWidget);
+        void UpdatePopupEntry(IPanelWidget panelWidget);
     }
 }

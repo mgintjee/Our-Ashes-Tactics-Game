@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
+using UnityEngine;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Inters
 {
@@ -22,7 +23,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Scripts
         /// Todo
         /// </summary>
         /// <returns></returns>
-        IUnityScript GetParent();
+
+        Optional<IUnityScript> GetParent();
 
         /// <summary>
         /// Todo

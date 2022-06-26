@@ -1,6 +1,11 @@
 ﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Enums;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Factions.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Biomes;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Shapes;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Sizes;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Abstrs;
@@ -12,7 +17,6 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Req
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Impls;
-using System.Collections.Generic;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Impls
 {
@@ -37,14 +41,15 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             logger.Info("Processing {}...", mvcControlInput);
             this.mvcViewCanvas.GetWidget(mvcControlInput).IfPresent(widget =>
             {
-                RequestType requestType = this.DetermineRequestType(widget.GetName());
+                RequestType requestType = EnumUtils.DetermineEnumFrom<RequestType>(widget.GetName());
                 logger.Info("Widget to process: Name={}, Found={}",
                     widget.GetName(), StringUtils.Format(requestType));
                 if (requestType != RequestType.None)
                 {
-                    IQSortieMenuMvcRequest qSortieMenuMvcRequest = this.BuildMvcRequestFrom(requestType, widget.GetName());
+                    IQSortieMenuMvcRequest request = this.BuildRequestFrom(requestType, widget.GetName());
+                    logger.Info("Built {}", request);
                     ((DefaultMvcViewStateImpl)this.mvcViewState)
-                        .SetMvcModelRequest(qSortieMenuMvcRequest);
+                        .SetMvcModelRequest(request);
                 }
             });
         }
@@ -60,12 +65,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 .Build();
         }
 
-        private IQSortieMenuMvcRequest BuildMvcRequestFrom(RequestType requestType, string widgetName)
+        private IQSortieMenuMvcRequest BuildRequestFrom(RequestType requestType, string widgetName)
         {
-            IQSortieMenuMvcRequest qSortieMenuMvcRequest = new MvcRequestImpl()
-                        .SetRequestType(requestType);
+            IQSortieMenuMvcRequest request;
             switch (requestType)
             {
+                case RequestType.PopUpDisable:
                 case RequestType.CombatantDetails:
                 case RequestType.FactionDetails:
                 case RequestType.FieldDetails:
@@ -74,35 +79,81 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 case RequestType.FactionRandomize:
                 case RequestType.FieldRandomize:
                 case RequestType.SortieRandomize:
-                    qSortieMenuMvcRequest = new MvcRequestImpl()
-                        .SetRequestType(requestType);
+                case RequestType.FieldIDPopUp:
+                case RequestType.FieldBiomePopUp:
+                case RequestType.FieldSizePopUp:
+                case RequestType.FieldShapePopUp:
+                    request = new DefaultRequestImpl();
                     break;
 
-                case RequestType.FieldMod:
+                case RequestType.FieldIDMod:
+                    request = this.BuildFieldIDModRequestFrom(widgetName);
+                    break;
+
+                case RequestType.FieldSizeMod:
+                    request = this.BuildFieldSizeModRequestFrom(widgetName);
+                    break;
+
+                case RequestType.FieldBiomeMod:
+                    request = this.BuildFieldBiomeModRequestFrom(widgetName);
+                    break;
+
+                case RequestType.FieldShapeMod:
+                    request = this.BuildFieldShapeModRequestFrom(widgetName);
+                    break;
+
+                case RequestType.FactionIDMod:
+                    request = this.BuildFactionIDModRequestFrom(widgetName);
+                    break;
+
                 case RequestType.CombatantMod:
                 case RequestType.PhalanxMod:
                 case RequestType.FactionMod:
                 case RequestType.None:
-
                 default:
-                    logger.Warn("Unable to build {}. {} is not currently supported.", typeof(IQSortieMenuMvcRequest), requestType);
-                    qSortieMenuMvcRequest = new MvcRequestImpl();
+                    logger.Warn("Unable to build {}. {} is not currently supported.",
+                        typeof(IQSortieMenuMvcRequest).Name, requestType);
+                    request = new DefaultRequestImpl();
                     break;
             }
-            return qSortieMenuMvcRequest;
+            ((DefaultRequestImpl)request)
+                .SetRequestType(requestType);
+            return request;
         }
 
-        private RequestType DetermineRequestType(string widgetName)
+        private IQSortieMenuMvcRequest BuildFactionIDModRequestFrom(string widgetName)
         {
-            IList<RequestType> requestTypes = EnumUtils.GetEnumListWithoutFirst<RequestType>();
-            foreach (RequestType requestType in requestTypes)
-            {
-                if (widgetName.Contains(requestType.ToString()))
-                {
-                    return requestType;
-                }
-            }
-            return RequestType.None;
+            FactionID factionID = EnumUtils.DetermineEnumFrom<FactionID>(widgetName);
+            return new FactionIDModRequestImpl()
+                .SetFactionID(factionID);
+        }
+
+        private IQSortieMenuMvcRequest BuildFieldIDModRequestFrom(string widgetName)
+        {
+            FieldID fieldID = EnumUtils.DetermineEnumFrom<FieldID>(widgetName);
+            return new FieldIDModRequestImpl()
+                .SetFieldID(fieldID);
+        }
+
+        private IQSortieMenuMvcRequest BuildFieldBiomeModRequestFrom(string widgetName)
+        {
+            FieldBiome biome = EnumUtils.DetermineEnumFrom<FieldBiome>(widgetName);
+            return new FieldBiomeModRequestImpl()
+                .SetFieldBiome(biome);
+        }
+
+        private IQSortieMenuMvcRequest BuildFieldSizeModRequestFrom(string widgetName)
+        {
+            FieldSize size = EnumUtils.DetermineEnumFrom<FieldSize>(widgetName);
+            return new FieldSizeModRequestImpl()
+                .SetFieldSize(size);
+        }
+
+        private IQSortieMenuMvcRequest BuildFieldShapeModRequestFrom(string widgetName)
+        {
+            FieldShape shape = EnumUtils.DetermineEnumFrom<FieldShape>(widgetName);
+            return new FieldShapeModRequestImpl()
+                .SetFieldShape(shape);
         }
     }
 }

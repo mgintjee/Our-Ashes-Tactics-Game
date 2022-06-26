@@ -32,7 +32,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.LoadingScreens.
                     .SetCanvasGridCoords(Vector2.Zero)
                     .SetCanvasGridSize(this.canvasGridConvertor.GetGridSize()))
                 .SetParent(this)
-                .SetName(this.mvcType + ":Tips:" + CanvasWidgetType.Image)
+                .SetName(":Tips:" + CanvasWidgetType.Image)
                 .Build());
             this.InternalAddWidget(TextWidgetImpl.Builder.Get()
                 .SetText(TipsPanelConstants.GetRandomLoadingScreenTip())
@@ -48,7 +48,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.LoadingScreens.
                     .SetCanvasGridCoords(Vector2.Zero)
                     .SetCanvasGridSize(this.canvasGridConvertor.GetGridSize()))
                 .SetParent(this)
-                .SetName(this.mvcType + ":Tips:" + CanvasWidgetType.Text)
+                .SetName(":Tips:" + CanvasWidgetType.Text)
                 .Build());
         }
 

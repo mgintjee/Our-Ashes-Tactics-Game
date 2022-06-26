@@ -20,6 +20,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
     public class SortieDetailsPanelImpl
         : AbstractPanelWidget, IPanelWidget
     {
+        private IPopUpPanelWidget popUpWidget;
         private IMultiTextPanelWidget factionCountWidget;
         private IMultiTextPanelWidget phalanxCountWidget;
         private IMultiTextPanelWidget combatantCountWidget;
@@ -132,6 +133,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             public interface IInternalBuilder
                 : PanelWidgetBuilders.IPanelWidgetBuilder
             {
+                IInternalBuilder SetPopUpWidget(IPopUpPanelWidget widget);
             }
 
             /// <summary>
@@ -149,9 +151,18 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             private class InternalBuilder
                 : PanelWidgetBuilders.InternalPanelWidgetBuilder, IInternalBuilder
             {
+                private IPopUpPanelWidget popUpWidget;
+
+                IInternalBuilder IInternalBuilder.SetPopUpWidget(IPopUpPanelWidget widget)
+                {
+                    this.popUpWidget = widget;
+                    return this;
+                }
+
                 protected override IPanelWidget BuildScript(UnityEngine.GameObject gameObject)
                 {
-                    IPanelWidget widget = gameObject.AddComponent<SortieDetailsPanelImpl>();
+                    SortieDetailsPanelImpl widget = gameObject.AddComponent<SortieDetailsPanelImpl>();
+                    widget.popUpWidget = popUpWidget;
                     this.ApplyPanelValues(widget);
                     return widget;
                 }

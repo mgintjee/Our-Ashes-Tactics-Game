@@ -105,5 +105,19 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Enums
 
             return tEnums;
         }
+
+        public static TEnum DetermineEnumFrom<TEnum>(string str)
+            where TEnum : Enum
+        {
+            IList<TEnum> tEnums = GetEnumList<TEnum>();
+            foreach (TEnum tEnum in tEnums)
+            {
+                if (str.Contains(tEnum.ToString()))
+                {
+                    return tEnum;
+                }
+            }
+            return tEnums[0];
+        }
     }
 }

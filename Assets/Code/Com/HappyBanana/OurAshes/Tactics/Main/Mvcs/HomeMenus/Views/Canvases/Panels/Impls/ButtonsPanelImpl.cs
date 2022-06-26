@@ -2,7 +2,6 @@
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Types;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.HomeMenus.Frames.Requests.Types;
 using System.Numerics;
 
@@ -28,9 +27,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.HomeMenus.Views
                     .SetCanvasGridSize(buttonGridSize))
                 .SetMvcType(this.mvcType)
                 .SetCanvasLevel(0)
-                .SetInteractable(false)
+                .SetInteractable(true)
                 .SetEnabled(true)
-                .SetName(this.mvcType + ":" + RequestType.QSortie + ":Button:" + CanvasWidgetType.Panel)
+                .SetName(RequestType.QSortie + ":Button")
                 .SetParent(this)
                 .Build());
             this.InternalAddWidget(ButtonPanelImpl.Builder.Get()
@@ -42,9 +41,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.HomeMenus.Views
                     .SetCanvasGridSize(buttonGridSize))
                 .SetMvcType(this.mvcType)
                 .SetCanvasLevel(0)
-                .SetInteractable(false)
+                .SetInteractable(true)
                 .SetEnabled(true)
-                .SetName(this.mvcType + ":" + RequestType.Exit + ":Button:" + CanvasWidgetType.Panel)
+                .SetName(RequestType.Exit + ":Button")
                 .SetParent(this)
                 .Build());
         }

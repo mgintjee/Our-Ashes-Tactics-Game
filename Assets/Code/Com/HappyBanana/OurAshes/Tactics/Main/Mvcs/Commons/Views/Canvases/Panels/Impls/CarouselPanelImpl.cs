@@ -111,7 +111,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     .SetCanvasGridCoords(Vector2.Zero)
                     .SetCanvasGridSize(this.canvasGridConvertor.GetGridSize()))
                 .SetParent(this)
-                .SetName(this.name + ":Back:" + CanvasWidgetType.Image)
+                .SetName("Back:" + CanvasWidgetType.Image)
                 .Build();
         }
 

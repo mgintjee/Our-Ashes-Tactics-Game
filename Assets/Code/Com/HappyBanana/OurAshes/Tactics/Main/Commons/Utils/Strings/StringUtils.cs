@@ -12,7 +12,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.String
         public static string Format(object obj)
         {
             string nameSpace = obj.GetType().Namespace;
-            if (nameSpace.StartsWith("System") && !nameSpace.Contains("Collection"))
+            if (nameSpace.StartsWith("System") &&
+                !nameSpace.Contains("Collection"))
             {
                 return obj.ToString();
             }
@@ -42,10 +43,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.String
 
         private static string FormatObject<TObject>(TObject tObject)
         {
-            return string.Format("{0}:{1}",
-                tObject.GetType().Name, (tObject != null)
-                    ? tObject.ToString()
-                    : NULL_STRING);
+            return (tObject != null)
+                ? tObject.ToString()
+                : typeof(TObject).Name + ":" + NULL_STRING;
         }
     }
 }

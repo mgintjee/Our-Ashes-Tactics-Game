@@ -8,7 +8,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames
     /// Todo
     /// </summary>
     public class MvcRequestPhalanxModImpl
-        : MvcRequestImpl, IMvcRequestPhalanxMod
+        : DefaultRequestImpl, IMvcRequestPhalanxMod
     {
         private bool isAdd = false;
         private bool isDel = false;

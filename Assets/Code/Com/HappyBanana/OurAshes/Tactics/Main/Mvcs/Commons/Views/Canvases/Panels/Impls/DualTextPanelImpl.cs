@@ -85,7 +85,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     .SetCanvasGridCoords(Vector2.Zero)
                     .SetCanvasGridSize(this.canvasGridConvertor.GetGridSize()))
                 .SetParent(this)
-                .SetName(this.mvcType + ":DualText:Back:" + CanvasWidgetType.Image)
+                .SetName("DualText:Back:" + CanvasWidgetType.Image)
                 .Build();
         }
 
@@ -104,7 +104,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X / 2,
                         this.canvasGridConvertor.GetGridSize().Y)))
                 .SetParent(this)
-                .SetName(this.mvcType + ":DualText:Left:" + CanvasWidgetType.Image)
+                .SetName("DualText:Left:" + CanvasWidgetType.Image)
                 .Build();
         }
 
@@ -123,7 +123,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X / 2,
                         this.canvasGridConvertor.GetGridSize().Y)))
                 .SetParent(this)
-                .SetName(this.mvcType + ":DualText:Right:" + CanvasWidgetType.Image)
+                .SetName("DualText:Right:" + CanvasWidgetType.Image)
                 .Build();
         }
 
@@ -144,7 +144,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X / 2,
                         this.canvasGridConvertor.GetGridSize().Y)))
                 .SetParent(this)
-                .SetName(this.mvcType + ":DualText:Left:" + CanvasWidgetType.Text)
+                .SetName(":DualText:Left:" + CanvasWidgetType.Text)
                 .Build();
         }
 
@@ -165,7 +165,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X / 2,
                         this.canvasGridConvertor.GetGridSize().Y)))
                 .SetParent(this)
-                .SetName(this.mvcType + ":DualText:Right:" + CanvasWidgetType.Text)
+                .SetName("DualText:Right:" + CanvasWidgetType.Text)
                 .Build();
         }
 

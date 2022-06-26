@@ -28,7 +28,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.
         /// <returns></returns>
         protected override IMvcModelState ProcessMvcModelRequest(IMvcRequest mvcModelRequest)
         {
-            _isProcessing = false;
+            isProcessing = false;
             return this.mvcModelState;
         }
     }

@@ -50,13 +50,13 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.HomeMenus.Frame
                 {
                     IHomeMenuRequest homeMenuRequest = (IHomeMenuRequest)request;
                     logger.Info("Building next {} for {}",
-                        typeof(IMvcFrameConstruction), homeMenuRequest.GetRequestType());
+                        typeof(IMvcFrameConstruction).Name, homeMenuRequest.GetRequestType());
                     switch (homeMenuRequest.GetRequestType())
                     {
                         case RequestType.QSortie:
                             this.nextMvcFrameConstruction = MvcFrameConstruction.Builder.Get()
                                 .SetUnityScript(this.currMvcFrameConstruction
-                                    .GetUnityScript().GetParent())
+                                    .GetUnityScript().GetParent().GetValue())
                                 .SetSimulationType(SimsType.Interactive)
                                 .SetMvcType(MvcType.QSortieMenu)
                                 .SetRandom(RandomManager.GetRandom(MvcType.QSortieMenu))

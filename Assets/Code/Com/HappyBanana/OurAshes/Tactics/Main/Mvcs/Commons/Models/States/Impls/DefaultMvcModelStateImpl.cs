@@ -21,5 +21,15 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.
             this.prevMvcRequest = prevMvcRequest;
             return this;
         }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return string.Format("{0}:" +
+                "\n{1}", this.GetType().Name, this.prevMvcRequest);
+        }
     }
 }

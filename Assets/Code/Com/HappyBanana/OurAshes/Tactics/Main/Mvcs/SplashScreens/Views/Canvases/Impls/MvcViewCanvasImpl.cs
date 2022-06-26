@@ -33,7 +33,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.SplashScreens.V
                     .SetCanvasLevel(0)
                     .SetInteractable(false)
                     .SetEnabled(true)
-                    .SetName(this.mvcType + ":Continue:" + CanvasWidgetType.Panel)
+                    .SetName(":Continue:" + CanvasWidgetType.Panel)
                     .SetParent(this)
                     .Build(),
             };

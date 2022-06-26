@@ -25,7 +25,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
 
         public static bool IsSubsetOf(ISet<Vector3> tileCoords, ISet<Vector3> subTileCoords)
         {
-            logger.Debug("Checking if {} is subset of {}", subTileCoords, tileCoords);
+            //logger.Debug("Checking if {} is subset of {}", subTileCoords, tileCoords);
             foreach (Vector3 subTileCoord in subTileCoords)
             {
                 if (!tileCoords.Contains(subTileCoord))

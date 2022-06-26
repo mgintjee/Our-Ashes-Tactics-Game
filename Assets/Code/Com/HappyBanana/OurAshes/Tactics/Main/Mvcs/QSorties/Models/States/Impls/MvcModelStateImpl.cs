@@ -35,6 +35,17 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             return this;
         }
 
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return string.Format("{0}: " +
+                "\n{1}" +
+                "\n{2}", this.GetType().Name, this.prevMvcRequest, this.fieldDetails);
+        }
+
         IFieldDetails IMvcModelState.GetFieldDetails()
         {
             return this.fieldDetails;

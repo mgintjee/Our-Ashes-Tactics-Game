@@ -16,6 +16,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
 
         void AddWidgets(ICollection<ICanvasWidget> canvasWidgets);
 
+        void RemoveWidget(ICanvasWidget canvasWidget);
+
+        void RemoveWidgets(ICollection<ICanvasWidget> canvasWidgets);
+
         Optional<ICanvasWidget> GetWidgetFromInput(ICanvasGridConvertor canvasGridConvertor, IMvcControlInput mvcControlInput);
     }
 }

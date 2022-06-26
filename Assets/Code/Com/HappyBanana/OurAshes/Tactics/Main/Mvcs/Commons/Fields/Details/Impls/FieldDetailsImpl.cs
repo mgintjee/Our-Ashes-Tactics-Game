@@ -33,6 +33,16 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
             this.tileDetails = tileDetails;
         }
 
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return string.Format("{0}: ID:{1}, Biome:{2}, Size:{3}, Shape:{4}, Tiles: {5}",
+                this.GetType().Name, this.fieldID, this.fieldBiome, this.fieldSize, this.fieldShape, this.tileDetails.Count);
+        }
+
         FieldBiome IFieldDetails.GetFieldBiome()
         {
             return this.fieldBiome;

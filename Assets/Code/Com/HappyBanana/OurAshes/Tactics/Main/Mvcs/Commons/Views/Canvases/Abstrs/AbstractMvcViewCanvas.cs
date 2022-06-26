@@ -18,7 +18,6 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canva
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Utils;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Types;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -62,7 +61,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             {
                 foreach (ICanvasWidget canvasWidget in canvasWidgets)
                 {
-                    canvasWidget.Process(mvcModelState);
+                    if (canvasWidget.GetEnabled())
+                    {
+                        canvasWidget.Process(mvcModelState);
+                    }
                 }
             }
         }
@@ -73,9 +75,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         Optional<ICanvasWidget> IMvcViewCanvas.GetWidget(IMvcControlInput mvcControlInput)
         {
             List<int> canvasLevels = new List<int>(canvasLevelWidgets.Keys);
-            canvasLevels.Sort();
+            canvasLevels.Reverse();
+
             foreach (int canvasLevel in canvasLevels)
             {
+                logger.Debug("Checking level:{}, {} available widgets", canvasLevel, canvasLevelWidgets[canvasLevel].Count);
                 foreach (ICanvasWidget canvasWidget in canvasLevelWidgets[canvasLevel])
                 {
                     logger.Debug("Checking if input is on {}...", canvasWidget.GetName());
@@ -95,7 +99,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                         logger.Debug("Input is on {}!", canvasWidget.GetName());
                         return Optional<ICanvasWidget>.Of(canvasWidget);
                     }
-                    logger.Debug("Input is not on {}.", canvasWidget.GetName());
                 }
             }
             return Optional<ICanvasWidget>.Empty();
@@ -124,16 +127,16 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                         this.canvasGridConvertor.GetGridSize().Y * (1 - PanelWidgetConstants.GetBannerPanelRatio())))
                     .SetCanvasGridCoords(Vector2.Zero))
                 .SetParent(this)
-                .SetName(this.mvcType + ":Background")
+                .SetName("Background")
                 .Build();
         }
 
         protected IPopUpPanelWidget BuildPopUpPanel()
         {
-            return (IPopUpPanelWidget)PopUpPanelImpl.Builder.Get()
+            IPopUpPanelWidget widget = (IPopUpPanelWidget)PopUpPanelImpl.Builder.Get()
                 .SetPanelGridSize(new Vector2(1, 1))
                 .SetMvcType(this.mvcType)
-                .SetCanvasLevel(0)
+                .SetCanvasLevel(99)
                 .SetMvcType(this.mvcType)
                 .SetInteractable(false)
                 .SetEnabled(false)
@@ -141,8 +144,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     .SetCanvasGridSize(this.canvasGridConvertor.GetGridSize())
                     .SetCanvasGridCoords(Vector2.Zero))
                 .SetParent(this)
-                .SetName(this.mvcType + ":Popup")
+                .SetName("Popup")
                 .Build();
+            return widget;
         }
 
         protected IPanelWidget BuildBanner()
@@ -158,7 +162,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 .SetCanvasLevel(0)
                 .SetInteractable(false)
                 .SetEnabled(true)
-                .SetName(this.mvcType + ":Header:" + CanvasWidgetType.Panel)
+                .SetName("Header")
                 .SetParent(this)
                 .Build();
         }
@@ -169,7 +173,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
 
         protected void AddWidget(ICanvasWidget canvasWidget)
         {
-            logger.Info("Adding {}:{}", canvasWidget.GetType(), canvasWidget.GetName());
+            logger.Info("Adding {}:{}", canvasWidget.GetType().Name, canvasWidget.GetName());
             canvasWidget.SetParent(this);
             CanvasWidgetUtils.AddWidget(this.canvasGridConvertor, this.canvasLevelWidgets, canvasWidget);
         }

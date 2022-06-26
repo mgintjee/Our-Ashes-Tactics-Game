@@ -54,7 +54,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Managers.Impls
             // Check if the activeMvcType has been set
             if (this.activeMvcType == MvcType.None)
             {
-                logger.Info("Creating initial {}...", typeof(IMvcFrame));
+                logger.Info("Creating initial {}...", typeof(IMvcFrame).Name);
                 IMvcFrameConstruction mvcFrameConstruction = this.BuildLoadingFrameConstruction();
                 this.mvcTypeFrames[mvcFrameConstruction.GetMvcType()] =
                     this.BuildMvcFrame(this.BuildLoadingFrameConstruction(), null);
@@ -62,7 +62,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Managers.Impls
             if (!this.mvcTypeFrames.ContainsKey(this.activeMvcType))
             {
                 // Should never be here except for errors
-                logger.Error("No {} associated to {}", typeof(IMvcFrame), this.activeMvcType);
+                logger.Error("No {} associated to {}", typeof(IMvcFrame).Name, this.activeMvcType);
                 return;
             }
             IMvcFrame mvcFrame = this.mvcTypeFrames[this.activeMvcType];
@@ -70,7 +70,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Managers.Impls
             {
                 // Should never be here except for errors
                 logger.Error("No {} associated to active {}:{}",
-                    typeof(IMvcFrame), typeof(MvcType), this.activeMvcType);
+                    typeof(IMvcFrame).Name, typeof(MvcType).Name, this.activeMvcType);
                 return;
             }
             // Check if the MvcFrame is now complete
@@ -140,7 +140,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Managers.Impls
             }
             if (mvcFrame != null)
             {
-                logger.Info("Transitioning {}s : {} => {}", typeof(MvcType),
+                logger.Info("Transitioning {}s : {} => {}", typeof(MvcType).Name,
                     this.activeMvcType, nextMvcFrameConstruction.GetMvcType());
                 // Set the active MvcType
                 this.activeMvcType = nextMvcFrameConstruction.GetMvcType();
@@ -148,7 +148,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Managers.Impls
             else
             {
                 logger.Info("Unsupported {}:{}. Unable to build {}.",
-                    typeof(MvcType), nextMvcFrameConstruction.GetMvcType(), typeof(IMvcFrame));
+                    typeof(MvcType).Name, nextMvcFrameConstruction.GetMvcType(), typeof(IMvcFrame).Name);
             }
             return mvcFrame;
         }

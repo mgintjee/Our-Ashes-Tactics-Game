@@ -22,6 +22,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
     public class CombatantDetailsPanelImpl
         : AbstractPanelWidget, IPanelWidget
     {
+        private IPopUpPanelWidget popUpWidget;
         private IMultiTextPanelWidget combatantIDList;
         private IMultiTextPanelWidget powerText;
         private IButtonPanelWidget idButton;
@@ -76,7 +77,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     .SetCanvasGridCoords(PanelConstants.IDs.BUTTON_COORDS)
                     .SetCanvasGridSize(PanelConstants.INFO_SIZE);
             string buttonType = typeof(CombatantID).Name;
-            string textName = this.mvcType + ":" + buttonType + ":Button";
+            string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
             string buttonText = CombatantID.None.ToString();
             idButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
             return idButton;
@@ -88,7 +89,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     .SetCanvasGridCoords(PanelConstants.Models.BUTTON_COORDS)
                     .SetCanvasGridSize(PanelConstants.INFO_SIZE);
             string buttonType = typeof(ModelID).Name;
-            string textName = this.mvcType + ":" + buttonType + ":Button";
+            string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
             string buttonText = ModelID.None.ToString();
             modelButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
             return modelButton;
@@ -100,7 +101,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     .SetCanvasGridCoords(PanelConstants.Armors.BUTTON_COORDS)
                     .SetCanvasGridSize(PanelConstants.INFO_SIZE);
             string buttonType = typeof(ArmorGearID).Name;
-            string textName = this.mvcType + ":" + buttonType + ":Button";
+            string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
             string buttonText = ArmorGearID.None.ToString();
             armorButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
             return armorButton;
@@ -112,7 +113,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     .SetCanvasGridCoords(PanelConstants.Engines.BUTTON_COORDS)
                     .SetCanvasGridSize(PanelConstants.INFO_SIZE);
             string buttonType = typeof(EngineGearID).Name;
-            string textName = this.mvcType + ":" + buttonType + ":Button";
+            string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
             string buttonText = EngineGearID.None.ToString();
             engineButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
             return engineButton;
@@ -124,7 +125,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     .SetCanvasGridCoords(PanelConstants.WeaponHeader.MINUS_BUTTON_COORDS)
                     .SetCanvasGridSize(PanelConstants.INFO_SIZE);
             string buttonType = typeof(WeaponGearID).Name + ":Minus";
-            string textName = this.mvcType + ":" + buttonType + ":Button";
+            string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
             string buttonText = "-";
             weaponMinusButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
             return weaponMinusButton;
@@ -136,7 +137,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     .SetCanvasGridCoords(PanelConstants.WeaponHeader.ADD_BUTTON_COORDS)
                     .SetCanvasGridSize(PanelConstants.INFO_SIZE);
             string buttonType = typeof(WeaponGearID).Name + ":Add";
-            string textName = this.mvcType + ":" + buttonType + ":Button";
+            string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
             string buttonText = "+";
             weaponAddButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
             return weaponAddButton;
@@ -148,7 +149,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     .SetCanvasGridCoords(PanelConstants.Stats.COORDS)
                     .SetCanvasGridSize(PanelConstants.INFO_SIZE);
             string buttonType = typeof(CombatantID).Name + ":Stats";
-            string textName = this.mvcType + ":" + buttonType + ":Button";
+            string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
             string buttonText = "Stats";
             statsButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
             return statsButton;
@@ -273,6 +274,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             public interface IInternalBuilder
                 : PanelWidgetBuilders.IPanelWidgetBuilder
             {
+                IInternalBuilder SetPopUpWidget(IPopUpPanelWidget widget);
             }
 
             /// <summary>
@@ -290,9 +292,18 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             private class InternalBuilder
                 : PanelWidgetBuilders.InternalPanelWidgetBuilder, IInternalBuilder
             {
+                private IPopUpPanelWidget popUpWidget;
+
+                IInternalBuilder IInternalBuilder.SetPopUpWidget(IPopUpPanelWidget widget)
+                {
+                    this.popUpWidget = widget;
+                    return this;
+                }
+
                 protected override IPanelWidget BuildScript(UnityEngine.GameObject gameObject)
                 {
-                    IPanelWidget widget = gameObject.AddComponent<CombatantDetailsPanelImpl>();
+                    CombatantDetailsPanelImpl widget = gameObject.AddComponent<CombatantDetailsPanelImpl>();
+                    widget.popUpWidget = this.popUpWidget;
                     this.ApplyPanelValues(widget);
                     return widget;
                 }

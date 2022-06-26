@@ -31,7 +31,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.HomeMenus.Views
                     .SetCanvasLevel(0)
                     .SetInteractable(false)
                     .SetEnabled(true)
-                    .SetName(this.mvcType + ":Button:" + CanvasWidgetType.Panel)
+                    .SetName(":Button:" + CanvasWidgetType.Panel)
                     .SetParent(this)
                     .Build()
             });

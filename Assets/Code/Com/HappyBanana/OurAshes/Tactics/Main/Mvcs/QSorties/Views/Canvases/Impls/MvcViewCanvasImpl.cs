@@ -18,10 +18,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
     public class MvcViewCanvasImpl
         : AbstractMvcViewCanvas, IMvcViewCanvas
     {
-        private IPopUpPanelWidget popUpPanelWidget;
+        private IPopUpPanelWidget popUpWidget;
 
         public override void InitialBuild()
         {
+            this.popUpWidget = this.BuildPopUpPanel();
             List<ICanvasWidget> canvasWidgets = new List<ICanvasWidget>()
             {
                 this.BuildBackground(),
@@ -29,9 +30,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 this.BuildButtonPanel(),
                 this.BuildDetailsPanel()
             };
-            this.popUpPanelWidget = this.BuildPopUpPanel();
             this.AddWidgets(canvasWidgets);
-            this.AddWidget(this.popUpPanelWidget);
+            this.AddWidget(this.popUpWidget);
+            this.popUpWidget.GetTransform().SetSiblingIndex(this.GetTransform().childCount - 1);
         }
 
         /// <inheritdoc/>
@@ -51,7 +52,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     .SetCanvasLevel(0)
                     .SetInteractable(false)
                     .SetEnabled(true)
-                    .SetName(this.mvcType + ":Button:" + CanvasWidgetType.Panel)
+                    .SetName("Button:" + CanvasWidgetType.Panel)
                     .SetParent(this)
                     .Build();
         }
@@ -59,6 +60,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         private IPanelWidget BuildDetailsPanel()
         {
             return DetailsPanelImpl.Builder.Get()
+                    .SetPopUpWidget(this.popUpWidget)
                     .SetPanelGridSize(new Vector2(4, 5))
                     .SetWidgetGridSpec(new WidgetGridSpecImpl()
                         .SetCanvasGridCoords(new Vector2(this.canvasGridConvertor.GetGridSize().X / 4, 0))
@@ -68,7 +70,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     .SetCanvasLevel(0)
                     .SetInteractable(false)
                     .SetEnabled(true)
-                    .SetName(this.mvcType + ":Details:" + CanvasWidgetType.Panel)
+                    .SetName("Details:" + CanvasWidgetType.Panel)
                     .SetParent(this)
                     .Build();
         }

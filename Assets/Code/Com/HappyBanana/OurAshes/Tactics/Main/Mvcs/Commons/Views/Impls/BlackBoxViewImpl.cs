@@ -17,7 +17,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.I
         public BlackBoxViewImpl(IMvcFrameConstruction mvcFrameConstruction)
             : base(mvcFrameConstruction)
         {
-            _isProcessing = false;
+            isProcessing = false;
         }
 
         protected override IMvcViewCanvas BuildInitialMvcViewCanvas()

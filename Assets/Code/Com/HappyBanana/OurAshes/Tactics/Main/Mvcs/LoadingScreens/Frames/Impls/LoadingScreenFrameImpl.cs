@@ -27,7 +27,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.LoadingScreens.
         {
             if (prevMvcFrameResult != null)
             {
-                logger.Info("Setting next {}:{}", typeof(IMvcFrameConstruction),
+                logger.Info("Setting next {}:{}", typeof(IMvcFrameConstruction).Name,
                     prevMvcFrameResult.GetPrevMvcFrameConstruction().GetMvcType());
                 this.nextMvcFrameConstruction = prevMvcFrameResult.GetNextMvcFrameConstruction();
             }

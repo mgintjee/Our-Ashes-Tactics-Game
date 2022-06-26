@@ -38,7 +38,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Control
         /// <inheritdoc/>
         public override string ToString()
         {
-            return string.Format("{0}: {1}, {2}",
+            return string.Format("{0}: " +
+                "\nRequest: {1}, " +
+                "\nInput: {2}",
                 this.GetType().Name, this.mvcModelRequest, this.mvcControlInput);
         }
     }

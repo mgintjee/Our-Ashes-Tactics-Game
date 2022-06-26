@@ -17,15 +17,19 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         : AbstractPanelWidget, IPopUpPanelWidget
     {
         private IPanelWidget popupEntryWidget;
+        private IImageWidget backgroundWidget;
 
-        void IPopUpPanelWidget.UpdatePopup(IPanelWidget panelWidget)
+        void IPopUpPanelWidget.UpdatePopupEntry(IPanelWidget panelWidget)
         {
             if (this.popupEntryWidget != null)
             {
+                this.InternalRemoveWidget(this.popupEntryWidget);
                 this.popupEntryWidget.Destroy();
             }
             this.popupEntryWidget = panelWidget;
             this.InternalAddWidget(this.popupEntryWidget);
+            ((IPopUpPanelWidget)this).SetEnabled(true);
+            this.backgroundWidget.SetEnabled(true);
         }
 
         protected override void InitialBuild()
@@ -42,13 +46,14 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 .SetMvcType(this.mvcType)
                 .SetCanvasLevel(5)
                 .SetInteractable(true)
-                .SetEnabled(true)
+                .SetEnabled(false)
                 .SetWidgetGridSpec(new WidgetGridSpecImpl()
                     .SetCanvasGridCoords(Vector2.Zero)
                     .SetCanvasGridSize(this.canvasGridConvertor.GetGridSize()))
                 .SetParent(this)
-                .SetName(this.mvcType + ":PopUp:Background:" + CanvasWidgetType.Image)
+                .SetName("PopUpDisable:" + CanvasWidgetType.Image)
                 .Build();
+            this.backgroundWidget = imageWidget;
             return imageWidget;
         }
 

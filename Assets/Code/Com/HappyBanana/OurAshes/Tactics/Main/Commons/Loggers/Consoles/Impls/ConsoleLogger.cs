@@ -5,7 +5,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Loggers.Cons
     /// <summary>
     /// Todo
     /// </summary>
-    public class ConsoleLogger : IConsoleLogger
+    public class ConsoleLogger
+        : IConsoleLogger
     {
         /// <inheritdoc/>
         void IConsoleLogger.Debug(string message)

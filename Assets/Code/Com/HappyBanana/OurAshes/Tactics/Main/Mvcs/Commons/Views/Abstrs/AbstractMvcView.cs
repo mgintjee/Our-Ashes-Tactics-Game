@@ -29,7 +29,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.A
         protected IMvcModelState mvcModelState;
 
         // Todo
-        protected bool _isProcessing = false;
+        protected bool isProcessing = false;
 
         // Todo
         protected IMvcViewCanvas mvcViewCanvas;
@@ -45,8 +45,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.A
         {
             logger = LoggerManager.GetLogger(mvcFrameConstruction.GetMvcType())
                 .GetClassLogger(this.GetType());
-            logger.Info("Constructing {} for MvcType: {}",
-                typeof(IMvcView), mvcFrameConstruction.GetMvcType());
+            logger.Info("Constructing {}...", this.GetType().Name);
             this.mvcFrameConstruction = mvcFrameConstruction;
             this.mvcViewState = this.BuildInitialMvcViewState();
             this.mvcViewCanvas = this.BuildInitialMvcViewCanvas();
@@ -55,7 +54,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.A
         /// <inheritdoc/>
         bool IMvcView.IsProcessing()
         {
-            return _isProcessing;
+            return isProcessing;
         }
 
         /// <inheritdoc/>

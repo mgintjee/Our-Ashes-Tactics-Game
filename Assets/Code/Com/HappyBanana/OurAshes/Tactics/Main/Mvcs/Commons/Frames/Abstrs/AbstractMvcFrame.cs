@@ -104,7 +104,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.
                 ? this.BuildMvcView(this.currMvcFrameConstruction)
                 : new BlackBoxViewImpl(this.currMvcFrameConstruction);
             logger = this.GetClassLogger();
-            logger.Info("Built {}...", this.GetType());
+            logger.Info("Built {}...", this.GetType().Name);
         }
 
         /// <inheritdoc/>
@@ -113,8 +113,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.
             if (this.mvcControl.IsProcessing() || this.mvcView.IsProcessing())
             {
                 logger.Info("Cannot have {} continue yet. {} isProcessing: {}, {} isProcessing: {}.",
-                    this.GetType(), this.mvcControl.GetType(), this.mvcControl.IsProcessing(),
-                    this.mvcView.GetType(), this.mvcView.IsProcessing());
+                    this.GetType().Name, this.mvcControl.GetType().Name, this.mvcControl.IsProcessing(),
+                    this.mvcView.GetType().Name, this.mvcView.IsProcessing());
             }
             else
             {

@@ -5,6 +5,7 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canva
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Sprites.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Utils;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Types;
@@ -55,7 +56,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     .SetCanvasGridCoords(Vector2.Zero)
                     .SetCanvasGridSize(this.canvasGridConvertor.GetGridSize()))
                 .SetParent(this)
-                .SetName(this.mvcType + ":" + this.buttonType + ":Button:" + CanvasWidgetType.Image)
+                .SetName(this.name + ":" + CanvasWidgetType.Image.ToString())
                 .Build();
         }
 
@@ -75,7 +76,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     .SetCanvasGridCoords(Vector2.Zero)
                     .SetCanvasGridSize(this.canvasGridConvertor.GetGridSize()))
                 .SetParent(this)
-                .SetName(this.mvcType + ":" + this.buttonType + ":Button:" + CanvasWidgetType.Text)
+                .SetName(this.name + ":" + CanvasWidgetType.Text.ToString())
                 .Build();
         }
 
@@ -127,10 +128,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
 
                 protected override IPanelWidget BuildScript(UnityEngine.GameObject gameObject)
                 {
-                    IPanelWidget widget = gameObject.AddComponent<ButtonPanelImpl>();
-                    ((ButtonPanelImpl)widget).buttonText = buttonText;
-                    ((ButtonPanelImpl)widget).buttonType = buttonType;
+                    ButtonPanelImpl widget = gameObject.AddComponent<ButtonPanelImpl>();
+                    widget.buttonText = buttonText;
+                    widget.buttonType = buttonType;
                     this.ApplyPanelValues(widget);
+                    CanvasWidgetUtils.SetButtonInteractable(widget, widget.isInteractable);
                     return widget;
                 }
             }

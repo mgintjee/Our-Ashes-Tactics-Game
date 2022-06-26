@@ -4,7 +4,6 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canva
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Utils;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Types;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Buttons.Constants;
@@ -46,39 +45,40 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             }
         }
 
-        private IButtonPanelWidget BuildAndSetFieldDetailsButton()
+        private void BuildAndSetFieldDetailsButton()
         {
-            return this.BuildAndSetRequestTypeButtonPanel(RequestType.FieldDetails,
-                ButtonPanelConstants.BUTTON_FIELD_DETAILS_COORDS);
+            this.BuildAndSetRequestTypeButtonPanel(RequestType.FieldDetails,
+               ButtonPanelConstants.BUTTON_FIELD_DETAILS_COORDS);
         }
 
-        private IButtonPanelWidget BuildAndSetFactionDetailsButton()
+        private void BuildAndSetFactionDetailsButton()
         {
-            return this.BuildAndSetRequestTypeButtonPanel(RequestType.FactionDetails,
-                ButtonPanelConstants.BUTTON_FACTION_DETAILS_COORDS);
+            this.BuildAndSetRequestTypeButtonPanel(RequestType.FactionDetails,
+               ButtonPanelConstants.BUTTON_FACTION_DETAILS_COORDS);
         }
 
-        private IButtonPanelWidget BuildAndSetPhalanxDetailsButton()
+        private void BuildAndSetPhalanxDetailsButton()
         {
-            return this.BuildAndSetRequestTypeButtonPanel(RequestType.PhalanxDetails,
+            this.BuildAndSetRequestTypeButtonPanel(RequestType.PhalanxDetails,
                 ButtonPanelConstants.BUTTON_PHALANX_DETAILS_COORDS);
         }
 
-        private IButtonPanelWidget BuildAndSetSortieDetailsButton()
+        private void BuildAndSetSortieDetailsButton()
         {
-            return this.BuildAndSetRequestTypeButtonPanel(RequestType.SortieDetails,
-                ButtonPanelConstants.BUTTON_SORTIE_DETAILS_COORDS);
+            this.BuildAndSetRequestTypeButtonPanel(RequestType.SortieDetails,
+               ButtonPanelConstants.BUTTON_SORTIE_DETAILS_COORDS);
         }
 
-        private IButtonPanelWidget BuildAndSetCombatantDetailsButton()
+        private void BuildAndSetCombatantDetailsButton()
         {
-            return this.BuildAndSetRequestTypeButtonPanel(RequestType.CombatantDetails,
-                ButtonPanelConstants.BUTTON_COMBATANT_DETAILS_COORDS);
+            this.BuildAndSetRequestTypeButtonPanel(RequestType.CombatantDetails,
+               ButtonPanelConstants.BUTTON_COMBATANT_DETAILS_COORDS);
         }
 
-        private IButtonPanelWidget BuildAndSetSortieStartButton()
+        private void BuildAndSetSortieStartButton()
         {
-            return this.BuildAndSetRequestTypeButtonPanel(RequestType.SortieStart, ButtonPanelConstants.BUTTON_SORTIE_START_COORDS);
+            this.BuildAndSetRequestTypeButtonPanel(RequestType.SortieStart,
+                ButtonPanelConstants.BUTTON_SORTIE_START_COORDS);
         }
 
         private IButtonPanelWidget BuildAndSetRequestTypeButtonPanel(RequestType requestType, Vector2 buttonCoords)
@@ -98,9 +98,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                         .SetCanvasGridSize(ButtonPanelConstants.BUTTON_SIZE))
                     .SetMvcType(this.mvcType)
                     .SetCanvasLevel(0)
-                    .SetInteractable(false)
+                    .SetInteractable(true)
                     .SetEnabled(true)
-                    .SetName(this.mvcType + ":" + requestType + ":Button:" + CanvasWidgetType.Panel)
+                    .SetName(requestType + ":Button")
                     .SetParent(this)
                     .Build();
         }

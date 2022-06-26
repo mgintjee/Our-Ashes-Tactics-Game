@@ -105,6 +105,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         private static ITileDetails BuildRandomTileDetails(Random random, Vector3 tileCoord)
         {
             TileType tileType = EnumUtils.GenerateRandomEnum<TileType>(random);
+            logger.Debug("Coord: {}, {}", tileCoord, tileType);
             return TileDetailsImpl.Builder.Get()
                 .SetTileType(tileType)
                 .SetVector3(tileCoord)

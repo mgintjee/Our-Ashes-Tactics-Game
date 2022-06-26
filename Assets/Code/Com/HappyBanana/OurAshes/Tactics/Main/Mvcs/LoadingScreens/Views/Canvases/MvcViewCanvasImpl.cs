@@ -31,7 +31,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.LoadingScreens.
                     .SetCanvasLevel(0)
                     .SetInteractable(false)
                     .SetEnabled(true)
-                    .SetName(this.mvcType + ":Tips:" + CanvasWidgetType.Panel)
+                    .SetName(":Tips:" + CanvasWidgetType.Panel)
                     .SetParent(this)
                     .Build()
             };

@@ -1,5 +1,5 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.IDs;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.IDs;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
@@ -20,6 +20,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
     public class PhalanxDetailsPanelImpl
         : AbstractPanelWidget, IPanelWidget
     {
+        private IPopUpPanelWidget popUpWidget;
         private IButtonPanelWidget idButton;
         private IButtonPanelWidget iconButton;
         private IButtonPanelWidget combatantAddButton;
@@ -66,7 +67,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     .SetCanvasGridCoords(PanelConstants.IDs.BUTTON_COORDS)
                     .SetCanvasGridSize(PanelConstants.INFO_SIZE);
             string buttonType = typeof(PhalanxID).Name;
-            string textName = this.mvcType + ":" + buttonType + ":Button";
+            string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
             string buttonText = PhalanxID.None.ToString();
             idButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
             return idButton;
@@ -78,7 +79,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     .SetCanvasGridCoords(PanelConstants.Icons.BUTTON_COORDS)
                     .SetCanvasGridSize(PanelConstants.INFO_SIZE);
             string buttonType = typeof(IconID).Name;
-            string textName = this.mvcType + ":" + buttonType + ":Button";
+            string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
             string buttonText = IconID.None.ToString();
             iconButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
             return iconButton;
@@ -90,7 +91,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     .SetCanvasGridCoords(PanelConstants.CombatantHeader.MINUS_BUTTON_COORDS)
                     .SetCanvasGridSize(PanelConstants.INFO_SIZE);
             string buttonType = typeof(CombatantID).Name + ":Minus";
-            string textName = this.mvcType + ":" + buttonType + ":Button";
+            string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
             string buttonText = "-";
             combatantMinusButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
             return combatantMinusButton;
@@ -101,8 +102,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
                     .SetCanvasGridCoords(PanelConstants.CombatantHeader.ADD_BUTTON_COORDS)
                     .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            string buttonType = typeof(CombatantID).Name + ":Minus";
-            string textName = this.mvcType + ":" + buttonType + ":Button";
+            string buttonType = typeof(CombatantID).Name + ":Add";
+            string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
             string buttonText = "+";
             combatantAddButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
             return combatantAddButton;
@@ -197,6 +198,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             public interface IInternalBuilder
                 : PanelWidgetBuilders.IPanelWidgetBuilder
             {
+                IInternalBuilder SetPopUpWidget(IPopUpPanelWidget widget);
             }
 
             /// <summary>
@@ -214,9 +216,18 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             private class InternalBuilder
                 : PanelWidgetBuilders.InternalPanelWidgetBuilder, IInternalBuilder
             {
+                private IPopUpPanelWidget popUpWidget;
+
+                IInternalBuilder IInternalBuilder.SetPopUpWidget(IPopUpPanelWidget widget)
+                {
+                    this.popUpWidget = widget;
+                    return this;
+                }
+
                 protected override IPanelWidget BuildScript(UnityEngine.GameObject gameObject)
                 {
-                    IPanelWidget widget = gameObject.AddComponent<PhalanxDetailsPanelImpl>();
+                    PhalanxDetailsPanelImpl widget = gameObject.AddComponent<PhalanxDetailsPanelImpl>();
+                    widget.popUpWidget = popUpWidget;
                     this.ApplyPanelValues(widget);
                     return widget;
                 }

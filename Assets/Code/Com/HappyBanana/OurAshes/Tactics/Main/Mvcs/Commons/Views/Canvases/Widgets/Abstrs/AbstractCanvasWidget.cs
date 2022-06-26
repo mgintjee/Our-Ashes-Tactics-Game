@@ -132,7 +132,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         /// <inheritdoc/>
         void ICanvasWidget.ApplyGridConvertor(ICanvasGridConvertor canvasGridConvertor)
         {
-            this.logger.Debug("Applying {} to {}: Grid:{}, World: {}", canvasGridConvertor, this.widgetName, this.widgetGridSpec, this.widgetWorldSpec);
             CanvasWidgetUtils.ApplyGridConvertor(canvasGridConvertor, this);
         }
 

@@ -88,7 +88,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     .SetCanvasGridCoords(Vector2.Zero)
                     .SetCanvasGridSize(this.canvasGridConvertor.GetGridSize()))
                 .SetParent(this)
-                .SetName(this.name + ":Back:" + CanvasWidgetType.Image)
+                .SetName("Back:" + CanvasWidgetType.Image)
                 .Build();
         }
 
@@ -117,7 +117,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 .SetEnabled(true)
                 .SetWidgetGridSpec(widgetGridSpec)
                 .SetParent(this)
-                .SetName(this.name + ":" + index + ":" + CanvasWidgetType.Image)
+                .SetName(index + ":" + CanvasWidgetType.Image)
                 .Build();
         }
 
@@ -142,7 +142,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 .SetEnabled(true)
                 .SetWidgetGridSpec(widgetGridSpec)
                 .SetParent(this)
-                .SetName(this.mvcType + ":" + this.GetType().Name + ":" + index + ":" + CanvasWidgetType.Text)
+                .SetName(this.GetType().Name + ":" + index + ":" + CanvasWidgetType.Text)
                 .Build();
         }
 

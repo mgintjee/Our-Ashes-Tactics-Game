@@ -1,6 +1,7 @@
 ﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Types;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Worlds.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Constants;
@@ -37,6 +38,14 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             }
             canvasLevelWidgets[widget.GetCanvasLevel()].Add(widget);
             widget.ApplyGridConvertor(canvasGridConvertor);
+        }
+
+        public static void RemoveWidget(IDictionary<int, ISet<ICanvasWidget>> canvasLevelWidgets, ICanvasWidget widget)
+        {
+            if (canvasLevelWidgets.ContainsKey(widget.GetCanvasLevel()))
+            {
+                canvasLevelWidgets[widget.GetCanvasLevel()].Remove(widget);
+            }
         }
 
         public static bool IsInputOnWidget(IMvcControlInput mvcControlInput, ICanvasWidget canvasWidget)
@@ -111,6 +120,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             {
                 imageWidget.SetColorID(WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR);
             }
+        }
+        public static void SetButtonInteractable(IButtonPanelWidget widget, bool interactable)
+        {
+            widget.SetInteractable(interactable);
+            SetImageInteractable(widget.GetImageWidget(), interactable);
+            SetTextInteractable(widget.GetTextWidget(), interactable);
         }
 
         public static void SetTextInteractable(ITextWidget textWidget, bool interactable)

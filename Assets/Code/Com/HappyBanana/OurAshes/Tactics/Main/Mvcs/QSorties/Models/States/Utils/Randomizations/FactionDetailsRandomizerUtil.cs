@@ -1,4 +1,5 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Details.Impls;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Enums;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Details.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Factions.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Inters;
@@ -14,6 +15,15 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         {
             IList<IFactionDetails> factionDetails = new List<IFactionDetails>();
             IDictionary<FactionID, IList<IPhalanxDetails>> factionPhalanxDetailsMap = BuildFactionPhalanxDetails(random, fieldDetails);
+
+            foreach(FactionID id in EnumUtils.GetEnumListWithoutFirst<FactionID>())
+            {
+                if(!factionPhalanxDetailsMap.ContainsKey(id))
+                {
+                    factionPhalanxDetailsMap[id] = new List<IPhalanxDetails>();
+                }
+            }
+
             foreach (KeyValuePair<FactionID, IList<IPhalanxDetails>> factionPhalanxDetails in factionPhalanxDetailsMap)
             {
                 FactionID factionID = factionPhalanxDetails.Key;

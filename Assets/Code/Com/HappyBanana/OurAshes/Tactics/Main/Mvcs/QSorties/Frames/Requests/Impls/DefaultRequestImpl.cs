@@ -6,7 +6,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames
     /// <summary>
     /// Todo
     /// </summary>
-    public class MvcRequestImpl
+    public class DefaultRequestImpl
         : IQSortieMenuMvcRequest
     {
         // Todo
@@ -16,10 +16,16 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames
         /// Todo
         /// </summary>
         /// <param name="qSortieRequestType"></param>
-        public MvcRequestImpl SetRequestType(RequestType qSortieRequestType)
+        public DefaultRequestImpl SetRequestType(RequestType qSortieRequestType)
         {
             this.requestType = qSortieRequestType;
             return this;
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return string.Format("{0}: Type:{1}", this.GetType().Name, this.requestType);
         }
 
         /// <inheritdoc/>

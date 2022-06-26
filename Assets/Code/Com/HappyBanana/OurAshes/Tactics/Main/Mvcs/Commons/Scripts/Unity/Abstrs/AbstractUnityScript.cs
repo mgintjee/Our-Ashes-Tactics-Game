@@ -1,5 +1,6 @@
 ﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Builders.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Inters;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,9 +50,14 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Scripts
             return this.GetGameObject().name;
         }
 
-        IUnityScript IUnityScript.GetParent()
+        Optional<IUnityScript> IUnityScript.GetParent()
         {
-            return this.transform.parent.GetComponent<IUnityScript>();
+            IUnityScript parentScript = null;
+            if (this.transform != null && this.transform.parent != null)
+            {
+                parentScript = this.transform.parent.GetComponent<IUnityScript>();
+            }
+            return Optional<IUnityScript>.Of(parentScript);
         }
 
         /// <summary>

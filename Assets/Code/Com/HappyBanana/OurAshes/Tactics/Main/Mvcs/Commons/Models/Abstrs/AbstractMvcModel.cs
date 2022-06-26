@@ -21,7 +21,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.
         protected readonly IMvcModelState mvcModelState;
 
         // Todo
-        protected bool _isProcessing = true;
+        protected bool isProcessing = true;
 
         // Todo
         protected IMvcFrameConstruction _mvcFrameConstruction;
@@ -34,17 +34,16 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.
         {
             logger = LoggerManager.GetLogger(mvcFrameConstruction.GetMvcType())
                 .GetClassLogger(this.GetType());
-            logger.Info("Constructing {} for MvcType: {}",
-                typeof(IMvcModel), mvcFrameConstruction.GetMvcType());
+            logger.Info("Constructing {}", this.GetType().Name);
             _mvcFrameConstruction = mvcFrameConstruction;
             this.mvcModelState = this.BuildInitialMvcModelState();
-            _isProcessing = true;
+            isProcessing = true;
         }
 
         /// <inheritdoc/>
         bool IMvcModel.IsProcessing()
         {
-            return this._isProcessing;
+            return this.isProcessing;
         }
 
         /// <inheritdoc/>
@@ -59,7 +58,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.
             }
             else
             {
-                logger.Info("Processing initial {}...", typeof(IMvcRequest));
+                logger.Info("Processing initial request...");
                 this.ProcessInitialMvcModelRequest();
             }
         }

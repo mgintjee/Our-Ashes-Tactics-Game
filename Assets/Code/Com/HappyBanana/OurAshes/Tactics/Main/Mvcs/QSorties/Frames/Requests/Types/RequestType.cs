@@ -6,10 +6,21 @@
     public enum RequestType
     {
         None,
+
         FieldDetails,
-        FieldMod,
+        FieldIDMod,
+        FieldIDPopUp,
+        FieldBiomeMod,
+        FieldBiomePopUp,
+        FieldSizeMod,
+        FieldSizePopUp,
+        FieldShapeMod,
+        FieldShapePopUp,
+
         FieldRandomize,
         FactionDetails,
+        FactionIDMod,
+        FactionIDPopUp,
         FactionMod,
         FactionRandomize,
         CombatantDetails,
@@ -18,6 +29,7 @@
         PhalanxMod,
         SortieDetails,
         SortieRandomize,
-        SortieStart
+        SortieStart,
+        PopUpDisable
     }
 }
