@@ -1,12 +1,12 @@
 ﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Sizes;
 using System;
 
-namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Constants.Combatants
+namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Constants.Units
 {
     /// <summary>
     /// Todo
     /// </summary>
-    public class CombatantCountConstants
+    public class UnitCountConstants
     {
         private static readonly int SMALL_MAX_COMBATANT_COUNT = 6;
         private static readonly int SMALL_COMBATANT_FACTOR = 3;
@@ -15,18 +15,18 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
         private static readonly int LARGE_MAX_COMBATANT_COUNT = 18;
         private static readonly int LARGE_COMBATANT_FACTOR = 5;
 
-        public static int GetMaxCombatantCounts(FieldSize fieldSize, int phalanxCount)
+        public static int GetMaxUnitCounts(FieldSize fieldSize, int phalanxCount)
         {
             switch (fieldSize)
             {
                 case FieldSize.Small:
-                    return GetMaxCombatantCounts(phalanxCount, SMALL_COMBATANT_FACTOR, SMALL_MAX_COMBATANT_COUNT);
+                    return GetMaxUnitCounts(phalanxCount, SMALL_COMBATANT_FACTOR, SMALL_MAX_COMBATANT_COUNT);
 
                 case FieldSize.Medium:
-                    return GetMaxCombatantCounts(phalanxCount, MEDIUM_COMBATANT_FACTOR, MEDIUM_MAX_COMBATANT_COUNT);
+                    return GetMaxUnitCounts(phalanxCount, MEDIUM_COMBATANT_FACTOR, MEDIUM_MAX_COMBATANT_COUNT);
 
                 case FieldSize.Large:
-                    return GetMaxCombatantCounts(phalanxCount, LARGE_COMBATANT_FACTOR, LARGE_MAX_COMBATANT_COUNT);
+                    return GetMaxUnitCounts(phalanxCount, LARGE_COMBATANT_FACTOR, LARGE_MAX_COMBATANT_COUNT);
 
                 case FieldSize.None:
                 default:
@@ -34,9 +34,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
             }
         }
 
-        private static int GetMaxCombatantCounts(int phalanxCount, int combatantFactor, int maxCombatantCount)
+        private static int GetMaxUnitCounts(int phalanxCount, int unitFactor, int maxUnitCount)
         {
-            return Math.Max(phalanxCount * combatantFactor, maxCombatantCount);
+            return Math.Max(phalanxCount * unitFactor, maxUnitCount);
         }
     }
 }

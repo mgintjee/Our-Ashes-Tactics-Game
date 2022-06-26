@@ -1,4 +1,4 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.IDs;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Units.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Factions.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.IDs;
@@ -23,7 +23,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         private IPopUpPanelWidget popUpWidget;
         private IMultiTextPanelWidget factionCountWidget;
         private IMultiTextPanelWidget phalanxCountWidget;
-        private IMultiTextPanelWidget combatantCountWidget;
+        private IMultiTextPanelWidget unitCountWidget;
         private IMultiTextPanelWidget fieldIDWidget;
 
         public override void Process(IMvcModelState modelState)
@@ -36,7 +36,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             ISet<ICanvasWidget> panelWidgets = new HashSet<ICanvasWidget>() {
                 this.BuildAndSetFactionCount(),
                 this.BuildAndSetPhalanxCount(),
-                this.BuildAndSetCombatantCount(),
+                this.BuildAndSetUnitCount(),
                 this.BuildAndSetFieldID()
             };
             this.InternalAddWidgets(panelWidgets);
@@ -82,24 +82,24 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             return this.phalanxCountWidget;
         }
 
-        private IMultiTextPanelWidget BuildAndSetCombatantCount()
+        private IMultiTextPanelWidget BuildAndSetUnitCount()
         {
             IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.Combatants.COORDS)
+                    .SetCanvasGridCoords(PanelConstants.Units.COORDS)
                     .SetCanvasGridSize(PanelConstants.COUNTER_SIZE);
             IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
             {
-                new TextImageWidgetStruct("Combatant Count",
+                new TextImageWidgetStruct("Unit Count",
                     WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR,
                     WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR),
                 new TextImageWidgetStruct("0",
                     WidgetConstants.BUTTON_INTERACTABLE_ENABLED_TEXT_COLOR,
                     WidgetConstants.BUTTON_INTERACTABLE_ENABLED_IMAGE_COLOR)
             };
-            string textName = typeof(CombatantID).Name + ":Counter";
-            this.combatantCountWidget = this.BuildMultiText(textName, widgetGridSpec,
+            string textName = typeof(UnitID).Name + ":Counter";
+            this.unitCountWidget = this.BuildMultiText(textName, widgetGridSpec,
                 textImageWidgetStructs, false);
-            return this.combatantCountWidget;
+            return this.unitCountWidget;
         }
 
         private IMultiTextPanelWidget BuildAndSetFieldID()

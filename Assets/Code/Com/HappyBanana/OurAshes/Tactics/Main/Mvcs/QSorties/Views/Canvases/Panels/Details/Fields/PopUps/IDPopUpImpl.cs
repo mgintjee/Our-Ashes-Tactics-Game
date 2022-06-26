@@ -11,11 +11,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
     public class IDPopUpImpl
         : AbstractStaticEnumPopUp<FieldID>
     {
-        private IFieldDetails fieldDetails;
+        private IFieldDetails details;
 
         protected override bool IsButtonInteractable(FieldID tEnum)
         {
-            return tEnum != this.fieldDetails.GetFieldID();
+            return tEnum != this.details.GetFieldID();
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             public interface IInternalBuilder
                 : PanelWidgetBuilders.IPanelWidgetBuilder
             {
-                IInternalBuilder SetFieldDetails(IFieldDetails fieldDetails);
+                IInternalBuilder SetFieldDetails(IFieldDetails details);
             }
 
             /// <summary>
@@ -47,18 +47,18 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             private class InternalBuilder
                 : PanelWidgetBuilders.InternalPanelWidgetBuilder, IInternalBuilder
             {
-                private IFieldDetails fieldDetails;
+                private IFieldDetails details;
 
-                IInternalBuilder IInternalBuilder.SetFieldDetails(IFieldDetails fieldDetails)
+                IInternalBuilder IInternalBuilder.SetFieldDetails(IFieldDetails details)
                 {
-                    this.fieldDetails = fieldDetails;
+                    this.details = details;
                     return this;
                 }
 
                 protected override IPanelWidget BuildScript(UnityEngine.GameObject gameObject)
                 {
                     IDPopUpImpl widget = gameObject.AddComponent<IDPopUpImpl>();
-                    widget.fieldDetails = fieldDetails;
+                    widget.details = details;
                     this.ApplyPanelValues(widget);
                     return widget;
                 }

@@ -71,7 +71,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             switch (requestType)
             {
                 case RequestType.PopUpDisable:
-                case RequestType.CombatantDetails:
+                case RequestType.UnitDetails:
                 case RequestType.FactionDetails:
                 case RequestType.FieldDetails:
                 case RequestType.PhalanxDetails:
@@ -106,7 +106,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     request = this.BuildFactionIDModRequestFrom(widgetName);
                     break;
 
-                case RequestType.CombatantMod:
+                case RequestType.UnitMod:
                 case RequestType.PhalanxMod:
                 case RequestType.FactionMod:
                 case RequestType.None:

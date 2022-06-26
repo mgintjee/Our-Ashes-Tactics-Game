@@ -6,7 +6,7 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canva
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Types;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Combatants;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Units;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Constants;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Factions;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Phalanxes;
@@ -41,7 +41,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 this.BuildAndSetFieldDetailsPanel(),
                 this.BuildAndSetFactionDetailsPanel(),
                 this.BuildAndSetSortieDetailsPanel(),
-                this.BuildAndSetCombatantDetailsPanel(),
+                this.BuildAndSetUnitDetailsPanel(),
                 this.BuildAndSetPhalanxDetailsPanel()
             };
             this.InternalAddWidgets(panelWidgets);
@@ -143,11 +143,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             return this.requestTypeDetailsPanels[RequestType.PhalanxDetails];
         }
 
-        private ICanvasWidget BuildAndSetCombatantDetailsPanel()
+        private ICanvasWidget BuildAndSetUnitDetailsPanel()
         {
-            this.requestTypeDetailsPanels[RequestType.CombatantDetails] = CombatantDetailsPanelImpl.Builder.Get()
+            this.requestTypeDetailsPanels[RequestType.UnitDetails] = UnitDetailsPanelImpl.Builder.Get()
                 .SetPopUpWidget(popUpWidget)
-                    .SetPanelGridSize(DetailsPanelConstants.Combatants.Vectors.SIZE)
+                    .SetPanelGridSize(DetailsPanelConstants.Units.Vectors.SIZE)
                     .SetWidgetGridSpec(new WidgetGridSpecImpl()
                         .SetCanvasGridCoords(Vector2.Zero)
                         .SetCanvasGridSize(this.canvasGridConvertor.GetGridSize()))
@@ -155,10 +155,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     .SetCanvasLevel(0)
                     .SetInteractable(true)
                     .SetEnabled(true)
-                    .SetName(RequestType.CombatantDetails + ":" + CanvasWidgetType.Panel)
+                    .SetName(RequestType.UnitDetails + ":" + CanvasWidgetType.Panel)
                     .SetParent(this)
                     .Build();
-            return this.requestTypeDetailsPanels[RequestType.CombatantDetails];
+            return this.requestTypeDetailsPanels[RequestType.UnitDetails];
         }
 
         /// <summary>

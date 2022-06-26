@@ -1,4 +1,4 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.IDs;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Units.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.IDs;
@@ -23,9 +23,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         private IPopUpPanelWidget popUpWidget;
         private IButtonPanelWidget idButton;
         private IButtonPanelWidget iconButton;
-        private IButtonPanelWidget combatantAddButton;
-        private IButtonPanelWidget combatantMinusButton;
-        private IMultiTextPanelWidget combatantIDList;
+        private IButtonPanelWidget unitAddButton;
+        private IButtonPanelWidget unitMinusButton;
+        private IMultiTextPanelWidget unitIDList;
         private IMultiTextPanelWidget powerText;
 
         public override void Process(IMvcModelState modelState)
@@ -56,8 +56,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             return new HashSet<ICanvasWidget>() {
                 this.BuildAndSetIDButton(),
                 this.BuildAndSetIconButton(),
-                this.BuildAndSetCombatantMinusButton(),
-                this.BuildAndSetCombatantAddButton()
+                this.BuildAndSetUnitMinusButton(),
+                this.BuildAndSetUnitAddButton()
             };
         }
 
@@ -85,28 +85,28 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             return iconButton;
         }
 
-        private IButtonPanelWidget BuildAndSetCombatantMinusButton()
+        private IButtonPanelWidget BuildAndSetUnitMinusButton()
         {
             IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.CombatantHeader.MINUS_BUTTON_COORDS)
+                    .SetCanvasGridCoords(PanelConstants.UnitHeader.MINUS_BUTTON_COORDS)
                     .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            string buttonType = typeof(CombatantID).Name + ":Minus";
+            string buttonType = typeof(UnitID).Name + ":Minus";
             string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
             string buttonText = "-";
-            combatantMinusButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
-            return combatantMinusButton;
+            unitMinusButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
+            return unitMinusButton;
         }
 
-        private IButtonPanelWidget BuildAndSetCombatantAddButton()
+        private IButtonPanelWidget BuildAndSetUnitAddButton()
         {
             IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.CombatantHeader.ADD_BUTTON_COORDS)
+                    .SetCanvasGridCoords(PanelConstants.UnitHeader.ADD_BUTTON_COORDS)
                     .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            string buttonType = typeof(CombatantID).Name + ":Add";
+            string buttonType = typeof(UnitID).Name + ":Add";
             string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
             string buttonText = "+";
-            combatantAddButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
-            return combatantAddButton;
+            unitAddButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
+            return unitAddButton;
         }
 
         private IMultiTextPanelWidget BuildIconText()
@@ -142,30 +142,30 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         private IMultiTextPanelWidget BuildPhalanxText()
         {
             IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.CombatantHeader.TEXT_COORDS)
-                    .SetCanvasGridSize(PanelConstants.CombatantHeader.TEXT_SIZE);
+                    .SetCanvasGridCoords(PanelConstants.UnitHeader.TEXT_COORDS)
+                    .SetCanvasGridSize(PanelConstants.UnitHeader.TEXT_SIZE);
             IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
             {
-                new TextImageWidgetStruct("Combatants:",
+                new TextImageWidgetStruct("Units:",
                     WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
                     WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
             };
-            string textName = typeof(CombatantID).Name + ":Text";
+            string textName = typeof(UnitID).Name + ":Text";
             return this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
         }
 
         private IMultiTextPanelWidget BuildPhalanxListText()
         {
             IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.CombatantList.COORDS)
-                    .SetCanvasGridSize(PanelConstants.CombatantList.SIZE);
+                    .SetCanvasGridCoords(PanelConstants.UnitList.COORDS)
+                    .SetCanvasGridSize(PanelConstants.UnitList.SIZE);
             IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
             {
                 new TextImageWidgetStruct("[null]",
                     WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
                     WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
             };
-            string textName = typeof(CombatantID).Name + "List:Text";
+            string textName = typeof(UnitID).Name + "List:Text";
             return this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
         }
 

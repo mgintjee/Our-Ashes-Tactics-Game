@@ -1,7 +1,7 @@
 ﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Builders.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Strings;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Units.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.IDs;
 using System.Collections.Generic;
@@ -15,12 +15,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Phalanx
         : IPhalanxDetails
     {
         private readonly PhalanxID id;
-        private readonly IList<ICombatantDetails> combatantDetails;
+        private readonly IList<IUnitDetails> unitDetails;
 
-        private PhalanxDetailsImpl(PhalanxID id, IList<ICombatantDetails> combatantDetails)
+        private PhalanxDetailsImpl(PhalanxID id, IList<IUnitDetails> unitDetails)
         {
             this.id = id;
-            this.combatantDetails = combatantDetails;
+            this.unitDetails = unitDetails;
         }
 
         /// <inheritdoc/>
@@ -29,7 +29,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Phalanx
             return string.Format("\n{0}" +
                 "\n{1}",
                 StringUtils.Format(this.id),
-                StringUtils.Format(this.combatantDetails));
+                StringUtils.Format(this.unitDetails));
         }
 
         PhalanxID IPhalanxDetails.GetID()
@@ -37,9 +37,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Phalanx
             return id;
         }
 
-        IList<ICombatantDetails> IPhalanxDetails.GetCombatantDetails()
+        IList<IUnitDetails> IPhalanxDetails.GetUnitDetails()
         {
-            return new List<ICombatantDetails>(combatantDetails);
+            return new List<IUnitDetails>(unitDetails);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Phalanx
             {
                 IInternalBuilder SetID(PhalanxID id);
 
-                IInternalBuilder SetCombatantDetails(IList<ICombatantDetails> combatantDetails);
+                IInternalBuilder SetUnitDetails(IList<IUnitDetails> unitDetails);
             }
 
             /// <summary>
@@ -74,7 +74,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Phalanx
                 : AbstractBuilder<IPhalanxDetails>, IInternalBuilder
             {
                 private PhalanxID id;
-                private IList<ICombatantDetails> combatantDetails;
+                private IList<IUnitDetails> unitDetails;
 
                 IInternalBuilder IInternalBuilder.SetID(PhalanxID id)
                 {
@@ -82,15 +82,15 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Phalanx
                     return this;
                 }
 
-                IInternalBuilder IInternalBuilder.SetCombatantDetails(IList<ICombatantDetails> combatantDetails)
+                IInternalBuilder IInternalBuilder.SetUnitDetails(IList<IUnitDetails> unitDetails)
                 {
-                    this.combatantDetails = new List<ICombatantDetails>(combatantDetails);
+                    this.unitDetails = new List<IUnitDetails>(unitDetails);
                     return this;
                 }
 
                 protected override IPhalanxDetails BuildObj()
                 {
-                    return new PhalanxDetailsImpl(id, combatantDetails);
+                    return new PhalanxDetailsImpl(id, unitDetails);
                 }
             }
         }

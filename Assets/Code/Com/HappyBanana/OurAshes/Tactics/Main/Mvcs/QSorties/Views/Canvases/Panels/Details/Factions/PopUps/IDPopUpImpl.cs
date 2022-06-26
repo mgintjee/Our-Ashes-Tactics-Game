@@ -12,11 +12,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
     public class IDPopUpImpl
         : AbstractStaticEnumPopUp<FactionID>
     {
-        private IList<IFactionDetails> factionDetails;
+        private IList<IFactionDetails> details;
 
         protected override bool IsButtonInteractable(FactionID tEnum)
         {
-            return tEnum != factionDetails[0].GetFactionID();
+            return tEnum != details[0].GetFactionID();
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             public interface IInternalBuilder
                 : PanelWidgetBuilders.IPanelWidgetBuilder
             {
-                IInternalBuilder SetFactionDetails(IList<IFactionDetails> factionDetails);
+                IInternalBuilder SetFactionDetails(IList<IFactionDetails> details);
             }
 
             /// <summary>
@@ -48,18 +48,18 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             private class InternalBuilder
                 : PanelWidgetBuilders.InternalPanelWidgetBuilder, IInternalBuilder
             {
-                private IList<IFactionDetails> factionDetails = new List<IFactionDetails>();
+                private IList<IFactionDetails> details = new List<IFactionDetails>();
 
-                  IInternalBuilder IInternalBuilder.SetFactionDetails(IList<IFactionDetails> factionDetails)
+                IInternalBuilder IInternalBuilder.SetFactionDetails(IList<IFactionDetails> details)
                 {
-                    this.factionDetails = factionDetails;
+                    this.details = details;
                     return this;
                 }
 
                 protected override IPanelWidget BuildScript(UnityEngine.GameObject gameObject)
                 {
                     IDPopUpImpl widget = gameObject.AddComponent<IDPopUpImpl>();
-                    widget.factionDetails = factionDetails;
+                    widget.details = details;
                     this.ApplyPanelValues(widget);
                     return widget;
                 }

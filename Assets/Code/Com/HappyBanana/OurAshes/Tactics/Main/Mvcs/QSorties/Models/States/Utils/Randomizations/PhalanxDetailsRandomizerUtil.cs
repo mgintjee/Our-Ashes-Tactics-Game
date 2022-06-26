@@ -1,8 +1,8 @@
 ﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Loggers.Managers;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.IDs;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Constants.Combatants;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Units.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Units.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Constants.Units;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Constants.Phalanxes;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Sizes;
@@ -29,41 +29,41 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
 
             FieldSize fieldSize = fieldDetails.GetFieldSize();
             int phalanxCount = GetPhalanxCount(random, fieldSize);
-            int combatantCount = GetCombatantCount(random, fieldSize, phalanxCount);
-            IDictionary<PhalanxID, IList<ICombatantDetails>> phalanxCombatantDetailsMap = BuildPhalanxCombatantDetails(random, phalanxCount, combatantCount);
-            foreach (KeyValuePair<PhalanxID, IList<ICombatantDetails>> phalanxCombatantDetails in phalanxCombatantDetailsMap)
+            int unitCount = GetUnitCount(random, fieldSize, phalanxCount);
+            IDictionary<PhalanxID, IList<IUnitDetails>> phalanxUnitDetailsMap = BuildPhalanxUnitDetails(random, phalanxCount, unitCount);
+            foreach (KeyValuePair<PhalanxID, IList<IUnitDetails>> phalanxUnitDetails in phalanxUnitDetailsMap)
             {
-                PhalanxID phalanxID = phalanxCombatantDetails.Key;
-                IList<ICombatantDetails> combatantDetails = phalanxCombatantDetails.Value;
+                PhalanxID phalanxID = phalanxUnitDetails.Key;
+                IList<IUnitDetails> unitDetails = phalanxUnitDetails.Value;
                 phalanxDetails.Add(
                     PhalanxDetailsImpl.Builder.Get()
                     .SetID(phalanxID)
-                    .SetCombatantDetails(combatantDetails)
+                    .SetUnitDetails(unitDetails)
                     .Build());
             }
             logger.Debug("Randomized {}", phalanxDetails);
             return phalanxDetails;
         }
 
-        private static IDictionary<PhalanxID, IList<ICombatantDetails>> BuildPhalanxCombatantDetails(Random random, int phalanxCount, int combatantCount)
+        private static IDictionary<PhalanxID, IList<IUnitDetails>> BuildPhalanxUnitDetails(Random random, int phalanxCount, int unitCount)
         {
-            IDictionary<PhalanxID, IList<ICombatantDetails>> phalanxCombatantDetails = new Dictionary<PhalanxID, IList<ICombatantDetails>>();
+            IDictionary<PhalanxID, IList<IUnitDetails>> phalanxUnitDetails = new Dictionary<PhalanxID, IList<IUnitDetails>>();
 
             IList<PhalanxID> phalanxIDs = BuildIDs(phalanxCount);
             foreach (PhalanxID phalanxID in phalanxIDs)
             {
-                phalanxCombatantDetails.Add(phalanxID, new List<ICombatantDetails>());
+                phalanxUnitDetails.Add(phalanxID, new List<IUnitDetails>());
             }
 
-            for (int i = 0; i < combatantCount; ++i)
+            for (int i = 0; i < unitCount; ++i)
             {
                 PhalanxID phalanxID = (PhalanxID)((i % phalanxCount) + 1);
-                CombatantID combatantID = (CombatantID)(i + 1);
-                ICombatantDetails combatantDetails = CombatantDetailsRandomizerUtil.Randomize(random, combatantID);
-                phalanxCombatantDetails[phalanxID].Add(combatantDetails);
+                UnitID unitID = (UnitID)(i + 1);
+                IUnitDetails unitDetails = UnitDetailsRandomizerUtil.Randomize(random, unitID);
+                phalanxUnitDetails[phalanxID].Add(unitDetails);
             }
 
-            return phalanxCombatantDetails;
+            return phalanxUnitDetails;
         }
 
         private static IList<PhalanxID> BuildIDs(int count)
@@ -84,10 +84,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             return random.Next(MIN_PHALANX_COUNT, maxPhalanxCount);
         }
 
-        private static int GetCombatantCount(Random random, FieldSize fieldSize, int phalanxCount)
+        private static int GetUnitCount(Random random, FieldSize fieldSize, int phalanxCount)
         {
-            int maxCombatantCount = CombatantCountConstants.GetMaxCombatantCounts(fieldSize, phalanxCount);
-            return random.Next(phalanxCount, maxCombatantCount);
+            int maxUnitCount = UnitCountConstants.GetMaxUnitCounts(fieldSize, phalanxCount);
+            return random.Next(phalanxCount, maxUnitCount);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             public static readonly Vector2 BUTTON_COORDS = new Vector2(BUTTON_COORDS_X, COORDS_Y);
         }
 
-        public class CombatantHeader
+        public class UnitHeader
         {
             public static readonly float COORDS_Y = DetailsPanelConstants.Phalanxes.Vectors.SIZE.Y - 2;
             public static readonly float TEXT_COORDS_X = 0;
@@ -45,7 +45,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             public static readonly Vector2 TEXT_SIZE = INFO_SIZE * new Vector2(2, 1);
         }
 
-        public class CombatantList
+        public class UnitList
         {
             public static readonly float COORDS_Y = DetailsPanelConstants.Phalanxes.Vectors.SIZE.Y - 3;
             public static readonly float COORDS_X = 0;

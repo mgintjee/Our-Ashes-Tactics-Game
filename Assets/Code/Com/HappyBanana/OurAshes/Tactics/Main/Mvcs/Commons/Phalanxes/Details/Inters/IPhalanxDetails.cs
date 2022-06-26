@@ -1,4 +1,4 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Units.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.IDs;
 using System.Collections.Generic;
 
@@ -8,6 +8,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Phalanx
     {
         PhalanxID GetID();
 
-        IList<ICombatantDetails> GetCombatantDetails();
+        IList<IUnitDetails> GetUnitDetails();
     }
 }

@@ -16,9 +16,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             IList<IFactionDetails> factionDetails = new List<IFactionDetails>();
             IDictionary<FactionID, IList<IPhalanxDetails>> factionPhalanxDetailsMap = BuildFactionPhalanxDetails(random, fieldDetails);
 
-            foreach(FactionID id in EnumUtils.GetEnumListWithoutFirst<FactionID>())
+            foreach (FactionID id in EnumUtils.GetEnumListWithoutFirst<FactionID>())
             {
-                if(!factionPhalanxDetailsMap.ContainsKey(id))
+                if (!factionPhalanxDetailsMap.ContainsKey(id))
                 {
                     factionPhalanxDetailsMap[id] = new List<IPhalanxDetails>();
                 }

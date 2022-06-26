@@ -53,7 +53,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             }
         }
 
-        public class Combatants
+        public class Units
         {
             public class Floats
             {

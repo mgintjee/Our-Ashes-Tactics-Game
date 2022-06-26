@@ -35,7 +35,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             this.BuildAndSetFieldDetailsButton();
             this.BuildAndSetFactionDetailsButton();
             this.BuildAndSetPhalanxDetailsButton();
-            this.BuildAndSetCombatantDetailsButton();
+            this.BuildAndSetUnitDetailsButton();
             this.BuildAndSetSortieDetailsButton();
             this.BuildAndSetSortieStartButton();
             this.UpdateButtons(RequestType.SortieDetails);
@@ -69,9 +69,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                ButtonPanelConstants.BUTTON_SORTIE_DETAILS_COORDS);
         }
 
-        private void BuildAndSetCombatantDetailsButton()
+        private void BuildAndSetUnitDetailsButton()
         {
-            this.BuildAndSetRequestTypeButtonPanel(RequestType.CombatantDetails,
+            this.BuildAndSetRequestTypeButtonPanel(RequestType.UnitDetails,
                ButtonPanelConstants.BUTTON_COMBATANT_DETAILS_COORDS);
         }
 

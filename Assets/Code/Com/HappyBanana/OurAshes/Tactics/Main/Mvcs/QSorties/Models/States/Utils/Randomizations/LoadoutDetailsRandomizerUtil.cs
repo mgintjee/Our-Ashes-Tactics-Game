@@ -1,9 +1,9 @@
 ﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Enums;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Attrs.Managers;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Constants;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Models;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Units.Attrs.Managers;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Units.Constants;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Units.Models;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Armors.Gears.Constants;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Armors.Gears.Details.Impls;
@@ -38,12 +38,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         private static readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Common)
                 .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 
-        public static ILoadoutDetails Randomize(Random random, ModelID combatantID)
+        public static ILoadoutDetails Randomize(Random random, ModelID unitID)
         {
-            IArmorGearDetails armorGearDetails = RandomizeArmorGearDetails(random, combatantID);
-            ICabinGearDetails cabinGearDetails = RandomizeCabinGearDetails(random, combatantID);
-            IEngineGearDetails engineGearDetails = RandomizeEngineGearDetails(random, combatantID);
-            ISet<IWeaponGearDetails> weaponGearDetails = RandomizeWeaponGearDetailsSet(random, combatantID);
+            IArmorGearDetails armorGearDetails = RandomizeArmorGearDetails(random, unitID);
+            ICabinGearDetails cabinGearDetails = RandomizeCabinGearDetails(random, unitID);
+            IEngineGearDetails engineGearDetails = RandomizeEngineGearDetails(random, unitID);
+            ISet<IWeaponGearDetails> weaponGearDetails = RandomizeWeaponGearDetailsSet(random, unitID);
             ILoadoutDetails details = LoadoutDetailsImpl.Builder.Get()
                 .SetArmorGearDetails(armorGearDetails)
                 .SetCabinGearDetails(cabinGearDetails)
@@ -56,7 +56,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
 
         private static IArmorGearDetails RandomizeArmorGearDetails(Random random, ModelID modelID)
         {
-            ISet<ArmorGearID> availableArmorIDs = CombatantGearIDConstants.Armor.GetArmorTraitIDs(modelID);
+            ISet<ArmorGearID> availableArmorIDs = UnitGearIDConstants.Armor.GetArmorTraitIDs(modelID);
             ArmorGearID gearID = EnumUtils.GenerateRandomEnumFrom(random, availableArmorIDs);
             int traitCount = ArmorTraitIDConstants.GetArmorTraitCount(gearID);
             ISet<ArmorTraitID> availableTraitIDs = ArmorTraitIDConstants.GetArmorTraitIDs(gearID);
@@ -69,9 +69,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             return gearDetails;
         }
 
-        private static ICabinGearDetails RandomizeCabinGearDetails(Random random, ModelID combatantID)
+        private static ICabinGearDetails RandomizeCabinGearDetails(Random random, ModelID unitID)
         {
-            ISet<CabinGearID> availableCabinIDs = CombatantGearIDConstants.Cabin.GetCabinTraitIDs(combatantID);
+            ISet<CabinGearID> availableCabinIDs = UnitGearIDConstants.Cabin.GetCabinTraitIDs(unitID);
             CabinGearID gearID = EnumUtils.GenerateRandomEnumFrom(random, availableCabinIDs);
             int traitCount = CabinTraitIDConstants.GetCabinTraitCount(gearID);
             ISet<CabinTraitID> availableTraitIDs = CabinTraitIDConstants.GetCabinTraitIDs(gearID);
@@ -84,9 +84,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             return cabinGearDetails;
         }
 
-        private static IEngineGearDetails RandomizeEngineGearDetails(Random random, ModelID combatantID)
+        private static IEngineGearDetails RandomizeEngineGearDetails(Random random, ModelID unitID)
         {
-            ISet<EngineGearID> availableEngineIDs = CombatantGearIDConstants.Engine.GetEngineTraitIDs(combatantID);
+            ISet<EngineGearID> availableEngineIDs = UnitGearIDConstants.Engine.GetEngineTraitIDs(unitID);
             EngineGearID gearID = EnumUtils.GenerateRandomEnumFrom(random, availableEngineIDs);
             int traitCount = EngineTraitIDConstants.GetEngineTraitCount(gearID);
             ISet<EngineTraitID> availableTraitIDs = EngineTraitIDConstants.GetEngineTraitIDs(gearID);
@@ -99,11 +99,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             return gearDetails;
         }
 
-        private static ISet<IWeaponGearDetails> RandomizeWeaponGearDetailsSet(Random random, ModelID combatantID)
+        private static ISet<IWeaponGearDetails> RandomizeWeaponGearDetailsSet(Random random, ModelID unitID)
         {
             int weaponCount = 0;
 
-            CombatantAttributesManager.GetCombatantAttributes(combatantID).IfPresent(attribtues =>
+            UnitAttributesManager.GetUnitAttributes(unitID).IfPresent(attribtues =>
             {
                 weaponCount = attribtues.GetMountableAttributes().GetWeaponGearSizes().Count;
             });
@@ -112,15 +112,15 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
 
             for (int i = 0; i < weaponCount; ++i)
             {
-                weaponGearDetails.Add(RandomizeWeaponGearDetails(random, combatantID));
+                weaponGearDetails.Add(RandomizeWeaponGearDetails(random, unitID));
             }
 
             return weaponGearDetails;
         }
 
-        private static IWeaponGearDetails RandomizeWeaponGearDetails(Random random, ModelID combatantID)
+        private static IWeaponGearDetails RandomizeWeaponGearDetails(Random random, ModelID unitID)
         {
-            ISet<WeaponGearID> availableWeaponIDs = CombatantGearIDConstants.Weapon.GetWeaponTraitIDs(combatantID);
+            ISet<WeaponGearID> availableWeaponIDs = UnitGearIDConstants.Weapon.GetWeaponTraitIDs(unitID);
             WeaponGearID gearID = EnumUtils.GenerateRandomEnumFrom(random, availableWeaponIDs);
             int traitCount = WeaponTraitIDConstants.GetWeaponTraitCount(gearID);
             ISet<WeaponTraitID> availableTraitIDs = WeaponTraitIDConstants.GetWeaponTraitIDs(gearID);

@@ -103,11 +103,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         private void UpdateWidgets()
         {
             this.idButton.GetTextWidget().SetText(this.selectedFactionDetails.GetFactionID().ToString());
-            IList<PhalanxID> phalanxIDs = new List<PhalanxID>();
-            foreach(IPhalanxDetails phalanxDetails in this.selectedFactionDetails.GetPhalanxDetails())
-            {
-                phalanxIDs.Add(phalanxDetails.GetID());
-            }
+            IList<PhalanxID> phalanxIDs = this.selectedFactionDetails.GetPhalanxIDs();
             string phalanxIDsString = "[" + string.Join(",", phalanxIDs) + "]";
             this.phalanxIDList.GetTextWidget(0).GetValue().SetText(phalanxIDsString);
             CanvasWidgetUtils.SetButtonInteractable(this.phalanxMinusButton, phalanxIDs.Count != 0);
@@ -218,7 +214,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
             };
             string textName = typeof(PhalanxID).Name + "List:Text";
-            this.phalanxIDList =  this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
+            this.phalanxIDList = this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
             return this.phalanxIDList;
         }
 

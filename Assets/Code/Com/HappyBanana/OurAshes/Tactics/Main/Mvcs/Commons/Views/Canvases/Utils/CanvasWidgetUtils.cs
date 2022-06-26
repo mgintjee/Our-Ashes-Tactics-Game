@@ -121,6 +121,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 imageWidget.SetColorID(WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR);
             }
         }
+
         public static void SetButtonInteractable(IButtonPanelWidget widget, bool interactable)
         {
             widget.SetInteractable(interactable);

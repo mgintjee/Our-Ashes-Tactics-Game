@@ -26,7 +26,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             public static readonly Vector2 COORDS = new Vector2(COORDS_X, COORDS_Y);
         }
 
-        public class Combatants
+        public class Units
         {
             public static readonly float COORDS_X = 0;
             public static readonly float COORDS_Y = DetailsPanelConstants.Sorties.Vectors.SIZE.Y - 2;

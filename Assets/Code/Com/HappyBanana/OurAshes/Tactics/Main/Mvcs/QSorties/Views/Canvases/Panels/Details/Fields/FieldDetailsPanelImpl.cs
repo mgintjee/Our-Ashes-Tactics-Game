@@ -86,7 +86,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             }
         }
 
-
         private ISet<ICanvasWidget> BuildTexts()
         {
             return new HashSet<ICanvasWidget>
@@ -245,6 +244,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 .SetParent(this)
                 .Build();
         }
+
         private IPanelWidget BuildSizePopUp()
         {
             string widgetName = typeof(FieldSize).Name + ":PopUp";
@@ -261,6 +261,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 .SetParent(this)
                 .Build();
         }
+
         private IPanelWidget BuildBiomePopUp()
         {
             string widgetName = typeof(FieldBiome).Name + ":PopUp";
@@ -277,6 +278,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 .SetParent(this)
                 .Build();
         }
+
         private IPanelWidget BuildShapePopUp()
         {
             string widgetName = typeof(FieldShape).Name + ":PopUp";
