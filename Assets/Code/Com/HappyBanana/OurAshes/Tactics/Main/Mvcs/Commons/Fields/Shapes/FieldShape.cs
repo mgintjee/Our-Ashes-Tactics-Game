@@ -6,6 +6,7 @@
     public enum FieldShape
     {
         None,
-        Hexagon
+        Hexagon,
+        Square
     }
 }

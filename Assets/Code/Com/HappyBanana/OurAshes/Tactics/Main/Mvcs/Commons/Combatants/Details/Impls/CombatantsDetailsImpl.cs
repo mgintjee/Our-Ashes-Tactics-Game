@@ -1,10 +1,12 @@
 ﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Builders.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Details.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Details.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Units.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Factions.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Details.Inters;
 using System.Collections.Generic;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Impls
@@ -29,9 +31,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
         /// <inheritdoc/>
         public override string ToString()
         {
-            return string.Format("\n{0}" +
-                "\n{1}" +
-                "\n{2}",
+            return string.Format("FactionDetails:{0}" +
+                "\nPhalanxDetails:{1}" +
+                "\nUnitDetails:{2}",
                 StringUtils.Format(this.factionDetails),
                 StringUtils.Format(this.phalanxDetails),
                 StringUtils.Format(this.unitDetails));
@@ -45,6 +47,18 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
         IList<IPhalanxDetails> ICombatantsDetails.GetPhalanxDetails()
         {
             return new List<IPhalanxDetails>(this.phalanxDetails);
+        }
+
+        Optional<IPhalanxDetails> ICombatantsDetails.GetPhalanxDetails(PhalanxID phalanxID)
+        {
+            foreach (IPhalanxDetails phalanxDetails in this.phalanxDetails)
+            {
+                if (phalanxDetails.GetPhalanxID() == phalanxID)
+                {
+                    return Optional<IPhalanxDetails>.Of(phalanxDetails);
+                }
+            }
+            return Optional<IPhalanxDetails>.Empty();
         }
 
         IList<IUnitDetails> ICombatantsDetails.GetUnitDetails()

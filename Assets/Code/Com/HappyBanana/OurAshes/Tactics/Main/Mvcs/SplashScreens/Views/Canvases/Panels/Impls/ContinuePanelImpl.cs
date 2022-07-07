@@ -31,7 +31,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.SplashScreens.V
                     .SetCanvasGridCoords(Vector2.Zero)
                     .SetCanvasGridSize(this.canvasGridConvertor.GetGridSize()))
                 .SetParent(this)
-                .SetName(":Continue:" + CanvasWidgetType.Image)
+                .SetName("Continue:" + CanvasWidgetType.Image)
                 .Build());
             this.InternalAddWidget(TextWidgetImpl.Builder.Get()
                 .SetText("Input to continue..")
@@ -47,7 +47,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.SplashScreens.V
                     .SetCanvasGridCoords(Vector2.Zero)
                     .SetCanvasGridSize(this.canvasGridConvertor.GetGridSize()))
                 .SetParent(this)
-                .SetName(":Continue:" + CanvasWidgetType.Text)
+                .SetName("Continue:" + CanvasWidgetType.Text)
                 .Build());
         }
 

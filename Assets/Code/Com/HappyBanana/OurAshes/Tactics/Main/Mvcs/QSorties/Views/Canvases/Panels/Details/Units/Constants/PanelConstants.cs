@@ -52,6 +52,14 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             public static readonly Vector2 TEXT_COORDS = new Vector2(TEXT_COORDS_X, COORDS_Y);
             public static readonly Vector2 BUTTON_COORDS = new Vector2(BUTTON_COORDS_X, COORDS_Y);
         }
+        public class Cabins
+        {
+            public static readonly float COORDS_Y = DetailsPanelConstants.Units.Vectors.SIZE.Y - 2;
+            public static readonly float TEXT_COORDS_X = 3 * INFO_SIZE_X;
+            public static readonly float BUTTON_COORDS_X = 4 * INFO_SIZE_X;
+            public static readonly Vector2 TEXT_COORDS = new Vector2(TEXT_COORDS_X, COORDS_Y);
+            public static readonly Vector2 BUTTON_COORDS = new Vector2(BUTTON_COORDS_X, COORDS_Y);
+        }
 
         public class WeaponHeader
         {

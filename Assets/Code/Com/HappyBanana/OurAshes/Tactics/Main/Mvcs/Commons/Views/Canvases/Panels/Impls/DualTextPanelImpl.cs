@@ -144,7 +144,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     .SetCanvasGridSize(new Vector2(this.canvasGridConvertor.GetGridSize().X / 2,
                         this.canvasGridConvertor.GetGridSize().Y)))
                 .SetParent(this)
-                .SetName(":DualText:Left:" + CanvasWidgetType.Text)
+                .SetName("DualText:Left:" + CanvasWidgetType.Text)
                 .Build();
         }
 

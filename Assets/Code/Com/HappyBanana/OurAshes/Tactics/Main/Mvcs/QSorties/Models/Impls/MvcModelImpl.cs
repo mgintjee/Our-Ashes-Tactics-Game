@@ -1,9 +1,13 @@
 ﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Randoms.Managers;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Units.Details.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Units.IDs;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Details.Impls;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Details.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Factions.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Impls;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Factions.Details.Impls;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Factions.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Factions.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.Details.Impls;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Biomes;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Inters;
@@ -18,13 +22,12 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Type
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.Details.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Phalanxes.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Impls;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Utils.Randomizations;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Utils.Mods;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Utils.Randomizations;
 using System.Collections.Generic;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Impls
@@ -76,24 +79,38 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
                     this.HandleFactionRandomize();
                     break;
 
-                case RequestType.FieldIDMod:
+                case RequestType.FieldIDSelect:
                     this.HandleFieldIDMod((IFieldIDModRequest)mvcRequest);
                     break;
 
-                case RequestType.FactionIDMod:
-                    this.HandleFactionIDMod((IFactionIDModRequest)mvcRequest);
+                case RequestType.FactionIDSelect:
+                    this.HandleFactionIDSelect((IFactionIDSelectRequest)mvcRequest);
                     break;
 
-                case RequestType.FieldBiomeMod:
+                case RequestType.PhalanxIDSelect:
+                    this.HandlePhalanxIDSelect((IPhalanxIDSelectRequest)mvcRequest);
+                    break;
+
+                case RequestType.FieldBiomeSelect:
                     this.HandleFieldBiomeMod((IFieldBiomeModRequest)mvcRequest);
                     break;
 
-                case RequestType.FieldSizeMod:
+                case RequestType.FieldSizeSelect:
                     this.HandleFieldSizeMod((IFieldSizeModRequest)mvcRequest);
                     break;
 
-                case RequestType.FieldShapeMod:
+                case RequestType.FieldShapeSelect:
                     this.HandleFieldShapeMod((IFieldShapeModRequest)mvcRequest);
+                    break;
+
+                case RequestType.PhalanxIDAddMod:
+                case RequestType.PhalanxIDMinusMod:
+                    CombatantsModUtil.HandlePhalanxIDMod((States.Inters.IMvcModelState)this.mvcModelState, (IPhalanxIDModRequest)mvcRequest);
+                    break;
+
+                case RequestType.UnitIDAddMod:
+                case RequestType.UnitIDMinusMod:
+                    CombatantsModUtil.HandleUnitIDMod((States.Inters.IMvcModelState)this.mvcModelState, (IUnitIDModRequest)mvcRequest);
                     break;
             }
             ((MvcModelStateImpl)this.mvcModelState)
@@ -126,25 +143,26 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
                     };
         }
 
-
-        private void HandleFactionIDMod(IFactionIDModRequest mvcRequest)
+        private void HandleFactionIDSelect(IFactionIDSelectRequest mvcRequest)
         {
             FactionID id = mvcRequest.GetFactionID();
 
-            IList<IFactionDetails> currentFactionDetails = this.CastMvcModelState().GetFactionDetails();
-            IList<IFactionDetails> factionDetails = new List<IFactionDetails>();
-            int idIndex = this.GetFactionIDIndex(id, currentFactionDetails);
+            ICombatantsDetails currentCombatantsDetails = this.CastMvcModelState().GetCombatantsDetails();
+            IList<IFactionDetails> currentDetails = currentCombatantsDetails.GetFactionDetails();
+            IList<IFactionDetails> newDetails = new List<IFactionDetails>();
+            int idIndex = this.GetFactionIDIndex(id, currentDetails);
 
-            for (int i = 0; i < currentFactionDetails.Count; ++i)
+            for (int i = 0; i < currentDetails.Count; ++i)
             {
-                int indexToGet = (idIndex + i) % currentFactionDetails.Count;
-                factionDetails.Add(currentFactionDetails[indexToGet]);
+                int indexToGet = (idIndex + i) % currentDetails.Count;
+                newDetails.Add(currentDetails[indexToGet]);
             }
 
-            logger.Debug("OG:{}" +
-                "\nNew:{}", currentFactionDetails, factionDetails);
-
-            this.UpdateFactionDetails(factionDetails);
+            this.UpdateFactionDetails(CombatantsDetailsImpl.Builder.Get()
+                .SetFactionDetails(newDetails)
+                .SetPhalanxDetails(currentCombatantsDetails.GetPhalanxDetails())
+                .SetUnitDetails(currentCombatantsDetails.GetUnitDetails())
+                .Build());
         }
 
         private int GetFactionIDIndex(FactionID id, IList<IFactionDetails> factionDetails)
@@ -153,6 +171,42 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             foreach (IFactionDetails details in factionDetails)
             {
                 if (details.GetFactionID() == id)
+                {
+                    return counter;
+                }
+                counter++;
+            }
+            return 0;
+        }
+
+        private void HandlePhalanxIDSelect(IPhalanxIDSelectRequest mvcRequest)
+        {
+            PhalanxID id = mvcRequest.GetPhalanxID();
+
+            ICombatantsDetails currentCombatantsDetails = this.CastMvcModelState().GetCombatantsDetails();
+            IList<IPhalanxDetails> currentDetails = currentCombatantsDetails.GetPhalanxDetails();
+            IList<IPhalanxDetails> newDetails = new List<IPhalanxDetails>();
+            int idIndex = this.GetPhalanxIDIndex(id, currentDetails);
+
+            for (int i = 0; i < currentDetails.Count; ++i)
+            {
+                int indexToGet = (idIndex + i) % currentDetails.Count;
+                newDetails.Add(currentDetails[indexToGet]);
+            }
+
+            this.UpdateFactionDetails(CombatantsDetailsImpl.Builder.Get()
+                .SetFactionDetails(currentCombatantsDetails.GetFactionDetails())
+                .SetPhalanxDetails(newDetails)
+                .SetUnitDetails(currentCombatantsDetails.GetUnitDetails())
+                .Build());
+        }
+
+        private int GetPhalanxIDIndex(PhalanxID id, IList<IPhalanxDetails> phalanxDetails)
+        {
+            int counter = 0;
+            foreach (IPhalanxDetails details in phalanxDetails)
+            {
+                if (details.GetPhalanxID() == id)
                 {
                     return counter;
                 }
@@ -187,6 +241,40 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             FieldShape shape = mvcRequest.GetFieldShape();
             IFieldDetails fieldDetails = this.GetFieldDetails();
             this.UpdateFieldDetails(fieldDetails.GetFieldID(), fieldDetails.GetFieldBiome(), shape, fieldDetails.GetFieldSize());
+        }
+
+        private void HandlePhalanxIDMod(IPhalanxIDModRequest mvcRequest)
+        {
+            mvcRequest.GetFactionID();
+            mvcRequest.GetPhalanxID();
+            mvcRequest.IsAdd();
+            ICombatantsDetails currentCombatantsDetails = this.CastMvcModelState().GetCombatantsDetails();
+            IList<IFactionDetails> factionDetailsList = currentCombatantsDetails.GetFactionDetails();
+            IList<IPhalanxDetails> phalanxDetailsList = currentCombatantsDetails.GetPhalanxDetails();
+            IList<IUnitDetails> unitDetailsList = currentCombatantsDetails.GetUnitDetails();
+            IFactionDetails factionDetails = factionDetailsList[0];
+            IList<PhalanxID> phalanxIDs = factionDetails.GetPhalanxIDs();
+            if (mvcRequest.IsAdd())
+            {
+                phalanxIDs.Add(mvcRequest.GetPhalanxID());
+                phalanxDetailsList.Add(PhalanxDetailsImpl.Builder.Get()
+                    .SetPhalanxID(mvcRequest.GetPhalanxID())
+                    .Build());
+            }
+            else
+            {
+                phalanxIDs.Remove(mvcRequest.GetPhalanxID());
+            }
+            IFactionDetails newFactionDetails = FactionDetailsImpl.Builder.Get()
+                .SetFactionID(factionDetails.GetFactionID())
+                .SetPhalanxIDs(phalanxIDs)
+                .Build();
+            factionDetailsList[0] = newFactionDetails;
+            this.UpdateFactionDetails(CombatantsDetailsImpl.Builder.Get()
+                .SetFactionDetails(factionDetailsList)
+                .SetPhalanxDetails(phalanxDetailsList)
+                .SetUnitDetails(currentCombatantsDetails.GetUnitDetails())
+                .Build());
         }
 
         private void UpdateFieldDetails(FieldID fieldID, FieldBiome fieldBiome, FieldShape fieldShape, FieldSize fieldSize)
@@ -234,22 +322,24 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
 
         private void HandleFactionRandomize()
         {
-            IList<IFactionDetails> factionDetails = FactionDetailsRandomizerUtil
-                .Randomize(RandomManager.GetRandom(MvcType.QSortieMenu),
-                this.CastMvcModelState().GetFieldDetails());
+            /*
+            IList<IFactionDetails> factionDetails = FactionDetailsRandomiRandom(MvcType.QSortieMenu),
+                this.CastMvcModelState().GetzerUtil
+                .Randomize(RandomManager.GetFieldDetails());
             this.UpdateFactionDetails(factionDetails);
+            */
         }
 
-        private void UpdateFieldDetails(IFieldDetails fieldDetails)
+        private void UpdateFieldDetails(IFieldDetails details)
         {
             ((MvcModelStateImpl)this.mvcModelState)
-                .SetFieldDetails(fieldDetails);
+                .SetFieldDetails(details);
         }
 
-        private void UpdateFactionDetails(IList<IFactionDetails> factionDetails)
+        private void UpdateFactionDetails(ICombatantsDetails details)
         {
             ((MvcModelStateImpl)this.mvcModelState)
-                .SetFactionDetails(factionDetails);
+                .SetCombatantsDetails(details);
         }
 
         private States.Inters.IMvcModelState CastMvcModelState()

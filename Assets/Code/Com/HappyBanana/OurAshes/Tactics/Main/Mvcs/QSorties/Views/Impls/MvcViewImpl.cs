@@ -1,7 +1,9 @@
 ﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Enums;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Strings;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Factions.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Factions.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Biomes;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Shapes;
@@ -42,7 +44,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             this.mvcViewCanvas.GetWidget(mvcControlInput).IfPresent(widget =>
             {
                 RequestType requestType = EnumUtils.DetermineEnumFrom<RequestType>(widget.GetName());
-                logger.Info("Widget to process: Name={}, Found={}",
+                logger.Info("Widget to process: Name={}, Found RequestType={}",
                     widget.GetName(), StringUtils.Format(requestType));
                 if (requestType != RequestType.None)
                 {
@@ -70,49 +72,41 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             IQSortieMenuMvcRequest request;
             switch (requestType)
             {
-                case RequestType.PopUpDisable:
-                case RequestType.UnitDetails:
-                case RequestType.FactionDetails:
-                case RequestType.FieldDetails:
-                case RequestType.PhalanxDetails:
-                case RequestType.SortieDetails:
-                case RequestType.FactionRandomize:
-                case RequestType.FieldRandomize:
-                case RequestType.SortieRandomize:
-                case RequestType.FieldIDPopUp:
-                case RequestType.FieldBiomePopUp:
-                case RequestType.FieldSizePopUp:
-                case RequestType.FieldShapePopUp:
-                    request = new DefaultRequestImpl();
-                    break;
-
-                case RequestType.FieldIDMod:
+                case RequestType.FieldIDSelect:
                     request = this.BuildFieldIDModRequestFrom(widgetName);
                     break;
 
-                case RequestType.FieldSizeMod:
+                case RequestType.FieldSizeSelect:
                     request = this.BuildFieldSizeModRequestFrom(widgetName);
                     break;
 
-                case RequestType.FieldBiomeMod:
+                case RequestType.FieldBiomeSelect:
                     request = this.BuildFieldBiomeModRequestFrom(widgetName);
                     break;
 
-                case RequestType.FieldShapeMod:
+                case RequestType.FieldShapeSelect:
                     request = this.BuildFieldShapeModRequestFrom(widgetName);
                     break;
 
-                case RequestType.FactionIDMod:
-                    request = this.BuildFactionIDModRequestFrom(widgetName);
+                case RequestType.FactionIDSelect:
+                    request = this.BuildFactionIDSelectRequestFrom(widgetName);
                     break;
 
-                case RequestType.UnitMod:
-                case RequestType.PhalanxMod:
-                case RequestType.FactionMod:
-                case RequestType.None:
+                case RequestType.PhalanxIDMinusMod:
+                case RequestType.PhalanxIDAddMod:
+                    request = this.BuildPhalanxIDModRequestFrom(requestType == RequestType.PhalanxIDAddMod, widgetName);
+                    break;
+
+                case RequestType.PhalanxIDSelect:
+                    request = this.BuildPhalanxIDSelectRequestFrom(widgetName);
+                    break;
+
+                case RequestType.UnitIDMinusMod:
+                case RequestType.UnitIDAddMod:
+                    request = this.BuildUnitIDModRequestFrom(requestType == RequestType.UnitIDAddMod, widgetName);
+                    break;
+
                 default:
-                    logger.Warn("Unable to build {}. {} is not currently supported.",
-                        typeof(IQSortieMenuMvcRequest).Name, requestType);
                     request = new DefaultRequestImpl();
                     break;
             }
@@ -121,11 +115,18 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             return request;
         }
 
-        private IQSortieMenuMvcRequest BuildFactionIDModRequestFrom(string widgetName)
+        private IQSortieMenuMvcRequest BuildFactionIDSelectRequestFrom(string widgetName)
         {
-            FactionID factionID = EnumUtils.DetermineEnumFrom<FactionID>(widgetName);
-            return new FactionIDModRequestImpl()
-                .SetFactionID(factionID);
+            FactionID id = EnumUtils.DetermineEnumFrom<FactionID>(widgetName);
+            return new FactionIDSelectRequestImpl()
+                .SetFactionID(id);
+        }
+
+        private IQSortieMenuMvcRequest BuildPhalanxIDSelectRequestFrom(string widgetName)
+        {
+            PhalanxID id = EnumUtils.DetermineEnumFrom<PhalanxID>(widgetName);
+            return new PhalanxIDSelectRequestImpl()
+                .SetPhalanxID(id);
         }
 
         private IQSortieMenuMvcRequest BuildFieldIDModRequestFrom(string widgetName)
@@ -154,6 +155,26 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             FieldShape shape = EnumUtils.DetermineEnumFrom<FieldShape>(widgetName);
             return new FieldShapeModRequestImpl()
                 .SetFieldShape(shape);
+        }
+
+        private IQSortieMenuMvcRequest BuildPhalanxIDModRequestFrom(bool isAdd, string widgetName)
+        {
+            FactionID factionID = EnumUtils.DetermineEnumFrom<FactionID>(widgetName);
+            PhalanxID phalanxID = EnumUtils.DetermineEnumFrom<PhalanxID>(widgetName);
+            return new PhalanxIDModRequestImpl()
+                .SetFactionID(factionID)
+                .SetPhalanxID(phalanxID)
+                .SetIsAdd(isAdd);
+        }
+
+        private IQSortieMenuMvcRequest BuildUnitIDModRequestFrom(bool isAdd, string widgetName)
+        {
+            PhalanxID phalanxID = EnumUtils.DetermineEnumFrom<PhalanxID>(widgetName);
+            UnitID unitID = EnumUtils.DetermineEnumFrom<UnitID>(widgetName);
+            return new UnitIDModRequestImpl()
+                .SetUnitID(unitID)
+                .SetPhalanxID(phalanxID)
+                .SetIsAdd(isAdd);
         }
     }
 }

@@ -6,30 +6,36 @@
     public enum RequestType
     {
         None,
-
         FieldDetails,
-        FieldIDMod,
+        FieldIDSelect,
         FieldIDPopUp,
-        FieldBiomeMod,
+        FieldBiomeSelect,
         FieldBiomePopUp,
-        FieldSizeMod,
+        FieldSizeSelect,
         FieldSizePopUp,
-        FieldShapeMod,
+        FieldShapeSelect,
         FieldShapePopUp,
-
         FieldRandomize,
         FactionDetails,
-        FactionIDMod,
+        FactionIDSelect,
         FactionIDPopUp,
-        FactionMod,
         FactionRandomize,
         UnitDetails,
         UnitMod,
         PhalanxDetails,
-        PhalanxMod,
         SortieDetails,
         SortieRandomize,
         SortieStart,
-        PopUpDisable
+        PopUpDisable,
+        PhalanxIDMinusPopUp,
+        PhalanxIDAddPopUp,
+        PhalanxIDMinusMod,
+        PhalanxIDAddMod,
+        UnitIDAddMod,
+        UnitIDMinusMod,
+        PhalanxIDSelect,
+        UnitIDAddPopUp,
+        UnitIDMinusPopUp,
+        PhalanxIDPopUp
     }
 }

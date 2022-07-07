@@ -1,8 +1,12 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Units.IDs;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Units.Models;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Armors.Gears.IDs;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Engines.Gears.IDs;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Loadouts.Weapons.Gears.IDs;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Armors.Gears.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Cabins.Gears.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Engines.Gears.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Weapons.Gears.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Weapons.Gears.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Models;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
@@ -11,6 +15,8 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canva
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Constants;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Units.Constants;
 using System.Collections.Generic;
 
@@ -23,19 +29,29 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         : AbstractPanelWidget, IPanelWidget
     {
         private IPopUpPanelWidget popUpWidget;
-        private IMultiTextPanelWidget unitIDList;
+        private IMultiTextPanelWidget weaponIDList;
         private IMultiTextPanelWidget powerText;
         private IButtonPanelWidget idButton;
         private IButtonPanelWidget modelButton;
         private IButtonPanelWidget armorButton;
+        private IButtonPanelWidget cabinButton;
         private IButtonPanelWidget engineButton;
         private IButtonPanelWidget weaponAddButton;
         private IButtonPanelWidget weaponMinusButton;
         private IButtonPanelWidget statsButton;
+        private IUnitDetails selectedDetails;
+        private ICombatantsDetails combatantsDetails;
 
         public override void Process(IMvcModelState modelState)
         {
             Models.States.Inters.IMvcModelState mvcModelState = (Models.States.Inters.IMvcModelState)modelState;
+            this.combatantsDetails = mvcModelState.GetCombatantsDetails();
+            this.selectedDetails = this.combatantsDetails.GetUnitDetails()[0];
+            this.UpdateWidgets();
+            mvcModelState.GetPrevMvcRequest().IfPresent(request =>
+            {
+                this.ProcessPrevRequest((IQSortieMenuMvcRequest)request);
+            });
         }
 
         protected override void InitialBuild()
@@ -52,6 +68,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 this.BuildIconText(),
                 this.BuildArmorText(),
                 this.BuildEngineText(),
+                this.BuildCabinText(),
                 this.BuildWeaponHeaderText(),
                 this.BuildWeaponListText(),
                 this.BuildPowersText()
@@ -65,10 +82,63 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 this.BuildAndSetModelButton(),
                 this.BuildAndSetArmorButton(),
                 this.BuildAndSetEngineButton(),
+                this.BuildAndSetCabinButton(),
                 this.BuildAndSetMinusButton(),
                 this.BuildAndSetAddButton(),
                 this.BuildAndSetStatsButton()
             };
+        }
+
+        private void ProcessPrevRequest(IQSortieMenuMvcRequest mvcRequest)
+        {
+            RequestType requestType = mvcRequest.GetRequestType();
+            switch (requestType)
+            {
+                case RequestType.PhalanxIDPopUp:
+                    break;
+
+                case RequestType.UnitIDMinusPopUp:
+                    break;
+
+                case RequestType.UnitIDAddPopUp:
+                    break;
+
+                case RequestType.PopUpDisable:
+                case RequestType.PhalanxIDSelect:
+                case RequestType.UnitIDMinusMod:
+                case RequestType.UnitIDAddMod:
+                    this.popUpWidget.SetEnabled(false);
+                    break;
+
+                default:
+                    logger.Debug("Unsupported {}", requestType);
+                    break;
+            }
+        }
+
+        private void UpdateWidgets()
+        {
+            this.idButton.GetTextWidget().SetText(this.selectedDetails.GetUnitID().ToString());
+
+            this.modelButton.GetTextWidget().SetText(this.selectedDetails.GetModelID().ToString());
+
+            this.cabinButton.GetTextWidget().SetText(this.selectedDetails.GetLoadoutDetails()
+                .GetEngineGearDetails().GetGearID().ToString());
+
+            this.armorButton.GetTextWidget().SetText(this.selectedDetails.GetLoadoutDetails()
+                .GetArmorGearDetails().GetGearID().ToString());
+
+            this.cabinButton.GetTextWidget().SetText(this.selectedDetails.GetLoadoutDetails()
+                .GetCabinGearDetails().GetCabinGearID().ToString());
+
+            IList<IWeaponGearDetails> weaponGearDetails = this.selectedDetails.GetLoadoutDetails().GetWeaponGearDetails();
+            IList<WeaponGearID> ids = new List<WeaponGearID>();
+            foreach (IWeaponGearDetails details in weaponGearDetails)
+            {
+                ids.Add(details.GetWeaponGearID());
+            }
+            string idsString = "[" + string.Join(", ", ids) + "]";
+            this.weaponIDList.GetTextWidget(0).GetValue().SetText(idsString);
         }
 
         private IButtonPanelWidget BuildAndSetIDButton()
@@ -115,8 +185,20 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             string buttonType = typeof(EngineGearID).Name;
             string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
             string buttonText = EngineGearID.None.ToString();
-            engineButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
-            return engineButton;
+            cabinButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
+            return cabinButton;
+        }
+
+        private IButtonPanelWidget BuildAndSetCabinButton()
+        {
+            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(PanelConstants.Cabins.BUTTON_COORDS)
+                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
+            string buttonType = typeof(EngineGearID).Name;
+            string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
+            string buttonText = CabinGearID.None.ToString();
+            cabinButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
+            return cabinButton;
         }
 
         private IButtonPanelWidget BuildAndSetMinusButton()
@@ -215,6 +297,21 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             return this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
         }
 
+        private IMultiTextPanelWidget BuildCabinText()
+        {
+            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
+                    .SetCanvasGridCoords(PanelConstants.Cabins.TEXT_COORDS)
+                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
+            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
+            {
+                new TextImageWidgetStruct("Cabin:",
+                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
+                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
+            };
+            string textName = typeof(CabinGearID).Name + ":Text";
+            return this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
+        }
+
         private IMultiTextPanelWidget BuildWeaponHeaderText()
         {
             IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
@@ -242,7 +339,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
             };
             string textName = typeof(WeaponGearID).Name + "List:Text";
-            return this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
+            this.weaponIDList = this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
+            return this.weaponIDList;
         }
 
         private IMultiTextPanelWidget BuildPowersText()

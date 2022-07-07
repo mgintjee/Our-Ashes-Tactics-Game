@@ -14,7 +14,6 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canva
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Constants;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Types;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -156,30 +155,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             }
         }
 
-        protected ICarouselPanelWidget BuildCarousel(string name, IWidgetGridSpec widgetGridSpec)
-        {
-            logger.Debug("Building Carousel @ {}", widgetGridSpec);
-            IList<TextImageWidgetStruct> headerTextImageWidgetStructs = new List<TextImageWidgetStruct>
-            {
-                new TextImageWidgetStruct(name+":",
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
-                    WidgetConstants.SECONDARY_COLOR_ID)
-            };
-            Vector2 panelGridSize = new Vector2(6, 1);
-            return (ICarouselPanelWidget)CarouselPanelImpl.Builder.Get()
-                .SetHeaderTextImageWidgetStructs(headerTextImageWidgetStructs)
-                .SetBackgroundColor(WidgetConstants.PRIMARY_COLOR_ID)
-                .SetPanelGridSize(panelGridSize)
-                .SetWidgetGridSpec(widgetGridSpec)
-                .SetMvcType(this.mvcType)
-                .SetCanvasLevel(1)
-                .SetInteractable(false)
-                .SetEnabled(true)
-                .SetName(this.GetType().Name + ":" + CanvasWidgetType.Panel)
-                .SetParent(this)
-                .Build();
-        }
-
         protected IButtonPanelWidget BuildButton(string widgetName, IWidgetGridSpec widgetGridSpec, string buttonText, string buttonType, int canvasLevel)
         {
             IButtonPanelWidget buttonPanelWidget = (IButtonPanelWidget)ButtonPanelImpl.Builder.Get()
@@ -220,7 +195,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 .SetCanvasLevel(1)
                 .SetInteractable(interactable)
                 .SetEnabled(true)
-                .SetName(this.GetType().Name + ":" + CanvasWidgetType.Panel + ":" + widgetName)
+                .SetName(widgetName)
                 .SetParent(this)
                 .Build();
         }

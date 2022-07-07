@@ -1,5 +1,5 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Details.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Factions.IDs;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Factions.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
 using System.Collections.Generic;
@@ -12,11 +12,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
     public class IDPopUpImpl
         : AbstractStaticEnumPopUp<FactionID>
     {
-        private IList<IFactionDetails> details;
+        private ICombatantsDetails details;
 
         protected override bool IsButtonInteractable(FactionID tEnum)
         {
-            return tEnum != details[0].GetFactionID();
+            return tEnum != details.GetFactionDetails()[0].GetFactionID();
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             public interface IInternalBuilder
                 : PanelWidgetBuilders.IPanelWidgetBuilder
             {
-                IInternalBuilder SetFactionDetails(IList<IFactionDetails> details);
+                IInternalBuilder SetDetails(ICombatantsDetails details);
             }
 
             /// <summary>
@@ -48,9 +48,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             private class InternalBuilder
                 : PanelWidgetBuilders.InternalPanelWidgetBuilder, IInternalBuilder
             {
-                private IList<IFactionDetails> details = new List<IFactionDetails>();
+                private ICombatantsDetails details;
 
-                IInternalBuilder IInternalBuilder.SetFactionDetails(IList<IFactionDetails> details)
+                IInternalBuilder IInternalBuilder.SetDetails(ICombatantsDetails details)
                 {
                     this.details = details;
                     return this;
@@ -62,6 +62,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     widget.details = details;
                     this.ApplyPanelValues(widget);
                     return widget;
+                }
+
+                /// <inheritdoc/>
+                protected override void Validate(ISet<string> invalidReasons)
+                {
+                    this.Validate(invalidReasons, details);
                 }
             }
         }

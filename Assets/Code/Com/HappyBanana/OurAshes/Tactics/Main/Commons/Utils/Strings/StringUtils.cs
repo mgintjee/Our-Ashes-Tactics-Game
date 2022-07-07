@@ -30,13 +30,14 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.String
         private static string FormatEnumerable(IEnumerable enumberable)
         {
             IEnumerator enumerator = enumberable.GetEnumerator();
-            string returnedString = string.Format("{0}:[{1}",
-                enumberable.GetType().Name, (enumerator.MoveNext())
+
+            string returnedString = string.Format("[{0}",
+                (enumerator.MoveNext())
                     ? enumerator.Current
                     : NULL_STRING);
             while (enumerator.MoveNext())
             {
-                returnedString += "," + enumerator.Current;
+                returnedString += "\n" + enumerator.Current;
             }
             return returnedString + "]";
         }
@@ -44,8 +45,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.String
         private static string FormatObject<TObject>(TObject tObject)
         {
             return (tObject != null)
-                ? tObject.ToString()
-                : typeof(TObject).Name + ":" + NULL_STRING;
+                ? tObject.GetType().Name + ":" + tObject.ToString()
+                : NULL_STRING;
         }
     }
 }

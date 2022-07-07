@@ -1,8 +1,10 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Factions.Details.Inters;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Factions.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Inters;
-using System.Collections.Generic;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Impls
 {
@@ -12,28 +14,29 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
     public class MvcModelStateImpl
         : DefaultMvcModelStateImpl, IMvcModelState
     {
-        private IList<IFactionDetails> factionDetails = new List<IFactionDetails>();
+        private ICombatantsDetails combatantsDetails;
         private IFieldDetails fieldDetails;
 
         public override Commons.Models.States.Inters.IMvcModelState GetCopy()
         {
             return new MvcModelStateImpl()
                 .SetFieldDetails(this.fieldDetails)
-                .SetFactionDetails(this.factionDetails)
+                .SetCombatantsDetails(this.combatantsDetails)
                 .SetPrevMvcRequest(this.prevMvcRequest);
         }
 
-        public MvcModelStateImpl SetFactionDetails(IList<IFactionDetails> factionDetails)
+        public MvcModelStateImpl SetCombatantsDetails(ICombatantsDetails details)
         {
-            this.factionDetails = new List<IFactionDetails>(factionDetails);
+            this.combatantsDetails = details;
             return this;
         }
 
-        public MvcModelStateImpl SetFieldDetails(IFieldDetails fieldDetails)
+        public MvcModelStateImpl SetFieldDetails(IFieldDetails details)
         {
-            this.fieldDetails = fieldDetails;
+            this.fieldDetails = details;
             return this;
         }
+
 
         /// <summary>
         /// Todo
@@ -41,9 +44,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("{0}: " +
+            return string.Format("\n{0}" +
                 "\n{1}" +
-                "\n{2}", this.GetType().Name, this.prevMvcRequest, this.fieldDetails);
+                "\n{2}",
+                this.combatantsDetails, this.fieldDetails, this.prevMvcRequest);
         }
 
         IFieldDetails IMvcModelState.GetFieldDetails()
@@ -51,9 +55,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             return this.fieldDetails;
         }
 
-        IList<IFactionDetails> IMvcModelState.GetFactionDetails()
+        ICombatantsDetails IMvcModelState.GetCombatantsDetails()
         {
-            return this.factionDetails;
+            return this.combatantsDetails;
         }
     }
 }

@@ -72,10 +72,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     this.popUpWidget.UpdatePopupEntry(this.BuildBiomePopUp());
                     break;
 
-                case RequestType.FieldIDMod:
-                case RequestType.FieldSizeMod:
-                case RequestType.FieldShapeMod:
-                case RequestType.FieldBiomeMod:
+                case RequestType.FieldIDSelect:
+                case RequestType.FieldSizeSelect:
+                case RequestType.FieldShapeSelect:
+                case RequestType.FieldBiomeSelect:
                 case RequestType.PopUpDisable:
                     this.popUpWidget.SetEnabled(false);
                     break;
