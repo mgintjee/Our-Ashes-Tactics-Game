@@ -4,9 +4,11 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Factions.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Factions.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.IDs;
 using System.Collections.Generic;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Impls
@@ -49,21 +51,45 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
             return new List<IPhalanxDetails>(this.phalanxDetails);
         }
 
-        Optional<IPhalanxDetails> ICombatantsDetails.GetPhalanxDetails(PhalanxID phalanxID)
+        IList<IUnitDetails> ICombatantsDetails.GetUnitDetails()
         {
-            foreach (IPhalanxDetails phalanxDetails in this.phalanxDetails)
+            return new List<IUnitDetails>(this.unitDetails);
+        }
+
+        Optional<IPhalanxDetails> ICombatantsDetails.GetDetails(PhalanxID id)
+        {
+            foreach (IPhalanxDetails details in this.phalanxDetails)
             {
-                if (phalanxDetails.GetPhalanxID() == phalanxID)
+                if (details.GetPhalanxID() == id)
                 {
-                    return Optional<IPhalanxDetails>.Of(phalanxDetails);
+                    return Optional<IPhalanxDetails>.Of(details);
                 }
             }
             return Optional<IPhalanxDetails>.Empty();
         }
 
-        IList<IUnitDetails> ICombatantsDetails.GetUnitDetails()
+        Optional<IUnitDetails> ICombatantsDetails.GetDetails(UnitID id)
         {
-            return new List<IUnitDetails>(this.unitDetails);
+            foreach (IUnitDetails details in this.phalanxDetails)
+            {
+                if (details.GetUnitID() == id)
+                {
+                    return Optional<IUnitDetails>.Of(details);
+                }
+            }
+            return Optional<IUnitDetails>.Empty();
+        }
+
+        Optional<IFactionDetails> ICombatantsDetails.GetDetails(FactionID id)
+        {
+            foreach (IFactionDetails details in this.phalanxDetails)
+            {
+                if (details.GetFactionID() == id)
+                {
+                    return Optional<IFactionDetails>.Of(details);
+                }
+            }
+            return Optional<IFactionDetails>.Empty();
         }
 
         /// <summary>

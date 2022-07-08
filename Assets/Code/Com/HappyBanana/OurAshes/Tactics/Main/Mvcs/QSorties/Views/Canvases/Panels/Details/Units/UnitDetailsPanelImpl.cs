@@ -1,6 +1,8 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Enums;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Armors.Gears.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Cabins.Gears.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Engines.Gears.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Weapons.Gears.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Weapons.Gears.IDs;
@@ -10,15 +12,14 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Structs;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Constants;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Units.Constants;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Units.PopUps;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Units
 {
@@ -44,7 +45,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         public override void Process(IMvcModelState modelState)
         {
-            Models.States.Inters.IMvcModelState mvcModelState = (Models.States.Inters.IMvcModelState)modelState;
+            QSorties.Models.States.Inters.IMvcModelState mvcModelState = (QSorties.Models.States.Inters.IMvcModelState)modelState;
             this.combatantsDetails = mvcModelState.GetCombatantsDetails();
             this.selectedDetails = this.combatantsDetails.GetUnitDetails()[0];
             this.UpdateWidgets();
@@ -65,13 +66,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             return new HashSet<ICanvasWidget>
             {
                 this.BuildIDText(),
-                this.BuildIconText(),
+                this.BuildModelText(),
                 this.BuildArmorText(),
                 this.BuildEngineText(),
                 this.BuildCabinText(),
                 this.BuildWeaponHeaderText(),
-                this.BuildWeaponListText(),
-                this.BuildPowersText()
+                this.BuildWeaponListText()
             };
         }
 
@@ -94,19 +94,28 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             RequestType requestType = mvcRequest.GetRequestType();
             switch (requestType)
             {
-                case RequestType.PhalanxIDPopUp:
+                case RequestType.UnitIDPopUp:
+                    this.popUpWidget.UpdatePopupEntry(this.BuildUnitIDPopUp());
                     break;
 
-                case RequestType.UnitIDMinusPopUp:
+                case RequestType.UnitModelIDPopUp:
+                    this.popUpWidget.UpdatePopupEntry(this.BuildModelIDPopUp());
                     break;
 
-                case RequestType.UnitIDAddPopUp:
+                case RequestType.UnitArmorGearIDPopUp:
+                    this.popUpWidget.UpdatePopupEntry(this.BuildArmorGearIDPopUp());
+                    break;
+
+                case RequestType.UnitCabinGearIDPopUp:
+                    this.popUpWidget.UpdatePopupEntry(this.BuildCabinGearIDPopUp());
+                    break;
+
+                case RequestType.UnitEngineGearIDPopUp:
+                    this.popUpWidget.UpdatePopupEntry(this.BuildEngineGearIDPopUp());
                     break;
 
                 case RequestType.PopUpDisable:
-                case RequestType.PhalanxIDSelect:
-                case RequestType.UnitIDMinusMod:
-                case RequestType.UnitIDAddMod:
+                case RequestType.UnitIDSelect:
                     this.popUpWidget.SetEnabled(false);
                     break;
 
@@ -122,16 +131,24 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
             this.modelButton.GetTextWidget().SetText(this.selectedDetails.GetModelID().ToString());
 
-            this.cabinButton.GetTextWidget().SetText(this.selectedDetails.GetLoadoutDetails()
+            UpdateLoadoutWidgets(this.selectedDetails.GetLoadoutDetails());
+        }
+
+        private void UpdateLoadoutWidgets(ILoadoutDetails loadoutDetails)
+        {
+            this.cabinButton.GetTextWidget().SetText(loadoutDetails
                 .GetEngineGearDetails().GetGearID().ToString());
 
-            this.armorButton.GetTextWidget().SetText(this.selectedDetails.GetLoadoutDetails()
+            this.armorButton.GetTextWidget().SetText(loadoutDetails
                 .GetArmorGearDetails().GetGearID().ToString());
 
-            this.cabinButton.GetTextWidget().SetText(this.selectedDetails.GetLoadoutDetails()
-                .GetCabinGearDetails().GetCabinGearID().ToString());
+            this.cabinButton.GetTextWidget().SetText(loadoutDetails
+                .GetCabinGearDetails().GetGearID().ToString());
 
-            IList<IWeaponGearDetails> weaponGearDetails = this.selectedDetails.GetLoadoutDetails().GetWeaponGearDetails();
+            this.engineButton.GetTextWidget().SetText(loadoutDetails
+                .GetEngineGearDetails().GetGearID().ToString());
+
+            IList<IWeaponGearDetails> weaponGearDetails = loadoutDetails.GetWeaponGearDetails();
             IList<WeaponGearID> ids = new List<WeaponGearID>();
             foreach (IWeaponGearDetails details in weaponGearDetails)
             {
@@ -143,222 +160,202 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         private IButtonPanelWidget BuildAndSetIDButton()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.IDs.BUTTON_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            string buttonType = typeof(UnitID).Name;
-            string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
-            string buttonText = UnitID.None.ToString();
-            idButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
+            string textName = RequestType.UnitIDPopUp + ":Button";
+            idButton = this.BuildButton(textName, IDsConstants.BUTTON_SPEC, "null");
             return idButton;
         }
 
         private IButtonPanelWidget BuildAndSetModelButton()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.Models.BUTTON_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            string buttonType = typeof(ModelID).Name;
-            string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
-            string buttonText = ModelID.None.ToString();
-            modelButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
+            string textName = RequestType.UnitModelIDPopUp + ":Button";
+            modelButton = this.BuildButton(textName, ModelsConstants.BUTTON_SPEC, "null");
             return modelButton;
         }
 
         private IButtonPanelWidget BuildAndSetArmorButton()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.Armors.BUTTON_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            string buttonType = typeof(ArmorGearID).Name;
-            string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
-            string buttonText = ArmorGearID.None.ToString();
-            armorButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
+            string textName = RequestType.UnitArmorGearIDPopUp + ":Button";
+            armorButton = this.BuildButton(textName, ArmorsConstants.BUTTON_SPEC, "null");
             return armorButton;
         }
 
         private IButtonPanelWidget BuildAndSetEngineButton()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.Engines.BUTTON_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            string buttonType = typeof(EngineGearID).Name;
-            string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
-            string buttonText = EngineGearID.None.ToString();
-            cabinButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
-            return cabinButton;
+            string textName = RequestType.UnitEngineGearIDPopUp + ":Button";
+            engineButton = this.BuildButton(textName, EnginesConstants.BUTTON_SPEC, "null");
+            return engineButton;
         }
 
         private IButtonPanelWidget BuildAndSetCabinButton()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.Cabins.BUTTON_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            string buttonType = typeof(EngineGearID).Name;
-            string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
-            string buttonText = CabinGearID.None.ToString();
-            cabinButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
+            string textName = RequestType.UnitCabinGearIDPopUp + ":Button";
+            cabinButton = this.BuildButton(textName, CabinsConstants.BUTTON_SPEC, "null");
             return cabinButton;
         }
 
         private IButtonPanelWidget BuildAndSetMinusButton()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.WeaponHeader.MINUS_BUTTON_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            string buttonType = typeof(WeaponGearID).Name + ":Minus";
-            string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
-            string buttonText = "-";
-            weaponMinusButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
+            string textName = RequestType.UnitWeaponGearIDMinusPopUp + ":Button";
+            weaponMinusButton = this.BuildButton(textName, WeaponsConstants.MINUS_BUTTON_SPEC, "-");
             return weaponMinusButton;
         }
 
         private IButtonPanelWidget BuildAndSetAddButton()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.WeaponHeader.ADD_BUTTON_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            string buttonType = typeof(WeaponGearID).Name + ":Add";
-            string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
-            string buttonText = "+";
-            weaponAddButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
+            string textName = typeof(WeaponGearID).Name + "AddPopUp:Button";
+            weaponAddButton = this.BuildButton(textName, WeaponsConstants.ADD_BUTTON_SPEC, "+");
             return weaponAddButton;
         }
 
         private IButtonPanelWidget BuildAndSetStatsButton()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.Stats.COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            string buttonType = typeof(UnitID).Name + ":Stats";
-            string textName = this.mvcType + ":" + buttonType + "PopUp:Button";
-            string buttonText = "Stats";
-            statsButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
+            string textName = typeof(UnitID).Name + "StatsPopUp:Button";
+            statsButton = this.BuildButton(textName, StatsConstants.BUTTON_SPEC, "Stats");
             return statsButton;
         }
 
-        private IMultiTextPanelWidget BuildIconText()
+        private IMultiTextPanelWidget BuildModelText()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.Models.TEXT_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
-            {
-                new TextImageWidgetStruct("Model:",
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
-            };
             string textName = typeof(ModelID).Name + ":Text";
-            return this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
+            return this.BuildMultiText(textName, ModelsConstants.TEXT_SPEC, ModelsConstants.TEXT_TIWS, false);
         }
 
         private IMultiTextPanelWidget BuildIDText()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.IDs.TEXT_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
-            {
-                new TextImageWidgetStruct("ID:",
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
-            };
             string textName = typeof(UnitID).Name + ":Text";
-            return this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
+            return this.BuildMultiText(textName, IDsConstants.TEXT_SPEC, IDsConstants.TEXT_TIWS, false);
         }
 
         private IMultiTextPanelWidget BuildEngineText()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.Engines.TEXT_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
-            {
-                new TextImageWidgetStruct("Engine:",
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
-            };
             string textName = typeof(EngineGearID).Name + ":Text";
-            return this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
+            return this.BuildMultiText(textName, EnginesConstants.TEXT_SPEC, EnginesConstants.TEXT_TIWS, false);
         }
 
         private IMultiTextPanelWidget BuildArmorText()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.Armors.TEXT_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
-            {
-                new TextImageWidgetStruct("Armor:",
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
-            };
             string textName = typeof(ArmorGearID).Name + ":Text";
-            return this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
+            return this.BuildMultiText(textName, ArmorsConstants.TEXT_SPEC, ArmorsConstants.TEXT_TIWS, false);
         }
 
         private IMultiTextPanelWidget BuildCabinText()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.Cabins.TEXT_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
-            {
-                new TextImageWidgetStruct("Cabin:",
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
-            };
             string textName = typeof(CabinGearID).Name + ":Text";
-            return this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
+            return this.BuildMultiText(textName, CabinsConstants.TEXT_SPEC, CabinsConstants.TEXT_TIWS, false);
         }
 
         private IMultiTextPanelWidget BuildWeaponHeaderText()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.WeaponHeader.TEXT_COORDS)
-                    .SetCanvasGridSize(PanelConstants.WeaponHeader.TEXT_SIZE);
-            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
-            {
-                new TextImageWidgetStruct("Weapons:",
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
-            };
             string textName = typeof(WeaponGearID).Name + ":Text";
-            return this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
+            return this.BuildMultiText(textName, WeaponsConstants.TEXT_SPEC, WeaponsConstants.TEXT_TIWS, false);
         }
 
         private IMultiTextPanelWidget BuildWeaponListText()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.WeaponList.COORDS)
-                    .SetCanvasGridSize(PanelConstants.WeaponList.SIZE);
-            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
-            {
-                new TextImageWidgetStruct("[null]",
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
-            };
             string textName = typeof(WeaponGearID).Name + "List:Text";
-            this.weaponIDList = this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
+            this.weaponIDList = this.BuildMultiText(textName, WeaponsConstants.LIST_SPEC, WeaponsConstants.LIST_TIWS, false);
             return this.weaponIDList;
         }
 
-        private IMultiTextPanelWidget BuildPowersText()
+        private IPanelWidget BuildUnitIDPopUp()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.Powers.COORDS)
-                    .SetCanvasGridSize(PanelConstants.Powers.SIZE);
-            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
+            UnitID id = this.selectedDetails.GetUnitID();
+            IList<UnitID> ids = new List<UnitID>();
+            foreach (IUnitDetails details in this.combatantsDetails.GetUnitDetails())
             {
-                new TextImageWidgetStruct("Unit Power:",
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR),
-                new TextImageWidgetStruct("0",
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
-            };
-            string textName = typeof(UnitID).Name + ":Power:Text";
-            return this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
+                ids.Add(details.GetUnitID());
+            }
+            return UnitIDPopUpImpl.Builder.Get()
+                .SetUnitID(id)
+                .SetUnitIDs(ids)
+                .SetPanelGridSize(GetIDPopUpGridSize(ids.Count))
+                .SetWidgetGridSpec(WidgetConstants.POP_UP_WIDGET_GRID_SPEC)
+                .SetMvcType(this.mvcType)
+                .SetCanvasLevel(99)
+                .SetInteractable(false)
+                .SetEnabled(true)
+                .SetName(RequestType.UnitIDPopUp.ToString())
+                .SetParent(this)
+                .Build();
+        }
+
+        private IPanelWidget BuildModelIDPopUp()
+        {
+            ModelID id = this.selectedDetails.GetModelID();
+            IList<ModelID> ids = EnumUtils.GetEnumListWithoutFirst<ModelID>();
+            return ModelIDPopUpImpl.Builder.Get()
+                .SetModelID(id)
+                .SetModelIDs(ids)
+                .SetPanelGridSize(GetIDPopUpGridSize(ids.Count))
+                .SetWidgetGridSpec(WidgetConstants.POP_UP_WIDGET_GRID_SPEC)
+                .SetMvcType(this.mvcType)
+                .SetCanvasLevel(99)
+                .SetInteractable(false)
+                .SetEnabled(true)
+                .SetName(RequestType.UnitModelIDPopUp.ToString())
+                .SetParent(this)
+                .Build();
+        }
+
+        private IPanelWidget BuildArmorGearIDPopUp()
+        {
+            ArmorGearID id = this.selectedDetails.GetLoadoutDetails().GetArmorGearDetails().GetGearID();
+            IList<ArmorGearID> ids = EnumUtils.GetEnumListWithoutFirst<ArmorGearID>();
+            return ArmorGearIDPopUpImpl.Builder.Get()
+                .SetArmorGearID(id)
+                .SetArmorGearIDs(ids)
+                .SetPanelGridSize(GetIDPopUpGridSize(ids.Count))
+                .SetWidgetGridSpec(WidgetConstants.POP_UP_WIDGET_GRID_SPEC)
+                .SetMvcType(this.mvcType)
+                .SetCanvasLevel(99)
+                .SetInteractable(false)
+                .SetEnabled(true)
+                .SetName(RequestType.UnitArmorGearIDPopUp.ToString())
+                .SetParent(this)
+                .Build();
+        }
+
+        private IPanelWidget BuildEngineGearIDPopUp()
+        {
+            EngineGearID id = this.selectedDetails.GetLoadoutDetails().GetEngineGearDetails().GetGearID();
+            IList<EngineGearID> ids = EnumUtils.GetEnumListWithoutFirst<EngineGearID>();
+            return EngineGearIDPopUpImpl.Builder.Get()
+                .SetEngineGearID(id)
+                .SetEngineGearIDs(ids)
+                .SetPanelGridSize(GetIDPopUpGridSize(ids.Count))
+                .SetWidgetGridSpec(WidgetConstants.POP_UP_WIDGET_GRID_SPEC)
+                .SetMvcType(this.mvcType)
+                .SetCanvasLevel(99)
+                .SetInteractable(false)
+                .SetEnabled(true)
+                .SetName(RequestType.UnitEngineGearIDPopUp.ToString())
+                .SetParent(this)
+                .Build();
+        }
+
+        private IPanelWidget BuildCabinGearIDPopUp()
+        {
+            CabinGearID id = this.selectedDetails.GetLoadoutDetails().GetCabinGearDetails().GetGearID();
+            IList<CabinGearID> ids = EnumUtils.GetEnumListWithoutFirst<CabinGearID>();
+            return CabinGearIDPopUpImpl.Builder.Get()
+                .SetCabinGearID(id)
+                .SetCabinGearIDs(ids)
+                .SetPanelGridSize(GetIDPopUpGridSize(ids.Count))
+                .SetWidgetGridSpec(WidgetConstants.POP_UP_WIDGET_GRID_SPEC)
+                .SetMvcType(this.mvcType)
+                .SetCanvasLevel(99)
+                .SetInteractable(false)
+                .SetEnabled(true)
+                .SetName(RequestType.UnitCabinGearIDPopUp.ToString())
+                .SetParent(this)
+                .Build();
+        }
+
+        private Vector2 GetIDPopUpGridSize(int idCount)
+        {
+            int rows = (idCount > 8) ? 8 : idCount;
+            int cols = (rows > idCount) ? (idCount / rows) : 1;
+            return new Vector2(cols, rows);
         }
 
         /// <summary>

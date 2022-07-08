@@ -15,7 +15,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
         private static readonly IDictionary<ArmorGearID, IGearAttributes> ID_ATTRIBUTES =
             new Dictionary<ArmorGearID, IGearAttributes>()
             {
-                { ArmorGearID.AA, new ArmorGearAlphaAlphaAttributesImpl() },
+                { ArmorGearID.AAA, new AaaAttributesImpl() },
+                { ArmorGearID.ABA, new AbaAttributesImpl() },
+                { ArmorGearID.ACA, new AcaAttributesImpl() },
             };
 
         /// <summary>

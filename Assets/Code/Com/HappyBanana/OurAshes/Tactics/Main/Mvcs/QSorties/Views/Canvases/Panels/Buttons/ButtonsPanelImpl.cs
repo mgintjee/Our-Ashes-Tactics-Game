@@ -38,7 +38,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             this.BuildAndSetUnitDetailsButton();
             this.BuildAndSetSortieDetailsButton();
             this.BuildAndSetSortieStartButton();
-            this.UpdateButtons(RequestType.SortieDetails);
+            this.UpdateButtons(RequestType.DetailsSortie);
             foreach (ICanvasWidget canvasWidget in this.qSortieMenuTypeButtons.Values)
             {
                 this.InternalAddWidget(canvasWidget);
@@ -47,31 +47,31 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         private void BuildAndSetFieldDetailsButton()
         {
-            this.BuildAndSetRequestTypeButtonPanel(RequestType.FieldDetails,
+            this.BuildAndSetRequestTypeButtonPanel(RequestType.DetailsField,
                ButtonPanelConstants.BUTTON_FIELD_DETAILS_COORDS);
         }
 
         private void BuildAndSetFactionDetailsButton()
         {
-            this.BuildAndSetRequestTypeButtonPanel(RequestType.FactionDetails,
+            this.BuildAndSetRequestTypeButtonPanel(RequestType.DetailsFaction,
                ButtonPanelConstants.BUTTON_FACTION_DETAILS_COORDS);
         }
 
         private void BuildAndSetPhalanxDetailsButton()
         {
-            this.BuildAndSetRequestTypeButtonPanel(RequestType.PhalanxDetails,
+            this.BuildAndSetRequestTypeButtonPanel(RequestType.DetailsPhalanx,
                 ButtonPanelConstants.BUTTON_PHALANX_DETAILS_COORDS);
         }
 
         private void BuildAndSetSortieDetailsButton()
         {
-            this.BuildAndSetRequestTypeButtonPanel(RequestType.SortieDetails,
+            this.BuildAndSetRequestTypeButtonPanel(RequestType.DetailsSortie,
                ButtonPanelConstants.BUTTON_SORTIE_DETAILS_COORDS);
         }
 
         private void BuildAndSetUnitDetailsButton()
         {
-            this.BuildAndSetRequestTypeButtonPanel(RequestType.UnitDetails,
+            this.BuildAndSetRequestTypeButtonPanel(RequestType.DetailsUnit,
                ButtonPanelConstants.BUTTON_COMBATANT_DETAILS_COORDS);
         }
 
@@ -91,7 +91,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         {
             return (IButtonPanelWidget)ButtonPanelImpl.Builder.Get()
                     .SetButtonText(requestType.ToString())
-                    .SetButtonType(requestType.ToString())
                     .SetPanelGridSize(Vector2.One)
                     .SetWidgetGridSpec(new WidgetGridSpecImpl()
                         .SetCanvasGridCoords(canvasGridCoords)

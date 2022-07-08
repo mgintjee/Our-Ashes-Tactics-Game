@@ -17,12 +17,21 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         private ICombatantsDetails combatantsDetails;
         private IFieldDetails fieldDetails;
 
+        private FactionID factionID;
+
+        private PhalanxID phalanxID;
+
+        private UnitID unitID;
+
         public override Commons.Models.States.Inters.IMvcModelState GetCopy()
         {
             return new MvcModelStateImpl()
-                .SetFieldDetails(this.fieldDetails)
-                .SetCombatantsDetails(this.combatantsDetails)
-                .SetPrevMvcRequest(this.prevMvcRequest);
+                .SetFactionID(factionID)
+                .SetPhalanxID(phalanxID)
+                .SetUnitID(unitID)
+                .SetFieldDetails(fieldDetails)
+                .SetCombatantsDetails(combatantsDetails)
+                .SetPrevMvcRequest(prevMvcRequest);
         }
 
         public MvcModelStateImpl SetCombatantsDetails(ICombatantsDetails details)
@@ -37,6 +46,23 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             return this;
         }
 
+        public MvcModelStateImpl SetFactionID(FactionID id)
+        {
+            this.factionID = id;
+            return this;
+        }
+
+        public MvcModelStateImpl SetPhalanxID(PhalanxID id)
+        {
+            this.phalanxID = id;
+            return this;
+        }
+
+        public MvcModelStateImpl SetUnitID(UnitID id)
+        {
+            this.unitID = id;
+            return this;
+        }
 
         /// <summary>
         /// Todo
@@ -44,9 +70,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("\n{0}" +
-                "\n{1}" +
-                "\n{2}",
+            return string.Format("\nSelected: {0}, {1}, {2}" +
+                "\n{3}" +
+                "\n{4}" +
+                "\n{5}", this.factionID, this.phalanxID, this.unitID,
                 this.combatantsDetails, this.fieldDetails, this.prevMvcRequest);
         }
 
@@ -58,6 +85,21 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         ICombatantsDetails IMvcModelState.GetCombatantsDetails()
         {
             return this.combatantsDetails;
+        }
+
+        FactionID IMvcModelState.GetSelectedFactionID()
+        {
+            return factionID;
+        }
+
+        PhalanxID IMvcModelState.GetSelectedPhalanxID()
+        {
+            return phalanxID;
+        }
+
+        UnitID IMvcModelState.GetSelectedUnitID()
+        {
+            return unitID;
         }
     }
 }

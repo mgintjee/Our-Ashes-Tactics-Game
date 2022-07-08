@@ -6,7 +6,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
 {
     public interface ICabinGearDetails
     {
-        CabinGearID GetCabinGearID();
+        CabinGearID GetGearID();
 
         ISet<CabinTraitID> GetCabinTraitIDs();
     }

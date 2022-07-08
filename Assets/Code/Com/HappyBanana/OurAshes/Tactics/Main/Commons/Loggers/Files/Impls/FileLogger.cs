@@ -13,7 +13,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Loggers.File
         : IFileLogger
     {
         // Todo
-        private readonly Queue<string> _messageQueue = new Queue<string>();
+        private readonly Queue<string> messageQueue = new Queue<string>();
 
         // Todo
         private readonly Thread loggingThread;
@@ -35,17 +35,17 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Loggers.File
 
         void IFileLogger.WriteToFile(string message)
         {
-            this._messageQueue.Enqueue(message);
+            this.messageQueue.Enqueue(message);
         }
 
         private void LogToFile()
         {
             while (true)
             {
-                if (this._messageQueue.Count != 0)
+                if (this.messageQueue.Count != 0)
                 {
                     StreamWriter logFileStream = File.AppendText(logFilePath);
-                    logFileStream.Write(DateTime.Now.ToLongTimeString() + ": " + this._messageQueue.Dequeue() + "\n");
+                    logFileStream.Write(DateTime.Now.ToLongTimeString() + ": " + this.messageQueue.Dequeue() + "\n");
                     logFileStream.Close();
                 }
             }

@@ -19,6 +19,7 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Req
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Impls;
+using System;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Impls
 {
@@ -73,108 +74,69 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             switch (requestType)
             {
                 case RequestType.FieldIDSelect:
-                    request = this.BuildFieldIDModRequestFrom(widgetName);
+                    request = BuildEnumSelectRequestFrom<FieldID>(widgetName, requestType);
                     break;
 
                 case RequestType.FieldSizeSelect:
-                    request = this.BuildFieldSizeModRequestFrom(widgetName);
+                    request = BuildEnumSelectRequestFrom<FieldSize>(widgetName, requestType);
                     break;
 
                 case RequestType.FieldBiomeSelect:
-                    request = this.BuildFieldBiomeModRequestFrom(widgetName);
+                    request = BuildEnumSelectRequestFrom<FieldBiome>(widgetName, requestType);
                     break;
 
                 case RequestType.FieldShapeSelect:
-                    request = this.BuildFieldShapeModRequestFrom(widgetName);
+                    request = BuildEnumSelectRequestFrom<FieldShape>(widgetName, requestType);
                     break;
 
                 case RequestType.FactionIDSelect:
-                    request = this.BuildFactionIDSelectRequestFrom(widgetName);
-                    break;
-
-                case RequestType.PhalanxIDMinusMod:
-                case RequestType.PhalanxIDAddMod:
-                    request = this.BuildPhalanxIDModRequestFrom(requestType == RequestType.PhalanxIDAddMod, widgetName);
+                    request = BuildEnumSelectRequestFrom<FactionID>(widgetName, requestType);
                     break;
 
                 case RequestType.PhalanxIDSelect:
-                    request = this.BuildPhalanxIDSelectRequestFrom(widgetName);
+                    request = BuildEnumSelectRequestFrom<PhalanxID>(widgetName, requestType);
                     break;
 
-                case RequestType.UnitIDMinusMod:
-                case RequestType.UnitIDAddMod:
-                    request = this.BuildUnitIDModRequestFrom(requestType == RequestType.UnitIDAddMod, widgetName);
+                case RequestType.UnitIDSelect:
+                    request = BuildEnumSelectRequestFrom<UnitID>(widgetName, requestType);
+                    break;
+
+                case RequestType.FactionPhalanxIDMinusMod:
+                case RequestType.FactionPhalanxIDAddMod:
+                    request = this.BuildPhalanxIDModRequestFrom(requestType == RequestType.FactionPhalanxIDAddMod, widgetName, requestType);
+                    break;
+
+                case RequestType.PhalanxUnitIDMinusMod:
+                case RequestType.PhalanxUnitIDAddMod:
+                    request = this.BuildUnitIDModRequestFrom(requestType == RequestType.PhalanxUnitIDAddMod, widgetName, requestType);
                     break;
 
                 default:
-                    request = new DefaultRequestImpl();
+                    request = new DefaultRequestImpl(requestType);
                     break;
             }
-            ((DefaultRequestImpl)request)
-                .SetRequestType(requestType);
             return request;
         }
 
-        private IQSortieMenuMvcRequest BuildFactionIDSelectRequestFrom(string widgetName)
+        private IEnumSelectRequest<TEnum> BuildEnumSelectRequestFrom<TEnum>(string widgetName, RequestType requestType)
+            where TEnum : Enum
         {
-            FactionID id = EnumUtils.DetermineEnumFrom<FactionID>(widgetName);
-            return new FactionIDSelectRequestImpl()
-                .SetFactionID(id);
+            TEnum tEnum = EnumUtils.DetermineEnumFrom<TEnum>(widgetName);
+            return new EnumSelectRequestImpl<TEnum>(tEnum, requestType);
         }
 
-        private IQSortieMenuMvcRequest BuildPhalanxIDSelectRequestFrom(string widgetName)
-        {
-            PhalanxID id = EnumUtils.DetermineEnumFrom<PhalanxID>(widgetName);
-            return new PhalanxIDSelectRequestImpl()
-                .SetPhalanxID(id);
-        }
-
-        private IQSortieMenuMvcRequest BuildFieldIDModRequestFrom(string widgetName)
-        {
-            FieldID fieldID = EnumUtils.DetermineEnumFrom<FieldID>(widgetName);
-            return new FieldIDModRequestImpl()
-                .SetFieldID(fieldID);
-        }
-
-        private IQSortieMenuMvcRequest BuildFieldBiomeModRequestFrom(string widgetName)
-        {
-            FieldBiome biome = EnumUtils.DetermineEnumFrom<FieldBiome>(widgetName);
-            return new FieldBiomeModRequestImpl()
-                .SetFieldBiome(biome);
-        }
-
-        private IQSortieMenuMvcRequest BuildFieldSizeModRequestFrom(string widgetName)
-        {
-            FieldSize size = EnumUtils.DetermineEnumFrom<FieldSize>(widgetName);
-            return new FieldSizeModRequestImpl()
-                .SetFieldSize(size);
-        }
-
-        private IQSortieMenuMvcRequest BuildFieldShapeModRequestFrom(string widgetName)
-        {
-            FieldShape shape = EnumUtils.DetermineEnumFrom<FieldShape>(widgetName);
-            return new FieldShapeModRequestImpl()
-                .SetFieldShape(shape);
-        }
-
-        private IQSortieMenuMvcRequest BuildPhalanxIDModRequestFrom(bool isAdd, string widgetName)
+        private IQSortieMenuMvcRequest BuildPhalanxIDModRequestFrom(bool isAdd, string widgetName, RequestType requestType)
         {
             FactionID factionID = EnumUtils.DetermineEnumFrom<FactionID>(widgetName);
             PhalanxID phalanxID = EnumUtils.DetermineEnumFrom<PhalanxID>(widgetName);
-            return new PhalanxIDModRequestImpl()
-                .SetFactionID(factionID)
-                .SetPhalanxID(phalanxID)
-                .SetIsAdd(isAdd);
+            return new FactionPhalanxIDModRequestImpl(factionID, phalanxID, isAdd, requestType);
         }
 
-        private IQSortieMenuMvcRequest BuildUnitIDModRequestFrom(bool isAdd, string widgetName)
+        private IQSortieMenuMvcRequest BuildUnitIDModRequestFrom(bool isAdd, string widgetName, RequestType requestType)
         {
             PhalanxID phalanxID = EnumUtils.DetermineEnumFrom<PhalanxID>(widgetName);
             UnitID unitID = EnumUtils.DetermineEnumFrom<UnitID>(widgetName);
-            return new UnitIDModRequestImpl()
-                .SetUnitID(unitID)
-                .SetPhalanxID(phalanxID)
-                .SetIsAdd(isAdd);
+            return new PhalanxUnitIDModRequestImpl(phalanxID, unitID, isAdd, requestType);
         }
     }
 }

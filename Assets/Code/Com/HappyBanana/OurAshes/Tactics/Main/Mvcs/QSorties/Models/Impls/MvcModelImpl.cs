@@ -8,6 +8,7 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Biomes;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Inters;
@@ -80,36 +81,40 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
                     break;
 
                 case RequestType.FieldIDSelect:
-                    this.HandleFieldIDMod((IFieldIDModRequest)mvcRequest);
+                    this.HandleFieldIDSelect((IEnumSelectRequest<FieldID>)mvcRequest);
                     break;
 
                 case RequestType.FactionIDSelect:
-                    this.HandleFactionIDSelect((IFactionIDSelectRequest)mvcRequest);
+                    this.HandleFactionIDSelect((IEnumSelectRequest<FactionID>)mvcRequest);
                     break;
 
                 case RequestType.PhalanxIDSelect:
-                    this.HandlePhalanxIDSelect((IPhalanxIDSelectRequest)mvcRequest);
+                    this.HandlePhalanxIDSelect((IEnumSelectRequest<PhalanxID>)mvcRequest);
+                    break;
+
+                case RequestType.UnitIDSelect:
+                    this.HandleUnitIDSelect((IEnumSelectRequest<UnitID>)mvcRequest);
                     break;
 
                 case RequestType.FieldBiomeSelect:
-                    this.HandleFieldBiomeMod((IFieldBiomeModRequest)mvcRequest);
+                    this.HandleFieldBiomeSelect((IEnumSelectRequest<FieldBiome>)mvcRequest);
                     break;
 
                 case RequestType.FieldSizeSelect:
-                    this.HandleFieldSizeMod((IFieldSizeModRequest)mvcRequest);
+                    this.HandleFieldSizeSelect((IEnumSelectRequest<FieldSize>)mvcRequest);
                     break;
 
                 case RequestType.FieldShapeSelect:
-                    this.HandleFieldShapeMod((IFieldShapeModRequest)mvcRequest);
+                    this.HandleFieldShapeSelect((IEnumSelectRequest<FieldShape>)mvcRequest);
                     break;
 
-                case RequestType.PhalanxIDAddMod:
-                case RequestType.PhalanxIDMinusMod:
+                case RequestType.FactionPhalanxIDAddMod:
+                case RequestType.FactionPhalanxIDMinusMod:
                     CombatantsModUtil.HandlePhalanxIDMod((States.Inters.IMvcModelState)this.mvcModelState, (IPhalanxIDModRequest)mvcRequest);
                     break;
 
-                case RequestType.UnitIDAddMod:
-                case RequestType.UnitIDMinusMod:
+                case RequestType.PhalanxUnitIDAddMod:
+                case RequestType.PhalanxUnitIDMinusMod:
                     CombatantsModUtil.HandleUnitIDMod((States.Inters.IMvcModelState)this.mvcModelState, (IUnitIDModRequest)mvcRequest);
                     break;
             }
@@ -127,7 +132,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         private ISet<IMvcRequest> BuildInitialMvcModelRequests()
         {
             ISet<IMvcRequest> panelMvcRequests = this.BuildPanelMvcModelRequests();
-            panelMvcRequests.Add(new DefaultRequestImpl().SetRequestType(RequestType.SortieRandomize));
+            panelMvcRequests.Add(new DefaultRequestImpl(RequestType.SortieRandomize));
             return panelMvcRequests;
         }
 
@@ -135,17 +140,18 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         {
             return new HashSet<IMvcRequest>
                     {
-                        new DefaultRequestImpl().SetRequestType(RequestType.FieldDetails),
-                        new DefaultRequestImpl().SetRequestType(RequestType.PhalanxDetails),
-                        new DefaultRequestImpl().SetRequestType(RequestType.UnitDetails),
-                        new DefaultRequestImpl().SetRequestType(RequestType.SortieDetails),
-                        new DefaultRequestImpl().SetRequestType(RequestType.SortieStart),
+                        new DefaultRequestImpl(RequestType.DetailsField),
+                        new DefaultRequestImpl(RequestType.DetailsPhalanx),
+                        new DefaultRequestImpl(RequestType.DetailsUnit),
+                        new DefaultRequestImpl(RequestType.DetailsSortie),
+                        new DefaultRequestImpl(RequestType.SortieStart)
                     };
         }
 
-        private void HandleFactionIDSelect(IFactionIDSelectRequest mvcRequest)
+
+        private void HandleFactionIDSelect(IEnumSelectRequest<FactionID> mvcRequest)
         {
-            FactionID id = mvcRequest.GetFactionID();
+            FactionID id = mvcRequest.GetEnum();
 
             ICombatantsDetails currentCombatantsDetails = this.CastMvcModelState().GetCombatantsDetails();
             IList<IFactionDetails> currentDetails = currentCombatantsDetails.GetFactionDetails();
@@ -179,9 +185,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             return 0;
         }
 
-        private void HandlePhalanxIDSelect(IPhalanxIDSelectRequest mvcRequest)
+        private void HandlePhalanxIDSelect(IEnumSelectRequest<PhalanxID> mvcRequest)
         {
-            PhalanxID id = mvcRequest.GetPhalanxID();
+            PhalanxID id = mvcRequest.GetEnum();
 
             ICombatantsDetails currentCombatantsDetails = this.CastMvcModelState().GetCombatantsDetails();
             IList<IPhalanxDetails> currentDetails = currentCombatantsDetails.GetPhalanxDetails();
@@ -215,30 +221,66 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             return 0;
         }
 
-        private void HandleFieldIDMod(IFieldIDModRequest mvcRequest)
+        private void HandleUnitIDSelect(IEnumSelectRequest<UnitID> mvcRequest)
         {
-            FieldID id = mvcRequest.GetFieldID();
+            UnitID id = mvcRequest.GetEnum();
+
+            ICombatantsDetails currentCombatantsDetails = this.CastMvcModelState().GetCombatantsDetails();
+            IList<IUnitDetails> currentDetails = currentCombatantsDetails.GetUnitDetails();
+            IList<IUnitDetails> newDetails = new List<IUnitDetails>();
+            int idIndex = this.GetUnitIDIndex(id, currentDetails);
+
+            for (int i = 0; i < currentDetails.Count; ++i)
+            {
+                int indexToGet = (idIndex + i) % currentDetails.Count;
+                newDetails.Add(currentDetails[indexToGet]);
+            }
+
+            this.UpdateFactionDetails(CombatantsDetailsImpl.Builder.Get()
+                .SetFactionDetails(currentCombatantsDetails.GetFactionDetails())
+                .SetPhalanxDetails(currentCombatantsDetails.GetPhalanxDetails())
+                .SetUnitDetails(newDetails)
+                .Build());
+        }
+
+        private int GetUnitIDIndex(UnitID id, IList<IUnitDetails> unitDetails)
+        {
+            int counter = 0;
+            foreach (IUnitDetails details in unitDetails)
+            {
+                if (details.GetUnitID() == id)
+                {
+                    return counter;
+                }
+                counter++;
+            }
+            return 0;
+        }
+
+        private void HandleFieldIDSelect(IEnumSelectRequest<FieldID> mvcRequest)
+        {
+            FieldID id = mvcRequest.GetEnum();
             IFieldDetails fieldDetails = this.GetFieldDetails();
             this.UpdateFieldDetails(id, fieldDetails.GetFieldBiome(), fieldDetails.GetFieldShape(), fieldDetails.GetFieldSize());
         }
 
-        private void HandleFieldBiomeMod(IFieldBiomeModRequest mvcRequest)
+        private void HandleFieldBiomeSelect(IEnumSelectRequest<FieldBiome> mvcRequest)
         {
-            FieldBiome biome = mvcRequest.GetFieldBiome();
+            FieldBiome biome = mvcRequest.GetEnum();
             IFieldDetails fieldDetails = this.GetFieldDetails();
             this.UpdateFieldDetails(fieldDetails.GetFieldID(), biome, fieldDetails.GetFieldShape(), fieldDetails.GetFieldSize());
         }
 
-        private void HandleFieldSizeMod(IFieldSizeModRequest mvcRequest)
+        private void HandleFieldSizeSelect(IEnumSelectRequest<FieldSize> mvcRequest)
         {
-            FieldSize size = mvcRequest.GetFieldSize();
+            FieldSize size = mvcRequest.GetEnum();
             IFieldDetails fieldDetails = this.GetFieldDetails();
             this.UpdateFieldDetails(fieldDetails.GetFieldID(), fieldDetails.GetFieldBiome(), fieldDetails.GetFieldShape(), size);
         }
 
-        private void HandleFieldShapeMod(IFieldShapeModRequest mvcRequest)
+        private void HandleFieldShapeSelect(IEnumSelectRequest<FieldShape> mvcRequest)
         {
-            FieldShape shape = mvcRequest.GetFieldShape();
+            FieldShape shape = mvcRequest.GetEnum();
             IFieldDetails fieldDetails = this.GetFieldDetails();
             this.UpdateFieldDetails(fieldDetails.GetFieldID(), fieldDetails.GetFieldBiome(), shape, fieldDetails.GetFieldSize());
         }

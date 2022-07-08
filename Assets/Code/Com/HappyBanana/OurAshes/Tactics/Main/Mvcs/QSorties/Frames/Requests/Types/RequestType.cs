@@ -6,7 +6,15 @@
     public enum RequestType
     {
         None,
-        FieldDetails,
+
+        PopUpDisable,
+
+        DetailsField,
+        DetailsPhalanx,
+        DetailsSortie,
+        DetailsUnit,
+        DetailsFaction,
+
         FieldIDSelect,
         FieldIDPopUp,
         FieldBiomeSelect,
@@ -16,26 +24,34 @@
         FieldShapeSelect,
         FieldShapePopUp,
         FieldRandomize,
-        FactionDetails,
+
         FactionIDSelect,
         FactionIDPopUp,
-        FactionRandomize,
-        UnitDetails,
-        UnitMod,
-        PhalanxDetails,
-        SortieDetails,
-        SortieRandomize,
-        SortieStart,
-        PopUpDisable,
-        PhalanxIDMinusPopUp,
-        PhalanxIDAddPopUp,
-        PhalanxIDMinusMod,
-        PhalanxIDAddMod,
-        UnitIDAddMod,
-        UnitIDMinusMod,
+        FactionPhalanxIDMinusPopUp,
+        FactionPhalanxIDAddPopUp,
+        FactionPhalanxIDMinusMod,
+        FactionPhalanxIDAddMod,
+
         PhalanxIDSelect,
-        UnitIDAddPopUp,
-        UnitIDMinusPopUp,
-        PhalanxIDPopUp
+        PhalanxIDPopUp,
+        PhalanxUnitIDAddPopUp,
+        PhalanxUnitIDAddMod,
+        PhalanxUnitIDMinusPopUp,
+        PhalanxUnitIDMinusMod,
+
+        UnitIDPopUp,
+        UnitIDSelect,
+        UnitModelIDPopUp,
+        UnitArmorGearIDPopUp,
+        UnitCabinGearIDPopUp,
+        UnitEngineGearIDPopUp,
+        UnitWeaponGearIDAddPopUp,
+        UnitWeaponGearIDMinusPopUp,
+
+        SortieStart,
+        FactionRandomize,
+        UnitMod,
+        SortieRandomize,
+        UnitModelIDSelect,
     }
 }

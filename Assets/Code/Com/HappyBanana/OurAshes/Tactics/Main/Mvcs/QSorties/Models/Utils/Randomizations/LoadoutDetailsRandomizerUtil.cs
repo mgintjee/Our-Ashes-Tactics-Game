@@ -103,7 +103,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         {
             int weaponCount = 0;
 
-            UnitAttributesManager.GetUnitAttributes(unitID).IfPresent(attribtues =>
+            ModelAttributesManager.GetUnitAttributes(unitID).IfPresent(attribtues =>
             {
                 weaponCount = attribtues.GetMountableAttributes().GetWeaponGearSizes().Count;
             });

@@ -14,7 +14,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
         private static readonly IDictionary<EngineGearID, IGearAttributes> ID_ATTRIBUTES =
             new Dictionary<EngineGearID, IGearAttributes>()
             {
-                { EngineGearID.AA, new EngineGearAlphaAlphaAttributesImpl() },
+                { EngineGearID.EAA, new EaaAttributesImpl() },
+                { EngineGearID.EBA, new EbaAttributesImpl() },
+                { EngineGearID.ECA, new EcaAttributesImpl() },
             };
 
         /// <summary>

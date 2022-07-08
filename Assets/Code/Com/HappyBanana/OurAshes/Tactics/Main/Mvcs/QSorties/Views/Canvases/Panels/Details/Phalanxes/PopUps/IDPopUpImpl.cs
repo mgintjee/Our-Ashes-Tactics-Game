@@ -2,6 +2,7 @@
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
 using System.Collections.Generic;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Phalanxes.PopUps
@@ -15,7 +16,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         private PhalanxID id;
         protected override string DetermineButtonName(PhalanxID tEnum)
         {
-            return typeof(PhalanxID).Name + "Select:" + tEnum.ToString() + ":Button";
+
+            return RequestType.PhalanxIDSelect +":" + tEnum.ToString() + ":Button";
         }
 
         protected override bool IsInteractable(PhalanxID tEnum)

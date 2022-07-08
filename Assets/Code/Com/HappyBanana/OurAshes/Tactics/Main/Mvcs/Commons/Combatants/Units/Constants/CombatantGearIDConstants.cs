@@ -32,9 +32,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
         {
             private static readonly IDictionary<ModelID, ISet<ArmorGearID>> ARMOR_GEAR_ID_TRAIT_IDS = new Dictionary<ModelID, ISet<ArmorGearID>>()
             {
-                { ModelID.LightAlpha, GetGearIDsForLightAlpha() },
-                { ModelID.MediumAlpha, GetGearIDsForMediumAlpha() },
-                { ModelID.HeavyAlpha, GetGearIDsForHeavyAlpha() },
+                { ModelID.MAA, GetGearIDsForLightAlpha() },
+                { ModelID.MBA, GetGearIDsForMediumAlpha() },
+                { ModelID.MCA, GetGearIDsForHeavyAlpha() },
             };
 
             public static ISet<ArmorGearID> GetArmorTraitIDs(ModelID unitID)
@@ -46,7 +46,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
             {
                 return new HashSet<ArmorGearID>()
                 {
-                    ArmorGearID.AA
+                    ArmorGearID.AAA
                 };
             }
 
@@ -54,7 +54,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
             {
                 return new HashSet<ArmorGearID>()
                 {
-                    ArmorGearID.AA
+                    ArmorGearID.AAA
                 };
             }
 
@@ -62,7 +62,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
             {
                 return new HashSet<ArmorGearID>()
                 {
-                    ArmorGearID.AA
+                    ArmorGearID.AAA
                 };
             }
         }
@@ -71,9 +71,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
         {
             private static readonly IDictionary<ModelID, ISet<CabinGearID>> CABIN_GEAR_ID_TRAIT_IDS = new Dictionary<ModelID, ISet<CabinGearID>>()
             {
-                { ModelID.LightAlpha, GetGearIDsForLightAlpha() },
-                { ModelID.MediumAlpha, GetGearIDsForMediumAlpha() },
-                { ModelID.HeavyAlpha, GetGearIDsForHeavyAlpha() },
+                { ModelID.MAA, GetGearIDsForLightAlpha() },
+                { ModelID.MBA, GetGearIDsForMediumAlpha() },
+                { ModelID.MCA, GetGearIDsForHeavyAlpha() },
             };
 
             public static ISet<CabinGearID> GetCabinTraitIDs(ModelID unitID)
@@ -85,7 +85,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
             {
                 return new HashSet<CabinGearID>()
                 {
-                    CabinGearID.AlphaAlpha
+                    CabinGearID.CAA
                 };
             }
 
@@ -93,7 +93,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
             {
                 return new HashSet<CabinGearID>()
                 {
-                    CabinGearID.AlphaAlpha
+                    CabinGearID.CAA
                 };
             }
 
@@ -101,7 +101,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
             {
                 return new HashSet<CabinGearID>()
                 {
-                    CabinGearID.AlphaAlpha
+                    CabinGearID.CAA
                 };
             }
         }
@@ -110,9 +110,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
         {
             private static readonly IDictionary<ModelID, ISet<EngineGearID>> ENGINE_GEAR_ID_TRAIT_IDS = new Dictionary<ModelID, ISet<EngineGearID>>()
             {
-                { ModelID.LightAlpha, GetGearIDsForLightAlpha() },
-                { ModelID.MediumAlpha, GetGearIDsForMediumAlpha() },
-                { ModelID.HeavyAlpha, GetGearIDsForHeavyAlpha() },
+                { ModelID.MAA, GetGearIDsForLightAlpha() },
+                { ModelID.MBA, GetGearIDsForMediumAlpha() },
+                { ModelID.MCA, GetGearIDsForHeavyAlpha() },
             };
 
             public static ISet<EngineGearID> GetEngineTraitIDs(ModelID unitID)
@@ -124,7 +124,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
             {
                 return new HashSet<EngineGearID>()
                 {
-                    EngineGearID.AA
+                    EngineGearID.EAA
                 };
             }
 
@@ -132,7 +132,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
             {
                 return new HashSet<EngineGearID>()
                 {
-                    EngineGearID.AA
+                    EngineGearID.EAA
                 };
             }
 
@@ -140,7 +140,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
             {
                 return new HashSet<EngineGearID>()
                 {
-                    EngineGearID.AA
+                    EngineGearID.EAA
                 };
             }
         }
@@ -149,9 +149,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
         {
             private static readonly IDictionary<ModelID, ISet<WeaponGearID>> WEAPON_GEAR_ID_TRAIT_IDS = new Dictionary<ModelID, ISet<WeaponGearID>>()
             {
-                { ModelID.LightAlpha, GetGearIDsForLightAlpha() },
-                { ModelID.MediumAlpha, GetGearIDsForMediumAlpha() },
-                { ModelID.HeavyAlpha, GetGearIDsForHeavyAlpha() },
+                { ModelID.MAA, GetGearIDsForLightAlpha() },
+                { ModelID.MBA, GetGearIDsForMediumAlpha() },
+                { ModelID.MCA, GetGearIDsForHeavyAlpha() },
             };
 
             public static ISet<WeaponGearID> GetWeaponTraitIDs(ModelID unitID)
@@ -163,7 +163,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
             {
                 return new HashSet<WeaponGearID>()
                 {
-                    WeaponGearID.AA
+                    WeaponGearID.WAA
                 };
             }
 
@@ -171,7 +171,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
             {
                 return new HashSet<WeaponGearID>()
                 {
-                    WeaponGearID.AA
+                    WeaponGearID.WAA
                 };
             }
 
@@ -179,7 +179,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
             {
                 return new HashSet<WeaponGearID>()
                 {
-                    WeaponGearID.AA
+                    WeaponGearID.WAA
                 };
             }
         }

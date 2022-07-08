@@ -14,7 +14,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
         private static readonly IDictionary<CabinGearID, IGearAttributes> ID_ATTRIBUTES =
             new Dictionary<CabinGearID, IGearAttributes>()
             {
-                { CabinGearID.AlphaAlpha, new CabinGearAlphaAlphaAttributesImpl() },
+                { CabinGearID.CAA, new CaaAttributesImpl() },
+                { CabinGearID.CBA, new CbaAttributesImpl() },
+                { CabinGearID.CAA, new CcaAttributesImpl() },
             };
 
         /// <summary>

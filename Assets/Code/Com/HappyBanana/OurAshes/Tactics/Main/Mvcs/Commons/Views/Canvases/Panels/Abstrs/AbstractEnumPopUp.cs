@@ -69,7 +69,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             string widgetName = this.DetermineButtonName(tEnum);
             string buttonText = buttonType;
             // Todo: Move canvas level to some constants file
-            IButtonPanelWidget buttonPanelWidget = this.BuildButton(widgetName, widgetGridSpec, buttonText, buttonType, 99);
+            IButtonPanelWidget buttonPanelWidget = this.BuildButton(widgetName, widgetGridSpec, buttonText, 99);
             ConfigureButton(buttonPanelWidget, tEnum);
             return buttonPanelWidget;
         }

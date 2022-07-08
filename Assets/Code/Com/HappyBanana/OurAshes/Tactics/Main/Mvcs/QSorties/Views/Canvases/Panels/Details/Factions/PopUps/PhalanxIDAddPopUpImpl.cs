@@ -10,7 +10,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
     /// Phalanx ID Add PopUp Impl
     /// </summary>
     public class PhalanxIDAddPopUpImpl
-
         : AbstractDynamicEnumPopUp<PhalanxID>
     {
         private static readonly string EFFECT = "AddMod";
@@ -18,7 +17,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         protected override string DetermineButtonName(PhalanxID tEnum)
         {
-            return typeof(PhalanxID).Name + EFFECT + ":" + factionID.ToString() + ":" + tEnum.ToString() + ":Button";
+            return "Faction" + typeof(PhalanxID).Name + EFFECT + ":" + factionID.ToString() + ":" + tEnum.ToString() + ":Button";
         }
 
         protected override bool IsInteractable(PhalanxID tEnum)

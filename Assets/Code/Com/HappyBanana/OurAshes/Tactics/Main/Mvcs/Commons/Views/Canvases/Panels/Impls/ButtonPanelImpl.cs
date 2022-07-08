@@ -20,7 +20,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         : AbstractPanelWidget, IButtonPanelWidget
     {
         private string buttonText;
-        private string buttonType;
         private IImageWidget imageWidget;
         private ITextWidget textWidget;
 
@@ -92,8 +91,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 : PanelWidgetBuilders.IPanelWidgetBuilder
             {
                 IInternalBuilder SetButtonText(string text);
-
-                IInternalBuilder SetButtonType(string text);
             }
 
             /// <summary>
@@ -112,7 +109,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 : PanelWidgetBuilders.InternalPanelWidgetBuilder, IInternalBuilder
             {
                 private string buttonText;
-                private string buttonType;
 
                 IInternalBuilder IInternalBuilder.SetButtonText(string text)
                 {
@@ -120,17 +116,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     return this;
                 }
 
-                IInternalBuilder IInternalBuilder.SetButtonType(string text)
-                {
-                    this.buttonType = text;
-                    return this;
-                }
-
                 protected override IPanelWidget BuildScript(UnityEngine.GameObject gameObject)
                 {
                     ButtonPanelImpl widget = gameObject.AddComponent<ButtonPanelImpl>();
                     widget.buttonText = buttonText;
-                    widget.buttonType = buttonType;
                     this.ApplyPanelValues(widget);
                     CanvasWidgetUtils.SetButtonInteractable(widget, widget.isInteractable);
                     return widget;

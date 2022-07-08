@@ -6,6 +6,8 @@
     public enum ArmorGearID
     {
         None,
-        AA,
+        AAA,
+        ABA,
+        ACA,
     }
 }

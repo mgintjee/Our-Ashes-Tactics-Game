@@ -7,7 +7,6 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Size
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Structs;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Utils;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Constants;
@@ -36,7 +35,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         public override void Process(Commons.Models.States.Inters.IMvcModelState mvcModelState)
         {
-            Models.States.Inters.IMvcModelState qSortieMenuModelState = (Models.States.Inters.IMvcModelState)mvcModelState;
+            QSorties.Models.States.Inters.IMvcModelState qSortieMenuModelState = (QSorties.Models.States.Inters.IMvcModelState)mvcModelState;
             this.fieldDetails = qSortieMenuModelState.GetFieldDetails();
             this.UpdateButtons();
             qSortieMenuModelState.GetPrevMvcRequest().IfPresent(request =>
@@ -122,206 +121,145 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         private IButtonPanelWidget BuildAndSetIDButton()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.IDs.BUTTON_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            string buttonType = typeof(FieldID).Name;
-            string widgetName = buttonType + "PopUp:Button";
-            string buttonText = FieldID.None.ToString();
-            idButton = this.BuildButton(widgetName, widgetGridSpec, buttonText, buttonType);
+            IWidgetGridSpec widgetGridSpec = IDsConstants.BUTTON_SPEC;
+            string widgetName = typeof(FieldID).Name + "PopUp:Button";
+            idButton = this.BuildButton(widgetName, widgetGridSpec, "null");
             return idButton;
         }
 
         private IButtonPanelWidget BuildAndSetSizeButton()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.Sizes.BUTTON_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            string buttonType = typeof(FieldSize).Name;
-            string widgetName = buttonType + "PopUp:Button";
-            string buttonText = FieldSize.None.ToString();
-            sizeButton = this.BuildButton(widgetName, widgetGridSpec, buttonText, buttonType);
+            IWidgetGridSpec widgetGridSpec = SizesConstants.BUTTON_SPEC;
+            string widgetName = typeof(FieldSize).Name + "PopUp:Button";
+            sizeButton = this.BuildButton(widgetName, widgetGridSpec, "null");
             return sizeButton;
         }
 
         private IButtonPanelWidget BuildAndSetShapeButton()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.Shapes.BUTTON_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            string buttonType = typeof(FieldShape).Name;
-            string widgetName = buttonType + "PopUp:Button";
-            string buttonText = FieldShape.None.ToString();
-            shapeButton = this.BuildButton(widgetName, widgetGridSpec, buttonText, buttonType);
+            IWidgetGridSpec widgetGridSpec = ShapesConstants.BUTTON_SPEC;
+            string widgetName = typeof(FieldShape).Name + "PopUp:Button";
+            shapeButton = this.BuildButton(widgetName, widgetGridSpec, "null");
             return shapeButton;
         }
 
         private IButtonPanelWidget BuildAndSetBiomeButton()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.Biomes.BUTTON_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            string buttonType = typeof(FieldBiome).Name;
-            string widgetName = buttonType + "PopUp:Button";
-            string buttonText = FieldBiome.None.ToString();
-            biomeButton = this.BuildButton(widgetName, widgetGridSpec, buttonText, buttonType);
+            IWidgetGridSpec widgetGridSpec = BiomesConstants.BUTTON_SPEC;
+            string widgetName = typeof(FieldBiome).Name + "PopUp:Button";
+            biomeButton = this.BuildButton(widgetName, widgetGridSpec, "null");
             return biomeButton;
         }
 
         private IMultiTextPanelWidget BuildBiomeText()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.Biomes.TEXT_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
-            {
-                new TextImageWidgetStruct("Biome:",
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
-            };
+            IWidgetGridSpec widgetGridSpec = BiomesConstants.TEXT_SPEC;
+            IList<TextImageWidgetStruct> textImageWidgetStructs = BiomesConstants.TEXT_TIWS;
             string widgetName = typeof(FieldBiome).Name + ":Text";
             return this.BuildMultiText(widgetName, widgetGridSpec, textImageWidgetStructs, false);
         }
 
         private IMultiTextPanelWidget BuildIDText()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.IDs.TEXT_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
-            {
-                new TextImageWidgetStruct("ID:",
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
-            };
+            IWidgetGridSpec widgetGridSpec = IDsConstants.TEXT_SPEC;
+            IList<TextImageWidgetStruct> textImageWidgetStructs = IDsConstants.TEXT_TIWS;
             string widgetName = typeof(FieldID).Name + ":Text";
             return this.BuildMultiText(widgetName, widgetGridSpec, textImageWidgetStructs, false);
         }
 
         private IMultiTextPanelWidget BuildSizeText()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.Sizes.TEXT_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
-            {
-                new TextImageWidgetStruct("Size:",
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
-            };
+            IWidgetGridSpec widgetGridSpec = SizesConstants.TEXT_SPEC;
+            IList<TextImageWidgetStruct> textImageWidgetStructs = SizesConstants.TEXT_TIWS;
             string widgetName = typeof(FieldSize).Name + ":Text";
             return this.BuildMultiText(widgetName, widgetGridSpec, textImageWidgetStructs, false);
         }
 
         private IMultiTextPanelWidget BuildShapeText()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.Shapes.TEXT_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
-            {
-                new TextImageWidgetStruct("Shape:",
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
-            };
+            IWidgetGridSpec widgetGridSpec = ShapesConstants.TEXT_SPEC;
+            IList<TextImageWidgetStruct> textImageWidgetStructs = ShapesConstants.TEXT_TIWS;
             string widgetName = typeof(FieldShape).Name + ":Text";
             return this.BuildMultiText(widgetName, widgetGridSpec, textImageWidgetStructs, false);
         }
 
         private IPanelWidget BuildIDPopUp()
         {
-            string widgetName = typeof(FieldID).Name + ":PopUp";
-            IList<FieldID> vals = EnumUtils.GetEnumListWithoutFirst<FieldID>();
+            IList<FieldID> ids = EnumUtils.GetEnumListWithoutFirst<FieldID>();
             return IDPopUpImpl.Builder.Get()
                 .SetFieldDetails(this.fieldDetails)
-                .SetPanelGridSize(new Vector2(1, vals.Count))
+                .SetPanelGridSize(new Vector2(1, ids.Count))
                 .SetWidgetGridSpec(WidgetConstants.POP_UP_WIDGET_GRID_SPEC)
                 .SetMvcType(this.mvcType)
                 .SetCanvasLevel(99)
                 .SetInteractable(false)
                 .SetEnabled(true)
-                .SetName(widgetName)
+                .SetName(RequestType.FieldIDPopUp.ToString())
                 .SetParent(this)
                 .Build();
         }
 
         private IPanelWidget BuildSizePopUp()
         {
-            string widgetName = typeof(FieldSize).Name + ":PopUp";
-            IList<FieldSize> vals = EnumUtils.GetEnumListWithoutFirst<FieldSize>();
+            IList<FieldSize> sizes = EnumUtils.GetEnumListWithoutFirst<FieldSize>();
             return SizePopUpImpl.Builder.Get()
                 .SetFieldDetails(this.fieldDetails)
-                .SetPanelGridSize(new Vector2(1, vals.Count))
+                .SetPanelGridSize(new Vector2(1, sizes.Count))
                 .SetWidgetGridSpec(WidgetConstants.POP_UP_WIDGET_GRID_SPEC)
                 .SetMvcType(this.mvcType)
                 .SetCanvasLevel(99)
                 .SetInteractable(false)
                 .SetEnabled(true)
-                .SetName(widgetName)
+                .SetName(RequestType.FieldSizePopUp.ToString())
                 .SetParent(this)
                 .Build();
         }
 
         private IPanelWidget BuildBiomePopUp()
         {
-            string widgetName = typeof(FieldBiome).Name + ":PopUp";
-            IList<FieldBiome> vals = EnumUtils.GetEnumListWithoutFirst<FieldBiome>();
+            IList<FieldBiome> biomes = EnumUtils.GetEnumListWithoutFirst<FieldBiome>();
             return BiomePopUpImpl.Builder.Get()
                 .SetFieldDetails(this.fieldDetails)
-                .SetPanelGridSize(new Vector2(1, vals.Count))
+                .SetPanelGridSize(new Vector2(1, biomes.Count))
                 .SetWidgetGridSpec(WidgetConstants.POP_UP_WIDGET_GRID_SPEC)
                 .SetMvcType(this.mvcType)
                 .SetCanvasLevel(99)
                 .SetInteractable(false)
                 .SetEnabled(true)
-                .SetName(widgetName)
+                .SetName(RequestType.FieldBiomePopUp.ToString())
                 .SetParent(this)
                 .Build();
         }
 
         private IPanelWidget BuildShapePopUp()
         {
-            string widgetName = typeof(FieldShape).Name + ":PopUp";
-            IList<FieldShape> vals = EnumUtils.GetEnumListWithoutFirst<FieldShape>();
+            IList<FieldShape> shapes = EnumUtils.GetEnumListWithoutFirst<FieldShape>();
             return ShapePopUpImpl.Builder.Get()
                 .SetFieldDetails(this.fieldDetails)
-                .SetPanelGridSize(new Vector2(1, vals.Count))
+                .SetPanelGridSize(new Vector2(1, shapes.Count))
                 .SetWidgetGridSpec(WidgetConstants.POP_UP_WIDGET_GRID_SPEC)
                 .SetMvcType(this.mvcType)
                 .SetCanvasLevel(99)
                 .SetInteractable(false)
                 .SetEnabled(true)
-                .SetName(widgetName)
+                .SetName(RequestType.FieldShapePopUp.ToString())
                 .SetParent(this)
                 .Build();
         }
 
-        /// <summary>
-        /// Todo
-        /// </summary>
         public class Builder
         {
-            /// <summary>
-            /// Todo
-            /// </summary>
             public interface IInternalBuilder
                 : PanelWidgetBuilders.IPanelWidgetBuilder
             {
                 IInternalBuilder SetPopUpWidget(IPopUpPanelWidget widget);
             }
 
-            /// <summary>
-            /// Todo
-            /// </summary>
-            /// <returns></returns>
             public static IInternalBuilder Get()
             {
                 return new InternalBuilder();
             }
 
-            /// <summary>
-            /// Todo
-            /// </summary>
             private class InternalBuilder
                 : PanelWidgetBuilders.InternalPanelWidgetBuilder, IInternalBuilder
             {

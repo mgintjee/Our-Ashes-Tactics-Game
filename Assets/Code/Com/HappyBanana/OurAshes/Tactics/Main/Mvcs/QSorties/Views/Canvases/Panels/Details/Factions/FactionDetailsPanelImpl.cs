@@ -11,7 +11,6 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.Stat
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Structs;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Utils;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Constants;
@@ -33,11 +32,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
     {
         private IPopUpPanelWidget popUpWidget;
         private IButtonPanelWidget idButton;
-        private IButtonPanelWidget iconButton;
         private IButtonPanelWidget phalanxAddButton;
         private IButtonPanelWidget phalanxMinusButton;
         private IMultiTextPanelWidget phalanxIDList;
-        private IMultiTextPanelWidget powerText;
         private IFactionDetails selectedFactionDetails;
         private ICombatantsDetails combatantsDetails;
         private IFieldDetails fieldDetails;
@@ -45,7 +42,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         public override void Process(IMvcModelState modelState)
         {
             logger.Debug("Processing {}", modelState);
-            Models.States.Inters.IMvcModelState mvcModelState = (Models.States.Inters.IMvcModelState)modelState;
+            QSorties.Models.States.Inters.IMvcModelState mvcModelState = (QSorties.Models.States.Inters.IMvcModelState)modelState;
             this.combatantsDetails = mvcModelState.GetCombatantsDetails();
             this.fieldDetails = mvcModelState.GetFieldDetails();
             this.selectedFactionDetails = this.combatantsDetails.GetFactionDetails()[0];
@@ -69,8 +66,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 this.BuildIDText(),
                 this.BuildIconText(),
                 this.BuildPhalanxText(),
-                this.BuildAndSetPhalanxListText(),
-                this.BuildPowersText()
+                this.BuildAndSetPhalanxListText()
             };
         }
 
@@ -79,7 +75,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             return new HashSet<ICanvasWidget>
             {
                 this.BuildAndSetIDButton(),
-                this.BuildAndSetIconButton(),
                 this.BuildAndSetPhalanxMinusButton(),
                 this.BuildAndSetPhalanxAddButton(),
             };
@@ -94,18 +89,18 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     this.popUpWidget.UpdatePopupEntry(this.BuildIDPopUp());
                     break;
 
-                case RequestType.PhalanxIDMinusPopUp:
+                case RequestType.FactionPhalanxIDMinusPopUp:
                     this.popUpWidget.UpdatePopupEntry(this.BuildPhalanxIDMinusPopUp());
                     break;
 
-                case RequestType.PhalanxIDAddPopUp:
+                case RequestType.FactionPhalanxIDAddPopUp:
                     this.popUpWidget.UpdatePopupEntry(this.BuildPhalanxIDAddPopUp());
                     break;
 
                 case RequestType.PopUpDisable:
                 case RequestType.FactionIDSelect:
-                case RequestType.PhalanxIDMinusMod:
-                case RequestType.PhalanxIDAddMod:
+                case RequestType.FactionPhalanxIDMinusMod:
+                case RequestType.FactionPhalanxIDAddMod:
                     this.popUpWidget.SetEnabled(false);
                     break;
 
@@ -133,155 +128,82 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         private IButtonPanelWidget BuildAndSetIDButton()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.IDs.BUTTON_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            string buttonType = RequestType.FactionIDPopUp.ToString();
-            string textName = buttonType + ":Button";
-            string buttonText = FactionID.None.ToString();
-            idButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
+            IWidgetGridSpec widgetGridSpec = IDsConstants.BUTTON_SPEC;
+            string textName = RequestType.FactionIDPopUp + ":Button";
+            idButton = this.BuildButton(textName, widgetGridSpec, "null");
             return idButton;
-        }
-
-        private IButtonPanelWidget BuildAndSetIconButton()
-        {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.Icons.BUTTON_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            string buttonType = typeof(IconID).Name;
-            string textName = typeof(FactionID).Name + ":" + buttonType + "PopUp:Button";
-            string buttonText = IconID.None.ToString();
-            iconButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
-            return iconButton;
         }
 
         private IButtonPanelWidget BuildAndSetPhalanxMinusButton()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.PhalanxHeader.MINUS_BUTTON_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            string buttonType = RequestType.PhalanxIDMinusPopUp.ToString();
-            string textName = buttonType + ":Button";
-            string buttonText = "-";
-            phalanxMinusButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
+            IWidgetGridSpec widgetGridSpec = PhalanxesConstants.MINUS_BUTTON_SPEC;
+            string textName = RequestType.FactionPhalanxIDMinusPopUp + ":Button";
+            phalanxMinusButton = this.BuildButton(textName, widgetGridSpec, "-");
             return phalanxMinusButton;
         }
 
         private IButtonPanelWidget BuildAndSetPhalanxAddButton()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.PhalanxHeader.ADD_BUTTON_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            string buttonType = RequestType.PhalanxIDAddPopUp.ToString();
-            string textName = buttonType + ":Button";
-            string buttonText = "+";
-            phalanxAddButton = this.BuildButton(textName, widgetGridSpec, buttonText, buttonType);
+            IWidgetGridSpec widgetGridSpec = PhalanxesConstants.ADD_BUTTON_SPEC;
+            string textName = RequestType.FactionPhalanxIDAddPopUp + ":Button";
+            phalanxAddButton = this.BuildButton(textName, widgetGridSpec, "+");
             return phalanxAddButton;
         }
 
         private IMultiTextPanelWidget BuildIconText()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.Icons.TEXT_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
-            {
-                new TextImageWidgetStruct("Icon:",
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
-            };
-            string textName = "Icon:Text";
+            IWidgetGridSpec widgetGridSpec = IconsConstants.TEXT_SPEC;
+            IList<TextImageWidgetStruct> textImageWidgetStructs = IconsConstants.TEXT_TIWS;
+            string textName = typeof(IconID).Name + ":Text";
             return this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
         }
 
         private IMultiTextPanelWidget BuildIDText()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.IDs.TEXT_COORDS)
-                    .SetCanvasGridSize(PanelConstants.INFO_SIZE);
-            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
-            {
-                new TextImageWidgetStruct("ID:",
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
-            };
+            IWidgetGridSpec widgetGridSpec = IDsConstants.TEXT_SPEC;
+            IList<TextImageWidgetStruct> textImageWidgetStructs = IDsConstants.TEXT_TIWS;
             string textName = typeof(FactionID).Name + ":Text";
             return this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
         }
 
         private IMultiTextPanelWidget BuildPhalanxText()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.PhalanxHeader.TEXT_COORDS)
-                    .SetCanvasGridSize(PanelConstants.PhalanxHeader.TEXT_SIZE);
-            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
-            {
-                new TextImageWidgetStruct("Phalanxes:",
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
-            };
+            IWidgetGridSpec widgetGridSpec = PhalanxesConstants.TEXT_SPEC;
+            IList<TextImageWidgetStruct> textImageWidgetStructs = PhalanxesConstants.TEXT_TIWS;
             string textName = typeof(PhalanxID).Name + ":Text";
             return this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
         }
 
         private IMultiTextPanelWidget BuildAndSetPhalanxListText()
         {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.PhalanxList.COORDS)
-                    .SetCanvasGridSize(PanelConstants.PhalanxList.SIZE);
-            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
-            {
-                new TextImageWidgetStruct("[]",
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
-            };
+            IWidgetGridSpec widgetGridSpec = PhalanxesConstants.LIST_SPEC;
+            IList<TextImageWidgetStruct> textImageWidgetStructs = PhalanxesConstants.LIST_TIWS;
             string textName = typeof(PhalanxID).Name + "List:Text";
             this.phalanxIDList = this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
             return this.phalanxIDList;
         }
 
-        private IMultiTextPanelWidget BuildPowersText()
-        {
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(PanelConstants.Powers.COORDS)
-                    .SetCanvasGridSize(PanelConstants.Powers.SIZE);
-            IList<TextImageWidgetStruct> textImageWidgetStructs = new List<TextImageWidgetStruct>
-            {
-                new TextImageWidgetStruct("Faction Power:",
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR),
-                new TextImageWidgetStruct("0",
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
-                    WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
-            };
-            string textName = typeof(FactionID).Name + ":Power:Text";
-            return this.BuildMultiText(textName, widgetGridSpec, textImageWidgetStructs, false);
-        }
-
         private IPanelWidget BuildIDPopUp()
         {
-            string widgetName = RequestType.FactionIDPopUp.ToString();
-            IList<FactionID> vals = EnumUtils.GetEnumListWithoutFirst<FactionID>();
+            IList<FactionID> ids = EnumUtils.GetEnumListWithoutFirst<FactionID>();
             return IDPopUpImpl.Builder.Get()
                 .SetDetails(this.combatantsDetails)
-                .SetPanelGridSize(new Vector2(1, vals.Count))
+                .SetPanelGridSize(new Vector2(1, ids.Count))
                 .SetWidgetGridSpec(WidgetConstants.POP_UP_WIDGET_GRID_SPEC)
                 .SetMvcType(this.mvcType)
                 .SetCanvasLevel(99)
                 .SetInteractable(false)
                 .SetEnabled(true)
-                .SetName(widgetName)
+                .SetName(RequestType.FactionIDPopUp.ToString())
                 .SetParent(this)
                 .Build();
         }
 
         private IPanelWidget BuildPhalanxIDMinusPopUp()
         {
-            string widgetName = RequestType.PhalanxIDMinusPopUp.ToString();
-            FactionID factionID = this.selectedFactionDetails.GetFactionID();
             IList<PhalanxID> ids = this.selectedFactionDetails.GetPhalanxIDs();
             return PhalanxIDMinusPopUpImpl.Builder.Get()
-                .SetFactionID(factionID)
+                .SetFactionID(this.selectedFactionDetails.GetFactionID())
                 .SetPhalanxIDs(ids)
                 .SetPanelGridSize(new Vector2(1, ids.Count))
                 .SetWidgetGridSpec(WidgetConstants.POP_UP_WIDGET_GRID_SPEC)
@@ -289,15 +211,13 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 .SetCanvasLevel(99)
                 .SetInteractable(false)
                 .SetEnabled(true)
-                .SetName(widgetName)
+                .SetName(RequestType.FactionPhalanxIDMinusPopUp.ToString())
                 .SetParent(this)
                 .Build();
         }
 
         private IPanelWidget BuildPhalanxIDAddPopUp()
         {
-            string widgetName = RequestType.PhalanxIDAddPopUp.ToString();
-            FactionID id = this.selectedFactionDetails.GetFactionID();
             IList<IPhalanxDetails> unavailableDetails = this.combatantsDetails.GetPhalanxDetails();
             IList<PhalanxID> availableIDs = EnumUtils.GetEnumListWithoutFirst<PhalanxID>();
             foreach (IPhalanxDetails unavailableID in unavailableDetails)
@@ -305,7 +225,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 availableIDs.Remove(unavailableID.GetPhalanxID());
             }
             return PhalanxIDAddPopUpImpl.Builder.Get()
-                .SetFactionID(id)
+                .SetFactionID(this.selectedFactionDetails.GetFactionID())
                 .SetPhalanxIDs(availableIDs)
                 .SetPanelGridSize(new Vector2(1, availableIDs.Count))
                 .SetWidgetGridSpec(WidgetConstants.POP_UP_WIDGET_GRID_SPEC)
@@ -313,7 +233,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 .SetCanvasLevel(99)
                 .SetInteractable(false)
                 .SetEnabled(true)
-                .SetName(widgetName)
+                .SetName(RequestType.FactionPhalanxIDAddPopUp.ToString())
                 .SetParent(this)
                 .Build();
         }

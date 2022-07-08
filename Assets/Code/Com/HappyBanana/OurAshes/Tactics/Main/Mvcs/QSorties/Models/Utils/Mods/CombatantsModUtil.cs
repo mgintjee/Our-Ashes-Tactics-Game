@@ -31,7 +31,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         public static void HandlePhalanxIDMod(IMvcModelState modelState, IPhalanxIDModRequest mvcRequest)
         {
             ICombatantsDetails currentCombatantsDetails = modelState.GetCombatantsDetails();
-            IPhalanxDetails phalanxDetails = currentCombatantsDetails.GetPhalanxDetails(mvcRequest.GetPhalanxID()).GetValue();
+            IPhalanxDetails phalanxDetails = currentCombatantsDetails.GetDetails(mvcRequest.GetPhalanxID()).GetValue();
             IList<IUnitDetails> unitDetailsList = UpdateUnitDetailsList(mvcRequest, phalanxDetails, currentCombatantsDetails.GetUnitDetails());
             logger.Debug("Old: {}" +
                 "\n\nNew: {}", currentCombatantsDetails.GetUnitDetails(), unitDetailsList);
@@ -47,7 +47,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         public static void HandleUnitIDMod(IMvcModelState modelState, IUnitIDModRequest mvcRequest)
         {
             ICombatantsDetails currentCombatantsDetails = modelState.GetCombatantsDetails();
-            IPhalanxDetails phalanxDetails = currentCombatantsDetails.GetPhalanxDetails(mvcRequest.GetPhalanxID()).GetValue();
+            IPhalanxDetails phalanxDetails = currentCombatantsDetails.GetDetails(mvcRequest.GetPhalanxID()).GetValue();
             IList<IUnitDetails> unitDetailsList = UpdateUnitDetailsList(mvcRequest, currentCombatantsDetails.GetUnitDetails());
             logger.Debug("Old: {}" +
                 "\n\nNew: {}", currentCombatantsDetails.GetUnitDetails(), unitDetailsList);

@@ -10,16 +10,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames
         : IQSortieMenuMvcRequest
     {
         // Todo
-        private RequestType requestType = RequestType.None;
+        private readonly RequestType requestType = RequestType.None;
 
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <param name="qSortieRequestType"></param>
-        public DefaultRequestImpl SetRequestType(RequestType qSortieRequestType)
+        public DefaultRequestImpl(RequestType requestType)
         {
-            this.requestType = qSortieRequestType;
-            return this;
+            this.requestType = requestType;
         }
 
         /// <inheritdoc/>

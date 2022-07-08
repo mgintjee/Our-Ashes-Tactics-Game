@@ -9,8 +9,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
     public interface IMvcModelState
         : Commons.Models.States.Inters.IMvcModelState
     {
-        IFieldDetails GetFieldDetails();
+        FactionID GetSelectedFactionID();
 
+        PhalanxID GetSelectedPhalanxID();
+
+        UnitID GetSelectedUnitID();
+        IFieldDetails GetFieldDetails();
         ICombatantsDetails GetCombatantsDetails();
     }
 }

@@ -40,7 +40,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
         }
 
         /// <inheritdoc/>
-        CabinGearID ICabinGearDetails.GetCabinGearID()
+        CabinGearID ICabinGearDetails.GetGearID()
         {
             return this.cabinGearID;
         }

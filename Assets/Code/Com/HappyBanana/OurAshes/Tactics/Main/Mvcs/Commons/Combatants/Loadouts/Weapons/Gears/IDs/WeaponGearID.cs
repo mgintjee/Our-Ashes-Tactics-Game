@@ -6,6 +6,26 @@
     public enum WeaponGearID
     {
         None,
-        AA,
+        WBA, // Bolf from the Blue
+        WAA, // Bunch of Fives
+        WCA, // Country Miles
+    }
+
+    public static class Extensions
+    {
+        public static string GetString(this WeaponGearID me)
+        {
+            switch (me)
+            {
+                case WeaponGearID.None:
+                    return "none";
+
+                case WeaponGearID.WAA:
+                    return "Bunch of Fives";
+
+                default:
+                    return "NO VALUE GIVEN";
+            }
+        }
     }
 }

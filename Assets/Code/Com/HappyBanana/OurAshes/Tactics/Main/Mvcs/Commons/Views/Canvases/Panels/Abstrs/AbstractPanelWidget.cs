@@ -155,11 +155,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             }
         }
 
-        protected IButtonPanelWidget BuildButton(string widgetName, IWidgetGridSpec widgetGridSpec, string buttonText, string buttonType, int canvasLevel)
+        protected IButtonPanelWidget BuildButton(string widgetName, IWidgetGridSpec widgetGridSpec, string buttonText, int canvasLevel)
         {
             IButtonPanelWidget buttonPanelWidget = (IButtonPanelWidget)ButtonPanelImpl.Builder.Get()
                 .SetButtonText(buttonText)
-                .SetButtonType(buttonType)
                 .SetPanelGridSize(Vector2.One)
                 .SetWidgetGridSpec(widgetGridSpec)
                 .SetMvcType(this.mvcType)
@@ -172,9 +171,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             return buttonPanelWidget;
         }
 
-        protected IButtonPanelWidget BuildButton(string widgetName, IWidgetGridSpec widgetGridSpec, string buttonText, string buttonType)
+        protected IButtonPanelWidget BuildButton(string widgetName, IWidgetGridSpec widgetGridSpec, string buttonText)
         {
-            return this.BuildButton(widgetName, widgetGridSpec, buttonText, buttonType, 0);
+            return this.BuildButton(widgetName, widgetGridSpec, buttonText, 0);
         }
 
         protected IMultiTextPanelWidget BuildMultiText(string widgetName, IWidgetGridSpec widgetGridSpec,
