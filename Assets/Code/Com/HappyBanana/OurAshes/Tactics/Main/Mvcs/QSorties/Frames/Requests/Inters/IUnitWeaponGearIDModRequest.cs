@@ -15,7 +15,5 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames
         WeaponGearID GetWeaponGearID();
 
         int GetWeaponIndex();
-
-        bool IsAdd();
     }
 }

@@ -137,9 +137,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     break;
 
                 case RequestType.UnitWeaponGearIDModSelect:
-                case RequestType.UnitWeaponGearIDMinusSelect:
-                    isAdd = requestType == RequestType.UnitWeaponGearIDModSelect;
-                    request = this.BuildUnitWeaponGearIDModRequestFrom(isAdd, widgetName, requestType);
+                    request = this.BuildUnitWeaponGearIDModRequestFrom(widgetName, requestType);
                     break;
 
                 default:
@@ -198,12 +196,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         /// <param name="widgetName"> </param>
         /// <param name="requestType"></param>s
         /// <returns></returns>
-        private IQSortieMenuMvcRequest BuildUnitWeaponGearIDModRequestFrom(bool isAdd, string widgetName, RequestType requestType)
+        private IQSortieMenuMvcRequest BuildUnitWeaponGearIDModRequestFrom(string widgetName, RequestType requestType)
         {
             UnitID unitID = EnumUtils.DetermineEnumFrom<UnitID>(widgetName);
             WeaponGearID weaponGearID = EnumUtils.DetermineEnumFrom<WeaponGearID>(widgetName);
             int weaponIndex = int.Parse(Regex.Match(widgetName, @"\d+").Value);
-            return new UnitWeaponGearIDModRequestImpl(unitID, weaponGearID, isAdd, weaponIndex, requestType);
+            return new UnitWeaponGearIDModRequestImpl(unitID, weaponGearID, weaponIndex, requestType);
         }
     }
 }

@@ -116,19 +116,17 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             ICombatantsDetails combatantsDetails = mvcModelState.GetCombatantsDetails();
             IUnitDetails unitDetails = combatantsDetails.GetDetails(unitID).GetValue();
             IUnitDetails newUnitDetails = UnitDetailsImpl.Builder.Get()
-                .SetLoadoutDetails(UpdateLoadoutDetails(unitDetails.GetLoadoutDetails(), mvcRequest.GetWeaponGearID(), mvcRequest.GetWeaponIndex(), mvcRequest.IsAdd()))
+                .SetLoadoutDetails(UpdateLoadoutDetails(unitDetails.GetLoadoutDetails(), mvcRequest.GetWeaponGearID(), mvcRequest.GetWeaponIndex()))
                 .SetModelID(unitDetails.GetModelID())
                 .SetUnitID(unitDetails.GetUnitID())
                 .Build();
             UpdateUnitDetails(unitDetails, newUnitDetails, mvcModelState);
         }
 
-        private static ILoadoutDetails UpdateLoadoutDetails(ILoadoutDetails loadoutDetails, WeaponGearID gearID, int index, bool isAdd)
+        private static ILoadoutDetails UpdateLoadoutDetails(ILoadoutDetails loadoutDetails, WeaponGearID gearID, int index)
         {
             IList<WeaponGearID> weaponGearIDs = loadoutDetails.GetWeaponGearIDs();
-            weaponGearIDs[index] = (isAdd)
-                ? gearID
-                : WeaponGearID.EMPTY;
+            weaponGearIDs[index] = gearID;
             return LoadoutDetailsImpl.Builder.Get()
                 .SetArmorGearID(loadoutDetails.GetArmorGearID())
                 .SetCabinGearID(loadoutDetails.GetCabinGearID())

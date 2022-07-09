@@ -51,12 +51,7 @@
         UnitEngineGearIDSelect,
         UnitWeaponGearIDModPopUp,
         UnitWeaponGearIDModSelect,
-        UnitWeaponGearIDMinusPopUp,
-        UnitWeaponGearIDMinusSelect,
 
-        SortieStart,
-        FactionRandomize,
-        UnitMod,
-        SortieRandomize,
+        SortieStart
     }
 }
