@@ -14,11 +14,13 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         public static readonly float SIZE_Y = 1;
         public static readonly float SIZE = SIZE_X / 4;
         public static readonly float COORDS_Y = DetailsPanelConstants.Units.Vectors.SIZE.Y - 1;
+
         public static readonly IWidgetGridSpec TEXT_SPEC = new WidgetGridSpecImpl()
-            .SetCanvasGridCoords(new Vector2(2*SIZE, COORDS_Y))
+            .SetCanvasGridCoords(new Vector2(2 * SIZE, COORDS_Y))
             .SetCanvasGridSize(new Vector2(SIZE, SIZE_Y));
+
         public static readonly IWidgetGridSpec BUTTON_SPEC = new WidgetGridSpecImpl()
-            .SetCanvasGridCoords(new Vector2(3*SIZE, COORDS_Y))
+            .SetCanvasGridCoords(new Vector2(3 * SIZE, COORDS_Y))
             .SetCanvasGridSize(new Vector2(SIZE, SIZE_Y));
 
         public static readonly IList<TextImageWidgetStruct> TEXT_TIWS = new List<TextImageWidgetStruct>()

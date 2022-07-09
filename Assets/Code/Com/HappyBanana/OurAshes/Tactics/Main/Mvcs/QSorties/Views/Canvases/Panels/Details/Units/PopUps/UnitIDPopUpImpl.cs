@@ -1,6 +1,4 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Factions.Details.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.IDs;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.IDs;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
 using System.Collections.Generic;
@@ -14,6 +12,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         : AbstractDynamicEnumPopUp<UnitID>
     {
         private UnitID id;
+
         protected override string DetermineButtonName(UnitID tEnum)
         {
             return typeof(UnitID).Name + "Select:" + tEnum.ToString() + ":Button";
@@ -23,6 +22,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         {
             return tEnum != id;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -35,6 +35,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 : PanelWidgetBuilders.IPanelWidgetBuilder
             {
                 IInternalBuilder SetUnitIDs(IList<UnitID> ids);
+
                 IInternalBuilder SetUnitID(UnitID id);
             }
 
@@ -62,6 +63,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     return this;
                 }
 
+                IInternalBuilder IInternalBuilder.SetUnitID(UnitID id)
+                {
+                    this.id = id;
+                    return this;
+                }
+
                 protected override IPanelWidget BuildScript(UnityEngine.GameObject gameObject)
                 {
                     UnitIDPopUpImpl widget = gameObject.AddComponent<UnitIDPopUpImpl>();
@@ -72,15 +79,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 }
 
                 /// <inheritdoc/>
-                protected override void Validate(ISet<string> invalidReasons)
+                protected override void Validate(IList<string> invalidReasons)
                 {
                     this.Validate(invalidReasons, ids);
-                }
-
-                IInternalBuilder IInternalBuilder.SetUnitID(UnitID id)
-                {
-                    this.id = id;
-                    return this;
                 }
             }
         }

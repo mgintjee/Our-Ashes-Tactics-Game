@@ -22,9 +22,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
 
         private readonly int MAX_HEX_LAYER = 9;
 
-        protected override Optional<Vector3> GetNextTileCoord(ISet<Vector3> visitedTileCoords, IList<Vector3> unvisitedTileCoords)
+        protected override Optional<Vector3> GetNextTileCoord(IList<Vector3> visitedTileCoords, IList<Vector3> unvisitedTileCoords)
         {
-            ISet<Vector3> unfinishedLayer = this.GetMaxUnfinishedLayer(visitedTileCoords);
+            IList<Vector3> unfinishedLayer = this.GetMaxUnfinishedLayer(visitedTileCoords);
             foreach (Vector3 tileCoord in unfinishedLayer)
             {
                 if (!visitedTileCoords.Contains(tileCoord) && unvisitedTileCoords.Contains(tileCoord))
@@ -42,18 +42,18 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
             return Optional<Vector3>.Empty();
         }
 
-        private ISet<Vector3> GetMaxUnfinishedLayer(ISet<Vector3> tileCoords)
+        private IList<Vector3> GetMaxUnfinishedLayer(IList<Vector3> tileCoords)
         {
             for (int i = 0; i < MAX_HEX_LAYER; ++i)
             {
-                ISet<Vector3> layerTileCoords = HexTileCoordsUtil.GetTileCoordsForLayer(i);
+                IList<Vector3> layerTileCoords = HexTileCoordsUtil.GetTileCoordsForLayer(i);
                 if (!TileCoordsUtil.IsSubsetOf(tileCoords, layerTileCoords))
                 {
                     //logger.Debug("Found unfinished layer: {}, TileCoords: {}", i, layerTileCoords);
                     return layerTileCoords;
                 }
             }
-            return new HashSet<Vector3>();
+            return new List<Vector3>();
         }
     }
 }

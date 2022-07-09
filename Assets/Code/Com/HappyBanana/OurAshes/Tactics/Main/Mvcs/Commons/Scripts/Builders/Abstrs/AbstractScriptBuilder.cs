@@ -38,7 +38,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Scripts
         }
 
         /// <inheritdoc/>
-        protected override void Validate(ISet<string> invalidReasons)
+        protected override void Validate(IList<string> invalidReasons)
         {
             this.Validate(invalidReasons, this.name);
             this.Validate(invalidReasons, this.unityScript);
@@ -55,7 +55,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Scripts
         /// Todo
         /// </summary>
         /// <param name="invalidReasons"></param>
-        protected virtual void ValidateScriptBuilder(ISet<string> invalidReasons)
+        protected virtual void ValidateScriptBuilder(IList<string> invalidReasons)
         {
         }
 

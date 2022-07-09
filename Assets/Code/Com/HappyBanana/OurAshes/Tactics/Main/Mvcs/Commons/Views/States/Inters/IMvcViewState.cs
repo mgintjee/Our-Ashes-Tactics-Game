@@ -9,7 +9,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.S
     {
         Optional<IMvcRequest> GetMvcModelRequest();
 
-        ISet<MvcControlInputType> GetMvcControlInputTypes();
+        IList<MvcControlInputType> GetMvcControlInputTypes();
 
         IMvcViewState GetCopy();
     }

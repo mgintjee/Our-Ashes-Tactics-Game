@@ -20,16 +20,16 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.S
             return this;
         }
 
-        public DefaultMvcViewStateImpl SetMvcControlInputTypes(ISet<MvcControlInputType> mvcControlInputTypes)
+        public DefaultMvcViewStateImpl SetMvcControlInputTypes(IList<MvcControlInputType> mvcControlInputTypes)
         {
-            this.mvcControlInputTypes = new HashSet<MvcControlInputType>(mvcControlInputTypes);
+            this.mvcControlInputTypes = new List<MvcControlInputType>(mvcControlInputTypes);
             return this;
         }
 
         public void Reset()
         {
             this.mvcModelRequest = null;
-            this.mvcControlInputTypes = new HashSet<MvcControlInputType>() { MvcControlInputType.Click };
+            this.mvcControlInputTypes = new List<MvcControlInputType>() { MvcControlInputType.Click };
         }
 
         /// <inheritdoc/>

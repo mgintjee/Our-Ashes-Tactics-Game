@@ -9,7 +9,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.LoadingScreens.
     /// </summary>
     public class TipsPanelConstants
     {
-        private static readonly ISet<string> LOADING_SCREEN_TIPS = new HashSet<string>()
+        private static readonly IList<string> LOADING_SCREEN_TIPS = new List<string>()
         {
             "TIP 1",
             "TIP 2",

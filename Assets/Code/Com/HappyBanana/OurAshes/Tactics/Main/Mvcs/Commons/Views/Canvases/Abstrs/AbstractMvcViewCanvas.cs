@@ -33,7 +33,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         protected ICanvasScript mvcViewCanvasScript;
 
         // Todo
-        protected IDictionary<int, ISet<ICanvasWidget>> canvasLevelWidgets = new Dictionary<int, ISet<ICanvasWidget>>();
+        protected IDictionary<int, IList<ICanvasWidget>> canvasLevelWidgets = new Dictionary<int, IList<ICanvasWidget>>();
 
         // Todo
         protected ICanvasGridConvertor canvasGridConvertor;

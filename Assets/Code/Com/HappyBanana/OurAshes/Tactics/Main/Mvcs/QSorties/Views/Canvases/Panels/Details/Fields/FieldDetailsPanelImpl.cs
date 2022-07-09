@@ -76,7 +76,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 case RequestType.FieldShapeSelect:
                 case RequestType.FieldBiomeSelect:
                 case RequestType.PopUpDisable:
-                    this.popUpWidget.SetEnabled(false);
+                    CanvasWidgetUtils.EnableWidget(popUpWidget, false);
                     break;
 
                 default:
@@ -85,20 +85,20 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             }
         }
 
-        private ISet<ICanvasWidget> BuildTexts()
+        private IList<ICanvasWidget> BuildTexts()
         {
-            return new HashSet<ICanvasWidget>
+            return new List<ICanvasWidget>
             {
                 this.BuildIDText(),
                 this.BuildSizeText(),
                 this.BuildShapeText(),
                 this.BuildBiomeText()
-            }; ;
+            };
         }
 
-        private ISet<ICanvasWidget> BuildButtons()
+        private IList<ICanvasWidget> BuildButtons()
         {
-            return new HashSet<ICanvasWidget>
+            return new List<ICanvasWidget>
             {
                 this.BuildAndSetIDButton(),
                 this.BuildAndSetShapeButton(),

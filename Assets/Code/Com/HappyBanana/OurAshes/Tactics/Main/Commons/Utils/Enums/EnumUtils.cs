@@ -61,7 +61,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Enums
             return tEnums[random.Next(tEnums.Count)];
         }
 
-        public static IList<string> GetEnumsAsStrings<TEnum>(IList<TEnum> enums)
+        public static IList<string> GetEnumsAsStrings<TEnum>(ICollection<TEnum> enums)
         {
             List<string> strings = new List<string>();
             foreach (TEnum tEnum in enums)
@@ -77,7 +77,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Enums
         /// <typeparam name="TEnum"></typeparam>
         /// <param name="random"></param>
         /// <returns></returns>
-        public static TEnum GenerateRandomEnumFrom<TEnum>(Random random, ISet<TEnum> enums)
+        public static TEnum GenerateRandomEnumFrom<TEnum>(Random random, ICollection<TEnum> enums)
             where TEnum : Enum
         {
             IList<TEnum> tEnums = new List<TEnum>(enums);
@@ -91,11 +91,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Enums
         /// <param name="random"></param>
         /// <param name="count"> </param>
         /// <returns></returns>
-        public static ISet<TEnum> GenerateRandomEnumsFrom<TEnum>(Random random, ISet<TEnum> availableEnums, int count)
+        public static IList<TEnum> GenerateRandomEnumsFrom<TEnum>(Random random, ICollection<TEnum> availableEnums, int count)
             where TEnum : Enum
         {
-            ISet<TEnum> tEnums = new HashSet<TEnum>();
-            ISet<TEnum> tempAvailableEnums = new HashSet<TEnum>(availableEnums);
+            IList<TEnum> tEnums = new List<TEnum>();
+            IList<TEnum> tempAvailableEnums = new List<TEnum>(availableEnums);
             while (tEnums.Count < count && tEnums.Count < availableEnums.Count)
             {
                 TEnum tEnum = GenerateRandomEnumFrom(random, tempAvailableEnums);

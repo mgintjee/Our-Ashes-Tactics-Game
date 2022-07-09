@@ -26,7 +26,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         : AbstractCanvasWidget, IPanelWidget
     {
         protected ICanvasGridConvertor canvasGridConvertor;
-        private readonly IDictionary<int, ISet<ICanvasWidget>> canvasLevelWidgets = new Dictionary<int, ISet<ICanvasWidget>>();
+        private readonly IDictionary<int, IList<ICanvasWidget>> canvasLevelWidgets = new Dictionary<int, IList<ICanvasWidget>>();
 
         public void SetPanelGridSize(Vector2 gridSize)
         {
@@ -40,7 +40,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         {
             this.isEnabled = enabled;
             this.gameObject.SetActive(enabled);
-            foreach (ISet<ICanvasWidget> canvasWidgets in this.canvasLevelWidgets.Values)
+            foreach (IList<ICanvasWidget> canvasWidgets in this.canvasLevelWidgets.Values)
             {
                 foreach (ICanvasWidget canvasWidget in canvasWidgets)
                 {
@@ -238,7 +238,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     return this;
                 }
 
-                protected override void ValidateWidgetBuilder(ISet<string> invalidReasons)
+                protected override void ValidateWidgetBuilder(IList<string> invalidReasons)
                 {
                     this.Validate(invalidReasons, this.panelGridSize);
                 }

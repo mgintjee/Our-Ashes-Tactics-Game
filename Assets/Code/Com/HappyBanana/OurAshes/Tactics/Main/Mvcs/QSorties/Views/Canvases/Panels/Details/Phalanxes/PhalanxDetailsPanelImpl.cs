@@ -41,10 +41,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         public override void Process(IMvcModelState modelState)
         {
-            QSorties.Models.States.Inters.IMvcModelState mvcModelState = (QSorties.Models.States.Inters.IMvcModelState)modelState;
+            Models.States.Inters.IMvcModelState mvcModelState = (Models.States.Inters.IMvcModelState)modelState;
             this.combatantsDetails = mvcModelState.GetCombatantsDetails();
             this.fieldDetails = mvcModelState.GetFieldDetails();
-            this.selectedDetails = this.combatantsDetails.GetPhalanxDetails()[0];
+            PhalanxID id = mvcModelState.GetSelectedPhalanxID();
+            this.selectedDetails = this.combatantsDetails.GetDetails(id).GetValue();
             this.UpdateWidgets();
             mvcModelState.GetPrevMvcRequest().IfPresent(request =>
             {
@@ -58,9 +59,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             this.InternalAddWidgets(this.BuildButtons());
         }
 
-        private ISet<ICanvasWidget> BuildTexts()
+        private IList<ICanvasWidget> BuildTexts()
         {
-            return new HashSet<ICanvasWidget>
+            return new List<ICanvasWidget>
             {
                 this.BuildIDText(),
                 this.BuildIconText(),
@@ -69,9 +70,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             };
         }
 
-        private ISet<ICanvasWidget> BuildButtons()
+        private IList<ICanvasWidget> BuildButtons()
         {
-            return new HashSet<ICanvasWidget>() {
+            return new List<ICanvasWidget>() {
                 this.BuildAndSetIDButton(),
                 this.BuildAndSetUnitsMinusButton(),
                 this.BuildAndSetUnitsAddButton()
@@ -97,9 +98,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
                 case RequestType.PopUpDisable:
                 case RequestType.PhalanxIDSelect:
-                case RequestType.PhalanxUnitIDMinusMod:
-                case RequestType.PhalanxUnitIDAddMod:
-                    this.popUpWidget.SetEnabled(false);
+                case RequestType.PhalanxUnitIDMinusSelect:
+                case RequestType.PhalanxUnitIDAddSelect:
+                    CanvasWidgetUtils.EnableWidget(popUpWidget, false);
                     break;
 
                 default:

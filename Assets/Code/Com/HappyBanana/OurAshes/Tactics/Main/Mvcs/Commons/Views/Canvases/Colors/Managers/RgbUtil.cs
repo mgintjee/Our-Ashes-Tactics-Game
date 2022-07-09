@@ -12,7 +12,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
     {
         public static IDictionary<ColorID, IRgb> BuildRgbManagerDictionary()
         {
-            ISet<IRgb> rgbs = new HashSet<IRgb>()
+            IList<IRgb> rgbs = new List<IRgb>()
             {
                 new BlackImpl(),
                 new BlueImpl(),

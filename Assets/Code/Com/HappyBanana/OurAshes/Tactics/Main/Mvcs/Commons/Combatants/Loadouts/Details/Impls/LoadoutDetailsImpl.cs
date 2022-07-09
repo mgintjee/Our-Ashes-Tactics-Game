@@ -1,11 +1,11 @@
 ﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Builders.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Strings;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Armors.Gears.Details.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Cabins.Gears.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Armors.Gears.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Cabins.Gears.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Details.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Engines.Gears.Details.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Weapons.Gears.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Engines.Gears.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Weapons.Gears.IDs;
 using System.Collections.Generic;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Details.Impls
@@ -13,18 +13,20 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
     public struct LoadoutDetailsImpl
         : ILoadoutDetails
     {
-        private readonly IArmorGearDetails armorGearDetails;
-        private readonly ICabinGearDetails cabinGearDetails;
-        private readonly IEngineGearDetails engineGearDetails;
-        private readonly IList<IWeaponGearDetails> weaponGearDetails;
+        private readonly EngineGearID engineGearID;
 
-        private LoadoutDetailsImpl(IArmorGearDetails armorGearDetails, ICabinGearDetails cabinGearDetails,
-            IEngineGearDetails engineGearDetails, IList<IWeaponGearDetails> weaponGearDetails)
+        private readonly ArmorGearID armorGearID;
+
+        private readonly CabinGearID cabinGearID;
+
+        private readonly IList<WeaponGearID> weaponGearIDs;
+
+        private LoadoutDetailsImpl(ArmorGearID armorGearID, CabinGearID cabinGearID, EngineGearID engineGearID, IList<WeaponGearID> weaponGearIDs)
         {
-            this.armorGearDetails = armorGearDetails;
-            this.cabinGearDetails = cabinGearDetails;
-            this.engineGearDetails = engineGearDetails;
-            this.weaponGearDetails = weaponGearDetails;
+            this.armorGearID = armorGearID;
+            this.cabinGearID = cabinGearID;
+            this.engineGearID = engineGearID;
+            this.weaponGearIDs = weaponGearIDs;
         }
 
         /// <inheritdoc/>
@@ -34,34 +36,34 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 "\n{1}" +
                 "\n{2}" +
                 "\n{3}",
-                StringUtils.Format(this.armorGearDetails),
-                StringUtils.Format(this.cabinGearDetails),
-                StringUtils.Format(this.engineGearDetails),
-                StringUtils.Format(this.weaponGearDetails));
+                StringUtils.Format(this.armorGearID),
+                StringUtils.Format(this.cabinGearID),
+                StringUtils.Format(this.engineGearID),
+                StringUtils.Format(this.weaponGearIDs));
         }
 
         /// <inheritdoc/>
-        IArmorGearDetails ILoadoutDetails.GetArmorGearDetails()
+        ArmorGearID ILoadoutDetails.GetArmorGearID()
         {
-            return this.armorGearDetails;
+            return armorGearID;
         }
 
         /// <inheritdoc/>
-        ICabinGearDetails ILoadoutDetails.GetCabinGearDetails()
+        CabinGearID ILoadoutDetails.GetCabinGearID()
         {
-            return this.cabinGearDetails;
+            return cabinGearID;
         }
 
         /// <inheritdoc/>
-        IEngineGearDetails ILoadoutDetails.GetEngineGearDetails()
+        EngineGearID ILoadoutDetails.GetEngineGearID()
         {
-            return this.engineGearDetails;
+            return engineGearID;
         }
 
         /// <inheritdoc/>
-        IList<IWeaponGearDetails> ILoadoutDetails.GetWeaponGearDetails()
+        IList<WeaponGearID> ILoadoutDetails.GetWeaponGearIDs()
         {
-            return new List<IWeaponGearDetails>(this.weaponGearDetails);
+            return new List<WeaponGearID>(weaponGearIDs);
         }
 
         /// <summary>
@@ -75,15 +77,15 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
             public interface IInternalBuilder
                 : IBuilder<ILoadoutDetails>
             {
-                IInternalBuilder SetArmorGearDetails(IArmorGearDetails details);
+                IInternalBuilder SetArmorGearID(ArmorGearID id);
 
-                IInternalBuilder SetCabinGearDetails(ICabinGearDetails details);
+                IInternalBuilder SetCabinGearID(CabinGearID id);
 
-                IInternalBuilder SetEngineGearDetails(IEngineGearDetails details);
+                IInternalBuilder SetEngineGearID(EngineGearID id);
 
-                IInternalBuilder SetWeaponGearDetails(IList<IWeaponGearDetails> details);
+                IInternalBuilder SetWeaponGearID(IList<WeaponGearID> id);
 
-                IInternalBuilder AddWeaponGearDetails(IWeaponGearDetails details);
+                IInternalBuilder AddWeaponGearID(WeaponGearID id);
             }
 
             /// <summary>
@@ -101,59 +103,51 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
             private class InternalBuilder
                 : AbstractBuilder<ILoadoutDetails>, IInternalBuilder
             {
-                private IArmorGearDetails armorGearDetails;
-                private ICabinGearDetails cabinGearDetails;
-                private IEngineGearDetails engineGearDetails;
-                private IList<IWeaponGearDetails> weaponGearDetails = new List<IWeaponGearDetails>();
+                private ArmorGearID armorGearID;
+                private CabinGearID cabinGearID;
+                private EngineGearID engineGearID;
+                private IList<WeaponGearID> weaponGearID = new List<WeaponGearID>();
 
                 /// <inheritdoc/>
-                IInternalBuilder IInternalBuilder.AddWeaponGearDetails(IWeaponGearDetails details)
+                IInternalBuilder IInternalBuilder.AddWeaponGearID(WeaponGearID id)
                 {
-                    this.weaponGearDetails.Add(details);
+                    this.weaponGearID.Add(id);
                     return this;
                 }
 
                 /// <inheritdoc/>
-                IInternalBuilder IInternalBuilder.SetArmorGearDetails(IArmorGearDetails details)
+                IInternalBuilder IInternalBuilder.SetArmorGearID(ArmorGearID id)
                 {
-                    this.armorGearDetails = details;
+                    this.armorGearID = id;
                     return this;
                 }
 
                 /// <inheritdoc/>
-                IInternalBuilder IInternalBuilder.SetCabinGearDetails(ICabinGearDetails details)
+                IInternalBuilder IInternalBuilder.SetCabinGearID(CabinGearID id)
                 {
-                    this.cabinGearDetails = details;
+                    this.cabinGearID = id;
                     return this;
                 }
 
                 /// <inheritdoc/>
-                IInternalBuilder IInternalBuilder.SetEngineGearDetails(IEngineGearDetails details)
+                IInternalBuilder IInternalBuilder.SetEngineGearID(EngineGearID id)
                 {
-                    this.engineGearDetails = details;
+                    this.engineGearID = id;
                     return this;
                 }
 
                 /// <inheritdoc/>
-                IInternalBuilder IInternalBuilder.SetWeaponGearDetails(IList<IWeaponGearDetails> details)
+                IInternalBuilder IInternalBuilder.SetWeaponGearID(IList<WeaponGearID> id)
                 {
-                    this.weaponGearDetails = new List<IWeaponGearDetails>(details);
+                    this.weaponGearID = new List<WeaponGearID>(id);
                     return this;
                 }
 
                 /// <inheritdoc/>
                 protected override ILoadoutDetails BuildObj()
                 {
-                    return new LoadoutDetailsImpl(this.armorGearDetails,
-                        this.cabinGearDetails, this.engineGearDetails, this.weaponGearDetails);
-                }
-
-                /// <inheritdoc/>
-                protected override void Validate(ISet<string> invalidReasons)
-                {
-                    this.Validate(invalidReasons, armorGearDetails);
-                    this.Validate(invalidReasons, cabinGearDetails);
-                    this.Validate(invalidReasons, engineGearDetails);
+                    return new LoadoutDetailsImpl(this.armorGearID,
+                        this.cabinGearID, this.engineGearID, this.weaponGearID);
                 }
             }
         }

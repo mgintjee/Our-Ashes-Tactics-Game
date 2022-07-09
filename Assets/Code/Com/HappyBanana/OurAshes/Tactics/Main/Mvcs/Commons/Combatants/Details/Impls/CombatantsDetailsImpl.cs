@@ -70,7 +70,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
 
         Optional<IUnitDetails> ICombatantsDetails.GetDetails(UnitID id)
         {
-            foreach (IUnitDetails details in this.phalanxDetails)
+            foreach (IUnitDetails details in this.unitDetails)
             {
                 if (details.GetUnitID() == id)
                 {
@@ -82,7 +82,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
 
         Optional<IFactionDetails> ICombatantsDetails.GetDetails(FactionID id)
         {
-            foreach (IFactionDetails details in this.phalanxDetails)
+            foreach (IFactionDetails details in this.factionDetails)
             {
                 if (details.GetFactionID() == id)
                 {

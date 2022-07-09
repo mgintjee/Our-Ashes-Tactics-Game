@@ -13,7 +13,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.S
         : IMvcViewState
     {
         // Todo
-        protected ISet<MvcControlInputType> mvcControlInputTypes = new HashSet<MvcControlInputType>();
+        protected IList<MvcControlInputType> mvcControlInputTypes = new List<MvcControlInputType>();
 
         // Todo
         protected IMvcRequest mvcModelRequest = null;
@@ -22,9 +22,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.S
         public abstract IMvcViewState GetCopy();
 
         /// <inheritdoc/>
-        ISet<MvcControlInputType> IMvcViewState.GetMvcControlInputTypes()
+        IList<MvcControlInputType> IMvcViewState.GetMvcControlInputTypes()
         {
-            return new HashSet<MvcControlInputType>(this.mvcControlInputTypes);
+            return new List<MvcControlInputType>(this.mvcControlInputTypes);
         }
 
         /// <inheritdoc/>

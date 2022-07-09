@@ -9,7 +9,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames
     /// Todo
     /// </summary>
     public class FactionPhalanxIDModRequestImpl
-        : DefaultRequestImpl, IPhalanxIDModRequest
+        : DefaultRequestImpl, IFactionPhalanxIDModRequest
     {
         // Todo
         private readonly FactionID factionID = FactionID.None;
@@ -23,9 +23,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="factionID"></param>
-        /// <param name="phalanxID"></param>
-        /// <param name="isAdd"></param>
+        /// <param name="factionID">  </param>
+        /// <param name="phalanxID">  </param>
+        /// <param name="isAdd">      </param>
         /// <param name="requestType"></param>
         public FactionPhalanxIDModRequestImpl(FactionID factionID, PhalanxID phalanxID, bool isAdd, RequestType requestType)
             : base(requestType)
@@ -43,19 +43,19 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames
         }
 
         /// <inheritdoc/>
-        FactionID IPhalanxIDModRequest.GetFactionID()
+        FactionID IFactionPhalanxIDModRequest.GetFactionID()
         {
             return factionID;
         }
 
         /// <inheritdoc/>
-        PhalanxID IPhalanxIDModRequest.GetPhalanxID()
+        PhalanxID IFactionPhalanxIDModRequest.GetPhalanxID()
         {
             return phalanxID;
         }
 
         /// <inheritdoc/>
-        bool IPhalanxIDModRequest.IsAdd()
+        bool IFactionPhalanxIDModRequest.IsAdd()
         {
             return isAdd;
         }

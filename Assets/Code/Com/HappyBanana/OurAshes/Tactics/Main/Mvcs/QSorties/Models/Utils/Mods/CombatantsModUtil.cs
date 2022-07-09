@@ -6,6 +6,12 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Factions.Details.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Factions.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Armors.Gears.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Cabins.Gears.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Details.Impls;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Engines.Gears.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Weapons.Gears.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.Details.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.IDs;
@@ -28,34 +34,146 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         private static readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Common)
                 .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 
-        public static void HandlePhalanxIDMod(IMvcModelState modelState, IPhalanxIDModRequest mvcRequest)
+        public static void HandlePhalanxIDMod(IMvcModelState modelState, IFactionPhalanxIDModRequest mvcRequest)
         {
             ICombatantsDetails currentCombatantsDetails = modelState.GetCombatantsDetails();
             IPhalanxDetails phalanxDetails = currentCombatantsDetails.GetDetails(mvcRequest.GetPhalanxID()).GetValue();
             IList<IUnitDetails> unitDetailsList = UpdateUnitDetailsList(mvcRequest, phalanxDetails, currentCombatantsDetails.GetUnitDetails());
-            logger.Debug("Old: {}" +
-                "\n\nNew: {}", currentCombatantsDetails.GetUnitDetails(), unitDetailsList);
             IList<IPhalanxDetails> phalanxDetailsList = UpdatePhalanxDetailsList(mvcRequest, currentCombatantsDetails.GetPhalanxDetails());
-            logger.Debug("Old: {}" +
-                "\n\nNew: {}", currentCombatantsDetails.GetPhalanxDetails(), phalanxDetailsList);
             IList<IFactionDetails> factionDetailsList = UpdateFactionDetailsList(mvcRequest, currentCombatantsDetails.GetFactionDetails());
-            logger.Debug("Old: {}" +
-                "\n\nNew: {}", currentCombatantsDetails.GetFactionDetails(), factionDetailsList);
             UpdateModelState(modelState, factionDetailsList, phalanxDetailsList, unitDetailsList);
         }
 
-        public static void HandleUnitIDMod(IMvcModelState modelState, IUnitIDModRequest mvcRequest)
+        public static void HandleUnitIDMod(IMvcModelState modelState, IPhalanxUnitIDModRequest mvcRequest)
         {
             ICombatantsDetails currentCombatantsDetails = modelState.GetCombatantsDetails();
             IPhalanxDetails phalanxDetails = currentCombatantsDetails.GetDetails(mvcRequest.GetPhalanxID()).GetValue();
             IList<IUnitDetails> unitDetailsList = UpdateUnitDetailsList(mvcRequest, currentCombatantsDetails.GetUnitDetails());
-            logger.Debug("Old: {}" +
-                "\n\nNew: {}", currentCombatantsDetails.GetUnitDetails(), unitDetailsList);
             IList<IPhalanxDetails> phalanxDetailsList = UpdatePhalanxDetailsList(mvcRequest, currentCombatantsDetails.GetPhalanxDetails(), phalanxDetails);
-            logger.Debug("Old: {}" +
-                "\n\nNew: {}", currentCombatantsDetails.GetPhalanxDetails(), phalanxDetailsList);
             UpdateModelState(modelState, modelState.GetCombatantsDetails().GetFactionDetails(),
                 phalanxDetailsList, unitDetailsList);
+        }
+
+        public static void HandleUnitModelIDSelect(IMvcModelState mvcModelState, IEnumSelectRequest<ModelID> mvcRequest)
+        {
+            UnitID unitID = mvcModelState.GetSelectedUnitID();
+            ModelID modelID = mvcRequest.GetEnum();
+            ICombatantsDetails combatantsDetails = mvcModelState.GetCombatantsDetails();
+            IUnitDetails unitDetails = combatantsDetails.GetDetails(unitID).GetValue();
+            IUnitDetails newUnitDetails = UnitDetailsImpl.Builder.Get()
+                .SetLoadoutDetails(LoadoutDetailsRandomizerUtil.Randomize(RandomManager.GetRandom(MvcType.QSortieMenu), modelID))
+                .SetModelID(modelID)
+                .SetUnitID(unitDetails.GetUnitID())
+                .Build();
+            UpdateUnitDetails(unitDetails, newUnitDetails, mvcModelState);
+        }
+
+        public static void HandleUnitArmorGearIDSelect(IMvcModelState mvcModelState, IEnumSelectRequest<ArmorGearID> mvcRequest)
+        {
+            UnitID unitID = mvcModelState.GetSelectedUnitID();
+            ArmorGearID gearID = mvcRequest.GetEnum();
+            ICombatantsDetails combatantsDetails = mvcModelState.GetCombatantsDetails();
+            IUnitDetails unitDetails = combatantsDetails.GetDetails(unitID).GetValue();
+            IUnitDetails newUnitDetails = UnitDetailsImpl.Builder.Get()
+                .SetLoadoutDetails(UpdateLoadoutDetails(unitDetails.GetLoadoutDetails(), gearID))
+                .SetModelID(unitDetails.GetModelID())
+                .SetUnitID(unitDetails.GetUnitID())
+                .Build();
+            UpdateUnitDetails(unitDetails, newUnitDetails, mvcModelState);
+        }
+
+        public static void HandleUnitCabinGearIDSelect(IMvcModelState mvcModelState, IEnumSelectRequest<CabinGearID> mvcRequest)
+        {
+            UnitID unitID = mvcModelState.GetSelectedUnitID();
+            CabinGearID gearID = mvcRequest.GetEnum();
+            ICombatantsDetails combatantsDetails = mvcModelState.GetCombatantsDetails();
+            IUnitDetails unitDetails = combatantsDetails.GetDetails(unitID).GetValue();
+            IUnitDetails newUnitDetails = UnitDetailsImpl.Builder.Get()
+                .SetLoadoutDetails(UpdateLoadoutDetails(unitDetails.GetLoadoutDetails(), gearID))
+                .SetModelID(unitDetails.GetModelID())
+                .SetUnitID(unitDetails.GetUnitID())
+                .Build();
+            UpdateUnitDetails(unitDetails, newUnitDetails, mvcModelState);
+        }
+
+        public static void HandleUnitEngineGearIDSelect(IMvcModelState mvcModelState, IEnumSelectRequest<EngineGearID> mvcRequest)
+        {
+            UnitID unitID = mvcModelState.GetSelectedUnitID();
+            EngineGearID gearID = mvcRequest.GetEnum();
+            ICombatantsDetails combatantsDetails = mvcModelState.GetCombatantsDetails();
+            IUnitDetails unitDetails = combatantsDetails.GetDetails(unitID).GetValue();
+            IUnitDetails newUnitDetails = UnitDetailsImpl.Builder.Get()
+                .SetLoadoutDetails(UpdateLoadoutDetails(unitDetails.GetLoadoutDetails(), gearID))
+                .SetModelID(unitDetails.GetModelID())
+                .SetUnitID(unitDetails.GetUnitID())
+                .Build();
+            UpdateUnitDetails(unitDetails, newUnitDetails, mvcModelState);
+        }
+
+        public static void HandleUnitWeaponGearIDMod(IMvcModelState mvcModelState, IUnitWeaponGearIDModRequest mvcRequest)
+        {
+            UnitID unitID = mvcModelState.GetSelectedUnitID();
+            ICombatantsDetails combatantsDetails = mvcModelState.GetCombatantsDetails();
+            IUnitDetails unitDetails = combatantsDetails.GetDetails(unitID).GetValue();
+            IUnitDetails newUnitDetails = UnitDetailsImpl.Builder.Get()
+                .SetLoadoutDetails(UpdateLoadoutDetails(unitDetails.GetLoadoutDetails(), mvcRequest.GetWeaponGearID(), mvcRequest.GetWeaponIndex(), mvcRequest.IsAdd()))
+                .SetModelID(unitDetails.GetModelID())
+                .SetUnitID(unitDetails.GetUnitID())
+                .Build();
+            UpdateUnitDetails(unitDetails, newUnitDetails, mvcModelState);
+        }
+
+        private static ILoadoutDetails UpdateLoadoutDetails(ILoadoutDetails loadoutDetails, WeaponGearID gearID, int index, bool isAdd)
+        {
+            IList<WeaponGearID> weaponGearIDs = loadoutDetails.GetWeaponGearIDs();
+            weaponGearIDs[index] = (isAdd)
+                ? gearID
+                : WeaponGearID.EMPTY;
+            return LoadoutDetailsImpl.Builder.Get()
+                .SetArmorGearID(loadoutDetails.GetArmorGearID())
+                .SetCabinGearID(loadoutDetails.GetCabinGearID())
+                .SetEngineGearID(loadoutDetails.GetEngineGearID())
+                .SetWeaponGearID(weaponGearIDs)
+                .Build();
+        }
+
+        private static ILoadoutDetails UpdateLoadoutDetails(ILoadoutDetails loadoutDetails, ArmorGearID gearID)
+        {
+            return LoadoutDetailsImpl.Builder.Get()
+                .SetArmorGearID(gearID)
+                .SetCabinGearID(loadoutDetails.GetCabinGearID())
+                .SetEngineGearID(loadoutDetails.GetEngineGearID())
+                .SetWeaponGearID(loadoutDetails.GetWeaponGearIDs())
+                .Build();
+        }
+
+        private static ILoadoutDetails UpdateLoadoutDetails(ILoadoutDetails loadoutDetails, CabinGearID gearID)
+        {
+            return LoadoutDetailsImpl.Builder.Get()
+                .SetArmorGearID(loadoutDetails.GetArmorGearID())
+                .SetCabinGearID(gearID)
+                .SetEngineGearID(loadoutDetails.GetEngineGearID())
+                .SetWeaponGearID(loadoutDetails.GetWeaponGearIDs())
+                .Build();
+        }
+
+        private static ILoadoutDetails UpdateLoadoutDetails(ILoadoutDetails loadoutDetails, EngineGearID gearID)
+        {
+            return LoadoutDetailsImpl.Builder.Get()
+                .SetArmorGearID(loadoutDetails.GetArmorGearID())
+                .SetCabinGearID(loadoutDetails.GetCabinGearID())
+                .SetEngineGearID(gearID)
+                .SetWeaponGearID(loadoutDetails.GetWeaponGearIDs())
+                .Build();
+        }
+
+        private static void UpdateUnitDetails(IUnitDetails oldUnitDetails, IUnitDetails newUnitDetails, IMvcModelState mvcModelState)
+        {
+            ICombatantsDetails combatantsDetails = mvcModelState.GetCombatantsDetails();
+            IList<IUnitDetails> newUnitDetailsList = combatantsDetails.GetUnitDetails();
+            int oldIndex = newUnitDetailsList.IndexOf(oldUnitDetails);
+            newUnitDetailsList[oldIndex] = newUnitDetails;
+            UpdateModelState(mvcModelState, combatantsDetails.GetFactionDetails(), combatantsDetails.GetPhalanxDetails(), newUnitDetailsList);
         }
 
         private static void UpdateModelState(IMvcModelState mvcModelState, IList<IFactionDetails> factionDetailsList,
@@ -66,11 +184,13 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
                 .SetPhalanxDetails(phalanxDetailsList)
                 .SetUnitDetails(unitDetailsList)
                 .Build();
+            logger.Debug("Old: {}" +
+                "\n\nNew: {}", mvcModelState.GetCombatantsDetails(), newCombatantsDetails);
             ((MvcModelStateImpl)mvcModelState)
                 .SetCombatantsDetails(newCombatantsDetails);
         }
 
-        private static IList<IFactionDetails> UpdateFactionDetailsList(IPhalanxIDModRequest mvcRequest, IList<IFactionDetails> factionDetailsList)
+        private static IList<IFactionDetails> UpdateFactionDetailsList(IFactionPhalanxIDModRequest mvcRequest, IList<IFactionDetails> factionDetailsList)
         {
             IList<IFactionDetails> newFactionDetailsList = new List<IFactionDetails>();
             IFactionDetails newFactionDetails = null;
@@ -107,7 +227,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             return newFactionDetailsList;
         }
 
-        private static IList<IPhalanxDetails> UpdatePhalanxDetailsList(IPhalanxIDModRequest mvcRequest, IList<IPhalanxDetails> phalanxDetailsList)
+        private static IList<IPhalanxDetails> UpdatePhalanxDetailsList(IFactionPhalanxIDModRequest mvcRequest, IList<IPhalanxDetails> phalanxDetailsList)
         {
             IList<IPhalanxDetails> newPhalanxDetailsList = new List<IPhalanxDetails>(phalanxDetailsList);
             if (mvcRequest.IsAdd())
@@ -129,7 +249,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             return newPhalanxDetailsList;
         }
 
-        private static IList<IUnitDetails> UpdateUnitDetailsList(IPhalanxIDModRequest mvcRequest, IPhalanxDetails phalanxDetails, IList<IUnitDetails> unitDetailsList)
+        private static IList<IUnitDetails> UpdateUnitDetailsList(IFactionPhalanxIDModRequest mvcRequest, IPhalanxDetails phalanxDetails, IList<IUnitDetails> unitDetailsList)
         {
             IList<IUnitDetails> newDetailsList = new List<IUnitDetails>(unitDetailsList);
             if (!mvcRequest.IsAdd())
@@ -145,7 +265,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             return newDetailsList;
         }
 
-        private static IList<IUnitDetails> UpdateUnitDetailsList(IUnitIDModRequest mvcRequest, IList<IUnitDetails> unitDetailsList)
+        private static IList<IUnitDetails> UpdateUnitDetailsList(IPhalanxUnitIDModRequest mvcRequest, IList<IUnitDetails> unitDetailsList)
         {
             IList<IUnitDetails> newDetailsList = new List<IUnitDetails>(unitDetailsList);
             if (!mvcRequest.IsAdd())
@@ -170,7 +290,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             return newDetailsList;
         }
 
-        private static IList<IPhalanxDetails> UpdatePhalanxDetailsList(IUnitIDModRequest mvcRequest, IList<IPhalanxDetails> phalanxDetailsList, IPhalanxDetails phalanxDetails)
+        private static IList<IPhalanxDetails> UpdatePhalanxDetailsList(IPhalanxUnitIDModRequest mvcRequest, IList<IPhalanxDetails> phalanxDetailsList, IPhalanxDetails phalanxDetails)
         {
             IList<IPhalanxDetails> newPhalanxDetailsList = new List<IPhalanxDetails>();
             IPhalanxDetails newPhalanxDetails;

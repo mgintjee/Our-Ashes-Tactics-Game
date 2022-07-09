@@ -22,9 +22,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
         private readonly FieldBiome fieldBiome;
         private readonly FieldShape fieldShape;
         private readonly FieldSize fieldSize;
-        private readonly ISet<ITileDetails> tileDetails;
+        private readonly IList<ITileDetails> tileDetails;
 
-        protected FieldDetailsImpl(FieldID fieldID, FieldBiome fieldBiome, FieldShape fieldShape, FieldSize fieldSize, ISet<ITileDetails> tileDetails)
+        protected FieldDetailsImpl(FieldID fieldID, FieldBiome fieldBiome, FieldShape fieldShape, FieldSize fieldSize, IList<ITileDetails> tileDetails)
         {
             this.fieldID = fieldID;
             this.fieldBiome = fieldBiome;
@@ -63,9 +63,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
             return this.fieldSize;
         }
 
-        ISet<ITileDetails> IFieldDetails.GetTileDetails()
+        IList<ITileDetails> IFieldDetails.GetTileDetails()
         {
-            return new HashSet<ITileDetails>(this.tileDetails);
+            return new List<ITileDetails>(this.tileDetails);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
 
                 IInternalBuilder SetFieldShape(FieldShape fieldShape);
 
-                IInternalBuilder SetTileDetails(ISet<ITileDetails> tileDetails);
+                IInternalBuilder SetTileDetails(IList<ITileDetails> tileDetails);
             }
 
             /// <summary>
@@ -109,7 +109,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
                 private FieldBiome fieldBiome;
                 private FieldShape fieldShape;
                 private FieldSize fieldSize;
-                private ISet<ITileDetails> tileDetails;
+                private IList<ITileDetails> tileDetails;
 
                 IInternalBuilder IInternalBuilder.SetFieldBiome(FieldBiome fieldBiome)
                 {
@@ -135,9 +135,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
                     return this;
                 }
 
-                IInternalBuilder IInternalBuilder.SetTileDetails(ISet<ITileDetails> tileDetails)
+                IInternalBuilder IInternalBuilder.SetTileDetails(IList<ITileDetails> tileDetails)
                 {
-                    this.tileDetails = new HashSet<ITileDetails>(tileDetails);
+                    this.tileDetails = new List<ITileDetails>(tileDetails);
                     return this;
                 }
 

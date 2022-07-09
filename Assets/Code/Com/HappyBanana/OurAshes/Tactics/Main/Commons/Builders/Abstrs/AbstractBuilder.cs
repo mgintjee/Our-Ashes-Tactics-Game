@@ -27,7 +27,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Builders.Abs
         protected T ValidateBuild()
         {
             // Collect all of the reasons that this builder cannot build the object
-            ISet<string> invalidReasons = new HashSet<string>();
+            IList<string> invalidReasons = new List<string>();
             this.Validate(invalidReasons);
             // Check that there are no invalid reasons
             if (invalidReasons.Count == 0)
@@ -50,7 +50,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Builders.Abs
         /// Todo
         /// </summary>
         /// <param name="invalidReasons"></param>
-        protected virtual void Validate(ISet<string> invalidReasons)
+        protected virtual void Validate(IList<string> invalidReasons)
         {
         }
 

@@ -21,10 +21,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
         private static readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Common)
                 .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 
-        ISet<Vector3> ITileCoordsAlgorithm.GetTileCoords(FieldShape fieldShape, FieldSize fieldSize)
+        IList<Vector3> ITileCoordsAlgorithm.GetTileCoords(FieldShape fieldShape, FieldSize fieldSize)
         {
             int expectedTileCount = FieldShapeTileCountManager.GetTileCounts(fieldShape, fieldSize);
-            ISet<Vector3> vistedTileCoords = new HashSet<Vector3>();
+            IList<Vector3> vistedTileCoords = new List<Vector3>();
             IList<Vector3> unvisitedTileCoords = new List<Vector3>() { Vector3.Zero };
             //logger.Info("Getting TileCoords for {} and {}. Expected TileCount: {}", fieldShape, fieldSize, expectedTileCount);
             while (unvisitedTileCoords.Count != 0 && vistedTileCoords.Count < expectedTileCount)
@@ -38,9 +38,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
             return vistedTileCoords;
         }
 
-        protected abstract Optional<Vector3> GetNextTileCoord(ISet<Vector3> visitedTileCoords, IList<Vector3> unvisitedTileCoords);
+        protected abstract Optional<Vector3> GetNextTileCoord(IList<Vector3> visitedTileCoords, IList<Vector3> unvisitedTileCoords);
 
-        private void ProcessTileCoord(ISet<Vector3> visitedTileCoords, IList<Vector3> unvisitedTileCoords, Vector3 tileCoord)
+        private void ProcessTileCoord(IList<Vector3> visitedTileCoords, IList<Vector3> unvisitedTileCoords, Vector3 tileCoord)
         {
             //logger.Info("Processing TileCoord: {}", tileCoord);
             visitedTileCoords.Add(tileCoord);

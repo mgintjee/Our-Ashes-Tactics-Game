@@ -1,5 +1,4 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Factions.Details.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.IDs;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
@@ -14,16 +13,17 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         : AbstractDynamicEnumPopUp<PhalanxID>
     {
         private PhalanxID id;
+
         protected override string DetermineButtonName(PhalanxID tEnum)
         {
-
-            return RequestType.PhalanxIDSelect +":" + tEnum.ToString() + ":Button";
+            return RequestType.PhalanxIDSelect + ":" + tEnum.ToString() + ":Button";
         }
 
         protected override bool IsInteractable(PhalanxID tEnum)
         {
             return tEnum != id;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -36,6 +36,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 : PanelWidgetBuilders.IPanelWidgetBuilder
             {
                 IInternalBuilder SetPhalanxIDs(IList<PhalanxID> ids);
+
                 IInternalBuilder SetPhalanxID(PhalanxID id);
             }
 
@@ -63,6 +64,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     return this;
                 }
 
+                IInternalBuilder IInternalBuilder.SetPhalanxID(PhalanxID id)
+                {
+                    this.id = id;
+                    return this;
+                }
+
                 protected override IPanelWidget BuildScript(UnityEngine.GameObject gameObject)
                 {
                     IDPopUpImpl widget = gameObject.AddComponent<IDPopUpImpl>();
@@ -73,15 +80,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 }
 
                 /// <inheritdoc/>
-                protected override void Validate(ISet<string> invalidReasons)
+                protected override void Validate(IList<string> invalidReasons)
                 {
                     this.Validate(invalidReasons, ids);
-                }
-
-                IInternalBuilder IInternalBuilder.SetPhalanxID(PhalanxID id)
-                {
-                    this.id = id;
-                    return this;
                 }
             }
         }

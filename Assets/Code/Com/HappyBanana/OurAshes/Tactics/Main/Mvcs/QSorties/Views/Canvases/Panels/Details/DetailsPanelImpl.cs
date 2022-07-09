@@ -31,12 +31,13 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             RequestType requestType = RequestType.None;
             modelState.GetPrevMvcRequest().IfPresent(
                 request => requestType = ((IQSortieMenuMvcRequest)request).GetRequestType());
+            logger.Debug("Processing {}", mvcModelState.GetPrevMvcRequest());
             this.UpdateDetailPanelsContent(requestType, modelState);
         }
 
         protected override void InitialBuild()
         {
-            ISet<ICanvasWidget> panelWidgets = new HashSet<ICanvasWidget>() {
+            IList<ICanvasWidget> panelWidgets = new List<ICanvasWidget>() {
                 this.BuildBackground(),
                 this.BuildAndSetFieldDetailsPanel(),
                 this.BuildAndSetFactionDetailsPanel(),
@@ -48,7 +49,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             this.EnableDetailPanels(RequestType.DetailsSortie);
         }
 
-        private void UpdateDetailPanelsContent(RequestType requestType, QSorties.Models.States.Inters.IMvcModelState modelState)
+        private void UpdateDetailPanelsContent(RequestType requestType, Models.States.Inters.IMvcModelState modelState)
         {
             this.EnableDetailPanels(requestType);
             if (this.requestTypeDetailsPanels.ContainsKey(lastDetailsRequest))
@@ -66,6 +67,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 {
                     IPanelWidget detailsPanelWidget = requestTypeDetailsPanel.Value;
                     bool isDetailsPanelEnabled = requestTypeDetailsPanel.Key == requestType;
+                    logger.Debug("Enabling {}: {}. Due to {}", detailsPanelWidget.GetName(), isDetailsPanelEnabled, requestType);
                     CanvasWidgetUtils.EnableWidget(detailsPanelWidget, isDetailsPanelEnabled);
                 }
             }

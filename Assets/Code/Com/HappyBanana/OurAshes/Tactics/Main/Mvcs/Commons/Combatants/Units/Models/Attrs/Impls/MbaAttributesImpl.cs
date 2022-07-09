@@ -18,17 +18,17 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
         {
             this.destructibleAttributes = DestructibleAttributesImpl.Builder.Get()
                 .SetArmor(5)
-                .SetHealth(15)
+                .SetHealth(20)
                 .Build();
             this.fireableAttributes = FireableAttributesImpl.Builder.Get()
                 .SetAccuracy(0)
-                .SetRange(0)
+                .SetRange(1)
                 .Build();
             this.mountableAttributes = MountableAttributesImpl.Builder.Get()
-                .SetArmorGearSize(GearSize.Small)
-                .SetCabinGearSize(GearSize.Small)
-                .SetEngineGearSize(GearSize.Small)
-                .SetWeaponGearSizes(new List<GearSize>() { GearSize.Small })
+                .SetArmorGearSize(GearSize.Medium)
+                .SetCabinGearSize(GearSize.Medium)
+                .SetEngineGearSize(GearSize.Medium)
+                .SetWeaponGearSizes(new List<GearSize>() { GearSize.Medium, GearSize.Medium })
                 .Build();
             this.movableAttributes = MovableAttributesImpl.Builder.Get()
                 .SetActions(2)

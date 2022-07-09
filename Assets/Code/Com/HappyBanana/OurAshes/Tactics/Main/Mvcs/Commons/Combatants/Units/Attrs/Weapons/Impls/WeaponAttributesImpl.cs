@@ -152,7 +152,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 /// </summary>
                 /// <param name="attributes"></param>
                 /// <returns></returns>
-                IWeaponAttributes Build(ISet<IWeaponAttributes> attributes);
+                IWeaponAttributes Build(IList<IWeaponAttributes> attributes);
             }
 
             /// <summary>
@@ -231,7 +231,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 }
 
                 /// <inheritdoc/>
-                IWeaponAttributes IInternalBuilder.Build(ISet<IWeaponAttributes> attributes)
+                IWeaponAttributes IInternalBuilder.Build(IList<IWeaponAttributes> attributes)
                 {
                     _accuracy = 0.0f;
                     _armorDamage = 0.0f;
@@ -262,7 +262,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 }
 
                 /// <inheritdoc/>
-                protected override void Validate(ISet<string> invalidReasons)
+                protected override void Validate(IList<string> invalidReasons)
                 {
                     this.Validate(invalidReasons, _accuracy);
                     this.Validate(invalidReasons, _armorDamage);

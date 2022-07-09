@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Phalanxes.PopUps
 {
     /// <summary>
-    /// Unit ID Minus PopUp Impl
+    /// Phalanx UnitID Minus PopUp Impl
     /// </summary>
     public class UnitIDMinusPopUpImpl
         : AbstractDynamicEnumPopUp<UnitID>
@@ -17,8 +17,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         protected override string DetermineButtonName(UnitID tEnum)
         {
-            return RequestType.PhalanxUnitIDMinusMod + ":" + id.ToString() + ":" + tEnum.ToString() + ":Button";
+            return RequestType.PhalanxUnitIDMinusSelect + ":" + id.ToString() + ":" + tEnum.ToString() + ":Button";
         }
+
         protected override bool IsInteractable(UnitID tEnum)
         {
             return true;
@@ -80,7 +81,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 }
 
                 /// <inheritdoc/>
-                protected override void Validate(ISet<string> invalidReasons)
+                protected override void Validate(IList<string> invalidReasons)
                 {
                     this.Validate(invalidReasons, unitIDs
                         );

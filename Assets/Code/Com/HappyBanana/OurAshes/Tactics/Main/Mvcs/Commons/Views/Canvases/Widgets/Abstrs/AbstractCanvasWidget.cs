@@ -212,7 +212,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     return this;
                 }
 
-                protected override void ValidateScriptBuilder(ISet<string> invalidReasons)
+                protected override void ValidateScriptBuilder(IList<string> invalidReasons)
                 {
                     this.Validate(invalidReasons, this.mvcType);
                     this.Validate(invalidReasons, this.widgetGridSpec);
@@ -227,7 +227,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     this.ValidateWidgetBuilder(invalidReasons);
                 }
 
-                protected virtual void ValidateWidgetBuilder(ISet<string> invalidReasons)
+                protected virtual void ValidateWidgetBuilder(IList<string> invalidReasons)
                 {
                 }
 

@@ -77,7 +77,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 /// </summary>
                 /// <param name="attributes"></param>
                 /// <returns></returns>
-                IMovableAttributes Build(ISet<IMovableAttributes> attributes);
+                IMovableAttributes Build(IList<IMovableAttributes> attributes);
             }
 
             /// <summary>
@@ -116,7 +116,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 }
 
                 /// <inheritdoc/>
-                IMovableAttributes IInternalBuilder.Build(ISet<IMovableAttributes> attributes)
+                IMovableAttributes IInternalBuilder.Build(IList<IMovableAttributes> attributes)
                 {
                     _actions = 0.0f;
                     _movements = 0.0f;
@@ -138,7 +138,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 }
 
                 /// <inheritdoc/>
-                protected override void Validate(ISet<string> invalidReasons)
+                protected override void Validate(IList<string> invalidReasons)
                 {
                     this.Validate(invalidReasons, _actions);
                     this.Validate(invalidReasons, _movements);

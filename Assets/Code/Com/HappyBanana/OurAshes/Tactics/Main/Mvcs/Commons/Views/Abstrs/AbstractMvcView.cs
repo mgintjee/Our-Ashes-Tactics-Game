@@ -92,9 +92,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.A
             return new DefaultMvcViewStateImpl();
         }
 
-        protected virtual ISet<IMvcRequest> GetMvcRequests()
+        protected virtual IList<IMvcRequest> GetMvcRequests()
         {
-            return new HashSet<IMvcRequest>() { new MvcRequestImpl() };
+            return new List<IMvcRequest>() { new MvcRequestImpl() };
         }
 
         /// <summary>

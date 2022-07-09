@@ -104,14 +104,14 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     .Build();
         }
 
-        private void UpdateButtons(RequestType qSortieMenuRequestType)
+        private void UpdateButtons(RequestType requestType)
         {
-            foreach (KeyValuePair<RequestType, IButtonPanelWidget> typeImagePair in this.qSortieMenuTypeButtons)
+            if (requestType.ToString().Contains("Details"))
             {
-                CanvasWidgetUtils.SetImageInteractable(typeImagePair.Value.GetImageWidget(),
-                    typeImagePair.Key != qSortieMenuRequestType);
-                CanvasWidgetUtils.SetTextInteractable(typeImagePair.Value.GetTextWidget(),
-                    typeImagePair.Key != qSortieMenuRequestType);
+                foreach (KeyValuePair<RequestType, IButtonPanelWidget> typeImagePair in this.qSortieMenuTypeButtons)
+                {
+                    CanvasWidgetUtils.SetButtonInteractable(typeImagePair.Value, typeImagePair.Key != requestType);
+                }
             }
         }
 

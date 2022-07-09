@@ -11,7 +11,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.
     public abstract class AbstractMvcModelState
         : IMvcModelState
     {
-        protected ISet<IMvcRequest> mvcModelRequests = new HashSet<IMvcRequest>();
+        protected IList<IMvcRequest> mvcModelRequests = new List<IMvcRequest>();
 
         protected IMvcRequest prevMvcRequest;
 

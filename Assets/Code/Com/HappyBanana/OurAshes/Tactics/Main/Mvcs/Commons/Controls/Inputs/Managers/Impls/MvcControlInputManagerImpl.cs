@@ -24,8 +24,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Control
         AbstractUnityScript, IMvcControlInputManager
     {
         // Todo
-        private readonly ISet<IMvcControlInputHandler> mvcControlInputHandlers =
-            new HashSet<IMvcControlInputHandler>();
+        private readonly IList<IMvcControlInputHandler> mvcControlInputHandlers =
+            new List<IMvcControlInputHandler>();
 
         // Todo
         private IClassLogger logger;
@@ -81,7 +81,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Control
         /// Todo
         /// </summary>
         /// <param name="mvcControlInputTypes"></param>
-        void IMvcControlInputManager.SetMvcControlInputs(ISet<MvcControlInputType> mvcControlInputTypes)
+        void IMvcControlInputManager.SetMvcControlInputs(IList<MvcControlInputType> mvcControlInputTypes)
         {
             foreach (IMvcControlInputHandler mvcControlInputHandler in this.mvcControlInputHandlers)
             {

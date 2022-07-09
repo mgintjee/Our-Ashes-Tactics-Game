@@ -33,7 +33,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         protected override void InitialBuild()
         {
-            ISet<ICanvasWidget> panelWidgets = new HashSet<ICanvasWidget>() {
+            IList<ICanvasWidget> panelWidgets = new List<ICanvasWidget>() {
                 this.BuildAndSetFactionCount(),
                 this.BuildAndSetPhalanxCount(),
                 this.BuildAndSetUnitCount(),

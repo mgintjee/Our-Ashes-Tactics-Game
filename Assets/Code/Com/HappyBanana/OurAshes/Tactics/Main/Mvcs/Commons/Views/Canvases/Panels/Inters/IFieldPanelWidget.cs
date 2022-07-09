@@ -9,6 +9,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
     {
         Optional<IFieldTilePanelWidget> GetFileTilePanelWidget(Vector2 tileCoords);
 
-        ISet<Vector2> GetAvailableCoords();
+        IList<Vector2> GetAvailableCoords();
     }
 }

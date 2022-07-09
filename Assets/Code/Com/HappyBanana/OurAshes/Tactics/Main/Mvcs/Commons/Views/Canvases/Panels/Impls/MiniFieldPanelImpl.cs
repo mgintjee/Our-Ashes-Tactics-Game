@@ -14,9 +14,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
     {
         private IDictionary<Vector2, IFieldTilePanelWidget> tileCoordPanelWidgets = new Dictionary<Vector2, IFieldTilePanelWidget>();
 
-        ISet<Vector2> IFieldPanelWidget.GetAvailableCoords()
+        IList<Vector2> IFieldPanelWidget.GetAvailableCoords()
         {
-            return new HashSet<Vector2>(this.tileCoordPanelWidgets.Keys);
+            return new List<Vector2>(this.tileCoordPanelWidgets.Keys);
         }
 
         Optional<IFieldTilePanelWidget> IFieldPanelWidget.GetFileTilePanelWidget(Vector2 tileCoords)

@@ -77,7 +77,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 /// </summary>
                 /// <param name="attributes"></param>
                 /// <returns></returns>
-                IDestructibleAttributes Build(ISet<IDestructibleAttributes> attributes);
+                IDestructibleAttributes Build(IList<IDestructibleAttributes> attributes);
             }
 
             /// <summary>
@@ -116,7 +116,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 }
 
                 /// <inheritdoc/>
-                IDestructibleAttributes IInternalBuilder.Build(ISet<IDestructibleAttributes> attributes)
+                IDestructibleAttributes IInternalBuilder.Build(IList<IDestructibleAttributes> attributes)
                 {
                     _health = 0.0f;
                     _armor = 0.0f;
@@ -137,7 +137,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 }
 
                 /// <inheritdoc/>
-                protected override void Validate(ISet<string> invalidReasons)
+                protected override void Validate(IList<string> invalidReasons)
                 {
                     this.Validate(invalidReasons, _armor);
                     this.Validate(invalidReasons, _health);

@@ -14,19 +14,19 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
         : IMountableAttributes
     {
         // Todo
-        private readonly GearSize _armorGearSize;
+        private readonly GearSize armorGearSize;
 
         // Todo
-        private readonly GearSize _cabinGearSize;
+        private readonly GearSize cabinGearSize;
 
         // Todo
-        private readonly GearSize _engineGearSize;
+        private readonly GearSize engineGearSize;
 
         // Todo
-        private readonly IList<GearSize> _weaponGearSizes;
+        private readonly IList<GearSize> weaponGearSizes;
 
         /// <summary>
-        /// Tododw
+        /// Constructor
         /// </summary>
         /// <param name="armorGearSize">  </param>
         /// <param name="cabinGearSize">  </param>
@@ -35,10 +35,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
         private MountableAttributesImpl(GearSize armorGearSize, GearSize cabinGearSize,
             GearSize engineGearSize, IList<GearSize> weaponGearSizes)
         {
-            _armorGearSize = armorGearSize;
-            _cabinGearSize = cabinGearSize;
-            _engineGearSize = engineGearSize;
-            _weaponGearSizes = weaponGearSizes;
+            this.armorGearSize = armorGearSize;
+            this.cabinGearSize = cabinGearSize;
+            this.engineGearSize = engineGearSize;
+            this.weaponGearSizes = weaponGearSizes;
         }
 
         /// <inheritdoc/>
@@ -46,34 +46,34 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
         {
             return string.Format("{0}: Armor: {1}, Cabin: {2}, Engine: {3}, Weapons: {4}",
                 this.GetType().Name,
-                StringUtils.Format(_armorGearSize),
-                StringUtils.Format(_cabinGearSize),
-                StringUtils.Format(_engineGearSize),
-                StringUtils.Format(_weaponGearSizes));
+                StringUtils.Format(armorGearSize),
+                StringUtils.Format(cabinGearSize),
+                StringUtils.Format(engineGearSize),
+                StringUtils.Format(weaponGearSizes));
         }
 
         /// <inheritdoc/>
         GearSize IMountableAttributes.GetArmorGearSize()
         {
-            return _armorGearSize;
+            return armorGearSize;
         }
 
         /// <inheritdoc/>
         GearSize IMountableAttributes.GetCabinGearSize()
         {
-            return _cabinGearSize;
+            return cabinGearSize;
         }
 
         /// <inheritdoc/>
         GearSize IMountableAttributes.GetEngineGearSize()
         {
-            return _engineGearSize;
+            return engineGearSize;
         }
 
         /// <inheritdoc/>
         IList<GearSize> IMountableAttributes.GetWeaponGearSizes()
         {
-            return new List<GearSize>(_weaponGearSizes);
+            return new List<GearSize>(weaponGearSizes);
         }
 
         /// <summary>
@@ -132,42 +132,42 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 : AbstractBuilder<IMountableAttributes>, IInternalBuilder
             {
                 // Todo
-                private GearSize _armorGearSize = GearSize.None;
+                private GearSize armorGearSize = GearSize.None;
 
                 // Todo
-                private GearSize _cabinGearSize = GearSize.None;
+                private GearSize cabinGearSize = GearSize.None;
 
                 // Todo
-                private GearSize _engineGearSize = GearSize.None;
+                private GearSize engineGearSize = GearSize.None;
 
                 // Todo
-                private IList<GearSize> _weaponsGearSizes = new List<GearSize>();
+                private IList<GearSize> weaponsGearSizes = new List<GearSize>();
 
                 /// <inheritdoc/>
                 public IInternalBuilder SetArmorGearSize(GearSize gearSize)
                 {
-                    _armorGearSize = gearSize;
+                    armorGearSize = gearSize;
                     return this;
                 }
 
                 /// <inheritdoc/>
                 public IInternalBuilder SetCabinGearSize(GearSize gearSize)
                 {
-                    _cabinGearSize = gearSize;
+                    cabinGearSize = gearSize;
                     return this;
                 }
 
                 /// <inheritdoc/>
                 public IInternalBuilder SetEngineGearSize(GearSize gearSize)
                 {
-                    _engineGearSize = gearSize;
+                    engineGearSize = gearSize;
                     return this;
                 }
 
                 /// <inheritdoc/>
                 public IInternalBuilder SetWeaponGearSizes(IList<GearSize> gearSizes)
                 {
-                    _weaponsGearSizes = new List<GearSize>(gearSizes);
+                    weaponsGearSizes = new List<GearSize>(gearSizes);
                     return this;
                 }
 
@@ -175,16 +175,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 protected override IMountableAttributes BuildObj()
                 {
                     // Instantiate a new attributes
-                    return new MountableAttributesImpl(_armorGearSize, _cabinGearSize, _engineGearSize, _weaponsGearSizes);
-                }
-
-                /// <inheritdoc/>
-                protected override void Validate(ISet<string> invalidReasons)
-                {
-                    this.Validate(invalidReasons, _armorGearSize);
-                    this.Validate(invalidReasons, _cabinGearSize);
-                    this.Validate(invalidReasons, _engineGearSize);
-                    this.Validate(invalidReasons, _weaponsGearSizes);
+                    return new MountableAttributesImpl(armorGearSize, cabinGearSize, engineGearSize, weaponsGearSizes);
                 }
             }
         }

@@ -32,7 +32,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         }
 
         /// <inheritdoc/>
-        protected override void ValidateScriptBuilder(ISet<string> invalidReasons)
+        protected override void ValidateScriptBuilder(IList<string> invalidReasons)
         {
             this.Validate(invalidReasons, this.gridSize);
             this.ValidateCanvasBuilder(invalidReasons);
@@ -52,7 +52,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         /// Todo
         /// </summary>
         /// <param name="invalidReasons"></param>
-        protected virtual void ValidateCanvasBuilder(ISet<string> invalidReasons)
+        protected virtual void ValidateCanvasBuilder(IList<string> invalidReasons)
         {
         }
     }

@@ -18,7 +18,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Loggers.Mvcs
         : IMvcLogger
     {
         private readonly IFileLogger fileLogger;
-        private readonly ISet<IClassLogger> classLoggers = new HashSet<IClassLogger>();
+        private readonly IList<IClassLogger> classLoggers = new List<IClassLogger>();
         private readonly MvcType mvcType;
 
         public MvcLogger(MvcType mvcType)

@@ -10,6 +10,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
     /// </summary>
     public interface ITileCoordsAlgorithm
     {
-        ISet<Vector3> GetTileCoords(FieldShape fieldShape, FieldSize fieldSize);
+        IList<Vector3> GetTileCoords(FieldShape fieldShape, FieldSize fieldSize);
     }
 }

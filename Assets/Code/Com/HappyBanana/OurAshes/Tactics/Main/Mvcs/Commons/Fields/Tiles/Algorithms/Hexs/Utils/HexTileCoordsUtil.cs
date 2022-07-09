@@ -13,10 +13,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
         private static readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Common)
                 .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
 
-        public static ISet<Vector3> GetTileCoordsForLayer(int layer)
+        public static IList<Vector3> GetTileCoordsForLayer(int layer)
         {
             logger.Debug("Getting TileCoords for Layer: {}", layer);
-            ISet<Vector3> tileCoords = new HashSet<Vector3>();
+            IList<Vector3> tileCoords = new List<Vector3>();
             AddTileCoordsForLayerAlongAxisX(layer, tileCoords);
             AddTileCoordsForLayerAlongAxisY(layer, tileCoords);
             AddTileCoordsForLayerAlongAxisZ(layer, tileCoords);
@@ -36,7 +36,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
             }
         }
 
-        private static void AddTileCoordsForLayerAlongAxisX(int layer, ISet<Vector3> tileCoords)
+        private static void AddTileCoordsForLayerAlongAxisX(int layer, IList<Vector3> tileCoords)
         {
             int x = layer;
             for (int i = 0; i < layer + 1; ++i)
@@ -48,7 +48,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
             }
         }
 
-        private static void AddTileCoordsForLayerAlongAxisY(int layer, ISet<Vector3> tileCoords)
+        private static void AddTileCoordsForLayerAlongAxisY(int layer, IList<Vector3> tileCoords)
         {
             int y = layer;
             for (int i = 0; i < layer + 1; ++i)
@@ -60,7 +60,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
             }
         }
 
-        private static void AddTileCoordsForLayerAlongAxisZ(int layer, ISet<Vector3> tileCoords)
+        private static void AddTileCoordsForLayerAlongAxisZ(int layer, IList<Vector3> tileCoords)
         {
             int z = layer;
             for (int i = 0; i < layer + 1; ++i)

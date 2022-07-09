@@ -18,16 +18,16 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
         private static readonly FieldBiome FIELD_BIOME = FieldBiome.Sunny;
         private static readonly FieldShape FIELD_SHAPE = FieldShape.Hexagon;
         private static readonly FieldSize FIELD_SIZE = FieldSize.Medium;
-        private static readonly ISet<ITileDetails> TILE_DETAILS = BuildTileDetails();
+        private static readonly IList<ITileDetails> TILE_DETAILS = BuildTileDetails();
 
         public AlphaFieldDetailsImpl()
             : base(FIELD_ID, FIELD_BIOME, FIELD_SHAPE, FIELD_SIZE, TILE_DETAILS)
         {
         }
 
-        private static ISet<ITileDetails> BuildTileDetails()
+        private static IList<ITileDetails> BuildTileDetails()
         {
-            ISet<ITileDetails> tileDetails = new HashSet<ITileDetails>();
+            IList<ITileDetails> tileDetails = new List<ITileDetails>();
             return tileDetails;
         }
     }

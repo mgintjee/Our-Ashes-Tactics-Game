@@ -45,14 +45,14 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             }
         }
 
-        public static ISet<ITileDetails> GetRandomTileDetails(Random random, FieldShape fieldShape, FieldSize fieldSize)
+        public static IList<ITileDetails> GetRandomTileDetails(Random random, FieldShape fieldShape, FieldSize fieldSize)
         {
             IDictionary<Vector3, ITileDetails> tileCoordDetails = new Dictionary<Vector3, ITileDetails>();
 
             bool isMapMirrored = random.Next() % 2 == 0;
             TileCoordsAlgorithmsManager.GetTileCoordsAlgorithm(fieldShape).IfPresent(tileCoordsAlgorithm =>
             {
-                ISet<Vector3> tileCoords = tileCoordsAlgorithm.GetTileCoords(fieldShape, fieldSize);
+                IList<Vector3> tileCoords = tileCoordsAlgorithm.GetTileCoords(fieldShape, fieldSize);
 
                 foreach (Vector3 tileCoord in tileCoords)
                 {
@@ -60,12 +60,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
                 }
             });
 
-            return new HashSet<ITileDetails>(tileCoordDetails.Values);
+            return new List<ITileDetails>(tileCoordDetails.Values);
         }
 
         private static IFieldDetails GetRandomFieldDetails(Random random, FieldID fieldID, FieldBiome fieldBiome, FieldShape fieldShape, FieldSize fieldSize)
         {
-            ISet<ITileDetails> tileDetails = GetRandomTileDetails(random, fieldShape, fieldSize);
+            IList<ITileDetails> tileDetails = GetRandomTileDetails(random, fieldShape, fieldSize);
             IFieldDetails fieldDetails = FieldDetailsImpl.Builder.Get()
                 .SetFieldID(fieldID)
                 .SetFieldBiome(fieldBiome)

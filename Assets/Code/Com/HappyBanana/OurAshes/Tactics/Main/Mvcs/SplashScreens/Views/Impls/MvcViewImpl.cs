@@ -38,7 +38,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.SplashScreens.V
                 if (widget.GetName().Contains("Background"))
                 {
                     ((DefaultMvcViewStateImpl)this.mvcViewState)
-                        .SetMvcControlInputTypes(new HashSet<MvcControlInputType>())
+                        .SetMvcControlInputTypes(new List<MvcControlInputType>())
                         .SetMvcModelRequest(new MvcRequestImpl());
                 }
             });

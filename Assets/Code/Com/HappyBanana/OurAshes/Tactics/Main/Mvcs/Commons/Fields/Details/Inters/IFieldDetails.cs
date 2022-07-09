@@ -17,6 +17,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
 
         FieldShape GetFieldShape();
 
-        ISet<ITileDetails> GetTileDetails();
+        IList<ITileDetails> GetTileDetails();
     }
 }

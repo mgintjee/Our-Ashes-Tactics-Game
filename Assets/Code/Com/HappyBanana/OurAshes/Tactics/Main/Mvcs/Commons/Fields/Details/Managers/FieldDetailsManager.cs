@@ -11,7 +11,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
     /// </summary>
     public class FieldDetailsManager
     {
-        private static readonly ISet<IFieldDetails> FIELD_DETAILS = new HashSet<IFieldDetails>()
+        private static readonly IList<IFieldDetails> FIELD_DETAILS = new List<IFieldDetails>()
             { new AlphaFieldDetailsImpl() };
 
         public static Optional<IFieldDetails> GetFieldDetails(FieldID fieldID)

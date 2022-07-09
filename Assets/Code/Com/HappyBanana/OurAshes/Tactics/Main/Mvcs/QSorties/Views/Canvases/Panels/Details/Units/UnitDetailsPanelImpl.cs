@@ -4,18 +4,24 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Cabins.Gears.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Engines.Gears.IDs;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Weapons.Gears.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Gears.Sizes;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Weapons.Gears.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Attrs.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Attrs.Managers;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Attrs.Mountables.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Constants;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Models;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Utils;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Constants;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Phalanxes.PopUps;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Units.Constants;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Units.PopUps;
 using System.Collections.Generic;
@@ -37,7 +43,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         private IButtonPanelWidget armorButton;
         private IButtonPanelWidget cabinButton;
         private IButtonPanelWidget engineButton;
-        private IButtonPanelWidget weaponAddButton;
+        private IButtonPanelWidget weaponModButton;
         private IButtonPanelWidget weaponMinusButton;
         private IButtonPanelWidget statsButton;
         private IUnitDetails selectedDetails;
@@ -47,7 +53,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         {
             QSorties.Models.States.Inters.IMvcModelState mvcModelState = (QSorties.Models.States.Inters.IMvcModelState)modelState;
             this.combatantsDetails = mvcModelState.GetCombatantsDetails();
-            this.selectedDetails = this.combatantsDetails.GetUnitDetails()[0];
+            UnitID id = mvcModelState.GetSelectedUnitID();
+            this.selectedDetails = this.combatantsDetails.GetDetails(id).GetValue();
             this.UpdateWidgets();
             mvcModelState.GetPrevMvcRequest().IfPresent(request =>
             {
@@ -61,9 +68,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             this.InternalAddWidgets(this.BuildButtons());
         }
 
-        private ISet<ICanvasWidget> BuildTexts()
+        private IList<ICanvasWidget> BuildTexts()
         {
-            return new HashSet<ICanvasWidget>
+            return new List<ICanvasWidget>
             {
                 this.BuildIDText(),
                 this.BuildModelText(),
@@ -75,16 +82,15 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             };
         }
 
-        private ISet<ICanvasWidget> BuildButtons()
+        private IList<ICanvasWidget> BuildButtons()
         {
-            return new HashSet<ICanvasWidget>() {
+            return new List<ICanvasWidget>() {
                 this.BuildAndSetIDButton(),
                 this.BuildAndSetModelButton(),
                 this.BuildAndSetArmorButton(),
                 this.BuildAndSetEngineButton(),
                 this.BuildAndSetCabinButton(),
-                this.BuildAndSetMinusButton(),
-                this.BuildAndSetAddButton(),
+                this.BuildAndSetWeaponModButton(),
                 this.BuildAndSetStatsButton()
             };
         }
@@ -114,9 +120,18 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     this.popUpWidget.UpdatePopupEntry(this.BuildEngineGearIDPopUp());
                     break;
 
+                case RequestType.UnitWeaponGearIDModPopUp:
+                    this.popUpWidget.UpdatePopupEntry(this.BuildWeaponGearIDModPopUp());
+                    break;
+
                 case RequestType.PopUpDisable:
                 case RequestType.UnitIDSelect:
-                    this.popUpWidget.SetEnabled(false);
+                case RequestType.UnitModelIDSelect:
+                case RequestType.UnitArmorGearIDSelect:
+                case RequestType.UnitCabinGearIDSelect:
+                case RequestType.UnitEngineGearIDSelect:
+                case RequestType.UnitWeaponGearIDModSelect:
+                    CanvasWidgetUtils.EnableWidget(popUpWidget, false);
                     break;
 
                 default:
@@ -136,26 +151,33 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         private void UpdateLoadoutWidgets(ILoadoutDetails loadoutDetails)
         {
-            this.cabinButton.GetTextWidget().SetText(loadoutDetails
-                .GetEngineGearDetails().GetGearID().ToString());
-
+            IUnitAttributes unitAttributes = ModelAttributesManager.GetUnitAttributes(selectedDetails.GetModelID()).GetValue();
+            IMountableAttributes mountableAttributes = unitAttributes.GetMountableAttributes();
             this.armorButton.GetTextWidget().SetText(loadoutDetails
-                .GetArmorGearDetails().GetGearID().ToString());
+                .GetArmorGearID().ToString() + mountableAttributes.GetArmorGearSize().GetAbbr());
 
             this.cabinButton.GetTextWidget().SetText(loadoutDetails
-                .GetCabinGearDetails().GetGearID().ToString());
+                .GetCabinGearID().ToString() + mountableAttributes.GetCabinGearSize().GetAbbr());
 
             this.engineButton.GetTextWidget().SetText(loadoutDetails
-                .GetEngineGearDetails().GetGearID().ToString());
+                .GetEngineGearID().ToString() + mountableAttributes.GetEngineGearSize().GetAbbr());
 
-            IList<IWeaponGearDetails> weaponGearDetails = loadoutDetails.GetWeaponGearDetails();
-            IList<WeaponGearID> ids = new List<WeaponGearID>();
-            foreach (IWeaponGearDetails details in weaponGearDetails)
+            IList<WeaponGearID> ids = loadoutDetails.GetWeaponGearIDs();
+            IList<GearSize> gearSizes = ModelAttributesManager.GetUnitAttributes(selectedDetails.GetModelID())
+                .GetValue().GetMountableAttributes().GetWeaponGearSizes();
+            string weaponString = "[";
+            for(int i = 0; i < gearSizes.Count; ++i)
             {
-                ids.Add(details.GetWeaponGearID());
+                WeaponGearID gearID = ids[i];
+                GearSize gearSize = gearSizes[i];
+                weaponString += gearID.ToString() + gearSize.GetAbbr();
+                if(i < gearSizes.Count - 1)
+                {
+                    weaponString += ", ";
+                }
             }
-            string idsString = "[" + string.Join(", ", ids) + "]";
-            this.weaponIDList.GetTextWidget(0).GetValue().SetText(idsString);
+            weaponString += "]";
+            this.weaponIDList.GetTextWidget(0).GetValue().SetText(weaponString);
         }
 
         private IButtonPanelWidget BuildAndSetIDButton()
@@ -193,18 +215,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             return cabinButton;
         }
 
-        private IButtonPanelWidget BuildAndSetMinusButton()
+        private IButtonPanelWidget BuildAndSetWeaponModButton()
         {
-            string textName = RequestType.UnitWeaponGearIDMinusPopUp + ":Button";
-            weaponMinusButton = this.BuildButton(textName, WeaponsConstants.MINUS_BUTTON_SPEC, "-");
-            return weaponMinusButton;
-        }
-
-        private IButtonPanelWidget BuildAndSetAddButton()
-        {
-            string textName = typeof(WeaponGearID).Name + "AddPopUp:Button";
-            weaponAddButton = this.BuildButton(textName, WeaponsConstants.ADD_BUTTON_SPEC, "+");
-            return weaponAddButton;
+            string textName = RequestType.UnitWeaponGearIDModPopUp + ":Button";
+            weaponModButton = this.BuildButton(textName, WeaponsConstants.MOD_BUTTON_SPEC, "Mod");
+            return weaponModButton;
         }
 
         private IButtonPanelWidget BuildAndSetStatsButton()
@@ -217,43 +232,50 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         private IMultiTextPanelWidget BuildModelText()
         {
             string textName = typeof(ModelID).Name + ":Text";
-            return this.BuildMultiText(textName, ModelsConstants.TEXT_SPEC, ModelsConstants.TEXT_TIWS, false);
+            return this.BuildMultiText(textName, ModelsConstants.TEXT_SPEC,
+                ModelsConstants.TEXT_TIWS, false);
         }
 
         private IMultiTextPanelWidget BuildIDText()
         {
             string textName = typeof(UnitID).Name + ":Text";
-            return this.BuildMultiText(textName, IDsConstants.TEXT_SPEC, IDsConstants.TEXT_TIWS, false);
+            return this.BuildMultiText(textName, IDsConstants.TEXT_SPEC,
+                IDsConstants.TEXT_TIWS, false);
         }
 
         private IMultiTextPanelWidget BuildEngineText()
         {
             string textName = typeof(EngineGearID).Name + ":Text";
-            return this.BuildMultiText(textName, EnginesConstants.TEXT_SPEC, EnginesConstants.TEXT_TIWS, false);
+            return this.BuildMultiText(textName, EnginesConstants.TEXT_SPEC,
+                EnginesConstants.TEXT_TIWS, false);
         }
 
         private IMultiTextPanelWidget BuildArmorText()
         {
             string textName = typeof(ArmorGearID).Name + ":Text";
-            return this.BuildMultiText(textName, ArmorsConstants.TEXT_SPEC, ArmorsConstants.TEXT_TIWS, false);
+            return this.BuildMultiText(textName, ArmorsConstants.TEXT_SPEC,
+                ArmorsConstants.TEXT_TIWS, false);
         }
 
         private IMultiTextPanelWidget BuildCabinText()
         {
             string textName = typeof(CabinGearID).Name + ":Text";
-            return this.BuildMultiText(textName, CabinsConstants.TEXT_SPEC, CabinsConstants.TEXT_TIWS, false);
+            return this.BuildMultiText(textName, CabinsConstants.TEXT_SPEC,
+                CabinsConstants.TEXT_TIWS, false);
         }
 
         private IMultiTextPanelWidget BuildWeaponHeaderText()
         {
             string textName = typeof(WeaponGearID).Name + ":Text";
-            return this.BuildMultiText(textName, WeaponsConstants.TEXT_SPEC, WeaponsConstants.TEXT_TIWS, false);
+            return this.BuildMultiText(textName, WeaponsConstants.TEXT_SPEC,
+                WeaponsConstants.TEXT_TIWS, false);
         }
 
         private IMultiTextPanelWidget BuildWeaponListText()
         {
             string textName = typeof(WeaponGearID).Name + "List:Text";
-            this.weaponIDList = this.BuildMultiText(textName, WeaponsConstants.LIST_SPEC, WeaponsConstants.LIST_TIWS, false);
+            this.weaponIDList = this.BuildMultiText(textName, WeaponsConstants.LIST_SPEC,
+                WeaponsConstants.LIST_TIWS, false);
             return this.weaponIDList;
         }
 
@@ -299,8 +321,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         private IPanelWidget BuildArmorGearIDPopUp()
         {
-            ArmorGearID id = this.selectedDetails.GetLoadoutDetails().GetArmorGearDetails().GetGearID();
-            IList<ArmorGearID> ids = EnumUtils.GetEnumListWithoutFirst<ArmorGearID>();
+            ArmorGearID id = this.selectedDetails.GetLoadoutDetails().GetArmorGearID();
+            ModelID modelID = this.selectedDetails.GetModelID();
+            IList<ArmorGearID> ids = UnitGearIDConstants.Armors.GetGearIDs(modelID);
             return ArmorGearIDPopUpImpl.Builder.Get()
                 .SetArmorGearID(id)
                 .SetArmorGearIDs(ids)
@@ -317,8 +340,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         private IPanelWidget BuildEngineGearIDPopUp()
         {
-            EngineGearID id = this.selectedDetails.GetLoadoutDetails().GetEngineGearDetails().GetGearID();
-            IList<EngineGearID> ids = EnumUtils.GetEnumListWithoutFirst<EngineGearID>();
+            EngineGearID id = this.selectedDetails.GetLoadoutDetails().GetEngineGearID();
+            ModelID modelID = this.selectedDetails.GetModelID();
+            IList<EngineGearID> ids = UnitGearIDConstants.Engines.GetGearIDs(modelID);
             return EngineGearIDPopUpImpl.Builder.Get()
                 .SetEngineGearID(id)
                 .SetEngineGearIDs(ids)
@@ -335,8 +359,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         private IPanelWidget BuildCabinGearIDPopUp()
         {
-            CabinGearID id = this.selectedDetails.GetLoadoutDetails().GetCabinGearDetails().GetGearID();
-            IList<CabinGearID> ids = EnumUtils.GetEnumListWithoutFirst<CabinGearID>();
+            CabinGearID id = this.selectedDetails.GetLoadoutDetails().GetCabinGearID();
+            ModelID modelID = this.selectedDetails.GetModelID();
+            IList<CabinGearID> ids = UnitGearIDConstants.Cabins.GetGearIDs(modelID);
             return CabinGearIDPopUpImpl.Builder.Get()
                 .SetCabinGearID(id)
                 .SetCabinGearIDs(ids)
@@ -351,10 +376,28 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 .Build();
         }
 
+
+        private IPanelWidget BuildWeaponGearIDModPopUp()
+        {
+            int x = this.selectedDetails.GetLoadoutDetails().GetWeaponGearIDs().Count;
+            return WeaponGearIDModPopUpImpl.Builder.Get()
+                .SetUnitDetails(this.selectedDetails)
+                .SetPanelGridSize(new Vector2(x, 1))
+                .SetWidgetGridSpec(WidgetConstants.POP_UP_WIDGET_GRID_SPEC)
+                .SetMvcType(this.mvcType)
+                .SetCanvasLevel(99)
+                .SetInteractable(false)
+                .SetEnabled(true)
+                .SetName(RequestType.UnitWeaponGearIDModPopUp.ToString())
+                .SetParent(this)
+                .Build();
+        }
+
         private Vector2 GetIDPopUpGridSize(int idCount)
         {
-            int rows = (idCount > 8) ? 8 : idCount;
-            int cols = (rows > idCount) ? (idCount / rows) : 1;
+            int rows = (idCount > 6) ? 6 : idCount;
+            int cols = (rows == 6) ? 1 + (idCount / rows) : 1;
+            logger.Debug("ID count: {}, rows: {}, cols: {}", idCount, rows, cols);
             return new Vector2(cols, rows);
         }
 

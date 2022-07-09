@@ -17,13 +17,13 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
             return new Vector3(x, z, y);
         }
 
-        public static void AddPosAndNegTileCoords(ISet<Vector3> tileCoords, Vector3 tileCoord)
+        public static void AddPosAndNegTileCoords(IList<Vector3> tileCoords, Vector3 tileCoord)
         {
             tileCoords.Add(tileCoord);
             tileCoords.Add(-tileCoord);
         }
 
-        public static bool IsSubsetOf(ISet<Vector3> tileCoords, ISet<Vector3> subTileCoords)
+        public static bool IsSubsetOf(IList<Vector3> tileCoords, IList<Vector3> subTileCoords)
         {
             //logger.Debug("Checking if {} is subset of {}", subTileCoords, tileCoords);
             foreach (Vector3 subTileCoord in subTileCoords)

@@ -242,7 +242,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     return this;
                 }
 
-                protected override void ValidateWidgetBuilder(ISet<string> invalidReasons)
+                protected override void ValidateWidgetBuilder(IList<string> invalidReasons)
                 {
                     this.Validate(invalidReasons, this.text);
                     this.Validate(invalidReasons, this.fontID);

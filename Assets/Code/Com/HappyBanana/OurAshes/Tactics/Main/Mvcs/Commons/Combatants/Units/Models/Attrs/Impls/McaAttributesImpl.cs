@@ -17,7 +17,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
         public McaAttributesImpl()
         {
             this.destructibleAttributes = DestructibleAttributesImpl.Builder.Get()
-                .SetArmor(5)
+                .SetArmor(2)
                 .SetHealth(15)
                 .Build();
             this.fireableAttributes = FireableAttributesImpl.Builder.Get()
@@ -26,13 +26,13 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 .Build();
             this.mountableAttributes = MountableAttributesImpl.Builder.Get()
                 .SetArmorGearSize(GearSize.Small)
-                .SetCabinGearSize(GearSize.Small)
-                .SetEngineGearSize(GearSize.Small)
-                .SetWeaponGearSizes(new List<GearSize>() { GearSize.Small })
+                .SetCabinGearSize(GearSize.Medium)
+                .SetEngineGearSize(GearSize.Large)
+                .SetWeaponGearSizes(new List<GearSize>() { GearSize.Small, GearSize.Small, GearSize.Small, GearSize.Small })
                 .Build();
             this.movableAttributes = MovableAttributesImpl.Builder.Get()
-                .SetActions(2)
-                .SetMovements(10)
+                .SetActions(3)
+                .SetMovements(15)
                 .Build();
         }
     }

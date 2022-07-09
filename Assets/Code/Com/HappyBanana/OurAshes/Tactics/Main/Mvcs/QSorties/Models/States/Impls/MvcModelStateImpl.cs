@@ -17,11 +17,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         private ICombatantsDetails combatantsDetails;
         private IFieldDetails fieldDetails;
 
-        private FactionID factionID;
+        private FactionID factionID = FactionID.None;
 
-        private PhalanxID phalanxID;
+        private PhalanxID phalanxID = PhalanxID.None;
 
-        private UnitID unitID;
+        private UnitID unitID = UnitID.None;
 
         public override Commons.Models.States.Inters.IMvcModelState GetCopy()
         {
@@ -36,6 +36,18 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
 
         public MvcModelStateImpl SetCombatantsDetails(ICombatantsDetails details)
         {
+            if (factionID == FactionID.None)
+            {
+                factionID = details.GetFactionDetails()[0].GetFactionID();
+            }
+            if (phalanxID == PhalanxID.None)
+            {
+                phalanxID = details.GetPhalanxDetails()[0].GetPhalanxID();
+            }
+            if (unitID == UnitID.None)
+            {
+                unitID = details.GetUnitDetails()[0].GetUnitID();
+            }
             this.combatantsDetails = details;
             return this;
         }

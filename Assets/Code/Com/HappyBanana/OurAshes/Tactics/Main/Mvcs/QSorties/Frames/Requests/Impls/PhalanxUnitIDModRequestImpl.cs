@@ -9,7 +9,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames
     /// Todo
     /// </summary>
     public class PhalanxUnitIDModRequestImpl
-        : DefaultRequestImpl, IUnitIDModRequest
+        : DefaultRequestImpl, IPhalanxUnitIDModRequest
     {
         // Todo
         private readonly PhalanxID phalanxID = PhalanxID.None;
@@ -23,9 +23,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="factionID"></param>
-        /// <param name="phalanxID"></param>
-        /// <param name="isAdd"></param>
+        /// <param name="factionID">  </param>
+        /// <param name="phalanxID">  </param>
+        /// <param name="isAdd">      </param>
         /// <param name="requestType"></param>
         public PhalanxUnitIDModRequestImpl(PhalanxID phalanxID, UnitID unitID, bool isAdd, RequestType requestType)
             : base(requestType)
@@ -43,19 +43,19 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames
         }
 
         /// <inheritdoc/>
-        PhalanxID IUnitIDModRequest.GetPhalanxID()
+        PhalanxID IPhalanxUnitIDModRequest.GetPhalanxID()
         {
             return phalanxID;
         }
 
         /// <inheritdoc/>
-        UnitID IUnitIDModRequest.GetUnitID()
+        UnitID IPhalanxUnitIDModRequest.GetUnitID()
         {
             return unitID;
         }
 
         /// <inheritdoc/>
-        bool IUnitIDModRequest.IsAdd()
+        bool IPhalanxUnitIDModRequest.IsAdd()
         {
             return isAdd;
         }

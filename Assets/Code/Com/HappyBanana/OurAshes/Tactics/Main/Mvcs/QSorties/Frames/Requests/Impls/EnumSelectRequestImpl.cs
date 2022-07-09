@@ -9,10 +9,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames
         where TEnum : Enum
     {
         private readonly TEnum val;
+
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="val"></param>
+        /// <param name="val">        </param>
         /// <param name="requestType"></param>
         public EnumSelectRequestImpl(TEnum val, RequestType requestType)
             : base(requestType)
@@ -23,8 +24,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames
         /// <inheritdoc/>
         public override string ToString()
         {
-            return string.Format("{0}: {1}:{2}",
-                this.GetType().Name, typeof(TEnum).Name, this.val);
+            return string.Format("{0}:{1}", typeof(TEnum).Name, this.val);
         }
 
         /// <inheritdoc/>

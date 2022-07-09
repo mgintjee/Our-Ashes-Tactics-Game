@@ -14,7 +14,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         PhalanxID GetSelectedPhalanxID();
 
         UnitID GetSelectedUnitID();
+
         IFieldDetails GetFieldDetails();
+
         ICombatantsDetails GetCombatantsDetails();
     }
 }

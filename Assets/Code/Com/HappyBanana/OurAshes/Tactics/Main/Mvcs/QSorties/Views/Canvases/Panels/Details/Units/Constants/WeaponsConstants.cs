@@ -19,11 +19,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             .SetCanvasGridCoords(new Vector2(0, COORDS_Y))
             .SetCanvasGridSize(new Vector2(2 * SIZE, SIZE_Y));
 
-        public static readonly IWidgetGridSpec ADD_BUTTON_SPEC = new WidgetGridSpecImpl()
-            .SetCanvasGridCoords(new Vector2(2 * SIZE, COORDS_Y))
-            .SetCanvasGridSize(new Vector2(SIZE, SIZE_Y));
-
-        public static readonly IWidgetGridSpec MINUS_BUTTON_SPEC = new WidgetGridSpecImpl()
+        public static readonly IWidgetGridSpec MOD_BUTTON_SPEC = new WidgetGridSpecImpl()
             .SetCanvasGridCoords(new Vector2(3 * SIZE, COORDS_Y))
             .SetCanvasGridSize(new Vector2(SIZE, SIZE_Y));
 
@@ -37,6 +33,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
                     WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
             };
+
         public static readonly IList<TextImageWidgetStruct> LIST_TIWS = new List<TextImageWidgetStruct>()
             {
                 new TextImageWidgetStruct("[]",

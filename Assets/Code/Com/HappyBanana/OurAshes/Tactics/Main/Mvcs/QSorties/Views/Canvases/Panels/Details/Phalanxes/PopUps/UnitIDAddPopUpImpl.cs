@@ -8,22 +8,23 @@ using System.Collections.Generic;
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Phalanxes.PopUps
 {
     /// <summary>
-    /// Phalanx ID Add PopUp Impl
+    /// Phalanx UnitID Add PopUp Impl
     /// </summary>
     public class UnitIDAddPopUpImpl
         : AbstractDynamicEnumPopUp<UnitID>
     {
-        private PhalanxID phalanxID;
+        private PhalanxID id;
 
         protected override string DetermineButtonName(UnitID tEnum)
         {
-            return RequestType.PhalanxUnitIDAddMod+ ":" + phalanxID.ToString() + ":" + tEnum.ToString() + ":Button";
+            return RequestType.PhalanxUnitIDAddSelect + ":" + id.ToString() + ":" + tEnum.ToString() + ":Button";
         }
 
         protected override bool IsInteractable(UnitID tEnum)
         {
             return true;
         }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -74,13 +75,13 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 {
                     UnitIDAddPopUpImpl widget = gameObject.AddComponent<UnitIDAddPopUpImpl>();
                     widget.tEnums = unitIDs;
-                    widget.phalanxID = id;
+                    widget.id = id;
                     this.ApplyPanelValues(widget);
                     return widget;
                 }
 
                 /// <inheritdoc/>
-                protected override void Validate(ISet<string> invalidReasons)
+                protected override void Validate(IList<string> invalidReasons)
                 {
                     this.Validate(invalidReasons, unitIDs);
                     this.Validate(invalidReasons, id);

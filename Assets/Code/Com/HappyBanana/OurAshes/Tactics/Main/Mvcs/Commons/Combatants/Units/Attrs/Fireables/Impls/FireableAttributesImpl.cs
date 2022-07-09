@@ -77,7 +77,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 /// </summary>
                 /// <param name="attributes"></param>
                 /// <returns></returns>
-                IFireableAttributes Build(ISet<IFireableAttributes> attributes);
+                IFireableAttributes Build(IList<IFireableAttributes> attributes);
             }
 
             /// <summary>
@@ -116,7 +116,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 }
 
                 /// <inheritdoc/>
-                IFireableAttributes IInternalBuilder.Build(ISet<IFireableAttributes> attributes)
+                IFireableAttributes IInternalBuilder.Build(IList<IFireableAttributes> attributes)
                 {
                     _accuracy = 0.0f;
                     _range = 0.0f;
@@ -138,7 +138,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 }
 
                 /// <inheritdoc/>
-                protected override void Validate(ISet<string> invalidReasons)
+                protected override void Validate(IList<string> invalidReasons)
                 {
                     this.Validate(invalidReasons, _accuracy);
                     this.Validate(invalidReasons, _range);

@@ -9,6 +9,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Control
     /// </summary>
     public interface IMvcControlInputManager : IUnityScript
     {
-        void SetMvcControlInputs(ISet<MvcControlInputType> mvcControlInputTypes);
+        void SetMvcControlInputs(IList<MvcControlInputType> mvcControlInputTypes);
     }
 }

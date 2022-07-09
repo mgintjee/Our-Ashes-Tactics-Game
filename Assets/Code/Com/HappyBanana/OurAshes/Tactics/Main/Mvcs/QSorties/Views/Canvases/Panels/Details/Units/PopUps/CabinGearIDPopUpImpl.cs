@@ -15,7 +15,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         protected override string DetermineButtonName(CabinGearID tEnum)
         {
-            return  "Unit" +  typeof(CabinGearID).Name + "Select:" + tEnum.ToString() + ":Button";
+            return "Unit" + typeof(CabinGearID).Name + "Select:" + tEnum.ToString() + ":Button";
         }
 
         protected override bool IsInteractable(CabinGearID tEnum)
@@ -79,7 +79,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 }
 
                 /// <inheritdoc/>
-                protected override void Validate(ISet<string> invalidReasons)
+                protected override void Validate(IList<string> invalidReasons)
                 {
                     this.Validate(invalidReasons, ids);
                 }

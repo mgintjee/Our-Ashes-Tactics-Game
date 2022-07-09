@@ -34,10 +34,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         /// Todo
         /// </summary>
         /// <returns></returns>
-        private ISet<ICanvasWidget> BuildButtons()
+        private IList<ICanvasWidget> BuildButtons()
         {
             int counter = 0;
-            ISet<ICanvasWidget> canvasWidgets = new HashSet<ICanvasWidget>();
+            IList<ICanvasWidget> canvasWidgets = new List<ICanvasWidget>();
             foreach (TEnum tEnum in GetEnums())
             {
                 canvasWidgets.Add(BuildButton(tEnum, counter++));
@@ -54,20 +54,20 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         /// <returns></returns>
         private IButtonPanelWidget BuildButton(TEnum tEnum, int counter)
         {
-            int denominator = (int)this.canvasGridConvertor.GetGridSize().Y;
-            if (denominator == 0)
+            int startY = (int)this.canvasGridConvertor.GetGridSize().Y;
+            if (startY == 0)
             {
-                denominator = 1;
+                startY = 1;
             }
-            int x = counter / denominator;
-            int y = counter % denominator;
+            int x = counter / startY;
+            int y = startY - 1 - counter % startY;
             // Todo: Move this to some constants files
             IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
                     .SetCanvasGridCoords(new Vector2(x, y))
                     .SetCanvasGridSize(Vector2.One);
             string buttonType = tEnum.ToString();
             string widgetName = this.DetermineButtonName(tEnum);
-            string buttonText = buttonType;
+            string buttonText = counter + ")" + buttonType;
             // Todo: Move canvas level to some constants file
             IButtonPanelWidget buttonPanelWidget = this.BuildButton(widgetName, widgetGridSpec, buttonText, 99);
             ConfigureButton(buttonPanelWidget, tEnum);
