@@ -49,8 +49,8 @@
         UnitCabinGearIDSelect,
         UnitEngineGearIDPopUp,
         UnitEngineGearIDSelect,
-        UnitWeaponGearIDModPopUp,
-        UnitWeaponGearIDModSelect,
+        UnitWeaponGearIDPopUp,
+        UnitWeaponGearIDSelect,
 
         SortieStart
     }

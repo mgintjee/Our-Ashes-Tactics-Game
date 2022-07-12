@@ -52,8 +52,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
         {
             Vector3 cubeVector3 = new Vector3();
             OffsetCoordsType offsetCoordinateType = offsetCoords.GetOffsetCoordsType();
-            int col = (int)offsetCoords.GetVector2().X;
-            int row = (int)offsetCoords.GetVector2().Y;
+            int col = (int)offsetCoords.GetCoords().X;
+            int row = (int)offsetCoords.GetCoords().Y;
             switch (offsetCoordinateType)
             {
                 case OffsetCoordsType.ODD_R:

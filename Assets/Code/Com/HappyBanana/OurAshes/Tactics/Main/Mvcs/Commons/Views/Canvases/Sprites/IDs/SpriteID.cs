@@ -16,5 +16,6 @@
         SquareBorderless,
         TriangleBordered,
         TriangleBorderless,
+        HexagonBorderless,
     }
 }

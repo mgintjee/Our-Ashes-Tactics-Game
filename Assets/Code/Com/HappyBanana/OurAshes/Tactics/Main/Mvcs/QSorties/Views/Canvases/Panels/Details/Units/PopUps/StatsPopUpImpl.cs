@@ -1,36 +1,21 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Sprites.IDs;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
-using System.Numerics;
+using System.Collections.Generic;
 
-namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Impls
+namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Units.PopUps
 {
     /// <summary>
-    /// Field Tile Panel Impl
+    /// ArmorGear ID PopUp Impl
     /// </summary>
-    public class MiniFieldTilePanelImpl
-        : AbstractPanelWidget, IFieldTilePanelWidget
+    public class StatsPopUpImpl
+        : AbstractPanelWidget, IPanelWidget
     {
-        private Vector2 tileCoords;
-        private IImageWidget backgroundImage;
-        private IImageWidget middlegroundImage;
-        private IImageWidget foregroundImage;
-
-        private ColorID backgroundColorID;
-        private ColorID middlegroundColorID;
-        private ColorID foregroundColorID;
-        private SpriteID spriteID;
-
-        Vector2 IFieldTilePanelWidget.GetCoords()
-        {
-            return this.tileCoords;
-        }
+        private IUnitDetails details;
 
         protected override void InitialBuild()
         {
-            // Todo
+            throw new System.NotImplementedException();
         }
 
         /// <summary>
@@ -44,7 +29,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             public interface IInternalBuilder
                 : PanelWidgetBuilders.IPanelWidgetBuilder
             {
-                IInternalBuilder SetBackgroundColor(ColorID colorID);
+                IInternalBuilder SetUnitDetails(IUnitDetails details);
             }
 
             /// <summary>
@@ -62,19 +47,26 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             private class InternalBuilder
                 : PanelWidgetBuilders.InternalPanelWidgetBuilder, IInternalBuilder
             {
-                private ColorID backgroundColorID = ColorID.Gray;
+                private IUnitDetails details;
 
-                IInternalBuilder IInternalBuilder.SetBackgroundColor(ColorID colorID)
+                IInternalBuilder IInternalBuilder.SetUnitDetails(IUnitDetails details)
                 {
-                    this.backgroundColorID = colorID;
+                    this.details = details;
                     return this;
                 }
 
                 protected override IPanelWidget BuildScript(UnityEngine.GameObject gameObject)
                 {
-                    IPanelWidget widget = gameObject.AddComponent<MiniFieldTilePanelImpl>();
+                    StatsPopUpImpl widget = gameObject.AddComponent<StatsPopUpImpl>();
+                    widget.details = details;
                     this.ApplyPanelValues(widget);
                     return widget;
+                }
+
+                /// <inheritdoc/>
+                protected override void Validate(IList<string> invalidReasons)
+                {
+                    this.Validate(invalidReasons, details);
                 }
             }
         }

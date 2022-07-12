@@ -99,7 +99,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
                     CombatantsModUtil.HandleUnitIDMod(this.CastMvcModelState(), (IPhalanxUnitIDModRequest)mvcRequest);
                     break;
 
-                case RequestType.UnitWeaponGearIDModSelect:
+                case RequestType.UnitWeaponGearIDSelect:
                     CombatantsModUtil.HandleUnitWeaponGearIDMod(this.CastMvcModelState(), (IUnitWeaponGearIDModRequest)mvcRequest);
                     break;
 

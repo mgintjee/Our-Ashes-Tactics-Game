@@ -14,6 +14,7 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canva
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Fields.Constants;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Fields.Panels;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Fields.PopUps;
 using System.Collections.Generic;
 using System.Numerics;
@@ -31,6 +32,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         private IButtonPanelWidget shapeButton;
         private IButtonPanelWidget biomeButton;
         private IButtonPanelWidget sizeButton;
+        private IFieldPanelWidget fieldPanelWidget;
         private IFieldDetails fieldDetails;
 
         public override void Process(Commons.Models.States.Inters.IMvcModelState mvcModelState)
@@ -38,6 +40,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             QSorties.Models.States.Inters.IMvcModelState qSortieMenuModelState = (QSorties.Models.States.Inters.IMvcModelState)mvcModelState;
             this.fieldDetails = qSortieMenuModelState.GetFieldDetails();
             this.UpdateButtons();
+            this.fieldPanelWidget.Process(mvcModelState);
             qSortieMenuModelState.GetPrevMvcRequest().IfPresent(request =>
             {
                 this.ProcessPrevRequest((IQSortieMenuMvcRequest)request);
@@ -48,6 +51,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         {
             this.InternalAddWidgets(this.BuildTexts());
             this.InternalAddWidgets(this.BuildButtons());
+            this.InternalAddWidget(this.BuildAndSetFieldPanelWidget());
         }
 
         private void ProcessPrevRequest(IQSortieMenuMvcRequest mvcRequest)
@@ -77,10 +81,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 case RequestType.FieldBiomeSelect:
                 case RequestType.PopUpDisable:
                     CanvasWidgetUtils.EnableWidget(popUpWidget, false);
-                    break;
-
-                default:
-                    logger.Debug("Unsupported {}", requestType);
                     break;
             }
         }
@@ -247,6 +247,20 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 .Build();
         }
 
+        private IFieldPanelWidget BuildAndSetFieldPanelWidget()
+        {
+            this.fieldPanelWidget = (IFieldPanelWidget)MiniFieldPanelImpl.Builder.Get()
+                .SetPanelGridSize(Vector2.One)
+                .SetWidgetGridSpec(MiniFieldConstants.MINI_FIELD_SPEC)
+                .SetMvcType(this.mvcType)
+                .SetCanvasLevel(1)
+                .SetInteractable(false)
+                .SetEnabled(true)
+                .SetName("MiniFieldPanel")
+                .SetParent(this)
+                .Build();
+            return this.fieldPanelWidget;
+        }
         public class Builder
         {
             public interface IInternalBuilder

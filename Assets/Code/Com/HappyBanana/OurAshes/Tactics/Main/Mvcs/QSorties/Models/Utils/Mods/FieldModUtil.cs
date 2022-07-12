@@ -76,6 +76,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
                     .SetTileDetails(tileDetails)
                     .Build();
             }
+            logger.Debug("Old: {}" +
+                "\nNew: {}", fieldDetails, newFieldDetails);
             return newFieldDetails;
         }
 

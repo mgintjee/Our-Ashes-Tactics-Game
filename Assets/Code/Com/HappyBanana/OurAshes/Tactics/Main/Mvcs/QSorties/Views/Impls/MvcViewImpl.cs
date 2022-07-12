@@ -136,8 +136,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     request = this.BuildPhalanxUnitIDModRequestFrom(isAdd, widgetName, requestType);
                     break;
 
-                case RequestType.UnitWeaponGearIDModSelect:
+                case RequestType.UnitWeaponGearIDSelect:
                     request = this.BuildUnitWeaponGearIDModRequestFrom(widgetName, requestType);
+                    break;
+
+                case RequestType.UnitWeaponGearIDPopUp:
+                    request = this.BuildUnitWeaponGearIDPopUpRequestFrom(widgetName, requestType);
                     break;
 
                 default:
@@ -145,6 +149,18 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     break;
             }
             return request;
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="widgetName"></param>
+        /// <param name="requestType"></param>
+        /// <returns></returns>
+        private IQSortieMenuMvcRequest BuildUnitWeaponGearIDPopUpRequestFrom(string widgetName, RequestType requestType)
+        {
+            int weaponIndex = int.Parse(Regex.Match(widgetName, @"\d+").Value);
+            return new UnitWeaponGearIDPopUpRequestImpl(weaponIndex, requestType);
         }
 
         /// <summary>

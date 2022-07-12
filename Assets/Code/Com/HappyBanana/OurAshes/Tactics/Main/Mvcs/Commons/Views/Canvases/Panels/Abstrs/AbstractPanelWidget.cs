@@ -155,6 +155,24 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             }
         }
 
+        protected IImageWidget BuildImage(string widgetName, IWidgetGridSpec widgetGridSpec, int canvasLevel,
+            float alpha, ColorID colorID, SpriteID spriteID)
+        {
+            logger.Debug("Building {}: {}", widgetName,widgetGridSpec);
+            return ImageWidgetImpl.Builder.Get()
+                .SetAlpha(alpha)
+                .SetColorID(colorID)
+                .SetSpriteID(spriteID)
+                .SetWidgetGridSpec(widgetGridSpec)
+                .SetMvcType(this.mvcType)
+                .SetCanvasLevel(canvasLevel)
+                .SetInteractable(true)
+                .SetEnabled(true)
+                .SetName(widgetName)
+                .SetParent(this)
+                .Build();
+        }
+
         protected IButtonPanelWidget BuildButton(string widgetName, IWidgetGridSpec widgetGridSpec, string buttonText, int canvasLevel)
         {
             IButtonPanelWidget buttonPanelWidget = (IButtonPanelWidget)ButtonPanelImpl.Builder.Get()

@@ -35,9 +35,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
         /// <inheritdoc/>
         public override string ToString()
         {
-            return string.Format("{0}: {1}, {2})",
-                this.GetType().Name, StringUtils.Format(this.offsetCoordinateType),
-                this.vector2);
+            return string.Format("{0}, {1})", StringUtils.Format(this.offsetCoordinateType), this.vector2);
         }
 
         /// <inheritdoc/>
@@ -47,7 +45,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
         }
 
         /// <inheritdoc/>
-        Vector2 IOffsetCoords.GetVector2()
+        Vector2 IOffsetCoords.GetCoords()
         {
             return this.vector2;
         }

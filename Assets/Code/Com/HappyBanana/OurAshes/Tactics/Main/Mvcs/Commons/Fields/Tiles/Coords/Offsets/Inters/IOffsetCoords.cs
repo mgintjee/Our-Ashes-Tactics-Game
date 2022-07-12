@@ -8,7 +8,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
     /// </summary>
     public interface IOffsetCoords
     {
-        Vector2 GetVector2();
+        Vector2 GetCoords();
 
         OffsetCoordsType GetOffsetCoordsType();
     }

@@ -1,4 +1,6 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Armors.Gears.IDs;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Armors.Gears.Attrs.Managers;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Armors.Gears.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Gears.Sizes;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
 using System.Collections.Generic;
@@ -12,6 +14,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         : AbstractDynamicEnumPopUp<ArmorGearID>
     {
         private ArmorGearID id;
+        private GearSize gearSize;
 
         protected override string DetermineButtonName(ArmorGearID tEnum)
         {
@@ -21,6 +24,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         protected override bool IsInteractable(ArmorGearID tEnum)
         {
             return tEnum != id;
+        }
+
+        protected override string DeterimineButtonText(ArmorGearID tEnum)
+        {
+            return tEnum.ToString() + gearSize.GetAbbr();
         }
 
         /// <summary>
@@ -37,6 +45,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 IInternalBuilder SetArmorGearIDs(IList<ArmorGearID> ids);
 
                 IInternalBuilder SetArmorGearID(ArmorGearID id);
+                IInternalBuilder SetGearSize(GearSize gearSize);
             }
 
             /// <summary>
@@ -57,6 +66,13 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 private IList<ArmorGearID> ids;
                 private ArmorGearID id;
 
+                private GearSize gearSize;
+
+                IInternalBuilder IInternalBuilder.SetGearSize(GearSize gearSize)
+                {
+                    this.gearSize = gearSize;
+                    return this;
+                }
                 IInternalBuilder IInternalBuilder.SetArmorGearIDs(IList<ArmorGearID> ids)
                 {
                     this.ids = ids;
@@ -74,6 +90,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     ArmorGearIDPopUpImpl widget = gameObject.AddComponent<ArmorGearIDPopUpImpl>();
                     widget.tEnums = ids;
                     widget.id = id;
+                    widget.gearSize = gearSize;
                     this.ApplyPanelValues(widget);
                     return widget;
                 }

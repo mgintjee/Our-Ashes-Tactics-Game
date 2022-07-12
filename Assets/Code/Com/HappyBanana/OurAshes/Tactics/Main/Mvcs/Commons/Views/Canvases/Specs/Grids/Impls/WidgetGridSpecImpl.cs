@@ -25,8 +25,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         /// <inheritdoc/>
         public override string ToString()
         {
-            return string.Format("{0}: gridSize:{1}, gridCoords:{2}",
-                this.GetType().Name, this.gridSize, this.gridCoords);
+            return string.Format("gridSize:{0}, gridCoords:{1}",
+                this.gridSize, this.gridCoords);
         }
 
         public WidgetGridSpecImpl SetCanvasGridSize(Vector2 gridSize)

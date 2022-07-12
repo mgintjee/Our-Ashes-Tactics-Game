@@ -65,13 +65,17 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
                     .SetCanvasGridCoords(new Vector2(x, y))
                     .SetCanvasGridSize(Vector2.One);
-            string buttonType = tEnum.ToString();
             string widgetName = this.DetermineButtonName(tEnum);
-            string buttonText = counter + ")" + buttonType;
+            string buttonText = counter + ")" + DeterimineButtonText(tEnum);
             // Todo: Move canvas level to some constants file
             IButtonPanelWidget buttonPanelWidget = this.BuildButton(widgetName, widgetGridSpec, buttonText, 99);
             ConfigureButton(buttonPanelWidget, tEnum);
             return buttonPanelWidget;
+        }
+
+        protected virtual string DeterimineButtonText(TEnum tEnum)
+        {
+            return tEnum.ToString();
         }
     }
 }

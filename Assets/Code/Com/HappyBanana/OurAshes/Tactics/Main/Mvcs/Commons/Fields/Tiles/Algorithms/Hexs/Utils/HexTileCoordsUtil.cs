@@ -15,12 +15,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
 
         public static IList<Vector3> GetTileCoordsForLayer(int layer)
         {
-            logger.Debug("Getting TileCoords for Layer: {}", layer);
             IList<Vector3> tileCoords = new List<Vector3>();
             AddTileCoordsForLayerAlongAxisX(layer, tileCoords);
             AddTileCoordsForLayerAlongAxisY(layer, tileCoords);
             AddTileCoordsForLayerAlongAxisZ(layer, tileCoords);
-            logger.Debug("For Layer: {}, TileCoords: {}", layer, tileCoords);
             return tileCoords;
         }
 

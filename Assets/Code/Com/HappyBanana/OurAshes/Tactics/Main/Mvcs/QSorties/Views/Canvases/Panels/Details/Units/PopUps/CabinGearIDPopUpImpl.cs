@@ -1,4 +1,6 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Cabins.Gears.IDs;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Cabins.Gears.Attrs.Managers;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Cabins.Gears.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Gears.Sizes;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
 using System.Collections.Generic;
@@ -12,6 +14,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         : AbstractDynamicEnumPopUp<CabinGearID>
     {
         private CabinGearID id;
+        private GearSize gearSize;
 
         protected override string DetermineButtonName(CabinGearID tEnum)
         {
@@ -21,6 +24,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         protected override bool IsInteractable(CabinGearID tEnum)
         {
             return tEnum != id;
+        }
+        protected override string DeterimineButtonText(CabinGearID tEnum)
+        {
+            return tEnum.ToString() + gearSize.GetAbbr();
         }
 
         /// <summary>
@@ -37,6 +44,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 IInternalBuilder SetCabinGearIDs(IList<CabinGearID> ids);
 
                 IInternalBuilder SetCabinGearID(CabinGearID id);
+
+                IInternalBuilder SetGearSize(GearSize gearSize);
             }
 
             /// <summary>
@@ -57,6 +66,13 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 private IList<CabinGearID> ids;
                 private CabinGearID id;
 
+                private GearSize gearSize;
+
+                IInternalBuilder IInternalBuilder.SetGearSize(GearSize gearSize)
+                {
+                    this.gearSize = gearSize;
+                    return this;
+                }
                 IInternalBuilder IInternalBuilder.SetCabinGearIDs(IList<CabinGearID> ids)
                 {
                     this.ids = ids;
@@ -74,6 +90,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     CabinGearIDPopUpImpl widget = gameObject.AddComponent<CabinGearIDPopUpImpl>();
                     widget.tEnums = ids;
                     widget.id = id;
+                    widget.gearSize = gearSize;
                     this.ApplyPanelValues(widget);
                     return widget;
                 }

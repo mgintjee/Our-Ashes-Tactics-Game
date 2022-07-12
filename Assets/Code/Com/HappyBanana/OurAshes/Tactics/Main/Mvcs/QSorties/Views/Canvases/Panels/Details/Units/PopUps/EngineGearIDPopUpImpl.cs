@@ -1,4 +1,6 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Engines.Gears.IDs;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Engines.Gears.Attrs.Managers;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Engines.Gears.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Gears.Sizes;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
 using System.Collections.Generic;
@@ -12,6 +14,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         : AbstractDynamicEnumPopUp<EngineGearID>
     {
         private EngineGearID id;
+        private GearSize gearSize;
 
         protected override string DetermineButtonName(EngineGearID tEnum)
         {
@@ -21,6 +24,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         protected override bool IsInteractable(EngineGearID tEnum)
         {
             return tEnum != id;
+        }
+        protected override string DeterimineButtonText(EngineGearID tEnum)
+        {
+            return tEnum.ToString() + gearSize.GetAbbr();
         }
 
         /// <summary>
@@ -37,6 +44,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 IInternalBuilder SetEngineGearIDs(IList<EngineGearID> ids);
 
                 IInternalBuilder SetEngineGearID(EngineGearID id);
+
+                IInternalBuilder SetGearSize(GearSize gearSize);
             }
 
             /// <summary>
@@ -56,7 +65,13 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             {
                 private IList<EngineGearID> ids;
                 private EngineGearID id;
+                private GearSize gearSize;
 
+                IInternalBuilder IInternalBuilder.SetGearSize(GearSize gearSize)
+                {
+                    this.gearSize = gearSize;
+                    return this;
+                }
                 IInternalBuilder IInternalBuilder.SetEngineGearIDs(IList<EngineGearID> ids)
                 {
                     this.ids = ids;
@@ -74,6 +89,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     EngineGearIDPopUpImpl widget = gameObject.AddComponent<EngineGearIDPopUpImpl>();
                     widget.tEnums = ids;
                     widget.id = id;
+                    widget.gearSize = gearSize;
                     this.ApplyPanelValues(widget);
                     return widget;
                 }
@@ -83,6 +99,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 {
                     this.Validate(invalidReasons, ids);
                 }
+
             }
         }
     }

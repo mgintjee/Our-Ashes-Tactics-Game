@@ -11,7 +11,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
         private static readonly IDictionary<FieldShape, IDictionary<FieldSize, int>> FIELD_SHAPE_TILE_COUNTS =
             new Dictionary<FieldShape, IDictionary<FieldSize, int>>()
             {
-                { FieldShape.Hexagon, GetHexagonTileCounts() }
+                { FieldShape.Hexagon, GetHexagonTileCounts() },
+                { FieldShape.Square, GetHexagonTileCounts() }
             };
 
         public static int GetTileCounts(FieldShape fieldShape, FieldSize fieldSize)

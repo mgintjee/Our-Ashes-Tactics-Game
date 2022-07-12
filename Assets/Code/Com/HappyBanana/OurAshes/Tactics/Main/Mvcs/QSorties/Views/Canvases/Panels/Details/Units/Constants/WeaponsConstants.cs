@@ -20,7 +20,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             .SetCanvasGridSize(new Vector2(2 * SIZE, SIZE_Y));
 
         public static readonly IWidgetGridSpec MOD_BUTTON_SPEC = new WidgetGridSpecImpl()
-            .SetCanvasGridCoords(new Vector2(3 * SIZE, COORDS_Y))
+            .SetCanvasGridCoords(new Vector2(SIZE, COORDS_Y))
             .SetCanvasGridSize(new Vector2(SIZE, SIZE_Y));
 
         public static readonly IWidgetGridSpec LIST_SPEC = new WidgetGridSpecImpl()
@@ -40,5 +40,27 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     WidgetConstants.BUTTON_INTERACTABLE_DISABLED_TEXT_COLOR,
                     WidgetConstants.BUTTON_INTERACTABLE_DISABLED_IMAGE_COLOR)
             };
+
+        public static readonly IList<IWidgetGridSpec> MOD_BUTTON_SPECS = BuildButtonSpecs();
+
+        private static IList<IWidgetGridSpec> BuildButtonSpecs()
+        {
+            IList<IWidgetGridSpec> widgetGridSpecs = new List<IWidgetGridSpec>();
+            for (int i = 0; i < 6; ++i)
+            {
+                widgetGridSpecs.Add(BuildButtonSpec(i));
+            }
+            return widgetGridSpecs;
+        }
+
+        private static IWidgetGridSpec BuildButtonSpec(int i)
+        {
+            float x = ((i <= 1) ? (i + 2) : (i - 2)) * SIZE;
+            float y = (i <= 1) ? COORDS_Y : COORDS_Y - 1;
+            Vector2 coords = new Vector2(x, y);
+            return new WidgetGridSpecImpl()
+                .SetCanvasGridCoords(coords)
+                .SetCanvasGridSize(new Vector2(SIZE, SIZE_Y));
+        }
     }
 }

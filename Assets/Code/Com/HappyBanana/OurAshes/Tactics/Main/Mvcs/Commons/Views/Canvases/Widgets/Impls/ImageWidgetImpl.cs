@@ -33,7 +33,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         void IImageWidget.SetSpriteID(SpriteID spriteID)
         {
             this.spriteID = spriteID;
-            this.GetImage().sprite = SpriteResourceLoader.LoadSpriteResource(spriteID).GetValue();
+                this.GetImage().sprite = SpriteResourceLoader.LoadSpriteResource(spriteID).GetValue();
         }
 
         void IImageWidget.SetAlpha(float alpha)
@@ -113,7 +113,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 protected override void ValidateWidgetBuilder(IList<string> invalidReasons)
                 {
                     this.Validate(invalidReasons, this.colorID);
-                    this.Validate(invalidReasons, this.spriteID);
                 }
 
                 protected override IImageWidget BuildScript(UnityEngine.GameObject gameObject)

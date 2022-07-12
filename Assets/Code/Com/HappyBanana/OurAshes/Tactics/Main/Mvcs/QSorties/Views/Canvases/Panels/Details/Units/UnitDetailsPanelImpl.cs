@@ -16,6 +16,7 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Utils;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Constants;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
@@ -35,16 +36,14 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
     public class UnitDetailsPanelImpl
         : AbstractPanelWidget, IPanelWidget
     {
+        private readonly IList<IButtonPanelWidget> weaponModButtons = new List<IButtonPanelWidget>();
         private IPopUpPanelWidget popUpWidget;
-        private IMultiTextPanelWidget weaponIDList;
         private IMultiTextPanelWidget powerText;
         private IButtonPanelWidget idButton;
         private IButtonPanelWidget modelButton;
         private IButtonPanelWidget armorButton;
         private IButtonPanelWidget cabinButton;
         private IButtonPanelWidget engineButton;
-        private IButtonPanelWidget weaponModButton;
-        private IButtonPanelWidget weaponMinusButton;
         private IButtonPanelWidget statsButton;
         private IUnitDetails selectedDetails;
         private ICombatantsDetails combatantsDetails;
@@ -77,8 +76,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 this.BuildArmorText(),
                 this.BuildEngineText(),
                 this.BuildCabinText(),
-                this.BuildWeaponHeaderText(),
-                this.BuildWeaponListText()
+                this.BuildWeaponHeaderText()
             };
         }
 
@@ -90,7 +88,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 this.BuildAndSetArmorButton(),
                 this.BuildAndSetEngineButton(),
                 this.BuildAndSetCabinButton(),
-                this.BuildAndSetWeaponModButton(),
                 this.BuildAndSetStatsButton()
             };
         }
@@ -120,8 +117,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     this.popUpWidget.UpdatePopupEntry(this.BuildEngineGearIDPopUp());
                     break;
 
-                case RequestType.UnitWeaponGearIDModPopUp:
-                    this.popUpWidget.UpdatePopupEntry(this.BuildWeaponGearIDModPopUp());
+                case RequestType.UnitWeaponGearIDPopUp:
+                    int index = ((IUnitWeaponGearIDPopUpRequest)mvcRequest).GetIndex();
+                    this.popUpWidget.UpdatePopupEntry(this.BuildWeaponGearIDModPopUp(index));
                     break;
 
                 case RequestType.PopUpDisable:
@@ -130,7 +128,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 case RequestType.UnitArmorGearIDSelect:
                 case RequestType.UnitCabinGearIDSelect:
                 case RequestType.UnitEngineGearIDSelect:
-                case RequestType.UnitWeaponGearIDModSelect:
+                case RequestType.UnitWeaponGearIDSelect:
                     CanvasWidgetUtils.EnableWidget(popUpWidget, false);
                     break;
 
@@ -142,9 +140,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         private void UpdateWidgets()
         {
+
             this.idButton.GetTextWidget().SetText(this.selectedDetails.GetUnitID().ToString());
 
             this.modelButton.GetTextWidget().SetText(this.selectedDetails.GetModelID().ToString());
+
 
             UpdateLoadoutWidgets(this.selectedDetails.GetLoadoutDetails());
         }
@@ -153,6 +153,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         {
             IUnitAttributes unitAttributes = ModelAttributesManager.GetUnitAttributes(selectedDetails.GetModelID()).GetValue();
             IMountableAttributes mountableAttributes = unitAttributes.GetMountableAttributes();
+
             this.armorButton.GetTextWidget().SetText(loadoutDetails
                 .GetArmorGearID().ToString() + mountableAttributes.GetArmorGearSize().GetAbbr());
 
@@ -162,22 +163,57 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             this.engineButton.GetTextWidget().SetText(loadoutDetails
                 .GetEngineGearID().ToString() + mountableAttributes.GetEngineGearSize().GetAbbr());
 
-            IList<WeaponGearID> ids = loadoutDetails.GetWeaponGearIDs();
-            IList<GearSize> gearSizes = ModelAttributesManager.GetUnitAttributes(selectedDetails.GetModelID())
-                .GetValue().GetMountableAttributes().GetWeaponGearSizes();
-            string weaponString = "[";
-            for(int i = 0; i < gearSizes.Count; ++i)
+            UpdateWeaponButtons(mountableAttributes);
+        }
+
+        private void UpdateWeaponButtons(IMountableAttributes mountableAttributes)
+        {
+            IList<WeaponGearID> weaponGearIDs = this.selectedDetails.GetLoadoutDetails().GetWeaponGearIDs();
+            this.UpdateWeaponModButtonCount(weaponGearIDs.Count);
+            for (int i = 0; i < weaponGearIDs.Count; ++i)
             {
-                WeaponGearID gearID = ids[i];
-                GearSize gearSize = gearSizes[i];
-                weaponString += gearID.ToString() + gearSize.GetAbbr();
-                if(i < gearSizes.Count - 1)
-                {
-                    weaponString += ", ";
-                }
+                IButtonPanelWidget button = weaponModButtons[i];
+                WeaponGearID weaponGearID = weaponGearIDs[i];
+                GearSize gearSize = mountableAttributes.GetWeaponGearSizes()[i];
+                button.GetTextWidget().SetText("[" + (i + 1) + "] " + weaponGearID + gearSize.GetAbbr());
             }
-            weaponString += "]";
-            this.weaponIDList.GetTextWidget(0).GetValue().SetText(weaponString);
+        }
+
+        private void UpdateWeaponModButtonCount(int gearCount)
+        {
+            if (gearCount > weaponModButtons.Count)
+            {
+                this.AddMissingWeaponModButtons(gearCount);
+            }
+            else if (gearCount < weaponModButtons.Count)
+            {
+                this.RemoveExcessWeaponModButtons(gearCount);
+            }
+        }
+
+        private void RemoveExcessWeaponModButtons(int gearCount)
+        {
+            logger.Debug("Removing excess {} buttons", weaponModButtons.Count - gearCount);
+            for (int i = gearCount - 1; i < weaponModButtons.Count; ++i)
+            {
+                logger.Debug("Removing button {}", i);
+                IButtonPanelWidget button = weaponModButtons[i];
+                weaponModButtons.Remove(button);
+                this.InternalRemoveWidget(button);
+                button.Destroy();
+            }
+        }
+
+        private void AddMissingWeaponModButtons(int gearCount)
+        {
+            logger.Debug("Adding missing {} buttons", gearCount - weaponModButtons.Count);
+            for (int i = weaponModButtons.Count; i < gearCount; ++i)
+            {
+                logger.Debug("Adding button {}", i);
+                IButtonPanelWidget button = this.BuildAndSetWeaponModButton(i);
+                weaponModButtons.Add(button);
+                this.InternalAddWidget(button);
+            }
         }
 
         private IButtonPanelWidget BuildAndSetIDButton()
@@ -215,11 +251,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             return cabinButton;
         }
 
-        private IButtonPanelWidget BuildAndSetWeaponModButton()
+        private IButtonPanelWidget BuildAndSetWeaponModButton(int index)
         {
-            string textName = RequestType.UnitWeaponGearIDModPopUp + ":Button";
-            weaponModButton = this.BuildButton(textName, WeaponsConstants.MOD_BUTTON_SPEC, "Mod");
-            return weaponModButton;
+            string textName = RequestType.UnitWeaponGearIDPopUp + ":" + index + ":Button";
+            IWidgetGridSpec widgetGridSpec = WeaponsConstants.MOD_BUTTON_SPECS[index];
+            logger.Debug("Button {}: Spec: {}", index, widgetGridSpec);
+            return this.BuildButton(textName, widgetGridSpec, "Mod");
         }
 
         private IButtonPanelWidget BuildAndSetStatsButton()
@@ -271,14 +308,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 WeaponsConstants.TEXT_TIWS, false);
         }
 
-        private IMultiTextPanelWidget BuildWeaponListText()
-        {
-            string textName = typeof(WeaponGearID).Name + "List:Text";
-            this.weaponIDList = this.BuildMultiText(textName, WeaponsConstants.LIST_SPEC,
-                WeaponsConstants.LIST_TIWS, false);
-            return this.weaponIDList;
-        }
-
         private IPanelWidget BuildUnitIDPopUp()
         {
             UnitID id = this.selectedDetails.GetUnitID();
@@ -323,10 +352,13 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         {
             ArmorGearID id = this.selectedDetails.GetLoadoutDetails().GetArmorGearID();
             ModelID modelID = this.selectedDetails.GetModelID();
+            GearSize gearSize = ModelAttributesManager.GetUnitAttributes(selectedDetails.GetModelID())
+                .GetValue().GetMountableAttributes().GetArmorGearSize();
             IList<ArmorGearID> ids = UnitGearIDConstants.Armors.GetGearIDs(modelID);
             return ArmorGearIDPopUpImpl.Builder.Get()
                 .SetArmorGearID(id)
                 .SetArmorGearIDs(ids)
+                .SetGearSize(gearSize)
                 .SetPanelGridSize(GetIDPopUpGridSize(ids.Count))
                 .SetWidgetGridSpec(WidgetConstants.POP_UP_WIDGET_GRID_SPEC)
                 .SetMvcType(this.mvcType)
@@ -342,10 +374,13 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         {
             EngineGearID id = this.selectedDetails.GetLoadoutDetails().GetEngineGearID();
             ModelID modelID = this.selectedDetails.GetModelID();
+            GearSize gearSize = ModelAttributesManager.GetUnitAttributes(selectedDetails.GetModelID())
+                .GetValue().GetMountableAttributes().GetEngineGearSize();
             IList<EngineGearID> ids = UnitGearIDConstants.Engines.GetGearIDs(modelID);
             return EngineGearIDPopUpImpl.Builder.Get()
                 .SetEngineGearID(id)
                 .SetEngineGearIDs(ids)
+                .SetGearSize(gearSize)
                 .SetPanelGridSize(GetIDPopUpGridSize(ids.Count))
                 .SetWidgetGridSpec(WidgetConstants.POP_UP_WIDGET_GRID_SPEC)
                 .SetMvcType(this.mvcType)
@@ -361,10 +396,13 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         {
             CabinGearID id = this.selectedDetails.GetLoadoutDetails().GetCabinGearID();
             ModelID modelID = this.selectedDetails.GetModelID();
+            GearSize gearSize = ModelAttributesManager.GetUnitAttributes(selectedDetails.GetModelID())
+                .GetValue().GetMountableAttributes().GetCabinGearSize();
             IList<CabinGearID> ids = UnitGearIDConstants.Cabins.GetGearIDs(modelID);
             return CabinGearIDPopUpImpl.Builder.Get()
                 .SetCabinGearID(id)
                 .SetCabinGearIDs(ids)
+                .SetGearSize(gearSize)
                 .SetPanelGridSize(GetIDPopUpGridSize(ids.Count))
                 .SetWidgetGridSpec(WidgetConstants.POP_UP_WIDGET_GRID_SPEC)
                 .SetMvcType(this.mvcType)
@@ -376,19 +414,26 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 .Build();
         }
 
-
-        private IPanelWidget BuildWeaponGearIDModPopUp()
+        private IPanelWidget BuildWeaponGearIDModPopUp(int index)
         {
-            int x = this.selectedDetails.GetLoadoutDetails().GetWeaponGearIDs().Count;
+            UnitID unitID = selectedDetails.GetUnitID();
+            WeaponGearID gearID = selectedDetails.GetLoadoutDetails().GetWeaponGearIDs()[index];
+            GearSize gearSize = ModelAttributesManager.GetUnitAttributes(selectedDetails.GetModelID())
+                .GetValue().GetMountableAttributes().GetWeaponGearSizes()[index];
+            IList<WeaponGearID> gearIDs = UnitGearIDConstants.Weapons.GetGearIDs(gearSize);
             return WeaponGearIDModPopUpImpl.Builder.Get()
-                .SetUnitDetails(this.selectedDetails)
-                .SetPanelGridSize(new Vector2(x, 1))
+                .SetGearID(gearID)
+                .SetGearSize(gearSize)
+                .SetUnitID(unitID)
+                .SetGearIDs(gearIDs)
+                .SetIndex(index)
+                .SetPanelGridSize(GetIDPopUpGridSize(gearIDs.Count))
                 .SetWidgetGridSpec(WidgetConstants.POP_UP_WIDGET_GRID_SPEC)
                 .SetMvcType(this.mvcType)
                 .SetCanvasLevel(99)
                 .SetInteractable(false)
                 .SetEnabled(true)
-                .SetName(RequestType.UnitWeaponGearIDModPopUp.ToString())
+                .SetName(RequestType.UnitWeaponGearIDPopUp.ToString())
                 .SetParent(this)
                 .Build();
         }

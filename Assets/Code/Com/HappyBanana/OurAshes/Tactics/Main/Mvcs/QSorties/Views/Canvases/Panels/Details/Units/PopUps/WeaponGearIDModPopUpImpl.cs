@@ -1,68 +1,37 @@
 ﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Gears.Sizes;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Loadouts.Weapons.Gears.IDs;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Attrs.Managers;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Constants;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
 using System.Collections.Generic;
-using System.Numerics;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Phalanxes.PopUps
 {
     /// <summary>
-    /// WeaponGear ID Mod PopUp Impl
+    /// s WeaponGear ID Mod PopUp Impl
     /// </summary>
     public class WeaponGearIDModPopUpImpl
-        : AbstractPanelWidget, IPanelWidget
+        : AbstractDynamicEnumPopUp<WeaponGearID>
     {
-        private IUnitDetails unitDetails;
+        private UnitID unitID;
+        private int index;
+        private GearSize gearSize;
+        private WeaponGearID gearID;
 
-        protected override void InitialBuild()
+        protected override string DetermineButtonName(WeaponGearID tEnum)
         {
-            IList<WeaponGearID> gearIDs = unitDetails.GetLoadoutDetails().GetWeaponGearIDs();
-            IList<GearSize> gearSizes = ModelAttributesManager.GetUnitAttributes(unitDetails.GetModelID())
-                .GetValue().GetMountableAttributes().GetWeaponGearSizes();
-            for (int i = 0; i < gearSizes.Count; ++i)
-            {
-                GearSize gearSize = gearSizes[i];
-                WeaponGearID weaponGearID = gearIDs[i];
-                InternalAddWidget(BuildEntry(gearSizes.Count, i, gearSize, weaponGearID));
-            }
+            return RequestType.UnitWeaponGearIDSelect + ":" + unitID.ToString() + ":" + index + ":" + tEnum.ToString() + ":Button";
         }
 
-        private IPanelWidget BuildEntry(int max, int index, GearSize gearSize, WeaponGearID gearID)
+        protected override bool IsInteractable(WeaponGearID tEnum)
         {
-            UnitID id = unitDetails.GetUnitID();
-            IList<WeaponGearID> ids = UnitGearIDConstants.Weapons.GetGearIDs(gearSize);
-            IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(new Vector2(index, 0))
-                    .SetCanvasGridSize(new Vector2(1, 1));
-            return WeaponGearIDModPopUpEntry.Builder.Get()
-                .SetUnitID(id)
-                .SetWeaponGearIDs(ids)
-                .SetIndex(index)
-                .SetPanelGridSize(GetIDPopUpGridSize(ids.Count))
-                .SetWidgetGridSpec(widgetGridSpec)
-                .SetMvcType(this.mvcType)
-                .SetCanvasLevel(99)
-                .SetInteractable(false)
-                .SetEnabled(true)
-                .SetName(RequestType.UnitWeaponGearIDModPopUp.ToString())
-                .SetParent(this)
-                .Build();
+            return gearID != tEnum;
         }
 
-        private Vector2 GetIDPopUpGridSize(int idCount)
+        protected override string DeterimineButtonText(WeaponGearID tEnum)
         {
-            int rows = (idCount > 6) ? 6 : idCount;
-            int cols = (rows == 6) ? 1 + (idCount / rows) : 1;
-            logger.Debug("ID count: {}, rows: {}, cols: {}", idCount, rows, cols);
-            return new Vector2(cols, rows);
+            return tEnum.ToString() + gearSize.GetAbbr();
         }
 
         /// <summary>
@@ -76,7 +45,15 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             public interface IInternalBuilder
                 : PanelWidgetBuilders.IPanelWidgetBuilder
             {
-                IInternalBuilder SetUnitDetails(IUnitDetails unitDetails);
+                IInternalBuilder SetGearIDs(IList<WeaponGearID> ids);
+
+                IInternalBuilder SetUnitID(UnitID id);
+
+                IInternalBuilder SetIndex(int index);
+
+                IInternalBuilder SetGearSize(GearSize gearSize);
+
+                IInternalBuilder SetGearID(WeaponGearID id);
             }
 
             /// <summary>
@@ -94,18 +71,50 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             private class InternalBuilder
                 : PanelWidgetBuilders.InternalPanelWidgetBuilder, IInternalBuilder
             {
-                private IUnitDetails unitDetails;
+                private GearSize gearSize;
+                private IList<WeaponGearID> gearIDs;
+                private UnitID unitID;
+                private int index;
+                private WeaponGearID gearID;
 
-                IInternalBuilder IInternalBuilder.SetUnitDetails(IUnitDetails unitDetails)
+                IInternalBuilder IInternalBuilder.SetIndex(int index)
                 {
-                    this.unitDetails = unitDetails;
+                    this.index = index;
+                    return this;
+                }
+
+                IInternalBuilder IInternalBuilder.SetGearIDs(IList<WeaponGearID> ids)
+                {
+                    this.gearIDs = ids;
+                    return this;
+                }
+
+                IInternalBuilder IInternalBuilder.SetUnitID(UnitID id)
+                {
+                    this.unitID = id;
+                    return this;
+                }
+
+                IInternalBuilder IInternalBuilder.SetGearSize(GearSize gearSize)
+                {
+                    this.gearSize = gearSize;
+                    return this;
+                }
+
+                IInternalBuilder IInternalBuilder.SetGearID(WeaponGearID gearID)
+                {
+                    this.gearID = gearID;
                     return this;
                 }
 
                 protected override IPanelWidget BuildScript(UnityEngine.GameObject gameObject)
                 {
                     WeaponGearIDModPopUpImpl widget = gameObject.AddComponent<WeaponGearIDModPopUpImpl>();
-                    widget.unitDetails = unitDetails;
+                    widget.tEnums = gearIDs;
+                    widget.unitID = unitID;
+                    widget.index = index;
+                    widget.gearSize = gearSize;
+                    widget.gearID = gearID;
                     this.ApplyPanelValues(widget);
                     return widget;
                 }
@@ -113,7 +122,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 /// <inheritdoc/>
                 protected override void Validate(IList<string> invalidReasons)
                 {
-                    this.Validate(invalidReasons, unitDetails);
+                    this.Validate(invalidReasons, gearIDs);
+                    this.Validate(invalidReasons, unitID);
+                    this.Validate(invalidReasons, gearID);
                 }
             }
         }

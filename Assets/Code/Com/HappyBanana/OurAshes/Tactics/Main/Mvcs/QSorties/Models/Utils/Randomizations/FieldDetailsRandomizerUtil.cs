@@ -54,11 +54,13 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             {
                 IList<Vector3> tileCoords = tileCoordsAlgorithm.GetTileCoords(fieldShape, fieldSize);
 
+                logger.Debug("Generated {} for {}", tileCoords, fieldShape);
                 foreach (Vector3 tileCoord in tileCoords)
                 {
                     BuildRandomTileDetails(random, tileCoordDetails, isMapMirrored, tileCoord);
                 }
             });
+            logger.Debug("From {}, {}, Generated {}", fieldShape, fieldSize, tileCoordDetails);
 
             return new List<ITileDetails>(tileCoordDetails.Values);
         }
@@ -73,6 +75,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
                 .SetFieldSize(fieldSize)
                 .SetTileDetails(tileDetails)
                 .Build();
+            logger.Debug("Generated {}", fieldDetails);
             return fieldDetails;
         }
 
@@ -84,21 +87,22 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             return GetRandomFieldDetails(random, FieldID.Random, fieldBiome, fieldShape, fieldSize);
         }
 
-        private static void BuildRandomTileDetails(Random random, IDictionary<Vector3, ITileDetails> tileCoordDetails, bool isMapMirrored, Vector3 tileCoord)
+        private static void BuildRandomTileDetails(Random random, IDictionary<Vector3, ITileDetails> tileCoordDetails, bool isMapMirrored, Vector3 tileCoords)
         {
-            if (isMapMirrored && tileCoordDetails.ContainsKey(tileCoord * -1))
+            if (isMapMirrored && tileCoordDetails.ContainsKey(tileCoords * -1))
             {
-                ITileDetails tileDetails = tileCoordDetails[tileCoord * -1];
+                ITileDetails tileDetails = tileCoordDetails[tileCoords * -1];
                 ITileDetails mirroredTileDetails = TileDetailsImpl.Builder.Get()
                     .SetTileType(tileDetails.GetTileType())
-                    .SetVector3(tileCoord)
+                    .SetVector3(tileCoords)
                     .Build();
-                tileCoordDetails.Add(tileCoord, mirroredTileDetails);
+                tileCoordDetails.Add(tileCoords, mirroredTileDetails);
             }
 
-            if (!tileCoordDetails.ContainsKey(tileCoord))
+            logger.Debug("Building details for {}", tileCoords);
+            if (!tileCoordDetails.ContainsKey(tileCoords))
             {
-                tileCoordDetails.Add(tileCoord, BuildRandomTileDetails(random, tileCoord));
+                tileCoordDetails.Add(tileCoords, BuildRandomTileDetails(random, tileCoords));
             }
         }
 

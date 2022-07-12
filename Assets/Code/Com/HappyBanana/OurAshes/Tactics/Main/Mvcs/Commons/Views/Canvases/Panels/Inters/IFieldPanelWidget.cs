@@ -7,8 +7,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
     public interface IFieldPanelWidget
         : IPanelWidget
     {
-        Optional<IFieldTilePanelWidget> GetFileTilePanelWidget(Vector2 tileCoords);
+        Optional<IFieldTilePanelWidget> GetFileTilePanelWidget(Vector3 tileCoords);
 
-        IList<Vector2> GetAvailableCoords();
+        IList<Vector3> GetAvailableCoords();
     }
 }

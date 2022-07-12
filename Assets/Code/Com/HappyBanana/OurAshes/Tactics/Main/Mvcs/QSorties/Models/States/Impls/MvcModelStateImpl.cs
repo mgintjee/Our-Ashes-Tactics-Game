@@ -16,11 +16,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
     {
         private ICombatantsDetails combatantsDetails;
         private IFieldDetails fieldDetails;
-
         private FactionID factionID = FactionID.None;
-
         private PhalanxID phalanxID = PhalanxID.None;
-
         private UnitID unitID = UnitID.None;
 
         public override Commons.Models.States.Inters.IMvcModelState GetCopy()
@@ -48,31 +45,31 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             {
                 unitID = details.GetUnitDetails()[0].GetUnitID();
             }
-            this.combatantsDetails = details;
+            combatantsDetails = details;
             return this;
         }
 
         public MvcModelStateImpl SetFieldDetails(IFieldDetails details)
         {
-            this.fieldDetails = details;
+            fieldDetails = details;
             return this;
         }
 
         public MvcModelStateImpl SetFactionID(FactionID id)
         {
-            this.factionID = id;
+            factionID = id;
             return this;
         }
 
         public MvcModelStateImpl SetPhalanxID(PhalanxID id)
         {
-            this.phalanxID = id;
+            phalanxID = id;
             return this;
         }
 
         public MvcModelStateImpl SetUnitID(UnitID id)
         {
-            this.unitID = id;
+            unitID = id;
             return this;
         }
 
@@ -85,18 +82,18 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             return string.Format("\nSelected: {0}, {1}, {2}" +
                 "\n{3}" +
                 "\n{4}" +
-                "\n{5}", this.factionID, this.phalanxID, this.unitID,
-                this.combatantsDetails, this.fieldDetails, this.prevMvcRequest);
+                "\n{5}", factionID, phalanxID, unitID,
+                combatantsDetails, fieldDetails, prevMvcRequest);
         }
 
         IFieldDetails IMvcModelState.GetFieldDetails()
         {
-            return this.fieldDetails;
+            return fieldDetails;
         }
 
         ICombatantsDetails IMvcModelState.GetCombatantsDetails()
         {
-            return this.combatantsDetails;
+            return combatantsDetails;
         }
 
         FactionID IMvcModelState.GetSelectedFactionID()

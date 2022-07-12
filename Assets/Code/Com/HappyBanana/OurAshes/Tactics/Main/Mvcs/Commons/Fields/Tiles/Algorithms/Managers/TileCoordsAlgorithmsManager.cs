@@ -14,7 +14,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
         private static readonly IDictionary<FieldShape, ITileCoordsAlgorithm> FIELD_SHAPE_TILE_ALGORITHMS =
             new Dictionary<FieldShape, ITileCoordsAlgorithm>()
             {
-                { FieldShape.Hexagon, new HexTileCoordsAlgorithmImpl() }
+                { FieldShape.Hexagon, new HexTileCoordsAlgorithmImpl() },
+                { FieldShape.Square, new HexTileCoordsAlgorithmImpl() }
             };
 
         public static Optional<ITileCoordsAlgorithm> GetTileCoordsAlgorithm(FieldShape fieldShape)
