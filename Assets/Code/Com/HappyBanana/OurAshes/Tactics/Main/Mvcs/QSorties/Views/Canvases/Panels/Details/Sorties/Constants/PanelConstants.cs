@@ -21,7 +21,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         public class Phalanxes
         {
-            public static readonly float COORDS_X = 1;
+            public static readonly float COORDS_X = COUNTER_SIZE_X;
             public static readonly float COORDS_Y = DetailsPanelConstants.Sorties.Vectors.SIZE.Y - 1;
             public static readonly Vector2 COORDS = new Vector2(COORDS_X, COORDS_Y);
         }
@@ -35,7 +35,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         public class Fields
         {
-            public static readonly float COORDS_X = 1;
+            public static readonly float COORDS_X = COUNTER_SIZE_X;
             public static readonly float COORDS_Y = DetailsPanelConstants.Sorties.Vectors.SIZE.Y - 2;
             public static readonly Vector2 COORDS = new Vector2(COORDS_X, COORDS_Y);
         }

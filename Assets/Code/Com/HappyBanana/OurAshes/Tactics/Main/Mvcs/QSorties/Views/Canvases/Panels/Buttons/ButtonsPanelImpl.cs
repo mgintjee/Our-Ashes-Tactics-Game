@@ -18,8 +18,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
     public class ButtonsPanelImpl
         : AbstractPanelWidget
     {
-        private readonly IDictionary<RequestType, IButtonPanelWidget> qSortieMenuTypeButtons =
-            new Dictionary<RequestType, IButtonPanelWidget>();
+        private readonly IDictionary<RequestType, IButtonWidget> qSortieMenuTypeButtons =
+            new Dictionary<RequestType, IButtonWidget>();
 
         public override void Process(Commons.Models.States.Inters.IMvcModelState mvcModelState)
         {
@@ -81,15 +81,15 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 ButtonPanelConstants.BUTTON_SORTIE_START_COORDS);
         }
 
-        private IButtonPanelWidget BuildAndSetRequestTypeButtonPanel(RequestType requestType, Vector2 buttonCoords)
+        private IButtonWidget BuildAndSetRequestTypeButtonPanel(RequestType requestType, Vector2 buttonCoords)
         {
             this.qSortieMenuTypeButtons[requestType] = this.BuildButtonPanelWidget(requestType, buttonCoords);
             return this.qSortieMenuTypeButtons[requestType];
         }
 
-        private IButtonPanelWidget BuildButtonPanelWidget(RequestType requestType, Vector2 canvasGridCoords)
+        private IButtonWidget BuildButtonPanelWidget(RequestType requestType, Vector2 canvasGridCoords)
         {
-            return (IButtonPanelWidget)ButtonPanelImpl.Builder.Get()
+            return (IButtonWidget)ButtonWidgetImpl.Builder.Get()
                     .SetButtonText(requestType.ToString())
                     .SetPanelGridSize(Vector2.One)
                     .SetWidgetGridSpec(new WidgetGridSpecImpl()
@@ -108,7 +108,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         {
             if (requestType.ToString().Contains("Details"))
             {
-                foreach (KeyValuePair<RequestType, IButtonPanelWidget> typeImagePair in this.qSortieMenuTypeButtons)
+                foreach (KeyValuePair<RequestType, IButtonWidget> typeImagePair in this.qSortieMenuTypeButtons)
                 {
                     CanvasWidgetUtils.SetButtonInteractable(typeImagePair.Value, typeImagePair.Key != requestType);
                 }

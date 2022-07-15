@@ -1,6 +1,8 @@
 ﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Loggers.Managers;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Randoms.Managers;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Biomes;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Inters;
@@ -8,12 +10,14 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Deta
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Shapes;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Sizes;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Details.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Utils.Randomizations;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -54,6 +58,33 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             IFieldDetails newFieldDetails = UpdateFieldDetails(fieldDetails.GetFieldID(),
                 fieldDetails.GetFieldBiome(), fieldDetails.GetFieldShape(), mvcRequest.GetEnum(), fieldDetails);
             UpdateFieldDetails(newFieldDetails, modelState);
+        }
+
+        public static void UpdateTileDetailsUnitIDs(IFieldDetails fieldDetails, IList<IUnitDetails> unitDetails)
+        {
+            Random random = RandomManager.GetRandom(MvcType.QSortieMenu);
+            foreach (ITileDetails tileDetails in fieldDetails.GetTileDetails())
+            {
+                ((TileDetailsImpl)tileDetails)
+                    .SetUnitID(UnitID.None);
+            }
+            foreach (IUnitDetails details in unitDetails)
+            {
+                UnitID unitID = details.GetUnitID();
+                ITileDetails tileDetails = GetRandomTileDetails(random, fieldDetails);
+                ((TileDetailsImpl)tileDetails)
+                    .SetUnitID(unitID);
+            }
+        }
+        private static ITileDetails GetRandomTileDetails(Random random, IFieldDetails fieldDetails)
+        {
+            IList<ITileDetails> tileDetails = fieldDetails.GetTileDetails();
+            ITileDetails details = tileDetails[random.Next(tileDetails.Count)];
+            if (details.GetUnitID() != UnitID.None)
+            {
+                return GetRandomTileDetails(random, fieldDetails);
+            }
+            return details;
         }
 
         private static IFieldDetails UpdateFieldDetails(FieldID fieldID, FieldBiome fieldBiome,

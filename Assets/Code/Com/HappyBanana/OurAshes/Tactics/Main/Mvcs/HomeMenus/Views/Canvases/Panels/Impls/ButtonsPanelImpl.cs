@@ -18,7 +18,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.HomeMenus.Views
             Vector2 buttonGridSize = new Vector2(this.canvasGridConvertor.GetGridSize().X,
                 this.canvasGridConvertor.GetGridSize().Y / 5);
             this.InternalAddWidget(this.BuildBackground());
-            this.InternalAddWidget(ButtonPanelImpl.Builder.Get()
+            this.InternalAddWidget(ButtonWidgetImpl.Builder.Get()
                 .SetButtonText(RequestType.QSortie.ToString())
                 .SetPanelGridSize(new Vector2(2, 1))
                 .SetWidgetGridSpec(new WidgetGridSpecImpl()
@@ -31,7 +31,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.HomeMenus.Views
                 .SetName(RequestType.QSortie + ":Button")
                 .SetParent(this)
                 .Build());
-            this.InternalAddWidget(ButtonPanelImpl.Builder.Get()
+            this.InternalAddWidget(ButtonWidgetImpl.Builder.Get()
                 .SetButtonText(RequestType.Exit.ToString())
                 .SetPanelGridSize(new Vector2(2, 1))
                 .SetWidgetGridSpec(new WidgetGridSpecImpl()

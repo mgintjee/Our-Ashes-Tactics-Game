@@ -1,6 +1,8 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Factions.IDs;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Factions.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
@@ -9,8 +11,11 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canva
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Constants;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Fields.Constants;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Fields.Panels;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Sorties.Constants;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Sorties
 {
@@ -25,10 +30,25 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         private IMultiTextPanelWidget phalanxCountWidget;
         private IMultiTextPanelWidget unitCountWidget;
         private IMultiTextPanelWidget fieldIDWidget;
+        private IFieldPanelWidget fieldPanelWidget;
+        private IFieldDetails fieldDetails;
+        private ICombatantsDetails combatantsDetails;
 
         public override void Process(IMvcModelState modelState)
         {
-            QSorties.Models.States.Inters.IMvcModelState mvcModelState = (QSorties.Models.States.Inters.IMvcModelState)modelState;
+            Models.States.Inters.IMvcModelState mvcModelState = (Models.States.Inters.IMvcModelState)modelState;
+            this.fieldDetails = mvcModelState.GetFieldDetails();
+            this.combatantsDetails = mvcModelState.GetCombatantsDetails();
+            this.UpdateTexts();
+            this.fieldPanelWidget.Process(mvcModelState);
+        }
+
+        private void UpdateTexts()
+        {
+            this.factionCountWidget.GetTextWidget(1).GetValue().SetText(this.combatantsDetails.GetFactionDetails().Count);
+            this.phalanxCountWidget.GetTextWidget(1).GetValue().SetText(this.combatantsDetails.GetPhalanxDetails().Count);
+            this.unitCountWidget.GetTextWidget(1).GetValue().SetText(this.combatantsDetails.GetUnitDetails().Count);
+            this.fieldIDWidget.GetTextWidget(1).GetValue().SetText(this.fieldDetails.GetFieldID());
         }
 
         protected override void InitialBuild()
@@ -37,7 +57,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 this.BuildAndSetFactionCount(),
                 this.BuildAndSetPhalanxCount(),
                 this.BuildAndSetUnitCount(),
-                this.BuildAndSetFieldID()
+                this.BuildAndSetFieldID(),
+                this.BuildAndSetFieldPanelWidget()
             };
             this.InternalAddWidgets(panelWidgets);
         }
@@ -120,6 +141,20 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             this.fieldIDWidget = this.BuildMultiText(textName, widgetGridSpec,
                 textImageWidgetStructs, true);
             return this.fieldIDWidget;
+        }
+        private IFieldPanelWidget BuildAndSetFieldPanelWidget()
+        {
+            this.fieldPanelWidget = (IFieldPanelWidget)MiniFieldPanelImpl.Builder.Get()
+                .SetPanelGridSize(Vector2.One)
+                .SetWidgetGridSpec(MiniFieldConstants.MINI_FIELD_SPEC)
+                .SetMvcType(this.mvcType)
+                .SetCanvasLevel(1)
+                .SetInteractable(false)
+                .SetEnabled(true)
+                .SetName("MiniFieldPanel")
+                .SetParent(this)
+                .Build();
+            return this.fieldPanelWidget;
         }
 
         /// <summary>

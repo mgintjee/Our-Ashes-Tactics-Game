@@ -28,10 +28,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         : AbstractPanelWidget, IPanelWidget
     {
         private IPopUpPanelWidget popUpWidget;
-        private IButtonPanelWidget idButton;
-        private IButtonPanelWidget shapeButton;
-        private IButtonPanelWidget biomeButton;
-        private IButtonPanelWidget sizeButton;
+        private IButtonWidget idButton;
+        private IButtonWidget shapeButton;
+        private IButtonWidget biomeButton;
+        private IButtonWidget sizeButton;
         private IFieldPanelWidget fieldPanelWidget;
         private IFieldDetails fieldDetails;
 
@@ -119,7 +119,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             this.shapeButton.GetTextWidget().SetText(this.fieldDetails.GetFieldShape().ToString());
         }
 
-        private IButtonPanelWidget BuildAndSetIDButton()
+        private IButtonWidget BuildAndSetIDButton()
         {
             IWidgetGridSpec widgetGridSpec = IDsConstants.BUTTON_SPEC;
             string widgetName = typeof(FieldID).Name + "PopUp:Button";
@@ -127,7 +127,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             return idButton;
         }
 
-        private IButtonPanelWidget BuildAndSetSizeButton()
+        private IButtonWidget BuildAndSetSizeButton()
         {
             IWidgetGridSpec widgetGridSpec = SizesConstants.BUTTON_SPEC;
             string widgetName = typeof(FieldSize).Name + "PopUp:Button";
@@ -135,7 +135,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             return sizeButton;
         }
 
-        private IButtonPanelWidget BuildAndSetShapeButton()
+        private IButtonWidget BuildAndSetShapeButton()
         {
             IWidgetGridSpec widgetGridSpec = ShapesConstants.BUTTON_SPEC;
             string widgetName = typeof(FieldShape).Name + "PopUp:Button";
@@ -143,7 +143,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             return shapeButton;
         }
 
-        private IButtonPanelWidget BuildAndSetBiomeButton()
+        private IButtonWidget BuildAndSetBiomeButton()
         {
             IWidgetGridSpec widgetGridSpec = BiomesConstants.BUTTON_SPEC;
             string widgetName = typeof(FieldBiome).Name + "PopUp:Button";

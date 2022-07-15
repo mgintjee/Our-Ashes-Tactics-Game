@@ -9,18 +9,55 @@ using System.Collections.Generic;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters
 {
+    /// <summary>
+    /// Todo
+    /// </summary>
     public interface ICombatantsDetails
     {
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
         IList<IFactionDetails> GetFactionDetails();
 
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
         IList<IPhalanxDetails> GetPhalanxDetails();
 
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <returns></returns>
         IList<IUnitDetails> GetUnitDetails();
 
-        Optional<IPhalanxDetails> GetDetails(PhalanxID id);
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Optional<IPhalanxDetails> GetPhalanxDetails(PhalanxID id);
 
-        Optional<IUnitDetails> GetDetails(UnitID id);
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Optional<IUnitDetails> GetUnitDetails(UnitID id);
 
-        Optional<IFactionDetails> GetDetails(FactionID id);
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Optional<IFactionDetails> GetFactionDetails(FactionID id);
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Optional<IPhalanxDetails> GetPhalanxDetails(UnitID id);
     }
 }

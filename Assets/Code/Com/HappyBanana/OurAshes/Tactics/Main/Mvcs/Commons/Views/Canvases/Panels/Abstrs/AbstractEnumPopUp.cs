@@ -26,7 +26,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
 
         protected abstract IList<TEnum> GetEnums();
 
-        protected abstract void ConfigureButton(IButtonPanelWidget button, TEnum tEnum);
+        protected abstract void ConfigureButton(IButtonWidget button, TEnum tEnum);
 
         protected abstract string DetermineButtonName(TEnum tEnum);
 
@@ -52,7 +52,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         /// <param name="tEnum">  </param>
         /// <param name="counter"></param>
         /// <returns></returns>
-        private IButtonPanelWidget BuildButton(TEnum tEnum, int counter)
+        private IButtonWidget BuildButton(TEnum tEnum, int counter)
         {
             int startY = (int)this.canvasGridConvertor.GetGridSize().Y;
             if (startY == 0)
@@ -68,7 +68,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             string widgetName = this.DetermineButtonName(tEnum);
             string buttonText = counter + ")" + DeterimineButtonText(tEnum);
             // Todo: Move canvas level to some constants file
-            IButtonPanelWidget buttonPanelWidget = this.BuildButton(widgetName, widgetGridSpec, buttonText, 99);
+            IButtonWidget buttonPanelWidget = this.BuildButton(widgetName, widgetGridSpec, buttonText, 99);
             ConfigureButton(buttonPanelWidget, tEnum);
             return buttonPanelWidget;
         }

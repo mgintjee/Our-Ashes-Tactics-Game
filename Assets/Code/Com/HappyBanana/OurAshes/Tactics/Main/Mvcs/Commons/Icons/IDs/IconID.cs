@@ -6,9 +6,14 @@
     public enum IconID
     {
         None,
-        Alpha,
-        Bravo,
-        Charlie,
-        Delta
+        FactionUO,
+        FactionBT,
+        FactionTT,
+        FactionFL,
+        PhalanxMG,
+        UnitModelMaa,
+        UnitModelMba,
+        UnitModelMca,
+        Random
     }
 }

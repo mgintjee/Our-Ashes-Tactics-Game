@@ -2,6 +2,7 @@
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Types;
 using System.Collections.Generic;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Factions.PopUps
@@ -12,15 +13,14 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
     public class PhalanxIDAddPopUpImpl
         : AbstractDynamicEnumPopUp<PhalanxID>
     {
-        private static readonly string EFFECT = "AddMod";
         private FactionID factionID;
 
-        protected override string DetermineButtonName(PhalanxID tEnum)
+        protected override string DetermineButtonName(PhalanxID id)
         {
-            return "Faction" + typeof(PhalanxID).Name + EFFECT + ":" + factionID.ToString() + ":" + tEnum.ToString() + ":Button";
+            return RequestType.FactionPhalanxIDAddSelect + ":" + factionID.ToString() + ":" + id.ToString() + ":Button";
         }
 
-        protected override bool IsInteractable(PhalanxID tEnum)
+        protected override bool IsInteractable(PhalanxID id)
         {
             return true;
         }

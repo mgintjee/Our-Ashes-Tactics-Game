@@ -17,7 +17,7 @@ using System.Diagnostics;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Utils.Randomizations
 {
-    public class LoadoutDetailsRandomizerUtil
+    public class LoadoutRandomizerUtil
     {
         private static readonly IClassLogger logger = LoggerManager.GetLogger(MvcType.Common)
                 .GetClassLogger(new StackFrame().GetMethod().DeclaringType);

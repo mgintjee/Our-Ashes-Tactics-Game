@@ -58,6 +58,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         protected override IMvcModelState ProcessMvcModelRequest(IMvcRequest mvcRequest)
         {
             IQSortieMenuMvcRequest qSortieMenuMvcRequest = (IQSortieMenuMvcRequest)mvcRequest;
+            bool updateTileDetailsUnitIDs = false;
             logger.Info("Received {}", qSortieMenuMvcRequest);
             switch (qSortieMenuMvcRequest.GetRequestType())
             {
@@ -75,18 +76,22 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
 
                 case RequestType.FieldIDSelect:
                     FieldModUtil.HandleFieldIDSelect(this.CastMvcModelState(), (IEnumSelectRequest<FieldID>)mvcRequest);
+                    updateTileDetailsUnitIDs = true;
                     break;
 
                 case RequestType.FieldBiomeSelect:
                     FieldModUtil.HandleFieldBiomeSelect(this.CastMvcModelState(), (IEnumSelectRequest<FieldBiome>)mvcRequest);
+                    updateTileDetailsUnitIDs = true;
                     break;
 
                 case RequestType.FieldSizeSelect:
                     FieldModUtil.HandleFieldSizeSelect(this.CastMvcModelState(), (IEnumSelectRequest<FieldSize>)mvcRequest);
+                    updateTileDetailsUnitIDs = true;
                     break;
 
                 case RequestType.FieldShapeSelect:
                     FieldModUtil.HandleFieldShapeSelect(this.CastMvcModelState(), (IEnumSelectRequest<FieldShape>)mvcRequest);
+                    updateTileDetailsUnitIDs = true;
                     break;
 
                 case RequestType.FactionPhalanxIDAddSelect:
@@ -97,6 +102,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
                 case RequestType.PhalanxUnitIDAddSelect:
                 case RequestType.PhalanxUnitIDMinusSelect:
                     CombatantsModUtil.HandleUnitIDMod(this.CastMvcModelState(), (IPhalanxUnitIDModRequest)mvcRequest);
+                    updateTileDetailsUnitIDs = true;
                     break;
 
                 case RequestType.UnitWeaponGearIDSelect:
@@ -119,6 +125,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
                     CombatantsModUtil.HandleUnitEngineGearIDSelect(this.CastMvcModelState(), (IEnumSelectRequest<EngineGearID>)mvcRequest);
                     break;
             }
+            if(updateTileDetailsUnitIDs)
+            {
+                FieldModUtil.UpdateTileDetailsUnitIDs(this.CastMvcModelState().GetFieldDetails(),
+                    this.CastMvcModelState().GetCombatantsDetails().GetUnitDetails());
+            }
             ((MvcModelStateImpl)this.mvcModelState)
                 .SetPrevMvcRequest(mvcRequest);
             return this.mvcModelState;
@@ -127,18 +138,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         protected override IMvcModelState BuildInitialMvcModelState()
         {
             return MvcModelStateRandomizerUtil.Randomize(RandomManager.GetRandom(MvcType.QSortieMenu));
-        }
-
-        private IList<IMvcRequest> BuildPanelMvcModelRequests()
-        {
-            return new List<IMvcRequest>
-                    {
-                        new DefaultRequestImpl(RequestType.DetailsField),
-                        new DefaultRequestImpl(RequestType.DetailsPhalanx),
-                        new DefaultRequestImpl(RequestType.DetailsUnit),
-                        new DefaultRequestImpl(RequestType.DetailsSortie),
-                        new DefaultRequestImpl(RequestType.SortieStart)
-                    };
         }
 
         private void HandleFactionIDSelect(IEnumSelectRequest<FactionID> mvcRequest)

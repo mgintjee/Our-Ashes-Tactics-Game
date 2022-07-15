@@ -9,12 +9,13 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Utils.Mods;
 using System.Collections.Generic;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Impls
 {
     /// <summary>
-    /// Todo
+    /// Combatants Details Implementation
     /// </summary>
     public class CombatantsDetailsImpl
         : ICombatantsDetails
@@ -23,6 +24,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
         private readonly IList<IPhalanxDetails> phalanxDetails;
         private readonly IList<IUnitDetails> unitDetails;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="factionDetails"></param>
+        /// <param name="phalanxDetails"></param>
+        /// <param name="unitDetails">   </param>
         private CombatantsDetailsImpl(IList<IFactionDetails> factionDetails, IList<IPhalanxDetails> phalanxDetails, IList<IUnitDetails> unitDetails)
         {
             this.factionDetails = new List<IFactionDetails>(factionDetails);
@@ -33,63 +40,54 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
         /// <inheritdoc/>
         public override string ToString()
         {
-            return string.Format("FactionDetails:{0}" +
-                "\nPhalanxDetails:{1}" +
-                "\nUnitDetails:{2}",
-                StringUtils.Format(this.factionDetails),
-                StringUtils.Format(this.phalanxDetails),
-                StringUtils.Format(this.unitDetails));
+            return string.Format("{0}" +
+                "\n{1}" +
+                "\n{2}",
+                StringUtils.Format(factionDetails),
+                StringUtils.Format(phalanxDetails),
+                StringUtils.Format(unitDetails));
         }
 
-        IList<IFactionDetails> ICombatantsDetails.GetFactionDetails()
+        /// <inheritdoc/>
+        public IList<IFactionDetails> GetFactionDetails()
         {
-            return new List<IFactionDetails>(this.factionDetails);
+            return new List<IFactionDetails>(factionDetails);
         }
 
-        IList<IPhalanxDetails> ICombatantsDetails.GetPhalanxDetails()
+        /// <inheritdoc/>
+        public IList<IPhalanxDetails> GetPhalanxDetails()
         {
-            return new List<IPhalanxDetails>(this.phalanxDetails);
+            return new List<IPhalanxDetails>(phalanxDetails);
         }
 
-        IList<IUnitDetails> ICombatantsDetails.GetUnitDetails()
+        /// <inheritdoc/>
+        public IList<IUnitDetails> GetUnitDetails()
         {
-            return new List<IUnitDetails>(this.unitDetails);
+            return new List<IUnitDetails>(unitDetails);
         }
 
-        Optional<IPhalanxDetails> ICombatantsDetails.GetDetails(PhalanxID id)
+        /// <inheritdoc/>
+        public Optional<IPhalanxDetails> GetPhalanxDetails(PhalanxID id)
         {
-            foreach (IPhalanxDetails details in this.phalanxDetails)
-            {
-                if (details.GetPhalanxID() == id)
-                {
-                    return Optional<IPhalanxDetails>.Of(details);
-                }
-            }
-            return Optional<IPhalanxDetails>.Empty();
+            return PhalanxDetailsQueryUtil.GetDetails(phalanxDetails, id);
         }
 
-        Optional<IUnitDetails> ICombatantsDetails.GetDetails(UnitID id)
+        /// <inheritdoc/>
+        public Optional<IUnitDetails> GetUnitDetails(UnitID id)
         {
-            foreach (IUnitDetails details in this.unitDetails)
-            {
-                if (details.GetUnitID() == id)
-                {
-                    return Optional<IUnitDetails>.Of(details);
-                }
-            }
-            return Optional<IUnitDetails>.Empty();
+            return UnitDetailsQueryUtil.GetDetails(unitDetails, id);
         }
 
-        Optional<IFactionDetails> ICombatantsDetails.GetDetails(FactionID id)
+        /// <inheritdoc/>
+        public Optional<IFactionDetails> GetFactionDetails(FactionID id)
         {
-            foreach (IFactionDetails details in this.factionDetails)
-            {
-                if (details.GetFactionID() == id)
-                {
-                    return Optional<IFactionDetails>.Of(details);
-                }
-            }
-            return Optional<IFactionDetails>.Empty();
+            return FactionDetailsQueryUtil.GetDetails(factionDetails, id);
+        }
+
+        /// <inheritdoc/>
+        public Optional<IPhalanxDetails> GetPhalanxDetails(UnitID id)
+        {
+            return PhalanxDetailsQueryUtil.GetDetails(phalanxDetails, id);
         }
 
         /// <summary>
@@ -103,10 +101,25 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
             public interface IInternalBuilder
                 : IBuilder<ICombatantsDetails>
             {
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <param name="details"></param>
+                /// <returns></returns>
                 IInternalBuilder SetUnitDetails(IList<IUnitDetails> details);
 
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <param name="details"></param>
+                /// <returns></returns>
                 IInternalBuilder SetPhalanxDetails(IList<IPhalanxDetails> details);
 
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <param name="details"></param>
+                /// <returns></returns>
                 IInternalBuilder SetFactionDetails(IList<IFactionDetails> details);
             }
 
@@ -129,24 +142,28 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 private IList<IPhalanxDetails> phalanxDetails;
                 private IList<IUnitDetails> unitDetails;
 
-                IInternalBuilder IInternalBuilder.SetUnitDetails(IList<IUnitDetails> details)
+                /// <inheritdoc/>
+                public IInternalBuilder SetUnitDetails(IList<IUnitDetails> details)
                 {
-                    this.unitDetails = new List<IUnitDetails>(details);
+                    unitDetails = new List<IUnitDetails>(details);
                     return this;
                 }
 
-                IInternalBuilder IInternalBuilder.SetPhalanxDetails(IList<IPhalanxDetails> details)
+                /// <inheritdoc/>
+                public IInternalBuilder SetPhalanxDetails(IList<IPhalanxDetails> details)
                 {
-                    this.phalanxDetails = new List<IPhalanxDetails>(details);
+                    phalanxDetails = new List<IPhalanxDetails>(details);
                     return this;
                 }
 
-                IInternalBuilder IInternalBuilder.SetFactionDetails(IList<IFactionDetails> details)
+                /// <inheritdoc/>
+                public IInternalBuilder SetFactionDetails(IList<IFactionDetails> details)
                 {
-                    this.factionDetails = new List<IFactionDetails>(details);
+                    factionDetails = new List<IFactionDetails>(details);
                     return this;
                 }
 
+                /// <inheritdoc/>
                 protected override ICombatantsDetails BuildObj()
                 {
                     return new CombatantsDetailsImpl(factionDetails, phalanxDetails, unitDetails);

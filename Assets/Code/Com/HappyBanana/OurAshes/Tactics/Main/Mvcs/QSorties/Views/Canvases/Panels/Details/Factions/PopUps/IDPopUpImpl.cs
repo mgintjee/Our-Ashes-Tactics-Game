@@ -12,11 +12,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
     public class IDPopUpImpl
         : AbstractStaticEnumPopUp<FactionID>
     {
-        private ICombatantsDetails details;
+        private FactionID id;
 
         protected override bool IsButtonInteractable(FactionID tEnum)
         {
-            return tEnum != details.GetFactionDetails()[0].GetFactionID();
+            return tEnum != id;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             public interface IInternalBuilder
                 : PanelWidgetBuilders.IPanelWidgetBuilder
             {
-                IInternalBuilder SetDetails(ICombatantsDetails details);
+                IInternalBuilder SetFactionID(FactionID id);
             }
 
             /// <summary>
@@ -48,18 +48,19 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             private class InternalBuilder
                 : PanelWidgetBuilders.InternalPanelWidgetBuilder, IInternalBuilder
             {
-                private ICombatantsDetails details;
+                private FactionID id;
 
-                IInternalBuilder IInternalBuilder.SetDetails(ICombatantsDetails details)
+                IInternalBuilder IInternalBuilder.SetFactionID(FactionID id)
                 {
-                    this.details = details;
+                    this.id = id;
                     return this;
                 }
+
 
                 protected override IPanelWidget BuildScript(UnityEngine.GameObject gameObject)
                 {
                     IDPopUpImpl widget = gameObject.AddComponent<IDPopUpImpl>();
-                    widget.details = details;
+                    widget.id = id;
                     this.ApplyPanelValues(widget);
                     return widget;
                 }
@@ -67,7 +68,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 /// <inheritdoc/>
                 protected override void Validate(IList<string> invalidReasons)
                 {
-                    this.Validate(invalidReasons, details);
+                    this.Validate(invalidReasons, id);
                 }
             }
         }

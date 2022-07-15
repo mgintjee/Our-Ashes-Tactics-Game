@@ -1,5 +1,7 @@
 ﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Patterns.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Grids.Convertors.Inters;
@@ -154,7 +156,16 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 this.InternalAddWidget(canvasWidget);
             }
         }
-
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="widgetName"></param>
+        /// <param name="widgetGridSpec"></param>
+        /// <param name="canvasLevel"></param>
+        /// <param name="alpha"></param>
+        /// <param name="colorID"></param>
+        /// <param name="spriteID"></param>
+        /// <returns></returns>
         protected IImageWidget BuildImage(string widgetName, IWidgetGridSpec widgetGridSpec, int canvasLevel,
             float alpha, ColorID colorID, SpriteID spriteID)
         {
@@ -172,10 +183,43 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 .SetParent(this)
                 .Build();
         }
-
-        protected IButtonPanelWidget BuildButton(string widgetName, IWidgetGridSpec widgetGridSpec, string buttonText, int canvasLevel)
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="widgetName"></param>
+        /// <param name="widgetGridSpec"></param>
+        /// <param name="canvasLevel"></param>
+        /// <param name="iconDetails"></param>
+        /// <param name="patternDetails"></param>
+        /// <returns></returns>
+        protected IIconWidget BuildIcon(string widgetName, IWidgetGridSpec widgetGridSpec, int canvasLevel,
+            IIconDetails iconDetails, IPatternDetails patternDetails)
         {
-            IButtonPanelWidget buttonPanelWidget = (IButtonPanelWidget)ButtonPanelImpl.Builder.Get()
+            return (IIconWidget)IconWidgetImpl.Builder.Get()
+                .SetIconDetails(iconDetails)
+                .SetPatternDetails(patternDetails)
+                .SetPanelGridSize(Vector2.One)
+                .SetWidgetGridSpec(widgetGridSpec)
+                .SetMvcType(this.mvcType)
+                .SetCanvasLevel(canvasLevel)
+                .SetInteractable(true)
+                .SetEnabled(true)
+                .SetName(widgetName)
+                .SetParent(this)
+                .Build();
+        }
+
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="widgetName"></param>
+        /// <param name="widgetGridSpec"></param>
+        /// <param name="buttonText"></param>
+        /// <param name="canvasLevel"></param>
+        /// <returns></returns>
+        protected IButtonWidget BuildButton(string widgetName, IWidgetGridSpec widgetGridSpec, string buttonText, int canvasLevel)
+        {
+            IButtonWidget buttonPanelWidget = (IButtonWidget)ButtonWidgetImpl.Builder.Get()
                 .SetButtonText(buttonText)
                 .SetPanelGridSize(Vector2.One)
                 .SetWidgetGridSpec(widgetGridSpec)
@@ -189,11 +233,25 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             return buttonPanelWidget;
         }
 
-        protected IButtonPanelWidget BuildButton(string widgetName, IWidgetGridSpec widgetGridSpec, string buttonText)
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="widgetName"></param>
+        /// <param name="widgetGridSpec"></param>
+        /// <param name="buttonText"></param>
+        /// <returns></returns>
+        protected IButtonWidget BuildButton(string widgetName, IWidgetGridSpec widgetGridSpec, string buttonText)
         {
             return this.BuildButton(widgetName, widgetGridSpec, buttonText, 0);
         }
-
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="widgetName"></param>
+        /// <param name="widgetGridSpec"></param>
+        /// <param name="textImageWidgetStructs"></param>
+        /// <param name="interactable"></param>
+        /// <returns></returns>
         protected IMultiTextPanelWidget BuildMultiText(string widgetName, IWidgetGridSpec widgetGridSpec,
             IList<TextImageWidgetStruct> textImageWidgetStructs, bool interactable)
         {
@@ -216,7 +274,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 .SetParent(this)
                 .Build();
         }
-
+        /// <summary>
+        /// Todo
+        /// </summary>
+        /// <param name="canvasWidget"></param>
         protected void InternalRemoveWidget(ICanvasWidget canvasWidget)
         {
             logger.Info("Removing {}...", canvasWidget.GetName());
@@ -250,7 +311,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             {
                 private Vector2 panelGridSize;
 
-                IPanelWidgetBuilder IPanelWidgetBuilder.SetPanelGridSize(Vector2 gridSize)
+                public IPanelWidgetBuilder SetPanelGridSize(Vector2 gridSize)
                 {
                     this.panelGridSize = gridSize;
                     return this;

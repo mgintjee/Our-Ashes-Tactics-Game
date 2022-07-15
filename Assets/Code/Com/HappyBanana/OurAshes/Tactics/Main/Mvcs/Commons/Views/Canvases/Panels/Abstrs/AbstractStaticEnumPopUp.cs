@@ -13,7 +13,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         : AbstractEnumPopUp<TEnum>, IPanelWidget
             where TEnum : Enum
     {
-        protected override void ConfigureButton(IButtonPanelWidget button, TEnum tEnum)
+        protected override void ConfigureButton(IButtonWidget button, TEnum tEnum)
         {
             CanvasWidgetUtils.SetButtonInteractable(button, IsButtonInteractable(tEnum));
         }

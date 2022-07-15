@@ -72,7 +72,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         {
             public class Floats
             {
-                public static readonly float SIZE_X = 2;
+                public static readonly float SIZE_X = 4;
                 public static readonly float SIZE_Y = 5;
             }
 

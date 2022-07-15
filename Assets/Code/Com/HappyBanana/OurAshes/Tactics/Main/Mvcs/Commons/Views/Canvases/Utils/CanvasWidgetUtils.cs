@@ -93,7 +93,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             }
         }
 
-        public static void SetButtonInteractable(IButtonPanelWidget widget, bool interactable)
+        public static void SetButtonInteractable(IButtonWidget widget, bool interactable)
         {
             widget.SetInteractable(interactable);
             SetImageInteractable(widget.GetImageWidget(), interactable);

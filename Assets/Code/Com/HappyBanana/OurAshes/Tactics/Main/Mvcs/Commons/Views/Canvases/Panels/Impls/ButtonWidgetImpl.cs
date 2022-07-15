@@ -16,34 +16,32 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
     /// <summary>
     /// Button Panel Impl
     /// </summary>
-    public class ButtonPanelImpl
-        : AbstractPanelWidget, IButtonPanelWidget
+    public class ButtonWidgetImpl
+        : AbstractPanelWidget, IButtonWidget
     {
         private string buttonText;
         private IImageWidget imageWidget;
         private ITextWidget textWidget;
 
-        IImageWidget IButtonPanelWidget.GetImageWidget()
+        IImageWidget IButtonWidget.GetImageWidget()
         {
             return this.imageWidget;
         }
 
-        ITextWidget IButtonPanelWidget.GetTextWidget()
+        ITextWidget IButtonWidget.GetTextWidget()
         {
             return this.textWidget;
         }
 
         protected override void InitialBuild()
         {
-            this.imageWidget = this.BuildImage();
-            this.textWidget = this.BuildText();
-            this.InternalAddWidget(this.imageWidget);
-            this.InternalAddWidget(this.textWidget);
+            this.InternalAddWidget(this.BuildAndSetImage());
+            this.InternalAddWidget(this.BuildAndSetText());
         }
 
-        private IImageWidget BuildImage()
+        private IImageWidget BuildAndSetImage()
         {
-            return ImageWidgetImpl.Builder.Get()
+            this.imageWidget = ImageWidgetImpl.Builder.Get()
                 .SetAlpha(1f)
                 .SetSpriteID(SpriteID.RoundSquareBordered)
                 .SetColorID(ColorID.Gray)
@@ -57,11 +55,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 .SetParent(this)
                 .SetName(this.name + ":" + CanvasWidgetType.Image.ToString())
                 .Build();
+            return this.imageWidget;
         }
 
-        private ITextWidget BuildText()
+        private ITextWidget BuildAndSetText()
         {
-            return TextWidgetImpl.Builder.Get()
+            this.textWidget = TextWidgetImpl.Builder.Get()
                 .SetText(this.buttonText)
                 .SetFont(FontID.Arial)
                 .SetColor(ColorID.White)
@@ -77,6 +76,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 .SetParent(this)
                 .SetName(this.name + ":" + CanvasWidgetType.Text.ToString())
                 .Build();
+            return textWidget;
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
 
                 protected override IPanelWidget BuildScript(UnityEngine.GameObject gameObject)
                 {
-                    ButtonPanelImpl widget = gameObject.AddComponent<ButtonPanelImpl>();
+                    ButtonWidgetImpl widget = gameObject.AddComponent<ButtonWidgetImpl>();
                     widget.buttonText = buttonText;
                     this.ApplyPanelValues(widget);
                     CanvasWidgetUtils.SetButtonInteractable(widget, widget.isInteractable);

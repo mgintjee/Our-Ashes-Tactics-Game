@@ -61,6 +61,30 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Enums
             return tEnums[random.Next(tEnums.Count)];
         }
 
+        /// <summary>
+        /// TOdo
+        /// </summary>
+        /// <typeparam name="TEnum"></typeparam>
+        /// <param name="random"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public static IList<TEnum> GenerateRandomEnums<TEnum>(Random random, int count)
+            where TEnum : Enum
+        {
+            IList<TEnum> tEnums = new List<TEnum>();
+
+            while(tEnums.Count < count)
+            {
+                TEnum tEnum = GenerateRandomEnum<TEnum>(random);
+                if(!tEnums.Contains(tEnum))
+                {
+                    tEnums.Add(tEnum);
+                }
+            }
+
+            return tEnums;
+        }
+
         public static IList<string> GetEnumsAsStrings<TEnum>(ICollection<TEnum> enums)
         {
             List<string> strings = new List<string>();

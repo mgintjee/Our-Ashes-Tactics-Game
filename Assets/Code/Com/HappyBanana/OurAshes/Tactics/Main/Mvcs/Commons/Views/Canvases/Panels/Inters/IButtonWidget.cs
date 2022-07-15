@@ -5,7 +5,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
     /// <summary>
     /// Button Widget Interface
     /// </summary>
-    public interface IButtonPanelWidget
+    public interface IButtonWidget
         : IPanelWidget
     {
         IImageWidget GetImageWidget();

@@ -31,9 +31,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         : AbstractPanelWidget, IPanelWidget
     {
         private IPopUpPanelWidget popUpWidget;
-        private IButtonPanelWidget idButton;
-        private IButtonPanelWidget unitAddButton;
-        private IButtonPanelWidget unitMinusButton;
+        private IButtonWidget idButton;
+        private IButtonWidget unitAddButton;
+        private IButtonWidget unitMinusButton;
         private IMultiTextPanelWidget unitIDList;
         private IPhalanxDetails selectedDetails;
         private ICombatantsDetails combatantsDetails;
@@ -45,7 +45,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             this.combatantsDetails = mvcModelState.GetCombatantsDetails();
             this.fieldDetails = mvcModelState.GetFieldDetails();
             PhalanxID id = mvcModelState.GetSelectedPhalanxID();
-            this.selectedDetails = this.combatantsDetails.GetDetails(id).GetValue();
+            this.selectedDetails = this.combatantsDetails.GetPhalanxDetails(id).GetValue();
             this.UpdateWidgets();
             mvcModelState.GetPrevMvcRequest().IfPresent(request =>
             {
@@ -126,7 +126,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             CanvasWidgetUtils.SetButtonInteractable(this.unitAddButton, details.Count < maxCount);
         }
 
-        private IButtonPanelWidget BuildAndSetIDButton()
+        private IButtonWidget BuildAndSetIDButton()
         {
             IWidgetGridSpec widgetGridSpec = IDsConstants.BUTTON_SPEC;
             string textName = RequestType.PhalanxIDPopUp + ":Button";
@@ -134,7 +134,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             return idButton;
         }
 
-        private IButtonPanelWidget BuildAndSetUnitsMinusButton()
+        private IButtonWidget BuildAndSetUnitsMinusButton()
         {
             IWidgetGridSpec widgetGridSpec = UnitsConstants.MINUS_BUTTON_SPEC;
             string textName = RequestType.PhalanxUnitIDMinusPopUp + "PopUp:Button";
@@ -142,7 +142,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             return unitMinusButton;
         }
 
-        private IButtonPanelWidget BuildAndSetUnitsAddButton()
+        private IButtonWidget BuildAndSetUnitsAddButton()
         {
             IWidgetGridSpec widgetGridSpec = UnitsConstants.ADD_BUTTON_SPEC;
             string textName = RequestType.PhalanxUnitIDAddPopUp + "PopUp:Button";

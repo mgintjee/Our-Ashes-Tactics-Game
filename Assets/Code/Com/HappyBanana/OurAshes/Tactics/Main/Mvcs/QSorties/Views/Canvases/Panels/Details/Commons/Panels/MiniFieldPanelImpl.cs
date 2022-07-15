@@ -1,10 +1,17 @@
 ﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Models;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Sizes;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Types;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.Details.Impls;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.Details.Managers;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Patterns.Details.Impls;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Patterns.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
@@ -19,7 +26,7 @@ using System.Numerics;
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Fields.Panels
 {
     /// <summary>
-    /// Fiekd Tile Panel Impl
+    /// Mini Field Panel Impl
     /// </summary>
     public class MiniFieldPanelImpl
         : AbstractPanelWidget, IFieldPanelWidget
@@ -30,7 +37,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         public override void Process(Commons.Models.States.Inters.IMvcModelState mvcModelState)
         {
-            QSorties.Models.States.Inters.IMvcModelState modelState = (QSorties.Models.States.Inters.IMvcModelState)mvcModelState;
+            Models.States.Inters.IMvcModelState modelState = (Models.States.Inters.IMvcModelState)mvcModelState;
             modelState.GetPrevMvcRequest().IfPresent(request =>
             {
                 UpdateMiniFieldPanel(modelState.GetFieldDetails(), modelState.GetCombatantsDetails());
@@ -86,20 +93,38 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             UnitID unitID = details.GetUnitID();
             TileType tileType = details.GetTileType();
             ColorID midColorID = from(tileType);
-            SpriteID foreSpriteID = SpriteID.CapsuleBordered;
-            ColorID foreColorID = ColorID.White;
+            ModelID modelID = ModelID.None;
+            IPatternDetails patternDetails = PatternDetailsImpl.Builder.Get()
+                .SetPrimaryID(ColorID.Black)
+                .SetSecondaryID(ColorID.Black)
+                .SetTertiaryID(ColorID.Black)
+                .Build();
+            IIconDetails iconDetails = IconDetailsImpl.Builder.Get()
+                .SetPrimaryID(SpriteID.Blank)
+                .SetSecondaryID(SpriteID.Blank)
+                .SetTertiaryID(SpriteID.Blank)
+                .Build();
+            this.combatantsDetails.GetUnitDetails(unitID).IfPresent(unitDetails =>
+            {
+                modelID = unitDetails.GetModelID();
+                iconDetails = unitDetails.GetIconDetails();
+            });
+            this.combatantsDetails.GetPhalanxDetails(unitID).IfPresent(phalanxDetails =>
+            {
+                patternDetails = phalanxDetails.GetPatternDetails();
+            });
             logger.Debug("Building {}", details);
             Vector2 gridCoords = GetGridCoordsFrom(tileCoords, tileGridSize);
             IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
                 .SetCanvasGridCoords(gridCoords)
                 .SetCanvasGridSize(tileGridSize);
             this.tileCoordPanelWidgets[tileCoords] = (IFieldTilePanelWidget)MiniFieldTilePanelImpl.Builder.Get()
+                .SetPatternDetails(patternDetails)
+                .SetIconDetails(iconDetails)
                 .SetBackColorID(MiniFieldConstants.BACK_COLOR_ID)
                 .SetBackSpriteID(MiniFieldConstants.TILE_SPRITE_ID)
                 .SetMidColorID(midColorID)
                 .SetMidSpriteID(MiniFieldConstants.TILE_SPRITE_ID)
-                .SetForeColorID(foreColorID)
-                .SetForeSpriteID(foreSpriteID)
                 .SetTileCoords(tileCoords)
                 .SetPanelGridSize(Vector2.One)
                 .SetWidgetGridSpec(widgetGridSpec)
@@ -110,10 +135,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 .SetName("MiniFieldTile:" + tileCoords)
                 .SetParent(this)
                 .Build();
-            if(unitID == UnitID.None)
-            {
-                this.tileCoordPanelWidgets[tileCoords].GetForegroundImage().SetEnabled(false);
-            }
             this.InternalAddWidget(this.tileCoordPanelWidgets[tileCoords]);
         }
         private ColorID from(TileType tileType)

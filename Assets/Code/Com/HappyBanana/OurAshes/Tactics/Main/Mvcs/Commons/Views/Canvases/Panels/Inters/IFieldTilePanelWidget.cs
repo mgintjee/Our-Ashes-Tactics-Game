@@ -12,6 +12,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
 
         IImageWidget GetMidgroundImage();
 
-        IImageWidget GetForegroundImage();
+        IIconWidget GetForegroundIcon();
     }
 }

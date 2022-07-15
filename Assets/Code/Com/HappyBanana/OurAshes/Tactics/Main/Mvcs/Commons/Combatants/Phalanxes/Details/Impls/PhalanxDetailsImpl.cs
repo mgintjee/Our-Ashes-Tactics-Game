@@ -4,6 +4,8 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Patterns.Details.Inters;
 using System.Collections.Generic;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.Details.Impls
@@ -11,35 +13,62 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
     /// <summary>
     /// Todo
     /// </summary>
-    public class PhalanxDetailsImpl
+    public struct PhalanxDetailsImpl
         : IPhalanxDetails
     {
         private readonly PhalanxID phalanxID;
         private readonly IList<UnitID> unitIDs;
+        private readonly IIconDetails iconDetails;
+        private readonly IPatternDetails patternDetails;
 
-        private PhalanxDetailsImpl(PhalanxID phalanxID, IList<UnitID> unitIDs)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="phalanxID">     </param>
+        /// <param name="unitIDs">       </param>
+        /// <param name="iconDetails">   </param>
+        /// <param name="patternDetails"></param>
+        private PhalanxDetailsImpl(PhalanxID phalanxID, IList<UnitID> unitIDs, IIconDetails iconDetails, IPatternDetails patternDetails)
         {
             this.phalanxID = phalanxID;
             this.unitIDs = unitIDs;
+            this.iconDetails = iconDetails;
+            this.patternDetails = patternDetails;
+        }
+
+        /// <inheritdoc/>
+        public IIconDetails GetIconDetails()
+        {
+            return iconDetails;
+        }
+
+        /// <inheritdoc/>
+        public IPatternDetails GetPatternDetails()
+        {
+            return patternDetails;
+        }
+
+        /// <inheritdoc/>
+        public PhalanxID GetPhalanxID()
+        {
+            return phalanxID;
+        }
+
+        /// <inheritdoc/>
+        public IList<UnitID> GetUnitIDs()
+        {
+            return new List<UnitID>(unitIDs);
         }
 
         /// <inheritdoc/>
         public override string ToString()
         {
-            return string.Format("{0}, " +
-                "\nUnitDetails:{1}",
-                StringUtils.Format(this.phalanxID),
-                StringUtils.Format(this.unitIDs));
-        }
-
-        PhalanxID IPhalanxDetails.GetPhalanxID()
-        {
-            return phalanxID;
-        }
-
-        IList<UnitID> IPhalanxDetails.GetUnitIDs()
-        {
-            return new List<UnitID>(unitIDs);
+            return string.Format("{0}, {1}, {2}" +
+                "\nUnitDetails:{3}",
+                StringUtils.Format(phalanxID),
+                StringUtils.Format(iconDetails),
+                StringUtils.Format(patternDetails),
+                StringUtils.Format(unitIDs));
         }
 
         /// <summary>
@@ -53,8 +82,32 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
             public interface IInternalBuilder
                 : IBuilder<IPhalanxDetails>
             {
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <param name="id"></param>
+                /// <returns></returns>
                 IInternalBuilder SetPhalanxID(PhalanxID id);
 
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <param name="details"></param>
+                /// <returns></returns>
+                IInternalBuilder SetIconDetails(IIconDetails details);
+
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <param name="details"></param>
+                /// <returns></returns>
+                IInternalBuilder SetPatternDetails(IPatternDetails details);
+
+                /// <summary>
+                /// Todo
+                /// </summary>
+                /// <param name="ids"></param>
+                /// <returns></returns>
                 IInternalBuilder SetUnitIDs(IList<UnitID> ids);
             }
 
@@ -74,29 +127,50 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 : AbstractBuilder<IPhalanxDetails>, IInternalBuilder
             {
                 private PhalanxID phalanxID;
+                private IIconDetails iconDetails;
+                private IPatternDetails patternDetails;
                 private IList<UnitID> unitIDs = new List<UnitID>();
 
-                IInternalBuilder IInternalBuilder.SetPhalanxID(PhalanxID id)
+                /// <inheritdoc/>
+                public IInternalBuilder SetPhalanxID(PhalanxID id)
                 {
                     this.phalanxID = id;
                     return this;
                 }
 
-                IInternalBuilder IInternalBuilder.SetUnitIDs(IList<UnitID> ids)
+                /// <inheritdoc/>
+                public IInternalBuilder SetIconDetails(IIconDetails details)
+                {
+                    iconDetails = details;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                public IInternalBuilder SetPatternDetails(IPatternDetails details)
+                {
+                    patternDetails = details;
+                    return this;
+                }
+
+                /// <inheritdoc/>
+                public IInternalBuilder SetUnitIDs(IList<UnitID> ids)
                 {
                     this.unitIDs = new List<UnitID>(ids);
                     return this;
                 }
 
+                /// <inheritdoc/>
                 protected override IPhalanxDetails BuildObj()
                 {
-                    return new PhalanxDetailsImpl(phalanxID, unitIDs);
+                    return new PhalanxDetailsImpl(phalanxID, unitIDs, iconDetails, patternDetails);
                 }
 
                 /// <inheritdoc/>
                 protected override void Validate(IList<string> invalidReasons)
                 {
-                    this.Validate(invalidReasons, this.phalanxID);
+                    this.Validate(invalidReasons, phalanxID);
+                    this.Validate(invalidReasons, iconDetails);
+                    this.Validate(invalidReasons, patternDetails);
                 }
             }
         }

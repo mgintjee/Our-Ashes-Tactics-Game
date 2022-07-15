@@ -31,9 +31,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         : AbstractPanelWidget, IPanelWidget
     {
         private IPopUpPanelWidget popUpWidget;
-        private IButtonPanelWidget idButton;
-        private IButtonPanelWidget phalanxAddButton;
-        private IButtonPanelWidget phalanxMinusButton;
+        private IButtonWidget idButton;
+        private IButtonWidget phalanxAddButton;
+        private IButtonWidget phalanxMinusButton;
         private IMultiTextPanelWidget phalanxIDList;
         private IFactionDetails selectedFactionDetails;
         private ICombatantsDetails combatantsDetails;
@@ -46,7 +46,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             this.combatantsDetails = mvcModelState.GetCombatantsDetails();
             this.fieldDetails = mvcModelState.GetFieldDetails();
             FactionID id = mvcModelState.GetSelectedFactionID();
-            this.selectedFactionDetails = this.combatantsDetails.GetDetails(id).GetValue();
+            this.selectedFactionDetails = this.combatantsDetails.GetFactionDetails(id).GetValue();
             this.UpdateWidgets();
             mvcModelState.GetPrevMvcRequest().IfPresent(request =>
             {
@@ -127,7 +127,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             CanvasWidgetUtils.SetButtonInteractable(this.phalanxAddButton, details.Count < maxCount);
         }
 
-        private IButtonPanelWidget BuildAndSetIDButton()
+        private IButtonWidget BuildAndSetIDButton()
         {
             IWidgetGridSpec widgetGridSpec = IDsConstants.BUTTON_SPEC;
             string textName = RequestType.FactionIDPopUp + ":Button";
@@ -135,7 +135,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             return idButton;
         }
 
-        private IButtonPanelWidget BuildAndSetPhalanxMinusButton()
+        private IButtonWidget BuildAndSetPhalanxMinusButton()
         {
             IWidgetGridSpec widgetGridSpec = PhalanxesConstants.MINUS_BUTTON_SPEC;
             string textName = RequestType.FactionPhalanxIDMinusPopUp + ":Button";
@@ -143,7 +143,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             return phalanxMinusButton;
         }
 
-        private IButtonPanelWidget BuildAndSetPhalanxAddButton()
+        private IButtonWidget BuildAndSetPhalanxAddButton()
         {
             IWidgetGridSpec widgetGridSpec = PhalanxesConstants.ADD_BUTTON_SPEC;
             string textName = RequestType.FactionPhalanxIDAddPopUp + ":Button";
@@ -188,7 +188,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         {
             IList<FactionID> ids = EnumUtils.GetEnumListWithoutFirst<FactionID>();
             return IDPopUpImpl.Builder.Get()
-                .SetDetails(this.combatantsDetails)
+                .SetFactionID(this.selectedFactionDetails.GetFactionID())
                 .SetPanelGridSize(new Vector2(1, ids.Count))
                 .SetWidgetGridSpec(WidgetConstants.POP_UP_WIDGET_GRID_SPEC)
                 .SetMvcType(this.mvcType)

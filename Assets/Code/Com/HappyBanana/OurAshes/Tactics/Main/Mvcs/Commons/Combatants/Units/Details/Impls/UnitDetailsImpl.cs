@@ -5,6 +5,7 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Models;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.Details.Inters;
 using System.Collections.Generic;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Details.Impls
@@ -12,49 +13,52 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
     public struct UnitDetailsImpl
         : IUnitDetails
     {
-        // Todo
         private readonly UnitID unitID;
-
-        // Todo
         private readonly ModelID modelID;
-
-        // Todo
         private readonly ILoadoutDetails loadoutDetails;
+        private readonly IIconDetails iconDetails;
 
-        private UnitDetailsImpl(UnitID unitID, ModelID modelID, ILoadoutDetails loadoutDetails)
+        private UnitDetailsImpl(UnitID unitID, ModelID modelID, ILoadoutDetails loadoutDetails, IIconDetails iconDetails)
         {
             this.unitID = unitID;
             this.modelID = modelID;
             this.loadoutDetails = loadoutDetails;
+            this.iconDetails = iconDetails;
         }
 
         /// <inheritdoc/>
         public override string ToString()
         {
-            return string.Format("{0}" +
-                "\n{1}" +
-                "\n{2}",
-                StringUtils.Format(this.unitID),
-                StringUtils.Format(this.modelID),
-                StringUtils.Format(this.loadoutDetails));
+            return string.Format("{0}, {1}, {2}" +
+                "\n{3}",
+                StringUtils.Format(unitID),
+                StringUtils.Format(modelID),
+                StringUtils.Format(iconDetails),
+                StringUtils.Format(loadoutDetails));
         }
 
         /// <inheritdoc/>
-        UnitID IUnitDetails.GetUnitID()
+        public UnitID GetUnitID()
         {
-            return this.unitID;
+            return unitID;
         }
 
         /// <inheritdoc/>
-        ModelID IUnitDetails.GetModelID()
+        public ModelID GetModelID()
         {
-            return this.modelID;
+            return modelID;
         }
 
         /// <inheritdoc/>
-        ILoadoutDetails IUnitDetails.GetLoadoutDetails()
+        public ILoadoutDetails GetLoadoutDetails()
         {
-            return this.loadoutDetails;
+            return loadoutDetails;
+        }
+
+        /// <inheritdoc/>
+        public IIconDetails GetIconDetails()
+        {
+            return iconDetails;
         }
 
         /// <summary>
@@ -71,6 +75,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 IInternalBuilder SetUnitID(UnitID id);
 
                 IInternalBuilder SetModelID(ModelID id);
+
+                IInternalBuilder SetIconDetails(IIconDetails details);
 
                 IInternalBuilder SetLoadoutDetails(ILoadoutDetails details);
             }
@@ -93,41 +99,48 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 private UnitID unitID;
                 private ModelID modelID;
                 private ILoadoutDetails loadoutDetails;
+                private IIconDetails iconDetails;
 
                 /// <inheritdoc/>
-                IInternalBuilder IInternalBuilder.SetModelID(ModelID id)
+                public IInternalBuilder SetModelID(ModelID id)
                 {
-                    this.modelID = id;
+                    modelID = id;
                     return this;
                 }
 
                 /// <inheritdoc/>
-                IInternalBuilder IInternalBuilder.SetLoadoutDetails(ILoadoutDetails details)
+                public IInternalBuilder SetLoadoutDetails(ILoadoutDetails details)
                 {
-                    this.loadoutDetails = details;
+                    loadoutDetails = details;
                     return this;
                 }
 
                 /// <inheritdoc/>
-                IInternalBuilder IInternalBuilder.SetUnitID(UnitID id)
+                public IInternalBuilder SetUnitID(UnitID id)
                 {
-                    this.unitID = id;
+                    unitID = id;
+                    return this;
+                }
+
+                public IInternalBuilder SetIconDetails(IIconDetails details)
+                {
+                    iconDetails = details;
                     return this;
                 }
 
                 /// <inheritdoc/>
                 protected override IUnitDetails BuildObj()
                 {
-                    return new UnitDetailsImpl(this.unitID,
-                        this.modelID, this.loadoutDetails);
+                    return new UnitDetailsImpl(unitID, modelID, loadoutDetails, iconDetails);
                 }
 
                 /// <inheritdoc/>
                 protected override void Validate(IList<string> invalidReasons)
                 {
-                    this.Validate(invalidReasons, this.unitID);
-                    this.Validate(invalidReasons, this.modelID);
-                    this.Validate(invalidReasons, this.loadoutDetails);
+                    this.Validate(invalidReasons, unitID);
+                    this.Validate(invalidReasons, modelID);
+                    this.Validate(invalidReasons, iconDetails);
+                    this.Validate(invalidReasons, loadoutDetails);
                 }
             }
         }

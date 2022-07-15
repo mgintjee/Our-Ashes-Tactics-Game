@@ -15,12 +15,17 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
     {
         private readonly TileType tileType;
         private readonly Vector3 vector3;
-        private readonly UnitID unitID;
+        private UnitID unitID;
 
         protected TileDetailsImpl(TileType tileType, Vector3 vector3, UnitID unitID)
         {
             this.tileType = tileType;
             this.vector3 = vector3;
+            this.unitID = unitID;
+        }
+
+        public void SetUnitID(UnitID unitID)
+        {
             this.unitID = unitID;
         }
 

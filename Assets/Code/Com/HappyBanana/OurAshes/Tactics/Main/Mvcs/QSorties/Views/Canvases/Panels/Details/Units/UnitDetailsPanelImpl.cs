@@ -36,15 +36,15 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
     public class UnitDetailsPanelImpl
         : AbstractPanelWidget, IPanelWidget
     {
-        private readonly IList<IButtonPanelWidget> weaponModButtons = new List<IButtonPanelWidget>();
+        private readonly IList<IButtonWidget> weaponModButtons = new List<IButtonWidget>();
         private IPopUpPanelWidget popUpWidget;
         private IMultiTextPanelWidget powerText;
-        private IButtonPanelWidget idButton;
-        private IButtonPanelWidget modelButton;
-        private IButtonPanelWidget armorButton;
-        private IButtonPanelWidget cabinButton;
-        private IButtonPanelWidget engineButton;
-        private IButtonPanelWidget statsButton;
+        private IButtonWidget idButton;
+        private IButtonWidget modelButton;
+        private IButtonWidget armorButton;
+        private IButtonWidget cabinButton;
+        private IButtonWidget engineButton;
+        private IButtonWidget statsButton;
         private IUnitDetails selectedDetails;
         private ICombatantsDetails combatantsDetails;
 
@@ -53,7 +53,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             QSorties.Models.States.Inters.IMvcModelState mvcModelState = (QSorties.Models.States.Inters.IMvcModelState)modelState;
             this.combatantsDetails = mvcModelState.GetCombatantsDetails();
             UnitID id = mvcModelState.GetSelectedUnitID();
-            this.selectedDetails = this.combatantsDetails.GetDetails(id).GetValue();
+            this.selectedDetails = this.combatantsDetails.GetUnitDetails(id).GetValue();
             this.UpdateWidgets();
             mvcModelState.GetPrevMvcRequest().IfPresent(request =>
             {
@@ -172,7 +172,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             this.UpdateWeaponModButtonCount(weaponGearIDs.Count);
             for (int i = 0; i < weaponGearIDs.Count; ++i)
             {
-                IButtonPanelWidget button = weaponModButtons[i];
+                IButtonWidget button = weaponModButtons[i];
                 WeaponGearID weaponGearID = weaponGearIDs[i];
                 GearSize gearSize = mountableAttributes.GetWeaponGearSizes()[i];
                 button.GetTextWidget().SetText("[" + (i + 1) + "] " + weaponGearID + gearSize.GetAbbr());
@@ -197,7 +197,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             for (int i = gearCount - 1; i < weaponModButtons.Count; ++i)
             {
                 logger.Debug("Removing button {}", i);
-                IButtonPanelWidget button = weaponModButtons[i];
+                IButtonWidget button = weaponModButtons[i];
                 weaponModButtons.Remove(button);
                 this.InternalRemoveWidget(button);
                 button.Destroy();
@@ -210,48 +210,48 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             for (int i = weaponModButtons.Count; i < gearCount; ++i)
             {
                 logger.Debug("Adding button {}", i);
-                IButtonPanelWidget button = this.BuildAndSetWeaponModButton(i);
+                IButtonWidget button = this.BuildAndSetWeaponModButton(i);
                 weaponModButtons.Add(button);
                 this.InternalAddWidget(button);
             }
         }
 
-        private IButtonPanelWidget BuildAndSetIDButton()
+        private IButtonWidget BuildAndSetIDButton()
         {
             string textName = RequestType.UnitIDPopUp + ":Button";
             idButton = this.BuildButton(textName, IDsConstants.BUTTON_SPEC, "null");
             return idButton;
         }
 
-        private IButtonPanelWidget BuildAndSetModelButton()
+        private IButtonWidget BuildAndSetModelButton()
         {
             string textName = RequestType.UnitModelIDPopUp + ":Button";
             modelButton = this.BuildButton(textName, ModelsConstants.BUTTON_SPEC, "null");
             return modelButton;
         }
 
-        private IButtonPanelWidget BuildAndSetArmorButton()
+        private IButtonWidget BuildAndSetArmorButton()
         {
             string textName = RequestType.UnitArmorGearIDPopUp + ":Button";
             armorButton = this.BuildButton(textName, ArmorsConstants.BUTTON_SPEC, "null");
             return armorButton;
         }
 
-        private IButtonPanelWidget BuildAndSetEngineButton()
+        private IButtonWidget BuildAndSetEngineButton()
         {
             string textName = RequestType.UnitEngineGearIDPopUp + ":Button";
             engineButton = this.BuildButton(textName, EnginesConstants.BUTTON_SPEC, "null");
             return engineButton;
         }
 
-        private IButtonPanelWidget BuildAndSetCabinButton()
+        private IButtonWidget BuildAndSetCabinButton()
         {
             string textName = RequestType.UnitCabinGearIDPopUp + ":Button";
             cabinButton = this.BuildButton(textName, CabinsConstants.BUTTON_SPEC, "null");
             return cabinButton;
         }
 
-        private IButtonPanelWidget BuildAndSetWeaponModButton(int index)
+        private IButtonWidget BuildAndSetWeaponModButton(int index)
         {
             string textName = RequestType.UnitWeaponGearIDPopUp + ":" + index + ":Button";
             IWidgetGridSpec widgetGridSpec = WeaponsConstants.MOD_BUTTON_SPECS[index];
@@ -259,7 +259,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             return this.BuildButton(textName, widgetGridSpec, "Mod");
         }
 
-        private IButtonPanelWidget BuildAndSetStatsButton()
+        private IButtonWidget BuildAndSetStatsButton()
         {
             string textName = typeof(UnitID).Name + "StatsPopUp:Button";
             statsButton = this.BuildButton(textName, StatsConstants.BUTTON_SPEC, "Stats");

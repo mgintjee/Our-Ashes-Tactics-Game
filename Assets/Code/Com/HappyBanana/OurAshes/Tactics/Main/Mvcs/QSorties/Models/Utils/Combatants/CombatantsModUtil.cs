@@ -20,6 +20,9 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Models;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.Details.Managers;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Requests.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models.States.Inters;
@@ -37,7 +40,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         public static void HandlePhalanxIDMod(IMvcModelState modelState, IFactionPhalanxIDModRequest mvcRequest)
         {
             ICombatantsDetails currentCombatantsDetails = modelState.GetCombatantsDetails();
-            IPhalanxDetails phalanxDetails = currentCombatantsDetails.GetDetails(mvcRequest.GetPhalanxID()).GetValue();
+            IPhalanxDetails phalanxDetails = currentCombatantsDetails.GetPhalanxDetails(mvcRequest.GetPhalanxID()).GetValue();
             IList<IUnitDetails> unitDetailsList = UpdateUnitDetailsList(mvcRequest, phalanxDetails, currentCombatantsDetails.GetUnitDetails());
             IList<IPhalanxDetails> phalanxDetailsList = UpdatePhalanxDetailsList(mvcRequest, currentCombatantsDetails.GetPhalanxDetails());
             IList<IFactionDetails> factionDetailsList = UpdateFactionDetailsList(mvcRequest, currentCombatantsDetails.GetFactionDetails());
@@ -47,7 +50,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         public static void HandleUnitIDMod(IMvcModelState modelState, IPhalanxUnitIDModRequest mvcRequest)
         {
             ICombatantsDetails currentCombatantsDetails = modelState.GetCombatantsDetails();
-            IPhalanxDetails phalanxDetails = currentCombatantsDetails.GetDetails(mvcRequest.GetPhalanxID()).GetValue();
+            IPhalanxDetails phalanxDetails = currentCombatantsDetails.GetPhalanxDetails(mvcRequest.GetPhalanxID()).GetValue();
             IList<IUnitDetails> unitDetailsList = UpdateUnitDetailsList(mvcRequest, currentCombatantsDetails.GetUnitDetails());
             IList<IPhalanxDetails> phalanxDetailsList = UpdatePhalanxDetailsList(mvcRequest, currentCombatantsDetails.GetPhalanxDetails(), phalanxDetails);
             UpdateModelState(modelState, modelState.GetCombatantsDetails().GetFactionDetails(),
@@ -59,13 +62,30 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             UnitID unitID = mvcModelState.GetSelectedUnitID();
             ModelID modelID = mvcRequest.GetEnum();
             ICombatantsDetails combatantsDetails = mvcModelState.GetCombatantsDetails();
-            IUnitDetails unitDetails = combatantsDetails.GetDetails(unitID).GetValue();
+            IUnitDetails unitDetails = combatantsDetails.GetUnitDetails(unitID).GetValue();
+            IIconDetails iconDetails = IconIDDetailsManager.GetDetails(GetIconIDFrom(modelID)).GetValue();
             IUnitDetails newUnitDetails = UnitDetailsImpl.Builder.Get()
-                .SetLoadoutDetails(LoadoutDetailsRandomizerUtil.Randomize(RandomManager.GetRandom(MvcType.QSortieMenu), modelID))
+                .SetLoadoutDetails(LoadoutRandomizerUtil.Randomize(RandomManager.GetRandom(MvcType.QSortieMenu), modelID))
                 .SetModelID(modelID)
                 .SetUnitID(unitDetails.GetUnitID())
+                .SetIconDetails(iconDetails)
                 .Build();
             UpdateUnitDetails(unitDetails, newUnitDetails, mvcModelState);
+        }
+
+        private static IconID GetIconIDFrom(ModelID modelID)
+        {
+            switch(modelID)
+            {
+                case ModelID.MAA:
+                    return IconID.UnitModelMaa;
+                case ModelID.MBA:
+                    return IconID.UnitModelMba;
+                case ModelID.MCA:
+                    return IconID.UnitModelMca;
+                default:
+                    return IconID.None;
+            }
         }
 
         public static void HandleUnitArmorGearIDSelect(IMvcModelState mvcModelState, IEnumSelectRequest<ArmorGearID> mvcRequest)
@@ -73,7 +93,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             UnitID unitID = mvcModelState.GetSelectedUnitID();
             ArmorGearID gearID = mvcRequest.GetEnum();
             ICombatantsDetails combatantsDetails = mvcModelState.GetCombatantsDetails();
-            IUnitDetails unitDetails = combatantsDetails.GetDetails(unitID).GetValue();
+            IUnitDetails unitDetails = combatantsDetails.GetUnitDetails(unitID).GetValue();
             IUnitDetails newUnitDetails = UnitDetailsImpl.Builder.Get()
                 .SetLoadoutDetails(UpdateLoadoutDetails(unitDetails.GetLoadoutDetails(), gearID))
                 .SetModelID(unitDetails.GetModelID())
@@ -87,7 +107,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             UnitID unitID = mvcModelState.GetSelectedUnitID();
             CabinGearID gearID = mvcRequest.GetEnum();
             ICombatantsDetails combatantsDetails = mvcModelState.GetCombatantsDetails();
-            IUnitDetails unitDetails = combatantsDetails.GetDetails(unitID).GetValue();
+            IUnitDetails unitDetails = combatantsDetails.GetUnitDetails(unitID).GetValue();
             IUnitDetails newUnitDetails = UnitDetailsImpl.Builder.Get()
                 .SetLoadoutDetails(UpdateLoadoutDetails(unitDetails.GetLoadoutDetails(), gearID))
                 .SetModelID(unitDetails.GetModelID())
@@ -101,7 +121,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             UnitID unitID = mvcModelState.GetSelectedUnitID();
             EngineGearID gearID = mvcRequest.GetEnum();
             ICombatantsDetails combatantsDetails = mvcModelState.GetCombatantsDetails();
-            IUnitDetails unitDetails = combatantsDetails.GetDetails(unitID).GetValue();
+            IUnitDetails unitDetails = combatantsDetails.GetUnitDetails(unitID).GetValue();
             IUnitDetails newUnitDetails = UnitDetailsImpl.Builder.Get()
                 .SetLoadoutDetails(UpdateLoadoutDetails(unitDetails.GetLoadoutDetails(), gearID))
                 .SetModelID(unitDetails.GetModelID())
@@ -114,7 +134,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         {
             UnitID unitID = mvcModelState.GetSelectedUnitID();
             ICombatantsDetails combatantsDetails = mvcModelState.GetCombatantsDetails();
-            IUnitDetails unitDetails = combatantsDetails.GetDetails(unitID).GetValue();
+            IUnitDetails unitDetails = combatantsDetails.GetUnitDetails(unitID).GetValue();
             IUnitDetails newUnitDetails = UnitDetailsImpl.Builder.Get()
                 .SetLoadoutDetails(UpdateLoadoutDetails(unitDetails.GetLoadoutDetails(), mvcRequest.GetWeaponGearID(), mvcRequest.GetWeaponIndex()))
                 .SetModelID(unitDetails.GetModelID())
@@ -282,7 +302,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
                 newDetailsList.Add(UnitDetailsImpl.Builder.Get()
                     .SetUnitID(mvcRequest.GetUnitID())
                     .SetModelID(modelID)
-                    .SetLoadoutDetails(LoadoutDetailsRandomizerUtil.Randomize(RandomManager.GetRandom(MvcType.QSortieMenu), modelID))
+                    .SetLoadoutDetails(LoadoutRandomizerUtil.Randomize(RandomManager.GetRandom(MvcType.QSortieMenu), modelID))
                     .Build());
             }
             return newDetailsList;

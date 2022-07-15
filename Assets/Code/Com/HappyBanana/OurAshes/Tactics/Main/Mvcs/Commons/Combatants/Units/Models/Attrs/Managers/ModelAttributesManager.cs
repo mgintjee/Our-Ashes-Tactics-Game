@@ -12,18 +12,18 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
     public static class ModelAttributesManager
     {
         // Todo
-        private static readonly IDictionary<ModelID, IUnitAttributes> ID_ATTRIBUTES =
+        private static readonly IDictionary<ModelID, IUnitAttributes> MODEL_ID_UNIT_ATTRIBUTES =
             new Dictionary<ModelID, IUnitAttributes>()
             {
-                {ModelID.MAA, new MaaAttributesImpl() },
-                {ModelID.MBA, new MbaAttributesImpl() },
-                {ModelID.MCA, new McaAttributesImpl() },
+                { ModelID.MAA, new MaaAttributesImpl() },
+                { ModelID.MBA, new MbaAttributesImpl() },
+                { ModelID.MCA, new McaAttributesImpl() },
             };
 
-        public static Optional<IUnitAttributes> GetUnitAttributes(ModelID unitID)
+        public static Optional<IUnitAttributes> GetUnitAttributes(ModelID id)
         {
-            return ID_ATTRIBUTES.ContainsKey(unitID)
-                ? Optional<IUnitAttributes>.Of(ID_ATTRIBUTES[unitID])
+            return MODEL_ID_UNIT_ATTRIBUTES.ContainsKey(id)
+                ? Optional<IUnitAttributes>.Of(MODEL_ID_UNIT_ATTRIBUTES[id])
                 : Optional<IUnitAttributes>.Empty();
         }
     }

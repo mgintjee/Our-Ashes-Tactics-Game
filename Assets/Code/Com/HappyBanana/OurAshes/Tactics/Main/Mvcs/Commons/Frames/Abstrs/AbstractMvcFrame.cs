@@ -143,7 +143,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.
                 else
                 {
                     logger.Info("Processing initial request...");
-                    this.mvcModel.Process(null);
+                    this.mvcModel.Process(GetInitialRequest());
                     IMvcModelState mvcModelState = this.mvcModel.GetState();
                     this.mvcControl.Process(mvcModelState);
                     this.mvcView.Process(mvcModelState);
@@ -182,6 +182,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.
         {
             return this.mvcFrameResult;
         }
+
+        protected abstract IMvcRequest GetInitialRequest();
 
         protected virtual void BuildNextMvcFrameConstruction()
         {

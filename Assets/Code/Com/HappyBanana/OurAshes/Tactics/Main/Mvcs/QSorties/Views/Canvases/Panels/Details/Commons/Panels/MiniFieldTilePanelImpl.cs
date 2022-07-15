@@ -1,4 +1,6 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Patterns.Details.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Sprites.IDs;
@@ -17,52 +19,48 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         private Vector3 tileCoords;
         private ColorID backColorID;
         private ColorID midColorID;
-        private ColorID foreColorID;
+        private IIconDetails iconDetails;
+        private IPatternDetails patternDetails;
         private SpriteID backSpriteID;
         private SpriteID midSpriteID;
-        private SpriteID foreSpriteID;
         private IImageWidget backImage;
         private IImageWidget midImage;
-        private IImageWidget foreImage;
+        private IIconWidget foreIcon;
 
-        Vector3 IFieldTilePanelWidget.GetCoords()
+        public Vector3 GetCoords()
         {
             return this.tileCoords;
         }
 
-        IImageWidget IFieldTilePanelWidget.GetBackgroundImage()
+        public IImageWidget GetBackgroundImage()
         {
             return this.backImage;
         }
 
-        IImageWidget IFieldTilePanelWidget.GetMidgroundImage()
+        public IImageWidget GetMidgroundImage()
         {
             return this.midImage;
         }
 
-        IImageWidget IFieldTilePanelWidget.GetForegroundImage()
+        public IIconWidget GetForegroundIcon()
         {
-            return this.foreImage;
+            return this.foreIcon;
         }
 
         protected override void InitialBuild()
         {
-            this.backImage = this.BuildImage(MiniFieldConstants.BACK_NAME,
+            backImage = BuildImage(MiniFieldConstants.BACK_NAME,
                 MiniFieldConstants.BACK_SPEC, MiniFieldConstants.LEVEL,
                 MiniFieldConstants.ALPHA, backColorID, backSpriteID);
-            this.midImage = this.BuildImage(MiniFieldConstants.MID_NAME,
+            midImage = BuildImage(MiniFieldConstants.MID_NAME,
                 MiniFieldConstants.MID_SPEC, MiniFieldConstants.LEVEL,
                 MiniFieldConstants.ALPHA, midColorID, midSpriteID);
-            this.foreImage = this.BuildImage(MiniFieldConstants.FORE_NAME,
+            foreIcon = BuildIcon(MiniFieldConstants.FORE_NAME,
                 MiniFieldConstants.FORE_SPEC, MiniFieldConstants.LEVEL,
-                MiniFieldConstants.ALPHA, foreColorID, foreSpriteID);
-            if(this.foreSpriteID == SpriteID.None)
-            {
-                this.foreImage.SetEnabled(false);
-            }
-            this.InternalAddWidget(this.backImage);
-            this.InternalAddWidget(this.midImage);
-            this.InternalAddWidget(this.foreImage);
+                iconDetails, patternDetails);
+            InternalAddWidget(backImage);
+            InternalAddWidget(midImage);
+            InternalAddWidget(foreIcon);
         }
 
         /// <summary>
@@ -82,13 +80,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
                 IInternalBuilder SetMidColorID(ColorID id);
 
-                IInternalBuilder SetForeColorID(ColorID id);
-
                 IInternalBuilder SetBackSpriteID(SpriteID id);
 
                 IInternalBuilder SetMidSpriteID(SpriteID id);
 
-                IInternalBuilder SetForeSpriteID(SpriteID id);
+                IInternalBuilder SetIconDetails(IIconDetails details);
+                IInternalBuilder SetPatternDetails(IPatternDetails details);
             }
 
             /// <summary>
@@ -109,48 +106,48 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 private Vector3 tileCoords;
                 private ColorID backColorID;
                 private ColorID midColorID;
-                private ColorID foreColorID;
                 private SpriteID backSpriteID;
                 private SpriteID midSpriteID;
-                private SpriteID foreSpriteID;
+                private IIconDetails iconDetails;
+                private IPatternDetails patternDetails;
 
-                IInternalBuilder IInternalBuilder.SetBackColorID(ColorID id)
+                public IInternalBuilder SetBackColorID(ColorID id)
                 {
                     this.backColorID = id;
                     return this;
                 }
 
-                IInternalBuilder IInternalBuilder.SetMidColorID(ColorID id)
+                public IInternalBuilder SetMidColorID(ColorID id)
                 {
                     this.midColorID = id;
                     return this;
                 }
 
-                IInternalBuilder IInternalBuilder.SetForeColorID(ColorID id)
-                {
-                    this.foreColorID = id;
-                    return this;
-                }
-
-                IInternalBuilder IInternalBuilder.SetBackSpriteID(SpriteID id)
+                public IInternalBuilder SetBackSpriteID(SpriteID id)
                 {
                     this.backSpriteID = id;
                     return this;
                 }
 
-                IInternalBuilder IInternalBuilder.SetMidSpriteID(SpriteID id)
+                public IInternalBuilder SetMidSpriteID(SpriteID id)
                 {
                     this.midSpriteID = id;
                     return this;
                 }
 
-                IInternalBuilder IInternalBuilder.SetForeSpriteID(SpriteID id)
+                public IInternalBuilder SetIconDetails(IIconDetails details)
                 {
-                    this.foreSpriteID = id;
+                    iconDetails = details;
                     return this;
                 }
 
-                IInternalBuilder IInternalBuilder.SetTileCoords(Vector3 coords)
+                public IInternalBuilder SetPatternDetails(IPatternDetails details)
+                {
+                    patternDetails = details;
+                    return this;
+                }
+
+                public IInternalBuilder SetTileCoords(Vector3 coords)
                 {
                     this.tileCoords = coords;
                     return this;
@@ -162,10 +159,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                     widget.tileCoords = tileCoords;
                     widget.backColorID = backColorID;
                     widget.midColorID = midColorID;
-                    widget.foreColorID = foreColorID;
                     widget.backSpriteID = backSpriteID;
                     widget.midSpriteID = midSpriteID;
-                    widget.foreSpriteID = foreSpriteID;
+                    widget.iconDetails = iconDetails;
+                    widget.patternDetails= patternDetails;
                     this.ApplyPanelValues(widget);
                     return widget;
                 }
