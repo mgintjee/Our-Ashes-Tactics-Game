@@ -24,7 +24,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
         {
             ModelID modelID = EnumUtils.GenerateRandomEnum<ModelID>(random);
             ILoadoutDetails loadoutDetails = LoadoutRandomizerUtil.Randomize(random, modelID);
-            IIconDetails iconDetails = IconIDDetailsManager.GetDetails(GetIconID(modelID)).GetValue();
+            IIconDetails iconDetails = IconIDDetailsManager.GetDetails(modelID.GetIconID()).GetValue();
             IUnitDetails details = UnitDetailsImpl.Builder.Get()
                 .SetUnitID(unitID)
                 .SetModelID(modelID)
@@ -33,24 +33,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
                 .Build();
             logger.Info("Randomized: {}", details);
             return details;
-        }
-
-        private static IconID GetIconID(ModelID modelID)
-        {
-            switch (modelID)
-            {
-                case ModelID.MAA:
-                    return IconID.UnitModelMaa;
-
-                case ModelID.MCA:
-                    return IconID.UnitModelMba;
-
-                case ModelID.MBA:
-                    return IconID.UnitModelMca;
-
-                default:
-                    return IconID.None;
-            }
         }
     }
 }

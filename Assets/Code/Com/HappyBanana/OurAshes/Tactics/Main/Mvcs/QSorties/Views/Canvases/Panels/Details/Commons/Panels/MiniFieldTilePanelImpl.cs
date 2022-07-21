@@ -49,14 +49,14 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         protected override void InitialBuild()
         {
-            backImage = BuildImage(MiniFieldConstants.BACK_NAME,
-                MiniFieldConstants.BACK_SPEC, MiniFieldConstants.LEVEL,
-                MiniFieldConstants.ALPHA, backColorID, backSpriteID);
-            midImage = BuildImage(MiniFieldConstants.MID_NAME,
-                MiniFieldConstants.MID_SPEC, MiniFieldConstants.LEVEL,
-                MiniFieldConstants.ALPHA, midColorID, midSpriteID);
-            foreIcon = BuildIcon(MiniFieldConstants.FORE_NAME,
-                MiniFieldConstants.FORE_SPEC, MiniFieldConstants.LEVEL,
+            backImage = BuildImage(MiniFieldTileConstants.BACK_NAME,
+                MiniFieldTileConstants.BACK_SPEC, MiniFieldTileConstants.LEVEL,
+                MiniFieldTileConstants.ALPHA, backColorID, backSpriteID);
+            midImage = BuildImage(MiniFieldTileConstants.MID_NAME,
+                MiniFieldTileConstants.MID_SPEC, MiniFieldTileConstants.LEVEL,
+                MiniFieldTileConstants.ALPHA, midColorID, midSpriteID);
+            foreIcon = BuildIcon(MiniFieldTileConstants.FORE_NAME,
+                MiniFieldTileConstants.FORE_SPEC, MiniFieldTileConstants.LEVEL,
                 iconDetails, patternDetails);
             InternalAddWidget(backImage);
             InternalAddWidget(midImage);

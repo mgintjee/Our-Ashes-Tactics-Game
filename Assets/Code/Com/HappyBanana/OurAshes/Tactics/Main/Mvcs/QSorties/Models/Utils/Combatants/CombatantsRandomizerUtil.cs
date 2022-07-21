@@ -43,19 +43,32 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             int factionCount = GetFactionCount(random, size);
             int phalanxCount = GetPhalanxCount(random, size);
             int unitCount = GetUnitCount(random, size, phalanxCount);
-            IList<FactionID> factionIDs = EnumUtils.GenerateRandomEnums<FactionID>(random, factionCount);
+            logger.Debug("Randomizing with {} factions, {} phalanxes, {} units",
+                factionCount, phalanxCount, unitCount);
+            IList<FactionID> factionIDs = GetFactionIDs(random, factionCount);
             IList<PhalanxID> phalanxIDs = EnumUtils.GenerateRandomEnums<PhalanxID>(random, phalanxCount);
             IList<UnitID> unitIDs = EnumUtils.GenerateRandomEnums<UnitID>(random, unitCount);
             IList<IFactionDetails> factionDetails = RandomizeFactionDetails(random, factionIDs, phalanxIDs);
             IList<IPhalanxDetails> phalanxDetails = RandomizePhalanxDetails(random, factionDetails, phalanxIDs, unitIDs);
-            IList<IUnitDetails> unitDetails = RandomizeUnitDetails(random, unitCount);
-
+            IList<IUnitDetails> unitDetails = RandomizeUnitDetails(random, unitIDs);
             return CombatantsDetailsImpl.Builder.Get()
                 .SetFactionDetails(factionDetails)
                 .SetPhalanxDetails(phalanxDetails)
                 .SetUnitDetails(unitDetails)
                 .Build();
         }
+
+        private static IList<FactionID> GetFactionIDs(Random random, int count)
+            {
+        if(count == 1)
+            {
+                return new List<FactionID>() { FactionID.Freelance };
+            }
+            else
+            {
+              return  EnumUtils.GenerateRandomEnums<FactionID>(random, count);
+            }
+            }
 
        public static IList<IFactionDetails> RandomizeFactionDetails(Random random, IList<FactionID> factionIDs, IList<PhalanxID> phalanxIDs)
         {
@@ -77,13 +90,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             foreach (KeyValuePair<FactionID, IList<PhalanxID>> pairs in factionPhalanxIDs)
             {
                 FactionID factionID = pairs.Key;
-                IconID iconID = IconIDFrom(factionID);
-                PatternID patternID = PatternIDFrom(factionID);
                 factionDetails.Add(FactionDetailsImpl.Builder.Get()
                     .SetFactionID(factionID)
                     .SetPhalanxIDs(pairs.Value)
-                    .SetIconDetails(IconIDDetailsManager.GetDetails(iconID).GetValue())
-                    .SetPatternDetails(PatternIDDetailsManager.GetDetails(patternID).GetValue())
+                    .SetIconDetails(IconIDDetailsManager.GetDetails(factionID.GetIconID()).GetValue())
+                    .SetPatternDetails(PatternIDDetailsManager.GetDetails(factionID.GetPatternID()).GetValue())
                     .Build());
             }
 
@@ -144,13 +155,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
                 .Build();
         }
 
-        private static IList<IUnitDetails> RandomizeUnitDetails(Random random, int unitCount)
+        private static IList<IUnitDetails> RandomizeUnitDetails(Random random, IList<UnitID> unitIDs)
         {
             IList<IUnitDetails> details = new List<IUnitDetails>();
-            for (int i = 0; i < unitCount; ++i)
+            foreach(UnitID id in unitIDs)
             {
-                UnitID unitID = (UnitID)(i + 1);
-                details.Add(UnitRandomizerUtil.Randomize(random, unitID));
+                details.Add(UnitRandomizerUtil.Randomize(random, id));
             }
             logger.Debug("Randomized {}", details);
             return details;
@@ -174,38 +184,5 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             return random.Next(phalanxCount, maxUnitCount);
         }
 
-        private static IconID IconIDFrom(FactionID factionID)
-        {
-            switch (factionID)
-            {
-                case FactionID.Unaone:
-                    return IconID.FactionUO;
-                case FactionID.Bissotwo:
-                    return IconID.FactionBT;
-                case FactionID.Terrathree:
-                    return IconID.FactionTT;
-                case FactionID.Freelance:
-                    return IconID.FactionFL;
-                default:
-                    return IconID.Random;
-            }
-        }
-
-        private static PatternID PatternIDFrom(FactionID factionID)
-        {
-            switch (factionID)
-            {
-                case FactionID.Unaone:
-                    return PatternID.FactionUO;
-                case FactionID.Bissotwo:
-                    return PatternID.FactionBT;
-                case FactionID.Terrathree:
-                    return PatternID.FactionTT;
-                case FactionID.Freelance:
-                    return PatternID.FactionFL;
-                default:
-                    return PatternID.Random;
-            }
-        }
     }
 }

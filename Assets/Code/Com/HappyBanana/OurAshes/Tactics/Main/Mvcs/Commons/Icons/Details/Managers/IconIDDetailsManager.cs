@@ -77,7 +77,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.D
             private static IIconDetails GetModelMaaIconDetails()
             {
                 return IconDetailsImpl.Builder.Get()
-                        .SetPrimaryID(SpriteID.AsciiB)
+                        .SetPrimaryID(SpriteID.CapsuleBorderless)
                         .SetSecondaryID(SpriteID.AsciiW)
                         .SetTertiaryID(SpriteID.AsciiZ)
                         .Build();
@@ -86,7 +86,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.D
             private static IIconDetails GetModelMbaIconDetails()
             {
                 return IconDetailsImpl.Builder.Get()
-                        .SetPrimaryID(SpriteID.AsciiB)
+                        .SetPrimaryID(SpriteID.SquareBorderless)
                         .SetSecondaryID(SpriteID.AsciiW)
                         .SetTertiaryID(SpriteID.AsciiZ)
                         .Build();
@@ -95,7 +95,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.D
             private static IIconDetails GetModelMcaIconDetails()
             {
                 return IconDetailsImpl.Builder.Get()
-                        .SetPrimaryID(SpriteID.AsciiC)
+                        .SetPrimaryID(SpriteID.TriangleBorderless)
                         .SetSecondaryID(SpriteID.AsciiX)
                         .SetTertiaryID(SpriteID.AsciiY)
                         .Build();

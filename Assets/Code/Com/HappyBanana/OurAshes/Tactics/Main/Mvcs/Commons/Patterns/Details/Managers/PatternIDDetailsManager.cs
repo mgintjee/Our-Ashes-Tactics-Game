@@ -39,26 +39,26 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Pattern
             {
                 return PatternDetailsImpl.Builder.Get()
                         .SetPrimaryID(ColorID.Blue)
-                        .SetSecondaryID(ColorID.Blue)
-                        .SetTertiaryID(ColorID.Blue)
+                        .SetSecondaryID(ColorID.Red)
+                        .SetTertiaryID(ColorID.Green)
                         .Build();
             }
 
             private static IPatternDetails GetFactionUOPatternDetails()
             {
                 return PatternDetailsImpl.Builder.Get()
-                        .SetPrimaryID(ColorID.Blue)
-                        .SetSecondaryID(ColorID.Blue)
-                        .SetTertiaryID(ColorID.Blue)
+                        .SetPrimaryID(ColorID.DeepPink)
+                        .SetSecondaryID(ColorID.Purple)
+                        .SetTertiaryID(ColorID.Yellow)
                         .Build();
             }
 
             private static IPatternDetails GetFactionTTPatternDetails()
             {
                 return PatternDetailsImpl.Builder.Get()
-                        .SetPrimaryID(ColorID.Blue)
-                        .SetSecondaryID(ColorID.Blue)
-                        .SetTertiaryID(ColorID.Blue)
+                        .SetPrimaryID(ColorID.White)
+                        .SetSecondaryID(ColorID.Green)
+                        .SetTertiaryID(ColorID.Cyan)
                         .Build();
             }
 

@@ -63,7 +63,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             ModelID modelID = mvcRequest.GetEnum();
             ICombatantsDetails combatantsDetails = mvcModelState.GetCombatantsDetails();
             IUnitDetails unitDetails = combatantsDetails.GetUnitDetails(unitID).GetValue();
-            IIconDetails iconDetails = IconIDDetailsManager.GetDetails(GetIconIDFrom(modelID)).GetValue();
+            IIconDetails iconDetails = IconIDDetailsManager.GetDetails(modelID.GetIconID()).GetValue();
             IUnitDetails newUnitDetails = UnitDetailsImpl.Builder.Get()
                 .SetLoadoutDetails(LoadoutRandomizerUtil.Randomize(RandomManager.GetRandom(MvcType.QSortieMenu), modelID))
                 .SetModelID(modelID)
@@ -71,21 +71,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
                 .SetIconDetails(iconDetails)
                 .Build();
             UpdateUnitDetails(unitDetails, newUnitDetails, mvcModelState);
-        }
-
-        private static IconID GetIconIDFrom(ModelID modelID)
-        {
-            switch(modelID)
-            {
-                case ModelID.MAA:
-                    return IconID.UnitModelMaa;
-                case ModelID.MBA:
-                    return IconID.UnitModelMba;
-                case ModelID.MCA:
-                    return IconID.UnitModelMca;
-                default:
-                    return IconID.None;
-            }
         }
 
         public static void HandleUnitArmorGearIDSelect(IMvcModelState mvcModelState, IEnumSelectRequest<ArmorGearID> mvcRequest)
@@ -299,11 +284,13 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
             else
             {
                 ModelID modelID = EnumUtils.GenerateRandomEnum<ModelID>(RandomManager.GetRandom(MvcType.QSortieMenu));
+                IconID iconID = modelID.GetIconID();
                 newDetailsList.Add(UnitDetailsImpl.Builder.Get()
                     .SetUnitID(mvcRequest.GetUnitID())
                     .SetModelID(modelID)
                     .SetLoadoutDetails(LoadoutRandomizerUtil.Randomize(RandomManager.GetRandom(MvcType.QSortieMenu), modelID))
-                    .Build());
+                    .SetIconDetails(IconIDDetailsManager.GetDetails(iconID).GetValue())
+                    .Build()) ;
             }
             return newDetailsList;
         }

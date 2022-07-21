@@ -251,7 +251,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
         {
             this.fieldPanelWidget = (IFieldPanelWidget)MiniFieldPanelImpl.Builder.Get()
                 .SetPanelGridSize(Vector2.One)
-                .SetWidgetGridSpec(MiniFieldConstants.MINI_FIELD_SPEC)
+                .SetWidgetGridSpec(MiniFieldTileConstants.MINI_FIELD_SPEC)
                 .SetMvcType(this.mvcType)
                 .SetCanvasLevel(1)
                 .SetInteractable(false)

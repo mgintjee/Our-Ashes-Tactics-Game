@@ -8,11 +8,10 @@
         None,
         Small,
         Medium,
-        Large,
-        Omni
+        Large
     }
 
-    public static class EnumExtensions
+    public static class Extensions
     {
         public static string GetAbbr(this GearSize value)
         {
@@ -26,9 +25,6 @@
 
                 case GearSize.Small:
                     return "(S)";
-
-                case GearSize.Omni:
-                    return "(O)";
 
                 default:
                     return "(null)";

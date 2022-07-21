@@ -6,14 +6,14 @@ using System.Numerics;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Fields.Constants
 {
-    public class MiniFieldConstants
+    public class MiniFieldTileConstants
     {
         public static readonly int LEVEL = 1;
         public static readonly float ALPHA = 1f;
         public static readonly string BACK_NAME = "BackImage";
         public static readonly string MID_NAME = "MidImage";
         public static readonly string FORE_NAME = "ForeImage";
-        public static ColorID BACK_COLOR_ID = ColorID.Gray;
+        public static ColorID BACK_COLOR_ID = ColorID.Black;
         public static SpriteID TILE_SPRITE_ID = SpriteID.HexagonBorderless;
 
         public static readonly IWidgetGridSpec MINI_FIELD_SPEC = new WidgetGridSpecImpl()

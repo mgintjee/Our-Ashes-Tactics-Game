@@ -63,7 +63,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models
                 }
             }
             logger.Debug("Found {} for {}", details, unitID);
-
             return Optional<IPhalanxDetails>.Of(details);
         }
 

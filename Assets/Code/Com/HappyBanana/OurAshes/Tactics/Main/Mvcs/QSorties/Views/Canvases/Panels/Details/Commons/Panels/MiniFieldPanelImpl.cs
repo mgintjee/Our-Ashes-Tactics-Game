@@ -18,6 +18,7 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canva
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Specs.Grids.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Sprites.IDs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Fields.Constants;
 using System;
 using System.Collections.Generic;
@@ -63,7 +64,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
 
         protected override void InitialBuild()
         {
-            this.InternalAddWidget(this.BuildBackground());
+            IImageWidget background = this.BuildBackground();
+            background.SetColorID(ColorID.Gray);
+            this.InternalAddWidget(background);
         }
 
         private void UpdateMiniFieldPanel(IFieldDetails fieldDetails, ICombatantsDetails combatantsDetails)
@@ -93,26 +96,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             UnitID unitID = details.GetUnitID();
             TileType tileType = details.GetTileType();
             ColorID midColorID = from(tileType);
-            ModelID modelID = ModelID.None;
-            IPatternDetails patternDetails = PatternDetailsImpl.Builder.Get()
-                .SetPrimaryID(ColorID.Black)
-                .SetSecondaryID(ColorID.Black)
-                .SetTertiaryID(ColorID.Black)
-                .Build();
-            IIconDetails iconDetails = IconDetailsImpl.Builder.Get()
-                .SetPrimaryID(SpriteID.Blank)
-                .SetSecondaryID(SpriteID.Blank)
-                .SetTertiaryID(SpriteID.Blank)
-                .Build();
-            this.combatantsDetails.GetUnitDetails(unitID).IfPresent(unitDetails =>
-            {
-                modelID = unitDetails.GetModelID();
-                iconDetails = unitDetails.GetIconDetails();
-            });
-            this.combatantsDetails.GetPhalanxDetails(unitID).IfPresent(phalanxDetails =>
-            {
-                patternDetails = phalanxDetails.GetPatternDetails();
-            });
+            IPatternDetails patternDetails = GetPatternDetails(unitID);
+            IIconDetails iconDetails = GetIconDetails(unitID);
             logger.Debug("Building {}", details);
             Vector2 gridCoords = GetGridCoordsFrom(tileCoords, tileGridSize);
             IWidgetGridSpec widgetGridSpec = new WidgetGridSpecImpl()
@@ -121,10 +106,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
             this.tileCoordPanelWidgets[tileCoords] = (IFieldTilePanelWidget)MiniFieldTilePanelImpl.Builder.Get()
                 .SetPatternDetails(patternDetails)
                 .SetIconDetails(iconDetails)
-                .SetBackColorID(MiniFieldConstants.BACK_COLOR_ID)
-                .SetBackSpriteID(MiniFieldConstants.TILE_SPRITE_ID)
+                .SetBackColorID(MiniFieldTileConstants.BACK_COLOR_ID)
+                .SetBackSpriteID(MiniFieldTileConstants.TILE_SPRITE_ID)
                 .SetMidColorID(midColorID)
-                .SetMidSpriteID(MiniFieldConstants.TILE_SPRITE_ID)
+                .SetMidSpriteID(MiniFieldTileConstants.TILE_SPRITE_ID)
                 .SetTileCoords(tileCoords)
                 .SetPanelGridSize(Vector2.One)
                 .SetWidgetGridSpec(widgetGridSpec)
@@ -137,6 +122,41 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.
                 .Build();
             this.InternalAddWidget(this.tileCoordPanelWidgets[tileCoords]);
         }
+
+        private IIconDetails GetIconDetails(UnitID unitID)
+        {
+            IIconDetails details = IconDetailsImpl.Builder.Get()
+                .SetPrimaryID(SpriteID.Blank)
+                .SetSecondaryID(SpriteID.Blank)
+                .SetTertiaryID(SpriteID.Blank)
+                .Build();
+            if (unitID != UnitID.None)
+            {
+                this.combatantsDetails.GetUnitDetails(unitID).IfPresent(unitDetails =>
+              {
+                  details = unitDetails.GetIconDetails();
+              });
+            }
+            return details;
+        }
+
+        private IPatternDetails GetPatternDetails(UnitID unitID)
+        {
+            IPatternDetails details = PatternDetailsImpl.Builder.Get()
+                .SetPrimaryID(ColorID.Black)
+                .SetSecondaryID(ColorID.Black)
+                .SetTertiaryID(ColorID.Black)
+                .Build();
+            if (unitID != UnitID.None)
+            {
+                this.combatantsDetails.GetPhalanxDetails(unitID).IfPresent(phalanxDetails =>
+                {
+                    details= phalanxDetails.GetPatternDetails();
+                });
+            }
+            return details;
+        }
+
         private ColorID from(TileType tileType)
         {
             switch(tileType)

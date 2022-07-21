@@ -121,7 +121,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             }
         }
 
-        protected ICanvasWidget BuildBackground()
+        protected IImageWidget BuildBackground()
         {
             return ImageWidgetImpl.Builder.Get()
                 .SetAlpha(1f)
@@ -143,14 +143,12 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
 
         protected void InternalAddWidget(ICanvasWidget canvasWidget)
         {
-            logger.Info("Adding {}...", canvasWidget.GetName());
             canvasWidget.SetParent(this);
             CanvasWidgetUtils.AddWidget(this.canvasGridConvertor, this.canvasLevelWidgets, canvasWidget);
         }
 
         protected void InternalAddWidgets(ICollection<ICanvasWidget> canvasWidgets)
         {
-            logger.Info("Adding {} {}s...", canvasWidgets.Count, typeof(ICanvasWidget).Name);
             foreach (ICanvasWidget canvasWidget in canvasWidgets)
             {
                 this.InternalAddWidget(canvasWidget);

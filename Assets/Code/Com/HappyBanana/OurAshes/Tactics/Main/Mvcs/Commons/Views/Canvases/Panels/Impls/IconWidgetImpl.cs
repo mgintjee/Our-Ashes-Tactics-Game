@@ -8,6 +8,7 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canva
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Types;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Views.Canvases.Panels.Details.Fields.Constants;
 using System.Numerics;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Impls
@@ -46,17 +47,17 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         protected override void InitialBuild()
         {
             // Todo: Move the Vector2 into some constants file
-            primaryImage = BuildImage(iconDetails.GetPrimarySpriteID(),
-                patternDetails.GetPrimaryColorID(), Vector2.One);
-            secondaryImage = BuildImage(iconDetails.GetSecondarySpriteID(),
-                patternDetails.GetSecondaryColorID(), Vector2.One * 0.8f);
-            tertiaryImage = BuildImage(iconDetails.GetTertiarySpriteID(),
-                patternDetails.GetTertiaryColorID(), Vector2.One * 0.6f);
+            primaryImage = BuildImage("PrimaryImage", IconConstants.PRIMARY_SPRITE_SPEC,
+                1, 1, patternDetails.GetPrimaryColorID(), iconDetails.GetPrimarySpriteID());
+            secondaryImage = BuildImage("SecondaryImage", IconConstants.SECONDARY_SPRITE_SPEC,
+                1, 1, patternDetails.GetSecondaryColorID(), iconDetails.GetSecondarySpriteID());
+            tertiaryImage = BuildImage("TertiaryImage", IconConstants.TERTIARY_SPRITE_SPEC,
+                1, 1, patternDetails.GetTertiaryColorID(), iconDetails.GetTertiarySpriteID());
             InternalAddWidget(primaryImage);
             InternalAddWidget(secondaryImage);
             InternalAddWidget(tertiaryImage);
         }
-
+        /*
         /// <summary>
         /// Todo
         /// </summary>
@@ -64,9 +65,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         /// <param name="colorID"> </param>
         /// <param name="size">    </param>
         /// <returns></returns>
-        private IImageWidget BuildImage(SpriteID spriteID, ColorID colorID, Vector2 size)
+        private IImageWidget BuildImage(SpriteID spriteID, ColorID colorID, Vector2 size, Vector2 co)
         {
-            logger.Info("Building: {}, {}, {}", spriteID, colorID, size);
             return ImageWidgetImpl.Builder.Get()
                 .SetAlpha(1f)
                 .SetSpriteID(spriteID)
@@ -76,13 +76,13 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 .SetInteractable(true)
                 .SetEnabled(true)
                 .SetWidgetGridSpec(new WidgetGridSpecImpl()
-                    .SetCanvasGridCoords(Vector2.Zero)
+                    .SetCanvasGridCoords(coords)
                     .SetCanvasGridSize(size))
                 .SetParent(this)
                 .SetName(CanvasWidgetType.Image.ToString())
                 .Build();
         }
-
+        */
         /// <summary>
         /// Todo
         /// </summary>
