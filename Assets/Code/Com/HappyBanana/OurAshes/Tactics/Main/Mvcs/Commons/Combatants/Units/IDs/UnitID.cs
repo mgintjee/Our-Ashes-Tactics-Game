@@ -31,6 +31,7 @@
         Psi = 23,
         Omega = 24
     }
+
     public static class Extensions
     {
         public static string GetUpperCase(this UnitID value)
@@ -39,52 +40,76 @@
             {
                 case UnitID.Alpha:
                     return "\u0391";
+
                 case UnitID.Beta:
                     return "\u0392";
+
                 case UnitID.Gamma:
                     return "\u0393";
+
                 case UnitID.Delta:
                     return "\u0394";
+
                 case UnitID.Epsilon:
                     return "\u0395";
+
                 case UnitID.Zeta:
                     return "\u0396";
+
                 case UnitID.Eta:
                     return "\u0397";
+
                 case UnitID.Theta:
                     return "\u0398";
+
                 case UnitID.Iota:
                     return "\u0399";
+
                 case UnitID.Kappa:
                     return "\u039A";
+
                 case UnitID.Lambda:
                     return "\u039B";
+
                 case UnitID.Mu:
                     return "\u039C";
+
                 case UnitID.Nu:
                     return "\u039D";
+
                 case UnitID.Xi:
                     return "\u039E";
+
                 case UnitID.Omicron:
                     return "\u039F";
+
                 case UnitID.Pi:
                     return "\u03A0";
+
                 case UnitID.Rho:
                     return "\u03A1";
+
                 case UnitID.Sigma:
                     return "\u03A3";
+
                 case UnitID.Tau:
                     return "\u03A4";
+
                 case UnitID.Upsilon:
                     return "\u03A5";
+
                 case UnitID.Phi:
                     return "\u03A6";
+
                 case UnitID.Chi:
                     return "\u03A7";
+
                 case UnitID.Psi:
                     return "\u03A8";
+
                 case UnitID.Omega:
                     return "\u03A9";
+
                 default:
                     return "";
             }

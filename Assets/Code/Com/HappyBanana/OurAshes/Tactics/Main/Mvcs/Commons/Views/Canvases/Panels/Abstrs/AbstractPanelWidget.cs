@@ -154,20 +154,21 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 this.InternalAddWidget(canvasWidget);
             }
         }
+
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="widgetName"></param>
+        /// <param name="widgetName">    </param>
         /// <param name="widgetGridSpec"></param>
-        /// <param name="canvasLevel"></param>
-        /// <param name="alpha"></param>
-        /// <param name="colorID"></param>
-        /// <param name="spriteID"></param>
+        /// <param name="canvasLevel">   </param>
+        /// <param name="alpha">         </param>
+        /// <param name="colorID">       </param>
+        /// <param name="spriteID">      </param>
         /// <returns></returns>
         protected IImageWidget BuildImage(string widgetName, IWidgetGridSpec widgetGridSpec, int canvasLevel,
             float alpha, ColorID colorID, SpriteID spriteID)
         {
-            logger.Debug("Building {}: {}", widgetName,widgetGridSpec);
+            logger.Debug("Building {}: {}", widgetName, widgetGridSpec);
             return ImageWidgetImpl.Builder.Get()
                 .SetAlpha(alpha)
                 .SetColorID(colorID)
@@ -181,13 +182,14 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 .SetParent(this)
                 .Build();
         }
+
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="widgetName"></param>
+        /// <param name="widgetName">    </param>
         /// <param name="widgetGridSpec"></param>
-        /// <param name="canvasLevel"></param>
-        /// <param name="iconDetails"></param>
+        /// <param name="canvasLevel">   </param>
+        /// <param name="iconDetails">   </param>
         /// <param name="patternDetails"></param>
         /// <returns></returns>
         protected IIconWidget BuildIcon(string widgetName, IWidgetGridSpec widgetGridSpec, int canvasLevel,
@@ -210,10 +212,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="widgetName"></param>
+        /// <param name="widgetName">    </param>
         /// <param name="widgetGridSpec"></param>
-        /// <param name="buttonText"></param>
-        /// <param name="canvasLevel"></param>
+        /// <param name="buttonText">    </param>
+        /// <param name="canvasLevel">   </param>
         /// <returns></returns>
         protected IButtonWidget BuildButton(string widgetName, IWidgetGridSpec widgetGridSpec, string buttonText, int canvasLevel)
         {
@@ -234,21 +236,22 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="widgetName"></param>
+        /// <param name="widgetName">    </param>
         /// <param name="widgetGridSpec"></param>
-        /// <param name="buttonText"></param>
+        /// <param name="buttonText">    </param>
         /// <returns></returns>
         protected IButtonWidget BuildButton(string widgetName, IWidgetGridSpec widgetGridSpec, string buttonText)
         {
             return this.BuildButton(widgetName, widgetGridSpec, buttonText, 0);
         }
+
         /// <summary>
         /// Todo
         /// </summary>
-        /// <param name="widgetName"></param>
-        /// <param name="widgetGridSpec"></param>
+        /// <param name="widgetName">            </param>
+        /// <param name="widgetGridSpec">        </param>
         /// <param name="textImageWidgetStructs"></param>
-        /// <param name="interactable"></param>
+        /// <param name="interactable">          </param>
         /// <returns></returns>
         protected IMultiTextPanelWidget BuildMultiText(string widgetName, IWidgetGridSpec widgetGridSpec,
             IList<TextImageWidgetStruct> textImageWidgetStructs, bool interactable)
@@ -272,6 +275,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 .SetParent(this)
                 .Build();
         }
+
         /// <summary>
         /// Todo
         /// </summary>

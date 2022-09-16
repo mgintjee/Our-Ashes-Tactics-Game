@@ -8,7 +8,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
     public interface IIconWidget : IPanelWidget
     {
         IImageWidget GetPrimaryImage();
+
         IImageWidget GetSecondaryImage();
+
         IImageWidget GetTertiaryImage();
     }
 }

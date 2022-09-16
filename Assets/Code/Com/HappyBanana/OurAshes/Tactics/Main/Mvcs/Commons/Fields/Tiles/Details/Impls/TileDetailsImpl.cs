@@ -29,6 +29,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
             this.unitID = unitID;
         }
 
+        public override string ToString()
+        {
+            return string.Format("Coords:{0}, Type:{1}, UnitID:{2}", this.vector3, this.tileType, this.unitID);
+        }
+
         TileType ITileDetails.GetTileType()
         {
             return tileType;
@@ -42,11 +47,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
         Vector3 ITileDetails.GetVector3()
         {
             return new Vector3(vector3.X, vector3.Y, vector3.Z);
-        }
-
-        public override string ToString()
-        {
-            return string.Format("Coords:{0}, Type:{1}, UnitID:{2}", this.vector3, this.tileType, this.unitID);
         }
 
         /// <summary>

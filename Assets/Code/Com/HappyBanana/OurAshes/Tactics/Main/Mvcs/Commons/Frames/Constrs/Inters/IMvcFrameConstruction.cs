@@ -1,9 +1,6 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Constrs.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Sims.Types;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Sims.Types;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.Constrs.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Constrs.Inters;
 using System;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters
@@ -23,7 +20,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.
         /// Todo
         /// </summary>
         /// <returns></returns>
-        SimsType GetSimulationType();
+        SimType GetSimulationType();
 
         /// <summary>
         /// Todo
@@ -36,23 +33,5 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.
         /// </summary>
         /// <returns></returns>
         Random GetRandom();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        IMvcControlConstruction GetMvcControlConstruction();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        IMvcModelConstruction GetMvcModelConstruction();
-
-        /// <summary>
-        /// Todo
-        /// </summary>
-        /// <returns></returns>
-        IMvcViewConstruction GetMvcViewConstruction();
     }
 }

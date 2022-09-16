@@ -66,17 +66,17 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Enums
         /// </summary>
         /// <typeparam name="TEnum"></typeparam>
         /// <param name="random"></param>
-        /// <param name="count"></param>
+        /// <param name="count"> </param>
         /// <returns></returns>
         public static IList<TEnum> GenerateRandomEnums<TEnum>(Random random, int count)
             where TEnum : Enum
         {
             IList<TEnum> tEnums = new List<TEnum>();
 
-            while(tEnums.Count < count)
+            while (tEnums.Count < count)
             {
                 TEnum tEnum = GenerateRandomEnum<TEnum>(random);
-                if(!tEnums.Contains(tEnum))
+                if (!tEnums.Contains(tEnum))
                 {
                     tEnums.Add(tEnum);
                 }

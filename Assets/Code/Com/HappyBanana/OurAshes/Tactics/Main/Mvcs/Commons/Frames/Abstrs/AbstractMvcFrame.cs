@@ -23,6 +23,7 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.Stat
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.States.Inters;
+using System;
 using System.Diagnostics;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs
@@ -34,34 +35,34 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.
         : IMvcFrame
     {
         // Todo
-        protected readonly IMvcFrameScript mvcFrameScript;
+        protected readonly IMvcFrameScript mvcFScript;
 
         // Todo
-        protected readonly IMvcModel mvcModel;
+        protected readonly IMvcModel mvcM;
 
         // Todo
-        protected readonly IMvcView mvcView;
+        protected readonly IMvcView mvcV;
 
         // Todo
-        protected readonly IMvcControl mvcControl;
+        protected readonly IMvcControl mvcC;
 
         // Todo
         protected readonly IClassLogger logger;
 
         // Todo
-        protected readonly IMvcFrameConstruction prevMvcFrameConstruction;
+        protected readonly IMvcFrameConstruction prevMvcFConstr;
 
         // Todo
         protected readonly MvcType mvcType;
 
         // Todo
-        protected IMvcFrameConstruction currMvcFrameConstruction;
+        protected IMvcFrameConstruction currMvcFConstr;
 
         // Todo
-        protected IMvcFrameConstruction nextMvcFrameConstruction;
+        protected IMvcFrameConstruction nextMvcFConstr;
 
         // Todo
-        private readonly MvcFrameStateImpl mvcFrameState;
+        private readonly MvcFrameStateImpl mvcFState;
 
         // Todo
         private bool initialRequestProcessed = false;
@@ -77,32 +78,24 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.
         public AbstractMvcFrame(IMvcFrameConstruction mvcFrameConstruction,
             IMvcFrameResult prevMvcFrameResult)
         {
-            this.mvcFrameState = new MvcFrameStateImpl(mvcFrameConstruction.GetMvcType());
-            this.currMvcFrameConstruction = mvcFrameConstruction;
-            this.prevMvcFrameConstruction = (prevMvcFrameResult != null)
+            this.mvcFState = new MvcFrameStateImpl(mvcFrameConstruction.GetMvcType());
+            this.currMvcFConstr = mvcFrameConstruction;
+            this.prevMvcFConstr = (prevMvcFrameResult != null)
                 ? prevMvcFrameResult.GetCurrMvcFrameConstruction()
                 : null;
-            this.nextMvcFrameConstruction = null;
-            this.mvcType = currMvcFrameConstruction.GetMvcType();
-            this.mvcFrameScript = MvcFrameScriptImpl.Builder.Get()
-                .SetName(currMvcFrameConstruction.GetMvcType() + "FrameScript")
-                .SetParent(currMvcFrameConstruction.GetUnityScript())
+            this.nextMvcFConstr = null;
+            this.mvcType = currMvcFConstr.GetMvcType();
+            this.mvcFScript = MvcFrameScriptImpl.Builder.Get()
+                .SetName(currMvcFConstr.GetMvcType() + "FrameScript")
+                .SetParent(currMvcFConstr.GetUnityScript())
                 .Build();
-            this.currMvcFrameConstruction = MvcFrameConstruction.Builder.Get()
-                .SetSimulationType(currMvcFrameConstruction.GetSimulationType())
-                .SetMvcType(currMvcFrameConstruction.GetMvcType())
-                .SetMvcControlConstruction(mvcFrameConstruction.GetMvcControlConstruction())
-                .SetMvcModelConstruction(mvcFrameConstruction.GetMvcModelConstruction())
-                .SetMvcViewConstruction(mvcFrameConstruction.GetMvcViewConstruction())
-                // Set the new values
-                .SetRandom(RandomManager.GetRandom(mvcType, currMvcFrameConstruction.GetRandom().Next()))
-                .SetUnityScript(mvcFrameScript)
-                .Build();
-            mvcModel = this.BuildMvcModel(this.currMvcFrameConstruction);
-            mvcControl = this.BuildMvcControl(this.currMvcFrameConstruction);
-            mvcView = (currMvcFrameConstruction.GetSimulationType() != SimsType.BlackBox)
-                ? this.BuildMvcView(this.currMvcFrameConstruction)
-                : new BlackBoxViewImpl(this.currMvcFrameConstruction);
+            Random random = RandomManager.GetRandom(mvcType, currMvcFConstr.GetRandom().Next());
+            this.currMvcFConstr = new MvcFrameConstructionImpl(currMvcFConstr.GetMvcType(), currMvcFConstr.GetSimulationType(), mvcFScript, random);
+            mvcM = this.BuildMvcModel(this.currMvcFConstr);
+            mvcC = this.BuildMvcControl(this.currMvcFConstr);
+            mvcV = (currMvcFConstr.GetSimulationType() != SimType.BlackBox)
+                ? this.BuildMvcView(this.currMvcFConstr)
+                : new BlackBoxViewImpl(this.currMvcFConstr);
             logger = this.GetClassLogger();
             logger.Info("Built {}...", this.GetType().Name);
         }
@@ -110,43 +103,43 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.
         /// <inheritdoc/>
         void IMvcFrame.Continue()
         {
-            if (this.mvcControl.IsProcessing() || this.mvcView.IsProcessing())
+            if (this.mvcC.IsProcessing() || this.mvcV.IsProcessing())
             {
                 logger.Info("Cannot have {} continue yet. {} isProcessing: {}, {} isProcessing: {}.",
-                    this.GetType().Name, this.mvcControl.GetType().Name, this.mvcControl.IsProcessing(),
-                    this.mvcView.GetType().Name, this.mvcView.IsProcessing());
+                    this.GetType().Name, this.mvcC.GetType().Name, this.mvcC.IsProcessing(),
+                    this.mvcV.GetType().Name, this.mvcV.IsProcessing());
             }
             else
             {
                 if (this.initialRequestProcessed)
                 {
-                    IMvcControlState mvcControlState = this.mvcControl.GetState();
-                    mvcFrameState.SetMvcControlState(mvcControlState);
+                    IMvcControlState mvcControlState = this.mvcC.GetState();
+                    mvcFState.SetMvcControlState(mvcControlState);
                     Optional<IMvcControlInput> mvcControlInput = mvcControlState.GetMvcControlInput();
                     Optional<IMvcRequest> mvcModelRequest = mvcControlState.GetMvcModelRequest();
                     if (mvcModelRequest.IsPresent())
                     {
-                        this.mvcModel.Process(mvcModelRequest.GetValue());
-                        IMvcModelState mvcModelState = this.mvcModel.GetState();
-                        mvcFrameState.SetMvcModelState(mvcModelState);
-                        this.mvcControl.Process(mvcModelState);
-                        this.mvcView.Process(mvcModelState);
+                        this.mvcM.Process(mvcModelRequest.GetValue());
+                        IMvcModelState mvcModelState = this.mvcM.GetState();
+                        mvcFState.SetMvcModelState(mvcModelState);
+                        this.mvcC.Process(mvcModelState);
+                        this.mvcV.Process(mvcModelState);
                     }
                     else if (mvcControlInput.IsPresent())
                     {
-                        this.mvcView.Process(mvcControlInput.GetValue());
-                        IMvcViewState mvcViewState = this.mvcView.GetState();
-                        mvcFrameState.SetMvcViewState(mvcViewState);
-                        this.mvcControl.Process(mvcViewState);
+                        this.mvcV.Process(mvcControlInput.GetValue());
+                        IMvcViewState mvcViewState = this.mvcV.GetState();
+                        mvcFState.SetMvcViewState(mvcViewState);
+                        this.mvcC.Process(mvcViewState);
                     }
                 }
                 else
                 {
                     logger.Info("Processing initial request...");
-                    this.mvcModel.Process(GetInitialRequest());
-                    IMvcModelState mvcModelState = this.mvcModel.GetState();
-                    this.mvcControl.Process(mvcModelState);
-                    this.mvcView.Process(mvcModelState);
+                    this.mvcM.Process(GetInitialRequest());
+                    IMvcModelState mvcModelState = this.mvcM.GetState();
+                    this.mvcC.Process(mvcModelState);
+                    this.mvcV.Process(mvcModelState);
                     this.initialRequestProcessed = true;
                 }
             }
@@ -155,7 +148,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.
         /// <inheritdoc/>
         void IMvcFrame.Destroy()
         {
-            this.mvcFrameScript.Destroy();
+            this.mvcFScript.Destroy();
             LoggerManager.EndLoggingFile(mvcType);
             RandomManager.RemoveRandom(mvcType);
         }
@@ -163,16 +156,16 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.
         /// <inheritdoc/>
         bool IMvcFrame.IsProcessing()
         {
-            bool isProcessing = mvcControl.IsProcessing() ||
-                mvcModel.IsProcessing() || mvcView.IsProcessing();
+            bool isProcessing = mvcC.IsProcessing() ||
+                mvcM.IsProcessing() || mvcV.IsProcessing();
             if (!isProcessing)
             {
                 this.BuildNextMvcFrameConstruction();
                 this.mvcFrameResult = MvcFrameResultImpl.Builder.Get()
-                    .SetCurrMvcFrameConstruction(this.currMvcFrameConstruction)
-                    .SetNextMvcFrameConstruction(this.nextMvcFrameConstruction)
-                    .SetPrevMvcFrameConstruction(this.prevMvcFrameConstruction)
-                    .SetMvcFrameState(this.mvcFrameState)
+                    .SetCurrMvcFrameConstruction(this.currMvcFConstr)
+                    .SetNextMvcFrameConstruction(this.nextMvcFConstr)
+                    .SetPrevMvcFrameConstruction(this.prevMvcFConstr)
+                    .SetMvcFrameState(this.mvcFState)
                     .Build();
             }
             return isProcessing;
@@ -206,7 +199,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.
 
         private IClassLogger GetClassLogger()
         {
-            return LoggerManager.GetLogger(this.currMvcFrameConstruction.GetMvcType())
+            return LoggerManager.GetLogger(this.currMvcFConstr.GetMvcType())
                 .GetClassLogger(new StackFrame().GetMethod().DeclaringType);
         }
     }

@@ -1,6 +1,6 @@
 ﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.IDs;
 
-namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Models
+namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Models.IDs
 {
     /// <summary>
     /// Todo
@@ -12,6 +12,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
         MBA,
         MCA,
     }
+
     public static class Extensions
     {
         public static IconID GetIconID(this ModelID value)

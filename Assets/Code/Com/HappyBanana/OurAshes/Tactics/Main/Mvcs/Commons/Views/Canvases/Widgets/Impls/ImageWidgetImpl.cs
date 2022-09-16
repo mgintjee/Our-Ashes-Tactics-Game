@@ -33,7 +33,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         void IImageWidget.SetSpriteID(SpriteID spriteID)
         {
             this.spriteID = spriteID;
-                this.GetImage().sprite = SpriteResourceLoader.LoadSpriteResource(spriteID).GetValue();
+            this.GetImage().sprite = SpriteResourceLoader.LoadSpriteResource(spriteID).GetValue();
         }
 
         void IImageWidget.SetAlpha(float alpha)

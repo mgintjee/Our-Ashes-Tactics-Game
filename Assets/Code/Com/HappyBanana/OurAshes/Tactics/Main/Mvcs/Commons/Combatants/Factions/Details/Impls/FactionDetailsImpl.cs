@@ -20,12 +20,13 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
         private readonly IList<PhalanxID> phalanxIDs;
         private readonly IIconDetails iconDetails;
         private readonly IPatternDetails patternDetails;
+
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="factionID"></param>
-        /// <param name="phalanxIDs"></param>
-        /// <param name="iconDetails"></param>
+        /// <param name="factionID">     </param>
+        /// <param name="phalanxIDs">    </param>
+        /// <param name="iconDetails">   </param>
         /// <param name="patternDetails"></param>
         private FactionDetailsImpl(FactionID factionID, IList<PhalanxID> phalanxIDs, IIconDetails iconDetails, IPatternDetails patternDetails)
         {
@@ -87,18 +88,21 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 /// <param name="id"></param>
                 /// <returns></returns>
                 IInternalBuilder SetFactionID(FactionID id);
+
                 /// <summary>
                 /// Todo
                 /// </summary>
                 /// <param name="details"></param>
                 /// <returns></returns>
                 IInternalBuilder SetIconDetails(IIconDetails details);
+
                 /// <summary>
                 /// Todo
                 /// </summary>
                 /// <param name="details"></param>
                 /// <returns></returns>
                 IInternalBuilder SetPatternDetails(IPatternDetails details);
+
                 /// <summary>
                 /// Todo
                 /// </summary>

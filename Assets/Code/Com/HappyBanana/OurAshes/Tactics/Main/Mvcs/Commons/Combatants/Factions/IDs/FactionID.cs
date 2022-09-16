@@ -37,6 +37,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                     return IconID.None;
             }
         }
+
         public static PatternID GetPatternID(this FactionID value)
         {
             switch (value)

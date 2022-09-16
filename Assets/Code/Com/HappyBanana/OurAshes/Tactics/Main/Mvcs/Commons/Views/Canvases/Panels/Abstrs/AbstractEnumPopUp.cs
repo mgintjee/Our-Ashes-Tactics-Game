@@ -30,6 +30,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
 
         protected abstract string DetermineButtonName(TEnum tEnum);
 
+        protected virtual string DeterimineButtonText(TEnum tEnum)
+        {
+            return tEnum.ToString();
+        }
+
         /// <summary>
         /// Todo
         /// </summary>
@@ -71,11 +76,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             IButtonWidget buttonPanelWidget = this.BuildButton(widgetName, widgetGridSpec, buttonText, 99);
             ConfigureButton(buttonPanelWidget, tEnum);
             return buttonPanelWidget;
-        }
-
-        protected virtual string DeterimineButtonText(TEnum tEnum)
-        {
-            return tEnum.ToString();
         }
     }
 }

@@ -8,11 +8,8 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Resu
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Sims.Types;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.HomeMenus.Frames.Impls;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.LoadingScreens.Frames.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Managers.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Frames.Impls;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.SplashScreens.Frames.Impls;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -134,6 +131,10 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Managers.Impls
                     mvcFrame = new QSortieMenuFrameImpl(nextMvcFrameConstruction, currMvcFrameResult);
                     break;
 
+                case MvcType.Sortie:
+                    mvcFrame = new SortieFrameImpl(nextMvcFrameConstruction, currMvcFrameResult);
+                    break;
+
                 default:
                     mvcFrame = null;
                     break;
@@ -147,8 +148,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Managers.Impls
             }
             else
             {
-                logger.Info("Unsupported {}:{}. Unable to build {}.",
-                    typeof(MvcType).Name, nextMvcFrameConstruction.GetMvcType(), typeof(IMvcFrame).Name);
+                logger.Info("Unsupported {}. Unable to build {}.",
+                    nextMvcFrameConstruction.GetMvcType(), typeof(IMvcFrame).Name);
             }
             return mvcFrame;
         }
@@ -159,12 +160,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Managers.Impls
         /// <returns></returns>
         private IMvcFrameConstruction BuildLoadingFrameConstruction()
         {
-            return MvcFrameConstruction.Builder.Get()
-                .SetSimulationType(SimsType.Interactive)
-                .SetUnityScript(unityScript)
-                .SetMvcType(MvcType.LoadingScreen)
-                .SetRandom(RandomManager.GetRandom(MvcType.LoadingScreen))
-                .Build();
+            MvcType mvcType = MvcType.LoadingScreen;
+            Random random = RandomManager.GetRandom(mvcType);
+            return new MvcFrameConstructionImpl(mvcType, SimType.Interactive, unityScript, random);
         }
     }
 }
