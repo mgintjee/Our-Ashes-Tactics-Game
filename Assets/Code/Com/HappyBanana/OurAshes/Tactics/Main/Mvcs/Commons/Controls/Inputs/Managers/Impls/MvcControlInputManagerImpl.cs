@@ -1,6 +1,6 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Loggers.Managers;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Loggers.Classes.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Managers.Loggers;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Optionals;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Handlers.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Handlers.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Managers.Inters;
@@ -59,7 +59,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Control
             bool inputExists = false;
             foreach (IMvcControlInputHandler mvcControlInputHandler in this.mvcControlInputHandlers)
             {
-                Optional<IMvcControlInputClick> mvcControlInput = mvcControlInputHandler.GetMvcControlInput();
+                IOptional<IMvcControlInputClick> mvcControlInput = mvcControlInputHandler.GetMvcControlInput();
                 if (mvcControlInput.IsPresent())
                 {
                     logger.Debug("Input found with {}!", mvcControlInputHandler.GetType().Name);

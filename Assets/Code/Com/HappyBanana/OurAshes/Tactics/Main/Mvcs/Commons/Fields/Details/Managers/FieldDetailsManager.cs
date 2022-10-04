@@ -1,4 +1,5 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Optionals;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Internals.Optionals;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Constants;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.IDs;
@@ -14,9 +15,9 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
         private static readonly IList<IFieldDetails> FIELD_DETAILS = new List<IFieldDetails>()
             { new AlphaFieldDetailsImpl() };
 
-        public static Optional<IFieldDetails> GetFieldDetails(FieldID fieldID)
+        public static IOptional<IFieldDetails> GetFieldDetails(FieldID fieldID)
         {
-            Optional<IFieldDetails> optional = Optional<IFieldDetails>.Empty();
+            IOptional<IFieldDetails> optional = Optional<IFieldDetails>.Empty();
 
             foreach (IFieldDetails fieldDetails in FIELD_DETAILS)
             {

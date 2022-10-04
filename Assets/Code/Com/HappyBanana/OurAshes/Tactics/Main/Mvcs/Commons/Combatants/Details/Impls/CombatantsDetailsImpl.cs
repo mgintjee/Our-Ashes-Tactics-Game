@@ -1,6 +1,5 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Builders.Abstrs;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Builders.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Builders.Abstrs;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Builders.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Strings;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Factions.Details.Inters;
@@ -11,6 +10,8 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.QSorties.Models.Utils.Mods;
 using System.Collections.Generic;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Internals.Optionals;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Optionals;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Impls
 {
@@ -67,25 +68,25 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
         }
 
         /// <inheritdoc/>
-        public Optional<IPhalanxDetails> GetPhalanxDetails(PhalanxID id)
+        public IOptional<IPhalanxDetails> GetPhalanxDetails(PhalanxID id)
         {
             return PhalanxDetailsQueryUtil.GetDetails(phalanxDetails, id);
         }
 
         /// <inheritdoc/>
-        public Optional<IUnitDetails> GetUnitDetails(UnitID id)
+        public IOptional<IUnitDetails> GetUnitDetails(UnitID id)
         {
             return UnitDetailsQueryUtil.GetDetails(unitDetails, id);
         }
 
         /// <inheritdoc/>
-        public Optional<IFactionDetails> GetFactionDetails(FactionID id)
+        public IOptional<IFactionDetails> GetFactionDetails(FactionID id)
         {
             return FactionDetailsQueryUtil.GetDetails(factionDetails, id);
         }
 
         /// <inheritdoc/>
-        public Optional<IPhalanxDetails> GetPhalanxDetails(UnitID id)
+        public IOptional<IPhalanxDetails> GetPhalanxDetails(UnitID id)
         {
             return PhalanxDetailsQueryUtil.GetDetails(phalanxDetails, id);
         }

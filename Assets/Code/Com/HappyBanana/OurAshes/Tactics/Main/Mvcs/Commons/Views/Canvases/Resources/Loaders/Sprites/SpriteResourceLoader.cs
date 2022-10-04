@@ -1,7 +1,8 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Exceptions;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Optionals;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Sprites.IDs;
 using System.Diagnostics;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Internals.Optionals;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Resources.Loaders.Sprites
 {
@@ -18,7 +19,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
         /// </summary>
         /// <param name="spriteID"></param>
         /// <returns></returns>
-        public static Optional<UnityEngine.Sprite> LoadSpriteResource(SpriteID spriteID)
+        public static IOptional<UnityEngine.Sprite> LoadSpriteResource(SpriteID spriteID)
         {
             if (spriteID != SpriteID.None)
             {

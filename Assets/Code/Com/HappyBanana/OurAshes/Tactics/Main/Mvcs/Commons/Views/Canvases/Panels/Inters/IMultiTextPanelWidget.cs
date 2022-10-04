@@ -1,4 +1,4 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Optionals;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Widgets.Inters;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Inters
@@ -10,8 +10,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
 
         IImageWidget GetBackImageWidget();
 
-        Optional<ITextWidget> GetTextWidget(int index);
+        IOptional<ITextWidget> GetTextWidget(int index);
 
-        Optional<IImageWidget> GetImageWidget(int index);
+        IOptional<IImageWidget> GetImageWidget(int index);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Optionals;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Internals.Optionals;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Patterns.Details.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Patterns.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Patterns.IDs;
@@ -14,7 +15,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Pattern
     {
         private static readonly IDictionary<PatternID, IPatternDetails> PATTERN_ID_DETAILS = Internals.BuildModelIDPatternDetails();
 
-        public static Optional<IPatternDetails> GetDetails(PatternID id)
+        public static IOptional<IPatternDetails> GetDetails(PatternID id)
         {
             return Optional<IPatternDetails>.Of(
                 (PATTERN_ID_DETAILS.ContainsKey(id))

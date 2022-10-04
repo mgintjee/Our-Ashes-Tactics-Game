@@ -1,4 +1,5 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Optionals;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Internals.Optionals;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Shapes;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Algorithms.Hexs.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Algorithms.Inters;
@@ -18,7 +19,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
                 { FieldShape.Square, new HexTileCoordsAlgorithmImpl() }
             };
 
-        public static Optional<ITileCoordsAlgorithm> GetTileCoordsAlgorithm(FieldShape fieldShape)
+        public static IOptional<ITileCoordsAlgorithm> GetTileCoordsAlgorithm(FieldShape fieldShape)
         {
             return (FIELD_SHAPE_TILE_ALGORITHMS.ContainsKey(fieldShape))
                 ? Optional<ITileCoordsAlgorithm>.Of(FIELD_SHAPE_TILE_ALGORITHMS[fieldShape])

@@ -1,4 +1,5 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Optionals;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Internals.Optionals;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.Details.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.IDs;
@@ -14,7 +15,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.D
     {
         private static readonly IDictionary<IconID, IIconDetails> ICON_ID_DETAILS = Internals.BuildModelIDIconDetails();
 
-        public static Optional<IIconDetails> GetDetails(IconID id)
+        public static IOptional<IIconDetails> GetDetails(IconID id)
         {
             return Optional<IIconDetails>.Of(
                 (ICON_ID_DETAILS.ContainsKey(id))

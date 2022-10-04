@@ -1,4 +1,5 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Optionals;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Internals.Optionals;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Attrs.Constants;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Attrs.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Models;
@@ -20,7 +21,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combata
                 { ModelID.MCA, new McaAttributesImpl() },
             };
 
-        public static Optional<IUnitAttributes> GetUnitAttributes(ModelID id)
+        public static IOptional<IUnitAttributes> GetUnitAttributes(ModelID id)
         {
             return MODEL_ID_UNIT_ATTRIBUTES.ContainsKey(id)
                 ? Optional<IUnitAttributes>.Of(MODEL_ID_UNIT_ATTRIBUTES[id])

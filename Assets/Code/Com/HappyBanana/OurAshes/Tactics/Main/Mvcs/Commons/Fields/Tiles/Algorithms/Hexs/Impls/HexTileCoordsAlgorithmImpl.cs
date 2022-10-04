@@ -1,6 +1,6 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Loggers.Managers;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Loggers.Classes.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Managers.Loggers;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Optionals;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Algorithms.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Algorithms.Hexs.Utils;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Algorithms.Utils;
@@ -8,6 +8,7 @@ using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Type
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Internals.Optionals;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Tiles.Algorithms.Hexs.Impls
 {
@@ -22,19 +23,13 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.
 
         private readonly int MAX_HEX_LAYER = 9;
 
-        protected override Optional<Vector3> GetNextTileCoord(IList<Vector3> visitedTileCoords, IList<Vector3> unvisitedTileCoords)
+        protected override IOptional<Vector3> GetNextTileCoord(IList<Vector3> visitedTileCoords, IList<Vector3> unvisitedTileCoords)
         {
             IList<Vector3> unfinishedLayer = this.GetMaxUnfinishedLayer(visitedTileCoords);
             foreach (Vector3 tileCoord in unfinishedLayer)
             {
                 if (!visitedTileCoords.Contains(tileCoord) && unvisitedTileCoords.Contains(tileCoord))
                 {
-                    /*
-                    logger.Debug("Selected TileCoord: {}" +
-                        "\nUnvisited Set: {}" +
-                        "\nVisited Set: {}",
-                        tileCoord, unvisitedTileCoords, visitedTileCoords);
-                    */
                     return Optional<Vector3>.Of(tileCoord);
                 }
             }
