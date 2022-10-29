@@ -1,4 +1,5 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Optionals;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Internals.Optionals;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Colors.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.Aligns;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Fonts.IDs;
@@ -38,7 +39,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             return this.indexTextImageWidgetStructs.Count;
         }
 
-        Optional<ITextWidget> IMultiTextPanelWidget.GetTextWidget(int index)
+        IOptional<ITextWidget> IMultiTextPanelWidget.GetTextWidget(int index)
         {
             if (this.indexTexts.ContainsKey(index))
             {
@@ -47,7 +48,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             return Optional<ITextWidget>.Empty();
         }
 
-        Optional<IImageWidget> IMultiTextPanelWidget.GetImageWidget(int index)
+        IOptional<IImageWidget> IMultiTextPanelWidget.GetImageWidget(int index)
         {
             if (this.indexImages.ContainsKey(index))
             {

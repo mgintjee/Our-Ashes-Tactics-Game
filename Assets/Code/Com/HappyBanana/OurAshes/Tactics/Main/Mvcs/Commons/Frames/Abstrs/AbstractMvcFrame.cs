@@ -1,7 +1,7 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Loggers.Managers;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Randoms.Managers;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Loggers.Classes.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Managers.Loggers;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Optionals;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Managers.Randoms;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inters;
@@ -122,8 +122,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.
                 {
                     IMvcControlState mvcControlState = this.mvcControl.GetState();
                     mvcFrameState.SetMvcControlState(mvcControlState);
-                    Optional<IMvcControlInput> mvcControlInput = mvcControlState.GetMvcControlInput();
-                    Optional<IMvcRequest> mvcModelRequest = mvcControlState.GetMvcModelRequest();
+                    IOptional<IMvcControlInput> mvcControlInput = mvcControlState.GetMvcControlInput();
+                    IOptional<IMvcRequest> mvcModelRequest = mvcControlState.GetMvcModelRequest();
                     if (mvcModelRequest.IsPresent())
                     {
                         this.mvcModel.Process(mvcModelRequest.GetValue());

@@ -1,4 +1,4 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Optionals;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -7,7 +7,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
     public interface IFieldPanelWidget
         : IPanelWidget
     {
-        Optional<IFieldTilePanelWidget> GetFileTilePanelWidget(Vector3 tileCoords);
+        IOptional<IFieldTilePanelWidget> GetFileTilePanelWidget(Vector3 tileCoords);
 
         IList<Vector3> GetAvailableCoords();
     }

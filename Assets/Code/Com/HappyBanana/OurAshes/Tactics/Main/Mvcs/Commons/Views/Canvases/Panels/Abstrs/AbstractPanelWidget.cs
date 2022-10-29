@@ -1,4 +1,5 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Optionals;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Internals.Optionals;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Controls.Inputs.Objects.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Icons.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Patterns.Details.Inters;
@@ -76,7 +77,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             }
         }
 
-        Optional<ICanvasWidget> IPanelWidget.GetWidgetFromInput(ICanvasGridConvertor canvasGridConvertor, IMvcControlInput mvcControlInput)
+        IOptional<ICanvasWidget> IPanelWidget.GetWidgetFromInput(ICanvasGridConvertor canvasGridConvertor, IMvcControlInput mvcControlInput)
         {
             List<int> canvasLevels = new List<int>(canvasLevelWidgets.Keys);
             canvasLevels.Reverse();
@@ -89,7 +90,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                     logger.Debug("Checking if input is on {}...", canvasWidget.GetName());
                     if (canvasWidget is IPanelWidget panelWidget)
                     {
-                        Optional<ICanvasWidget> returnedWidget = panelWidget.GetWidgetFromInput(
+                        IOptional<ICanvasWidget> returnedWidget = panelWidget.GetWidgetFromInput(
                             this.canvasGridConvertor, mvcControlInput);
                         if (returnedWidget.IsPresent())
                         {

@@ -1,4 +1,5 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Optionals;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Internals.Optionals;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.States.Inters;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.
 
         public abstract IMvcModelState GetCopy();
 
-        Optional<IMvcRequest> IMvcModelState.GetPrevMvcRequest()
+        IOptional<IMvcRequest> IMvcModelState.GetPrevMvcRequest()
         {
             return Optional<IMvcRequest>.Of(this.prevMvcRequest);
         }
