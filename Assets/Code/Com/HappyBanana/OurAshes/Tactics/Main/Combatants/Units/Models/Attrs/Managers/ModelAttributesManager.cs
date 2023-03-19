@@ -1,10 +1,5 @@
-<<<<<<< HEAD:Assets/Code/Com/HappyBanana/OurAshes/Tactics/Main/Mvcs/Commons/Combatants/Units/Models/Attrs/Managers/ModelAttributesManager.cs
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
-=======
 ﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Optionals;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Internals.Optionals;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Attrs.Constants;
->>>>>>> dev:Assets/Code/Com/HappyBanana/OurAshes/Tactics/Main/Combatants/Units/Models/Attrs/Managers/ModelAttributesManager.cs
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Attrs.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Models.Attrs.Impls;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.Models.IDs;

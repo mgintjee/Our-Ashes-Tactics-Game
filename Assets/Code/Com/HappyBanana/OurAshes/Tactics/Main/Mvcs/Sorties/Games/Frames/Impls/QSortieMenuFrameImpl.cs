@@ -1,17 +1,13 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Randoms.Managers;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Abstrs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Constrs.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Requests.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Results.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Sims.Types;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Models.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Scripts.Unity.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Inters;
-using System;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Sorties.Games.Frames.Requests.Types;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Sorties.Games.Models.Impls;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Sorties.Games.Views.Impls;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Sorties.Games.Frames.Impls
 {
@@ -41,7 +37,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Sorties.Games.F
         /// <inheritdoc/>
         protected override IMvcRequest GetInitialRequest()
         {
-            return new DefaultRequestImpl(RequestType.DetailsSortie);
+            return null;
         }
 
         /// <inheritdoc/>
@@ -49,21 +45,6 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Sorties.Games.F
         {
             mvcM.GetState().GetPrevMvcRequest().IfPresent(request =>
             {
-                ISortieGameMvcRequest qSortieRequest = (ISortieGameMvcRequest)request;
-                logger.Info("Building next {} for {}", typeof(IMvcFrameConstruction).Name, mvcType);
-                switch (qSortieRequest.GetRequestType())
-                {
-                    case RequestType.SortieStart:
-                        MvcType mvcType = MvcType.Sortie;
-                        Random random = RandomManager.GetRandom(mvcType, currMvcFConstr.GetRandom().Next());
-                        IMvcModelState mvcModelState = ((IMvcModelState)mvcM.GetState());
-                        ICombatantsDetails combatantsDetails = mvcModelState.GetCombatantsDetails();
-                        IFieldDetails fieldDetails = mvcModelState.GetFieldDetails();
-                        IUnityScript unityScript = currMvcFConstr.GetUnityScript().GetParent().GetValue();
-                        nextMvcFConstr = new SortieFrameConstructionImpl(combatantsDetails, fieldDetails,
-                            mvcType, SimType.Interactive, unityScript, random);
-                        break;
-                }
             });
         }
     }

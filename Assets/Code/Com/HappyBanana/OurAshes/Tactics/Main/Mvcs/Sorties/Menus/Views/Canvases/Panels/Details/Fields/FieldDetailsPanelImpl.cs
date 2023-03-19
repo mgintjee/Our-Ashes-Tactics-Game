@@ -39,7 +39,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Sorties.Menus.V
 
         public override void Process(IMvcModelState mvcModelState)
         {
-            IMvcModelState qSortieMenuModelState = (IMvcModelState)mvcModelState;
+            Models.States.Inters.IMvcModelState qSortieMenuModelState = (Models.States.Inters.IMvcModelState)mvcModelState;
             this.fieldDetails = qSortieMenuModelState.GetFieldDetails();
             this.UpdateButtons();
             this.fieldPanelWidget.Process(mvcModelState);

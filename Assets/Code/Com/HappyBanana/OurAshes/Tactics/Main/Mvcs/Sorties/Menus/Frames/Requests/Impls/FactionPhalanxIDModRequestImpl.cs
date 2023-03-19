@@ -49,7 +49,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Sorties.Menus.F
         }
 
         /// <inheritdoc/>
-        public PhalanxID  GetPhalanxID()
+        public PhalanxID GetPhalanxID()
         {
             return phalanxID;
         }

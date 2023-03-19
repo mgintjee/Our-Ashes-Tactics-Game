@@ -7,6 +7,7 @@
     {
         None,
         Exit,
-        QSortie
+        QSortie,
+        PhalanxIDSelect
     }
 }

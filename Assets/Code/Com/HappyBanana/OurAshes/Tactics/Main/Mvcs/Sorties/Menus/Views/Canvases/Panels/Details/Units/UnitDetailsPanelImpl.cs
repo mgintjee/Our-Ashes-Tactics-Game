@@ -49,7 +49,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Sorties.Menus.V
 
         public override void Process(IMvcModelState modelState)
         {
-            QSorties.Models.States.Inters.IMvcModelState mvcModelState = (QSorties.Models.States.Inters.IMvcModelState)modelState;
+            Models.States.Inters.IMvcModelState mvcModelState = (Models.States.Inters.IMvcModelState)modelState;
             this.combatantsDetails = mvcModelState.GetCombatantsDetails();
             UnitID id = mvcModelState.GetSelectedUnitID();
             this.selectedDetails = this.combatantsDetails.GetUnitDetails(id).GetValue();
