@@ -1,4 +1,5 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Optionals;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Internals.Optionals;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Units.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Fields.Details.Inters;
@@ -46,7 +47,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Sorties.Menus.V
             return new List<Vector3>(this.tileCoordPanelWidgets.Keys);
         }
 
-        Optional<IFieldTilePanelWidget> IFieldPanelWidget.GetFileTilePanelWidget(Vector3 tileCoords)
+        IOptional<IFieldTilePanelWidget> IFieldPanelWidget.GetFileTilePanelWidget(Vector3 tileCoords)
         {
             IFieldTilePanelWidget fieldTilePanelWidget = null;
 

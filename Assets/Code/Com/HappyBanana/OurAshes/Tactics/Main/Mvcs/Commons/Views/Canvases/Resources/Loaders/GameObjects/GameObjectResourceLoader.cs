@@ -1,4 +1,4 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Exceptions.Utils;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Utils.Exceptions;
 using System.Diagnostics;
 using UnityEngine;
 

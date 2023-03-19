@@ -1,12 +1,14 @@
-﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Loggers.Classes.Inters;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Loggers.Managers;
-using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Optionals;
+﻿using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Loggers.Classes.Inters;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Managers.Loggers;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Apis.Optionals;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Factions.Details.Inters;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Factions.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Combatants.Phalanxes.IDs;
 using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Frames.Types;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Internals.Optionals;
+using Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Commons.Managers.Loggers;
 
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Sorties.Menus.Models.Utils.Queries
 {
@@ -25,7 +27,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Sorties.Menus.M
         /// <param name="factionDetails"></param>
         /// <param name="factionID">     </param>
         /// <returns></returns>
-        public static Optional<IFactionDetails> GetDetails(IList<IFactionDetails> factionDetails, FactionID factionID)
+        public static IOptional<IFactionDetails> GetDetails(IList<IFactionDetails> factionDetails, FactionID factionID)
         {
             IFactionDetails details = null;
 
@@ -46,7 +48,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Sorties.Menus.M
         /// <param name="factionDetails"></param>
         /// <param name="phalanxID">     </param>
         /// <returns></returns>
-        public static Optional<IFactionDetails> GetDetails(IList<IFactionDetails> factionDetails, PhalanxID phalanxID)
+        public static IOptional<IFactionDetails> GetDetails(IList<IFactionDetails> factionDetails, PhalanxID phalanxID)
         {
             IFactionDetails details = null;
 
