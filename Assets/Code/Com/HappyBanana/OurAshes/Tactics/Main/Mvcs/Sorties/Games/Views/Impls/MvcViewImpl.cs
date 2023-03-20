@@ -46,8 +46,8 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Sorties.Games.V
         protected override IMvcViewCanvas BuildInitialMvcViewCanvas()
         {
             return MvcViewCanvasImpl.Builder.Get()
-                .SetMvcType(MvcType.QSortieMenu)
-                .SetGridSize(CanvasGridConstants.GetMvcTypeGridSize(MvcType.QSortieMenu))
+                .SetMvcType(MvcType.Sortie)
+                .SetGridSize(CanvasGridConstants.GetMvcTypeGridSize(MvcType.Sortie))
                 .SetName(typeof(MvcViewCanvasImpl).Name)
                 .SetParent(this.mvcFrameConstruction.GetUnityScript())
                 .Build();

@@ -23,7 +23,7 @@ using System.Numerics;
 namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.Canvases.Panels.Abstrs
 {
     /// <summary>
-    /// Panel Widget Impl
+    /// Abstract Panel Widget Impl
     /// </summary>
     public abstract class AbstractPanelWidget
         : AbstractCanvasWidget, IPanelWidget

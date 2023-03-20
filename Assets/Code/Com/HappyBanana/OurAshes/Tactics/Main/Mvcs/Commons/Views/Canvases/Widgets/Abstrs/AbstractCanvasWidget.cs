@@ -151,6 +151,11 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
             public interface IWidgetBuilder<T>
                 : IScriptBuilder<T>
             {
+                /// <summary>
+                /// Sets the Panel's grid specifications in relation to its parent panel.
+                /// </summary>
+                /// <param name="widgetGridSpec">The specifications for the panel's size and coordinates</param>
+                /// <returns></returns>
                 IWidgetBuilder<T> SetWidgetGridSpec(IWidgetGridSpec widgetGridSpec);
 
                 IWidgetBuilder<T> SetInteractable(bool interactable);

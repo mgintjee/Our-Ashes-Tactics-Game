@@ -16,6 +16,7 @@ namespace Assets.Code.Com.HappyBanana.OurAshes.Tactics.Main.Mvcs.Commons.Views.C
                 // Screen MVCs
                 { MvcType.SplashScreen, new Vector2(9, 7) },
                 { MvcType.LoadingScreen, new Vector2(9, 7) },
+                { MvcType.Sortie, new Vector2(10, 7) },
                 // Menu MVCs
                 { MvcType.HomeMenu, new Vector2(9, 7) },
                 { MvcType.QSortieMenu, new Vector2(9, 7) }
